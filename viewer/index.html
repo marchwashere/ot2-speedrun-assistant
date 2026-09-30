@@ -18,7 +18,7 @@
     <main>
       <nav class="mode-switch" aria-label="Predictor"><button id="manipulation-mode" type="button" aria-pressed="true">Manipulation</button><button id="detail-mode" type="button" aria-pressed="false">Detailed log</button><button id="field-mode" type="button" aria-pressed="false">Field encounters</button><button id="settings-mode" type="button" aria-pressed="false">Settings</button></nav>
       <section id="manipulation-panel" aria-labelledby="manipulation-title">
-        <div class="intro run-intro"><h1 id="manipulation-title">Manipulation</h1><p class="muted small">Village strategy fork · stops at the first Abandoned Village visit</p></div>
+        <div class="intro run-intro"><h1 id="manipulation-title">Manipulation</h1><p class="muted small">Village strategy fork · early clerics → Osvald → Cait</p></div>
         <section class="panel setup run-setup" aria-labelledby="seed-label">
           <form id="seed-form" novalidate>
             <div class="seed-field"><label id="seed-label" for="seed">Initial seed</label><input id="seed" name="seed" type="text" value="0x00000000" placeholder="0x00000000" spellcheck="false" autocomplete="off" aria-describedby="error"></div>
@@ -73,6 +73,12 @@
           <section id="village-return-result" class="panel route-card" hidden>
             <h2>New Delsta Flats (Abandoned Village exit) → Southern Cape Cold Snows</h2>
             <h3>Running limit · estimate</h3><p id="village-snow-run" class="run-state"></p>
+          </section>
+          <section id="early-route-result" class="panel route-card" hidden>
+            <h2>New Delsta Flats (Abandoned Village exit) → Southern Cape Cold Snows</h2>
+            <p id="early-route-run" class="run-state"></p>
+            <p id="early-route-switches" class="run-action">Night at clerics → buy soulstones → day</p>
+            <p id="early-route-warning" class="error" hidden></p>
           </section>
           <section id="cape-cold-result" class="panel route-card" hidden>
             <h2>Osvald recruitment spot, Southern Cape Cold Snows → Cape Cold</h2>
@@ -150,7 +156,7 @@
         <section class="panel log-panel">
           <div class="log-toolbar"><div class="tabs" role="tablist" aria-label="Simulation details"><button id="actions-tab" role="tab" aria-selected="true" aria-controls="actions-view" type="button">Battle log</button><button id="trace-tab" role="tab" aria-selected="false" aria-controls="trace-view" tabindex="-1" type="button">CRT trace</button></div><span id="log-count" class="muted small"></span></div>
           <div id="actions-view" role="tabpanel" aria-labelledby="actions-tab"><p class="muted small log-help">Each party action shows its command-menu advance count from the initial seed, before boosting. Expand for CRT states, hits and resources. Damage rolls include overkill.</p><div class="order-strip"><span>Opening order</span><span id="initial-order"></span></div><div id="actions"></div></div>
-          <div id="trace-view" role="tabpanel" aria-labelledby="trace-tab" hidden><p class="muted small log-help">Main-CRT calls through the first Abandoned Village visit. Advance counts are measured from the initial seed.</p><div class="trace-scroll"><table><thead><tr><th>Callback</th><th>Actor</th><th>From advance</th><th>To advance</th><th>Δ draws</th><th>Before CRT</th><th>After CRT</th></tr></thead><tbody id="trace"></tbody></table></div></div>
+          <div id="trace-view" role="tabpanel" aria-labelledby="trace-tab" hidden><p class="muted small log-help">Main-CRT calls through early clerics, Osvald recruitment and the first Snows encounter. Advance counts are measured from the initial seed.</p><div class="trace-scroll"><table><thead><tr><th>Callback</th><th>Actor</th><th>From advance</th><th>To advance</th><th>Δ draws</th><th>Before CRT</th><th>After CRT</th></tr></thead><tbody id="trace"></tbody></table></div></div>
         </section>
         <section id="second-log" class="panel log-panel" hidden><div class="overview"><h2>Second fight · Chapter 1</h2><p id="second-context" class="muted"></p><strong id="second-outcome"></strong><p id="second-damage" class="muted small"></p><p id="second-error" class="error" hidden></p><p id="second-verification" class="accuracy-note"></p>
           <div id="second-order-checks" class="table-scroll"></div>
@@ -161,7 +167,14 @@
           </tbody></table></div></details>
           <div class="order-strip"><span>Opening order</span><span id="second-order"></span></div></div><div id="second-actions"></div></section>
         <section id="pirro-log" class="panel log-panel" hidden><div class="overview"><h2>Pirro · Chapter 1</h2><p id="pirro-context" class="muted"></p><p id="pirro-error" class="error" hidden></p><p id="pirro-verification" class="accuracy-note"></p></div><div id="pirro-actions"></div></section>
-        <section id="village-visit-log" class="panel log-panel" hidden>
+          <section id="early-route-log" class="panel log-panel" hidden>
+            <h2>Early clerics → Osvald → first Southern Cape Cold Snows encounter</h2>
+            <p id="early-route-status"></p><p id="early-route-encounter"></p>
+            <span class="diagnostic-label">Composition finalized · before enemy actor initialization</span>
+            <div class="diagnostic-value"><strong id="early-cait-advances"></strong><span>advances since initial seed</span></div>
+            <span id="early-cait-hex" class="rng-secondary"></span>
+          </section>
+          <section id="village-visit-log" class="panel log-panel" hidden>
           <h2>First Abandoned Village visit · fork endpoint</h2>
           <div class="run-diagnostics"><span class="diagnostic-label">Tagged · tutorial dismissed · field control restored</span><div class="diagnostic-value"><strong id="village-visit-advances"></strong><span>advances since initial seed</span></div><span id="village-visit-hex" class="rng-secondary"></span></div>
           <p id="village-visit-counter" class="muted small"></p>
@@ -319,23 +332,34 @@
           </section>
           <section class="panel search-setting" aria-labelledby="flats-escape-search-title">
             <h2 id="flats-escape-search-title">New Delsta Flats encounter</h2>
-            <p class="muted small">Search: R1 boost/cancel → Escape, with enough counter to run to Abandoned Village. If the limit fails, try an immediate single-enemy break → Escape. If that cannot meet both targets, search boosts without a limit. This fork ends after entering and tagging the village.</p>
+            <p class="muted small">Search: R1 boost/cancel → Escape (or a single-enemy break). Replay village tag/return → night clerics → day → safe walk to Osvald → first Snows encounter. Required outcomes are checked together; optional budgets add repeats while keeping achieved outcomes.</p>
             <div class="event-setting">
               <label for="flats-escape-boost-repeats">Boost repeats before trying a break</label>
               <input id="flats-escape-boost-repeats" type="number" min="0" max="256" step="1" value="4">
               <label class="unlimited-choice"><input id="flats-escape-boost-repeats-unlimited" type="checkbox" aria-label="Boost only: Flats Escape"> Boost only</label>
             </div>
-            <div class="event-setting" hidden>
-              <label for="flats-snow-boost-repeats">After village return · walk to Southern Cape Cold Snows</label>
+            <div class="event-setting">
+              <label for="early-clerics-boost-repeats">Clerics on the first village return</label>
+              <input id="early-clerics-boost-repeats" type="number" min="0" max="256" step="1" value="4">
+              <label class="unlimited-choice"><input id="early-clerics-boost-repeats-unlimited" type="checkbox" checked aria-label="Required outcome: early clerics"> Required outcome</label>
+            </div>
+            <div class="event-setting">
+              <label for="flats-snow-boost-repeats">Flats → Southern Cape Cold Snows via clerics · no encounter</label>
               <input id="flats-snow-boost-repeats" type="number" min="0" max="256" step="1" value="4">
               <label class="unlimited-choice"><input id="flats-snow-boost-repeats-unlimited" type="checkbox" checked aria-label="Required outcome: post-village walk"> Required outcome</label>
-              <p class="muted small">Search the same Flats encounter boosts. Required: Escape, run to village, tag and return, then walk 72 updates without an encounter. Optional: additional repeats beyond the Escape/village plan.</p>
+              <p class="muted small">72 walking / 68 running updates in total, including the cleric stop. Switch back to day before continuing.</p>
             </div>
-            <div class="event-setting" hidden>
+            <div class="event-setting">
               <label for="flats-osvald-boost-repeats">Southern Cape Cold Snows · walk to Osvald</label>
               <input id="flats-osvald-boost-repeats" type="number" min="0" max="256" step="1" value="4">
               <label class="unlimited-choice"><input id="flats-osvald-boost-repeats-unlimited" type="checkbox" checked aria-label="Required outcome: Osvald walk"> Required outcome</label>
               <p class="muted small">Search the same Flats boosts for a safe 70-update walk to Osvald. Required includes the preceding village run and Snows approach. Optional repeats preserve the selected plan's safe walks.</p>
+            </div>
+            <div class="event-setting">
+              <label for="early-cait-boost-repeats">After Osvald · Cait without surprise</label>
+              <input id="early-cait-boost-repeats" type="number" min="0" max="256" step="1" value="4">
+              <label class="unlimited-choice"><input id="early-cait-boost-repeats-unlimited" type="checkbox" checked aria-label="Required outcome: Cait without surprise"> Required outcome</label>
+              <p class="muted small">First daytime land encounter in Southern Cape Cold Snows, party Throné + Osvald. Stops before the Cait battle.</p>
             </div>
           </section>
           <section class="panel" hidden>

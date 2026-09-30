@@ -6,6 +6,8 @@ let result = null;
 let running = false;
 let stopped = false;
 const repeatSettings = [
+  {key:'early_clerics_max_boost_repeats',id:'early-clerics-boost-repeats',storage:'ot2-fork-early-clerics-boost-repeats',label:'Early clerics',requiredDefault:true},
+  {key:'early_cait_max_boost_repeats',id:'early-cait-boost-repeats',storage:'ot2-fork-early-cait-boost-repeats',label:'Cait without surprise',requiredDefault:true},
   {key:'mansion_run_max_boost_repeats',id:'mansion-run-boost-repeats',storage:'ot2-assistant-mansion-run-boost-repeats',label:'Mansion no second encounter',requiredDefault:true},
   {key:'mug_clerics_max_boost_repeats',id:'mug-clerics-boost-repeats',storage:'ot2-assistant-mug-clerics-boost-repeats',label:'Black-market clerics',requiredDefault:true},
   {key:'crackridge_approach_max_boost_repeats',id:'crackridge-approach-boost-repeats',storage:'ot2-assistant-crackridge-approach-boost-repeats',label:'Crackridge Harbor approach',requiredDefault:true},
@@ -71,10 +73,10 @@ function readSetup() {
   const advances = BigInt(text);
   const recreate = $('recreate-shared-level').getAttribute('aria-pressed') === 'true';
   if (advances + 12n + BigInt(recreate) > 18446744073709551615n) throw new Error('Title advances plus opening transition exceed 18446744073709551615.');
-  return {seed,advances:advances.toString(),recreate_shared_level:recreate,route_end:'first_village',...eventRepeatCaps};
+  return {seed,advances:advances.toString(),recreate_shared_level:recreate,route_end:'osvald_cait',...eventRepeatCaps};
 }
 const setupQuery = setup => {
-  const query = new URLSearchParams({seed:setup.seed,advances:setup.advances,recreate_shared_level:setup.recreate_shared_level,route_end:setup.route_end ?? 'first_village',boost_menu:setup.boost_menu ?? 0,boost_advances:setup.boost_advances ?? 0});
+  const query = new URLSearchParams({seed:setup.seed,advances:setup.advances,recreate_shared_level:setup.recreate_shared_level,route_end:setup.route_end ?? 'osvald_cait',boost_menu:setup.boost_menu ?? 0,boost_advances:setup.boost_advances ?? 0});
   for (const {key} of repeatSettings) query.set(key,repeatCapQuery(setup[key],key));
   for (const key of ['boost_repeat_cap','second_boost_menu','second_boost_advances','second_boost_repeat_cap']) {
     if(setup[key]!=null) query.set(key,setup[key]);
@@ -267,6 +269,7 @@ function render() {
   renderVillageVisit();
   renderVillageReturn();
   renderOsvald();
+  renderEarlyCait();
   renderCapeCold();
   renderMug();
   renderCrackridgeVoyage();
@@ -386,6 +389,37 @@ function renderVillageVisit() {
   $('village-visit-counter').textContent=`Counter ${p.world_after.encounter_counter} · daytime · Throné only · village tagged`;
   $('checkpoints').innerHTML+=`<tr><td>First Abandoned Village visit · tagged, tutorial dismissed</td><td>${totalAdvances(p.after)}</td><td>${hex(p.after.state)}</td><td>${p.after.draws}</td></tr>`;
   $('trace').innerHTML+=p.trace.map(t=>`<tr><td>${escapeHtml(t.reason)}</td><td>—</td><td>${totalAdvances(t.before)}</td><td>${totalAdvances(t.after)}</td><td>+${BigInt(t.after.draws)-BigInt(t.before.draws)}</td><td>${hex(t.before.state)}</td><td>${hex(t.after.state)}</td></tr>`).join('');
+}
+
+function renderEarlyCait() {
+  const p=result.post_battle_field?.flats_escape?.early_cait;
+  $('early-route-result').hidden=!p;
+  $('early-route-log').hidden=!p;
+  if(!p) return;
+  const m=p.movement.mixed;
+  $('early-route-run').textContent=!m?'Walking target not met':p.movement.running.reaches_reset?'Run 100%':`Run ≈${m.running_distance_percent}% · walk ${m.walking_distance_percent}%`;
+  $('early-route-run').classList.toggle('text-bad',!m);
+  $('early-route-switches').hidden=!p.after_night;
+  $('early-route-warning').hidden=p.clerics_present && !!p.osvald?.after_recruitment;
+  $('early-route-warning').textContent=!p.clerics_present?'Clerics target not met':!p.osvald?.after_recruitment?'Osvald walking target not met':'';
+  const e=p.encounter;
+  $('early-route-encounter').textContent=e?`${e.enemies.map(slot=>slot.enemy.name).join(' · ')} · ${e.situation} · after ${e.counter_updates} running updates from recruitment`:'First encounter not reached';
+  $('early-route-status').textContent=`Clerics: ${p.clerics_present?'yes':'no'} · safe Osvald walk: ${p.osvald?.after_recruitment?'yes':'no'} · Cait without surprise: ${p.cait_present && p.non_surprise?'yes':'no'}`;
+  const endpoint=p.before_battle_initialization;
+  $('early-cait-advances').textContent=endpoint?totalAdvances(endpoint):'—';
+  $('early-cait-hex').textContent=endpoint?hex(endpoint.state):'—';
+  const milestones=[['First Abandoned Village visit',p.village_visit.after],['Flats return · before early clerics',p.after_flats],['Early clerics · after night switch',p.after_night],['Early clerics · purchases complete, back to day',p.after_day],['Southern Cape Cold Snows · after loading',p.osvald?.after_loading],['Osvald · before recruitment',p.osvald?.at_osvald],['Osvald · recruited, tutorials dismissed',p.osvald?.after_recruitment],['First Snows encounter · composition finalized, before enemy actor initialization',endpoint]];
+  $('checkpoints').innerHTML+=milestones.filter(([,r])=>r).map(([label,r])=>`<tr><td>${escapeHtml(label)}</td><td>${totalAdvances(r)}</td><td>${hex(r.state)}</td><td>${r.draws}</td></tr>`).join('');
+  const trace=[...p.village_visit.trace,...p.trace,...(p.osvald?.trace||[])];
+  if(e) {
+    let before=p.osvald.after_recruitment;
+    for(const c of e.checkpoints) {
+      const after={state:c.state,draws:BigInt(p.osvald.after_recruitment.draws)+BigInt(c.draws)};
+      trace.push({reason:`First Snows encounter: ${c.label}`,before,after}); before=after;
+    }
+  }
+  $('trace').innerHTML+=trace.map(t=>`<tr><td>${escapeHtml(t.reason)}</td><td>—</td><td>${totalAdvances(t.before)}</td><td>${totalAdvances(t.after)}</td><td>+${BigInt(t.after.draws)-BigInt(t.before.draws)}</td><td>${hex(t.before.state)}</td><td>${hex(t.after.state)}</td></tr>`).join('');
+  $('pirro-verification').textContent+=` ${p.verification}`;
 }
 
 function renderVillageReturn() {

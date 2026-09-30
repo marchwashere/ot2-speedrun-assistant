@@ -1,13 +1,21 @@
 # OT2SpeedrunAssistant
 
 This branch, `strategy/abandoned-village-fork`, is the starting point for a new
-strategy. The GUI simulates through the first Abandoned Village entry, tag and
-tutorial dismissal, then stops. Later events and their search targets are not
-evaluated. The village's complete CRT and world state are available in Detailed
-log and the JSON export, ready for the next route event.
+strategy. After the first Abandoned Village tag/return, it switches to night
+near the Flats clerics, buys soulstones and switches back to day. It then
+recruits Osvald without an encounter and predicts the first Southern Cape Cold
+Snows encounter. The Flats Escape boost search jointly targets clerics, safe
+movement and a Cait without surprise. Required targets search without a budget;
+numeric budgets remain independent optional improvements. Each candidate
+replays the route's loader, time switches, recruitment and encounter lottery.
+The GUI shows boost inputs and the Flats run/walk limit; Detailed log holds CRT
+checkpoints and encounter composition. No Cape Cold continuation or Cait fight
+simulation is run. This new route is source-derived, awaiting a retail replay.
+See [the route notes](docs/early-clerics-cait.md).
 
 `main` preserves the previous route through Crackridge Harbor. The backend also
-retains it via `route_end=full`; the fork GUI selects `route_end=first_village`.
+retains it via `route_end=full`; the fork GUI selects `route_end=osvald_cait`.
+The former village-only endpoint remains available via `route_end=first_village`.
 
 Route state, field encounter prediction, and a local GUI. This repository imports
 the standalone **OT2BattleEngineRust** library through Cargo; it does not copy its

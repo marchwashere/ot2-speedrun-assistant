@@ -1,6 +1,23 @@
 # Active project
 
-- Active branch: `strategy/abandoned-village-fork`. `main` preserves the complete
+- Active branch: `strategy/abandoned-village-fork`. GUI now selects
+  `route_end=osvald_cait`: first village tag/return -> Flats night near clerics
+  -> buy soulstones -> immediate DAY -> Southern Cape Cold Snows -> recruit
+  Osvald, skip story/tutorials -> first land encounter IN Snows. No Cape Cold.
+  `src/early_cait.rs` replays shared Loader callbacks and imported encounter
+  lottery. Search at Flats Escape jointly requires safe village run, clerics,
+  encounter-free 72 walking/68 running Flats updates, 70 walking updates to
+  Osvald and an actual Cait replacement with Normal/Preemptive opening. Each
+  target has independent Required/numeric optional policy under this same
+  control point. Numeric misses retain required/achieved outcomes. Two shop
+  time switches do not reset the counter; shop location only splits the safe
+  total movement budget. Confirmed same total distances, day after buying.
+  No rare equipment/support bonuses; party actual Throné route level + Lv1
+  Osvald. Endpoint is composition finalized BEFORE enemy actor initialization.
+  No Cait battle simulation yet. Source-derived, awaiting live validation.
+  See docs/early-clerics-cait.md. FirstVillage and Full APIs remain compatible.
+
+- Previous fork boundary (still accessible via API): `main` preserves the complete
   previous strategy. This fork's GUI sends `route_end=first_village` and stops
   after the FIRST Abandoned Village entry/tag and tutorial dismissal, before
   returning to Flats. Flats Escape search requires escape and a safe village

@@ -5,6 +5,9 @@ use crate::{CrtRng, Result, cape_cold_mug, encounter, ensure, manipulation::{sel
 use serde::Serialize;
 
 const CLERICS: [&str; 2] = ["NPC_Fld_Cty_1_2_TALK_0900_N000", "NPC_Fld_Cty_1_2_TALK_1000_N000"];
+pub fn clerics_present(state: &WorldState) -> bool {
+    state.flag(25503) && CLERICS.iter().all(|label| state.existing_npcs.contains(*label))
+}
 pub const CLERIC_APPROACH_MEASURED_UPDATES: u32 = 40;
 pub const CLERIC_APPROACH_SAFETY_UPDATES: u32 = 2;
 pub const CLERIC_APPROACH_UPDATES: u32 = CLERIC_APPROACH_MEASURED_UPDATES + CLERIC_APPROACH_SAFETY_UPDATES;
@@ -103,8 +106,7 @@ pub fn after_mug_with_switches(p: &cape_cold_mug::Prediction, switches:u32) -> R
     l.set_time(4, "Flats: switch to night near black market")?;
     l.refresh_bar()?;
     l.refresh_npcs("Flats: nighttime black-market placements")?;
-    let clerics_present = l.state.flag(25503)
-        && CLERICS.iter().all(|label| l.state.existing_npcs.contains(*label));
+    let clerics_present = clerics_present(&l.state);
     Ok(Route { cape_switches, switched_at_village, after_travel, after_day, after_flats, at_clerics, cleric_reach, after_night:l.rng, clerics_present,
         world_after:l.state, trace:l.trace, decisions:l.decisions,
         verification:"Source-derived; not yet live-traced. Post-Mug Cape Cold time switches, tagged Abandoned Village fast travel, day switch only if still night, Flats load, 42 daytime walking/running updates to cleric spawns (40 measured + 2 for player error), then night switch; shared loader evaluates each callback. Costs are derived from zone data. Mixed movement substitutes running updates for walking updates and keeps one counter point. World counter carries the full-walking reference; safe movement consumes no CRT. Clerics require flag25503 and both nighttime NPC placements." })

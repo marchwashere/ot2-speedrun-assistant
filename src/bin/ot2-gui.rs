@@ -20,7 +20,7 @@ const JS: &str = include_str!("../../viewer/viewer.js");
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, serde::Serialize)]
 #[serde(rename_all="snake_case")]
-enum RouteEnd { Full, FirstVillage }
+enum RouteEnd { Full, FirstVillage, OsvaldCait }
 
 fn parse_seed(text: &str) -> Result<u32, SimError> {
     let text = text.trim();
@@ -58,6 +58,7 @@ fn simulate_with_plan(seed: u32, plan: BoostPlan) -> Result<Value, SimError> {
         None,
         Default::default(),
         RouteEnd::Full,
+        Default::default(),
     )
 }
 fn simulate_route(
@@ -72,6 +73,7 @@ fn simulate_route(
     pirro_r8_plan: Option<Vec<u8>>,
     flats_escape_settings: ot2_speedrun_assistant::flats_escape::Settings,
     route_end: RouteEnd,
+    early_settings: ot2_speedrun_assistant::early_cait::Settings,
 ) -> Result<Value, SimError> {
     plan.validate()?;
     let config = BattleConfig::throne_opening(seed)?;
@@ -180,6 +182,8 @@ fn simulate_route(
                                                                 Ok(p) => p.map(|p| {
                                                                     let selected = if route_end == RouteEnd::FirstVillage {
                                                                         ot2_speedrun_assistant::flats_escape::until_first_village(p.after,&p.world_after,prediction.level,flats_escape_settings)
+                                                                    } else if route_end == RouteEnd::OsvaldCait {
+                                                                        ot2_speedrun_assistant::flats_escape::until_osvald_cait(p.after,&p.world_after,prediction.level,flats_escape_settings,early_settings)
                                                                     } else {
                                                                         ot2_speedrun_assistant::flats_escape::after_harbor(&p,prediction.level,flats_escape_settings)
                                                                     };
@@ -261,6 +265,7 @@ fn simulate_route(
 #[derive(Clone)]
 struct CrtSetup {
     route_end: RouteEnd,
+    early_settings: ot2_speedrun_assistant::early_cait::Settings,
     crackridge_approach_max_boost_repeats: Option<u32>,
     mug_clerics_max_boost_repeats: Option<u32>,
     seed: u32,
@@ -334,6 +339,8 @@ impl CrtSetup {
         let mut mug_clerics_max_boost_repeats = None;
         let mut crackridge_approach_max_boost_repeats = None;
         let mut route_end = None;
+        let mut early_clerics = None;
+        let mut early_cait = None;
         for part in query.split('&') {
             let (key, value) = part
                 .split_once('=')
@@ -342,10 +349,13 @@ impl CrtSetup {
                 "route_end" if route_end.is_none() => {
                     route_end = Some(match value {
                         "full"=>RouteEnd::Full, "first_village"=>RouteEnd::FirstVillage,
+                        "osvald_cait"=>RouteEnd::OsvaldCait,
                         _=>return Err(SimError("Unknown route endpoint".into())),
                     });
                 }
                 "seed" if seed.is_none() => seed = Some(parse_seed(value)?),
+                "early_clerics_max_boost_repeats" if early_clerics.is_none() => early_clerics=Some(parse_event_repeat_cap(value)?),
+                "early_cait_max_boost_repeats" if early_cait.is_none() => early_cait=Some(parse_event_repeat_cap(value)?),
                 "advances" if advances.is_none() => {
                     if value.is_empty() || !value.bytes().all(|b| b.is_ascii_digit()) {
                         return Err(SimError(
@@ -535,6 +545,10 @@ impl CrtSetup {
             pirro_r8_plan: pirro_r8_boost_inputs,
             mug_clerics_max_boost_repeats: mug_clerics_max_boost_repeats.unwrap_or(None),
             route_end: route_end.unwrap_or(RouteEnd::Full),
+            early_settings: ot2_speedrun_assistant::early_cait::Settings {
+                clerics_max_boost_repeats: early_clerics.unwrap_or(None),
+                cait_max_boost_repeats: early_cait.unwrap_or(None),
+            },
             crackridge_approach_max_boost_repeats: crackridge_approach_max_boost_repeats.unwrap_or(None),
             flats_escape_settings: ot2_speedrun_assistant::flats_escape::Settings {
                 max_boost_repeats: flats_escape_max_boost_repeats.unwrap_or(Some(4)),
@@ -606,6 +620,8 @@ impl CrtSetup {
             "flats_osvald_max_boost_repeats":self.flats_escape_settings.osvald_max_boost_repeats,
             "mug_clerics_max_boost_repeats":self.mug_clerics_max_boost_repeats,
             "route_end":self.route_end,
+            "early_clerics_max_boost_repeats":self.early_settings.clerics_max_boost_repeats,
+            "early_cait_max_boost_repeats":self.early_settings.cait_max_boost_repeats,
             "crackridge_approach_max_boost_repeats":self.crackridge_approach_max_boost_repeats,
             "shared_level_draws":u8::from(self.recreate_shared_level),
             "battle_entry_advances":self.battle_entry_advances().to_string(),
@@ -676,6 +692,14 @@ impl CrtSetup {
         if self.route_end == RouteEnd::FirstVillage {
             policies.retain(|(id,_,_)| !matches!(id.as_str(),"mug_clerics"|"crackridge_approach"|"osvald_walk"|"village_snow_walk"));
             policies.push(("village_visit".into(),"First Abandoned Village visit",None));
+        } else if self.route_end == RouteEnd::OsvaldCait {
+            policies.retain(|(id,_,_)| !matches!(id.as_str(),"mug_clerics"|"crackridge_approach"|"osvald_walk"|"village_snow_walk"));
+            policies.extend([
+                ("early_clerics".into(),"Clerics on first village return",self.early_settings.clerics_max_boost_repeats),
+                ("early_snow_walk".into(),"Reach Southern Cape Cold Snows via clerics",self.flats_escape_settings.snow_max_boost_repeats),
+                ("early_osvald_walk".into(),"Recruit Osvald without an encounter",self.flats_escape_settings.osvald_max_boost_repeats),
+                ("early_cait".into(),"First Snows encounter: Cait without surprise",self.early_settings.cait_max_boost_repeats),
+            ]);
         }
         policies
     }
@@ -690,6 +714,10 @@ impl CrtSetup {
             .filter(|(_, _, cap)| cap.is_none())
             .filter_map(|(id, label, _)| {
                 let met = match id.as_str() {
+                    "early_clerics"=>f["flats_escape"]["early_cait"]["clerics_present"]==true,
+                    "early_snow_walk"=>f["flats_escape"]["early_cait"]["movement"]["walking"]["reaches_reset"]==true,
+                    "early_osvald_walk"=>f["flats_escape"]["early_cait"]["osvald"]["after_recruitment"].is_object(),
+                    "early_cait"=>f["flats_escape"]["early_cait"]["cait_present"]==true && f["flats_escape"]["early_cait"]["non_surprise"]==true,
                     "village_visit"=>f["flats_escape"]["village_visit"]["after"].is_object(),
                     "crackridge_approach" => safe(&f["crackridge_escape"]["encounter"]["situation"]) && f["crackridge_escape"]["attempt"]["success"] == true,
                     "mug_clerics" => f["black_market"]["clerics_present"] == true,
@@ -736,6 +764,7 @@ impl CrtSetup {
         let not_evaluated: Vec<_> = unmet.iter().filter(|item| {
             let stage=match item["id"].as_str().unwrap_or("") {
                 "village_visit"=>"flats_escape",
+                "early_clerics"|"early_snow_walk"|"early_osvald_walk"|"early_cait"=>"flats_escape",
                 "crackridge_approach"=>"crackridge_escape",
                 "mug_clerics"=>"black_market", "osvald_walk"|"village_snow_walk"=>"flats_escape",
                 "pirro_victory"|"pirro_no_grape"=>"pirro_battle", "highroad_approach"=>"highroad",
@@ -762,6 +791,7 @@ impl CrtSetup {
             self.pirro_r8_plan.clone(),
             execution.flats_escape_settings,
             self.route_end,
+            self.early_settings,
         )?;
         result["crt_setup"] = self.json();
         result["effective_search_settings"] = execution.json();
@@ -1199,6 +1229,30 @@ fn main() {
 
 #[cfg(test)]
 mod tests {
+    #[test]
+    fn early_clerics_and_cait_endpoint_has_independent_policies_and_no_cape_cold() {
+        use super::*;
+        let query="seed=0&advances=4916&route_end=osvald_cait&encounter_max_boost_repeats=required&pirro_victory_max_boost_repeats=required&pirro_no_grape_max_boost_repeats=required&highroad_approach_max_boost_repeats=required&highroad_flats_max_boost_repeats=required&highroad_flats_approach_max_boost_repeats=required&flats_escape_max_boost_repeats=boost_only";
+        let setup=CrtSetup::parse(query).unwrap();
+        assert_eq!(setup.json()["route_end"],"osvald_cait");
+        let result=setup.calculate().unwrap(); let p=&result["prediction"];
+        assert_eq!(p["required_outcomes"]["met"],true,"{}",p["required_outcomes"]);
+        let f=&p["post_battle_field"]; let early=&f["flats_escape"]["early_cait"];
+        assert_eq!(early["clerics_present"],true);
+        assert_eq!(early["cait_present"],true); assert_eq!(early["non_surprise"],true);
+        assert_eq!(early["osvald"]["world_after"]["party"],json!([7,6]));
+        assert_eq!(early["osvald"]["world_after"]["map"],"Fld_Snw_1_2");
+        for key in ["cape_cold","cape_cold_mug","black_market","crackridge_voyage","crackridge_escape"] {
+            assert!(f[key].is_null());
+        }
+        let numeric=CrtSetup::parse(&format!("{query}&early_clerics_max_boost_repeats=0&early_cait_max_boost_repeats=4")).unwrap();
+        assert_eq!(numeric.early_settings.clerics_max_boost_repeats,Some(0));
+        assert_eq!(numeric.early_settings.cait_max_boost_repeats,Some(4));
+        assert!(numeric.flats_escape_settings.osvald_max_boost_repeats.is_none());
+        for value in ["257","bad","4&early_cait_max_boost_repeats=required"] {
+            assert!(CrtSetup::parse(&format!("{query}&early_cait_max_boost_repeats={value}")).is_err());
+        }
+    }
     #[test]
     fn village_fork_selects_real_endpoint_and_excludes_future_requirements() {
         use super::*;

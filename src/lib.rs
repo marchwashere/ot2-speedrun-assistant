@@ -5,6 +5,7 @@ pub mod cape_cold_mug;
 pub mod city;
 pub mod crackridge;
 pub mod encounter;
+pub mod early_cait;
 pub mod flats;
 pub mod flats_escape;
 pub mod harbor;

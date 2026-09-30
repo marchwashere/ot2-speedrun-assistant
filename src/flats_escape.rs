@@ -62,6 +62,8 @@ pub struct Prediction {
     pub world_at_village_entrance: Option<WorldState>,
     pub village_return: Option<village_return::Prediction>,
     pub village_visit: Option<village_return::Visit>,
+    pub early_cait: Option<crate::early_cait::Prediction>,
+    pub early_searches: Vec<SnowSearch>,
     pub snow_search: Option<SnowSearch>,
     pub osvald: Option<osvald::Prediction>,
     pub osvald_search: Option<SnowSearch>,
@@ -115,14 +117,22 @@ pub fn predict(
     level: u32,
     settings: Settings,
 ) -> Result<Prediction> {
-    predict_to_boundary(arrival, world, level, settings, false)
+    predict_to_boundary(arrival, world, level, settings, false, None)
 }
 
 pub fn until_first_village(arrival:CrtRng, world:&WorldState, level:u32, settings:Settings) -> Result<Prediction> {
-    predict_to_boundary(arrival, world, level, settings, true)
+    predict_to_boundary(arrival, world, level, settings, true, None)
 }
 
-fn predict_to_boundary(arrival:CrtRng, world:&WorldState, level:u32, settings:Settings, stop_at_village:bool) -> Result<Prediction> {
+pub fn until_osvald_cait(arrival:CrtRng, world:&WorldState, level:u32, settings:Settings,
+    early:crate::early_cait::Settings) -> Result<Prediction> {
+    ensure(early.clerics_max_boost_repeats.is_none_or(|n|n<=256)
+        && early.cait_max_boost_repeats.is_none_or(|n|n<=256), "Early route caps must be 0..256 or Required")?;
+    predict_to_boundary(arrival, world, level, settings, false, Some(early))
+}
+
+fn predict_to_boundary(arrival:CrtRng, world:&WorldState, level:u32, settings:Settings, stop_at_village:bool,
+    early:Option<crate::early_cait::Settings>) -> Result<Prediction> {
     ensure(
         settings.max_boost_repeats.is_none_or(|n| n <= 256)
             && settings.snow_max_boost_repeats.is_none_or(|n| n <= 256)
@@ -168,6 +178,8 @@ fn predict_to_boundary(arrival:CrtRng, world:&WorldState, level:u32, settings:Se
         world_at_village_entrance: None,
         village_return: None,
         village_visit: None,
+        early_cait: None,
+        early_searches: vec![],
         snow_search: None,
         osvald: None,
         osvald_search: None,
@@ -194,6 +206,63 @@ fn predict_to_boundary(arrival:CrtRng, world:&WorldState, level:u32, settings:Se
     let restore = |attempt: &ot2_battle_engine::field_escape::FieldEscapeAttempt| {
         highroad::restore_field(world, attempt, "Fld_Cty_1_2", "Flats Escape")
     };
+    if let Some(early) = early {
+        let project = |a:&ot2_battle_engine::field_escape::FieldEscapeAttempt| {
+            let f=restore(a)?;
+            if f.world_after.encounter_counter < required_counter { return Ok(None); }
+            let mut w=f.world_after;
+            w.encounter_counter-=remaining*decrement;
+            crate::early_cait::project(f.after,w,level).map(Some)
+        };
+        let caps=[early.clerics_max_boost_repeats, settings.snow_max_boost_repeats,
+            settings.osvald_max_boost_repeats, early.cait_max_boost_repeats];
+        let mut required=caps.map(|cap|cap.is_none());
+        let choose = |limit, goals:[bool;4]| highroad::escape_plan_with_limit(entry,situation,level,&enemies,danger,
+            settings.max_boost_repeats,limit,|a| {
+                let Some(p)=project(a)? else {return Ok(false)};
+                Ok(crate::early_cait::outcomes(&p).iter().zip(goals).all(|(met,needed)|!needed || *met))
+            });
+        let mut escape=choose(None,required)?;
+        for i in 0..4 {
+            let Some(a)=&escape.attempt else {break};
+            let outcomes=crate::early_cait::outcomes(&project(a)?.unwrap());
+            // Optional improvements preserve all already achieved targets.
+            for j in 0..4 {required[j] |= outcomes[j];}
+            let base=escape.inputs.as_ref().map_or(0,|p|p.extra_repeats);
+            let mut met=outcomes[i];
+            let mut tested=0;
+            let mut added=0;
+            if !met && let Some(extra)=caps[i] {
+                let mut goals=required; goals[i]=true;
+                let candidate=choose(Some(base.saturating_add(extra)),goals)?;
+                tested=candidate.tested_candidates;
+                if candidate.attempt.is_some() {
+                    added=candidate.inputs.as_ref().map_or(0,|p|p.extra_repeats).saturating_sub(base);
+                    escape=candidate; required[i]=true; met=true;
+                }
+            }
+            result.early_searches.push(SnowSearch {max_extra_boost_repeats:caps[i],base_repeats:base,
+                added_repeats:added,tested_candidates:tested,target_met:met,
+                status:if met {"Target met; preceding outcomes preserved"} else {"Optional target not met within budget"}});
+        }
+        if let Some(a)=&escape.attempt {
+            let f=restore(a)?;
+            let budget=MovementBudget::new(f.world_after.encounter_counter,remaining,decrement);
+            let mut exit=f.world_after.clone(); exit.encounter_counter=budget.counter_before_reset.unwrap();
+            result.at_village_entrance=Some(f.after); result.world_at_village_entrance=Some(exit);
+            result.early_cait=project(a)?;
+            let final_outcomes=crate::early_cait::outcomes(result.early_cait.as_ref().unwrap());
+            for (s,met) in result.early_searches.iter_mut().zip(final_outcomes) {
+                s.target_met=met;
+                s.status=if met {"Target met in the selected joint plan"} else {"Optional target not met within budget"};
+            }
+            result.remaining_run=Some(budget); result.field_return=Some(f);
+            result.status="Early clerics / Osvald / Cait fork evaluated";
+        }
+        result.escape=Some(escape);
+        result.verification="Flats Escape candidates replay the village tag/return, both time switches and NPC refreshes, movement, Snows load, recruitment and first encounter. Required outcomes gate every Escape/break candidate jointly. Independent optional budgets preserve required and already achieved outcomes. No Cape Cold continuation.";
+        return Ok(result);
+    }
     let project = |attempt: &ot2_battle_engine::field_escape::FieldEscapeAttempt| -> Result<Option<village_return::Prediction>> {
         let field = restore(attempt)?;
         if field.world_after.encounter_counter < required_counter { return Ok(None); }
@@ -353,6 +422,52 @@ mod tests {
     use super::*;
     use crate::world;
     use highroad::EscapeMethod;
+    #[test]
+    fn cait_fork_replays_joint_targets_and_freezes_the_incoming_encounter() {
+        let w=world();
+        let entry=CrtRng {state:0,draws:6050};
+        let settings=Settings {max_boost_repeats:None, ..Default::default()};
+        let first=until_first_village(entry,&w,5,settings).unwrap();
+        let p=until_osvald_cait(entry,&w,5,settings,Default::default()).unwrap();
+        assert_eq!(p.before_battle_initialization,first.before_battle_initialization);
+        assert_eq!(p.escape.as_ref().unwrap().menu.rng,first.escape.as_ref().unwrap().menu.rng);
+        let selected=p.escape.as_ref().unwrap();
+        let a=selected.menu.clone().attempt(&selected.inputs.as_ref().unwrap().levels,5).unwrap();
+        assert_eq!(a.after,selected.attempt.as_ref().unwrap().after);
+        let early=p.early_cait.as_ref().unwrap();
+        assert_eq!(crate::early_cait::outcomes(early),[true;4]);
+        assert!(p.osvald.is_none() && p.village_return.is_none());
+        assert!(early.cleric_reach.walking.reaches_reset);
+        assert_eq!(early.remaining_walk.as_ref().unwrap().updates,30);
+        assert_eq!(early.movement.walking.cost,early.cleric_reach.walking.cost+early.remaining_walk.as_ref().unwrap().cost);
+        let mut l=world::Loader::new(world::catalog(),early.world_at_flats.clone(),early.after_flats).unwrap();
+        l.state.encounter_counter=early.cleric_reach.walking.counter_before_reset.unwrap();
+        let counter=l.state.encounter_counter;
+        l.set_time(4,"test night").unwrap(); l.refresh_bar().unwrap(); l.refresh_npcs("test night").unwrap();
+        assert_eq!(l.rng,early.after_night.unwrap());
+        assert!(crate::black_market::clerics_present(&l.state));
+        l.set_time(2,"test day").unwrap(); l.refresh_bar().unwrap(); l.refresh_npcs("test day").unwrap();
+        assert_eq!(l.rng,early.after_day.unwrap());
+        assert_eq!(l.state.encounter_counter,counter,"Both switches preserve the movement counter");
+        l.state.encounter_counter=early.remaining_walk.as_ref().unwrap().counter_before_reset.unwrap();
+        let o=osvald::with_world_state(l.rng,l.state).unwrap();
+        assert_eq!(o.after_recruitment,early.osvald.as_ref().unwrap().after_recruitment);
+        let after=o.after_recruitment.unwrap(); let w=o.world_after.unwrap();
+        assert_eq!(w.party,[7,6]); assert_eq!(w.time,2);
+        let mut rng=after;
+        let e=encounter::catalog().predict(&mut rng,&PredictionOptions {
+            map:osvald::MAP.into(),zone:"ENT_FLD_SNW_1_2_LND".into(),period:"DayTime".into(),progress:1,
+            first_encounter:w.first_encounter,boundary:Boundary::CurrentCounter,current_counter:Some(w.encounter_counter),
+            party_levels:vec![5,1],dash:true,..Default::default()
+        }).unwrap();
+        assert_eq!(rng,early.before_battle_initialization.unwrap());
+        assert_eq!(serde_json::to_value(e).unwrap(),serde_json::to_value(&early.encounter).unwrap());
+        let optional=until_osvald_cait(entry,&world(),5,Settings {
+            snow_max_boost_repeats:Some(0),osvald_max_boost_repeats:Some(0),..settings
+        },crate::early_cait::Settings {clerics_max_boost_repeats:Some(0),cait_max_boost_repeats:Some(0)}).unwrap();
+        assert_eq!(optional.escape.as_ref().unwrap().attempt.as_ref().unwrap().after,first.escape.unwrap().attempt.unwrap().after);
+        assert!(optional.early_searches.iter().any(|s|!s.target_met));
+    }
     #[test]
     fn village_fork_stops_at_tag_and_ignores_all_later_search_targets() {
         let w = world();
