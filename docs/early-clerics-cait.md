@@ -2,8 +2,9 @@
 
 Active branch: `strategy/abandoned-village-fork`. The old route is on `main`.
 
-The last controllable RNG event for this segment is boosting at the first Flats
-encounter after tagging Harbor. Candidate inputs are replayed from the unchanged
+The three controllable RNG events are boosting at the first Flats encounter,
+time cycles after buying from the clerics, and time switches after recruiting
+Osvald. Candidate inputs are replayed from the unchanged
 first command menu, including Escape or the real single-enemy break fallback.
 Every candidate must escape and leave enough normal post-encounter counter for
 the remaining run to the first Abandoned Village visit (170 total run updates).
@@ -14,16 +15,19 @@ From that entrance, `early_cait::project` runs:
 2. Return to daytime Flats. Fresh first-encounter counter, including halving.
 3. Safe approach to clerics; night switch, refresh tavern gate/NPC placements.
 4. Require flag 25503 AND both actual cleric actors; ordinary soulstone purchases
-   consume no CRT. Immediately switch back to day and refresh placements again.
+   consume no CRT. Switch back to day, optionally performing more complete
+   day/night cycles, and refresh placements on EVERY switch.
 5. Finish the existing 72 walking / 68 running update leg to Southern Cape Cold
    Snows. User confirmed these total distances also cover the cleric stop.
 6. Load Snows, walk 70 updates to Osvald, help/recruit him, skip his introductory
    story and dismiss tutorials through imported MS_GAK_00_0100.
-7. Predict the first daytime land encounter in the SAME Snows map, with carried
+7. Optionally toggle time after recruitment, refreshing the actual new party's
+   placements on each toggle. Predict the first land encounter in the SAME
+   Snows map using the final DayTime/Night table and decrement, with carried
    counter and FirstEncount, actual Throné route level and Lv1 Osvald. Require an
    actual CAT_SNOW replacement enemy and Normal or Preemptive situation.
 
-The two shop switches consume data-derived lottery and NPC creation draws, but
+Shop switches consume data-derived lottery and NPC creation draws, but
 do not reset the counter. Movement stays daytime before and after the shop;
 there is no movement while at night. Shop position therefore does not change the
 endpoint RNG or total movement cost if the whole leg stays encounter-free.
@@ -32,18 +36,42 @@ counter (remaining 30). It adds no distance to the 72-update total. The whole-le
 run percentage uses existing speed-dependent overshoot measurements and remains
 an estimate. All safe mixtures share CRT and the destination load resets counter.
 
-Search policies are under the Flats encounter control point, in this order:
+The optimizer enumerates increasing weighted cost: 2 per cancel/reboost pair,
+7 per individual time switch. Extra cleric switches are even so the trip stays
+daytime; post-Osvald switches can be odd or even. The mandatory initial shop
+night switch and return-day switch add a constant 14. Ties prefer fewer switches,
+then fewer after the clerics. Every state is cloned and projected through the
+shared Loader; rejected candidates do not consume RNG in the chosen route.
+Immutable projections are cached across cost layers. The first selected layer
+minimizes estimated manipulation cost across all three controls (not the full
+timing of a configured break/Escape fallback).
+
+Regression example: seed 0, title advances 4916, shared level retained,
+Required route outcomes and Flats Boost only select 123 boost repetitions,
+23 post-purchase switches (including the normal return to day), and 4
+post-recruitment switches. Cost: 246 boost inputs +28 switches *7 =442 units.
+The final daytime encounter contains Cait + Snow Fox and is Preemptive;
+composition is finalized at advance 6351 / 0x9C0C45D1. This replaces the old
+fixed-phase 4807-repeat plan. The imported Snows volumes specify a base Cait
+rate of 2% for both day and night; the joint search also has to preserve the
+earlier counter, Escape and shop outcomes.
+
+Search policies remain individually configurable:
 
 | Outcome | API setting |
 |---|---|
 | Early clerics | early_clerics_max_boost_repeats |
 | Safe Flats walk via clerics | flats_snow_max_boost_repeats |
-| Safe Osvald walk | flats_osvald_max_boost_repeats |
-| Cait without surprise | early_cait_max_boost_repeats |
+| Safe Osvald walk; post-purchase cycles | flats_osvald_max_boost_repeats |
+| Cait without surprise; post-recruitment switches | early_cait_max_boost_repeats |
 
-Required means no candidate budget: all required goals gate Escape/break jointly
-before optional improvements. Numeric budgets add repetitions relative to the
-selected preceding plan; they never waive required goals or achieved outcomes.
+Required means no candidate budget: all required goals gate the combined plan
+before optional improvements. Numeric budgets add 2 WEIGHTED input-cost units
+per allowance relative to the selected preceding plan (4 =8 units); a complete
+extra shop cycle costs14, one post-Osvald toggle costs7. Legacy API names retain
+"boost_repeats", but budget scale now includes time costs. They never waive
+required goals or achieved outcomes. Settings are grouped by their latest control
+point: Flats encounter, after cleric purchases, after Osvald recruitment.
 `flats_escape_max_boost_repeats` separately chooses when to try a break;
 `boost_only` bypasses that fallback. Displayed inputs come from the selected
 replayed path. Earlier Highroad and Pirro adjustments are frozen.
@@ -51,7 +79,7 @@ replayed path. Earlier Highroad and Pirro adjustments are frozen.
 The fork GUI sends `route_end=osvald_cait`. Legacy endpoints `full` (API default)
 and `first_village` remain available. The projection is exported as
 `post_battle_field.flats_escape.early_cait`; its encounter checkpoints are local
-to the post-recruitment RNG and must be offset once when rendering route counts.
+to `after_osvald_switches` and must be offset once when rendering route counts.
 The endpoint includes group/situation/party timing/rare selection, and stops
 BEFORE enemy actor initialization, Study Foe and opening command-menu draws.
 

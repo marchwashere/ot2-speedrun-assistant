@@ -395,26 +395,32 @@ function renderEarlyCait() {
   const p=result.post_battle_field?.flats_escape?.early_cait;
   $('early-route-result').hidden=!p;
   $('early-route-log').hidden=!p;
+  $('osvald-cait-result').hidden=!p?.post_osvald_switches || !p?.after_osvald_switches;
   if(!p) return;
   const m=p.movement.mixed;
   $('early-route-run').textContent=!m?'Walking target not met':p.movement.running.reaches_reset?'Run 100%':`Run ≈${m.running_distance_percent}% · walk ${m.walking_distance_percent}%`;
   $('early-route-run').classList.toggle('text-bad',!m);
   $('early-route-switches').hidden=!p.after_night;
+  $('early-route-switches').textContent=`After clerics time switch: ${p.post_cleric_switches ?? 1} → day`;
+  $('osvald-cait-switches').textContent=p.post_osvald_switches?`Osvald time switch: ${p.post_osvald_switches} → ${p.world_at_encounter?.time===4?'night':'day'}`:'';
   $('early-route-warning').hidden=p.clerics_present && !!p.osvald?.after_recruitment;
   $('early-route-warning').textContent=!p.clerics_present?'Clerics target not met':!p.osvald?.after_recruitment?'Osvald walking target not met':'';
   const e=p.encounter;
-  $('early-route-encounter').textContent=e?`${e.enemies.map(slot=>slot.enemy.name).join(' · ')} · ${e.situation} · after ${e.counter_updates} running updates from recruitment`:'First encounter not reached';
+  $('early-route-encounter').textContent=e?`${e.enemies.map(slot=>slot.enemy.name).join(' · ')} · ${e.situation} · ${p.world_at_encounter?.time===4?'night':'day'} · after ${e.counter_updates} running updates from recruitment`:'First encounter not reached';
+  const f=result.post_battle_field.flats_escape;
+  $('early-route-cost').textContent=f.early_weighted_input_cost==null?'':`Estimated cost: ${f.early_weighted_input_cost} boost-input units · ${f.escape?.inputs?.input_count ?? 0} boost inputs + ${1+(p.post_cleric_switches??1)+(p.post_osvald_switches??0)} time switches ×7 · ${f.early_tested_projections} cached route candidates`;
   $('early-route-status').textContent=`Clerics: ${p.clerics_present?'yes':'no'} · safe Osvald walk: ${p.osvald?.after_recruitment?'yes':'no'} · Cait without surprise: ${p.cait_present && p.non_surprise?'yes':'no'}`;
   const endpoint=p.before_battle_initialization;
   $('early-cait-advances').textContent=endpoint?totalAdvances(endpoint):'—';
   $('early-cait-hex').textContent=endpoint?hex(endpoint.state):'—';
-  const milestones=[['First Abandoned Village visit',p.village_visit.after],['Flats return · before early clerics',p.after_flats],['Early clerics · after night switch',p.after_night],['Early clerics · purchases complete, back to day',p.after_day],['Southern Cape Cold Snows · after loading',p.osvald?.after_loading],['Osvald · before recruitment',p.osvald?.at_osvald],['Osvald · recruited, tutorials dismissed',p.osvald?.after_recruitment],['First Snows encounter · composition finalized, before enemy actor initialization',endpoint]];
+  const milestones=[['First Abandoned Village visit',p.village_visit.after],['Flats return · before early clerics',p.after_flats],['Early clerics · after night switch',p.after_night],['Early clerics · purchases and time switches complete, back to day',p.after_day],['Southern Cape Cold Snows · after loading',p.osvald?.after_loading],['Osvald · before recruitment',p.osvald?.at_osvald],['Osvald · recruited, tutorials dismissed',p.osvald?.after_recruitment],['Osvald · after time switches',p.after_osvald_switches],['First Snows encounter · composition finalized, before enemy actor initialization',endpoint]];
   $('checkpoints').innerHTML+=milestones.filter(([,r])=>r).map(([label,r])=>`<tr><td>${escapeHtml(label)}</td><td>${totalAdvances(r)}</td><td>${hex(r.state)}</td><td>${r.draws}</td></tr>`).join('');
-  const trace=[...p.village_visit.trace,...p.trace,...(p.osvald?.trace||[])];
+  const trace=[...p.village_visit.trace,...p.trace,...(p.osvald?.trace||[]),...(p.encounter_time_trace||[])];
   if(e) {
-    let before=p.osvald.after_recruitment;
+    const at_encounter=p.after_osvald_switches ?? p.osvald.after_recruitment;
+    let before=at_encounter;
     for(const c of e.checkpoints) {
-      const after={state:c.state,draws:BigInt(p.osvald.after_recruitment.draws)+BigInt(c.draws)};
+      const after={state:c.state,draws:BigInt(at_encounter.draws)+BigInt(c.draws)};
       trace.push({reason:`First Snows encounter: ${c.label}`,before,after}); before=after;
     }
   }

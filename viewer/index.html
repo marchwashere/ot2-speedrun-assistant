@@ -77,8 +77,13 @@
           <section id="early-route-result" class="panel route-card" hidden>
             <h2>New Delsta Flats (Abandoned Village exit) → Southern Cape Cold Snows</h2>
             <p id="early-route-run" class="run-state"></p>
-            <p id="early-route-switches" class="run-action">Night at clerics → buy soulstones → day</p>
+            <p class="action-note">Switch to night at clerics → buy soulstones</p>
+            <p id="early-route-switches" class="run-action"></p>
             <p id="early-route-warning" class="error" hidden></p>
+          </section>
+          <section id="osvald-cait-result" class="panel route-card" hidden>
+            <h2>Osvald recruitment spot · Southern Cape Cold Snows</h2>
+            <p id="osvald-cait-switches" class="run-action"></p>
           </section>
           <section id="cape-cold-result" class="panel route-card" hidden>
             <h2>Osvald recruitment spot, Southern Cape Cold Snows → Cape Cold</h2>
@@ -170,6 +175,7 @@
           <section id="early-route-log" class="panel log-panel" hidden>
             <h2>Early clerics → Osvald → first Southern Cape Cold Snows encounter</h2>
             <p id="early-route-status"></p><p id="early-route-encounter"></p>
+            <p id="early-route-cost" class="muted small"></p>
             <span class="diagnostic-label">Composition finalized · before enemy actor initialization</span>
             <div class="diagnostic-value"><strong id="early-cait-advances"></strong><span>advances since initial seed</span></div>
             <span id="early-cait-hex" class="rng-secondary"></span>
@@ -332,7 +338,7 @@
           </section>
           <section class="panel search-setting" aria-labelledby="flats-escape-search-title">
             <h2 id="flats-escape-search-title">New Delsta Flats encounter</h2>
-            <p class="muted small">Search: R1 boost/cancel → Escape (or a single-enemy break). Replay village tag/return → night clerics → day → safe walk to Osvald → first Snows encounter. Required outcomes are checked together; optional budgets add repeats while keeping achieved outcomes.</p>
+            <p class="muted small">Search: R1 boost/cancel → Escape (or a single-enemy break), keeping a safe village run, early clerics and safe Flats movement. Optimize with later time switches: boost input = 1 cost unit, each switch = 7. Required targets are searched together before optional improvements.</p>
             <div class="event-setting">
               <label for="flats-escape-boost-repeats">Boost repeats before trying a break</label>
               <input id="flats-escape-boost-repeats" type="number" min="0" max="256" step="1" value="4">
@@ -349,17 +355,25 @@
               <label class="unlimited-choice"><input id="flats-snow-boost-repeats-unlimited" type="checkbox" checked aria-label="Required outcome: post-village walk"> Required outcome</label>
               <p class="muted small">72 walking / 68 running updates in total, including the cleric stop. Switch back to day before continuing.</p>
             </div>
+          </section>
+          <section class="panel search-setting" aria-labelledby="cleric-time-search-title">
+            <h2 id="cleric-time-search-title">After cleric purchases</h2>
+            <p class="muted small">Search complete day/night cycles, ending on day, to walk to Osvald safely. Earlier Flats boosts are also candidates when cheaper. Numeric budget: extra estimated cost in pairs of input units (4 = 8 cost units). Required searches without a limit.</p>
             <div class="event-setting">
-              <label for="flats-osvald-boost-repeats">Southern Cape Cold Snows · walk to Osvald</label>
+              <label for="flats-osvald-boost-repeats">Walk to Osvald · extra cost budget</label>
               <input id="flats-osvald-boost-repeats" type="number" min="0" max="256" step="1" value="4">
               <label class="unlimited-choice"><input id="flats-osvald-boost-repeats-unlimited" type="checkbox" checked aria-label="Required outcome: Osvald walk"> Required outcome</label>
-              <p class="muted small">Search the same Flats boosts for a safe 70-update walk to Osvald. Required includes the preceding village run and Snows approach. Optional repeats preserve the selected plan's safe walks.</p>
+              <p class="muted small">70 walking updates from Southern Cape Cold Snows entry. Preserve clerics and all earlier achieved outcomes.</p>
             </div>
+          </section>
+          <section class="panel search-setting" aria-labelledby="osvald-time-search-title">
+            <h2 id="osvald-time-search-title">After recruiting Osvald</h2>
+            <p class="muted small">Search time switches for a Cait without surprise, ending on either day or night. Compare against earlier boosts/cycles using the same 7-input switch cost. Numeric budget is extra cost in pairs of input units; Required has no limit.</p>
             <div class="event-setting">
-              <label for="early-cait-boost-repeats">After Osvald · Cait without surprise</label>
+              <label for="early-cait-boost-repeats">Cait without surprise · extra cost budget</label>
               <input id="early-cait-boost-repeats" type="number" min="0" max="256" step="1" value="4">
               <label class="unlimited-choice"><input id="early-cait-boost-repeats-unlimited" type="checkbox" checked aria-label="Required outcome: Cait without surprise"> Required outcome</label>
-              <p class="muted small">First daytime land encounter in Southern Cape Cold Snows, party Throné + Osvald. Stops before the Cait battle.</p>
+              <p class="muted small">First land encounter in Southern Cape Cold Snows, party Throné + Osvald. Preserve safe recruitment. Stops before the Cait battle.</p>
             </div>
           </section>
           <section class="panel" hidden>

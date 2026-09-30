@@ -1,5 +1,19 @@
 # Active project
 
+- Early Cait fork now permits post-purchase time cycles (end DAY) and post-Osvald
+  toggles (end either DAY or NIGHT; user confirmed both). Minimize extra boost
+  inputs +7 per actual toggle, including the constant two shop toggles. Weighted
+  cost layers compare all allocations across these control points; Required
+  goals gate every candidate. Immutable route projections are cached. Numeric
+  optional allowances keep their two-input-unit/pair scale but now bound extra
+  WEIGHTED cost (4 =8 units), not merely boost repeats. Settings are separated
+  into Flats encounter, After cleric purchases and After recruiting Osvald.
+  Replay every shared time lottery/bar/NPC refresh. Toggles preserve counter and
+  FirstEncount; final encounter uses the actual DayTime/Night volume and movement
+  decrement. Separate post-recruitment trace precedes encounter checkpoints;
+  offset local encounter counts from after_osvald_switches exactly once.
+  Old fixed-phase 4807-repeat prediction is superseded by weighted search.
+
 - Active branch: `strategy/abandoned-village-fork`. GUI now selects
   `route_end=osvald_cait`: first village tag/return -> Flats night near clerics
   -> buy soulstones -> immediate DAY -> Southern Cape Cold Snows -> recruit
@@ -8,8 +22,8 @@
   lottery. Search at Flats Escape jointly requires safe village run, clerics,
   encounter-free 72 walking/68 running Flats updates, 70 walking updates to
   Osvald and an actual Cait replacement with Normal/Preemptive opening. Each
-  target has independent Required/numeric optional policy under this same
-  control point. Numeric misses retain required/achieved outcomes. Two shop
+  target has independent Required/numeric optional policy across the three
+  control points. Numeric misses retain required/achieved outcomes. Shop
   time switches do not reset the counter; shop location only splits the safe
   total movement budget. Confirmed same total distances, day after buying.
   No rare equipment/support bonuses; party actual Throné route level + Lv1

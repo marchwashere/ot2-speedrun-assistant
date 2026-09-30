@@ -4,12 +4,16 @@ This branch, `strategy/abandoned-village-fork`, is the starting point for a new
 strategy. After the first Abandoned Village tag/return, it switches to night
 near the Flats clerics, buys soulstones and switches back to day. It then
 recruits Osvald without an encounter and predicts the first Southern Cape Cold
-Snows encounter. The Flats Escape boost search jointly targets clerics, safe
-movement and a Cait without surprise. Required targets search without a budget;
-numeric budgets remain independent optional improvements. Each candidate
+Snows encounter. A weighted search combines Flats Escape boosts, complete time
+cycles after cleric purchases (end day), and post-recruitment switches (end day
+or night). It jointly targets clerics, safe movement and a Cait without surprise,
+minimizing boost inputs + seven per individual time switch. Required targets
+search without a budget; numeric optional allowances add two weighted cost units
+per input-pair allowance while preserving achieved outcomes. Each candidate
 replays the route's loader, time switches, recruitment and encounter lottery.
 The GUI shows boost inputs and the Flats run/walk limit; Detailed log holds CRT
-checkpoints and encounter composition. No Cape Cold continuation or Cait fight
+checkpoints and encounter composition. Separate settings describe the three
+control points. No Cape Cold continuation or Cait fight
 simulation is run. This new route is source-derived, awaiting a retail replay.
 See [the route notes](docs/early-clerics-cait.md).
 
