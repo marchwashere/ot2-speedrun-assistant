@@ -435,12 +435,13 @@ function renderEarlyCait() {
   $('osvald-cait-result').hidden=!p?.snows_approach;
   if(!p) return;
   const approach=p.snows_approach;
-  const timing=snowsEncounterTiming ?? (approach?.predicted_before_osvald?'before':'after');
+  const timing=approach?.predicted_before_osvald?'before':snowsEncounterTiming ?? 'after';
   const branch=approach?.[timing+'_osvald'];
   const beforeOsvald=timing==='before';
   $('snows-encounter-predicted').textContent=approach?`Predicted: ${approach.predicted_before_osvald?'before':'after'} Osvald · ${approach.measured_running_updates} running updates`:'';
   $('snows-encounter-before').setAttribute('aria-pressed',String(beforeOsvald));
   $('snows-encounter-after').setAttribute('aria-pressed',String(!beforeOsvald));
+  $('snows-encounter-after').disabled=!!approach?.predicted_before_osvald;
   $('snows-encounter-status').textContent=branch?`${snowsEncounterTiming?'Selected':'Predicted'} encounter: ${beforeOsvald?'before':'after'} Osvald · ${branch.non_surprise?'No surprise':'Surprise'}`:'';
   const m=p.movement.mixed;
   $('early-route-run').textContent=!m?'Walking target not met':p.movement.running.reaches_reset?'Run 100%':`Run ≈${m.running_distance_percent}% · walk ${m.walking_distance_percent}%`;
@@ -478,6 +479,7 @@ function renderEarlyCait() {
 for(const timing of ['before','after']) {
   $('snows-encounter-'+timing).addEventListener('click',()=>{
     if(!result || running) return;
+    if(timing==='after' && result.post_battle_field?.flats_escape?.early_cait?.snows_approach?.predicted_before_osvald) return;
     snowsEncounterTiming=timing;
     // Redraw from the immutable alternatives; never advance CRT or re-search
     // earlier controls merely because the player corrected encounter timing.

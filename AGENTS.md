@@ -6,7 +6,10 @@
   search only solo Throné's opening for no surprise. Otherwise protect both
   pre-recruitment (movement-error override) and post-recruitment party openings.
   GUI has Before/After Osvald controls backed by immutable branch endpoints,
-  preserving the Flats boost plan. After-Osvald time switches affect only the
+  preserving the Flats boost plan. After is disabled when perfect movement
+  predicts Before; stale overrides cannot select that impossible timing.
+  Recruitment's actual B/A reset advances CRT twice and supplies the later
+  branch counter; the solo branch starts before those calls. After-Osvald time switches affect only the
   later branch. Old flats_osvald cap is ignored in this default fork; retained
   require_cait API and full route keep their original safe-walk policies.
   Prediction stops at first encounter before battle init; do not propagate

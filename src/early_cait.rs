@@ -219,6 +219,22 @@ mod tests {
             assert_eq!(a.before_osvald.world.party,[7]);
             assert_eq!(a.after_osvald.world.party,[7,6]);
             assert_eq!(a.after_osvald_required,!a.predicted_before_osvald);
+            let recruitment=p.osvald.as_ref().unwrap();
+            assert_eq!(a.before_osvald.start,recruitment.after_loading,
+                "Solo opening must not consume future recruitment draws");
+            assert_eq!(a.after_osvald.start,recruitment.after_recruitment.unwrap(),
+                "Later opening must start AFTER recruitment callbacks");
+            // Independently replay the actual B/A counter reset, rather than
+            // carrying the movement remainder or adding a synthetic offset.
+            let mut reset_rng=recruitment.after_loading;
+            let b=reset_rng.index(400);
+            let a_roll=reset_rng.index(400);
+            let expected_counter=(1000+b+a_roll)/2;
+            assert_eq!(reset_rng,a.after_osvald.start);
+            assert_eq!(reset_rng.draws-recruitment.after_loading.draws,2);
+            assert_eq!(a.after_osvald.world.encounter_counter,expected_counter);
+            assert_eq!(a.after_osvald.encounter.counter.value,expected_counter);
+            assert_eq!(a.after_osvald.encounter.counter_updates,Some(expected_counter.div_ceil(12)));
             assert_eq!(p.non_surprise,a.before_osvald.non_surprise
                 && (a.predicted_before_osvald || a.after_osvald.non_surprise));
             before_only |= a.predicted_before_osvald && a.before_osvald.non_surprise && !a.after_osvald.non_surprise;
