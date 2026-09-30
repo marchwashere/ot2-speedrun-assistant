@@ -1,0 +1,935 @@
+'use strict';
+const $ = id => document.getElementById(id);
+const escapeHtml = value => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const hex = value => '0x' + value.toString(16).toUpperCase().padStart(8, '0');
+let result = null;
+let running = false;
+let stopped = false;
+const repeatSettings = [
+  {key:'mansion_run_max_boost_repeats',id:'mansion-run-boost-repeats',storage:'ot2-assistant-mansion-run-boost-repeats',label:'Mansion no second encounter',requiredDefault:true},
+  {key:'mug_clerics_max_boost_repeats',id:'mug-clerics-boost-repeats',storage:'ot2-assistant-mug-clerics-boost-repeats',label:'Black-market clerics',requiredDefault:true},
+  {key:'crackridge_approach_max_boost_repeats',id:'crackridge-approach-boost-repeats',storage:'ot2-assistant-crackridge-approach-boost-repeats',label:'Crackridge Harbor approach',requiredDefault:true},
+  {key:'encounter_max_boost_repeats',id:'encounter-boost-repeats',storage:'ot2-assistant-encounter-boost-repeats',label:'Encounter avoidance'},
+  {key:'second_fight_max_boost_repeats',id:'second-fight-boost-repeats',storage:'ot2-assistant-second-fight-boost-repeats',label:'Second fight',legacy:'ot2-assistant-max-boost-repeats'},
+  {key:'mansion_approach_max_boost_repeats',id:'mansion-approach-boost-repeats',storage:'ot2-assistant-mansion-approach-boost-repeats',label:'Mansion approach'},
+  {key:'mansion_escape_max_boost_repeats',id:'mansion-escape-boost-repeats',storage:'ot2-assistant-mansion-escape-boost-repeats',label:'Mansion Escape',strategy:true},
+  {key:'pirro_victory_max_boost_repeats',id:'pirro-victory-boost-repeats',storage:'ot2-assistant-pirro-victory-boost-repeats',label:'Pirro victory'},
+  {key:'pirro_no_grape_max_boost_repeats',id:'pirro-no-grape-boost-repeats',storage:'ot2-assistant-pirro-no-grape-boost-repeats',label:'Pirro no Healing Grape',legacy:'ot2-assistant-pirro-boost-repeats'},
+  {key:'highroad_approach_max_boost_repeats',id:'highroad-approach-boost-repeats',storage:'ot2-assistant-highroad-approach-boost-repeats',label:'Highroad approach'},
+  {key:'highroad_escape_max_boost_repeats',id:'highroad-escape-boost-repeats',storage:'ot2-assistant-highroad-escape-boost-repeats',label:'Highroad Escape',strategy:true},
+  {key:'highroad_flats_max_boost_repeats',id:'highroad-flats-boost-repeats',storage:'ot2-assistant-highroad-flats-boost-repeats',label:'Flats walking'},
+  {key:'highroad_flats_approach_max_boost_repeats',id:'highroad-flats-approach-boost-repeats',storage:'ot2-assistant-highroad-flats-approach-boost-repeats',label:'Flats approach'},
+  {key:'flats_escape_max_boost_repeats',id:'flats-escape-boost-repeats',storage:'ot2-assistant-flats-escape-boost-repeats',label:'Flats Escape',strategy:true},
+  {key:'flats_snow_max_boost_repeats',id:'flats-snow-boost-repeats',storage:'ot2-assistant-flats-snow-boost-repeats',label:'Post-village walk',requiredDefault:true},
+  {key:'flats_osvald_max_boost_repeats',id:'flats-osvald-boost-repeats',storage:'ot2-assistant-flats-osvald-boost-repeats',label:'Osvald walk',requiredDefault:true}
+];
+let eventRepeatCaps = {};
+const lastRepeatCaps = {};
+const validRepeatCap = value => /^[0-9]+$/.test(value) && Number(value) <= 256;
+const repeatCapLabel = value => value == null ? 'Required' : value;
+const repeatCapQuery = (value,key) => value === null ? (repeatSettings.find(s=>s.key===key)?.strategy ? 'boost_only' : 'required') : (value ?? 4);
+for (const setting of repeatSettings) {
+  eventRepeatCaps[setting.key] = setting.requiredDefault ? null : 4;
+  lastRepeatCaps[setting.key] = 4;
+  try {
+    // Each legacy setting migrates only to its named target.
+    const saved = localStorage.getItem(setting.storage) ?? (setting.legacy ? localStorage.getItem(setting.legacy) : null);
+    const last = localStorage.getItem(`${setting.storage}-last-limit`) ?? (setting.legacy ? localStorage.getItem(`${setting.legacy}-last-limit`) : null);
+    if (last !== null && validRepeatCap(last)) lastRepeatCaps[setting.key] = Number(last);
+    if (['unlimited','required','boost_only'].includes(saved)) eventRepeatCaps[setting.key] = null;
+    else if (saved !== null && validRepeatCap(saved)) eventRepeatCaps[setting.key] = lastRepeatCaps[setting.key] = Number(saved);
+  } catch { /* Storage may be unavailable; retain this event's default. */ }
+}
+const names = {attack_sword:'Sword attack',attack_dagger:'Dagger attack',attack_axe:'Axe attack',defend:'Defend',ABI_ENE_0041:'Attack',ABI_ENE_0500:'Slash'};
+Object.assign(names,{ABI_SET_THI_020:'Darkest Night',ABI_SET_GST_0170:'Slice',ABI_SET_GST_0190:'Pierce Through',ABI_ENE_0200:'Double Thrust',ABI_ENE_0010:'Attack'});
+const reasons = {actor_initialization:'Actor initialization',current_order_shuffle:'First order shuffle',battle_start_speaker:'Opening speaker',battle_start_voice:'Opening voice check',ability_voice:'Ability voice check',break_voice:'Break reaction check',kill_voice:'Kill reaction check',next_order_shuffle:'Next order shuffle',order_voice:'Turn-start voice check',boost_voice:'Boost voice check',normal_accuracy:'Cached accuracy check',attack_voice:'Attack voice check',last_attack_voice:'Final-hit voice check',critical_hit_and_damage:'Critical / hit / damage',damage_notification_timer:'Damage notification timer',miss_notification_timer:'Miss notification timer',guard_disease:'Guard status checks',guard_voice:'Guard voice check',round_timing_revision:'Round timing revision',enemy_ai_and_target:'Enemy AI and target',enemy_drop:'Enemy item drop',field_encounter_reset_b_then_a:'Area counter reset (B then A)'};
+const actorName = id => result.actors[id]?.name ?? '—';
+reasons.boost_reduce = 'Reduce boost (no CRT draw)';
+Object.assign(reasons, {break_slow_timer:'Break timer',broken_hit_slow_timer:'Broken-hit timer',round_bp_timer:'Round-start BP timer',post_battle_event_encounter_reset_b_then_a:'Post-battle event counter reset (B then A)'});
+Object.assign(reasons, {checkpoint_pirro_npc_frame:'Checkpoint: Pirro NPC starting frame',checkpoint_scaracci_npc_frame:'Checkpoint: Scaracci NPC starting frame',checkpoint_counter_reset_b_then_a:'Checkpoint counter reset (B then A)',checkpoint_ambush_popup:'Ambush tutorial (no additional draws)'});
+Object.assign(reasons, {ambush_menu_action_timer:'Open path-action menu: action timer',ambush_scripted_dialogue:'Ambush: scripted dialogue (lottery bypassed)',ambush_counter_reset_b_then_a:'Ambush event counter reset (B then A)',rejoin_counter_reset_b_then_a:'Skipped rejoin cutscene: counter reset (B then A)'});
+reasons.second_fight_serial_event_start='Serial event → battle (no counter reset)';
+Object.assign(reasons, {
+});
+const shortActorName = id => actorName(id).split(' · ')[0];
+const safeName = id => escapeHtml(actorName(id));
+const totalAdvances = rng => (BigInt(result.crt_setup.battle_entry_advances) + BigInt(rng.draws)).toString();
+const setupDescription = setup => `${setup.advances} at title + ${12 + Number(setup.recreate_shared_level)} opening draws`;
+function showError(message) { $('error').textContent = message; $('error').hidden = false; }
+
+function validateSeed(text) {
+  if (!/^(?:[0-9]+|0x[0-9a-f]+)$/i.test(text)) throw new Error('Enter a decimal seed or 0x-prefixed hexadecimal seed.');
+  const seed = Number(text);
+  if (!Number.isInteger(seed) || seed < 0 || seed > 0xFFFFFFFF) throw new Error('Seed must be between 0 and 4294967295 (0xFFFFFFFF).');
+  return seed;
+}
+
+function readSetup() {
+  const seed = validateSeed($('seed').value.trim());
+  const text = $('advances').value.trim();
+  if (!/^[0-9]+$/.test(text)) throw new Error('Advances must be a nonnegative whole number.');
+  const advances = BigInt(text);
+  const recreate = $('recreate-shared-level').getAttribute('aria-pressed') === 'true';
+  if (advances + 12n + BigInt(recreate) > 18446744073709551615n) throw new Error('Title advances plus opening transition exceed 18446744073709551615.');
+  return {seed,advances:advances.toString(),recreate_shared_level:recreate,...eventRepeatCaps};
+}
+const setupQuery = setup => {
+  const query = new URLSearchParams({seed:setup.seed,advances:setup.advances,recreate_shared_level:setup.recreate_shared_level,boost_menu:setup.boost_menu ?? 0,boost_advances:setup.boost_advances ?? 0});
+  for (const {key} of repeatSettings) query.set(key,repeatCapQuery(setup[key],key));
+  for (const key of ['boost_repeat_cap','second_boost_menu','second_boost_advances','second_boost_repeat_cap']) {
+    if(setup[key]!=null) query.set(key,setup[key]);
+  }
+  return query.toString()+['pirro_boost_inputs','pirro_r8_boost_inputs'].map(key=>setup[key]==null?'':`&${key}=${setup[key].join(',')}`).join('');
+};
+function renderSetup(setup) {
+  $('prepared-state').textContent = `${setup.battle_entry_advances} advances`;
+  $('prepared-help').textContent = `${hex(setup.battle_seed)} · ${setupDescription(setup)} · advances since initial seed`;
+}
+function markSetupChanged() {
+  $('error').hidden = true;
+  $('results').hidden = true;
+  $('status').textContent = 'Inputs changed — run simulation.';
+  $('simulate').textContent = 'Run simulation ↗';
+  // Detailed log remains the last completed result, including its own setup.
+}
+
+let activeScreen = 'manipulation';
+const screenScrollPositions = new Map();
+function showScreen(screen) {
+  if (screen === activeScreen) return;
+  const currentPosition = {left:window.scrollX, top:window.scrollY};
+  screenScrollPositions.set(activeScreen, currentPosition);
+  const position = screenScrollPositions.get(screen) ?? currentPosition;
+  activeScreen = screen;
+  for (const name of ['manipulation','detail','field','settings']) {
+    $(`${name}-panel`).hidden = name !== screen;
+    $(`${name}-mode`).setAttribute('aria-pressed', String(name === screen));
+  }
+  window.dispatchEvent(new CustomEvent('screen-changed', {detail:screen}));
+  window.scrollTo({...position, behavior:'instant'});
+  requestAnimationFrame(() => {
+    if (activeScreen === screen) window.scrollTo({...position, behavior:'instant'});
+  });
+}
+for (const name of ['manipulation','detail','field','settings']) $(`${name}-mode`).addEventListener('click',()=>showScreen(name));
+
+async function simulate(event) {
+  event?.preventDefault();
+  if (running || stopped) return;
+  $('error').hidden = true;
+  let setup;
+  try { setup = readSetup(); }
+  catch(error) { showError(error.message); return; }
+  $('seed').value = hex(setup.seed);
+  running = true;
+  $('simulate').disabled = true;
+  $('quit').disabled = true;
+  $('seed').disabled = true;
+  $('advances').disabled = true;
+  $('recreate-shared-level').disabled = true;
+  updateRepeatControls();
+  $('save-settings').disabled = true;
+  $('simulate').textContent = 'Simulating…';
+  $('status').textContent = 'Simulating…';
+  try {
+    const response = await fetch(`/api/boost-search?${setupQuery(setup)}`);
+    const calculation = await response.json();
+    if (!response.ok) throw new Error(calculation.error || 'Simulation failed.');
+    if (!calculation.prediction) {
+      if(calculation.search.event_caps.second_fight == null) throw new Error('Required outcome unavailable: checkpoint safety and one-action second fight.');
+      const cap = calculation.search.event_caps.encounter;
+      throw new Error(cap == null ? 'Required checkpoint outcome unavailable after exhausting supported candidates.' : `No encounter-dodge plan found within its ${cap}-repeat limit.`);
+    }
+    const data = calculation.prediction;
+    data.boost_search = calculation.search;
+    result = data;
+    renderSetup(data.crt_setup);
+    render();
+    window.dispatchEvent(new Event('battle-simulated'));
+    $('status').textContent = '';
+  } catch(error) {
+    showError(error instanceof TypeError ? 'Cannot reach the local simulator. Relaunch OT2 Battle Viewer and try again.' : error.message);
+    $('results').hidden = true;
+    $('status').textContent = 'Simulation failed. Previous result remains in Detailed log.';
+  } finally {
+    running = false;
+    $('simulate').disabled = false;
+    $('quit').disabled = false;
+    $('seed').disabled = false;
+    $('advances').disabled = false;
+    $('recreate-shared-level').disabled = false;
+    updateRepeatControls();
+    $('save-settings').disabled = false;
+    $('simulate').textContent = 'Run simulation ↗';
+  }
+}
+
+function render() {
+  const state = result.state;
+  const after = state.opening_crt.after_battle;
+  $('results').hidden = false;
+  const unmet=result.required_outcomes?.unmet || [];
+  $('required-outcomes-error').hidden=!unmet.length;
+  const blocked=result.required_outcomes?.blocker;
+  const unevaluated=result.required_outcomes?.not_evaluated || [];
+  $('required-outcomes-error').textContent=unmet.length ? (blocked ? 'Route simulation stopped · '+blocked : 'Required target not reached · '+unmet[0].label)+'. '+(unevaluated.length?'Later required outcomes were not evaluated. ':'')+'See Detailed log.' : '';
+  $('detail-results').hidden = false;
+  $('detail-empty').hidden = true;
+  $('outcome').textContent = state.outcome === 'victory' ? 'Predicted victory' : `Predicted ${state.outcome}`;
+  $('outcome').className = 'pill ' + (state.outcome === 'victory' ? 'success' : 'failure');
+  const setup = result.crt_setup;
+  $('result-context').textContent = `Seed ${hex(setup.initial_seed)} + ${setupDescription(setup)} · Start ${hex(result.initial_seed)} · Round ${state.round} · ${result.steps.length} actions`;
+  $('final-hex').textContent = hex(state.rng.state);
+  $('copy').textContent = 'Copy hex';
+  $('final-advances').textContent = totalAdvances(state.rng);
+  const checkpoint = result.post_battle_field?.checkpoint;
+  const ambush = result.post_battle_field?.ambush;
+  const second = result.post_battle_field?.second_battle;
+  renderSecond(second);
+  $('checkpoint-advances').textContent = checkpoint ? totalAdvances(checkpoint.after_popup) : 'Not reached';
+  $('checkpoint-hex').textContent = checkpoint ? hex(checkpoint.after_popup.state) : '—';
+  const received = result.steps.flatMap(s=>s.report.events).filter(e=>e.kind==='damage' && result.actors[e.target]?.side==='player').reduce((sum,e)=>sum+e.amount,0);
+  const damageFree = state.outcome === 'victory' && received === 0;
+  $('damage-free').textContent = damageFree ? 'Yes' : 'No';
+  $('damage-free').className = damageFree ? 'text-good' : 'text-bad';
+  const enemyTurns = result.battle_assessment.enemy_turns.length;
+  $('damage-help').textContent = received || enemyTurns || state.outcome!=='victory' ? `${received} damage · ${enemyTurns} enemy turn${enemyTurns===1?'':'s'}${state.outcome==='victory'?'':' · '+state.outcome}` : '';
+  const reach = result.post_battle_field?.reset_reach;
+  const mixed = reach?.mixed;
+  $('avoid-verdict').textContent = !reach ? 'Unavailable' : !mixed ? 'Encounter unavoidable · adjust the checkpoint search in Settings' : `Run ≈${mixed.max_running_percent}%`;
+  $('avoid-verdict').className = 'run-state ' + (reach?.walking.reaches_reset ? 'text-good' : 'text-bad');
+  $('avoid-help').textContent = mixed ? `${mixed.max_running_updates} run + ${mixed.walking_updates} walk updates` : '';
+  $('draws').textContent = state.rng.draws;
+  $('draws-help').textContent = `${setup.battle_entry_advances} before battle · ${totalAdvances(state.rng)} total from initial seed`;
+  $('counter').textContent = after?.encounter_steps ?? '—';
+  renderBoostPlan();
+  $('drops').textContent = after ? `${after.healing_grapes} Healing Grape${after.healing_grapes === 1 ? '' : 's'} dropped` : 'No victory rewards';
+  $('route-checks').innerHTML = battleAssessmentHtml() + (result.post_battle_field ? resetReachHtml(result.post_battle_field.reset_reach) : '<p>No completed field frame available.</p>');
+  const checkpoints = [
+    ['Before initialization', {state:result.initial_seed,draws:0}],
+    ...result.steps.filter(step => result.actors[step.report.actor].side === 'player')
+      .map(step => [`R${step.round} · ${shortActorName(step.report.actor)} command menu`, step.report.rng_before]),
+    ...(after ? [['Fight ended',after.rng_before_rewards],['After drops',after.rng_after_rewards],['After first area reset',after.rng_after_field_reset],['After post-battle event reset',after.rng_after_post_battle_event]] : [['Battle ended',state.rng]]),
+    ...(checkpoint ? [['Checkpoint arrival · before cutscene',checkpoint.arrival],['After checkpoint cutscene + Ambush popup · expected',checkpoint.after_popup]] : []),
+    ...(ambush ? [['Path-action menu open · before confirming Ambush',ambush.at_menu],['After Ambush · rejoin cutscene starts',ambush.after_ambush],['After skipped rejoin cutscene · expected',ambush.after_rejoin]] : []),
+    ...(second ? [
+      ['Second fight · before initialization · expected',second.entry],
+      ...second.steps.filter(s=>second.actors[s.report.actor].side==='player').map(s=>[`Second fight R${s.round} · ${second.actors[s.report.actor].name} command menu`,secondRng(second,s.report.rng_before)]),
+      ['Second fight · after drops · expected',second.after]
+    ] : [])
+  ];
+  $('checkpoints').innerHTML = setup.transition_checkpoints.map(c=>`<tr><td>${escapeHtml(c.label)}</td><td>${c.total_advances}</td><td>${hex(c.state)}</td><td>—</td></tr>`).join('') + checkpoints.map(([label,rng]) => `<tr><td>${escapeHtml(label)}</td><td>${totalAdvances(rng)}</td><td>${hex(rng.state)}</td><td>${rng.draws}</td></tr>`).join('');
+  $('party').innerHTML = result.actors.map((meta,i) => {
+    if (meta.side !== 'player') return '';
+    const r = state.actors[i].resources;
+    return `<div class="member"><div class="member-heading"><span>${escapeHtml(meta.name)}</span><span>${r.hp} / ${meta.max_hp} HP</span></div><progress max="${meta.max_hp}" value="${r.hp}" aria-label="${escapeHtml(meta.name)} HP"></progress><small>${r.sp} / ${meta.max_sp} SP · ${r.bp} BP</small></div>`;
+  }).join('');
+  $('enemy-outcome').textContent = result.actors.map((meta,i) => meta.side === 'enemy' ? `${shortActorName(i)}: ${state.actors[i].resources.hp} HP` : '').filter(Boolean).join(' · ');
+  $('initial-order').textContent = result.initial_state.queue.map(shortActorName).join(' → ');
+  $('log-count').textContent = `${result.steps.length} actions · ${state.rng.draws} CRT draws`;
+  $('actions').innerHTML = result.steps.map((s,i)=>renderAction(s,i)).join('');
+  const titleTrace = setup.transition_checkpoints.slice(1).map((c,i)=>{
+    const before=setup.transition_checkpoints[i];
+    return `<tr><td>${escapeHtml(c.label)}</td><td>—</td><td>${before.total_advances}</td><td>${c.total_advances}</td><td>+${c.transition_draws-before.transition_draws}</td><td>${hex(before.state)}</td><td>${hex(c.state)}</td></tr>`;
+  }).join('');
+  $('trace').innerHTML = titleTrace + [...state.opening_crt.trace,...(checkpoint?.trace || []),...(ambush?.trace || [])].map(span => `<tr><td>${escapeHtml(reasons[span.reason] || span.reason.replaceAll('_',' '))}</td><td>${span.actor === null ? '—' : safeName(span.actor)}</td><td>${totalAdvances(span.before)}</td><td>${totalAdvances(span.after)}</td><td>+${span.after.draws-span.before.draws}</td><td>${hex(span.before.state)}</td><td>${hex(span.after.state)}</td></tr>`).join('');
+  if(second) {
+    const spans=[...second.transition_trace,...second.state.opening_crt.trace.map(s=>({...s,before:secondRng(second,s.before),after:secondRng(second,s.after)}))];
+    $('trace').innerHTML += spans.map(s=>`<tr><td>Second fight · ${escapeHtml(reasons[s.reason] || s.reason.replaceAll('_',' '))}</td><td>${s.actor===null?'—':escapeHtml(second.actors[s.actor].name)}</td><td>${totalAdvances(s.before)}</td><td>${totalAdvances(s.after)}</td><td>+${BigInt(s.after.draws)-BigInt(s.before.draws)}</td><td>${hex(s.before.state)}</td><td>${hex(s.after.state)}</td></tr>`).join('');
+    $('trace').innerHTML += (second.city?.trace || []).map(s=>`<tr><td>${escapeHtml(reasons[s.reason] || s.reason.replaceAll('_',' '))}</td><td>—</td><td>${totalAdvances(s.before)}</td><td>${totalAdvances(s.after)}</td><td>+${BigInt(s.after.draws)-BigInt(s.before.draws)}</td><td>${hex(s.before.state)}</td><td>${hex(s.after.state)}</td></tr>`).join('');
+    if(second.city) $('checkpoints').innerHTML += `<tr><td>After New Delsta radar popup</td><td>${totalAdvances(second.city.after_popup)}</td><td>${hex(second.city.after_popup.state)}</td><td>${second.city.after_popup.draws}</td></tr>`;
+    if(second.parlor) {
+      const p=second.parlor;
+      $('trace').innerHTML += p.trace.map(s=>`<tr><td>${escapeHtml(s.reason)}</td><td>—</td><td>${totalAdvances(s.before)}</td><td>${totalAdvances(s.after)}</td><td>+${BigInt(s.after.draws)-BigInt(s.before.draws)}</td><td>${hex(s.before.state)}</td><td>${hex(s.after.state)}</td></tr>`).join('');
+      $('checkpoints').innerHTML += [['Entered parlor',p.after_entry],['After first parlor cutscene · before next trigger / Yes',p.after_first_scene],['After two further cutscenes · returned to backstreets',p.after_return]].map(([label,rng])=>`<tr><td>${label}</td><td>${totalAdvances(rng)}</td><td>${hex(rng.state)}</td><td>${rng.draws}</td></tr>`).join('');
+    }
+    if(second.parlor_revisit) {
+      const p=second.parlor_revisit;
+      $('trace').innerHTML += p.trace.map(s=>`<tr><td>${escapeHtml(s.reason)}</td><td>—</td><td>${totalAdvances(s.before)}</td><td>${totalAdvances(s.after)}</td><td>+${BigInt(s.after.draws)-BigInt(s.before.draws)}</td><td>${hex(s.before.state)}</td><td>${hex(s.after.state)}</td></tr>`).join('');
+      $('checkpoints').innerHTML += [['Second parlor visit · entered',p.after_entry],['Second parlor visit · backstreets arrival before dialogue/tutorial',p.after_return],['Second parlor visit · after Steal popup',p.after_popup]].map(([label,rng])=>`<tr><td>${label}</td><td>${totalAdvances(rng)}</td><td>${hex(rng.state)}</td><td>${rng.draws}</td></tr>`).join('');
+    }
+    if(second.mansion) {
+      const p=second.mansion;
+      $('trace').innerHTML += p.trace.map(s=>`<tr><td>${escapeHtml(s.reason)}</td><td>—</td><td>${totalAdvances(s.before)}</td><td>${totalAdvances(s.after)}</td><td>+${BigInt(s.after.draws)-BigInt(s.before.draws)}</td><td>${hex(s.before.state)}</td><td>${hex(s.after.state)}</td></tr>`).join('');
+      $('checkpoints').innerHTML += [['Clothes stolen · after Save popup',p.after_clothes],['Boy · Shadow Soulstone stolen',p.after_boy],['New Delsta main area loaded',p.after_main_load],['Artist · three soulstones stolen',p.after_artist],['Mansion entry · control returned',p.after_entry]].map(([label,rng])=>`<tr><td>${label}</td><td>${totalAdvances(rng)}</td><td>${hex(rng.state)}</td><td>${rng.draws}</td></tr>`).join('');
+      const a=p.lookout_ambush;
+      $('trace').innerHTML += a.trace.map(s=>`<tr><td>${escapeHtml(s.reason)}</td><td>—</td><td>${totalAdvances(s.before)}</td><td>${totalAdvances(s.after)}</td><td>+${BigInt(s.after.draws)-BigInt(s.before.draws)}</td><td>${hex(s.before.state)}</td><td>${hex(s.after.state)}</td></tr>`).join('');
+      $('checkpoints').innerHTML += [['Mansion lookout · Ambush menu open',a.at_menu],['Mansion lookout · after Ambush',a.after]].map(([label,rng])=>`<tr><td>${label}</td><td>${totalAdvances(rng)}</td><td>${hex(rng.state)}</td><td>${rng.draws}</td></tr>`).join('');
+    }
+  }
+  renderMansionEscape();
+  renderPirro();
+  renderPirroAftermath();
+  renderHighroad();
+  renderFlats();
+  renderHarborReturn();
+  renderFlatsEscape();
+  renderVillageReturn();
+  renderOsvald();
+  renderCapeCold();
+  renderMug();
+  renderCrackridgeVoyage();
+  renderActionVisibility();
+}
+
+// Manipulation contains decisions for this run. Diagnostics and unchanged
+// routines belong in Detailed log, even when their route event was simulated.
+function renderActionVisibility() {
+  const field=result.post_battle_field;
+  for(const node of document.querySelectorAll('[data-diagnostic-event]')) {
+    const key=node.dataset.diagnosticEvent;
+    node.hidden=!(key==='village_return'?field?.flats_escape?.village_return:field?.[key]);
+  }
+  const hasAdjustment=m=>(m?.inputs?.extra_input_count ?? 0)>0;
+  const hasEscapeInputs=s=>!!s?.break_action || !!s?.inputs?.levels?.length;
+  $('first-battle-result').hidden=!hasAdjustment(result.manipulation);
+  $('checkpoint-run-result').hidden=!field?.reset_reach;
+  const second=field?.second_battle;
+  $('second-battle-result').hidden=!second || !(hasAdjustment(second.manipulation) || second.mansion_approach_search?.target_met===false);
+  const mansion=field?.mansion_escape;
+  $('mansion-escape-result').hidden=!mansion || (!!mansion.solution && !hasEscapeInputs(mansion.solution));
+  const pirroInstructions=!!$('pirro-boost-routine').textContent.trim();
+  $('pirro-boost-heading').hidden=!pirroInstructions;
+  $('pirro-result').hidden=!field?.pirro_battle || !pirroInstructions;
+  const highroad=field?.highroad, escape=highroad?.escape;
+  $('highroad-result').hidden=!highroad || (!!escape && !highroad.error && !hasEscapeInputs(escape) && escape.flats_search?.target_met!==false && escape.flats_approach_search?.target_met!==false);
+  const flats=field?.flats_escape;
+  $('flats-escape-result').hidden=!flats || (!!flats.escape && !flats.error && !hasEscapeInputs(flats.escape));
+}
+
+function renderHighroad() {
+  const p=result.post_battle_field?.highroad;
+  $('highroad-result').hidden=!p;
+  $('highroad-boost-routine').innerHTML='';
+  $('highroad-escape-diagnostics').hidden=true;
+  if(!p) return;
+  if(p.error) { $('highroad-boost-routine').textContent=`Unavailable · ${p.error}`; return; }
+  const s=p.escape, search=p.approach_search;
+  if(search && !search.target_met) $('pirro-boost-routine').innerHTML+='<p class="text-bad">R8 adjustment unavailable · see Detailed log</p>';
+  if(s?.break_action) {
+    const b=s.break_action, weapon=b.weapon==='sword'?'Sword':'Dagger';
+    $('highroad-boost-routine').innerHTML=`<p><strong>R1 · Throné · 1st command menu</strong></p><p class="boost-step">${weapon} · ${b.boost} BP</p><p><strong>R${b.escape_round} · Escape</strong></p>`;
+  } else if(s?.inputs) {
+    const parts=groupBoostRoutine(s.inputs.levels).map(c=>`${c.from} → ${c.to}${c.count>1?' ×'+c.count:''}`);
+    $('highroad-boost-routine').innerHTML=parts.length?'<p><strong>R1 · Throné · 1st command menu</strong></p><div class="boost-instructions">'+parts.map(c=>`<span class="boost-step">${c}</span>`).join('')+'</div>':'';
+  } else $('highroad-boost-routine').textContent='Adjustment unavailable · see Detailed log';
+  if(s?.flats_search && !s.flats_search.target_met) $('highroad-boost-routine').innerHTML+='<p class="text-bad">Flats walking target not met · increase its repeat limit in Settings</p>';
+  if(s?.flats_approach_search && !s.flats_approach_search.target_met) $('highroad-boost-routine').innerHTML+='<p class="text-bad">Flats surprise target not met · increase its repeat limit in Settings</p>';
+  const checkpoint=(label,rng)=>`<tr><td>${escapeHtml(label)}</td><td>${totalAdvances(rng)}</td><td>${hex(rng.state)}</td><td>${rng.draws}</td></tr>`;
+  $('checkpoints').innerHTML+=checkpoint('Al introduction · popup dismissed',p.after_al)+checkpoint('Highroad encounter · before initialization',p.before_battle_initialization);
+  if(s) $('checkpoints').innerHTML+=checkpoint('Highroad R1 · Throné · 1st command menu',s.menu.rng);
+  if(s?.break_action) $('checkpoints').innerHTML+=checkpoint(`Highroad R${s.break_action.escape_round} · Escape menu after break`,s.break_action.at_escape_menu);
+  if(s?.attempt) $('checkpoints').innerHTML+=checkpoint('Highroad Escape · after first check',s.attempt.after);
+  if(p.field_return) {
+    const r=p.field_return.after;
+    $('highroad-escape-diagnostics').hidden=false;
+    $('highroad-escape-advances').textContent=totalAdvances(r);
+    $('highroad-escape-hex').textContent=hex(r.state);
+    $('checkpoints').innerHTML+=checkpoint('Highroad Escape · returned to field',r);
+  }
+  let traces=[...p.trace], previous=p.after_al;
+  for(const c of p.encounter.checkpoints) {
+    const after={state:c.state,draws:BigInt(p.after_al.draws)+BigInt(c.draws)};
+    traces.push({reason:c.label,before:previous,after});previous=after;
+  }
+  traces.push(...(s?.attempt?.trace || s?.menu.trace || []));
+  traces.push(...(p.field_return?.trace || []));
+  $('trace').innerHTML+=traces.map(t=>`<tr><td>Highroad · ${escapeHtml(reasons[t.reason] || t.reason)}</td><td>—</td><td>${totalAdvances(t.before)}</td><td>${totalAdvances(t.after)}</td><td>+${BigInt(t.after.draws)-BigInt(t.before.draws)}</td><td>${hex(t.before.state)}</td><td>${hex(t.after.state)}</td></tr>`).join('');
+  $('pirro-verification').textContent+=` Highroad: Lv${p.level} · ${p.encounter.situation} · ${p.encounter.enemies.map(e=>e.enemy.name).join(', ')}. ${search?.status || ''}. ${s ? `${s.status}; Escape ${s.baseline.chance_percent}%.` : ''} ${s?.flats_search?.status || ''}. ${s?.flats_approach_search?.status || ''}. ${p.verification}`;
+}
+
+function renderFlatsEscape() {
+  const p=result.post_battle_field?.flats_escape;
+  $('flats-escape-result').hidden=!p;
+  $('flats-escape-routine').innerHTML='';
+  $('flats-escape-run').textContent='';
+  $('flats-escape-diagnostics').hidden=true;
+  if(!p) return;
+  if(p.error) { $('flats-escape-routine').textContent=`Unavailable · ${p.error}`; return; }
+  const s=p.escape;
+  if(s?.break_action) {
+    const b=s.break_action;
+    $('flats-escape-routine').innerHTML=`<p><strong>R1 · Throné · 1st command menu</strong></p><p class="boost-step">${b.weapon==='sword'?'Sword':'Dagger'} · ${b.boost} BP</p><p><strong>R${b.escape_round} · Escape</strong></p>`;
+  } else if(s?.inputs) {
+    const parts=groupBoostRoutine(s.inputs.levels).map(c=>`${c.from} → ${c.to}${c.count>1?' ×'+c.count:''}`);
+    $('flats-escape-routine').innerHTML=parts.length?'<p><strong>R1 · Throné · 1st command menu</strong></p><div class="boost-instructions">'+parts.map(c=>`<span class="boost-step">${c}</span>`).join('')+'</div>':'';
+  } else $('flats-escape-routine').textContent=p.status;
+  const checkpoint=(label,rng)=>`<tr><td>${escapeHtml(label)}</td><td>${totalAdvances(rng)}</td><td>${hex(rng.state)}</td><td>${rng.draws}</td></tr>`;
+  $('checkpoints').innerHTML+=checkpoint('Flats encounter · before initialization',p.before_battle_initialization);
+  if(s) $('checkpoints').innerHTML+=checkpoint('Flats R1 · Throné · 1st command menu',s.menu.rng);
+  if(s?.break_action) $('checkpoints').innerHTML+=checkpoint('Flats · Escape menu after break',s.break_action.at_escape_menu);
+  if(p.field_return) {
+    const r=p.field_return.after;
+    $('flats-escape-diagnostics').hidden=false;
+    $('flats-escape-advances').textContent=totalAdvances(r);
+    $('flats-escape-hex').textContent=hex(r.state);
+    $('flats-escape-run').textContent=`Run ${p.remaining_updates} updates · ${p.remaining_run.counter_before_reset} counter left at village entrance`;
+    $('checkpoints').innerHTML+=checkpoint('Flats Escape · returned to field',r)+checkpoint('Abandoned Village entrance · before loading',p.at_village_entrance);
+  }
+  const traces=[]; let previous=p.arrival;
+  for(const c of p.encounter.checkpoints) {
+    const after={state:c.state,draws:BigInt(p.arrival.draws)+BigInt(c.draws)};
+    traces.push({reason:c.label,before:previous,after}); previous=after;
+  }
+  traces.push(...(s?.attempt?.trace || s?.menu.trace || []),...(p.field_return?.trace || []));
+  $('trace').innerHTML+=traces.map(t=>`<tr><td>Flats · ${escapeHtml(reasons[t.reason] || t.reason)}</td><td>—</td><td>${totalAdvances(t.before)}</td><td>${totalAdvances(t.after)}</td><td>+${BigInt(t.after.draws)-BigInt(t.before.draws)}</td><td>${hex(t.before.state)}</td><td>${hex(t.after.state)}</td></tr>`).join('');
+  $('pirro-verification').textContent+=` Flats: Lv${p.level} · ${p.encounter.situation} · ${p.encounter.enemies.map(e=>e.enemy.name).join(', ')}. Encounter at update ${p.first_encounter_update}/${p.run_updates}; reset counter must be ≥${p.required_counter}. ${s?.status || ''}. ${p.verification}`;
+}
+
+function renderVillageReturn() {
+  const p=result.post_battle_field?.flats_escape?.village_return;
+  $('village-return-result').hidden=!p;
+  if(!p) return;
+  $('village-return-advances').textContent=totalAdvances(p.after);
+  $('village-return-hex').textContent=hex(p.after.state);
+  const r=p.snow_reach,m=r.mixed;
+  const label=!m?'Walking target not met':r.running.reaches_reset?'Run 100%':`Run ≈${m.running_distance_percent}% · walk ${m.walking_distance_percent}%`;
+  $('village-snow-run').textContent=label;
+  $('village-snow-run').className='run-state '+(m?'text-good':'text-bad');
+  $('village-snow-detail').textContent=`Counter ${r.initial_counter} · ${m?`${m.estimated_counter_at_exit} left · route-distance estimate`:'Walking needs counter 649'}`;
+  for(const [label,rng] of [['Abandoned Village · tagged, popup dismissed',p.at_village],['Flats · returned from Abandoned Village',p.after],...(p.at_snow_entrance?[['Southern Cape Cold Snows entrance · before loading',p.at_snow_entrance]]:[])]) {
+    $('checkpoints').innerHTML+=`<tr><td>${label}</td><td>${totalAdvances(rng)}</td><td>${hex(rng.state)}</td><td>${rng.draws}</td></tr>`;
+  }
+  $('trace').innerHTML+=p.trace.map(t=>`<tr><td>${escapeHtml(t.reason)}</td><td>—</td><td>${totalAdvances(t.before)}</td><td>${totalAdvances(t.after)}</td><td>+${BigInt(t.after.draws)-BigInt(t.before.draws)}</td><td>${hex(t.before.state)}</td><td>${hex(t.after.state)}</td></tr>`).join('');
+  $('pirro-verification').textContent+=` ${p.verification} ${r.verification} ${result.post_battle_field.flats_escape.snow_search?.status||''}.`;
+}
+
+function renderOsvald() {
+  const p=result.post_battle_field?.flats_escape?.osvald;
+  $('osvald-result').hidden=!p;
+  if(!p) return;
+  const safe=p.walking.reaches_reset;
+  $('osvald-walk').textContent=safe?'Walk to Osvald · no encounter':'Walking target not met';
+  $('osvald-walk').className='run-state '+(safe?'text-good':'text-bad');
+  $('osvald-counter').textContent=`Counter ${p.world_at_entry.encounter_counter} · ${safe?`${p.walking.counter_before_reset} left after 70 updates`:'walking needs 631'}`;
+  $('osvald-diagnostics').hidden=!p.after_recruitment;
+  if(p.after_recruitment) {
+    $('osvald-advances').textContent=totalAdvances(p.after_recruitment);
+    $('osvald-hex').textContent=hex(p.after_recruitment.state);
+  }
+  for(const [label,rng] of [['Southern Cape Cold Snows · after loading',p.after_loading],['Osvald · before recruitment',p.at_osvald],['Osvald · recruited, tutorials dismissed',p.after_recruitment]]) {
+    if(rng) $('checkpoints').innerHTML+=`<tr><td>${label}</td><td>${totalAdvances(rng)}</td><td>${hex(rng.state)}</td><td>${rng.draws}</td></tr>`;
+  }
+  $('trace').innerHTML+=p.trace.map(t=>`<tr><td>Osvald · ${escapeHtml(t.reason)}</td><td>—</td><td>${totalAdvances(t.before)}</td><td>${totalAdvances(t.after)}</td><td>+${BigInt(t.after.draws)-BigInt(t.before.draws)}</td><td>${hex(t.before.state)}</td><td>${hex(t.after.state)}</td></tr>`).join('');
+  $('pirro-verification').textContent+=` ${p.verification} ${result.post_battle_field.flats_escape.osvald_search?.status||''}.`;
+}
+
+function renderCapeCold() {
+  const p=result.post_battle_field?.cape_cold;
+  $('cape-cold-result').hidden=!p;
+  $('cape-cold-error').hidden=!p?.error;
+  $('cape-cold-error').textContent=p?.error?`Prediction unavailable · ${p.error}`:'';
+  $('cape-cold-movement').hidden=!p || !!p.error;
+  $('cape-cold-diagnostics').hidden=!p?.after_loading;
+  if(!p || p.error) return;
+  const r=p.reach,m=r.mixed;
+  $('cape-cold-run').textContent=!m?'Walking target not met':r.running.reaches_reset?'Run 100%':`Run ≈${m.running_distance_percent}% · walk ${m.walking_distance_percent}%`;
+  $('cape-cold-run').className='run-state '+(m?'text-good':'text-bad');
+  $('cape-cold-counter').textContent=`Counter ${r.initial_counter} · ${m?`${m.estimated_counter_at_exit} left · route-distance estimate`:'Walking needs counter 487'}`;
+  if(p.after_loading) {
+    $('cape-cold-advances').textContent=totalAdvances(p.after_loading);
+    $('cape-cold-hex').textContent=hex(p.after_loading.state);
+  }
+  for(const [label,rng] of [['Cape Cold entrance · before loading',p.at_entrance],['Cape Cold · after loading',p.after_loading]]) {
+    if(rng) $('checkpoints').innerHTML+=`<tr><td>${escapeHtml(label)}</td><td>${totalAdvances(rng)}</td><td>${hex(rng.state)}</td><td>${rng.draws}</td></tr>`;
+  }
+  $('trace').innerHTML+=p.trace.map(t=>`<tr><td>Cape Cold · ${escapeHtml(t.reason)}</td><td>—</td><td>${totalAdvances(t.before)}</td><td>${totalAdvances(t.after)}</td><td>+${BigInt(t.after.draws)-BigInt(t.before.draws)}</td><td>${hex(t.before.state)}</td><td>${hex(t.after.state)}</td></tr>`).join('');
+  $('pirro-verification').textContent+=` ${r.verification} ${p.verification}`;
+}
+
+function renderMug() {
+  const p=result.post_battle_field?.cape_cold_mug;
+  const market=result.post_battle_field?.black_market;
+  const search=market?.search;
+  const reach=market?.cleric_reach;
+  $('cleric-approach-result').hidden=!reach;
+  $('cleric-approach-run').textContent=!reach?'':reach.running.reaches_reset?'Run 100%':reach.mixed?`Run ${reach.mixed.max_running_percent}% · walk ${(100-reach.mixed.max_running_percent).toFixed(1).replace(/\.0$/,'')}%`:'Encounter unavoidable while walking';
+  $('cleric-approach-run').classList.toggle('text-bad',!!reach && !reach.mixed);
+  $('cleric-approach-detail').textContent=reach?`Flats entry → cleric spawns: ${reach.walking.updates} updates at either speed (40 measured + 2 for player error). Entry counter ${reach.initial_counter} · walking cost ${reach.walking.cost} · running cost ${reach.running.cost}. ${reach.mixed?`Safe mix: ${reach.mixed.max_running_updates} run + ${reach.mixed.walking_updates} walk updates; ${reach.mixed.counter_before_reset} counter left.`:'Walking triggers an encounter.'} World state retains the walking reference counter.`:'';
+  const warning=market?.error || (search && !search.met ? 'Clerics target not met · adjust its search in Settings.' : '');
+  $('mug-log').hidden=!p;
+  $('mug-details').hidden=!p || !!p.error;
+  $('mug-error').hidden=!p?.error;
+  $('mug-error').textContent=p?.error?`Prediction unavailable · ${p.error}`:'';
+  $('mug-result').hidden=!p || (!p.error && !warning && !p.mug.survived_round_two && !search?.extra_advances && !search?.cape_time_switches);
+  const instructions=[];
+  if(search?.extra_advances) {
+    const parts=groupBoostRoutine(search.inputs.levels).map(c=>c.from+'→'+c.to+(c.count>1?' ×'+c.count:''));
+    instructions.push('<h3>Boost adjustment</h3><p><strong>R2 · Osvald · 1st command menu</strong></p><div class="boost-instructions">'+parts.map(part=>'<span class="boost-step">'+escapeHtml(part)+'</span>').join('')+'</div>');
+  }
+  if(p?.mug?.survived_round_two) instructions.push('<p class="run-action">R3 · Staff attack</p>');
+  if(search?.cape_time_switches) {
+    const n=search.cape_time_switches;
+    instructions.push('<p class="action-context">After Mug · Cape Cold</p><p class="run-action">Cape Cold time switch: '+n+'</p>');
+    if(!market.switched_at_village) instructions.push('<p class="action-note">Skip time switch in Abandoned Village</p>');
+  }
+  if(warning) instructions.push('<p class="text-bad">'+escapeHtml(warning)+'</p>');
+  $('mug-adjustment').innerHTML=p?.error?'<p class="text-bad">Prediction unavailable · '+escapeHtml(p.error)+'</p>':instructions.join('');
+  $('mug-actions').innerHTML='';
+  if(!p || p.error) return;
+  const battle=p.mug;
+  const mugNames={ABI_SET_SCH_020:'Icewind',ABI_SET_SCH_010:'Fireball',attack_staff:'Staff attack',ABI_NPB_2570:'Stand Ground'};
+  const actor=id=>id===0?'Osvald':id===1?'Man':'—';
+  $('mug-context').textContent=`Lv1 Osvald · ${battle.survived_round_two?'Staff finisher needed':'Man defeated after Fireball'}`;
+  $('mug-advances').textContent=totalAdvances(p.after);
+  $('mug-hex').textContent=hex(p.after.state);
+  $('mug-verification').textContent=p.verification;
+  let round=1, hp=280;
+  $('mug-actions').innerHTML=battle.steps.map(s=>{
+    const action=s.events.find(e=>e.kind==='action');
+    const bp=s.events.find(e=>e.kind==='resource_changed' && e.resource==='bp' && e.actor===s.actor);
+    const damage=s.events.filter(e=>e.kind==='damage').map(e=>e.amount);
+    const health=s.events.find(e=>e.kind==='resource_changed' && e.resource==='hp' && e.actor===1);
+    if(health) hp=health.after;
+    const label=(mugNames[action?.name]||action?.name||'Action')+(s.actor===0?` · ${bp?bp.before-bp.after:0} BP`:'');
+    const row=`<tr><td>R${round}</td><td>${actor(s.actor)}</td><td>${escapeHtml(label)}</td><td>${damage.length?damage.join(' + '):'—'}</td><td>${hp}</td><td>${totalAdvances(s.rng_before)}</td><td>${hex(s.rng_before.state)}</td></tr>`;
+    const next=s.events.find(e=>e.kind==='round_started');
+    if(next) round=next.round;
+    return row;
+  }).join('');
+  const checkpoints=[['Cape Cold · night switch',p.after_night],['Mug · before battle initialization',p.before_battle],...battle.menus.map(m=>[`Mug · R${m.round} Osvald command menu`,m.rng]),['Mug · victory and drop',battle.after],['Mug · loot dismissed, field returned',p.after]];
+  if(market && !market.error) {
+    for(const [i,s] of (market.cape_switches||[]).entries()) checkpoints.push([`Cape Cold · time switch ${i+1} · ${s.time===2?'day':'night'}`,s.after]);
+    checkpoints.push(['Fast travel · Abandoned Village',market.after_travel],[market.switched_at_village?'Abandoned Village · day switch':'Abandoned Village · already day, no switch',market.after_day],['Black market route · Flats entry',market.after_flats],['Cleric spawns · before night switch',market.at_clerics],['Flats · night switch near market',market.after_night]);
+    $('mug-verification').textContent+=' '+(market.clerics_present?'Clerics present. ':'Clerics not present. ')+market.verification;
+  }
+  $('checkpoints').innerHTML+=checkpoints.map(([label,rng])=>`<tr><td>${escapeHtml(label)}</td><td>${totalAdvances(rng)}</td><td>${hex(rng.state)}</td><td>${rng.draws}</td></tr>`).join('');
+  // Field trace includes both pre-battle and return callbacks. Merge by draw
+  // boundary so return draws follow the battle, including zero-draw spans.
+  const trace=[...p.trace,...battle.trace,...(market?.trace||[])].sort((a,b)=>Number(a.before.draws)-Number(b.before.draws)||Number(a.after.draws)-Number(b.after.draws));
+  $('trace').innerHTML+=trace.map(t=>`<tr><td>Mug · ${escapeHtml(reasons[t.reason]||t.reason.replaceAll('_',' '))}</td><td>${actor(t.actor)}</td><td>${totalAdvances(t.before)}</td><td>${totalAdvances(t.after)}</td><td>+${BigInt(t.after.draws)-BigInt(t.before.draws)}</td><td>${hex(t.before.state)}</td><td>${hex(t.after.state)}</td></tr>`).join('');
+}
+
+function renderCrackridgeVoyage() {
+  const p=result.post_battle_field?.crackridge_voyage;
+  const e=result.post_battle_field?.crackridge_escape;
+  $('crackridge-switch-result').hidden=!p || !!p.error;
+  $('crackridge-switch-instruction').textContent=p?.day_switch_location==='flats'?'Switch to day in New Delsta Flats · before teleporting to Harbor':'Switch to day in New Delsta Harbor · after teleporting';
+  $('crackridge-escape-result').hidden=!e;
+  const actor=e?.menu?.first_actor===1?'Osvald':'Throné';
+  const parts=groupBoostRoutine(e?.inputs?.levels||[]).map(c=>`${c.from}→${c.to}${c.count>1?' ×'+c.count:''}`);
+  $('crackridge-escape-routine').innerHTML=e?.error?`<p class="text-bad">${escapeHtml(e.error)}</p>`:e?.attempt?.success?`<p><strong>R1 · ${actor} · 1st command menu</strong></p>${parts.length?'<div class="boost-instructions">'+parts.map(c=>`<span class="boost-step">${c}</span>`).join('')+'</div>':''}<p class="run-action">Escape</p>`:`<p class="text-bad">${escapeHtml(e?.status||'')}</p>`;
+  $('crackridge-voyage-result').hidden=!p;
+  $('crackridge-voyage-error').hidden=!p?.error;
+  $('crackridge-voyage-error').textContent=p?.error?`Prediction unavailable · ${p.error}`:'';
+  $('crackridge-voyage-diagnostics').hidden=!p || !!p.error;
+  $('crackridge-voyage-verification').textContent='';
+  if(!p || p.error) return;
+  $('crackridge-voyage-advances').textContent=totalAdvances(p.after);
+  $('crackridge-voyage-hex').textContent=hex(p.after.state);
+  $('crackridge-voyage-verification').textContent=p.verification;
+  const dayLabel=p.day_switch_location==='flats'?'New Delsta Flats · switched to day':'New Delsta Harbor · switched to day';
+  const travel=['Fast travel · New Delsta Harbor',p.at_new_delsta_harbor];
+  const day=[dayLabel,p.after_day_switch];
+  const checkpoints=[['Clerics · soulstones bought, shop dismissed',p.after_shopping],...(p.day_switch_location==='flats'?[day,travel]:[travel,day]),['Boat to Crackridge · before voyage',p.before_boat],['Crackridge Harbor · boat finished, field control',p.after]];
+  if(e?.menu) checkpoints.push([`Crackridge Harbor · R1 ${actor} command menu`,e.menu.rng]);
+  if(e?.attempt) checkpoints.push(['Crackridge Harbor · before Escape check',e.attempt.before_check],['Crackridge Harbor · successful Escape',e.attempt.after]);
+  if(e?.field_return) checkpoints.push(['Crackridge Harbor · field returned',e.field_return.after]);
+  $('checkpoints').innerHTML+=checkpoints.map(([label,rng])=>`<tr><td>${escapeHtml(label)}</td><td>${totalAdvances(rng)}</td><td>${hex(rng.state)}</td><td>${rng.draws}</td></tr>`).join('');
+  $('trace').innerHTML+=p.trace.map(t=>`<tr><td>Crackridge voyage · ${escapeHtml(t.reason)}</td><td>—</td><td>${totalAdvances(t.before)}</td><td>${totalAdvances(t.after)}</td><td>+${BigInt(t.after.draws)-BigInt(t.before.draws)}</td><td>${hex(t.before.state)}</td><td>${hex(t.after.state)}</td></tr>`).join('');
+  if(e?.encounter) $('checkpoints').innerHTML+=e.encounter.checkpoints.map(t=>`<tr><td>Crackridge encounter · ${escapeHtml(t.label)}</td><td>${totalAdvances({draws:t.draws})}</td><td>${hex(t.state)}</td><td>${t.draws}</td></tr>`).join('');
+  const trace=[...(e?.attempt?.trace||[]),...(e?.field_return?.trace||[])];
+  $('trace').innerHTML+=trace.map(t=>`<tr><td>Crackridge Escape · ${escapeHtml(t.reason)}</td><td>${t.actor===0?'Throné':t.actor===1?'Osvald':'—'}</td><td>${totalAdvances(t.before)}</td><td>${totalAdvances(t.after)}</td><td>+${BigInt(t.after.draws)-BigInt(t.before.draws)}</td><td>${hex(t.before.state)}</td><td>${hex(t.after.state)}</td></tr>`).join('');
+  if(e?.verification) $('crackridge-voyage-verification').textContent+=' '+e.verification;
+}
+
+function renderFlats() {
+  const p=result.post_battle_field?.flats;
+  $('flats-result').hidden=!p;
+  $('flats-diagnostics').hidden=!p || !!p.error;
+  $('flats-error').hidden=!p?.error;
+  $('flats-error').textContent=p?.error ? `Prediction unavailable · ${p.error}` : '';
+  $('flats-harbor').innerHTML='';
+  $('flats-harbor-detail').textContent='';
+  if(!p || p.error) return;
+  $('flats-advances').textContent=totalAdvances(p.after);
+  $('flats-hex').textContent=hex(p.after.state);
+  const reach=p.harbor_reach;
+  if(reach) {
+    const mixed=reach.mixed;
+    const label=!mixed?'Encounter unavoidable':reach.running.reaches_reset?'Run 100%':`Run ≈${mixed.running_distance_percent}% · walk ${mixed.walking_distance_percent}%`;
+    const detail=reach.running.reaches_reset?`${reach.running.counter_before_reset} left at harbor · 56 running updates`:mixed?`Route-distance estimate · ${mixed.estimated_counter_at_harbor} left`:'Walking needs counter 550';
+    $('flats-harbor').innerHTML=`<h3>${reach.running.reaches_reset?'Running limit':'Running limit · estimate'}</h3><p class="run-state ${mixed?'text-good':'text-bad'}">${label}</p>`;
+    $('flats-harbor-detail').textContent=`Counter ${reach.initial_counter} · ${detail}`;
+  }
+  $('checkpoints').innerHTML+=`<tr><td>New Delsta Flats · after loading</td><td>${totalAdvances(p.after)}</td><td>${hex(p.after.state)}</td><td>${p.after.draws}</td></tr>`;
+  $('trace').innerHTML+=p.trace.map(s=>`<tr><td>${escapeHtml(s.reason)}</td><td>—</td><td>${totalAdvances(s.before)}</td><td>${totalAdvances(s.after)}</td><td>+${BigInt(s.after.draws)-BigInt(s.before.draws)}</td><td>${hex(s.before.state)}</td><td>${hex(s.after.state)}</td></tr>`).join('');
+  $('pirro-verification').textContent+=` ${p.verification} ${reach?.verification || ''}`;
+}
+
+function renderHarborReturn() {
+  const p=result.post_battle_field?.harbor_return;
+  $('harbor-return-result').hidden=!p;
+  $('harbor-return-diagnostics').hidden=!p || !!p.error;
+  $('harbor-return-error').hidden=!p?.error;
+  $('harbor-return-error').textContent=p?.error ? `Prediction unavailable · ${p.error}` : '';
+  if(!p || p.error) return;
+  $('harbor-return-advances').textContent=totalAdvances(p.after);
+  $('harbor-return-hex').textContent=hex(p.after.state);
+  $('harbor-return-counter').textContent=`Counter ${p.world_after.encounter_counter}`;
+  for(const [label,rng] of [['New Delsta Harbor · tagged',p.at_harbor],['New Delsta Flats · returned from harbor',p.after]]) {
+    $('checkpoints').innerHTML+=`<tr><td>${label}</td><td>${totalAdvances(rng)}</td><td>${hex(rng.state)}</td><td>${rng.draws}</td></tr>`;
+  }
+  $('trace').innerHTML+=p.trace.map(s=>`<tr><td>${escapeHtml(s.reason)}</td><td>—</td><td>${totalAdvances(s.before)}</td><td>${totalAdvances(s.after)}</td><td>+${BigInt(s.after.draws)-BigInt(s.before.draws)}</td><td>${hex(s.before.state)}</td><td>${hex(s.after.state)}</td></tr>`).join('');
+  $('pirro-verification').textContent+=` ${p.verification}`;
+}
+
+function renderPirroAftermath() {
+  const p=result.post_battle_field?.pirro_aftermath;
+  $('pirro-aftermath-result').hidden=!p || !!p.error;
+  $('pirro-aftermath-error').hidden=!p?.error;
+  $('pirro-aftermath-error').textContent=p?.error ? `Post-Pirro prediction unavailable: ${p.error}` : '';
+  if(!p || p.error) return;
+  $('pirro-aftermath-advances').textContent=totalAdvances(p.after);
+  $('pirro-aftermath-hex').textContent=hex(p.after.state);
+  $('pirro-verification').textContent+=` ${p.verification}`;
+  $('checkpoints').innerHTML+=`<tr><td>After Pirro cutscenes · Eastern New Delsta Highroad control</td><td>${totalAdvances(p.after)}</td><td>${hex(p.after.state)}</td><td>${p.after.draws}</td></tr>`;
+  $('trace').innerHTML+=p.trace.map(s=>`<tr><td>${escapeHtml(s.reason)}</td><td>—</td><td>${totalAdvances(s.before)}</td><td>${totalAdvances(s.after)}</td><td>+${BigInt(s.after.draws)-BigInt(s.before.draws)}</td><td>${hex(s.before.state)}</td><td>${hex(s.after.state)}</td></tr>`).join('');
+}
+
+function renderPirro() {
+  const p=result.post_battle_field?.pirro_battle;
+  $('pirro-result').hidden=!result.post_battle_field?.mansion_escape;
+  $('pirro-log').hidden=!p || !!p.error;
+  $('pirro-boost-routine').innerHTML='';
+  if(!p || p.error) {
+    $('pirro-boost-routine').textContent='Unavailable · no Pirro prediction';return;
+  }
+  const won=p.state.outcome==='victory' && !p.routine_error;
+  const search=p.boost_search, m=p.manipulation;
+  if(won) {
+    const instruction=[m,p.r8_manipulation].filter(adjustment=>adjustment?.inputs.extra_input_count>0).map(adjustment=>{
+      const parts=groupBoostRoutine(adjustment.inputs.levels).map(c=>`${c.from} → ${c.to}${c.count>1?' ×'+c.count:''}`);
+      return `<p><strong>R${adjustment.round} · Throné · 1st command menu</strong></p><div class="boost-instructions">`+parts.map(c=>`<span class="boost-step">${c}</span>`).join('')+'</div>';
+    }).join('');
+    $('pirro-boost-routine').innerHTML=instruction;
+  } else {
+    $('pirro-boost-routine').textContent='No boost adjustment found · see Detailed log';
+  }
+  $('pirro-context').textContent=`${p.group} · ${p.state.outcome} · entry ${totalAdvances(p.entry)} (${hex(p.entry.state)}) · ${p.initial_state.actors[0].resources.hp} HP / ${p.initial_state.actors[0].resources.sp} SP`;
+  if(search) {
+    const policy=search.settings.no_grape_max_boost_repeats===null
+      ? `Required victory without Healing Grape · ${search.victory_repeats} joint repeats`
+      : `Victory: ${repeatCapLabel(search.settings.victory_max_boost_repeats)} (${search.victory_repeats} repeats used) · Optional no-grape: ${search.settings.no_grape_max_boost_repeats} additional repeats`;
+    $('pirro-context').textContent+=` · R3 search: ${search.tested_candidates} candidates · ${policy}${m?` · +${m.extra_advances} CRT draws · ${m.inputs.extra_input_count} extra button presses`:''}`;
+  }
+  $('pirro-error').hidden=!p.routine_error;$('pirro-error').textContent=p.routine_error || '';
+  $('pirro-verification').textContent=p.verification;
+  $('pirro-actions').innerHTML=p.steps.map((s,i)=>renderAction(s,i,p)).join('');
+  const checkpoint=(label,rng)=>`<tr><td>${escapeHtml(label)}</td><td>${totalAdvances(rng)}</td><td>${hex(rng.state)}</td><td>${rng.draws}</td></tr>`;
+  $('checkpoints').innerHTML+=checkpoint('Pirro · cutscene skipped, before initialization',p.entry);
+  let round=0,menu=0;
+  for(const s of p.steps.filter(s=>p.actors[s.report.actor].side==='player')) {
+    if(s.round!==round){round=s.round;menu=0;}menu++;
+    $('checkpoints').innerHTML+=checkpoint(`Pirro R${round} · Throné · command menu ${menu}`,secondRng(p,s.report.rng_before));
+  }
+  $('checkpoints').innerHTML+=checkpoint(p.after_victory?'Pirro · after victory drops':`Pirro · ${p.state.outcome}`,p.after);
+  const trace=[...p.transition_trace,...p.state.opening_crt.trace.map(s=>({...s,before:secondRng(p,s.before),after:secondRng(p,s.after)}))];
+  $('trace').innerHTML+=trace.map(s=>`<tr><td>Pirro · ${escapeHtml(reasons[s.reason] || s.reason.replaceAll('_',' '))}</td><td>${s.actor===null?'—':escapeHtml(p.actors[s.actor].name)}</td><td>${totalAdvances(s.before)}</td><td>${totalAdvances(s.after)}</td><td>+${BigInt(s.after.draws)-BigInt(s.before.draws)}</td><td>${hex(s.before.state)}</td><td>${hex(s.after.state)}</td></tr>`).join('');
+}
+
+function renderMansionEscape() {
+  const p=result.post_battle_field?.mansion_escape;
+  $('mansion-escape-result').hidden=!p;
+  if(!p) return;
+  $('mansion-escape-status').hidden=!!p.solution;
+  $('mansion-escape-status').textContent=p.error || p.status;
+  $('mansion-escape-status').className='run-state '+(p.solution?'text-good':'text-bad');
+  $('mansion-escape-position').textContent=p.error?'':`Diamante Guard I · ${p.first_encounter.situation} · update ${p.first_encounter_update}/${p.run_updates}`;
+  $('mansion-escape-routine').innerHTML='';
+  $('mansion-escape-diagnostics').innerHTML='';
+  if(p.error) return;
+  const s=p.solution;
+  const menuLabel=`R${p.round} · Throné · 1st command menu`;
+  const checkpoint=(label,rng)=>`<tr><td>${escapeHtml(label)}</td><td>${totalAdvances(rng)}</td><td>${hex(rng.state)}</td><td>${rng.draws}</td></tr>`;
+  $('checkpoints').innerHTML+=checkpoint('Mansion encounter · before enemy initialization',p.before_battle_initialization)+checkpoint(menuLabel,p.at_command_menu);
+  if(s) {
+    const climbs=groupBoostRoutine(s.inputs.levels).map(c=>`${c.from} → ${c.to}${c.count>1?' ×'+c.count:''}`);
+    $('mansion-escape-routine').innerHTML=`<h3>Boost routine</h3><p><strong>${menuLabel}</strong></p>${climbs.length ? `<div class="boost-instructions">${climbs.map(c=>`<span class="boost-step">${c}</span>`).join('')}</div>` : '<p class="boost-step">No boosts needed</p>'}<p><strong>${s.break_then_escape?'Dagger attack · 1 BP → next command menu: Escape':'Select Escape'}${s.reaches_pirro?' → run to Pirro':''}</strong></p>`;
+    if(!s.reaches_pirro) $('mansion-escape-routine').innerHTML+='<p class="text-bad">No-second-encounter target not met. Increase its budget or select Required outcome.</p>';
+    $('mansion-escape-diagnostics').innerHTML=`<span class="diagnostic-label">CRT at command menu · before boosts</span><div class="diagnostic-value"><strong>${totalAdvances(p.at_command_menu)}</strong><span>advances since initial seed</span></div><span class="rng-secondary">${hex(p.at_command_menu.state)}</span><div class="run-diagnostics"><span class="diagnostic-label">CRT after Escape · field returned</span><div class="diagnostic-value"><strong>${totalAdvances(s.after_field_return)}</strong><span>advances since initial seed</span></div><span class="rng-secondary">${hex(s.after_field_return.state)}</span></div><p class="muted small">Counter ${s.counter} · run ${p.remaining_updates} updates · ${s.counter_at_trigger} left at Pirro trigger</p>`;
+    $('checkpoints').innerHTML+=checkpoint('Mansion Escape · after check',s.after_escape)+checkpoint('Mansion Escape · returned to field / Pirro trigger before cutscene',s.after_field_return);
+  } else {
+    $('mansion-escape-routine').textContent=p.status==='No plan within repeat limit' ? 'No boost routine found within the limit. Increase the optional budget or select Required outcome in Settings.' : 'No boost routine found for this remaining run.';
+    $('mansion-escape-diagnostics').textContent=`Needs counter ≥ ${p.required_counter} for ${p.remaining_updates} remaining updates.`;
+  }
+  let previous=p.after_lookout;
+  for(const c of p.first_encounter.checkpoints) {
+    const after={state:c.state,draws:BigInt(p.after_lookout.draws)+BigInt(c.draws)};
+    $('trace').innerHTML+=`<tr><td>Mansion · ${escapeHtml(c.label)}</td><td>—</td><td>${totalAdvances(previous)}</td><td>${totalAdvances(after)}</td><td>+${BigInt(after.draws)-BigInt(previous.draws)}</td><td>${hex(previous.state)}</td><td>${hex(after.state)}</td></tr>`;
+    previous=after;
+  }
+  for(const t of s?.trace || p.initial_trace) $('trace').innerHTML+=`<tr><td>Mansion · ${escapeHtml(reasons[t.reason] || t.reason.replaceAll('_',' '))}</td><td>${t.actor==null?'—':t.actor===0?'Throné':'Diamante Guard I'}</td><td>${totalAdvances(t.before)}</td><td>${totalAdvances(t.after)}</td><td>+${BigInt(t.after.draws)-BigInt(t.before.draws)}</td><td>${hex(t.before.state)}</td><td>${hex(t.after.state)}</td></tr>`;
+  $('second-verification').textContent+=' '+p.verification;
+}
+const secondRng = (second,rng) => ({state:rng.state,draws:(BigInt(second.entry.draws)+BigInt(rng.draws)).toString()});
+function renderSecond(second) {
+  const won = second?.state.outcome==='victory';
+  $('second-results').hidden=!won;
+  $('second-empty').hidden=won;
+  $('second-empty').textContent=second?'Battle not completed':'Not reached';
+  $('second-log').hidden=!second;
+  if(!second)return;
+  $('second-context').textContent=`Party Lv${second.party_level} · English · 2× · skip the preceding cutscene`;
+  $('second-outcome').textContent=second.state.outcome==='victory'?'Victory':second.state.outcome;
+  $('second-outcome').className=second.state.outcome==='victory'?'text-good':'text-bad';
+  const a=second.assessment;
+  $('second-one-action').textContent=a.only_one_enemy_action?'Yes':'No';
+  $('second-one-action').className=a.only_one_enemy_action?'text-good':'text-bad';
+  const counts=`${a.enemy_actions} enemy action${a.enemy_actions===1?'':'s'} · ${a.damage_hits_received} damage hit${a.damage_hits_received===1?'':'s'}`;
+  $('second-action-count').textContent=counts;
+  $('second-damage').textContent=`${counts} · ${a.damage_received} damage received · Round ${second.state.round}`;
+  const conditions=a.order_conditions;
+  const checks=[
+    ['R1 · Throné before right grunt',conditions.throne_before_right_round_one],
+    ['R1 · Scaracci before left grunt',conditions.scaracci_before_left_round_one],
+    ['R2 · Throné before middle leader',conditions.throne_before_leader_round_two],
+  ];
+  $('second-order-checks').innerHTML=`<table><thead><tr><th>One-action conditions</th><th>Result</th></tr></thead><tbody>${checks.map(([label,pass])=>`<tr><td>${label}</td><td class="${pass?'text-good':'text-bad'}">${pass?'Pass':'Fail'}</td></tr>`).join('')}</tbody></table>`;
+  renderSecondBoost(second);
+  $('second-after-advances').textContent=totalAdvances(second.after);
+  $('second-after-hex').textContent=hex(second.after.state);
+  $('city-result').hidden=!second.city;
+  $('city-after-advances').textContent=second.city ? totalAdvances(second.city.after_popup) : '—';
+  $('city-after-hex').textContent=second.city ? hex(second.city.after_popup.state) : '—';
+  $('second-error').hidden=!second.routine_error;
+  $('second-error').textContent=second.routine_error||'';
+  $('second-verification').textContent=second.verification+(second.city ? ' '+second.city.verification : '')+(second.parlor ? ' '+second.parlor.verification : '')+(second.parlor_revisit ? ' '+second.parlor_revisit.verification : '')+(second.mansion ? ' '+second.mansion.verification+' '+second.mansion.lookout_ambush.verification : '');
+  $('second-order').textContent=second.initial_state.queue.map(id=>second.actors[id].name).join(' → ');
+  $('second-actions').innerHTML=second.steps.map((s,i)=>renderAction(s,i,second)).join('');
+}
+
+function battleAssessmentHtml() {
+  const a=result.battle_assessment;
+  const turns=a.enemy_turns.map(t=>`R${t.round} · ${shortActorName(t.actor)}`).join('; ');
+  return `<h2>Opening battle: enemies never act?</h2><p><span class="pill ${a.no_enemy_actions?'success':'failure'}">${a.no_enemy_actions?'Yes — no enemy actions':'No — '+a.enemy_turns.length+' enemy turn'+(a.enemy_turns.length===1?'':'s')}</span></p><p class="muted small route-help">${a.no_enemy_actions?'Both enemies are stopped before acting and the routine wins.':escapeHtml(turns || 'The routine did not win.')} Checks the entire simulated routine, including breaks and misses. The first boosted attack targets enemy 1 (right).</p>`;
+}
+
+function resetReachHtml(r) {
+  const row=(label,m)=>`<tr><td>${label}</td><td>${m.cost} (${r.assumed_updates} × ${m.decrement})</td><td><span class="pill ${m.reaches_reset?'success':'failure'}">${m.reaches_reset?'Yes':'No'}</span></td><td>${m.reaches_reset?m.counter_before_reset+' left':`Encounter on update ${m.encounter_on_update} / ${r.assumed_updates}`}</td></tr>`;
+  const m=r.mixed;
+  const recommendation=m ? `Estimated running share: ${m.max_running_percent}% (${m.max_running_updates} updates), with ${m.walking_updates} walking updates.` : 'Neither running nor walking reaches the reset under this estimate.';
+  const mixedRow=m ? `<tr><td>Estimated mixed running · ${m.max_running_percent}%</td><td>${m.cost} (${m.max_running_updates} × ${r.running.decrement} + ${m.walking_updates} × ${r.walking.decrement})</td><td><span class="pill success">Yes, under estimate</span></td><td>${m.counter_before_reset} left</td></tr>` : '';
+  return `<h2 class="route-subtitle">Reach the next cutscene without an encounter?</h2><p class="route-help">${recommendation} Starting counter: <b>${r.initial_counter}</b>.</p><div class="table-scroll"><table><thead><tr><th>Movement</th><th>Counter cost</th><th>Reaches reset</th><th>Result</th></tr></thead><tbody>${row('Running · estimated',r.running)}${row('Walking · measured',r.walking)}${mixedRow}</tbody></table></div><p class="muted small route-help">Opening walk measured: 830 → 146, consuming 684 points over ${r.assumed_updates} updates. Running and mixed budgets still assume 57 updates; their actual counts are unmeasured. The game discards excess displacement after each decrement, so changing speed can change update counts and the result can depend on where speeds change. This percentage is an estimate of update share, not measured route distance or elapsed time. Flats has its own separate 61-walk/56-run measurements; that ratio is not applied here.</p>`;
+}
+
+// Compress the exact button path, including the action's normal boost. A
+// repeated climb lowers back to its start between repetitions, then stays up.
+function groupBoostRoutine(levels) {
+  const path = [0,...levels];
+  const best = Array(path.length);
+  best[path.length-1] = [];
+  for (let i=path.length-2; i>=0; i--) {
+    const from = path[i];
+    const direction = Math.sign(path[i+1]-from);
+    for (let j=i+1; j<path.length && path[j]-path[j-1]===direction; j++) {
+      const to = path[j];
+      const width = Math.abs(to-from);
+      const repeat = direction>0 ? [
+        ...Array.from({length:width},(_,k)=>to-k-1),
+        ...Array.from({length:width},(_,k)=>from+k+1),
+      ] : [];
+      let end = j;
+      let count = 1;
+      while (true) {
+        const candidate = [{from,to,count},...best[end]];
+        if (!best[i] || candidate.length<=best[i].length) best[i] = candidate;
+        if (!repeat.length || end+repeat.length>=path.length ||
+            !repeat.every((bp,k)=>path[end+k+1]===bp)) break;
+        end += repeat.length;
+        count++;
+      }
+    }
+  }
+  return best[0];
+}
+
+function renderSecondBoost(second) {
+  const search=second.mansion_approach_search;
+  const m=second.manipulation;
+  const node=$('second-boost-routine');
+  node.innerHTML='';
+  if(!search) return;
+  const status=search.target_met ? 'Mansion opening · '+search.situation : search.limit_reached ? 'Mansion surprise-avoidance target not found within repeat limit.' : 'Mansion surprise-avoidance target not reached.';
+  let routine='';
+  if(m?.inputs.extra_input_count>0) {
+    const step=second.steps.filter(s=>second.actors[s.report.actor].side==='player')[m.plan.player_menu-1];
+    const action=step.report.events.find(e=>e.kind==='action');
+    const targets=[...new Set(step.report.events.filter(e=>e.kind==='damage' || e.kind==='miss').map(e=>second.actors[e.target].name))].join(', ');
+    const ordinal=['1st','2nd','3rd'][m.round_menu-1] ?? m.round_menu+'th';
+    const heading='R'+m.round+' · '+second.actors[m.actor].name+' · '+ordinal+' command menu';
+    const parts=groupBoostRoutine(m.inputs.levels).map(c=>c.from+'→'+c.to+(c.count>1?' ×'+c.count:''));
+    routine='<p><strong>'+escapeHtml(heading)+'</strong></p><div class="boost-instructions">'+parts.map(p=>'<span class="boost-step">'+escapeHtml(p)+'</span>').join('')+'</div>';
+  }
+  node.innerHTML=(routine?'<h3>Boost adjustment</h3>'+routine:'')+(!search.target_met?'<p class="text-bad">'+escapeHtml(status)+' Adjust its search in Settings.</p>':'');
+}
+
+function renderBoostPlan() {
+  const m = result.manipulation;
+  const limited = result.boost_search?.second_fight_limit_reached;
+  const exhausted = result.boost_search?.second_fight_search_exhausted;
+  $('boost-cap-note').hidden = !exhausted;
+  $('boost-cap-note').textContent = limited ? `Fight-two target skipped (${result.crt_setup.second_fight_max_boost_repeats}-repeat limit).` : exhausted ? 'Fight-two target not found.' : '';
+  $('boost-detail').hidden = !m;
+  $('boost-help').hidden = !m;
+  if (!m) {
+    $('boost-result').textContent = result.post_battle_field?.reset_reach.walking.reaches_reset
+      ? 'No adjustment needed.'
+      : 'Not calculated.';
+    return;
+  }
+  const n = m.plan.advances;
+  const playerSteps = result.steps.filter(s=>result.actors[s.report.actor].side==='player');
+  const step = playerSteps[m.plan.player_menu-1];
+  // Count actual player menus in this round, including Defend and excluding enemies.
+  const roundMenu = playerSteps.slice(0,m.plan.player_menu).filter(s=>s.round===m.round).length;
+  const menuOrdinal = ['1st','2nd','3rd'][roundMenu-1] ?? `${roundMenu}th`;
+  const events = step.report.events;
+  const action = events.find(e=>e.kind==='action');
+  const inputs = m.inputs;
+  const targets = [...new Set(events.filter(e=>e.kind==='damage' || e.kind==='miss').map(e=>shortActorName(e.target)))].join(', ');
+  const command = action.name==='defend' ? 'Defend' : `${names[action.name] || action.name} on ${targets}`;
+  const path = levels => levels.join('→')+' BP';
+  const parts = groupBoostRoutine(inputs.levels)
+    .map(({from,to,count})=>`${from}→${to}${count>1 ? ` ×${count}` : ''}`);
+  const heading = `R${m.round} · ${shortActorName(m.actor)} · ${menuOrdinal} command menu`;
+  const instruction = `${heading}: ${parts.join('; ')}. ${command}.`;
+  $('boost-result').innerHTML = `<b>${escapeHtml(heading)}</b><span class="boost-instructions">${parts.map(p=>`<span class="boost-step">${escapeHtml(p)}</span>`).join('')}</span>`;
+  $('boost-help').textContent = `${inputs.extra_repeats} extra repeat${inputs.extra_repeats===1?'':'s'} · ${inputs.input_count} boost inputs · +${n} CRT advances`;
+  const search=result.boost_search;
+  const budget=search ? (result.crt_setup.second_fight_max_boost_repeats===null
+    ? ` Required checkpoint safety and one-action second fight: ${inputs.extra_repeats} repeats in the joint plan.`
+    : ` Checkpoint plan: ${search.encounter_dodge_repeats} repeats (${repeatCapLabel(result.crt_setup.encounter_max_boost_repeats)}). Optional second fight: up to ${result.crt_setup.second_fight_max_boost_repeats} additional repeats; ${exhausted?'target skipped':`${search.second_fight_extra_repeats} used`}.`) : '';
+  $('boost-detail').textContent = `${instruction} Full input path: ${path([0,...inputs.levels])}. Repeated climbs return to their starting BP between repetitions; the last repetition stays at its ending BP. The routine includes the action's final boost. Menu #${m.plan.player_menu} overall: ${totalAdvances(m.rng_before)} (${hex(m.rng_before.state)}) → ${totalAdvances(m.rng_after_inputs)} (${hex(m.rng_after_inputs.state)}) after all boost inputs.${budget} Required outcomes are solved together before optional improvements. Optional misses preserve the required plan. Candidates replay the checkpoint, Ambush and both battles, minimizing extra button presses at one first-fight menu. Ties: fewer draws, then latest menu. First-fight damage-less is not required. Repeated boost inputs await live validation.`;
+
+}
+
+function renderAction(step, index, simulation=result) {
+  const actorName=id=>simulation.actors[id]?.name??'—';
+  const shortActorName=id=>actorName(id).split(' · ')[0];
+  const safeName=id=>escapeHtml(actorName(id));
+  const totalAdvances=rng=>(BigInt(result.crt_setup.battle_entry_advances)+BigInt(simulation.entry?.draws??0)+BigInt(rng.draws)).toString();
+  const report = step.report;
+  const events = report.events;
+  const action = events.find(e => e.kind === 'action');
+  const bp = events.find(e => e.kind === 'resource_changed' && e.resource === 'bp' && e.actor === report.actor);
+  const hits = events.filter(e => e.kind === 'damage' || e.kind === 'miss');
+  const damage = hits.filter(e => e.kind === 'damage').map(e => e.amount);
+  const boost = bp ? bp.before-bp.after : 0;
+  const isPlayer = simulation.actors[report.actor].side === 'player';
+  const rngLabel = isPlayer ? 'Command menu · before boost' : 'Before enemy action';
+  const latent=events.some(e=>e.kind==='latent_activated');
+  const description = (latent?'Latent → ':'') + (names[action?.name] || simulation.action_names?.[action?.name] || action?.name || 'Action') + (action?.name === 'defend' ? '' : ` · ${boost} BP`);
+  const targets = [...new Set(hits.map(e => shortActorName(e.target)))].join(', ');
+  const changes = events.map(e => {
+    switch(e.kind) {
+      case 'shield_changed': return `${actorName(e.actor)}: shields ${e.before} → ${e.after}`;
+      case 'broken': return `${actorName(e.actor)} breaks; recovery would be in round ${e.recover_round}.`;
+      case 'knocked_out': return `${actorName(e.actor)} is defeated.`;
+      case 'resource_changed': return `${actorName(e.actor)}: ${e.resource.toUpperCase()} ${e.before} → ${e.after}`;
+      case 'battle_ended': return `Battle ended: ${e.outcome}.`;
+      default: return null;
+    }
+  }).filter(Boolean);
+  const resources = step.actors_after.map((actor,i) => `<span><b>${safeName(i)}</b>${actor.resources.hp} HP · ${actor.resources.sp} SP · ${actor.resources.bp} BP${simulation.actors[i].side === 'enemy' ? ` · ${actor.shields} shield` : ''}</span>`).join('');
+  return `<details class="action"><summary><span class="round">R${step.round} · #${index+1}</span><span><b>${safeName(report.actor)}</b><span class="sub">${escapeHtml(description)}</span></span><span class="rolls">${escapeHtml(targets || 'Self')}<span class="sub">${damage.length ? `${damage.join(' + ')} damage rolled` : hits.length ? 'Miss' : action?.name==='defend' ? 'Guard applied' : 'Action completed'}</span></span><span class="action-rng">${totalAdvances(report.rng_before)} advances<span class="sub">${rngLabel}</span><span class="sub">From initial seed</span></span></summary><div class="action-body"><div class="hit-list">${hits.map((hit,i) => `<span class="hit"><strong>Hit ${i+1}</strong> ${hit.kind === 'miss' ? 'Miss' : `${hit.amount} · ${hit.broken_before ? 'Broken target' : hit.weak ? 'Weakness' : 'Neutral'}${hit.critical ? ' · Critical' : ''}`}</span>`).join('')}</div><p class="small muted">${rngLabel}: ${totalAdvances(report.rng_before)} advances from initial seed · CRT ${hex(report.rng_before.state)}. After action and transition: ${totalAdvances(report.rng_after)} advances · CRT ${hex(report.rng_after.state)}. Includes the next actor's turn-start voice or victory callbacks.</p>${changes.length ? `<ul class="event-list">${changes.map(text => `<li>${escapeHtml(text)}</li>`).join('')}</ul>` : ''}<div class="after-resources">${resources}</div></div></details>`;
+}
+
+function selectTab(selected) {
+  for (const name of ['actions','trace']) {
+    const active = selected === name;
+    $(`${name}-tab`).setAttribute('aria-selected',String(active));
+    $(`${name}-tab`).tabIndex = active ? 0 : -1;
+    $(`${name}-view`).hidden = !active;
+  }
+}
+for (const name of ['actions','trace']) {
+  $(`${name}-tab`).addEventListener('click',() => selectTab(name));
+  $(`${name}-tab`).addEventListener('keydown',event => {
+    if (['ArrowLeft','ArrowRight','Home','End'].includes(event.key)) {
+      event.preventDefault();
+      const next = event.key === 'Home' ? 'actions' : event.key === 'End' ? 'trace' : name === 'actions' ? 'trace' : 'actions';
+      selectTab(next); $(`${next}-tab`).focus();
+    }
+  });
+}
+$('copy').addEventListener('click',async () => {
+  if (!result) return;
+  try { await navigator.clipboard.writeText(hex(result.state.rng.state)); $('copy').textContent = 'Copied'; }
+  catch { showError('Clipboard unavailable. Select and copy the final CRT value above.'); }
+});
+$('export').addEventListener('click',() => {
+  if (!result) return;
+  const link = document.createElement('a');
+  const setup = result.crt_setup;
+  link.href = `/api/export?${setupQuery({...setup,seed:setup.initial_seed})}`;
+  const suffix = setup.recreate_shared_level ? '-recreated' : '';
+  const boostSuffix = setup.boost_advances ? `-boost-menu-${setup.boost_menu}-advances-${setup.boost_advances}` : '';
+  link.download = `ot2-throne-seed-${setup.initial_seed}-title-advances-${setup.advances}${suffix}${boostSuffix}.json`;
+  document.body.append(link); link.click(); link.remove();
+});
+$('quit').addEventListener('click',async () => {
+  if (running || stopped) return;
+  $('quit').disabled = true;
+  try {
+    const response = await fetch('/api/shutdown',{method:'POST',headers:{'X-OT2-Viewer':'1'}});
+    if (!response.ok) throw new Error('Could not stop the viewer.');
+    stopped = true;
+    for (const name of ['manipulation','detail','field','settings']) $(`${name}-panel`).hidden = true;
+    document.querySelector('.mode-switch').hidden = true;
+    $('closed').hidden = false;
+    $('quit').textContent = 'Stopped'; $('status').textContent = 'Local simulator stopped.';
+  } catch(error) { showError(error.message); $('quit').disabled = false; }
+});
+$('seed-form').addEventListener('submit',simulate);
+$('seed').addEventListener('input',markSetupChanged);
+$('advances').addEventListener('input',markSetupChanged);
+$('recreate-shared-level').addEventListener('click',() => {
+  const enabled = $('recreate-shared-level').getAttribute('aria-pressed') !== 'true';
+  $('recreate-shared-level').setAttribute('aria-pressed',String(enabled));
+  $('recreate-state').textContent = enabled ? 'On' : 'Off';
+  markSetupChanged();
+});
+function updateRepeatControls() {
+  for (const setting of repeatSettings) {
+    const unlimited = $(`${setting.id}-unlimited`);
+    unlimited.disabled = running || stopped;
+    $(setting.id).disabled = running || stopped || unlimited.checked;
+  }
+}
+for (const setting of repeatSettings) {
+  $(setting.id).value = String(lastRepeatCaps[setting.key]);
+  $(`${setting.id}-unlimited`).checked = eventRepeatCaps[setting.key] === null;
+  $(`${setting.id}-unlimited`).addEventListener('change',updateRepeatControls);
+}
+updateRepeatControls();
+$('settings-form').addEventListener('submit',event => {
+  event.preventDefault();
+  if (running || stopped) return;
+  $('settings-error').hidden = true;
+  $('settings-status').textContent = '';
+  const updated = {};
+  for (const setting of repeatSettings) {
+    const value = $(setting.id).value.trim();
+    const unlimited = $(`${setting.id}-unlimited`).checked;
+    if (!unlimited && !validRepeatCap(value)) {
+      $('settings-error').textContent = `${setting.label}: enter a whole number from 0 to 256.`;
+      $('settings-error').hidden = false;
+      $(setting.id).focus();
+      return;
+    }
+    updated[setting.key] = unlimited ? null : Number(value);
+  }
+  eventRepeatCaps = updated;
+  let persisted = true;
+  try {
+    for (const setting of repeatSettings) {
+      localStorage.setItem(setting.storage,repeatCapQuery(eventRepeatCaps[setting.key],setting.key));
+      const value = $(setting.id).value.trim();
+      if (validRepeatCap(value)) localStorage.setItem(`${setting.storage}-last-limit`,value);
+    }
+  } catch { persisted = false; }
+  markSetupChanged();
+  $('settings-status').textContent = persisted ? 'Saved. Run simulation to apply.' : 'Saved for this session. Browser storage is unavailable.';
+});
+simulate();

@@ -1,0 +1,22 @@
+{
+  "all_conditions": 312773,
+  "all_conditions_percent": 31.2773,
+  "conditions": [
+    951538,
+    506198,
+    666906
+  ],
+  "example_fail_state": "0xE220A839",
+  "example_pass_state": "0x06C45D18",
+  "first_failure": null,
+  "only_one_enemy_action": 312773,
+  "order_outcome_mismatches": 0,
+  "population": "Uniform 32-bit CRT states immediately before second-battle initialization; Lv2, fixed routine. Not conditioned on the first battle or boost search.",
+  "routine_errors": 0,
+  "sample_seed": 0,
+  "sampler": "SplitMix64 upper 32 bits, with replacement",
+  "samples": 1000000,
+  "seconds": 4.5197584,
+  "verification": "Simulation estimate using the corrected core; one seed-zero live replay matches all CRT calls. This does not validate the entire sampled population. One enemy action is not necessarily one damage hit.",
+  "wins": 1000000
+}

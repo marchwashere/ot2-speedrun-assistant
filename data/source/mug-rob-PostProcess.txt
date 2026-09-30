@@ -1,0 +1,15 @@
+0991b FinalFunction import:-41:PostProcess
+09921 Context skip=19 rvalue=<null-field>
+  09922 ObjectConst import:-89:Default__KismetArrayLibrary
+  09933 FinalFunction import:-47:Array_Clear
+    09938 InstanceVariable GotItem
+0994a Context skip=19 rvalue=<null-field>
+  0994b ObjectConst import:-89:Default__KismetArrayLibrary
+  0995c FinalFunction import:-47:Array_Clear
+    09961 InstanceVariable CouldNotGetItem
+09973 Let property=EventName
+  09984 InstanceVariable EventName
+  09995 NameConst None
+0999e Return
+  0999f Nothing
+099a0 EndOfScript

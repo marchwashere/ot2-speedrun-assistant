@@ -1,0 +1,6 @@
+09ddf FinalFunction import:-40:OnFinishFieldCommand
+09de5 LocalVirtualFunction SetState
+  09dee ByteConst 0
+09df1 Return
+  09df2 Nothing
+09df3 EndOfScript

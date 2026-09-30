@@ -1,0 +1,219 @@
+{
+  "status": "Source-derived; awaiting live validation",
+  "boundary": "After skipped 0500 rejoin; walk without encountering; skip 0600; before ENG_EVE_THI_C01_020 actor initialization",
+  "expected_crt_draws": 0,
+  "assumptions": [
+    "The short walk triggers no encounter, as specified by the route.",
+    "The existing shared level remains loaded."
+  ],
+  "evidence": {
+    "finish_pre": "EncountReset is true, but is consumed by FinishPre at event cleanup, not automatically when the rich cutscene enters battle. The former +2 prediction incorrectly moved that cleanup before combat.",
+    "handoff": "BP_RichEventCommandBase.StartBattleFunction -> native StartEventBattle FUN_140eb2700: sets current command 600, dispatches StartBattleStart, sets handoff +0x69e. No FinishPre.",
+    "battle": "EventManagerBP.StartBattleStart -> EncountManager.StartEventBattle, sets IsMainSeqStop; UpdateBattleStart waits for combat and selects BattleEndNextEventName afterward.",
+    "skip": "FUN_140eb67a0 returns 0 immediately while the +0x69e rich battle handoff is active, rather than advancing to cleanup commands. Native StartBattleStart FUN_140e965b0 saves continuation state and does not reset the counter.",
+    "native_dispatch": "RichEventCommandBase vtable 0x143e9c508 +0x408 is 0x1408acef0 (ret 0, no work). EventManager vtable 0x143ca8a48 +0x938 is FUN_140e965b0.",
+    "unlock": "Native event command 8900 calls FUN_140f34b30(15,18,2,1), learning Pierce Through for Pirro.",
+    "progression": "Opening base EXP 4, minimum break bonus 1, minimum overkill bonus 1; CharacterGrow level 2 requires 6. Level-up restores HP/SP."
+  },
+  "limitations": "Authored scalar event keys and existing reset path; not a proof of every transitive runtime callback or timing-dependent reaction.",
+  "event": {
+    "id": "MS_TOU_10_0600",
+    "EventIndex": 0,
+    "ExecCode": "MS_TOU_10_0600",
+    "CueSheetName": "CueSheet_VO_EventTOU010",
+    "RadarMapExitCode": "None",
+    "MapID": "57",
+    "Kind": "EEventKind::EVENT_MAIN",
+    "EventSoundLabel": "ES_TOU_10_0600",
+    "MissionLabel": "ML_TOU_10_0600",
+    "EventSkip": 1,
+    "LevelTriggerID": "ELevelTriggerID::Trigger_01",
+    "LanthanumFlag": 0,
+    "EncountTrigger": "None",
+    "CameraLockTrigger1": "None",
+    "CameraLockTrigger2": "None",
+    "CameraLockTrigger3": "None",
+    "StartFadeOutFlag": 1,
+    "ChengeTimeSequencer": "None",
+    "ChengeFinishTimeSequencer": "None",
+    "TargetChara": 0,
+    "EncountReset": true,
+    "Args": [
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  "commands": [
+    {
+      "cmd": 1250,
+      "target": 0,
+      "pos": "X=0.0,Y=0.0,Z=0.0",
+      "dir": -1,
+      "text": "",
+      "async": "0",
+      "opt": [
+        "1",
+        "SwitchIndoorTriggerBP_SentryBox_A6"
+      ]
+    },
+    {
+      "cmd": 1,
+      "target": 0,
+      "pos": "X=0.0,Y=0.0,Z=0.0",
+      "dir": -1,
+      "text": "",
+      "async": "0",
+      "opt": [
+        "0"
+      ]
+    },
+    {
+      "cmd": 2,
+      "target": 0,
+      "pos": "X=0.0,Y=0.0,Z=0.0",
+      "dir": -1,
+      "text": "",
+      "async": "0",
+      "opt": [
+        "0"
+      ]
+    },
+    {
+      "cmd": 71,
+      "target": 8005,
+      "pos": "X=0.0,Y=0.0,Z=0.0",
+      "dir": -1,
+      "text": "",
+      "async": "0",
+      "opt": [
+        "1"
+      ]
+    },
+    {
+      "cmd": 8900,
+      "target": 0,
+      "pos": "X=0.0,Y=0.0,Z=0.0",
+      "dir": -1,
+      "text": "",
+      "async": "0",
+      "opt": [
+        ""
+      ]
+    },
+    {
+      "cmd": 1500,
+      "target": 0,
+      "pos": "X=0.0,Y=0.0,Z=0.0",
+      "dir": -1,
+      "text": "",
+      "async": "0",
+      "opt": [
+        "RI_MS_TOU_10_0600"
+      ]
+    },
+    {
+      "cmd": 1501,
+      "target": 0,
+      "pos": "X=0.0,Y=0.0,Z=0.0",
+      "dir": -1,
+      "text": "",
+      "async": "0",
+      "opt": [
+        ""
+      ]
+    },
+    {
+      "cmd": 9980,
+      "target": 0,
+      "pos": "X=0.0,Y=0.0,Z=0.0",
+      "dir": -1,
+      "text": "",
+      "async": "0",
+      "opt": [
+        ""
+      ]
+    },
+    {
+      "cmd": 10000,
+      "target": 0,
+      "pos": "X=0.0,Y=0.0,Z=0.0",
+      "dir": -1,
+      "text": "",
+      "async": "0",
+      "opt": [
+        ""
+      ]
+    }
+  ],
+  "start_battle": {
+    "time": 1130000,
+    "function": "SequenceEvent__ENTRYPOINTSequenceDirector_1",
+    "body": "15b25 LocalVirtualFunction StartBattle\n  15b2e StringConst \"EVM_EVE_THI_C01_020\"\n  15b43 StringConst \"MS_TOU_10_0700\"\n  15b53 False\n  15b54 False\n15b56 Return\n  15b57 Nothing\n15b58 EndOfScript"
+  },
+  "sequence_keys": 60,
+  "handoff_native": "void FUN_140eb2700(void)\r\n\r\n{\r\n  longlong lVar1;\r\n  \r\n  lVar1 = DAT_144f94d80;\r\n  if (DAT_144f94d80 != 0) {\r\n    *(undefined4 *)(DAT_144f94d80 + 0x6c8) = 600;\r\n    FUN_140ff8e30(lVar1);\r\n    if (*(char *)(lVar1 + 0x59e) != '\\0') {\r\n      *(undefined1 *)(lVar1 + 0x69d) = 1;\r\n    }\r\n    *(undefined1 *)(lVar1 + 0x69e) = 1;\r\n  }\r\n  return;\r\n}",
+  "skip_guard": "if (*(char *)(param_1 + 0x69e) != '\\0') {\r\n    *(undefined1 *)(param_1 + 0x6c4) = 0;\r\n    *(undefined4 *)(param_1 + 0x6b4) = 0;\r\n    *(undefined1 *)(param_1 + 0x6b3) = 0;\r\n    *(undefined1 *)(param_1 + 0x6bc) = 0;\r\n    return 0;\r\n  }\r\n  ",
+  "start_battle_native": "undefined8 FUN_140e965b0(longlong param_1,longlong param_2)\r\n\r\n{\r\n  undefined8 uVar1;\r\n  undefined4 local_18;\r\n  undefined4 uStack_14;\r\n  undefined4 uStack_10;\r\n  undefined4 uStack_c;\r\n  \r\n  if (*(char *)(param_1 + 0x574) == '\\x01') {\r\n    local_18 = 0;\r\n    uStack_14 = 0;\r\n    uStack_10 = 0;\r\n    uStack_c = 0x3f800000;\r\n    FUN_140ee7540(0,0x3dcccccd,&local_18,3);\r\n    return 0;\r\n  }\r\n  *(undefined4 *)(param_1 + 0x318) = *(undefined4 *)(param_2 + 0xc);\r\n  FUN_1408209f0(param_1 + 800,*(longlong *)(param_2 + 0x38) + 0x10);\r\n  if (5 < *(int *)(param_2 + 0x40)) {\r\n    FUN_1408209f0(param_1 + 0x330,*(longlong *)(param_2 + 0x38) + 0x50);\r\n  }\r\n  *(undefined4 *)(param_1 + 0x428) = *(undefined4 *)(param_1 + 0x3d0);\r\n  *(undefined4 *)(param_1 + 0x3d0) = 0;\r\n  *(undefined4 *)(param_1 + 0x6b4) = 0;\r\n  *(undefined1 *)(param_1 + 0x6b3) = 0;\r\n  *(undefined1 *)(param_1 + 0x6bc) = 0;\r\n  uVar1 = DAT_144f95e10;\r\n  FUN_140f76d20(DAT_144f94d88,0x65);\r\n  FUN_140f49d30(uVar1,param_1);\r\n  *(undefined2 *)(param_1 + 0x82a) = 0;\r\n  return 1;\r\n}",
+  "blueprint": {
+    "rich_start": "1cc4c PushExecutionFlow target=1845\n1cc51 LetBool\n  1cc52 LocalVariable CallFunc_ChangeUpdateCommand_ReturnValue\n  1cc63 FinalFunction import:-230:ChangeUpdateCommand\n    1cc68 ByteConst 14\n1cc6b PopExecutionFlowIfNot\n  1cc6c LocalVariable CallFunc_ChangeUpdateCommand_ReturnValue\n1cc7d LetBool\n  1cc7e LocalVariable CallFunc_IsEventPlayTheater_ReturnValue\n  1cc8f CallMath import:-256:IsEventPlayTheater\n1cc95 JumpIfNot target=125\n  1cc9a LocalVariable CallFunc_IsEventPlayTheater_ReturnValue\n1ccab VirtualFunction FadeOutFunction\n  1ccb4 FloatConst 10\n  1ccb9 StructConst import:-500:LinearColor size=16\n    1ccc2 FloatConst 0\n    1ccc7 FloatConst 0\n    1cccc FloatConst 0\n    1ccd1 FloatConst 1\n1ccd8 PopExecutionFlow\n1ccd9 FinalFunction import:-400:StartBattleFunction\n  1ccde LocalVariable EnemyGroup\n  1ccef LocalVariable FinishEvent\n  1cd00 LocalVariable EventBattle\n  1cd11 LocalVariable SingleBattle\n  1cd22 LocalVariable EventBattleChara\n  1cd33 LocalVariable FixFirstOrderPlayer\n  1cd44 LocalVariable DarkSurface\n1cd56 PushExecutionFlow target=345\n1cd5b LetBool\n  1cd5c LocalVariable PlayBattleBGM\n  1cd6d False\n1cd6e Let property=CallFunc_Conv_StringToName_ReturnValue\n  1cd7f LocalVariable CallFunc_Conv_StringToName_ReturnValue\n  1cd90 CallMath import:-204:Conv_StringToName\n    1cd95 LocalVariable EnemyGroup\n1cda7 LetBool\n  1cda8 LocalVariable CallFunc_GetEncountVolumeRowData_ReturnValue\n  1cdb9 CallMath import:-222:GetEncountVolumeRowData\n    1cdbe LocalVariable CallFunc_GetEncountVolumeRowData_returnCode\n    1cdcf LocalVariable CallFunc_GetEncountVolumeRowData_OutData\n    1cde0 LocalVariable CallFunc_Conv_StringToName_ReturnValue\n    1cdf1 True\n1cdf3 LetBool\n  1cdf4 LocalVariable K2Node_SwitchEnum_CmpSuccess\n  1ce05 CallMath import:-192:NotEqual_ByteByte\n    1ce0a LocalVariable CallFunc_GetEncountVolumeRowData_returnCode\n    1ce1b ByteConst 0\n1ce1e JumpIfNot target=703\n  1ce23 LocalVariable K2Node_SwitchEnum_CmpSuccess\n1ce34 PopExecutionFlow\n1ce35 CallMath import:-290:SetEncountSignMode\n  1ce3a Self\n  1ce3b True\n1ce3d Let property=CallFunc_Conv_BoolToByte_ReturnValue\n  1ce4e LocalVariable CallFunc_Conv_BoolToByte_ReturnValue\n  1ce5f CallMath import:-176:Conv_BoolToByte\n    1ce64 LocalVariable SingleBattle\n1ce76 Let property=CallFunc_Conv_ByteToString_ReturnValue\n  1ce87 LocalVariable CallFunc_Conv_ByteToString_ReturnValue\n  1ce98 CallMath import:-200:Conv_ByteToString\n    1ce9d LocalVariable CallFunc_Conv_BoolToByte_ReturnValue\n1ceaf Let property=CallFunc_Conv_ByteToInt_ReturnValue\n  1cec0 LocalVariable CallFunc_Conv_ByteToInt_ReturnValue\n  1ced1 CallMath import:-177:Conv_ByteToInt\n    1ced6 LocalVariable FixFirstOrderPlayer\n1cee8 Let property=CallFunc_Conv_BoolToByte_ReturnValue_1\n  1cef9 LocalVariable CallFunc_Conv_BoolToByte_ReturnValue_1\n  1cf0a CallMath import:-176:Conv_BoolToByte\n    1cf0f LocalVariable PlayBattleBGM\n1cf21 Let property=CallFunc_Conv_IntToString_ReturnValue\n  1cf32 LocalVariable CallFunc_Conv_IntToString_ReturnValue\n  1cf43 CallMath import:-202:Conv_IntToString\n    1cf48 LocalVariable CallFunc_Conv_ByteToInt_ReturnValue\n1cf5a Let property=CallFunc_Conv_ByteToString_ReturnValue_1\n  1cf6b LocalVariable CallFunc_Conv_ByteToString_ReturnValue_1\n  1cf7c CallMath import:-200:Conv_ByteToString\n    1cf81 LocalVariable CallFunc_Conv_BoolToByte_ReturnValue_1\n1cf93 SetArray\n  1cf94 LocalVariable K2Node_MakeArray_Array\n  1cfa5 LocalVariable EnemyGroup\n  1cfb6 LocalVariable FinishEvent\n  1cfc7 LocalVariable CallFunc_Conv_ByteToString_ReturnValue\n  1cfd8 LocalVariable CallFunc_Conv_ByteToString_ReturnValue_1\n  1cfe9 LocalVariable CallFunc_Conv_IntToString_ReturnValue\n  1cffa StringConst \"\"\n1cffd Let property=OptAry\n  1d00e StructMemberContext OptAry\n    1d01f LocalVariable K2Node_MakeStruct_EventData\n  1d030 LocalVariable K2Node_MakeArray_Array\n1d041 FinalFunction import:-406:StartEventBattle\n  1d046 LocalVariable K2Node_MakeStruct_EventData\n1d058 PopExecutionFlowIfNot\n  1d059 LocalVariable DarkSurface\n1d06a PopExecutionFlow\n1d06b Let property=CallFunc_Array_Length_ReturnValue\n  1d07c LocalVariable CallFunc_Array_Length_ReturnValue\n  1d08d Context skip=28 rvalue=CallFunc_Array_Length_ReturnValue\n    1d08e ObjectConst import:-436:Default__KismetArrayLibrary\n    1d0a7 FinalFunction import:-168:Array_Length\n      1d0ac StructMemberContext EncounterList\n        1d0bd LocalVariable CallFunc_GetEncountVolumeRowData_OutData\n1d0cf LetBool\n  1d0d0 LocalVariable CallFunc_Greater_IntInt_ReturnValue\n  1d0e1 CallMath import:-184:Greater_IntInt\n    1d0e6 LocalVariable CallFunc_Array_Length_ReturnValue\n    1d0f7 IntConst 0\n1d0fd PopExecutionFlowIfNot\n  1d0fe LocalVariable CallFunc_Greater_IntInt_ReturnValue\n1d10f Let property=CallFunc_Array_Length_ReturnValue\n  1d120 LocalVariable CallFunc_Array_Length_ReturnValue\n  1d131 Context skip=28 rvalue=CallFunc_Array_Length_ReturnValue\n    1d132 ObjectConst import:-436:Default__KismetArrayLibrary\n    1d14b FinalFunction import:-168:Array_Length\n      1d150 StructMemberContext EncounterList\n        1d161 LocalVariable CallFunc_GetEncountVolumeRowData_OutData\n1d173 Let property=CallFunc_Subtract_IntInt_ReturnValue\n  1d184 LocalVariable CallFunc_Subtract_IntInt_ReturnValue\n  1d195 CallMath import:-195:Subtract_IntInt\n    1d19a LocalVariable CallFunc_Array_Length_ReturnValue\n    1d1ab IntConst 1\n1d1b1 Let property=CallFunc_Multiply_IntInt_ReturnValue\n  1d1c2 LocalVariable CallFunc_Multiply_IntInt_ReturnValue\n  1d1d3 CallMath import:-188:Multiply_IntInt\n    1d1d8 LocalVariable CallFunc_Subtract_IntInt_ReturnValue\n    1d1e9 IntConst -1\n1d1ef Let property=Temp_int_Variable\n  1d200 LocalVariable Temp_int_Variable\n  1d211 LocalVariable CallFunc_Multiply_IntInt_ReturnValue\n1d222 LetBool\n  1d223 LocalVariable Temp_bool_Variable\n  1d234 False\n1d235 Let property=Temp_int_Variable_1\n  1d246 LocalVariable Temp_int_Variable_1\n  1d257 LocalVariable Temp_int_Variable\n1d268 LetBool\n  1d269 LocalVariable CallFunc_LessEqual_IntInt_ReturnValue\n  1d27a CallMath import:-187:LessEqual_IntInt\n    1d27f LocalVariable Temp_int_Variable_1\n    1d290 IntConst 0\n1d296 LetBool\n  1d297 LocalVariable CallFunc_Not_PreBool_ReturnValue\n  1d2a8 CallMath import:-190:Not_PreBool\n    1d2ad LocalVariable Temp_bool_Variable\n1d2bf LetBool\n  1d2c0 LocalVariable CallFunc_BooleanAND_ReturnValue\n  1d2d1 CallMath import:-173:BooleanAND\n    1d2d6 LocalVariable CallFunc_Not_PreBool_ReturnValue\n    1d2e7 LocalVariable CallFunc_LessEqual_IntInt_ReturnValue\n1d2f9 PopExecutionFlowIfNot\n  1d2fa LocalVariable CallFunc_BooleanAND_ReturnValue\n1d30b PushExecutionFlow target=1732\n1d310 Let property=CallFunc_Abs_Int_ReturnValue\n  1d321 LocalVariable CallFunc_Abs_Int_ReturnValue\n  1d332 CallMath import:-170:Abs_Int\n    1d337 LocalVariable Temp_int_Variable_1\n1d349 Context skip=46 rvalue=<null-field>\n  1d34a ObjectConst import:-436:Default__KismetArrayLibrary\n  1d35b FinalFunction import:-167:Array_Get\n    1d360 StructMemberContext EncounterList\n      1d371 LocalVariable CallFunc_GetEncountVolumeRowData_OutData\n    1d382 LocalVariable CallFunc_Abs_Int_ReturnValue\n    1d393 LocalVariable CallFunc_Array_Get_Item\n1d3a5 LetBool\n  1d3a6 LocalVariable CallFunc_NotEqual_NameName_ReturnValue\n  1d3b7 CallMath import:-194:NotEqual_NameName\n    1d3bc StructMemberContext EncounterName\n      1d3cd LocalVariable CallFunc_Array_Get_Item\n    1d3de NameConst None\n1d3e8 PopExecutionFlowIfNot\n  1d3e9 LocalVariable CallFunc_NotEqual_NameName_ReturnValue\n1d3fa Let property=CallFunc_Abs_Int_ReturnValue\n  1d40b LocalVariable CallFunc_Abs_Int_ReturnValue\n  1d41c CallMath import:-170:Abs_Int\n    1d421 LocalVariable Temp_int_Variable_1\n1d433 Context skip=46 rvalue=<null-field>\n  1d434 ObjectConst import:-436:Default__KismetArrayLibrary\n  1d445 FinalFunction import:-167:Array_Get\n    1d44a StructMemberContext EncounterList\n      1d45b LocalVariable CallFunc_GetEncountVolumeRowData_OutData\n    1d46c LocalVariable CallFunc_Abs_Int_ReturnValue\n    1d47d LocalVariable CallFunc_Array_Get_Item\n1d48f LetBool\n  1d490 LocalVariable CallFunc_GetDataTableRowFromName_ReturnValue\n  1d4a1 Context skip=46 rvalue=CallFunc_GetDataTableRowFromName_ReturnValue\n    1d4a2 ObjectConst import:-121:Default__DataTableFunctionLibrary\n    1d4bb FinalFunction import:-158:GetDataTableRowFromName\n      1d4c0 ObjectConst import:-111:BattleEncounterData\n      1d4c5 StructMemberContext EncounterName\n        1d4d6 LocalVariable CallFunc_Array_Get_Item\n      1d4e7 LocalVariable CallFunc_GetDataTableRowFromName_OutRow\n1d4f9 PopExecutionFlowIfNot\n  1d4fa LocalVariable CallFunc_GetDataTableRowFromName_ReturnValue\n1d50b Context skip=42 rvalue=<null-field>\n  1d50c ObjectConst import:-436:Default__KismetArrayLibrary\n  1d51d FinalFunction import:-167:Array_Get\n    1d522 StructMemberContext Group\n      1d533 LocalVariable CallFunc_GetDataTableRowFromName_OutRow\n    1d544 IntConst 0\n    1d549 LocalVariable CallFunc_Array_Get_Item_1\n1d55b LetBool\n  1d55c LocalVariable CallFunc_GetDataTableRowFromName_ReturnValue_1\n  1d56d Context skip=46 rvalue=CallFunc_GetDataTableRowFromName_ReturnValue_1\n    1d56e ObjectConst import:-121:Default__DataTableFunctionLibrary\n    1d587 FinalFunction import:-158:GetDataTableRowFromName\n      1d58c ObjectConst import:-112:EnemyGroupData\n      1d591 StructMemberContext GroupID\n        1d5a2 LocalVariable CallFunc_Array_Get_Item_1\n      1d5b3 LocalVariable CallFunc_GetDataTableRowFromName_OutRow_1\n1d5c5 PopExecutionFlowIfNot\n  1d5c6 LocalVariable CallFunc_GetDataTableRowFromName_ReturnValue_1\n1d5d7 LetBool\n  1d5d8 LocalVariable CallFunc_NotEqual_NameName_ReturnValue_1\n  1d5e9 CallMath import:-194:NotEqual_NameName\n    1d5ee StructMemberContext BGMID_7_B47857404179EE90049AD8A2FCC54983\n      1d5ff LocalVariable CallFunc_GetDataTableRowFromName_OutRow_1\n    1d610 NameConst None\n1d61a PopExecutionFlowIfNot\n  1d61b LocalVariable CallFunc_NotEqual_NameName_ReturnValue_1\n1d62c LetBool\n  1d62d LocalVariable PlayBattleBGM\n  1d63e True\n1d63f PopExecutionFlow\n1d640 LetBool\n  1d641 LocalVariable CallFunc_Not_PreBool_ReturnValue\n  1d652 CallMath import:-190:Not_PreBool\n    1d657 LocalVariable Temp_bool_Variable\n1d669 PopExecutionFlowIfNot\n  1d66a LocalVariable CallFunc_Not_PreBool_ReturnValue\n1d67b Let property=CallFunc_Add_IntInt_ReturnValue\n  1d68c LocalVariable CallFunc_Add_IntInt_ReturnValue\n  1d69d CallMath import:-171:Add_IntInt\n    1d6a2 LocalVariable Temp_int_Variable_1\n    1d6b3 IntConst 1\n1d6b9 Let property=Temp_int_Variable_1\n  1d6ca LocalVariable Temp_int_Variable_1\n  1d6db LocalVariable CallFunc_Add_IntInt_ReturnValue\n1d6ec Jump target=1032\n1d6f1 Return\n  1d6f2 Nothing\n1d6f3 EndOfScript",
+    "event_start": "2ede0 LetBool\n  2ede1 LocalVariable CallFunc_StartBattleStart_ReturnValue\n  2edf2 FinalFunction import:-464:StartBattleStart\n    2edf7 LocalOutVariable refEventData\n2ee09 JumpIfNot target=1012\n  2ee0e LocalVariable CallFunc_StartBattleStart_ReturnValue\n2ee1f CallMath import:-664:SetLastBattleResult\n  2ee24 ByteConst 1\n2ee27 LetObj\n  2ee28 LocalVariable CallFunc_GetManagerInstance_ReturnValue\n  2ee39 CallMath import:-355:GetManagerInstance\n    2ee3e ObjectConst import:-87:EncountManager\n2ee44 Context skip=42 rvalue=<null-field>\n  2ee45 ObjectConst import:-826:Default__KismetArrayLibrary\n  2ee56 FinalFunction import:-262:Array_Get\n    2ee5b StructMemberContext OptAry\n      2ee6c LocalOutVariable refEventData\n    2ee7d IntConst 2\n    2ee82 LocalVariable CallFunc_Array_Get_Item\n2ee94 Context skip=42 rvalue=<null-field>\n  2ee95 ObjectConst import:-826:Default__KismetArrayLibrary\n  2eea6 FinalFunction import:-262:Array_Get\n    2eeab StructMemberContext OptAry\n      2eebc LocalOutVariable refEventData\n    2eecd IntConst 3\n    2eed2 LocalVariable CallFunc_Array_Get_Item_1\n2eee4 LetBool\n  2eee5 LocalVariable CallFunc_NotEqual_StrStr_ReturnValue\n  2eef6 CallMath import:-333:NotEqual_StrStr\n    2eefb LocalVariable CallFunc_Array_Get_Item\n    2ef0c StringConst \"0\"\n2ef10 Let property=CallFunc_Conv_StringToInt_ReturnValue\n  2ef21 LocalVariable CallFunc_Conv_StringToInt_ReturnValue\n  2ef32 CallMath import:-327:Conv_StringToInt\n    2ef37 LocalVariable CallFunc_Array_Get_Item_1\n2ef49 Let property=CallFunc_Conv_StringToInt_ReturnValue_1\n  2ef5a LocalVariable CallFunc_Conv_StringToInt_ReturnValue_1\n  2ef6b CallMath import:-327:Conv_StringToInt\n    2ef70 LocalVariable CallFunc_Array_Get_Item\n2ef82 LetBool\n  2ef83 LocalVariable CallFunc_EqualEqual_IntInt_ReturnValue\n  2ef94 CallMath import:-287:EqualEqual_IntInt\n    2ef99 LocalVariable CallFunc_Conv_StringToInt_ReturnValue\n    2efaa IntConst 0\n2efb0 Let property=CallFunc_Conv_IntToByte_ReturnValue\n  2efc1 LocalVariable CallFunc_Conv_IntToByte_ReturnValue\n  2efd2 CallMath import:-281:Conv_IntToByte\n    2efd7 LocalVariable CallFunc_Conv_StringToInt_ReturnValue_1\n2efe9 Context skip=42 rvalue=<null-field>\n  2efea ObjectConst import:-826:Default__KismetArrayLibrary\n  2effb FinalFunction import:-262:Array_Get\n    2f000 StructMemberContext OptAry\n      2f011 LocalOutVariable refEventData\n    2f022 IntConst 0\n    2f027 LocalVariable CallFunc_Array_Get_Item_2\n2f039 Let property=CallFunc_GetValidValue_ReturnValue\n  2f04a LocalVariable CallFunc_GetValidValue_ReturnValue\n  2f05b CallMath import:-319:GetValidValue\n    2f060 ObjectConst import:-223:EPlayableCharacterID\n    2f065 LocalVariable CallFunc_Conv_IntToByte_ReturnValue\n2f077 Let property=CallFunc_Conv_StringToName_ReturnValue\n  2f088 LocalVariable CallFunc_Conv_StringToName_ReturnValue\n  2f099 CallMath import:-328:Conv_StringToName\n    2f09e LocalVariable CallFunc_Array_Get_Item_2\n2f0b0 Let property=CallFunc_Conv_StringToInt_ReturnValue_2\n  2f0c1 LocalVariable CallFunc_Conv_StringToInt_ReturnValue_2\n  2f0d2 CallMath import:-327:Conv_StringToInt\n    2f0d7 ArrayGetByRef\n      2f0d8 StructMemberContext OptAry\n        2f0e9 LocalOutVariable refEventData\n      2f0fa IntConst 4\n2f100 Let property=CallFunc_Conv_IntToByte_ReturnValue_1\n  2f111 LocalVariable CallFunc_Conv_IntToByte_ReturnValue_1\n  2f122 CallMath import:-281:Conv_IntToByte\n    2f127 LocalVariable CallFunc_Conv_StringToInt_ReturnValue_2\n2f139 Let property=CallFunc_GetValidValue_ReturnValue_1\n  2f14a LocalVariable CallFunc_GetValidValue_ReturnValue_1\n  2f15b CallMath import:-319:GetValidValue\n    2f160 ObjectConst import:-223:EPlayableCharacterID\n    2f165 LocalVariable CallFunc_Conv_IntToByte_ReturnValue_1\n2f177 LetBool\n  2f178 LocalVariable CallFunc_StartEventBattle_ReturnValue\n  2f189 Context skip=60 rvalue=CallFunc_StartEventBattle_ReturnValue\n    2f18a LocalVariable CallFunc_GetManagerInstance_ReturnValue\n    2f1af LocalVirtualFunction StartEventBattle\n      2f1b8 LocalVariable CallFunc_Conv_StringToName_ReturnValue\n      2f1c9 LocalVariable CallFunc_EqualEqual_IntInt_ReturnValue\n      2f1da LocalVariable CallFunc_NotEqual_StrStr_ReturnValue\n      2f1eb LocalVariable CallFunc_GetValidValue_ReturnValue\n      2f1fc False\n      2f1fd LocalVariable CallFunc_GetValidValue_ReturnValue_1\n2f20f Context skip=24 rvalue=<null-field>\n  2f210 ObjectConst import:-848:Default__LibUIUtil_C\n  2f221 LocalVirtualFunction GetBalloonBundle\n    2f22a Self\n    2f22b LocalVariable CallFunc_GetBalloonBundle_BalloonBundle\n2f23d LetBool\n  2f23e LocalVariable CallFunc_DeleteBalloonAll_ReturnValue\n  2f24f Context skip=10 rvalue=CallFunc_DeleteBalloonAll_ReturnValue\n    2f250 LocalVariable CallFunc_GetBalloonBundle_BalloonBundle\n    2f275 FinalFunction import:-358:DeleteBalloonAll\n2f27b LetObj\n  2f27c LocalVariable CallFunc_GetManagerInstance_ReturnValue_1\n  2f28d CallMath import:-355:GetManagerInstance\n    2f292 ObjectConst import:-117:KSUIManager\n2f298 LetObj\n  2f299 LocalVariable CallFunc_Close_ReturnValue\n  2f2aa Context skip=12 rvalue=CallFunc_Close_ReturnValue\n    2f2ab LocalVariable CallFunc_GetManagerInstance_ReturnValue_1\n    2f2d0 FinalFunction import:-681:Close\n      2f2d5 ByteConst 101\n2f2d8 LetBool\n  2f2d9 InstanceVariable IsMainSeqStop\n  2f2ea True\n2f2eb LetObj\n  2f2ec LocalVariable CallFunc_GetManagerInstance_ReturnValue_2\n  2f2fd CallMath import:-355:GetManagerInstance\n    2f302 ObjectConst import:-158:SoundManager\n2f308 Context skip=10 rvalue=<null-field>\n  2f309 LocalVariable CallFunc_GetManagerInstance_ReturnValue_2\n  2f326 FinalFunction import:-782:StopAllSe\n2f32c LetBool\n  2f32d LocalOutVariable ReturnValue\n  2f33e True\n2f33f Jump target=1023\n2f344 LetBool\n  2f345 LocalOutVariable ReturnValue\n  2f356 True\n2f357 Return\n  2f358 LocalOutVariable ReturnValue\n2f369 EndOfScript",
+    "event_update": "2f775 PushExecutionFlow target=914\n2f77a LetBool\n  2f77b LocalVariable CallFunc_UpdateBattleStart_ReturnValue\n  2f78c FinalFunction import:-570:UpdateBattleStart\n    2f791 LocalVariable DeltaTime\n2f7a3 Context skip=24 rvalue=<null-field>\n  2f7a4 ObjectConst import:-838:Default__LibAccessor_C\n  2f7b5 LocalVirtualFunction GetKSGameMode\n    2f7be Self\n    2f7bf LocalVariable CallFunc_GetKSGameMode_KSGameMode\n2f7d1 FinalFunction import:-590:UpdateResetBattleWipeMPC_PlayingEvent\n  2f7d6 Context skip=9 rvalue=IsEncountWipe\n    2f7d7 LocalVariable CallFunc_GetKSGameMode_KSGameMode\n    2f7fc InstanceVariable IsEncountWipe\n2f80e PushExecutionFlow target=279\n2f813 PopExecutionFlowIfNot\n  2f814 InstanceVariable IsMainSeqStop\n2f825 LetBool\n  2f826 LocalVariable CallFunc_GetFinishEncountWipe_ReturnValue\n  2f837 LocalVirtualFunction GetFinishEncountWipe\n2f841 PopExecutionFlowIfNot\n  2f842 LocalVariable CallFunc_GetFinishEncountWipe_ReturnValue\n2f853 LetObj\n  2f854 LocalVariable CallFunc_GetManagerInstance_ReturnValue\n  2f865 CallMath import:-355:GetManagerInstance\n    2f86a ObjectConst import:-168:TimeZoneManager\n2f870 Context skip=11 rvalue=<null-field>\n  2f871 LocalVariable CallFunc_GetManagerInstance_ReturnValue\n  2f88e FinalFunction import:-812:SetEnable\n    2f893 True\n2f895 FinalFunction import:-435:SetAllCharacterEnable\n  2f89a False\n2f89c LetBool\n  2f89d LocalVariable CallFunc_StartSequencerStop_ReturnValue\n  2f8ae LocalVirtualFunction StartSequencerStop\n2f8b8 LetBool\n  2f8b9 InstanceVariable IsMainSeqStop\n  2f8ca False\n2f8cb PopExecutionFlow\n2f8cc LetBool\n  2f8cd LocalVariable CallFunc_IsTheaterMode_ReturnValue\n  2f8de FinalFunction import:-417:IsTheaterMode\n2f8e4 LetBool\n  2f8e5 LocalVariable CallFunc_Not_PreBool_ReturnValue\n  2f8f6 CallMath import:-303:Not_PreBool\n    2f8fb LocalVariable CallFunc_IsTheaterMode_ReturnValue\n2f90d JumpIfNot target=668\n  2f912 LocalVariable CallFunc_Not_PreBool_ReturnValue\n2f923 LetBool\n  2f924 LocalVariable CallFunc_GetBattleMode_ReturnValue\n  2f935 CallMath import:-657:GetBattleMode\n    2f93a Self\n2f93c LetBool\n  2f93d LocalVariable CallFunc_Not_PreBool_ReturnValue_1\n  2f94e CallMath import:-303:Not_PreBool\n    2f953 LocalVariable CallFunc_GetBattleMode_ReturnValue\n2f965 JumpIfNot target=713\n  2f96a LocalVariable CallFunc_Not_PreBool_ReturnValue_1\n2f97b Let property=CallFunc_GetLastBattleResult_ReturnValue\n  2f98c LocalVariable CallFunc_GetLastBattleResult_ReturnValue\n  2f99d CallMath import:-660:GetLastBattleResult\n2f9a3 LetBool\n  2f9a4 LocalVariable CallFunc_EqualEqual_ByteByte_ReturnValue\n  2f9b5 CallMath import:-286:EqualEqual_ByteByte\n    2f9ba LocalVariable CallFunc_GetLastBattleResult_ReturnValue\n    2f9cb ByteConst 1\n2f9ce JumpIfNot target=729\n  2f9d3 LocalVariable CallFunc_EqualEqual_ByteByte_ReturnValue\n2f9e4 LetBool\n  2f9e5 LocalVariable CallFunc_EqualEqual_StrStr_ReturnValue\n  2f9f6 CallMath import:-329:EqualEqual_StrStr\n    2f9fb InstanceVariable BattleEndNextEventName\n    2fa0c StringConst \"---\"\n2fa12 JumpIfNot target=882\n  2fa17 LocalVariable CallFunc_EqualEqual_StrStr_ReturnValue\n2fa28 Let property=NextEventName\n  2fa39 InstanceVariable NextEventName\n  2fa4a StringConst \"\"\n2fa4c FinalFunction import:-435:SetAllCharacterEnable\n  2fa51 True\n2fa53 LetBool\n  2fa54 InstanceVariable BeforEventBattle\n  2fa65 True\n2fa66 CallMath import:-654:AddSequenceRequestForHolding\n  2fa6b ByteConst 8\n  2fa6d StructConst import:-969:MainSequneceRequestParam size=64\n    2fa76 InstanceDelegate (null).None\n    2fa7f StructConst import:-968:MainSequenceStateParam size=16\n      2fa88 NoObject\n      2fa89 IntConst 0\n    2fa8f False\n    2fa90 ByteConst 0\n2fa94 LetBool\n  2fa95 LocalVariable CallFunc_TempEventSkip_ReturnValue\n  2faa6 FinalFunction import:-562:TempEventSkip\n    2faab True\n2faad LetBool\n  2faae LocalOutVariable ReturnValue\n  2fabf True\n2fac0 Jump target=914\n2fac5 LetBool\n  2fac6 LocalVariable CallFunc_IsFadeEnd_ReturnValue\n  2fad7 CallMath import:-662:IsFadeEnd\n    2fadc Self\n2fade LetBool\n  2fadf LocalOutVariable ReturnValue\n  2faf0 LocalVariable CallFunc_IsFadeEnd_ReturnValue\n2fb01 Jump target=914\n2fb06 LetBool\n  2fb07 LocalOutVariable ReturnValue\n  2fb18 False\n2fb19 Jump target=914\n2fb1e LetBool\n  2fb1f LocalVariable CallFunc_IsEventBattleDefeatNextEvent_ReturnValue\n  2fb30 FinalFunction import:-414:IsEventBattleDefeatNextEvent\n2fb36 JumpIfNot target=857\n  2fb3b LocalVariable CallFunc_IsEventBattleDefeatNextEvent_ReturnValue\n2fb4c Let property=NextEventName\n  2fb5d InstanceVariable NextEventName\n  2fb6e InstanceVariable BattleEndDefeatNextEventName\n2fb7f LetObj\n  2fb80 LocalVariable CallFunc_FadeOut_ReturnValue\n  2fb91 CallMath import:-656:FadeOut\n    2fb96 Self\n    2fb97 FloatConst 0\n    2fb9c StructConst import:-933:LinearColor size=16\n      2fba5 FloatConst 0\n      2fbaa FloatConst 0\n      2fbaf FloatConst 0\n      2fbb4 FloatConst 1\n    2fbba ByteConst 3\n2fbbd Jump target=547\n2fbc2 Let property=NextEventName\n  2fbd3 InstanceVariable NextEventName\n  2fbe4 StringConst \"\"\n2fbe6 Jump target=569\n2fbeb Let property=NextEventName\n  2fbfc InstanceVariable NextEventName\n  2fc0d InstanceVariable BattleEndNextEventName\n2fc1e Jump target=790\n2fc23 Return\n  2fc24 LocalOutVariable ReturnValue\n2fc35 EndOfScript"
+  },
+  "sources": [
+    {
+      "source": "/Game/Event/Database/EventList",
+      "sha256": "acbbb094b2b071271fde8e4adf26b0df3661594556b3835b96e93a97300089a3"
+    },
+    {
+      "source": "/Game/Event/json/MS_TOU_10_0600",
+      "sha256": "67a8dde22213370135e2e57267fee5d54643dacf0e7681566e1e30d9d6c2bd06"
+    },
+    {
+      "source": "/Game/Event/RichEvent/01_Main/70_TOU/ep1/RI_MS_TOU_10_0600",
+      "sha256": "81604e477ad7556af374d11a2038d52c6690d4d958345bd54e1fc52128716d61"
+    },
+    {
+      "source": "/Game/Event/BP/BP_RichEventCommandBase",
+      "function": "StartBattleFunction",
+      "sha256": "6ed1e20d210382718bed6080c32614c1631e432f6ee8de1abaa4a8d43aad3bdf"
+    },
+    {
+      "source": "/Game/Event/BP/EventManagerBP",
+      "function": "StartBattleStart",
+      "sha256": "053e599edcedaf453820b17a7a71fbfa9ca33c63807080ea2dedc0c1f5a3c4cb"
+    },
+    {
+      "source": "/Game/Event/BP/EventManagerBP",
+      "function": "UpdateBattleStart",
+      "sha256": "053e599edcedaf453820b17a7a71fbfa9ca33c63807080ea2dedc0c1f5a3c4cb"
+    },
+    {
+      "source": "Octopath_Traveler2-Win64-Shipping.exe.c",
+      "function": "FUN_140eb2700",
+      "sha256": "3eae399a1ac1cbfc5c751588deab1a50de6ec1da48f63548d75c836347956378"
+    },
+    {
+      "source": "Octopath_Traveler2-Win64-Shipping.exe.c",
+      "function": "FUN_140eb67a0",
+      "sha256": "66c3f9bb4a3b95fbd06508d57e35e6af038191d050b431e8fec2898359e26ec2"
+    },
+    {
+      "source": "Octopath_Traveler2-Win64-Shipping.exe.c",
+      "function": "FUN_140e965b0",
+      "sha256": "d1c71e24819d00a7c1cd5b70759facd1131dbf7f0b47b913cd506ac6288e063a"
+    }
+  ]
+}

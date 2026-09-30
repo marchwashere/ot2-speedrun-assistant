@@ -1,0 +1,10 @@
+{
+  "source": "User-observed medium-speed walk from the position after Throné's opening battle to the next cutscene trigger, 2026-09-26",
+  "counter_before": 830,
+  "counter_after": 146,
+  "assumption": "The user confirmed 57 walking updates to the next checkpoint. Running and mixed budgets currently estimate the same total; independent opening running/mixed measurements are unavailable.",
+  "limitation": "UpdatePlayerStep checks displacement > PC_ONCE_STEP_LENGTH, decrements once and replaces PrePlayerPos with the current position. Excess displacement is discarded. Speed and switch locations can change update counts, so this is not a general movement-path simulator or an exact mixed-distance percentage. Flats measurements of 61 walk/56 run apply only to Flats, not this opening route.",
+  "source_functions": ["EncountManagerBP.UpdatePlayerStep", "EncountManagerBP.PlayerStepCounter", "EncountManagerBP.CalcDecreaseStepCount", "EncountManagerBP.IsExecEncount"],
+  "source_file": "tools/speedrun_audit/Battle__BP__EncountManagerBP.txt",
+  "zero_counter_policy": "StepCount <= 0 enables encounters; a tie at the trigger is not considered safe. Cutscene-versus-encounter scheduling on that frame is unverified."
+}

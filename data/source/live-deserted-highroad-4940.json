@@ -1,0 +1,23 @@
+{
+  "source": "tools/rng-cait-deserted-4940.json",
+  "capture_date": "2026-09-16",
+  "seed": 0,
+  "start_advance": 4940,
+  "party_levels": [84,85,77,84],
+  "cait_bonus": 2,
+  "rare_support_bonus": 2,
+  "group_roll": 16,
+  "situation_roll": 3,
+  "enemies": ["ENE_NML_OTR_150", "ENE_NML_FLD_CTY_090"],
+  "boundary": "Before encounter-trigger reset through rare slot replacement; excludes enemy actor initialization",
+  "checkpoints": [
+    [0,3364869964],
+    [2,3044868134],
+    [3,338409041],
+    [4,2198077392],
+    [8,501879188],
+    [9,131054087],
+    [10,1144409262],
+    [11,2246832313]
+  ]
+}

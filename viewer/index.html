@@ -1,0 +1,360 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>OT2 Speedrun Assistant</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%231b252b'/%3E%3Ctext x='32' y='43' text-anchor='middle' font-family='sans-serif' font-size='32' fill='%23e5be7c'%3EII%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="/viewer.css">
+  <script src="/viewer.js" defer></script>
+  <script src="/encounters.js" defer></script>
+</head>
+<body>
+  <div class="shell">
+    <header class="topbar">
+      <div class="brand"><span class="mark" aria-hidden="true">II</span><div><strong>OT2 Speedrun Assistant</strong></div></div>
+      <button class="quiet" id="quit" type="button">Quit viewer</button>
+    </header>
+    <main>
+      <nav class="mode-switch" aria-label="Predictor"><button id="manipulation-mode" type="button" aria-pressed="true">Manipulation</button><button id="detail-mode" type="button" aria-pressed="false">Detailed log</button><button id="field-mode" type="button" aria-pressed="false">Field encounters</button><button id="settings-mode" type="button" aria-pressed="false">Settings</button></nav>
+      <section id="manipulation-panel" aria-labelledby="manipulation-title">
+        <div class="intro run-intro"><h1 id="manipulation-title">Manipulation</h1></div>
+        <section class="panel setup run-setup" aria-labelledby="seed-label">
+          <form id="seed-form" novalidate>
+            <div class="seed-field"><label id="seed-label" for="seed">Initial seed</label><input id="seed" name="seed" type="text" value="0x00000000" placeholder="0x00000000" spellcheck="false" autocomplete="off" aria-describedby="error"></div>
+            <div class="advance-field"><label for="advances">RNG advances at title screen</label><input id="advances" name="advances" type="text" inputmode="numeric" value="4916" maxlength="20" spellcheck="false" autocomplete="off" aria-describedby="error"></div>
+            <div class="level-setting"><span class="control-label">Shared level</span><button id="recreate-shared-level" type="button" aria-label="Recreate shared level" aria-pressed="false">Recreate <span id="recreate-state">Off</span></button></div>
+            <button class="primary" id="simulate" type="submit">Run simulation <span aria-hidden="true">↗</span></button>
+          </form>
+          <div id="error" class="error" role="alert" hidden></div>
+        </section>
+        <p id="status" class="status" role="status" aria-live="polite">Ready to simulate.</p>
+        <div id="results" class="manipulation-results" hidden>
+          <p id="required-outcomes-error" class="error" role="alert" hidden></p>
+          <section id="first-battle-result" class="panel route-card first-battle" aria-labelledby="first-battle-title">
+            <h2 id="first-battle-title">First battle</h2>
+            <div class="boost-calculator" aria-labelledby="boost-title">
+              <div class="boost-heading"><h3 id="boost-title">Boost adjustment</h3></div>
+              <p id="boost-result" class="small" role="status"></p>
+            </div>
+          </section>
+          <div class="route-outcomes">
+            <section id="checkpoint-run-result" class="panel route-card" aria-labelledby="running-title">
+              <h2 id="running-title">First battle exit → Ambush tutorial checkpoint</h2><h3>Running limit · estimate</h3><strong id="avoid-verdict" class="run-state"></strong><p id="avoid-help" class="muted small"></p>
+            </section>
+            <section id="second-battle-result" class="panel route-card" aria-labelledby="second-title">
+              <h2 id="second-title">Second fight</h2>
+              <div id="second-boost-routine"></div>
+            </section>
+          </div>
+          <section id="mansion-escape-result" class="panel route-card" hidden>
+            <h2>Mansion encounter escape → Pirro cutscene trigger</h2>
+            <p id="mansion-escape-status" class="run-state"></p>
+            <div id="mansion-escape-routine"></div>
+          </section>
+          <section id="pirro-result" class="panel route-card" hidden aria-labelledby="pirro-title">
+            <h2 id="pirro-title">Pirro</h2>
+            <h3 id="pirro-boost-heading">Boost adjustment</h3>
+            <div id="pirro-boost-routine"></div>
+          </section>
+          <section id="highroad-result" class="panel route-card" hidden>
+            <h2>Highroad Escape</h2>
+            <div id="highroad-boost-routine"></div>
+          </section>
+          <section id="flats-result" class="panel route-card" hidden>
+            <h2>New Delsta Flats entry → New Delsta Harbor</h2>
+            <div id="flats-harbor"></div>
+            <p id="flats-error" class="error small" hidden></p>
+          </section>
+          <section id="flats-escape-result" class="panel route-card" hidden>
+            <h2>New Delsta Flats (after Harbor return) → Abandoned Village</h2>
+            <div id="flats-escape-routine"></div>
+          </section>
+          <section id="village-return-result" class="panel route-card" hidden>
+            <h2>New Delsta Flats (Abandoned Village exit) → Southern Cape Cold Snows</h2>
+            <h3>Running limit · estimate</h3><p id="village-snow-run" class="run-state"></p>
+          </section>
+          <section id="cape-cold-result" class="panel route-card" hidden>
+            <h2>Osvald recruitment spot, Southern Cape Cold Snows → Cape Cold</h2>
+            <p id="cape-cold-error" class="run-state text-bad" hidden></p>
+            <div id="cape-cold-movement">
+              <h3>Running limit · estimate</h3>
+              <p id="cape-cold-run" class="run-state"></p>
+            </div>
+          </section>
+          <section id="mug-result" class="panel route-card" hidden>
+            <h2>Cape Cold · Mug</h2>
+            <div id="mug-adjustment"></div>
+          </section>
+          <section id="cleric-approach-result" class="panel route-card" hidden>
+            <h2>New Delsta Flats (Abandoned Village entry) → Cleric spawns</h2>
+            <p id="cleric-approach-run" class="run-state"></p>
+            <p class="action-note">Switch to night at the cleric spawns</p>
+          </section>
+          <section id="crackridge-switch-result" class="panel route-card" hidden>
+            <h2>Cleric purchase → Crackridge Harbor</h2>
+            <p id="crackridge-switch-instruction" class="run-action"></p>
+          </section>
+          <section id="crackridge-escape-result" class="panel route-card" hidden>
+            <h2>Crackridge Harbor encounter</h2>
+            <div id="crackridge-escape-routine"></div>
+          </section>
+        </div>
+      </section>
+      <section id="detail-panel" hidden aria-labelledby="detail-title">
+        <div class="intro"><div><p class="eyebrow">LATEST SIMULATION</p><h1 id="detail-title">Detailed log</h1><p class="muted">Throné · skip both cutscenes · English · 1× → 2× before the first attack</p></div></div>
+        <p id="detail-empty" class="status">Run a simulation from Manipulation to populate this log.</p>
+        <div id="detail-results" hidden>
+          <section class="result-heading"><div><span id="outcome" class="pill success"></span><span id="result-context" class="muted"></span></div><button type="button" id="export" class="quiet">Export JSON ↓</button></section>
+          <section class="panel overview">
+            <div class="prepared-state"><span>Battle-entry CRT</span><output id="prepared-state" for="seed advances recreate-shared-level">—</output><small id="prepared-help"></small></div>
+            <p class="route-help"><b id="draws"></b> battle CRT draws · <span id="draws-help" class="muted small"></span></p><p id="drops" class="muted small"></p>
+            <p id="boost-detail" class="route-help" hidden></p>
+        <details class="routine"><summary>Your two-round routine</summary><div><p><b>Enemies are numbered right to left:</b> enemy 1 is on the right; enemy 2 is on the left.</p><p><b>Round 1:</b> first party actor → enemy 1, 1 BP (two hits); second and third → enemy 2, no boost (one hit each).</p><p><b>Round 2:</b> the two actors who hit enemy 2 use 2 BP on enemy 1 and enemy 2, in turn order. The first-round booster Defends if their turn occurs. All attacks use the default weapon.</p></div></details>
+          </section>
+          <details class="panel route-card route-diagnostics"><summary>Route diagnostics</summary><div class="diagnostic-list"><section><h3>First battle</h3><div class="damage-verdict"><h3>Damage-less?</h3><strong id="damage-free"></strong><p id="damage-help" class="muted small"></p></div><div class="run-diagnostics first-diagnostics">
+              <div><span class="diagnostic-label">CRT after battle popup</span><div class="diagnostic-value"><strong id="final-advances"></strong><span>advances since initial seed</span><button id="copy" type="button" class="small-button">Copy hex</button></div><span id="final-hex" class="rng-secondary"></span></div>
+              <div><span class="diagnostic-label">Counter after popup</span><strong id="counter" class="diagnostic-counter"></strong></div>
+            </div><p id="boost-help" class="muted small" hidden></p><p id="boost-cap-note" class="muted small" hidden></p></section>
+            <section><h3>Checkpoint</h3><div class="run-diagnostics"><span class="diagnostic-label">CRT after checkpoint popup · expected</span><div class="diagnostic-value"><strong id="checkpoint-advances"></strong><span>advances since initial seed</span></div><span id="checkpoint-hex" class="rng-secondary"></span></div></section>
+            <section><h3>Second fight</h3><p id="second-empty" class="muted">Not reached</p><div id="second-results" hidden>
+                <div class="damage-verdict"><h3>Only one enemy action?</h3><strong id="second-one-action"></strong></div>
+                <p id="second-action-count" class="muted small"></p>
+                <div class="run-diagnostics"><span class="diagnostic-label">CRT after second fight · after drops</span><div class="diagnostic-value"><strong id="second-after-advances"></strong><span>advances since initial seed</span></div><span id="second-after-hex" class="rng-secondary"></span></div>
+                <div id="city-result" class="run-diagnostics" hidden><span class="diagnostic-label">CRT after New Delsta popup</span><div class="diagnostic-value"><strong id="city-after-advances"></strong><span>advances since initial seed</span></div><span id="city-after-hex" class="rng-secondary"></span></div>
+              </div></section>
+            <section data-diagnostic-event="mansion_escape"><h3>Mansion encounter</h3><p id="mansion-escape-position" class="muted small"></p><div id="mansion-escape-diagnostics" class="run-diagnostics"></div></section>
+            <section data-diagnostic-event="pirro_aftermath"><h3>After Pirro</h3><div id="pirro-aftermath-result" class="run-diagnostics" hidden><span class="diagnostic-label">CRT after cutscenes · Eastern New Delsta</span><div class="diagnostic-value"><strong id="pirro-aftermath-advances"></strong><span>advances since initial seed</span></div><span id="pirro-aftermath-hex" class="rng-secondary"></span></div><p id="pirro-aftermath-error" class="error small" hidden></p></section>
+            <section data-diagnostic-event="highroad"><h3>Highroad Escape</h3><div id="highroad-escape-diagnostics" class="run-diagnostics" hidden><span class="diagnostic-label">CRT after Escape · field returned</span><div class="diagnostic-value"><strong id="highroad-escape-advances"></strong><span>advances since initial seed</span></div><span id="highroad-escape-hex" class="rng-secondary"></span></div></section>
+            <section data-diagnostic-event="flats"><h3>New Delsta Flats</h3><p id="flats-harbor-detail" class="muted small"></p><div id="flats-diagnostics"><span class="diagnostic-label">CRT after loading</span><div class="diagnostic-value"><strong id="flats-advances"></strong><span>advances since initial seed</span></div><span id="flats-hex" class="rng-secondary"></span></div></section>
+            <section id="harbor-return-result" hidden>
+            <h3>Harbor → Flats</h3>
+            <div id="harbor-return-diagnostics"><span class="diagnostic-label">CRT after returning</span><div class="diagnostic-value"><strong id="harbor-return-advances"></strong><span>advances since initial seed</span></div><span id="harbor-return-hex" class="rng-secondary"></span><p id="harbor-return-counter" class="muted small"></p></div>
+            <p id="harbor-return-error" class="error small" hidden></p>
+          </section>
+            <section data-diagnostic-event="flats_escape"><h3>Flats escape</h3><p id="flats-escape-run" class="muted small"></p><div id="flats-escape-diagnostics" class="run-diagnostics" hidden><span class="diagnostic-label">CRT after Escape · field returned</span><div class="diagnostic-value"><strong id="flats-escape-advances"></strong><span>advances since initial seed</span></div><span id="flats-escape-hex" class="rng-secondary"></span></div></section>
+            <section data-diagnostic-event="village_return"><h3>Abandoned Village return</h3><p id="village-snow-detail" class="muted small"></p><div class="run-diagnostics"><span class="diagnostic-label">CRT after returning to Flats</span><div class="diagnostic-value"><strong id="village-return-advances"></strong><span>advances since initial seed</span></div><span id="village-return-hex" class="rng-secondary"></span></div></section>
+            <section id="osvald-result" hidden>
+            <h3>Recruit Osvald</h3>
+            <p id="osvald-walk" class="run-state"></p><p id="osvald-counter" class="muted small"></p>
+            <div id="osvald-diagnostics" class="run-diagnostics"><span class="diagnostic-label">CRT after recruitment · tutorials dismissed</span><div class="diagnostic-value"><strong id="osvald-advances"></strong><span>advances since initial seed</span></div><span id="osvald-hex" class="rng-secondary"></span></div>
+          </section>
+            <section data-diagnostic-event="cape_cold"><h3>Cape Cold</h3><p id="cape-cold-counter" class="muted small"></p><div id="cape-cold-diagnostics" class="run-diagnostics"><span class="diagnostic-label">CRT after loading Cape Cold</span><div class="diagnostic-value"><strong id="cape-cold-advances"></strong><span>advances since initial seed</span></div><span id="cape-cold-hex" class="rng-secondary"></span></div></section>
+          </div></details>
+          <section id="route-checks" class="panel overview route-checks" aria-label="Battle and route checks"></section>
+          <p class="accuracy-note">The earlier routine matched all 154 recorded CRT calls at seed 0 + 4929. The revised first-actor boost routine needs a live comparison. The earlier Throné damage discrepancy (33 predicted versus 31 reported) remains unresolved. Damage-less means a predicted victory with zero damage received; enemy turns that miss still count as turns in the detailed assessment.</p>
+        <div class="overview-grid">
+          <section class="panel overview"><h2>RNG checkpoints</h2><p class="muted small checkpoint-help">Command menus: after turn-start voice, before boosting. Ambush: open the path-action menu once, then skip the rejoin cutscene.</p><div class="table-scroll"><table class="checkpoints"><thead><tr><th>Checkpoint</th><th>Advances since initial seed</th><th>CRT (hex)</th><th>Draws since battle entry</th></tr></thead><tbody id="checkpoints"></tbody></table></div></section>
+          <section class="panel overview"><h2>Party after battle</h2><div id="party"></div><p id="enemy-outcome" class="muted small"></p></section>
+        </div>
+        <section class="panel log-panel">
+          <div class="log-toolbar"><div class="tabs" role="tablist" aria-label="Simulation details"><button id="actions-tab" role="tab" aria-selected="true" aria-controls="actions-view" type="button">Battle log</button><button id="trace-tab" role="tab" aria-selected="false" aria-controls="trace-view" tabindex="-1" type="button">CRT trace</button></div><span id="log-count" class="muted small"></span></div>
+          <div id="actions-view" role="tabpanel" aria-labelledby="actions-tab"><p class="muted small log-help">Each party action shows its command-menu advance count from the initial seed, before boosting. Expand for CRT states, hits and resources. Damage rolls include overkill.</p><div class="order-strip"><span>Opening order</span><span id="initial-order"></span></div><div id="actions"></div></div>
+          <div id="trace-view" role="tabpanel" aria-labelledby="trace-tab" hidden><p class="muted small log-help">Main-CRT calls through the route to Cape Cold Mug. Advance counts are measured from the initial seed.</p><div class="trace-scroll"><table><thead><tr><th>Callback</th><th>Actor</th><th>From advance</th><th>To advance</th><th>Δ draws</th><th>Before CRT</th><th>After CRT</th></tr></thead><tbody id="trace"></tbody></table></div></div>
+        </section>
+        <section id="second-log" class="panel log-panel" hidden><div class="overview"><h2>Second fight · Chapter 1</h2><p id="second-context" class="muted"></p><strong id="second-outcome"></strong><p id="second-damage" class="muted small"></p><p id="second-error" class="error" hidden></p><p id="second-verification" class="accuracy-note"></p>
+          <div id="second-order-checks" class="table-scroll"></div>
+          <details class="routine"><summary>Second fight routine</summary><div class="table-scroll"><table><thead><tr><th>Character</th><th>Round 1 · 0 BP</th><th>Round 2 · 2 BP</th></tr></thead><tbody>
+            <tr><td>Throné</td><td>Darkest Night → right grunt</td><td>Darkest Night → middle leader</td></tr>
+            <tr><td>Pirro</td><td>Pierce Through → middle leader</td><td>Slice → left grunt</td></tr>
+            <tr><td>Scaracci</td><td>Axe → left grunt</td><td>Axe → right grunt</td></tr>
+          </tbody></table></div></details>
+          <div class="order-strip"><span>Opening order</span><span id="second-order"></span></div></div><div id="second-actions"></div></section>
+        <section id="pirro-log" class="panel log-panel" hidden><div class="overview"><h2>Pirro · Chapter 1</h2><p id="pirro-context" class="muted"></p><p id="pirro-error" class="error" hidden></p><p id="pirro-verification" class="accuracy-note"></p></div><div id="pirro-actions"></div></section>
+        <section id="mug-log" class="panel log-panel" hidden><div class="overview">
+          <h2>Cape Cold · Mug</h2>
+          <p id="mug-error" class="error" hidden></p>
+          <div id="mug-details">
+            <p id="mug-context" class="muted"></p>
+            <div class="run-diagnostics"><span class="diagnostic-label">CRT after Mug · loot dismissed, field returned</span><div class="diagnostic-value"><strong id="mug-advances"></strong><span>advances since initial seed</span></div><span id="mug-hex" class="rng-secondary"></span></div>
+            <div class="table-scroll"><table><thead><tr><th>Round</th><th>Actor</th><th>Action</th><th>Damage</th><th>Man HP left</th><th>Menu / action advances</th><th>CRT (hex)</th></tr></thead><tbody id="mug-actions"></tbody></table></div>
+            <p id="mug-verification" class="accuracy-note"></p>
+            <p id="cleric-approach-detail" class="muted small"></p>
+            <div id="crackridge-voyage-result" hidden>
+              <h3>Clerics → New Delsta Harbor (day) → Crackridge Harbor</h3>
+              <p id="crackridge-voyage-error" class="error" hidden></p>
+              <div id="crackridge-voyage-diagnostics" class="run-diagnostics">
+                <span class="diagnostic-label">CRT after boat · Crackridge Harbor field control</span>
+                <div class="diagnostic-value"><strong id="crackridge-voyage-advances"></strong><span>advances since initial seed</span></div>
+                <span id="crackridge-voyage-hex" class="rng-secondary"></span>
+              </div>
+              <p id="crackridge-voyage-verification" class="accuracy-note"></p>
+            </div>
+          </div>
+        </div></section>
+        </div>
+      </section>
+      <section id="field-panel" hidden aria-labelledby="field-title">
+        <div class="intro"><div><p class="eyebrow">FIELD RNG PREDICTOR</p><h1 id="field-title">The next encounter</h1><p class="muted">Continue into Underground Waterway from the frame after Throné’s opening battle.</p></div></div>
+        <form id="field-form" class="panel field-setup">
+          <label>Route frame<select id="field-route"><option value="throne_after_opening">After Throné’s opening battle</option><option value="custom">Custom area</option></select></label>
+          <p id="field-frame" class="accuracy-note">Run the opening battle to prepare its field frame.</p>
+          <div class="field-grid">
+            <label>Field initial seed<input id="field-seed" type="text" value="0x00000000" spellcheck="false" required></label>
+            <label>Field advances since initial seed<input id="field-advances" type="text" value="0" inputmode="numeric" required><small>State immediately before the chosen starting point</small></label>
+            <label>Starting point<select id="field-boundary"><option value="walk">Counter reset → next encounter</option><option value="current_counter">Existing counter → next encounter</option><option value="trigger">Encounter trigger, before its reset</option><option value="reset">Counter reset only</option></select></label>
+          </div>
+          <div class="field-actions"><button id="field-use-battle" type="button">Use Throné post-battle frame</button><span class="muted small">Carries the final CRT state, existing counter, party and story progression into Underground Waterway.</span></div>
+          <label id="field-current-label" hidden>Current encounter counter<input id="field-current" type="number" min="0" max="4294967295" value="1000"><small>Remaining value already stored by the game; no initial reset is drawn</small></label>
+          <div class="field-grid">
+            <label>Find map<input id="field-search" type="search" placeholder="Map name or ID"></label>
+            <label>Map<select id="field-map"></select></label>
+            <label>Active encounter zone<select id="field-zone"></select></label>
+            <label>Time / world state<select id="field-period"><option value="DayTime">Day</option><option value="Night">Night</option><option value="LostWay">Lost Way</option><option value="DarkArea">Dark Area</option></select></label>
+            <label>Main progress points<input id="field-progress" type="number" min="0" max="4294967295" value="0"><small>Game's progress score; not a chapter number</small></label>
+            <label>Party levels<input id="field-levels" type="text" value="1" required><small>One to four travelers, e.g. 84,85,77,84</small></label>
+          </div>
+          <div class="field-checks"><label><input id="field-first" type="checkbox"> First encounter flag active</label><label><input id="field-dash" type="checkbox"> Dashing</label><label><input id="field-all-zones" type="checkbox"> Manually select from all zone IDs</label></div>
+          <p id="field-zone-info" class="muted small"></p>
+          <label id="field-gap-label">Other CRT calls between reset and encounter<input id="field-gap" type="text" value="0" inputmode="numeric"><small>Walking decrements the counter without drawing CRT. Enter any calls from other game activity; changing maps or resetting the counter requires a new prediction.</small></label>
+          <details class="routine"><summary>Equipment and support modifiers</summary><div class="field-grid">
+            <label>Cait equipment bonus (points)<input id="field-cait" type="number" min="0" max="1000" value="0"></label>
+            <label>Octopuff equipment bonus (points)<input id="field-octo" type="number" min="0" max="1000" value="0"></label>
+            <label>Rare-enemy support bonus (points)<input id="field-rare" type="number" min="0" max="1000" value="0"></label>
+            <label>Preemptive bonus (points)<input id="field-preempt" type="number" min="0" max="1000" value="0"></label>
+            <label>Surprise reduction (points)<input id="field-surprise" type="number" min="0" max="1000" value="0"></label>
+            <label>Counter support multiplier (%)<input id="field-ability" type="number" min="0" max="1000" value="100"></label>
+            <label>Counter equipment multiplier (%)<input id="field-equipment" type="number" min="0" max="1000" value="100"></label>
+          </div><p class="muted small">Enter the aggregate effects from active equipment/supports. Two Cait Powders add 2 Cait points; More Rare Monsters adds 2 support points. Evasive Maneuvers sets the counter support multiplier to 50%.</p></details>
+          <p class="muted small">The Throné frame applies before the next sewer story event. Custom area requires the current zone and progression. Predictions end after enemy selection, before enemy initialization and command-menu RNG.</p>
+          <button class="primary" id="field-predict" type="submit">Predict encounter</button>
+        </form>
+        <p id="field-status" class="status" role="status">Loading encounter data…</p>
+        <div id="field-error" class="error" role="alert" hidden></div>
+        <div id="field-result" hidden></div>
+      </section>
+      <section id="settings-panel" hidden aria-labelledby="settings-title">
+        <div class="intro"><h1 id="settings-title">Settings</h1></div>
+        <p class="muted small">Required outcomes sharing an event are searched together before optional improvements. Numeric budgets allow extra repeats; an optional miss keeps the required plan. Escape strategy preferences are separate.</p>
+        <p class="muted small">1 repeat = 1 cancel + 1 reboost (2 extra button presses). A budget of 4 allows 8 extra presses, excluding normal action boosts. Larger boost climbs receive no discount.</p>
+        <form id="settings-form" class="settings-form" novalidate>
+          <section class="panel search-setting" aria-labelledby="first-search-title">
+          <h2 id="first-search-title">First battle</h2>
+          <p class="muted small">Search: boost/cancel inputs at a party command menu, then the fixed action.</p>
+          <div class="event-setting">
+            <label for="encounter-boost-repeats">Checkpoint · no encounter</label>
+            <input id="encounter-boost-repeats" type="number" min="0" max="256" step="1" value="4" aria-describedby="encounter-cap-help settings-error">
+            <label class="unlimited-choice"><input id="encounter-boost-repeats-unlimited" type="checkbox" aria-label="Required outcome: encounter avoidance repeats"> Required outcome</label>
+            <p id="encounter-cap-help" class="muted small">Optional repeat budget. Required searches as far as needed.</p>
+          </div>
+          <div class="event-setting">
+            <label for="second-fight-boost-repeats">Second fight · one enemy action</label>
+            <input id="second-fight-boost-repeats" type="number" min="0" max="256" step="1" value="4" aria-describedby="second-fight-cap-help settings-error">
+            <label class="unlimited-choice"><input id="second-fight-boost-repeats-unlimited" type="checkbox" aria-label="Required outcome: second fight repeats"> Required outcome</label>
+            <p id="second-fight-cap-help" class="muted small">Optional: additional repeats beyond the checkpoint plan. Required: search checkpoint safety and one-action fight together.</p>
+          </div>
+          </section>
+          <section class="panel search-setting" aria-labelledby="second-search-title">
+            <h2 id="second-search-title">Second fight</h2>
+            <p class="muted small">Search: boost/cancel inputs at a party command menu, then the fixed action.</p>
+            <div class="event-setting">
+              <label for="mansion-approach-boost-repeats">First mansion encounter · avoid surprise attack</label>
+              <input id="mansion-approach-boost-repeats" type="number" min="0" max="256" step="1" value="4">
+              <label class="unlimited-choice"><input id="mansion-approach-boost-repeats-unlimited" type="checkbox" aria-label="Required outcome: mansion approach repeats"> Required outcome</label>
+              <p class="muted small">Keep the first-battle plan and any achieved one-enemy-action result.</p>
+            </div>
+          </section>
+          <section class="panel search-setting" aria-labelledby="escape-search-title">
+          <h2 id="escape-search-title">Mansion encounter</h2>
+          <p class="muted small">Search: boost/cancel at Throné’s first command menu → Escape, or 1 BP dagger break → Escape next turn.</p>
+          <div class="event-setting">
+            <label for="mansion-run-boost-repeats">No second encounter · run to Pirro</label>
+            <input id="mansion-run-boost-repeats" type="number" min="0" max="256" step="1" value="4">
+            <label class="unlimited-choice"><input id="mansion-run-boost-repeats-unlimited" type="checkbox" checked aria-label="Required outcome: mansion no second encounter"> Required outcome</label>
+            <p class="muted small">Required: keep searching for enough counter. Otherwise, use this optional counter-search budget. A missed target stops the route before Pirro.</p>
+          </div>
+          <div class="event-setting">
+            <label for="mansion-escape-boost-repeats">Additional boost repeats before trying a break</label>
+            <input id="mansion-escape-boost-repeats" type="number" min="0" max="256" step="1" value="4">
+            <label class="unlimited-choice"><input id="mansion-escape-boost-repeats-unlimited" type="checkbox" aria-label="Boost only: Mansion Escape"> Boost only</label>
+            <p class="muted small">After the counter search, try first-attempt Escape within this additional boost budget; otherwise dagger-break, then Escape. Both strategies preserve the required counter outcome. Boost only skips the break fallback.</p>
+          </div>
+          </section>
+          <section class="panel search-setting" aria-labelledby="pirro-search-title">
+            <h2 id="pirro-search-title">Pirro fight</h2>
+            <p class="muted small">Search: R3 Throné boost/cancel inputs, ending at 3 BP for Darkest Night.</p>
+            <div class="event-setting">
+              <label for="pirro-victory-boost-repeats">Victory · avoid defeat</label>
+              <input id="pirro-victory-boost-repeats" type="number" min="0" max="256" step="1" value="4">
+              <label class="unlimited-choice"><input id="pirro-victory-boost-repeats-unlimited" type="checkbox" aria-label="Required outcome: Pirro victory repeats"> Required outcome</label>
+            </div>
+            <div class="event-setting">
+              <label for="pirro-no-grape-boost-repeats">No Healing Grape · Throné first on R8</label>
+              <input id="pirro-no-grape-boost-repeats" type="number" min="0" max="256" step="1" value="4">
+              <label class="unlimited-choice"><input id="pirro-no-grape-boost-repeats-unlimited" type="checkbox" aria-label="Required outcome: Pirro no-grape repeats"> Required outcome</label>
+              <p class="muted small">Optional: additional repeats beyond victory. Required: search victory and no Healing Grape together.</p>
+            </div>
+            <div class="event-setting">
+              <label for="highroad-approach-boost-repeats">Highroad · avoid surprise attack</label>
+              <input id="highroad-approach-boost-repeats" type="number" min="0" max="256" step="1" value="4">
+              <label class="unlimited-choice"><input id="highroad-approach-boost-repeats-unlimited" type="checkbox" aria-label="Required outcome: highroad approach repeats"> Required outcome</label>
+              <p class="muted small">Search: R8 boost/cancel, ending at 3 BP swords, with early or late latent. Keep the R3 plan and victory.</p>
+            </div>
+          </section>
+          <section class="panel search-setting" aria-labelledby="highroad-search-title">
+            <h2 id="highroad-search-title">New Delsta Highroad</h2>
+            <p class="muted small">Choose an Escape strategy that meets every required Highroad outcome: direct Escape up to the threshold, then a viable immediate break, then more boosts. Boost only skips breaking.</p>
+            <div class="event-setting">
+              <label for="highroad-escape-boost-repeats">Boost repeats before trying a break</label>
+              <input id="highroad-escape-boost-repeats" type="number" min="0" max="256" step="1" value="4">
+              <label class="unlimited-choice"><input id="highroad-escape-boost-repeats-unlimited" type="checkbox" aria-label="Boost only: Highroad Escape"> Boost only</label>
+            </div>
+            <div class="event-setting">
+              <label for="highroad-flats-boost-repeats">Flats · reach harbor while walking</label>
+              <input id="highroad-flats-boost-repeats" type="number" min="0" max="256" step="1" value="4">
+              <label class="unlimited-choice"><input id="highroad-flats-boost-repeats-unlimited" type="checkbox" aria-label="Required outcome: Flats walking repeats"> Required outcome</label>
+              <p class="muted small">Optional: additional repeats beyond the required plan, preserving Escape. Required: include the safe harbor walk in every strategy candidate.</p>
+            </div>
+            <div class="event-setting">
+              <label for="highroad-flats-approach-boost-repeats">Flats encounter · avoid surprise attack</label>
+              <input id="highroad-flats-approach-boost-repeats" type="number" min="0" max="256" step="1" value="4">
+              <label class="unlimited-choice"><input id="highroad-flats-approach-boost-repeats-unlimited" type="checkbox" aria-label="Required outcome: Flats approach repeats"> Required outcome</label>
+              <p class="muted small">Optional: additional repeats beyond the selected plan. Required: jointly require Escape, a safe harbor walk, and no surprise after returning from harbor.</p>
+            </div>
+          </section>
+          <section class="panel search-setting" aria-labelledby="flats-escape-search-title">
+            <h2 id="flats-escape-search-title">New Delsta Flats encounter</h2>
+            <p class="muted small">Search: R1 boost/cancel → Escape, with enough counter to run to Abandoned Village. If the limit fails, try an immediate single-enemy break → Escape. If that cannot meet both targets, search boosts without a limit.</p>
+            <div class="event-setting">
+              <label for="flats-escape-boost-repeats">Boost repeats before trying a break</label>
+              <input id="flats-escape-boost-repeats" type="number" min="0" max="256" step="1" value="4">
+              <label class="unlimited-choice"><input id="flats-escape-boost-repeats-unlimited" type="checkbox" aria-label="Boost only: Flats Escape"> Boost only</label>
+            </div>
+            <div class="event-setting">
+              <label for="flats-snow-boost-repeats">After village return · walk to Southern Cape Cold Snows</label>
+              <input id="flats-snow-boost-repeats" type="number" min="0" max="256" step="1" value="4">
+              <label class="unlimited-choice"><input id="flats-snow-boost-repeats-unlimited" type="checkbox" checked aria-label="Required outcome: post-village walk"> Required outcome</label>
+              <p class="muted small">Search the same Flats encounter boosts. Required: Escape, run to village, tag and return, then walk 72 updates without an encounter. Optional: additional repeats beyond the Escape/village plan.</p>
+            </div>
+            <div class="event-setting">
+              <label for="flats-osvald-boost-repeats">Southern Cape Cold Snows · walk to Osvald</label>
+              <input id="flats-osvald-boost-repeats" type="number" min="0" max="256" step="1" value="4">
+              <label class="unlimited-choice"><input id="flats-osvald-boost-repeats-unlimited" type="checkbox" checked aria-label="Required outcome: Osvald walk"> Required outcome</label>
+              <p class="muted small">Search the same Flats boosts for a safe 70-update walk to Osvald. Required includes the preceding village run and Snows approach. Optional repeats preserve the selected plan's safe walks.</p>
+            </div>
+          </section>
+          <section class="panel">
+            <h3>Cape Cold Mug · R2</h3>
+            <p class="muted small">Search R2 boost/cancel inputs ending at 2 BP together with post-Mug Cape Cold time switches. Minimize boost button presses + 7 per time switch, including village/Flats switches. If Cape Cold ends on day, skip the village switch. The numeric budget limits boost repeats; time switches are also searched.</p>
+            <div class="event-setting">
+              <label for="mug-clerics-boost-repeats">Black-market clerics</label>
+              <input id="mug-clerics-boost-repeats" type="number" min="0" max="256" step="1" value="4">
+              <label class="unlimited-choice"><input id="mug-clerics-boost-repeats-unlimited" type="checkbox" checked aria-label="Required outcome: black-market clerics"> Required outcome</label>
+            </div>
+            <div class="event-setting">
+              <label for="crackridge-approach-boost-repeats">Crackridge Harbor · avoid surprise</label>
+              <input id="crackridge-approach-boost-repeats" type="number" min="0" max="256" step="1" value="4">
+              <label class="unlimited-choice"><input id="crackridge-approach-boost-repeats-unlimited" type="checkbox" checked aria-label="Required outcome: Crackridge Harbor approach"> Required outcome</label>
+              <p class="muted small">First compare day switching in Flats before teleport versus Harbor after teleport. If both cause surprise, search Mug R2 boosts and Cape Cold time switches while keeping clerics. Optional budget adds 2 input-cost units per repeat to the clerics plan; each time switch costs 7. Required has no budget limit. At the Harbor encounter, boosts are searched until first Escape succeeds.</p>
+            </div>
+          </section>
+          <button id="save-settings" class="primary" type="submit">Save settings</button>
+          <p id="settings-status" class="status" role="status"></p>
+          <p id="settings-error" class="error" role="alert" hidden></p>
+        </form>
+      </section>
+      <section id="closed" class="panel closed" hidden><h2>Viewer stopped</h2><p>This window can be closed. Launch OT2 Battle Viewer again to run another simulation.</p></section>
+    </main>
+  </div>
+</body>
+</html>

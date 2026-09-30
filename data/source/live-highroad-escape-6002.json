@@ -1,0 +1,101 @@
+{
+  "source": "outputs/highroad-escape-6002-20260929-115721.json",
+  "sha256": "dedc1e0aaebd86a589522e4bdb52c92b48d39c1806ac56d1f1ceeac542a2dbea",
+  "initial_advances": 6002,
+  "initial_state": 1566882538,
+  "final_advances": 6012,
+  "final_state": 776434684,
+  "note": "Five 0→1→0 boost cycles; successful first Escape; wait for field control without moving. Two existing Highroad gondolas begin play again before counter B/A. Trace detached cleanly; all calls are continuous.",
+  "records": [
+    {
+      "position": 6002,
+      "before": 1566882538,
+      "after": 3663500805,
+      "returnRva": "0x2C57B26",
+      "blueprint": "/Game/Battle/BP/BattleCharacterComponent/BP_BattleVoiceComponent.BP_BattleVoiceComponent_C.PlayBattleVoice",
+      "object": "/Game/Level/Persistent.Persistent.PersistentLevel.BattlePlayerBP_C_2147437773.NODE_AddBP_BattleVoiceComponent-0",
+      "maximum": null
+    },
+    {
+      "position": 6003,
+      "before": 3663500805,
+      "after": 3405328564,
+      "returnRva": "0x2C57B26",
+      "blueprint": "/Game/Battle/BP/BattleCharacterComponent/BP_BattleVoiceComponent.BP_BattleVoiceComponent_C.PlayBattleVoice",
+      "object": "/Game/Level/Persistent.Persistent.PersistentLevel.BattlePlayerBP_C_2147437773.NODE_AddBP_BattleVoiceComponent-0",
+      "maximum": null
+    },
+    {
+      "position": 6004,
+      "before": 3405328564,
+      "after": 1648811175,
+      "returnRva": "0x2C57B26",
+      "blueprint": "/Game/Battle/BP/BattleCharacterComponent/BP_BattleVoiceComponent.BP_BattleVoiceComponent_C.PlayBattleVoice",
+      "object": "/Game/Level/Persistent.Persistent.PersistentLevel.BattlePlayerBP_C_2147437773.NODE_AddBP_BattleVoiceComponent-0",
+      "maximum": null
+    },
+    {
+      "position": 6005,
+      "before": 1648811175,
+      "after": 1105421518,
+      "returnRva": "0x2C57B26",
+      "blueprint": "/Game/Battle/BP/BattleCharacterComponent/BP_BattleVoiceComponent.BP_BattleVoiceComponent_C.PlayBattleVoice",
+      "object": "/Game/Level/Persistent.Persistent.PersistentLevel.BattlePlayerBP_C_2147437773.NODE_AddBP_BattleVoiceComponent-0",
+      "maximum": null
+    },
+    {
+      "position": 6006,
+      "before": 1105421518,
+      "after": 3484231769,
+      "returnRva": "0x2C57B26",
+      "blueprint": "/Game/Battle/BP/BattleCharacterComponent/BP_BattleVoiceComponent.BP_BattleVoiceComponent_C.PlayBattleVoice",
+      "object": "/Game/Level/Persistent.Persistent.PersistentLevel.BattlePlayerBP_C_2147437773.NODE_AddBP_BattleVoiceComponent-0",
+      "maximum": null
+    },
+    {
+      "position": 6007,
+      "before": 3484231769,
+      "after": 149014968,
+      "returnRva": "0x2C57B26",
+      "blueprint": "/Game/Library/LibBattle.LibBattle_C.CheckEscapeSuccess",
+      "object": "/Game/Library/LibBattle.Default__LibBattle_C",
+      "maximum": null
+    },
+    {
+      "position": 6008,
+      "before": 149014968,
+      "after": 1010704795,
+      "returnRva": "0x30D7065",
+      "blueprint": "/Game/Environment/Resource/Object/EnvObj_Canoe/BP/BP_EnvObjMD_Canoe_A.BP_EnvObjMD_Canoe_A_C.ExecuteUbergraph_BP_EnvObjMD_Canoe_A",
+      "object": "/Game/Level/Level/City/Fld_Cty_1_3_LevelInstance_159.Fld_Cty_1_3.PersistentLevel.BP_EnvObjMD_Gondola_A_NoPaddle_2",
+      "maximum": null
+    },
+    {
+      "position": 6009,
+      "before": 1010704795,
+      "after": 824862194,
+      "returnRva": "0x30D7065",
+      "blueprint": "/Game/Environment/Resource/Object/EnvObj_Canoe/BP/BP_EnvObjMD_Canoe_A.BP_EnvObjMD_Canoe_A_C.ExecuteUbergraph_BP_EnvObjMD_Canoe_A",
+      "object": "/Game/Level/Level/City/Fld_Cty_1_3_LevelInstance_159.Fld_Cty_1_3.PersistentLevel.BP_EnvObjMD_Gondola_A8_23",
+      "maximum": null
+    },
+    {
+      "position": 6010,
+      "before": 824862194,
+      "after": 3784422637,
+      "returnRva": "0x30D7424",
+      "blueprint": "/Game/Battle/BP/EncountManagerBP.EncountManagerBP_C.CalcEncountStepCount",
+      "object": "/Game/Level/Persistent.Persistent.PersistentLevel.EncountManagerBP_C_2147481935",
+      "maximum": 400
+    },
+    {
+      "position": 6011,
+      "before": 3784422637,
+      "after": 776434684,
+      "returnRva": "0x30D7424",
+      "blueprint": "/Game/Battle/BP/EncountManagerBP.EncountManagerBP_C.CalcEncountStepCount",
+      "object": "/Game/Level/Persistent.Persistent.PersistentLevel.EncountManagerBP_C_2147481935",
+      "maximum": 400
+    }
+  ]
+}

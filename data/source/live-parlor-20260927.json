@@ -1,0 +1,4060 @@
+{
+  "fixture": false,
+  "pid": 17276,
+  "gameThread": 4752,
+  "initialState": 1801174998,
+  "finalState": 135168176,
+  "finish": "Detached with original debug registers restored",
+  "records": [
+    {
+      "kind": "rand",
+      "ms": 211083,
+      "tid": 4752,
+      "before": 1801174998,
+      "position": 5374,
+      "seed": null,
+      "returnRva": "0x30D7424",
+      "maximum": 400,
+      "blueprint": {
+        "address": "0x2573B7BBF0",
+        "node": "/Game/Battle/BP/EncountManagerBP.EncountManagerBP_C.CalcEncountStepCount",
+        "obj": "/Game/Level/Persistent.Persistent.PersistentLevel.EncountManagerBP_C_2147481933",
+        "objectClass": "/Game/Battle/BP/EncountManagerBP.EncountManagerBP_C",
+        "code": "0x1FCEA98649D",
+        "spawn": null
+      },
+      "nativeContext": null,
+      "stack": [
+        {
+          "offset": 0,
+          "rva": "0x30D7424"
+        },
+        {
+          "offset": 32,
+          "rva": "0x90DA29"
+        },
+        {
+          "offset": 48,
+          "rva": "0x1458588"
+        },
+        {
+          "offset": 80,
+          "rva": "0xA05B4E"
+        },
+        {
+          "offset": 128,
+          "rva": "0x1458699"
+        },
+        {
+          "offset": 192,
+          "rva": "0x1449D7F"
+        },
+        {
+          "offset": 224,
+          "rva": "0x113D995"
+        },
+        {
+          "offset": 272,
+          "rva": "0x11530CE"
+        },
+        {
+          "offset": 304,
+          "rva": "0x145AC6D"
+        },
+        {
+          "offset": 320,
+          "rva": "0x1437C66"
+        },
+        {
+          "offset": 336,
+          "rva": "0x2A03CF2"
+        },
+        {
+          "offset": 440,
+          "rva": "0x1449D20"
+        },
+        {
+          "offset": 608,
+          "rva": "0x1441EA1"
+        },
+        {
+          "offset": 704,
+          "rva": "0x1458F0C"
+        },
+        {
+          "offset": 744,
+          "rva": "0x1449D20"
+        },
+        {
+          "offset": 784,
+          "rva": "0x1449D7F"
+        },
+        {
+          "offset": 816,
+          "rva": "0x12E58CC"
+        },
+        {
+          "offset": 848,
+          "rva": "0x1117005"
+        },
+        {
+          "offset": 912,
+          "rva": "0x1437C66"
+        }
+      ],
+      "nativePointers": []
+    },
+    {
+      "kind": "rand",
+      "ms": 211114,
+      "tid": 4752,
+      "before": 1552561985,
+      "position": 5375,
+      "seed": null,
+      "returnRva": "0x30D7424",
+      "maximum": 400,
+      "blueprint": {
+        "address": "0x2573B7BBF0",
+        "node": "/Game/Battle/BP/EncountManagerBP.EncountManagerBP_C.CalcEncountStepCount",
+        "obj": "/Game/Level/Persistent.Persistent.PersistentLevel.EncountManagerBP_C_2147481933",
+        "objectClass": "/Game/Battle/BP/EncountManagerBP.EncountManagerBP_C",
+        "code": "0x1FCEA9864C2",
+        "spawn": null
+      },
+      "nativeContext": null,
+      "stack": [
+        {
+          "offset": 0,
+          "rva": "0x30D7424"
+        },
+        {
+          "offset": 32,
+          "rva": "0x90DA29"
+        },
+        {
+          "offset": 48,
+          "rva": "0x1458588"
+        },
+        {
+          "offset": 80,
+          "rva": "0xA05B4E"
+        },
+        {
+          "offset": 128,
+          "rva": "0x1458699"
+        },
+        {
+          "offset": 192,
+          "rva": "0x1449D7F"
+        },
+        {
+          "offset": 224,
+          "rva": "0x113D995"
+        },
+        {
+          "offset": 272,
+          "rva": "0x11530CE"
+        },
+        {
+          "offset": 304,
+          "rva": "0x145AC6D"
+        },
+        {
+          "offset": 320,
+          "rva": "0x1437C66"
+        },
+        {
+          "offset": 336,
+          "rva": "0x2A03CF2"
+        },
+        {
+          "offset": 440,
+          "rva": "0x1449D20"
+        },
+        {
+          "offset": 608,
+          "rva": "0x1441EA1"
+        },
+        {
+          "offset": 704,
+          "rva": "0x1458F0C"
+        },
+        {
+          "offset": 744,
+          "rva": "0x1449D20"
+        },
+        {
+          "offset": 784,
+          "rva": "0x1449D7F"
+        },
+        {
+          "offset": 816,
+          "rva": "0x12E58CC"
+        },
+        {
+          "offset": 848,
+          "rva": "0x1117005"
+        },
+        {
+          "offset": 912,
+          "rva": "0x1437C66"
+        }
+      ],
+      "nativePointers": []
+    },
+    {
+      "kind": "rand",
+      "ms": 211191,
+      "tid": 4752,
+      "before": 1190673664,
+      "position": 5376,
+      "seed": null,
+      "returnRva": "0x11C010F",
+      "maximum": null,
+      "blueprint": null,
+      "nativeContext": null,
+      "stack": [
+        {
+          "offset": 0,
+          "rva": "0x11C010F"
+        },
+        {
+          "offset": 80,
+          "rva": "0xEC64A0"
+        },
+        {
+          "offset": 336,
+          "rva": "0xED8202"
+        },
+        {
+          "offset": 384,
+          "rva": "0x113D995"
+        },
+        {
+          "offset": 480,
+          "rva": "0xED43AD"
+        },
+        {
+          "offset": 608,
+          "rva": "0x1458A87"
+        },
+        {
+          "offset": 632,
+          "rva": "0x1449D20"
+        },
+        {
+          "offset": 640,
+          "rva": "0x2921997"
+        },
+        {
+          "offset": 656,
+          "rva": "0x1449DBF"
+        },
+        {
+          "offset": 704,
+          "rva": "0x2FD7F5F"
+        },
+        {
+          "offset": 752,
+          "rva": "0xEDB699"
+        },
+        {
+          "offset": 816,
+          "rva": "0xF9ECE9"
+        },
+        {
+          "offset": 848,
+          "rva": "0x29233EC"
+        },
+        {
+          "offset": 864,
+          "rva": "0x12E5E69"
+        },
+        {
+          "offset": 896,
+          "rva": "0x291E299"
+        },
+        {
+          "offset": 912,
+          "rva": "0x1449B52"
+        },
+        {
+          "offset": 1008,
+          "rva": "0xEE48F5"
+        }
+      ],
+      "nativePointers": []
+    },
+    {
+      "kind": "rand",
+      "ms": 211191,
+      "tid": 4752,
+      "before": 3530680259,
+      "position": 5377,
+      "seed": null,
+      "returnRva": "0x11C010F",
+      "maximum": null,
+      "blueprint": null,
+      "nativeContext": null,
+      "stack": [
+        {
+          "offset": 0,
+          "rva": "0x11C010F"
+        },
+        {
+          "offset": 80,
+          "rva": "0xEC64A0"
+        },
+        {
+          "offset": 336,
+          "rva": "0xED82A0"
+        },
+        {
+          "offset": 384,
+          "rva": "0x113D995"
+        },
+        {
+          "offset": 480,
+          "rva": "0xED43AD"
+        },
+        {
+          "offset": 608,
+          "rva": "0x1458A87"
+        },
+        {
+          "offset": 632,
+          "rva": "0x1449D20"
+        },
+        {
+          "offset": 640,
+          "rva": "0x2921997"
+        },
+        {
+          "offset": 656,
+          "rva": "0x1449DBF"
+        },
+        {
+          "offset": 704,
+          "rva": "0x2FD7F5F"
+        },
+        {
+          "offset": 752,
+          "rva": "0xEDB699"
+        },
+        {
+          "offset": 816,
+          "rva": "0xF9ECE9"
+        },
+        {
+          "offset": 848,
+          "rva": "0x29233EC"
+        },
+        {
+          "offset": 864,
+          "rva": "0x12E5E69"
+        },
+        {
+          "offset": 896,
+          "rva": "0x291E299"
+        },
+        {
+          "offset": 912,
+          "rva": "0x1449B52"
+        },
+        {
+          "offset": 1008,
+          "rva": "0xEE48F5"
+        }
+      ],
+      "nativePointers": []
+    },
+    {
+      "kind": "rand",
+      "ms": 211191,
+      "tid": 4752,
+      "before": 2175382394,
+      "position": 5378,
+      "seed": null,
+      "returnRva": "0x11C010F",
+      "maximum": null,
+      "blueprint": null,
+      "nativeContext": null,
+      "stack": [
+        {
+          "offset": 0,
+          "rva": "0x11C010F"
+        },
+        {
+          "offset": 80,
+          "rva": "0xEC64A0"
+        },
+        {
+          "offset": 336,
+          "rva": "0xED82A0"
+        },
+        {
+          "offset": 384,
+          "rva": "0x113D995"
+        },
+        {
+          "offset": 480,
+          "rva": "0xED43AD"
+        },
+        {
+          "offset": 608,
+          "rva": "0x1458A87"
+        },
+        {
+          "offset": 632,
+          "rva": "0x1449D20"
+        },
+        {
+          "offset": 640,
+          "rva": "0x2921997"
+        },
+        {
+          "offset": 656,
+          "rva": "0x1449DBF"
+        },
+        {
+          "offset": 704,
+          "rva": "0x2FD7F5F"
+        },
+        {
+          "offset": 752,
+          "rva": "0xEDB699"
+        },
+        {
+          "offset": 816,
+          "rva": "0xF9ECE9"
+        },
+        {
+          "offset": 848,
+          "rva": "0x29233EC"
+        },
+        {
+          "offset": 864,
+          "rva": "0x12E5E69"
+        },
+        {
+          "offset": 896,
+          "rva": "0x291E299"
+        },
+        {
+          "offset": 912,
+          "rva": "0x1449B52"
+        },
+        {
+          "offset": 1008,
+          "rva": "0xEE48F5"
+        }
+      ],
+      "nativePointers": []
+    },
+    {
+      "kind": "rand",
+      "ms": 211191,
+      "tid": 4752,
+      "before": 2839800917,
+      "position": 5379,
+      "seed": null,
+      "returnRva": "0x11C010F",
+      "maximum": null,
+      "blueprint": null,
+      "nativeContext": null,
+      "stack": [
+        {
+          "offset": 0,
+          "rva": "0x11C010F"
+        },
+        {
+          "offset": 80,
+          "rva": "0xEC64A0"
+        },
+        {
+          "offset": 336,
+          "rva": "0xED82A0"
+        },
+        {
+          "offset": 384,
+          "rva": "0x113D995"
+        },
+        {
+          "offset": 480,
+          "rva": "0xED43AD"
+        },
+        {
+          "offset": 608,
+          "rva": "0x1458A87"
+        },
+        {
+          "offset": 632,
+          "rva": "0x1449D20"
+        },
+        {
+          "offset": 640,
+          "rva": "0x2921997"
+        },
+        {
+          "offset": 656,
+          "rva": "0x1449DBF"
+        },
+        {
+          "offset": 704,
+          "rva": "0x2FD7F5F"
+        },
+        {
+          "offset": 752,
+          "rva": "0xEDB699"
+        },
+        {
+          "offset": 816,
+          "rva": "0xF9ECE9"
+        },
+        {
+          "offset": 848,
+          "rva": "0x29233EC"
+        },
+        {
+          "offset": 864,
+          "rva": "0x12E5E69"
+        },
+        {
+          "offset": 896,
+          "rva": "0x291E299"
+        },
+        {
+          "offset": 912,
+          "rva": "0x1449B52"
+        },
+        {
+          "offset": 1008,
+          "rva": "0xEE48F5"
+        }
+      ],
+      "nativePointers": []
+    },
+    {
+      "kind": "rand",
+      "ms": 211191,
+      "tid": 4752,
+      "before": 3558895044,
+      "position": 5380,
+      "seed": null,
+      "returnRva": "0x11C010F",
+      "maximum": null,
+      "blueprint": null,
+      "nativeContext": null,
+      "stack": [
+        {
+          "offset": 0,
+          "rva": "0x11C010F"
+        },
+        {
+          "offset": 80,
+          "rva": "0xEC64A0"
+        },
+        {
+          "offset": 336,
+          "rva": "0xED82A0"
+        },
+        {
+          "offset": 384,
+          "rva": "0x113D995"
+        },
+        {
+          "offset": 480,
+          "rva": "0xED43AD"
+        },
+        {
+          "offset": 608,
+          "rva": "0x1458A87"
+        },
+        {
+          "offset": 632,
+          "rva": "0x1449D20"
+        },
+        {
+          "offset": 640,
+          "rva": "0x2921997"
+        },
+        {
+          "offset": 656,
+          "rva": "0x1449DBF"
+        },
+        {
+          "offset": 704,
+          "rva": "0x2FD7F5F"
+        },
+        {
+          "offset": 752,
+          "rva": "0xEDB699"
+        },
+        {
+          "offset": 816,
+          "rva": "0xF9ECE9"
+        },
+        {
+          "offset": 848,
+          "rva": "0x29233EC"
+        },
+        {
+          "offset": 864,
+          "rva": "0x12E5E69"
+        },
+        {
+          "offset": 896,
+          "rva": "0x291E299"
+        },
+        {
+          "offset": 912,
+          "rva": "0x1449B52"
+        },
+        {
+          "offset": 1008,
+          "rva": "0xEE48F5"
+        }
+      ],
+      "nativePointers": []
+    },
+    {
+      "kind": "rand",
+      "ms": 211191,
+      "tid": 4752,
+      "before": 1782146423,
+      "position": 5381,
+      "seed": null,
+      "returnRva": "0x11C010F",
+      "maximum": null,
+      "blueprint": null,
+      "nativeContext": null,
+      "stack": [
+        {
+          "offset": 0,
+          "rva": "0x11C010F"
+        },
+        {
+          "offset": 80,
+          "rva": "0xEC64A0"
+        },
+        {
+          "offset": 336,
+          "rva": "0xED8202"
+        },
+        {
+          "offset": 384,
+          "rva": "0x113D995"
+        },
+        {
+          "offset": 480,
+          "rva": "0xED43AD"
+        },
+        {
+          "offset": 608,
+          "rva": "0x1458A87"
+        },
+        {
+          "offset": 632,
+          "rva": "0x1449D20"
+        },
+        {
+          "offset": 640,
+          "rva": "0x2921997"
+        },
+        {
+          "offset": 656,
+          "rva": "0x1449DBF"
+        },
+        {
+          "offset": 704,
+          "rva": "0x2FD7F5F"
+        },
+        {
+          "offset": 752,
+          "rva": "0xEDB699"
+        },
+        {
+          "offset": 816,
+          "rva": "0xF9ECE9"
+        },
+        {
+          "offset": 848,
+          "rva": "0x29233EC"
+        },
+        {
+          "offset": 864,
+          "rva": "0x12E5E69"
+        },
+        {
+          "offset": 896,
+          "rva": "0x291E299"
+        },
+        {
+          "offset": 912,
+          "rva": "0x1449B52"
+        },
+        {
+          "offset": 1008,
+          "rva": "0xEE48F5"
+        }
+      ],
+      "nativePointers": []
+    },
+    {
+      "kind": "rand",
+      "ms": 211367,
+      "tid": 4752,
+      "before": 819137118,
+      "position": 5382,
+      "seed": null,
+      "returnRva": "0x30D7604",
+      "maximum": null,
+      "blueprint": {
+        "address": "0x2573B7AED0",
+        "node": "/Game/Level/BP/BPC_LevelManager_Others.BPC_LevelManager_Others_C.SpawnNPC",
+        "obj": "/Game/Level/Persistent.Persistent.PersistentLevel.BPC_LevelManager_Others_C_2147482501",
+        "objectClass": "/Game/Level/BP/BPC_LevelManager_Others.BPC_LevelManager_Others_C",
+        "code": "0x1FC0AC606B8",
+        "spawn": {
+          "locals": "0x2573B7A4F0",
+          "size": 2473,
+          "values": [
+            {
+              "name": "NPCLabel",
+              "offset": 0,
+              "value": "NPC_Twn_Cty_1_1_C_TALK_0300_D000"
+            },
+            {
+              "name": "NPCChara",
+              "offset": 1832,
+              "value": "/Game/Level/Persistent.Persistent.PersistentLevel.KSFieldNPCCharacter_C_2147454849"
+            }
+          ]
+        }
+      },
+      "nativeContext": null,
+      "stack": [
+        {
+          "offset": 0,
+          "rva": "0x30D7604"
+        },
+        {
+          "offset": 16,
+          "rva": "0x30E74C6"
+        },
+        {
+          "offset": 32,
+          "rva": "0x1412129"
+        },
+        {
+          "offset": 64,
+          "rva": "0x1458588"
+        },
+        {
+          "offset": 144,
+          "rva": "0x1458699"
+        },
+        {
+          "offset": 208,
+          "rva": "0x1449D7F"
+        },
+        {
+          "offset": 256,
+          "rva": "0x145AC6D"
+        },
+        {
+          "offset": 336,
+          "rva": "0x1437C66"
+        }
+      ],
+      "nativePointers": []
+    },
+    {
+      "kind": "rand",
+      "ms": 211370,
+      "tid": 4752,
+      "before": 2609412009,
+      "position": 5383,
+      "seed": null,
+      "returnRva": "0x30D7604",
+      "maximum": null,
+      "blueprint": {
+        "address": "0x2573B7AED0",
+        "node": "/Game/Level/BP/BPC_LevelManager_Others.BPC_LevelManager_Others_C.SpawnNPC",
+        "obj": "/Game/Level/Persistent.Persistent.PersistentLevel.BPC_LevelManager_Others_C_2147482501",
+        "objectClass": "/Game/Level/BP/BPC_LevelManager_Others.BPC_LevelManager_Others_C",
+        "code": "0x1FC0AC606B8",
+        "spawn": {
+          "locals": "0x2573B7A4F0",
+          "size": 2473,
+          "values": [
+            {
+              "name": "NPCLabel",
+              "offset": 0,
+              "value": "NPC_Twn_Cty_1_1_C_TALK_1700_N000"
+            },
+            {
+              "name": "NPCChara",
+              "offset": 1832,
+              "value": "/Game/Level/Persistent.Persistent.PersistentLevel.KSFieldNPCCharacter_C_2147454843"
+            }
+          ]
+        }
+      },
+      "nativeContext": null,
+      "stack": [
+        {
+          "offset": 0,
+          "rva": "0x30D7604"
+        },
+        {
+          "offset": 16,
+          "rva": "0x30E74C6"
+        },
+        {
+          "offset": 32,
+          "rva": "0x1412129"
+        },
+        {
+          "offset": 64,
+          "rva": "0x1458588"
+        },
+        {
+          "offset": 144,
+          "rva": "0x1458699"
+        },
+        {
+          "offset": 208,
+          "rva": "0x1449D7F"
+        },
+        {
+          "offset": 256,
+          "rva": "0x1412FCB"
+        },
+        {
+          "offset": 336,
+          "rva": "0x1437C66"
+        }
+      ],
+      "nativePointers": []
+    },
+    {
+      "kind": "rand",
+      "ms": 211371,
+      "tid": 4752,
+      "before": 3562085320,
+      "position": 5384,
+      "seed": null,
+      "returnRva": "0x30D7604",
+      "maximum": null,
+      "blueprint": {
+        "address": "0x2573B7AED0",
+        "node": "/Game/Level/BP/BPC_LevelManager_Others.BPC_LevelManager_Others_C.SpawnNPC",
+        "obj": "/Game/Level/Persistent.Persistent.PersistentLevel.BPC_LevelManager_Others_C_2147482501",
+        "objectClass": "/Game/Level/BP/BPC_LevelManager_Others.BPC_LevelManager_Others_C",
+        "code": "0x1FC0AC606B8",
+        "spawn": {
+          "locals": "0x2573B7A4F0",
+          "size": 2473,
+          "values": [
+            {
+              "name": "NPCLabel",
+              "offset": 0,
+              "value": "NPC_Twn_Cty_1_1_C_TALK_1800_N000"
+            },
+            {
+              "name": "NPCChara",
+              "offset": 1832,
+              "value": "/Game/Level/Persistent.Persistent.PersistentLevel.KSFieldNPCCharacter_C_2147454837"
+            }
+          ]
+        }
+      },
+      "nativeContext": null,
+      "stack": [
+        {
+          "offset": 0,
+          "rva": "0x30D7604"
+        },
+        {
+          "offset": 16,
+          "rva": "0x30E74C6"
+        },
+        {
+          "offset": 32,
+          "rva": "0x1412129"
+        },
+        {
+          "offset": 64,
+          "rva": "0x1458588"
+        },
+        {
+          "offset": 144,
+          "rva": "0x1458699"
+        },
+        {
+          "offset": 208,
+          "rva": "0x1449D7F"
+        },
+        {
+          "offset": 256,
+          "rva": "0x1412FCB"
+        },
+        {
+          "offset": 336,
+          "rva": "0x1437C66"
+        }
+      ],
+      "nativePointers": []
+    },
+    {
+      "kind": "rand",
+      "ms": 211372,
+      "tid": 4752,
+      "before": 1642883947,
+      "position": 5385,
+      "seed": null,
+      "returnRva": "0x30D7604",
+      "maximum": null,
+      "blueprint": {
+        "address": "0x2573B7AED0",
+        "node": "/Game/Level/BP/BPC_LevelManager_Others.BPC_LevelManager_Others_C.SpawnNPC",
+        "obj": "/Game/Level/Persistent.Persistent.PersistentLevel.BPC_LevelManager_Others_C_2147482501",
+        "objectClass": "/Game/Level/BP/BPC_LevelManager_Others.BPC_LevelManager_Others_C",
+        "code": "0x1FC0AC606B8",
+        "spawn": {
+          "locals": "0x2573B7A4F0",
+          "size": 2473,
+          "values": [
+            {
+              "name": "NPCLabel",
+              "offset": 0,
+              "value": "NPC_Twn_Cty_1_1_C_TALK_1900_N000"
+            },
+            {
+              "name": "NPCChara",
+              "offset": 1832,
+              "value": "/Game/Level/Persistent.Persistent.PersistentLevel.KSFieldNPCCharacter_C_2147454831"
+            }
+          ]
+        }
+      },
+      "nativeContext": null,
+      "stack": [
+        {
+          "offset": 0,
+          "rva": "0x30D7604"
+        },
+        {
+          "offset": 16,
+          "rva": "0x30E74C6"
+        },
+        {
+          "offset": 32,
+          "rva": "0x1412129"
+        },
+        {
+          "offset": 64,
+          "rva": "0x1458588"
+        },
+        {
+          "offset": 144,
+          "rva": "0x1458699"
+        },
+        {
+          "offset": 208,
+          "rva": "0x1449D7F"
+        },
+        {
+          "offset": 256,
+          "rva": "0x1412FCB"
+        },
+        {
+          "offset": 336,
+          "rva": "0x1437C66"
+        }
+      ],
+      "nativePointers": []
+    },
+    {
+      "kind": "rand",
+      "ms": 211373,
+      "tid": 4752,
+      "before": 3911895170,
+      "position": 5386,
+      "seed": null,
+      "returnRva": "0x30D7424",
+      "maximum": 400,
+      "blueprint": {
+        "address": "0x2573B7CBB0",
+        "node": "/Game/Battle/BP/EncountManagerBP.EncountManagerBP_C.CalcEncountStepCount",
+        "obj": "/Game/Level/Persistent.Persistent.PersistentLevel.EncountManagerBP_C_2147481933",
+        "objectClass": "/Game/Battle/BP/EncountManagerBP.EncountManagerBP_C",
+        "code": "0x1FCEA98649D",
+        "spawn": null
+      },
+      "nativeContext": null,
+      "stack": [
+        {
+          "offset": 0,
+          "rva": "0x30D7424"
+        },
+        {
+          "offset": 32,
+          "rva": "0x90DA29"
+        },
+        {
+          "offset": 48,
+          "rva": "0x1458588"
+        },
+        {
+          "offset": 80,
+          "rva": "0xA05B4E"
+        },
+        {
+          "offset": 128,
+          "rva": "0x1458699"
+        },
+        {
+          "offset": 192,
+          "rva": "0x1449D7F"
+        },
+        {
+          "offset": 224,
+          "rva": "0x113D995"
+        },
+        {
+          "offset": 272,
+          "rva": "0x11530CE"
+        },
+        {
+          "offset": 304,
+          "rva": "0x145AC6D"
+        },
+        {
+          "offset": 320,
+          "rva": "0x1437C66"
+        },
+        {
+          "offset": 336,
+          "rva": "0x2A03CF2"
+        },
+        {
+          "offset": 440,
+          "rva": "0x1449D20"
+        },
+        {
+          "offset": 608,
+          "rva": "0x1441EA1"
+        },
+        {
+          "offset": 704,
+          "rva": "0x1458F0C"
+        },
+        {
+          "offset": 744,
+          "rva": "0x1449D20"
+        },
+        {
+          "offset": 784,
+          "rva": "0x1449D7F"
+        },
+        {
+          "offset": 816,
+          "rva": "0x12E58CC"
+        },
+        {
+          "offset": 912,
+          "rva": "0x1437C66"
+        }
+      ],
+      "nativePointers": []
+    },
+    {
+      "kind": "rand",
+      "ms": 211373,
+      "tid": 4752,
+      "before": 4218342717,
+      "position": 5387,
+      "seed": null,
+      "returnRva": "0x30D7424",
+      "maximum": 400,
+      "blueprint": {
+        "address": "0x2573B7CBB0",
+        "node": "/Game/Battle/BP/EncountManagerBP.EncountManagerBP_C.CalcEncountStepCount",
+        "obj": "/Game/Level/Persistent.Persistent.PersistentLevel.EncountManagerBP_C_2147481933",
+        "objectClass": "/Game/Battle/BP/EncountManagerBP.EncountManagerBP_C",
+        "code": "0x1FCEA9864C2",
+        "spawn": null
+      },
+      "nativeContext": null,
+      "stack": [
+        {
+          "offset": 0,
+          "rva": "0x30D7424"
+        },
+        {
+          "offset": 32,
+          "rva": "0x90DA29"
+        },
+        {
+          "offset": 48,
+          "rva": "0x1458588"
+        },
+        {
+          "offset": 80,
+          "rva": "0xA05B4E"
+        },
+        {
+          "offset": 128,
+          "rva": "0x1458699"
+        },
+        {
+          "offset": 192,
+          "rva": "0x1449D7F"
+        },
+        {
+          "offset": 224,
+          "rva": "0x113D995"
+        },
+        {
+          "offset": 272,
+          "rva": "0x11530CE"
+        },
+        {
+          "offset": 304,
+          "rva": "0x145AC6D"
+        },
+        {
+          "offset": 320,
+          "rva": "0x1437C66"
+        },
+        {
+          "offset": 336,
+          "rva": "0x2A03CF2"
+        },
+        {
+          "offset": 440,
+          "rva": "0x1449D20"
+        },
+        {
+          "offset": 608,
+          "rva": "0x1441EA1"
+        },
+        {
+          "offset": 704,
+          "rva": "0x1458F0C"
+        },
+        {
+          "offset": 744,
+          "rva": "0x1449D20"
+        },
+        {
+          "offset": 784,
+          "rva": "0x1449D7F"
+        },
+        {
+          "offset": 816,
+          "rva": "0x12E58CC"
+        },
+        {
+          "offset": 912,
+          "rva": "0x1437C66"
+        }
+      ],
+      "nativePointers": []
+    },
+    {
+      "kind": "rand",
+      "ms": 213654,
+      "tid": 4752,
+      "before": 3826608908,
+      "position": 5388,
+      "seed": null,
+      "returnRva": "0x30D7424",
+      "maximum": 400,
+      "blueprint": {
+        "address": "0x2573B7DA50",
+        "node": "/Game/Battle/BP/EncountManagerBP.EncountManagerBP_C.CalcEncountStepCount",
+        "obj": "/Game/Level/Persistent.Persistent.PersistentLevel.EncountManagerBP_C_2147481933",
+        "objectClass": "/Game/Battle/BP/EncountManagerBP.EncountManagerBP_C",
+        "code": "0x1FCEA98649D",
+        "spawn": null
+      },
+      "nativeContext": null,
+      "stack": [
+        {
+          "offset": 0,
+          "rva": "0x30D7424"
+        },
+        {
+          "offset": 32,
+          "rva": "0x90DA29"
+        },
+        {
+          "offset": 48,
+          "rva": "0x1458588"
+        },
+        {
+          "offset": 80,
+          "rva": "0xA05B4E"
+        },
+        {
+          "offset": 128,
+          "rva": "0x1458699"
+        },
+        {
+          "offset": 192,
+          "rva": "0x1449D7F"
+        },
+        {
+          "offset": 224,
+          "rva": "0x113D995"
+        },
+        {
+          "offset": 272,
+          "rva": "0x11530CE"
+        },
+        {
+          "offset": 304,
+          "rva": "0x145AC6D"
+        },
+        {
+          "offset": 320,
+          "rva": "0x1437C66"
+        },
+        {
+          "offset": 336,
+          "rva": "0x2A03CF2"
+        },
+        {
+          "offset": 440,
+          "rva": "0x1449D20"
+        },
+        {
+          "offset": 608,
+          "rva": "0x1441EA1"
+        },
+        {
+          "offset": 704,
+          "rva": "0x1458F0C"
+        },
+        {
+          "offset": 744,
+          "rva": "0x1449D20"
+        },
+        {
+          "offset": 784,
+          "rva": "0x1449D7F"
+        },
+        {
+          "offset": 816,
+          "rva": "0x12E58CC"
+        },
+        {
+          "offset": 912,
+          "rva": "0x1437C66"
+        },
+        {
+          "offset": 992,
+          "rva": "0x815A25"
+        }
+      ],
+      "nativePointers": []
+    },
+    {
+      "kind": "rand",
+      "ms": 213655,
+      "tid": 4752,
+      "before": 1165594015,
+      "position": 5389,
+      "seed": null,
+      "returnRva": "0x30D7424",
+      "maximum": 400,
+      "blueprint": {
+        "address": "0x2573B7DA50",
+        "node": "/Game/Battle/BP/EncountManagerBP.EncountManagerBP_C.CalcEncountStepCount",
+        "obj": "/Game/Level/Persistent.Persistent.PersistentLevel.EncountManagerBP_C_2147481933",
+        "objectClass": "/Game/Battle/BP/EncountManagerBP.EncountManagerBP_C",
+        "code": "0x1FCEA9864C2",
+        "spawn": null
+      },
+      "nativeContext": null,
+      "stack": [
+        {
+          "offset": 0,
+          "rva": "0x30D7424"
+        },
+        {
+          "offset": 32,
+          "rva": "0x90DA29"
+        },
+        {
+          "offset": 48,
+          "rva": "0x1458588"
+        },
+        {
+          "offset": 80,
+          "rva": "0xA05B4E"
+        },
+        {
+          "offset": 128,
+          "rva": "0x1458699"
+        },
+        {
+          "offset": 192,
+          "rva": "0x1449D7F"
+        },
+        {
+          "offset": 224,
+          "rva": "0x113D995"
+        },
+        {
+          "offset": 272,
+          "rva": "0x11530CE"
+        },
+        {
+          "offset": 304,
+          "rva": "0x145AC6D"
+        },
+        {
+          "offset": 320,
+          "rva": "0x1437C66"
+        },
+        {
+          "offset": 336,
+          "rva": "0x2A03CF2"
+        },
+        {
+          "offset": 440,
+          "rva": "0x1449D20"
+        },
+        {
+          "offset": 608,
+          "rva": "0x1441EA1"
+        },
+        {
+          "offset": 704,
+          "rva": "0x1458F0C"
+        },
+        {
+          "offset": 744,
+          "rva": "0x1449D20"
+        },
+        {
+          "offset": 784,
+          "rva": "0x1449D7F"
+        },
+        {
+          "offset": 816,
+          "rva": "0x12E58CC"
+        },
+        {
+          "offset": 912,
+          "rva": "0x1437C66"
+        },
+        {
+          "offset": 992,
+          "rva": "0x815A25"
+        }
+      ],
+      "nativePointers": []
+    },
+    {
+      "kind": "rand",
+      "ms": 216831,
+      "tid": 4752,
+      "before": 573911526,
+      "position": 5390,
+      "seed": null,
+      "returnRva": "0xEA7749",
+      "maximum": null,
+      "blueprint": null,
+      "nativeContext": null,
+      "stack": [
+        {
+          "offset": 0,
+          "rva": "0xEA7749"
+        },
+        {
+          "offset": 112,
+          "rva": "0x101C1F2"
+        },
+        {
+          "offset": 144,
+          "rva": "0x1430100"
+        },
+        {
+          "offset": 192,
+          "rva": "0x12E5E69"
+        },
+        {
+          "offset": 208,
+          "rva": "0x2921927"
+        },
+        {
+          "offset": 224,
+          "rva": "0x1410100"
+        },
+        {
+          "offset": 240,
+          "rva": "0x1449B52"
+        },
+        {
+          "offset": 288,
+          "rva": "0x14499FB"
+        },
+        {
+          "offset": 320,
+          "rva": "0x14585BB"
+        },
+        {
+          "offset": 400,
+          "rva": "0x1458699"
+        },
+        {
+          "offset": 496,
+          "rva": "0x12E1062"
+        },
+        {
+          "offset": 504,
+          "rva": "0x1449D20"
+        },
+        {
+          "offset": 656,
+          "rva": "0x2928A4B"
+        },
+        {
+          "offset": 704,
+          "rva": "0x85A6EE"
+        },
+        {
+          "offset": 896,
+          "rva": "0xF3FD0F"
+        },
+        {
+          "offset": 928,
+          "rva": "0x1458A87"
+        }
+      ],
+      "nativePointers": [
+        {
+          "register": "rbp",
+          "address": "0x1FD026C1AF8",
+          "bytes": "370030005F0054004F0055002F006500700031002F00520049005F004D0053005F0054004F0055005F00310030005F0031003000300030002E007500610073007300650074000000807D1373F77F0000"
+        },
+        {
+          "register": "rdi",
+          "address": "0x1FCFBA9E110",
+          "bytes": "A885C472F77F000001000000000000000000000001010000C0898CD3FC01000008000000080000000000667300000000E035BFD2FC0100006035C523FC010000807015EAFC0100006035C523FC010000"
+        },
+        {
+          "register": "r12",
+          "address": "0x1FD026C1A80",
+          "bytes": "10E1A9FBFC010000B0E0A9FBFC01000080E0A9FBFC01000050E0A9FBFC01000020E0A9FBFC010000C0DFA9FBFC01000060DFA9FBFC01000000DFA9FBFC010000A0DEA9FBFC01000010DEA9FBFC010000"
+        },
+        {
+          "register": "r14",
+          "address": "0x1FD026C1A80",
+          "bytes": "10E1A9FBFC010000B0E0A9FBFC01000080E0A9FBFC01000050E0A9FBFC01000020E0A9FBFC010000C0DFA9FBFC01000060DFA9FBFC01000000DFA9FBFC010000A0DEA9FBFC01000010DEA9FBFC010000"
+        },
+        {
+          "register": "r15",
+          "address": "0x2573B7E630",
+          "bytes": "2700000001000000000000000000000000000000010000000000000000000000000000000000000000000000800000003F00000000000000000000000000000040F0F07FFC010000C817AB72F77F0000"
+        }
+      ]
+    },
+    {
+      "kind": "rand",
+      "ms": 219090,
+      "tid": 4752,
+      "before": 1350181137,
+      "position": 5391,
+      "seed": null,
+      "returnRva": "0x30D7424",
+      "maximum": 400,
+      "blueprint": {
+        "address": "0x2573B7DA50",
+        "node": "/Game/Battle/BP/EncountManagerBP.EncountManagerBP_C.CalcEncountStepCount",
+        "obj": "/Game/Level/Persistent.Persistent.PersistentLevel.EncountManagerBP_C_2147481933",
+        "objectClass": "/Game/Battle/BP/EncountManagerBP.EncountManagerBP_C",
+        "code": "0x1FCEA98649D",
+        "spawn": null
+      },
+      "nativeContext": null,
+      "stack": [
+        {
+          "offset": 0,
+          "rva": "0x30D7424"
+        },
+        {
+          "offset": 32,
+          "rva": "0x90DA29"
+        },
+        {
+          "offset": 48,
+          "rva": "0x1458588"
+        },
+        {
+          "offset": 80,
+          "rva": "0xA05B4E"
+        },
+        {
+          "offset": 128,
+          "rva": "0x1458699"
+        },
+        {
+          "offset": 192,
+          "rva": "0x1449D7F"
+        },
+        {
+          "offset": 224,
+          "rva": "0x113D995"
+        },
+        {
+          "offset": 272,
+          "rva": "0x11530CE"
+        },
+        {
+          "offset": 304,
+          "rva": "0x145AC6D"
+        },
+        {
+          "offset": 320,
+          "rva": "0x1437C66"
+        },
+        {
+          "offset": 336,
+          "rva": "0x2A03CF2"
+        },
+        {
+          "offset": 440,
+          "rva": "0x1449D20"
+        },
+        {
+          "offset": 608,
+          "rva": "0x1441EA1"
+        },
+        {
+          "offset": 704,
+          "rva": "0x1458F0C"
+        },
+        {
+          "offset": 744,
+          "rva": "0x1449D20"
+        },
+        {
+          "offset": 784,
+          "rva": "0x1449D7F"
+        },
+        {
+          "offset": 816,
+          "rva": "0x12E58CC"
+        },
+        {
+          "offset": 912,
+          "rva": "0x1437C66"
+        },
+        {
+          "offset": 992,
+          "rva": "0x815A25"
+        }
+      ],
+      "nativePointers": []
+    },
+    {
+      "kind": "rand",
+      "ms": 219090,
+      "tid": 4752,
+      "before": 3803430800,
+      "position": 5392,
+      "seed": null,
+      "returnRva": "0x30D7424",
+      "maximum": 400,
+      "blueprint": {
+        "address": "0x2573B7DA50",
+        "node": "/Game/Battle/BP/EncountManagerBP.EncountManagerBP_C.CalcEncountStepCount",
+        "obj": "/Game/Level/Persistent.Persistent.PersistentLevel.EncountManagerBP_C_2147481933",
+        "objectClass": "/Game/Battle/BP/EncountManagerBP.EncountManagerBP_C",
+        "code": "0x1FCEA9864C2",
+        "spawn": null
+      },
+      "nativeContext": null,
+      "stack": [
+        {
+          "offset": 0,
+          "rva": "0x30D7424"
+        },
+        {
+          "offset": 32,
+          "rva": "0x90DA29"
+        },
+        {
+          "offset": 48,
+          "rva": "0x1458588"
+        },
+        {
+          "offset": 80,
+          "rva": "0xA05B4E"
+        },
+        {
+          "offset": 128,
+          "rva": "0x1458699"
+        },
+        {
+          "offset": 192,
+          "rva": "0x1449D7F"
+        },
+        {
+          "offset": 224,
+          "rva": "0x113D995"
+        },
+        {
+          "offset": 272,
+          "rva": "0x11530CE"
+        },
+        {
+          "offset": 304,
+          "rva": "0x145AC6D"
+        },
+        {
+          "offset": 320,
+          "rva": "0x1437C66"
+        },
+        {
+          "offset": 336,
+          "rva": "0x2A03CF2"
+        },
+        {
+          "offset": 440,
+          "rva": "0x1449D20"
+        },
+        {
+          "offset": 608,
+          "rva": "0x1441EA1"
+        },
+        {
+          "offset": 704,
+          "rva": "0x1458F0C"
+        },
+        {
+          "offset": 744,
+          "rva": "0x1449D20"
+        },
+        {
+          "offset": 784,
+          "rva": "0x1449D7F"
+        },
+        {
+          "offset": 816,
+          "rva": "0x12E58CC"
+        },
+        {
+          "offset": 912,
+          "rva": "0x1437C66"
+        },
+        {
+          "offset": 992,
+          "rva": "0x815A25"
+        }
+      ],
+      "nativePointers": []
+    },
+    {
+      "kind": "rand",
+      "ms": 219113,
+      "tid": 4752,
+      "before": 1436393491,
+      "position": 5393,
+      "seed": null,
+      "returnRva": "0x30D7424",
+      "maximum": 400,
+      "blueprint": {
+        "address": "0x2573B7BBF0",
+        "node": "/Game/Battle/BP/EncountManagerBP.EncountManagerBP_C.CalcEncountStepCount",
+        "obj": "/Game/Level/Persistent.Persistent.PersistentLevel.EncountManagerBP_C_2147481933",
+        "objectClass": "/Game/Battle/BP/EncountManagerBP.EncountManagerBP_C",
+        "code": "0x1FCEA98649D",
+        "spawn": null
+      },
+      "nativeContext": null,
+      "stack": [
+        {
+          "offset": 0,
+          "rva": "0x30D7424"
+        },
+        {
+          "offset": 32,
+          "rva": "0x90DA29"
+        },
+        {
+          "offset": 48,
+          "rva": "0x1458588"
+        },
+        {
+          "offset": 80,
+          "rva": "0xA05B4E"
+        },
+        {
+          "offset": 128,
+          "rva": "0x1458699"
+        },
+        {
+          "offset": 192,
+          "rva": "0x1449D7F"
+        },
+        {
+          "offset": 224,
+          "rva": "0x113D995"
+        },
+        {
+          "offset": 272,
+          "rva": "0x11530CE"
+        },
+        {
+          "offset": 304,
+          "rva": "0x145AC6D"
+        },
+        {
+          "offset": 320,
+          "rva": "0x1437C66"
+        },
+        {
+          "offset": 336,
+          "rva": "0x2A03CF2"
+        },
+        {
+          "offset": 440,
+          "rva": "0x1449D20"
+        },
+        {
+          "offset": 608,
+          "rva": "0x1441EA1"
+        },
+        {
+          "offset": 704,
+          "rva": "0x1458F0C"
+        },
+        {
+          "offset": 744,
+          "rva": "0x1449D20"
+        },
+        {
+          "offset": 784,
+          "rva": "0x1449D7F"
+        },
+        {
+          "offset": 816,
+          "rva": "0x12E58CC"
+        },
+        {
+          "offset": 848,
+          "rva": "0x125BF92"
+        },
+        {
+          "offset": 912,
+          "rva": "0x1437C66"
+        },
+        {
+          "offset": 992,
+          "rva": "0x1258F1C"
+        }
+      ],
+      "nativePointers": []
+    },
+    {
+      "kind": "rand",
+      "ms": 219113,
+      "tid": 4752,
+      "before": 3188443786,
+      "position": 5394,
+      "seed": null,
+      "returnRva": "0x30D7424",
+      "maximum": 400,
+      "blueprint": {
+        "address": "0x2573B7BBF0",
+        "node": "/Game/Battle/BP/EncountManagerBP.EncountManagerBP_C.CalcEncountStepCount",
+        "obj": "/Game/Level/Persistent.Persistent.PersistentLevel.EncountManagerBP_C_2147481933",
+        "objectClass": "/Game/Battle/BP/EncountManagerBP.EncountManagerBP_C",
+        "code": "0x1FCEA9864C2",
+        "spawn": null
+      },
+      "nativeContext": null,
+      "stack": [
+        {
+          "offset": 0,
+          "rva": "0x30D7424"
+        },
+        {
+          "offset": 32,
+          "rva": "0x90DA29"
+        },
+        {
+          "offset": 48,
+          "rva": "0x1458588"
+        },
+        {
+          "offset": 80,
+          "rva": "0xA05B4E"
+        },
+        {
+          "offset": 128,
+          "rva": "0x1458699"
+        },
+        {
+          "offset": 192,
+          "rva": "0x1449D7F"
+        },
+        {
+          "offset": 224,
+          "rva": "0x113D995"
+        },
+        {
+          "offset": 272,
+          "rva": "0x11530CE"
+        },
+        {
+          "offset": 304,
+          "rva": "0x145AC6D"
+        },
+        {
+          "offset": 320,
+          "rva": "0x1437C66"
+        },
+        {
+          "offset": 336,
+          "rva": "0x2A03CF2"
+        },
+        {
+          "offset": 440,
+          "rva": "0x1449D20"
+        },
+        {
+          "offset": 608,
+          "rva": "0x1441EA1"
+        },
+        {
+          "offset": 704,
+          "rva": "0x1458F0C"
+        },
+        {
+          "offset": 744,
+          "rva": "0x1449D20"
+        },
+        {
+          "offset": 784,
+          "rva": "0x1449D7F"
+        },
+        {
+          "offset": 816,
+          "rva": "0x12E58CC"
+        },
+        {
+          "offset": 848,
+          "rva": "0x125BF92"
+        },
+        {
+          "offset": 912,
+          "rva": "0x1437C66"
+        },
+        {
+          "offset": 992,
+          "rva": "0x1258F1C"
+        }
+      ],
+      "nativePointers": []
+    },
+    {
+      "kind": "rand",
+      "ms": 219171,
+      "tid": 4752,
+      "before": 1198384933,
+      "position": 5395,
+      "seed": null,
+      "returnRva": "0x11C010F",
+      "maximum": null,
+      "blueprint": null,
+      "nativeContext": null,
+      "stack": [
+        {
+          "offset": 0,
+          "rva": "0x11C010F"
+        },
+        {
+          "offset": 80,
+          "rva": "0xEC64A0"
+        },
+        {
+          "offset": 336,
+          "rva": "0xED8202"
+        },
+        {
+          "offset": 384,
+          "rva": "0x113D995"
+        },
+        {
+          "offset": 480,
+          "rva": "0xED43AD"
+        },
+        {
+          "offset": 608,
+          "rva": "0x1458A87"
+        },
+        {
+          "offset": 632,
+          "rva": "0x1449D20"
+        },
+        {
+          "offset": 640,
+          "rva": "0x2921997"
+        },
+        {
+          "offset": 656,
+          "rva": "0x1449DBF"
+        },
+        {
+          "offset": 704,
+          "rva": "0x2FD7F5F"
+        },
+        {
+          "offset": 752,
+          "rva": "0xEDB699"
+        },
+        {
+          "offset": 816,
+          "rva": "0xF9ECE9"
+        },
+        {
+          "offset": 848,
+          "rva": "0x29233EC"
+        },
+        {
+          "offset": 864,
+          "rva": "0x12E5E69"
+        },
+        {
+          "offset": 896,
+          "rva": "0x291E299"
+        },
+        {
+          "offset": 912,
+          "rva": "0x1449B52"
+        },
+        {
+          "offset": 1008,
+          "rva": "0xEE48F5"
+        }
+      ],
+      "nativePointers": []
+    },
+    {
+      "kind": "rand",
+      "ms": 219172,
+      "tid": 4752,
+      "before": 280083796,
+      "position": 5396,
+      "seed": null,
+      "returnRva": "0x11C010F",
+      "maximum": null,
+      "blueprint": null,
+      "nativeContext": null,
+      "stack": [
+        {
+          "offset": 0,
+          "rva": "0x11C010F"
+        },
+        {
+          "offset": 80,
+          "rva": "0xEC64A0"
+        },
+        {
+          "offset": 336,
+          "rva": "0xED82A0"
+        },
+        {
+          "offset": 384,
+          "rva": "0x113D995"
+        },
+        {
+          "offset": 480,
+          "rva": "0xED43AD"
+        },
+        {
+          "offset": 608,
+          "rva": "0x1458A87"
+        },
+        {
+          "offset": 632,
+          "rva": "0x1449D20"
+        },
+        {
+          "offset": 640,
+          "rva": "0x2921997"
+        },
+        {
+          "offset": 656,
+          "rva": "0x1449DBF"
+        },
+        {
+          "offset": 704,
+          "rva": "0x2FD7F5F"
+        },
+        {
+          "offset": 752,
+          "rva": "0xEDB699"
+        },
+        {
+          "offset": 816,
+          "rva": "0xF9ECE9"
+        },
+        {
+          "offset": 848,
+          "rva": "0x29233EC"
+        },
+        {
+          "offset": 864,
+          "rva": "0x12E5E69"
+        },
+        {
+          "offset": 896,
+          "rva": "0x291E299"
+        },
+        {
+          "offset": 912,
+          "rva": "0x1449B52"
+        },
+        {
+          "offset": 1008,
+          "rva": "0xEE48F5"
+        }
+      ],
+      "nativePointers": []
+    },
+    {
+      "kind": "rand",
+      "ms": 219172,
+      "tid": 4752,
+      "before": 1012381383,
+      "position": 5397,
+      "seed": null,
+      "returnRva": "0x11C010F",
+      "maximum": null,
+      "blueprint": null,
+      "nativeContext": null,
+      "stack": [
+        {
+          "offset": 0,
+          "rva": "0x11C010F"
+        },
+        {
+          "offset": 80,
+          "rva": "0xEC64A0"
+        },
+        {
+          "offset": 336,
+          "rva": "0xED82A0"
+        },
+        {
+          "offset": 384,
+          "rva": "0x113D995"
+        },
+        {
+          "offset": 480,
+          "rva": "0xED43AD"
+        },
+        {
+          "offset": 608,
+          "rva": "0x1458A87"
+        },
+        {
+          "offset": 632,
+          "rva": "0x1449D20"
+        },
+        {
+          "offset": 640,
+          "rva": "0x2921997"
+        },
+        {
+          "offset": 656,
+          "rva": "0x1449DBF"
+        },
+        {
+          "offset": 704,
+          "rva": "0x2FD7F5F"
+        },
+        {
+          "offset": 752,
+          "rva": "0xEDB699"
+        },
+        {
+          "offset": 816,
+          "rva": "0xF9ECE9"
+        },
+        {
+          "offset": 848,
+          "rva": "0x29233EC"
+        },
+        {
+          "offset": 864,
+          "rva": "0x12E5E69"
+        },
+        {
+          "offset": 896,
+          "rva": "0x291E299"
+        },
+        {
+          "offset": 912,
+          "rva": "0x1449B52"
+        },
+        {
+          "offset": 1008,
+          "rva": "0xEE48F5"
+        }
+      ],
+      "nativePointers": []
+    },
+    {
+      "kind": "rand",
+      "ms": 219172,
+      "tid": 4752,
+      "before": 3154204270,
+      "position": 5398,
+      "seed": null,
+      "returnRva": "0x11C010F",
+      "maximum": null,
+      "blueprint": null,
+      "nativeContext": null,
+      "stack": [
+        {
+          "offset": 0,
+          "rva": "0x11C010F"
+        },
+        {
+          "offset": 80,
+          "rva": "0xEC64A0"
+        },
+        {
+          "offset": 336,
+          "rva": "0xED82A0"
+        },
+        {
+          "offset": 384,
+          "rva": "0x113D995"
+        },
+        {
+          "offset": 480,
+          "rva": "0xED43AD"
+        },
+        {
+          "offset": 608,
+          "rva": "0x1458A87"
+        },
+        {
+          "offset": 632,
+          "rva": "0x1449D20"
+        },
+        {
+          "offset": 640,
+          "rva": "0x2921997"
+        },
+        {
+          "offset": 656,
+          "rva": "0x1449DBF"
+        },
+        {
+          "offset": 704,
+          "rva": "0x2FD7F5F"
+        },
+        {
+          "offset": 752,
+          "rva": "0xEDB699"
+        },
+        {
+          "offset": 816,
+          "rva": "0xF9ECE9"
+        },
+        {
+          "offset": 848,
+          "rva": "0x29233EC"
+        },
+        {
+          "offset": 864,
+          "rva": "0x12E5E69"
+        },
+        {
+          "offset": 896,
+          "rva": "0x291E299"
+        },
+        {
+          "offset": 912,
+          "rva": "0x1449B52"
+        },
+        {
+          "offset": 1008,
+          "rva": "0xEE48F5"
+        }
+      ],
+      "nativePointers": []
+    },
+    {
+      "kind": "rand",
+      "ms": 219172,
+      "tid": 4752,
+      "before": 711054201,
+      "position": 5399,
+      "seed": null,
+      "returnRva": "0x11C010F",
+      "maximum": null,
+      "blueprint": null,
+      "nativeContext": null,
+      "stack": [
+        {
+          "offset": 0,
+          "rva": "0x11C010F"
+        },
+        {
+          "offset": 80,
+          "rva": "0xEC64A0"
+        },
+        {
+          "offset": 336,
+          "rva": "0xED8202"
+        },
+        {
+          "offset": 384,
+          "rva": "0x113D995"
+        },
+        {
+          "offset": 480,
+          "rva": "0xED43AD"
+        },
+        {
+          "offset": 608,
+          "rva": "0x1458A87"
+        },
+        {
+          "offset": 632,
+          "rva": "0x1449D20"
+        },
+        {
+          "offset": 640,
+          "rva": "0x2921997"
+        },
+        {
+          "offset": 656,
+          "rva": "0x1449DBF"
+        },
+        {
+          "offset": 704,
+          "rva": "0x2FD7F5F"
+        },
+        {
+          "offset": 752,
+          "rva": "0xEDB699"
+        },
+        {
+          "offset": 816,
+          "rva": "0xF9ECE9"
+        },
+        {
+          "offset": 848,
+          "rva": "0x29233EC"
+        },
+        {
+          "offset": 864,
+          "rva": "0x12E5E69"
+        },
+        {
+          "offset": 896,
+          "rva": "0x291E299"
+        },
+        {
+          "offset": 912,
+          "rva": "0x1449B52"
+        },
+        {
+          "offset": 1008,
+          "rva": "0xEE48F5"
+        }
+      ],
+      "nativePointers": []
+    },
+    {
+      "kind": "rand",
+      "ms": 219434,
+      "tid": 4752,
+      "before": 4153952344,
+      "position": 5400,
+      "seed": null,
+      "returnRva": "0x30D7604",
+      "maximum": null,
+      "blueprint": {
+        "address": "0x2573B7AED0",
+        "node": "/Game/Level/BP/BPC_LevelManager_Others.BPC_LevelManager_Others_C.SpawnNPC",
+        "obj": "/Game/Level/Persistent.Persistent.PersistentLevel.BPC_LevelManager_Others_C_2147482501",
+        "objectClass": "/Game/Level/BP/BPC_LevelManager_Others.BPC_LevelManager_Others_C",
+        "code": "0x1FC0AC606B8",
+        "spawn": {
+          "locals": "0x2573B7A4F0",
+          "size": 2473,
+          "values": [
+            {
+              "name": "NPCLabel",
+              "offset": 0,
+              "value": "NPC_SYS_SAVE_Twn_Cty_1_1_B_0000"
+            },
+            {
+              "name": "NPCChara",
+              "offset": 1832,
+              "value": "/Game/Level/Persistent.Persistent.PersistentLevel.KSFieldNPCCharacter_C_2147454275"
+            }
+          ]
+        }
+      },
+      "nativeContext": null,
+      "stack": [
+        {
+          "offset": 0,
+          "rva": "0x30D7604"
+        },
+        {
+          "offset": 16,
+          "rva": "0x30E74C6"
+        },
+        {
+          "offset": 32,
+          "rva": "0x1412129"
+        },
+        {
+          "offset": 64,
+          "rva": "0x1458588"
+        },
+        {
+          "offset": 144,
+          "rva": "0x1458699"
+        },
+        {
+          "offset": 208,
+          "rva": "0x1449D7F"
+        },
+        {
+          "offset": 336,
+          "rva": "0x1437C66"
+        }
+      ],
+      "nativePointers": []
+    },
+    {
+      "kind": "rand",
+      "ms": 219435,
+      "tid": 4752,
+      "before": 1704797627,
+      "position": 5401,
+      "seed": null,
+      "returnRva": "0x30D7604",
+      "maximum": null,
+      "blueprint": {
+        "address": "0x2573B7AED0",
+        "node": "/Game/Level/BP/BPC_LevelManager_Others.BPC_LevelManager_Others_C.SpawnNPC",
+        "obj": "/Game/Level/Persistent.Persistent.PersistentLevel.BPC_LevelManager_Others_C_2147482501",
+        "objectClass": "/Game/Level/BP/BPC_LevelManager_Others.BPC_LevelManager_Others_C",
+        "code": "0x1FC0AC606B8",
+        "spawn": {
+          "locals": "0x2573B7A4F0",
+          "size": 2473,
+          "values": [
+            {
+              "name": "NPCLabel",
+              "offset": 0,
+              "value": "NPC_Twn_Cty_1_1_B_TALK_0100_D000"
+            },
+            {
+              "name": "NPCChara",
+              "offset": 1832,
+              "value": "/Game/Level/Persistent.Persistent.PersistentLevel.KSFieldNPCCharacter_C_2147454269"
+            }
+          ]
+        }
+      },
+      "nativeContext": null,
+      "stack": [
+        {
+          "offset": 0,
+          "rva": "0x30D7604"
+        },
+        {
+          "offset": 16,
+          "rva": "0x30E74C6"
+        },
+        {
+          "offset": 32,
+          "rva": "0x1412129"
+        },
+        {
+          "offset": 64,
+          "rva": "0x1458588"
+        },
+        {
+          "offset": 144,
+          "rva": "0x1458699"
+        },
+        {
+          "offset": 208,
+          "rva": "0x1449D7F"
+        },
+        {
+          "offset": 256,
+          "rva": "0x1412FCB"
+        },
+        {
+          "offset": 336,
+          "rva": "0x1437C66"
+        }
+      ],
+      "nativePointers": []
+    },
+    {
+      "kind": "rand",
+      "ms": 219436,
+      "tid": 4752,
+      "before": 4270184850,
+      "position": 5402,
+      "seed": null,
+      "returnRva": "0x30D7604",
+      "maximum": null,
+      "blueprint": {
+        "address": "0x2573B7AED0",
+        "node": "/Game/Level/BP/BPC_LevelManager_Others.BPC_LevelManager_Others_C.SpawnNPC",
+        "obj": "/Game/Level/Persistent.Persistent.PersistentLevel.BPC_LevelManager_Others_C_2147482501",
+        "objectClass": "/Game/Level/BP/BPC_LevelManager_Others.BPC_LevelManager_Others_C",
+        "code": "0x1FC0AC606B8",
+        "spawn": {
+          "locals": "0x2573B7A4F0",
+          "size": 2473,
+          "values": [
+            {
+              "name": "NPCLabel",
+              "offset": 0,
+              "value": "NPC_Twn_Cty_1_1_B_TALK_0200_D000"
+            },
+            {
+              "name": "NPCChara",
+              "offset": 1832,
+              "value": "/Game/Level/Persistent.Persistent.PersistentLevel.KSFieldNPCCharacter_C_2147454263"
+            }
+          ]
+        }
+      },
+      "nativeContext": null,
+      "stack": [
+        {
+          "offset": 0,
+          "rva": "0x30D7604"
+        },
+        {
+          "offset": 16,
+          "rva": "0x30E74C6"
+        },
+        {
+          "offset": 32,
+          "rva": "0x1412129"
+        },
+        {
+          "offset": 64,
+          "rva": "0x1458588"
+        },
+        {
+          "offset": 144,
+          "rva": "0x1458699"
+        },
+        {
+          "offset": 208,
+          "rva": "0x1449D7F"
+        },
+        {
+          "offset": 256,
+          "rva": "0x1412FCB"
+        },
+        {
+          "offset": 336,
+          "rva": "0x1437C66"
+        }
+      ],
+      "nativePointers": []
+    },
+    {
+      "kind": "rand",
+      "ms": 219437,
+      "tid": 4752,
+      "before": 521525773,
+      "position": 5403,
+      "seed": null,
+      "returnRva": "0x30D7604",
+      "maximum": null,
+      "blueprint": {
+        "address": "0x2573B7AED0",
+        "node": "/Game/Level/BP/BPC_LevelManager_Others.BPC_LevelManager_Others_C.SpawnNPC",
+        "obj": "/Game/Level/Persistent.Persistent.PersistentLevel.BPC_LevelManager_Others_C_2147482501",
+        "objectClass": "/Game/Level/BP/BPC_LevelManager_Others.BPC_LevelManager_Others_C",
+        "code": "0x1FC0AC606B8",
+        "spawn": {
+          "locals": "0x2573B7A4F0",
+          "size": 2473,
+          "values": [
+            {
+              "name": "NPCLabel",
+              "offset": 0,
+              "value": "NPC_Twn_Cty_1_1_B_TALK_0400_D000"
+            },
+            {
+              "name": "NPCChara",
+              "offset": 1832,
+              "value": "/Game/Level/Persistent.Persistent.PersistentLevel.KSFieldNPCCharacter_C_2147454257"
+            }
+          ]
+        }
+      },
+      "nativeContext": null,
+      "stack": [
+        {
+          "offset": 0,
+          "rva": "0x30D7604"
+        },
+        {
+          "offset": 16,
+          "rva": "0x30E74C6"
+        },
+        {
+          "offset": 32,
+          "rva": "0x1412129"
+        },
+        {
+          "offset": 64,
+          "rva": "0x1458588"
+        },
+        {
+          "offset": 144,
+          "rva": "0x1458699"
+        },
+        {
+          "offset": 208,
+          "rva": "0x1449D7F"
+        },
+        {
+          "offset": 256,
+          "rva": "0x1412FCB"
+        },
+        {
+          "offset": 336,
+          "rva": "0x1437C66"
+        }
+      ],
+      "nativePointers": []
+    },
+    {
+      "kind": "rand",
+      "ms": 219438,
+      "tid": 4752,
+      "before": 4277634204,
+      "position": 5404,
+      "seed": null,
+      "returnRva": "0x30D7604",
+      "maximum": null,
+      "blueprint": {
+        "address": "0x2573B7AED0",
+        "node": "/Game/Level/BP/BPC_LevelManager_Others.BPC_LevelManager_Others_C.SpawnNPC",
+        "obj": "/Game/Level/Persistent.Persistent.PersistentLevel.BPC_LevelManager_Others_C_2147482501",
+        "objectClass": "/Game/Level/BP/BPC_LevelManager_Others.BPC_LevelManager_Others_C",
+        "code": "0x1FC0AC606B8",
+        "spawn": {
+          "locals": "0x2573B7A4F0",
+          "size": 2473,
+          "values": [
+            {
+              "name": "NPCLabel",
+              "offset": 0,
+              "value": "NPC_Twn_Cty_1_1_B_TALK_0600_D000"
+            },
+            {
+              "name": "NPCChara",
+              "offset": 1832,
+              "value": "/Game/Level/Persistent.Persistent.PersistentLevel.KSFieldNPCCharacter_C_2147454251"
+            }
+          ]
+        }
+      },
+      "nativeContext": null,
+      "stack": [
+        {
+          "offset": 0,
+          "rva": "0x30D7604"
+        },
+        {
+          "offset": 16,
+          "rva": "0x30E74C6"
+        },
+        {
+          "offset": 32,
+          "rva": "0x1412129"
+        },
+        {
+          "offset": 64,
+          "rva": "0x1458588"
+        },
+        {
+          "offset": 144,
+          "rva": "0x1458699"
+        },
+        {
+          "offset": 208,
+          "rva": "0x1449D7F"
+        },
+        {
+          "offset": 256,
+          "rva": "0x1412FCB"
+        },
+        {
+          "offset": 336,
+          "rva": "0x1437C66"
+        }
+      ],
+      "nativePointers": []
+    },
+    {
+      "kind": "rand",
+      "ms": 219439,
+      "tid": 4752,
+      "before": 1347256559,
+      "position": 5405,
+      "seed": null,
+      "returnRva": "0x30D7604",
+      "maximum": null,
+      "blueprint": {
+        "address": "0x2573B7AED0",
+        "node": "/Game/Level/BP/BPC_LevelManager_Others.BPC_LevelManager_Others_C.SpawnNPC",
+        "obj": "/Game/Level/Persistent.Persistent.PersistentLevel.BPC_LevelManager_Others_C_2147482501",
+        "objectClass": "/Game/Level/BP/BPC_LevelManager_Others.BPC_LevelManager_Others_C",
+        "code": "0x1FC0AC606B8",
+        "spawn": {
+          "locals": "0x2573B7A4F0",
+          "size": 2473,
+          "values": [
+            {
+              "name": "NPCLabel",
+              "offset": 0,
+              "value": "NPC_Twn_Cty_1_1_B_TALK_0700_D000"
+            },
+            {
+              "name": "NPCChara",
+              "offset": 1832,
+              "value": "/Game/Level/Persistent.Persistent.PersistentLevel.KSFieldNPCCharacter_C_2147454245"
+            }
+          ]
+        }
+      },
+      "nativeContext": null,
+      "stack": [
+        {
+          "offset": 0,
+          "rva": "0x30D7604"
+        },
+        {
+          "offset": 16,
+          "rva": "0x30E74C6"
+        },
+        {
+          "offset": 32,
+          "rva": "0x1412129"
+        },
+        {
+          "offset": 64,
+          "rva": "0x1458588"
+        },
+        {
+          "offset": 144,
+          "rva": "0x1458699"
+        },
+        {
+          "offset": 208,
+          "rva": "0x1449D7F"
+        },
+        {
+          "offset": 256,
+          "rva": "0x1412FCB"
+        },
+        {
+          "offset": 336,
+          "rva": "0x1437C66"
+        }
+      ],
+      "nativePointers": []
+    },
+    {
+      "kind": "rand",
+      "ms": 219440,
+      "tid": 4752,
+      "before": 675977206,
+      "position": 5406,
+      "seed": null,
+      "returnRva": "0x30D7604",
+      "maximum": null,
+      "blueprint": {
+        "address": "0x2573B7AED0",
+        "node": "/Game/Level/BP/BPC_LevelManager_Others.BPC_LevelManager_Others_C.SpawnNPC",
+        "obj": "/Game/Level/Persistent.Persistent.PersistentLevel.BPC_LevelManager_Others_C_2147482501",
+        "objectClass": "/Game/Level/BP/BPC_LevelManager_Others.BPC_LevelManager_Others_C",
+        "code": "0x1FC0AC606B8",
+        "spawn": {
+          "locals": "0x2573B7A4F0",
+          "size": 2473,
+          "values": [
+            {
+              "name": "NPCLabel",
+              "offset": 0,
+              "value": "NPC_Twn_Cty_1_1_B_TALK_0800_D000"
+            },
+            {
+              "name": "NPCChara",
+              "offset": 1832,
+              "value": "/Game/Level/Persistent.Persistent.PersistentLevel.KSFieldNPCCharacter_C_2147454239"
+            }
+          ]
+        }
+      },
+      "nativeContext": null,
+      "stack": [
+        {
+          "offset": 0,
+          "rva": "0x30D7604"
+        },
+        {
+          "offset": 16,
+          "rva": "0x30E74C6"
+        },
+        {
+          "offset": 32,
+          "rva": "0x1412129"
+        },
+        {
+          "offset": 64,
+          "rva": "0x1458588"
+        },
+        {
+          "offset": 144,
+          "rva": "0x1458699"
+        },
+        {
+          "offset": 208,
+          "rva": "0x1449D7F"
+        },
+        {
+          "offset": 256,
+          "rva": "0x1412FCB"
+        },
+        {
+          "offset": 336,
+          "rva": "0x1437C66"
+        }
+      ],
+      "nativePointers": []
+    },
+    {
+      "kind": "rand",
+      "ms": 219441,
+      "tid": 4752,
+      "before": 528887521,
+      "position": 5407,
+      "seed": null,
+      "returnRva": "0x30D7604",
+      "maximum": null,
+      "blueprint": {
+        "address": "0x2573B7AED0",
+        "node": "/Game/Level/BP/BPC_LevelManager_Others.BPC_LevelManager_Others_C.SpawnNPC",
+        "obj": "/Game/Level/Persistent.Persistent.PersistentLevel.BPC_LevelManager_Others_C_2147482501",
+        "objectClass": "/Game/Level/BP/BPC_LevelManager_Others.BPC_LevelManager_Others_C",
+        "code": "0x1FC0AC606B8",
+        "spawn": {
+          "locals": "0x2573B7A4F0",
+          "size": 2473,
+          "values": [
+            {
+              "name": "NPCLabel",
+              "offset": 0,
+              "value": "NPC_Twn_Cty_1_1_B_TALK_0900_D000"
+            },
+            {
+              "name": "NPCChara",
+              "offset": 1832,
+              "value": "/Game/Level/Persistent.Persistent.PersistentLevel.KSFieldNPCCharacter_C_2147454233"
+            }
+          ]
+        }
+      },
+      "nativeContext": null,
+      "stack": [
+        {
+          "offset": 0,
+          "rva": "0x30D7604"
+        },
+        {
+          "offset": 16,
+          "rva": "0x30E74C6"
+        },
+        {
+          "offset": 32,
+          "rva": "0x1412129"
+        },
+        {
+          "offset": 64,
+          "rva": "0x1458588"
+        },
+        {
+          "offset": 144,
+          "rva": "0x1458699"
+        },
+        {
+          "offset": 208,
+          "rva": "0x1449D7F"
+        },
+        {
+          "offset": 256,
+          "rva": "0x1412FCB"
+        },
+        {
+          "offset": 336,
+          "rva": "0x1437C66"
+        }
+      ],
+      "nativePointers": []
+    },
+    {
+      "kind": "rand",
+      "ms": 219441,
+      "tid": 4752,
+      "before": 3534411296,
+      "position": 5408,
+      "seed": null,
+      "returnRva": "0x30D7604",
+      "maximum": null,
+      "blueprint": {
+        "address": "0x2573B7AED0",
+        "node": "/Game/Level/BP/BPC_LevelManager_Others.BPC_LevelManager_Others_C.SpawnNPC",
+        "obj": "/Game/Level/Persistent.Persistent.PersistentLevel.BPC_LevelManager_Others_C_2147482501",
+        "objectClass": "/Game/Level/BP/BPC_LevelManager_Others.BPC_LevelManager_Others_C",
+        "code": "0x1FC0AC606B8",
+        "spawn": {
+          "locals": "0x2573B7A4F0",
+          "size": 2473,
+          "values": [
+            {
+              "name": "NPCLabel",
+              "offset": 0,
+              "value": "NPC_Twn_Cty_1_1_B_TALK_1600_D000"
+            },
+            {
+              "name": "NPCChara",
+              "offset": 1832,
+              "value": "/Game/Level/Persistent.Persistent.PersistentLevel.KSFieldNPCCharacter_C_2147454227"
+            }
+          ]
+        }
+      },
+      "nativeContext": null,
+      "stack": [
+        {
+          "offset": 0,
+          "rva": "0x30D7604"
+        },
+        {
+          "offset": 16,
+          "rva": "0x30E74C6"
+        },
+        {
+          "offset": 32,
+          "rva": "0x1412129"
+        },
+        {
+          "offset": 64,
+          "rva": "0x1458588"
+        },
+        {
+          "offset": 144,
+          "rva": "0x1458699"
+        },
+        {
+          "offset": 208,
+          "rva": "0x1449D7F"
+        },
+        {
+          "offset": 256,
+          "rva": "0x1412FCB"
+        },
+        {
+          "offset": 336,
+          "rva": "0x1437C66"
+        }
+      ],
+      "nativePointers": []
+    },
+    {
+      "kind": "rand",
+      "ms": 219442,
+      "tid": 4752,
+      "before": 1801886819,
+      "position": 5409,
+      "seed": null,
+      "returnRva": "0x30D7604",
+      "maximum": null,
+      "blueprint": {
+        "address": "0x2573B7AED0",
+        "node": "/Game/Level/BP/BPC_LevelManager_Others.BPC_LevelManager_Others_C.SpawnNPC",
+        "obj": "/Game/Level/Persistent.Persistent.PersistentLevel.BPC_LevelManager_Others_C_2147482501",
+        "objectClass": "/Game/Level/BP/BPC_LevelManager_Others.BPC_LevelManager_Others_C",
+        "code": "0x1FC0AC606B8",
+        "spawn": {
+          "locals": "0x2573B7A4F0",
+          "size": 2473,
+          "values": [
+            {
+              "name": "NPCLabel",
+              "offset": 0,
+              "value": "NPC_Twn_Cty_1_1_B_TALK_1700_D000"
+            },
+            {
+              "name": "NPCChara",
+              "offset": 1832,
+              "value": "/Game/Level/Persistent.Persistent.PersistentLevel.KSFieldNPCCharacter_C_2147454221"
+            }
+          ]
+        }
+      },
+      "nativeContext": null,
+      "stack": [
+        {
+          "offset": 0,
+          "rva": "0x30D7604"
+        },
+        {
+          "offset": 16,
+          "rva": "0x30E74C6"
+        },
+        {
+          "offset": 32,
+          "rva": "0x1412129"
+        },
+        {
+          "offset": 64,
+          "rva": "0x1458588"
+        },
+        {
+          "offset": 144,
+          "rva": "0x1458699"
+        },
+        {
+          "offset": 208,
+          "rva": "0x1449D7F"
+        },
+        {
+          "offset": 256,
+          "rva": "0x1412FCB"
+        },
+        {
+          "offset": 336,
+          "rva": "0x1437C66"
+        }
+      ],
+      "nativePointers": []
+    },
+    {
+      "kind": "rand",
+      "ms": 219444,
+      "tid": 4752,
+      "before": 3567654298,
+      "position": 5410,
+      "seed": null,
+      "returnRva": "0x30D7604",
+      "maximum": null,
+      "blueprint": {
+        "address": "0x2573B7AED0",
+        "node": "/Game/Level/BP/BPC_LevelManager_Others.BPC_LevelManager_Others_C.SpawnNPC",
+        "obj": "/Game/Level/Persistent.Persistent.PersistentLevel.BPC_LevelManager_Others_C_2147482501",
+        "objectClass": "/Game/Level/BP/BPC_LevelManager_Others.BPC_LevelManager_Others_C",
+        "code": "0x1FC0AC606B8",
+        "spawn": {
+          "locals": "0x2573B7A4F0",
+          "size": 2473,
+          "values": [
+            {
+              "name": "NPCLabel",
+              "offset": 0,
+              "value": "NACT_Twn_Cty_1_1_B_0100_D000"
+            },
+            {
+              "name": "NPCChara",
+              "offset": 1832,
+              "value": "/Game/Level/Persistent.Persistent.PersistentLevel.KSFieldNPCCharacter_C_2147454214"
+            }
+          ]
+        }
+      },
+      "nativeContext": null,
+      "stack": [
+        {
+          "offset": 0,
+          "rva": "0x30D7604"
+        },
+        {
+          "offset": 16,
+          "rva": "0x30E74C6"
+        },
+        {
+          "offset": 32,
+          "rva": "0x1412129"
+        },
+        {
+          "offset": 64,
+          "rva": "0x1458588"
+        },
+        {
+          "offset": 144,
+          "rva": "0x1458699"
+        },
+        {
+          "offset": 208,
+          "rva": "0x1449D7F"
+        },
+        {
+          "offset": 256,
+          "rva": "0x1412FCB"
+        },
+        {
+          "offset": 336,
+          "rva": "0x1437C66"
+        }
+      ],
+      "nativePointers": []
+    },
+    {
+      "kind": "rand",
+      "ms": 219444,
+      "tid": 4752,
+      "before": 3770631669,
+      "position": 5411,
+      "seed": null,
+      "returnRva": "0x30D7604",
+      "maximum": null,
+      "blueprint": {
+        "address": "0x2573B7AED0",
+        "node": "/Game/Level/BP/BPC_LevelManager_Others.BPC_LevelManager_Others_C.SpawnNPC",
+        "obj": "/Game/Level/Persistent.Persistent.PersistentLevel.BPC_LevelManager_Others_C_2147482501",
+        "objectClass": "/Game/Level/BP/BPC_LevelManager_Others.BPC_LevelManager_Others_C",
+        "code": "0x1FC0AC606B8",
+        "spawn": {
+          "locals": "0x2573B7A4F0",
+          "size": 2473,
+          "values": [
+            {
+              "name": "NPCLabel",
+              "offset": 0,
+              "value": "NACT_Twn_Cty_1_1_B_0200_D000"
+            },
+            {
+              "name": "NPCChara",
+              "offset": 1832,
+              "value": "/Game/Level/Persistent.Persistent.PersistentLevel.KSFieldNPCCharacter_C_2147454208"
+            }
+          ]
+        }
+      },
+      "nativeContext": null,
+      "stack": [
+        {
+          "offset": 0,
+          "rva": "0x30D7604"
+        },
+        {
+          "offset": 16,
+          "rva": "0x30E74C6"
+        },
+        {
+          "offset": 32,
+          "rva": "0x1412129"
+        },
+        {
+          "offset": 64,
+          "rva": "0x1458588"
+        },
+        {
+          "offset": 144,
+          "rva": "0x1458699"
+        },
+        {
+          "offset": 208,
+          "rva": "0x1449D7F"
+        },
+        {
+          "offset": 256,
+          "rva": "0x1412FCB"
+        },
+        {
+          "offset": 336,
+          "rva": "0x1437C66"
+        }
+      ],
+      "nativePointers": []
+    },
+    {
+      "kind": "rand",
+      "ms": 219445,
+      "tid": 4752,
+      "before": 4267499748,
+      "position": 5412,
+      "seed": null,
+      "returnRva": "0x30D7604",
+      "maximum": null,
+      "blueprint": {
+        "address": "0x2573B7AED0",
+        "node": "/Game/Level/BP/BPC_LevelManager_Others.BPC_LevelManager_Others_C.SpawnNPC",
+        "obj": "/Game/Level/Persistent.Persistent.PersistentLevel.BPC_LevelManager_Others_C_2147482501",
+        "objectClass": "/Game/Level/BP/BPC_LevelManager_Others.BPC_LevelManager_Others_C",
+        "code": "0x1FC0AC606B8",
+        "spawn": {
+          "locals": "0x2573B7A4F0",
+          "size": 2473,
+          "values": [
+            {
+              "name": "NPCLabel",
+              "offset": 0,
+              "value": "NACT_Twn_Cty_1_1_B_0300_D000"
+            },
+            {
+              "name": "NPCChara",
+              "offset": 1832,
+              "value": "/Game/Level/Persistent.Persistent.PersistentLevel.KSFieldNPCCharacter_C_2147454202"
+            }
+          ]
+        }
+      },
+      "nativeContext": null,
+      "stack": [
+        {
+          "offset": 0,
+          "rva": "0x30D7604"
+        },
+        {
+          "offset": 16,
+          "rva": "0x30E74C6"
+        },
+        {
+          "offset": 32,
+          "rva": "0x1412129"
+        },
+        {
+          "offset": 64,
+          "rva": "0x1458588"
+        },
+        {
+          "offset": 144,
+          "rva": "0x1458699"
+        },
+        {
+          "offset": 208,
+          "rva": "0x1449D7F"
+        },
+        {
+          "offset": 256,
+          "rva": "0x1412FCB"
+        },
+        {
+          "offset": 336,
+          "rva": "0x1437C66"
+        }
+      ],
+      "nativePointers": []
+    },
+    {
+      "kind": "rand",
+      "ms": 219446,
+      "tid": 4752,
+      "before": 1400409111,
+      "position": 5413,
+      "seed": null,
+      "returnRva": "0x30D7604",
+      "maximum": null,
+      "blueprint": {
+        "address": "0x2573B7AED0",
+        "node": "/Game/Level/BP/BPC_LevelManager_Others.BPC_LevelManager_Others_C.SpawnNPC",
+        "obj": "/Game/Level/Persistent.Persistent.PersistentLevel.BPC_LevelManager_Others_C_2147482501",
+        "objectClass": "/Game/Level/BP/BPC_LevelManager_Others.BPC_LevelManager_Others_C",
+        "code": "0x1FC0AC606B8",
+        "spawn": {
+          "locals": "0x2573B7A4F0",
+          "size": 2473,
+          "values": [
+            {
+              "name": "NPCLabel",
+              "offset": 0,
+              "value": "NACT_Twn_Cty_1_1_B_0500_D000"
+            },
+            {
+              "name": "NPCChara",
+              "offset": 1832,
+              "value": "/Game/Level/Persistent.Persistent.PersistentLevel.KSFieldNPCCharacter_C_2147454196"
+            }
+          ]
+        }
+      },
+      "nativeContext": null,
+      "stack": [
+        {
+          "offset": 0,
+          "rva": "0x30D7604"
+        },
+        {
+          "offset": 16,
+          "rva": "0x30E74C6"
+        },
+        {
+          "offset": 32,
+          "rva": "0x1412129"
+        },
+        {
+          "offset": 64,
+          "rva": "0x1458588"
+        },
+        {
+          "offset": 144,
+          "rva": "0x1458699"
+        },
+        {
+          "offset": 208,
+          "rva": "0x1449D7F"
+        },
+        {
+          "offset": 256,
+          "rva": "0x1412FCB"
+        },
+        {
+          "offset": 336,
+          "rva": "0x1437C66"
+        }
+      ],
+      "nativePointers": []
+    },
+    {
+      "kind": "rand",
+      "ms": 219447,
+      "tid": 4752,
+      "before": 2939688574,
+      "position": 5414,
+      "seed": null,
+      "returnRva": "0x30D7604",
+      "maximum": null,
+      "blueprint": {
+        "address": "0x2573B7AED0",
+        "node": "/Game/Level/BP/BPC_LevelManager_Others.BPC_LevelManager_Others_C.SpawnNPC",
+        "obj": "/Game/Level/Persistent.Persistent.PersistentLevel.BPC_LevelManager_Others_C_2147482501",
+        "objectClass": "/Game/Level/BP/BPC_LevelManager_Others.BPC_LevelManager_Others_C",
+        "code": "0x1FC0AC606B8",
+        "spawn": {
+          "locals": "0x2573B7A4F0",
+          "size": 2473,
+          "values": [
+            {
+              "name": "NPCLabel",
+              "offset": 0,
+              "value": "NACT_Twn_Cty_1_1_B_1400_D000"
+            },
+            {
+              "name": "NPCChara",
+              "offset": 1832,
+              "value": "/Game/Level/Persistent.Persistent.PersistentLevel.KSFieldNPCCharacter_C_2147454190"
+            }
+          ]
+        }
+      },
+      "nativeContext": null,
+      "stack": [
+        {
+          "offset": 0,
+          "rva": "0x30D7604"
+        },
+        {
+          "offset": 16,
+          "rva": "0x30E74C6"
+        },
+        {
+          "offset": 32,
+          "rva": "0x1412129"
+        },
+        {
+          "offset": 64,
+          "rva": "0x1458588"
+        },
+        {
+          "offset": 144,
+          "rva": "0x1458699"
+        },
+        {
+          "offset": 208,
+          "rva": "0x1449D7F"
+        },
+        {
+          "offset": 256,
+          "rva": "0x1412FCB"
+        },
+        {
+          "offset": 336,
+          "rva": "0x1437C66"
+        }
+      ],
+      "nativePointers": []
+    },
+    {
+      "kind": "rand",
+      "ms": 219448,
+      "tid": 4752,
+      "before": 468833097,
+      "position": 5415,
+      "seed": null,
+      "returnRva": "0x30D7604",
+      "maximum": null,
+      "blueprint": {
+        "address": "0x2573B7AED0",
+        "node": "/Game/Level/BP/BPC_LevelManager_Others.BPC_LevelManager_Others_C.SpawnNPC",
+        "obj": "/Game/Level/Persistent.Persistent.PersistentLevel.BPC_LevelManager_Others_C_2147482501",
+        "objectClass": "/Game/Level/BP/BPC_LevelManager_Others.BPC_LevelManager_Others_C",
+        "code": "0x1FC0AC606B8",
+        "spawn": {
+          "locals": "0x2573B7A4F0",
+          "size": 2473,
+          "values": [
+            {
+              "name": "NPCLabel",
+              "offset": 0,
+              "value": "NACT_Twn_Cty_1_1_B_1500_D000"
+            },
+            {
+              "name": "NPCChara",
+              "offset": 1832,
+              "value": "/Game/Level/Persistent.Persistent.PersistentLevel.KSFieldNPCCharacter_C_2147454184"
+            }
+          ]
+        }
+      },
+      "nativeContext": null,
+      "stack": [
+        {
+          "offset": 0,
+          "rva": "0x30D7604"
+        },
+        {
+          "offset": 16,
+          "rva": "0x30E74C6"
+        },
+        {
+          "offset": 32,
+          "rva": "0x1412129"
+        },
+        {
+          "offset": 64,
+          "rva": "0x1458588"
+        },
+        {
+          "offset": 144,
+          "rva": "0x1458699"
+        },
+        {
+          "offset": 208,
+          "rva": "0x1449D7F"
+        },
+        {
+          "offset": 256,
+          "rva": "0x1412FCB"
+        },
+        {
+          "offset": 336,
+          "rva": "0x1437C66"
+        }
+      ],
+      "nativePointers": []
+    },
+    {
+      "kind": "rand",
+      "ms": 219449,
+      "tid": 4752,
+      "before": 1649117416,
+      "position": 5416,
+      "seed": null,
+      "returnRva": "0x30D7604",
+      "maximum": null,
+      "blueprint": {
+        "address": "0x2573B7AED0",
+        "node": "/Game/Level/BP/BPC_LevelManager_Others.BPC_LevelManager_Others_C.SpawnNPC",
+        "obj": "/Game/Level/Persistent.Persistent.PersistentLevel.BPC_LevelManager_Others_C_2147482501",
+        "objectClass": "/Game/Level/BP/BPC_LevelManager_Others.BPC_LevelManager_Others_C",
+        "code": "0x1FC0AC606B8",
+        "spawn": {
+          "locals": "0x2573B7A4F0",
+          "size": 2473,
+          "values": [
+            {
+              "name": "NPCLabel",
+              "offset": 0,
+              "value": "NACT_Twn_Cty_1_1_B_1800_D000"
+            },
+            {
+              "name": "NPCChara",
+              "offset": 1832,
+              "value": "/Game/Level/Persistent.Persistent.PersistentLevel.KSFieldNPCCharacter_C_2147454178"
+            }
+          ]
+        }
+      },
+      "nativeContext": null,
+      "stack": [
+        {
+          "offset": 0,
+          "rva": "0x30D7604"
+        },
+        {
+          "offset": 16,
+          "rva": "0x30E74C6"
+        },
+        {
+          "offset": 32,
+          "rva": "0x1412129"
+        },
+        {
+          "offset": 64,
+          "rva": "0x1458588"
+        },
+        {
+          "offset": 144,
+          "rva": "0x1458699"
+        },
+        {
+          "offset": 208,
+          "rva": "0x1449D7F"
+        },
+        {
+          "offset": 256,
+          "rva": "0x1412FCB"
+        },
+        {
+          "offset": 336,
+          "rva": "0x1437C66"
+        }
+      ],
+      "nativePointers": []
+    },
+    {
+      "kind": "rand",
+      "ms": 219450,
+      "tid": 4752,
+      "before": 2220467211,
+      "position": 5417,
+      "seed": null,
+      "returnRva": "0x30D7604",
+      "maximum": null,
+      "blueprint": {
+        "address": "0x2573B7AED0",
+        "node": "/Game/Level/BP/BPC_LevelManager_Others.BPC_LevelManager_Others_C.SpawnNPC",
+        "obj": "/Game/Level/Persistent.Persistent.PersistentLevel.BPC_LevelManager_Others_C_2147482501",
+        "objectClass": "/Game/Level/BP/BPC_LevelManager_Others.BPC_LevelManager_Others_C",
+        "code": "0x1FC0AC606B8",
+        "spawn": {
+          "locals": "0x2573B7A4F0",
+          "size": 2473,
+          "values": [
+            {
+              "name": "NPCLabel",
+              "offset": 0,
+              "value": "NACT_Twn_Cty_1_1_B_2300_D000"
+            },
+            {
+              "name": "NPCChara",
+              "offset": 1832,
+              "value": "/Game/Level/Persistent.Persistent.PersistentLevel.KSFieldNPCCharacter_C_2147454172"
+            }
+          ]
+        }
+      },
+      "nativeContext": null,
+      "stack": [
+        {
+          "offset": 0,
+          "rva": "0x30D7604"
+        },
+        {
+          "offset": 16,
+          "rva": "0x30E74C6"
+        },
+        {
+          "offset": 32,
+          "rva": "0x1412129"
+        },
+        {
+          "offset": 64,
+          "rva": "0x1458588"
+        },
+        {
+          "offset": 144,
+          "rva": "0x1458699"
+        },
+        {
+          "offset": 208,
+          "rva": "0x1449D7F"
+        },
+        {
+          "offset": 256,
+          "rva": "0x1412FCB"
+        },
+        {
+          "offset": 336,
+          "rva": "0x1437C66"
+        }
+      ],
+      "nativePointers": []
+    },
+    {
+      "kind": "rand",
+      "ms": 219451,
+      "tid": 4752,
+      "before": 785227426,
+      "position": 5418,
+      "seed": null,
+      "returnRva": "0x30D7604",
+      "maximum": null,
+      "blueprint": {
+        "address": "0x2573B7AED0",
+        "node": "/Game/Level/BP/BPC_LevelManager_Others.BPC_LevelManager_Others_C.SpawnNPC",
+        "obj": "/Game/Level/Persistent.Persistent.PersistentLevel.BPC_LevelManager_Others_C_2147482501",
+        "objectClass": "/Game/Level/BP/BPC_LevelManager_Others.BPC_LevelManager_Others_C",
+        "code": "0x1FC0AC606B8",
+        "spawn": {
+          "locals": "0x2573B7A4F0",
+          "size": 2473,
+          "values": [
+            {
+              "name": "NPCLabel",
+              "offset": 0,
+              "value": "NPC_Twn_Cty_1_1_B_TALK_0500_D000_TOU"
+            },
+            {
+              "name": "NPCChara",
+              "offset": 1832,
+              "value": "/Game/Level/Persistent.Persistent.PersistentLevel.KSFieldNPCCharacter_C_2147454157"
+            }
+          ]
+        }
+      },
+      "nativeContext": null,
+      "stack": [
+        {
+          "offset": 0,
+          "rva": "0x30D7604"
+        },
+        {
+          "offset": 16,
+          "rva": "0x30E74C6"
+        },
+        {
+          "offset": 32,
+          "rva": "0x1412129"
+        },
+        {
+          "offset": 64,
+          "rva": "0x1458588"
+        },
+        {
+          "offset": 144,
+          "rva": "0x1458699"
+        },
+        {
+          "offset": 208,
+          "rva": "0x1449D7F"
+        },
+        {
+          "offset": 256,
+          "rva": "0x145AC6D"
+        },
+        {
+          "offset": 336,
+          "rva": "0x1437C66"
+        },
+        {
+          "offset": 416,
+          "rva": "0xEC2848"
+        },
+        {
+          "offset": 464,
+          "rva": "0x1067E39"
+        }
+      ],
+      "nativePointers": []
+    },
+    {
+      "kind": "rand",
+      "ms": 219452,
+      "tid": 4752,
+      "before": 3989228253,
+      "position": 5419,
+      "seed": null,
+      "returnRva": "0x30D7604",
+      "maximum": null,
+      "blueprint": {
+        "address": "0x2573B7AED0",
+        "node": "/Game/Level/BP/BPC_LevelManager_Others.BPC_LevelManager_Others_C.SpawnNPC",
+        "obj": "/Game/Level/Persistent.Persistent.PersistentLevel.BPC_LevelManager_Others_C_2147482501",
+        "objectClass": "/Game/Level/BP/BPC_LevelManager_Others.BPC_LevelManager_Others_C",
+        "code": "0x1FC0AC606B8",
+        "spawn": {
+          "locals": "0x2573B7A4F0",
+          "size": 2473,
+          "values": [
+            {
+              "name": "NPCLabel",
+              "offset": 0,
+              "value": "Epilogue_PLAYER_IS_Throne"
+            },
+            {
+              "name": "NPCChara",
+              "offset": 1832,
+              "value": "/Game/Level/Persistent.Persistent.PersistentLevel.KSFieldNPCCharacter_C_2147454151"
+            }
+          ]
+        }
+      },
+      "nativeContext": null,
+      "stack": [
+        {
+          "offset": 0,
+          "rva": "0x30D7604"
+        },
+        {
+          "offset": 16,
+          "rva": "0x30E74C6"
+        },
+        {
+          "offset": 32,
+          "rva": "0x1412129"
+        },
+        {
+          "offset": 64,
+          "rva": "0x1458588"
+        },
+        {
+          "offset": 144,
+          "rva": "0x1458699"
+        },
+        {
+          "offset": 208,
+          "rva": "0x1449D7F"
+        },
+        {
+          "offset": 256,
+          "rva": "0x1412FCB"
+        },
+        {
+          "offset": 336,
+          "rva": "0x1437C66"
+        },
+        {
+          "offset": 416,
+          "rva": "0xEC2848"
+        },
+        {
+          "offset": 464,
+          "rva": "0x1067E39"
+        }
+      ],
+      "nativePointers": []
+    },
+    {
+      "kind": "rand",
+      "ms": 219453,
+      "tid": 4752,
+      "before": 1699476012,
+      "position": 5420,
+      "seed": null,
+      "returnRva": "0x30D7424",
+      "maximum": 400,
+      "blueprint": {
+        "address": "0x2573B7CBB0",
+        "node": "/Game/Battle/BP/EncountManagerBP.EncountManagerBP_C.CalcEncountStepCount",
+        "obj": "/Game/Level/Persistent.Persistent.PersistentLevel.EncountManagerBP_C_2147481933",
+        "objectClass": "/Game/Battle/BP/EncountManagerBP.EncountManagerBP_C",
+        "code": "0x1FCEA98649D",
+        "spawn": null
+      },
+      "nativeContext": null,
+      "stack": [
+        {
+          "offset": 0,
+          "rva": "0x30D7424"
+        },
+        {
+          "offset": 32,
+          "rva": "0x90DA29"
+        },
+        {
+          "offset": 48,
+          "rva": "0x1458588"
+        },
+        {
+          "offset": 80,
+          "rva": "0xA05B4E"
+        },
+        {
+          "offset": 128,
+          "rva": "0x1458699"
+        },
+        {
+          "offset": 192,
+          "rva": "0x1449D7F"
+        },
+        {
+          "offset": 224,
+          "rva": "0x113D995"
+        },
+        {
+          "offset": 272,
+          "rva": "0x11530CE"
+        },
+        {
+          "offset": 304,
+          "rva": "0x145AC6D"
+        },
+        {
+          "offset": 320,
+          "rva": "0x1437C66"
+        },
+        {
+          "offset": 336,
+          "rva": "0x2A03CF2"
+        },
+        {
+          "offset": 440,
+          "rva": "0x1449D20"
+        },
+        {
+          "offset": 608,
+          "rva": "0x1441EA1"
+        },
+        {
+          "offset": 704,
+          "rva": "0x1458F0C"
+        },
+        {
+          "offset": 744,
+          "rva": "0x1449D20"
+        },
+        {
+          "offset": 784,
+          "rva": "0x1449D7F"
+        },
+        {
+          "offset": 816,
+          "rva": "0x12E58CC"
+        },
+        {
+          "offset": 912,
+          "rva": "0x1437C66"
+        }
+      ],
+      "nativePointers": []
+    },
+    {
+      "kind": "rand",
+      "ms": 219453,
+      "tid": 4752,
+      "before": 3541727295,
+      "position": 5421,
+      "seed": null,
+      "returnRva": "0x30D7424",
+      "maximum": 400,
+      "blueprint": {
+        "address": "0x2573B7CBB0",
+        "node": "/Game/Battle/BP/EncountManagerBP.EncountManagerBP_C.CalcEncountStepCount",
+        "obj": "/Game/Level/Persistent.Persistent.PersistentLevel.EncountManagerBP_C_2147481933",
+        "objectClass": "/Game/Battle/BP/EncountManagerBP.EncountManagerBP_C",
+        "code": "0x1FCEA9864C2",
+        "spawn": null
+      },
+      "nativeContext": null,
+      "stack": [
+        {
+          "offset": 0,
+          "rva": "0x30D7424"
+        },
+        {
+          "offset": 32,
+          "rva": "0x90DA29"
+        },
+        {
+          "offset": 48,
+          "rva": "0x1458588"
+        },
+        {
+          "offset": 80,
+          "rva": "0xA05B4E"
+        },
+        {
+          "offset": 128,
+          "rva": "0x1458699"
+        },
+        {
+          "offset": 192,
+          "rva": "0x1449D7F"
+        },
+        {
+          "offset": 224,
+          "rva": "0x113D995"
+        },
+        {
+          "offset": 272,
+          "rva": "0x11530CE"
+        },
+        {
+          "offset": 304,
+          "rva": "0x145AC6D"
+        },
+        {
+          "offset": 320,
+          "rva": "0x1437C66"
+        },
+        {
+          "offset": 336,
+          "rva": "0x2A03CF2"
+        },
+        {
+          "offset": 440,
+          "rva": "0x1449D20"
+        },
+        {
+          "offset": 608,
+          "rva": "0x1441EA1"
+        },
+        {
+          "offset": 704,
+          "rva": "0x1458F0C"
+        },
+        {
+          "offset": 744,
+          "rva": "0x1449D20"
+        },
+        {
+          "offset": 784,
+          "rva": "0x1449D7F"
+        },
+        {
+          "offset": 816,
+          "rva": "0x12E58CC"
+        },
+        {
+          "offset": 912,
+          "rva": "0x1437C66"
+        }
+      ],
+      "nativePointers": []
+    },
+    {
+      "kind": "rand",
+      "ms": 221707,
+      "tid": 4752,
+      "before": 4152685062,
+      "position": 5422,
+      "seed": null,
+      "returnRva": "0x30D7424",
+      "maximum": 400,
+      "blueprint": {
+        "address": "0x2573B7DA50",
+        "node": "/Game/Battle/BP/EncountManagerBP.EncountManagerBP_C.CalcEncountStepCount",
+        "obj": "/Game/Level/Persistent.Persistent.PersistentLevel.EncountManagerBP_C_2147481933",
+        "objectClass": "/Game/Battle/BP/EncountManagerBP.EncountManagerBP_C",
+        "code": "0x1FCEA98649D",
+        "spawn": null
+      },
+      "nativeContext": null,
+      "stack": [
+        {
+          "offset": 0,
+          "rva": "0x30D7424"
+        },
+        {
+          "offset": 32,
+          "rva": "0x90DA29"
+        },
+        {
+          "offset": 48,
+          "rva": "0x1458588"
+        },
+        {
+          "offset": 80,
+          "rva": "0xA05B4E"
+        },
+        {
+          "offset": 128,
+          "rva": "0x1458699"
+        },
+        {
+          "offset": 192,
+          "rva": "0x1449D7F"
+        },
+        {
+          "offset": 224,
+          "rva": "0x113D995"
+        },
+        {
+          "offset": 272,
+          "rva": "0x11530CE"
+        },
+        {
+          "offset": 304,
+          "rva": "0x145AC6D"
+        },
+        {
+          "offset": 320,
+          "rva": "0x1437C66"
+        },
+        {
+          "offset": 336,
+          "rva": "0x2A03CF2"
+        },
+        {
+          "offset": 440,
+          "rva": "0x1449D20"
+        },
+        {
+          "offset": 608,
+          "rva": "0x1441EA1"
+        },
+        {
+          "offset": 704,
+          "rva": "0x1458F0C"
+        },
+        {
+          "offset": 744,
+          "rva": "0x1449D20"
+        },
+        {
+          "offset": 784,
+          "rva": "0x1449D7F"
+        },
+        {
+          "offset": 816,
+          "rva": "0x12E58CC"
+        },
+        {
+          "offset": 912,
+          "rva": "0x1437C66"
+        },
+        {
+          "offset": 992,
+          "rva": "0x815A25"
+        }
+      ],
+      "nativePointers": []
+    },
+    {
+      "kind": "rand",
+      "ms": 221707,
+      "tid": 4752,
+      "before": 1072914609,
+      "position": 5423,
+      "seed": null,
+      "returnRva": "0x30D7424",
+      "maximum": 400,
+      "blueprint": {
+        "address": "0x2573B7DA50",
+        "node": "/Game/Battle/BP/EncountManagerBP.EncountManagerBP_C.CalcEncountStepCount",
+        "obj": "/Game/Level/Persistent.Persistent.PersistentLevel.EncountManagerBP_C_2147481933",
+        "objectClass": "/Game/Battle/BP/EncountManagerBP.EncountManagerBP_C",
+        "code": "0x1FCEA9864C2",
+        "spawn": null
+      },
+      "nativeContext": null,
+      "stack": [
+        {
+          "offset": 0,
+          "rva": "0x30D7424"
+        },
+        {
+          "offset": 32,
+          "rva": "0x90DA29"
+        },
+        {
+          "offset": 48,
+          "rva": "0x1458588"
+        },
+        {
+          "offset": 80,
+          "rva": "0xA05B4E"
+        },
+        {
+          "offset": 128,
+          "rva": "0x1458699"
+        },
+        {
+          "offset": 192,
+          "rva": "0x1449D7F"
+        },
+        {
+          "offset": 224,
+          "rva": "0x113D995"
+        },
+        {
+          "offset": 272,
+          "rva": "0x11530CE"
+        },
+        {
+          "offset": 304,
+          "rva": "0x145AC6D"
+        },
+        {
+          "offset": 320,
+          "rva": "0x1437C66"
+        },
+        {
+          "offset": 336,
+          "rva": "0x2A03CF2"
+        },
+        {
+          "offset": 440,
+          "rva": "0x1449D20"
+        },
+        {
+          "offset": 608,
+          "rva": "0x1441EA1"
+        },
+        {
+          "offset": 704,
+          "rva": "0x1458F0C"
+        },
+        {
+          "offset": 744,
+          "rva": "0x1449D20"
+        },
+        {
+          "offset": 784,
+          "rva": "0x1449D7F"
+        },
+        {
+          "offset": 816,
+          "rva": "0x12E58CC"
+        },
+        {
+          "offset": 912,
+          "rva": "0x1437C66"
+        },
+        {
+          "offset": 992,
+          "rva": "0x815A25"
+        }
+      ],
+      "nativePointers": []
+    }
+  ]
+}

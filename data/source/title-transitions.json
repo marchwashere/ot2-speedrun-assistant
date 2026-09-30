@@ -1,0 +1,129 @@
+{
+  "route": "Title -> New Game as Throné -> skip both cutscenes -> battle initialization",
+  "captures": [
+    {
+      "source": "OT2BattleEngineRust/data/source/live-throne-title-to-pirro-20260926-trace.json",
+      "sha256": "b07b19f236df834e2a79d952c8caa56fb1d8e95be053f8214e6069ce2f94627c",
+      "start_record": 0,
+      "title_advances": 4916,
+      "recreate_shared_level": true,
+      "records": [
+        {
+          "before": 327067252,
+          "return_rva": "0x2C52E57"
+        },
+        {
+          "before": 1564310375,
+          "return_rva": "0x11C010F"
+        },
+        {
+          "before": 2942994574,
+          "return_rva": "0x11C010F"
+        },
+        {
+          "before": 3621174553,
+          "return_rva": "0x11C010F"
+        },
+        {
+          "before": 3123186552,
+          "return_rva": "0x11C010F"
+        },
+        {
+          "before": 2535611483,
+          "return_rva": "0x11C010F"
+        },
+        {
+          "before": 1884861874,
+          "return_rva": "0x11C010F"
+        },
+        {
+          "before": 1618331053,
+          "return_rva": "0x30D7604"
+        },
+        {
+          "before": 2018394556,
+          "return_rva": "0x30D7424"
+        },
+        {
+          "before": 635816335,
+          "return_rva": "0x30D7424"
+        },
+        {
+          "before": 4104928790,
+          "return_rva": "0xEA7749"
+        },
+        {
+          "before": 2632039553,
+          "return_rva": "0x30D7424"
+        },
+        {
+          "before": 1427549504,
+          "return_rva": "0x30D7424"
+        }
+      ]
+    },
+    {
+      "source": "OT2BattleEngineRust/data/source/live-throne-repeat-20260926-trace.json",
+      "sha256": "386f4d23ac90e817bca88dc0a163811930a2c6e2e4e4c42fc4e56b4273d5197d",
+      "start_record": 202,
+      "title_advances": 4917,
+      "recreate_shared_level": false,
+      "records": [
+        {
+          "before": 1564310375,
+          "return_rva": "0x2C52E57"
+        },
+        {
+          "before": 2942994574,
+          "return_rva": "0x11C010F"
+        },
+        {
+          "before": 3621174553,
+          "return_rva": "0x11C010F"
+        },
+        {
+          "before": 3123186552,
+          "return_rva": "0x11C010F"
+        },
+        {
+          "before": 2535611483,
+          "return_rva": "0x11C010F"
+        },
+        {
+          "before": 1884861874,
+          "return_rva": "0x11C010F"
+        },
+        {
+          "before": 1618331053,
+          "return_rva": "0x30D7604"
+        },
+        {
+          "before": 2018394556,
+          "return_rva": "0x30D7424"
+        },
+        {
+          "before": 635816335,
+          "return_rva": "0x30D7424"
+        },
+        {
+          "before": 4104928790,
+          "return_rva": "0xEA7749"
+        },
+        {
+          "before": 2632039553,
+          "return_rva": "0x30D7424"
+        },
+        {
+          "before": 1427549504,
+          "return_rva": "0x30D7424"
+        }
+      ]
+    }
+  ],
+  "limits": [
+    "These offsets model the captured skipped route, not arbitrary watching, menu activity or reseeds.",
+    "The repeat had an untraced state change from its earlier title marker (0xEA4F203D) to 0x5D3D7B67. Its 12-call interval starts from that latter state, at advance 4917. The model does not insert or explain that unrecorded state change.",
+    "Shared Btl_SinExpose attribution comes from native loading conditions; trace callers establish six versus five streamed-level draws."
+  ],
+  "documentation": "OT2BattleEngineRust/docs/opening-cutscenes.md"
+}

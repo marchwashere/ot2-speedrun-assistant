@@ -1,0 +1,83 @@
+05c22 LetObj
+  05c23 LocalVariable CallFunc_GetManagerInstance_ReturnValue
+  05c34 CallMath import:-73:GetManagerInstance
+    05c39 ObjectConst import:-23:EncountManager
+05c3f LetBool
+  05c40 LocalVariable CallFunc_IsValid_ReturnValue
+  05c51 CallMath import:-68:IsValid
+    05c56 LocalVariable CallFunc_GetManagerInstance_ReturnValue
+05c68 JumpIfNot target=594
+  05c6d LocalVariable CallFunc_IsValid_ReturnValue
+05c7e CallMath import:-81:SetEncountSignMode
+  05c83 Self
+  05c84 True
+05c86 Context skip=35 rvalue=<null-field>
+  05c87 ObjectConst import:-90:Default__LibFieldCommand_C
+  05c98 LocalVirtualFunction CheckHaveFieldCommandItem
+    05ca1 ByteConst 13
+    05ca3 Self
+    05ca4 LocalVariable CallFunc_CheckHaveFieldCommandItem_FindItem
+    05cb5 LocalVariable CallFunc_CheckHaveFieldCommandItem_BenefitValue
+05cc7 Let property=Temp_byte_Variable
+  05cd8 LocalVariable Temp_byte_Variable
+  05ce9 ByteConst 0
+05ceb Let property=Temp_byte_Variable_1
+  05cfc LocalVariable Temp_byte_Variable_1
+  05d0d ByteConst 1
+05d0f LocalVirtualFunction GetNpcLabel
+  05d18 LocalVariable CallFunc_GetNpcLabel_NpcLabel
+05d2a LocalVirtualFunction GetNPCData
+  05d33 LocalVariable CallFunc_GetNPCData_NPCData
+05d45 LetBool
+  05d46 LocalVariable CallFunc_CheckHaveEventData_ReturnValue
+  05d57 Context skip=26 rvalue=CallFunc_CheckHaveEventData_ReturnValue
+    05d58 ObjectConst import:-37:Default__EventFunctionBP_C
+    05d71 LocalVirtualFunction CheckHaveEventData
+      05d7a LocalVariable CallFunc_GetNpcLabel_NpcLabel
+      05d8b ByteConst 7
+      05d8d Self
+05d8f LocalVirtualFunction GetNpcPurchaseData
+  05d98 LocalVariable CallFunc_GetNpcPurchaseData_PurchaseData
+05daa LetBool
+  05dab LocalVariable CallFunc_NotEqual_NameName_ReturnValue
+  05dbc CallMath import:-63:NotEqual_NameName
+    05dc1 StructMemberContext RobEnemyGroupID
+      05dd2 LocalVariable CallFunc_GetNpcPurchaseData_PurchaseData
+    05de3 NameConst None
+05ded LetBool
+  05dee LocalVariable Temp_bool_Variable_1
+  05dff LocalVariable CallFunc_CheckHaveFieldCommandItem_FindItem
+05e10 LetBool
+  05e11 LocalVariable Temp_bool_Variable
+  05e22 LocalVariable CallFunc_NotEqual_NameName_ReturnValue
+05e33 LetBool
+  05e34 LocalVariable CallFunc_StartRobBattle_ReturnValue
+  05e45 Context skip=165 rvalue=CallFunc_StartRobBattle_ReturnValue
+    05e46 LocalVariable CallFunc_GetManagerInstance_ReturnValue
+    05e6b LocalVirtualFunction StartRobBattle
+      05e74 SwitchValue cases=2 end=513
+        05e7b LocalVariable Temp_bool_Variable
+        05e8c False
+        05e8d SwitchCaseNext 481
+        05e91 StructMemberContext FCmd_EnemyGroup
+          05ea2 LocalVariable CallFunc_GetNPCData_NPCData
+        05eb3 True
+        05eb4 SwitchCaseNext 504
+        05eb8 StructMemberContext RobEnemyGroupID
+          05ec9 LocalVariable CallFunc_GetNpcPurchaseData_PurchaseData
+        05eda LocalVariable K2Node_Select_Default_1
+      05eeb SwitchValue cases=2 end=566
+        05ef2 LocalVariable Temp_bool_Variable_1
+        05f03 False
+        05f04 SwitchCaseNext 543
+        05f08 LocalVariable Temp_byte_Variable
+        05f19 True
+        05f1a SwitchCaseNext 557
+        05f1e LocalVariable Temp_byte_Variable_1
+        05f2f LocalVariable K2Node_Select_Default
+      05f40 LocalVariable CallFunc_CheckHaveEventData_ReturnValue
+      05f51 StructMemberContext FCmd_UseBattleMapIndex
+        05f62 LocalVariable CallFunc_GetNPCData_NPCData
+05f74 Return
+  05f75 Nothing
+05f76 EndOfScript

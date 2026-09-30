@@ -1,0 +1,18 @@
+{
+  "date": "2026-09-29",
+  "initial_seed": 0,
+  "reported_after_loading_advances": 6135,
+  "user_confirmation": "Everything up to Southern Cape Cold Snows was correct.",
+  "previous_six_cycle_prediction": { "arrival_advances": 6121, "after_loading_advances": 6134 },
+  "corrected_six_cycle_prediction": { "arrival_advances": 6121, "after_loading_advances": 6135 },
+  "read_only_live_inventory": {
+    "field_and_battle_packages": [
+      "Fld_Snw_1_2", "Fld_Snw_1_2_Art", "Fld_Snw_1_2_Coll", "Fld_Snw_1_2_GD",
+      "Fld_Snw_1_2_sound", "Btl_Fld_Snw_Land_A", "Btl_Fld_Snw_River_A"
+    ],
+    "retained_shared_package": "Btl_SinExpose",
+    "npcs": ["NPC_PROFESSOR_0000_0000", "NPC_SYS_SAVE_Fld_Snw_1_2_0000", "SYS_INFO_BOARD_SNW_1_2_0010"]
+  },
+  "cause": "Case-sensitive importer omitted Fld_Snw_1_2_sound while searching for _Sound. Native ec60c0 creates its LevelStreamingCustom and invokes 11c0100 for LevelColor, consuming one CRT call before incoming counter B/A.",
+  "validation_scope": "Reported endpoint plus read-only live object inventory and native source. Not a per-call trace; recruitment remains source-derived. The corrected optimizer chooses one Flats boost cycle instead, reaching map entry at 6130 with counter 727."
+}

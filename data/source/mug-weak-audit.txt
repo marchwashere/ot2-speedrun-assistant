@@ -1,0 +1,118 @@
+4a176 PushExecutionFlow target=931
+4a17b PushExecutionFlow target=534
+4a180 PushExecutionFlow target=522
+4a185 PushExecutionFlow target=343
+4a18a JumpIfNot target=577
+  4a18f LocalVariable bRandom
+4a1a0 PushExecutionFlow target=605
+4a1a5 Context skip=23 rvalue=<null-field>
+  4a1a6 InstanceVariable StatusUI
+  4a1c3 LocalVirtualFunction GetWeakOpenStatus
+    4a1cc LocalVariable CallFunc_GetWeakOpenStatus_WeaknessOpen
+4a1de Let property=Temp_int_Loop_Counter_Variable
+  4a1ef LocalVariable Temp_int_Loop_Counter_Variable
+  4a200 IntConst 0
+4a205 Let property=Temp_int_Array_Index_Variable
+  4a216 LocalVariable Temp_int_Array_Index_Variable
+  4a227 IntConst 0
+4a22c Let property=CallFunc_Array_Length_ReturnValue
+  4a23d LocalVariable CallFunc_Array_Length_ReturnValue
+  4a24e Context skip=19 rvalue=CallFunc_Array_Length_ReturnValue
+    4a24f ObjectConst import:-383:Default__KismetArrayLibrary
+    4a268 FinalFunction import:-212:Array_Length
+      4a26d LocalVariable CallFunc_GetWeakOpenStatus_WeaknessOpen
+4a27f LetBool
+  4a280 LocalVariable CallFunc_Less_IntInt_ReturnValue
+  4a291 CallMath import:-235:Less_IntInt
+    4a296 LocalVariable Temp_int_Loop_Counter_Variable
+    4a2a7 LocalVariable CallFunc_Array_Length_ReturnValue
+4a2b9 PopExecutionFlowIfNot
+  4a2ba LocalVariable CallFunc_Less_IntInt_ReturnValue
+4a2cb Let property=Temp_int_Array_Index_Variable
+  4a2dc LocalVariable Temp_int_Array_Index_Variable
+  4a2ed LocalVariable Temp_int_Loop_Counter_Variable
+4a2fe PushExecutionFlow target=788
+4a303 Context skip=37 rvalue=<null-field>
+  4a304 ObjectConst import:-383:Default__KismetArrayLibrary
+  4a315 FinalFunction import:-209:Array_Get
+    4a31a LocalVariable CallFunc_GetWeakOpenStatus_WeaknessOpen
+    4a32b LocalVariable Temp_int_Array_Index_Variable
+    4a33c LocalVariable CallFunc_Array_Get_Item
+4a34e JumpIfNot target=862
+  4a353 LocalVariable CallFunc_Array_Get_Item
+4a364 PopExecutionFlow
+4a365 Context skip=41 rvalue=<null-field>
+  4a366 InstanceVariable StatusUI
+  4a383 LocalVirtualFunction OpenWeakIcon
+    4a38c LocalVariable TargetIndex
+    4a39d LocalVariable bPlay2nd
+    4a3ae LocalVariable CallFunc_OpenWeakIcon_AttributeIndex
+4a3c0 Let property=CallFunc_BitShiftLeft_ReturnValue
+  4a3d1 LocalVariable CallFunc_BitShiftLeft_ReturnValue
+  4a3e2 CallMath import:-372:BitShiftLeft
+    4a3e7 IntConst 1
+    4a3ec LocalVariable CallFunc_OpenWeakIcon_AttributeIndex
+4a3fe Let property=CallFunc_Or_IntInt_ReturnValue
+  4a40f LocalVariable CallFunc_Or_IntInt_ReturnValue
+  4a420 CallMath import:-249:Or_IntInt
+    4a425 InstanceVariable WeaknessOpen
+    4a436 LocalVariable CallFunc_BitShiftLeft_ReturnValue
+4a448 Let property=WeaknessOpen
+  4a459 InstanceVariable WeaknessOpen
+  4a46a LocalVariable CallFunc_Or_IntInt_ReturnValue
+4a47b PopExecutionFlow
+4a47c LetBool
+  4a47d InstanceVariable m_bIsPreparation
+  4a48e True
+4a48f PopExecutionFlow
+4a490 Let property=bOpenIndex
+  4a4a1 LocalOutVariable bOpenIndex
+  4a4b2 LocalVariable TargetIndex
+4a4c3 LetBool
+  4a4c4 LocalOutVariable ReturnValue
+  4a4d5 True
+4a4d6 Jump target=931
+4a4db Let property=TargetIndex
+  4a4ec LocalVariable TargetIndex
+  4a4fd LocalVariable nIndex
+4a50e PopExecutionFlow
+4a50f Let property=CallFunc_Array_Length_ReturnValue_1
+  4a520 LocalVariable CallFunc_Array_Length_ReturnValue_1
+  4a531 Context skip=19 rvalue=CallFunc_Array_Length_ReturnValue_1
+    4a532 ObjectConst import:-383:Default__KismetArrayLibrary
+    4a54b FinalFunction import:-212:Array_Length
+      4a550 LocalVariable CloseIndexList
+4a562 Let property=CallFunc_RandomInteger_ReturnValue
+  4a573 LocalVariable CallFunc_RandomInteger_ReturnValue
+  4a584 CallMath import:-252:RandomInteger
+    4a589 LocalVariable CallFunc_Array_Length_ReturnValue_1
+4a59b Context skip=37 rvalue=<null-field>
+  4a59c ObjectConst import:-383:Default__KismetArrayLibrary
+  4a5ad FinalFunction import:-209:Array_Get
+    4a5b2 LocalVariable CloseIndexList
+    4a5c3 LocalVariable CallFunc_RandomInteger_ReturnValue
+    4a5d4 LocalVariable CallFunc_Array_Get_Item_1
+4a5e6 Let property=TargetIndex
+  4a5f7 LocalVariable TargetIndex
+  4a608 LocalVariable CallFunc_Array_Get_Item_1
+4a619 PopExecutionFlow
+4a61a Let property=CallFunc_Add_IntInt_ReturnValue
+  4a62b LocalVariable CallFunc_Add_IntInt_ReturnValue
+  4a63c CallMath import:-215:Add_IntInt
+    4a641 LocalVariable Temp_int_Loop_Counter_Variable
+    4a652 IntConst 1
+4a658 Let property=Temp_int_Loop_Counter_Variable
+  4a669 LocalVariable Temp_int_Loop_Counter_Variable
+  4a67a LocalVariable CallFunc_Add_IntInt_ReturnValue
+4a68b Jump target=130
+4a690 Let property=CallFunc_Array_Add_ReturnValue
+  4a6a1 LocalVariable CallFunc_Array_Add_ReturnValue
+  4a6b2 Context skip=28 rvalue=CallFunc_Array_Add_ReturnValue
+    4a6b3 ObjectConst import:-383:Default__KismetArrayLibrary
+    4a6cc FinalFunction import:-204:Array_Add
+      4a6d1 LocalVariable CloseIndexList
+      4a6e2 LocalVariable Temp_int_Array_Index_Variable
+4a6f4 PopExecutionFlow
+4a6f5 Return
+  4a6f6 LocalOutVariable ReturnValue
+4a707 EndOfScript

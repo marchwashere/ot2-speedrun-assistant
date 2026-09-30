@@ -1,0 +1,28 @@
+{
+  "source": "User report on 2026-09-27: im at 5374 though",
+  "observed_advances": 5374,
+  "intended_boundary": "After the New Delsta radar popup",
+  "boundary_confirmation": "Confirmed by user after dismissing radar popup; live capture detached at 5374",
+  "viewer_configuration_at_report": {
+    "initial_seed": "0x00000000",
+    "title_advances": 4942,
+    "recreate_shared_level": false,
+    "adjustment": "R2 Scaracci, third command menu: 0->1 x2, 1->2, axe left enemy"
+  },
+  "model_minus_reported_advances": 6,
+  "second_drops_boundary_live_confirmed": true,
+  "calculated_state_at_reported_position_from_seed_zero": "0x6B5BBFD6",
+  "live_read_only_check": {
+    "map": "Twn_Cty_1_1_B",
+    "npc_count": 26,
+    "all_labels_match_static_profile": true,
+    "includes": "Epilogue_PLAYER_IS_Throne",
+    "limitation": "Current actor membership does not establish earlier RNG calls or their ordering"
+  },
+  "status": "Resolved: the +110 city sequence matched. Battle core fixes scripted startup voice, normal/charged AI slots and skill reaction timing; no fixed RNG offset.",
+  "prior_model_after_second_drops": 5270,
+  "prior_model_after_city_popup": 5380,
+  "corrected_after_drops": 5264,
+  "corrected_after_city_popup": 5374,
+  "live_capture": "live-second-city-20260927.json"
+}

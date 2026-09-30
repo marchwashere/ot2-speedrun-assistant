@@ -1,0 +1,82 @@
+{
+  "sources": [
+    {
+      "source": "/Game/Event/Database/EventList",
+      "sha256": "acbbb094b2b071271fde8e4adf26b0df3661594556b3835b96e93a97300089a3"
+    },
+    {
+      "source": "/Game/Level/Database/LevelTable",
+      "sha256": "153569a707872dfec0504f8bd301d2b30baf6154469d5673c35680ed0ed30232"
+    },
+    {
+      "source": "/Game/Story/Database/MainStoryTask",
+      "sha256": "3bb11d1db209e13d2091ada7ffb115255b4cec18b153db845eac736d4d78028c"
+    },
+    {
+      "source": "/Game/Event/json/MS_TOU_10_0100",
+      "sha256": "4889053dac297d7781ce00bec46dce14430d82c3b1bdc3fd1ceff9eaec5dd25a"
+    },
+    {
+      "source": "/Game/Event/json/MS_TOU_10_0200",
+      "sha256": "9da88d9d8f707598de5d2b41291e393dcbab530336dfe0bdf87316c5d24c61a9"
+    },
+    {
+      "source": "/Game/Event/json/MS_TOU_10_0300",
+      "sha256": "cbfa344d183b1adc2418221ebc94b1db3ae38fd59bb9ffe8e5dd63a27dbc26fb"
+    },
+    {
+      "source": "/Game/Event/json/MS_TOU_10_0400",
+      "sha256": "d282e824d3778358ce92ee251d96c4a4bc998ee4b3b978d30e8352239947dc8f"
+    },
+    {
+      "source": "/Game/Level/Level/City/Dng_Cty_3_1_Art",
+      "sha256": "5b1c11a496e5e25ef6aba23cd3262880d6f4861579a741e3a8854674c9123430"
+    }
+  ],
+  "profile": {
+    "id": "throne_after_opening",
+    "label": "After Throné’s opening battle",
+    "boundary_label": "After the post-battle event counter reset",
+    "event": "MS_TOU_10_0300",
+    "valid_until_event": "MS_TOU_10_0400",
+    "encounter_actor": "ENT_DNG_CTY_3_1_LND_1",
+    "story_task_progress": 30,
+    "known_flags": {
+      "25304": false
+    },
+    "party": [
+      "Throné",
+      "Pirro",
+      "Scaracci"
+    ],
+    "options": {
+      "map": "Dng_Cty_3_1",
+      "zone": "ENT_DNG_CTY_3_1_LND",
+      "period": "Night",
+      "progress": 0,
+      "first_encounter": true,
+      "boundary": "current_counter",
+      "party_levels": [
+        1,
+        1,
+        1
+      ]
+    },
+    "notes": [
+      "New game as Throné, after MS_TOU_10_0300 and before MS_TOU_10_0400. No chapter has cleared: main progress is 0; task progress 30 is a separate value.",
+      "The event battle leaves FirstEncount active. The next field encounter uses the fixed first group without a group lottery draw.",
+      "MS_TOU_10_0400 sets flag 25304, selects ENT_EMPTY_1 and removes Pirro/Scaracci. This frame must not be reused after that event.",
+      "The battle result already includes both field counter resets. Continue from its final CRT state and existing counter without resetting again."
+    ]
+  },
+  "native": {
+    "change_time": "FUN_140e97200: cmd 1550 option 3 + 1 = ETimeZoneType::NIGHT (4)",
+    "day_check": "FUN_140f64a40/FUN_140f64a60: only timezone 2 or 3 is day",
+    "progress": "FUN_140f05560 reads save+0x648; FUN_140f09f70 resets it to zero; FUN_140f04de0 commits chapter-clear points. MainStoryTask.ProgressValue is independent."
+  },
+  "blueprints": [
+    "EventManagerBP: SetUpEncountTriggerByName(PlayEventData.EncountTrigger)",
+    "EncountManagerBP.SetEncounter: select progress border using GetMainProgressPoint",
+    "EncountManagerBP: IsDayTime chooses DayTime/Night volume and decrement"
+  ]
+}

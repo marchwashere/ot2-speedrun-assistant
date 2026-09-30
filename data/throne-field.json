@@ -1,0 +1,36 @@
+{
+  "id": "throne_after_opening",
+  "label": "After Throné’s opening battle",
+  "boundary_label": "After the post-battle event counter reset",
+  "event": "MS_TOU_10_0300",
+  "valid_until_event": "MS_TOU_10_0400",
+  "encounter_actor": "ENT_DNG_CTY_3_1_LND_1",
+  "story_task_progress": 30,
+  "known_flags": {
+    "25304": false
+  },
+  "party": [
+    "Throné",
+    "Pirro",
+    "Scaracci"
+  ],
+  "options": {
+    "map": "Dng_Cty_3_1",
+    "zone": "ENT_DNG_CTY_3_1_LND",
+    "period": "Night",
+    "progress": 0,
+    "first_encounter": true,
+    "boundary": "current_counter",
+    "party_levels": [
+      1,
+      1,
+      1
+    ]
+  },
+  "notes": [
+    "New game as Throné, after MS_TOU_10_0300 and before MS_TOU_10_0400. No chapter has cleared: main progress is 0; task progress 30 is a separate value.",
+    "The event battle leaves FirstEncount active. The next field encounter uses the fixed first group without a group lottery draw.",
+    "MS_TOU_10_0400 sets flag 25304, selects ENT_EMPTY_1 and removes Pirro/Scaracci. This frame must not be reused after that event.",
+    "The battle result already includes both field counter resets. Continue from its final CRT state and existing counter without resetting again."
+  ]
+}

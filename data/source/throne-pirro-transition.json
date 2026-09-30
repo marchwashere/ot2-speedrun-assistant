@@ -1,0 +1,1336 @@
+{
+  "status": "Source-derived; awaiting live validation",
+  "expected_crt_draws": 0,
+  "boundary": "Pirro trigger -> skip 1800 -> before boss initialization; no map change or FinishPre",
+  "event": {
+    "id": "MS_TOU_10_1800",
+    "EventIndex": 0,
+    "ExecCode": "MS_TOU_10_1800",
+    "CueSheetName": "CueSheet_VO_EventTOU010",
+    "RadarMapExitCode": "None",
+    "MapID": "50",
+    "Kind": "EEventKind::EVENT_MAIN",
+    "EventSoundLabel": "ES_TOU_10_1800",
+    "MissionLabel": "ML_TOU_10_1800",
+    "EventSkip": 1,
+    "LevelTriggerID": "ELevelTriggerID::Trigger_01",
+    "LanthanumFlag": 0,
+    "EncountTrigger": "None",
+    "CameraLockTrigger1": "None",
+    "CameraLockTrigger2": "None",
+    "CameraLockTrigger3": "None",
+    "StartFadeOutFlag": 1,
+    "ChengeTimeSequencer": "None",
+    "ChengeFinishTimeSequencer": "None",
+    "TargetChara": 0,
+    "EncountReset": true,
+    "Args": [
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  "commands": [
+    {
+      "cmd": 1250,
+      "target": 0,
+      "pos": "X=0.0,Y=0.0,Z=0.0",
+      "dir": -1,
+      "text": "",
+      "async": "0",
+      "opt": [
+        "1",
+        "SwitchIndoorTriggerBP_Hidden_Room_B"
+      ]
+    },
+    {
+      "cmd": 1250,
+      "target": 0,
+      "pos": "X=0.0,Y=0.0,Z=0.0",
+      "dir": -1,
+      "text": "",
+      "async": "0",
+      "opt": [
+        "1",
+        "SwitchIndoorTriggerBP_Room_C"
+      ]
+    },
+    {
+      "cmd": 1250,
+      "target": 0,
+      "pos": "X=0.0,Y=0.0,Z=0.0",
+      "dir": -1,
+      "text": "",
+      "async": "0",
+      "opt": [
+        "1",
+        "SwitchIndoorTriggerBP_Hidden_Room_C"
+      ]
+    },
+    {
+      "cmd": 1,
+      "target": 0,
+      "pos": "X=0.0,Y=0.0,Z=0.0",
+      "dir": -1,
+      "text": "",
+      "async": "0",
+      "opt": [
+        "0"
+      ]
+    },
+    {
+      "cmd": 2,
+      "target": 0,
+      "pos": "X=0.0,Y=0.0,Z=0.0",
+      "dir": -1,
+      "text": "",
+      "async": "0",
+      "opt": [
+        "0"
+      ]
+    },
+    {
+      "cmd": 71,
+      "target": 8017,
+      "pos": "X=0.0,Y=0.0,Z=0.0",
+      "dir": -1,
+      "text": "",
+      "async": "0",
+      "opt": [
+        "1"
+      ]
+    },
+    {
+      "cmd": 1500,
+      "target": 0,
+      "pos": "X=0.0,Y=0.0,Z=0.0",
+      "dir": -1,
+      "text": "",
+      "async": "0",
+      "opt": [
+        "RI_MS_TOU_10_1500"
+      ]
+    },
+    {
+      "cmd": 1501,
+      "target": 0,
+      "pos": "X=0.0,Y=0.0,Z=0.0",
+      "dir": -1,
+      "text": "",
+      "async": "0",
+      "opt": [
+        ""
+      ]
+    },
+    {
+      "cmd": 9980,
+      "target": 0,
+      "pos": "X=0.0,Y=0.0,Z=0.0",
+      "dir": -1,
+      "text": "",
+      "async": "0",
+      "opt": [
+        ""
+      ]
+    },
+    {
+      "cmd": 10000,
+      "target": 0,
+      "pos": "X=0.0,Y=0.0,Z=0.0",
+      "dir": -1,
+      "text": "",
+      "async": "0",
+      "opt": [
+        ""
+      ]
+    }
+  ],
+  "sequence": [
+    {
+      "time": 0,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_118",
+      "body": "1ff30 LocalVirtualFunction Change Volume Env\n  1ff39 FloatConst 10\n  1ff3e FloatConst 300\n1ff44 Return\n  1ff45 Nothing\n1ff46 EndOfScript"
+    },
+    {
+      "time": 0,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_14",
+      "body": "1cf07 LocalVirtualFunction SpawnChara\n  1cf10 LocalVariable EventChara\n  1cf21 NameConst None\n  1cf2a ByteConst 0\n  1cf2c NameConst DUMMY\n1cf36 Return\n  1cf37 Nothing\n1cf38 EndOfScript"
+    },
+    {
+      "time": 0,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_112",
+      "body": "1fcc2 LocalVirtualFunction SpawnCharaAction\n  1fccb LocalVariable EventChara\n  1fcdc NameConst TouSchillaci_Mle\n  1fce5 ByteConst 2\n  1fce7 NameConst CH_4\n  1fcf0 ByteConst 24\n  1fcf2 ByteConst 2\n1fcf5 Return\n  1fcf6 Nothing\n1fcf7 EndOfScript"
+    },
+    {
+      "time": 0,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_50",
+      "body": "1dfd6 LocalVirtualFunction SpawnCharaAction\n  1dfdf LocalVariable EventChara\n  1dff0 NameConst TouPirlo_Mle\n  1dff9 ByteConst 0\n  1dffb NameConst CH_2\n  1e004 ByteConst 0\n  1e006 ByteConst 2\n1e009 Return\n  1e00a Nothing\n1e00b EndOfScript"
+    },
+    {
+      "time": 0,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_30",
+      "body": "1d529 LocalVirtualFunction SpawnCharaAction\n  1d532 LocalVariable EventChara\n  1d543 NameConst TouJ000_Fml\n  1d54c ByteConst 1\n  1d54e NameConst CH_1\n  1d557 ByteConst 3\n  1d559 ByteConst 2\n1d55c Return\n  1d55d Nothing\n1d55e EndOfScript"
+    },
+    {
+      "time": 0,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_117",
+      "body": "1fece LocalVirtualFunction SpawnCharaAction\n  1fed7 LocalVariable EventChara\n  1fee8 NameConst NonNbl002_Mle\n  1fef1 ByteConst 2\n  1fef3 NameConst CH_5\n  1fefc ByteConst 36\n  1fefe ByteConst 2\n1ff01 Return\n  1ff02 Nothing\n1ff03 EndOfScript"
+    },
+    {
+      "time": 0,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_0",
+      "body": "1ca38 LocalVirtualFunction Map Object Visible\n  1ca41 NameConst Bed_Luxury_onoff\n  1ca4a False\n1ca4c Return\n  1ca4d Nothing\n1ca4e EndOfScript"
+    },
+    {
+      "time": 2000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_119",
+      "body": "1ff73 LocalVirtualFunction PlayRichEventSe\n  1ff7c NameConst se_event_rain\n1ff86 Return\n  1ff87 Nothing\n1ff88 EndOfScript"
+    },
+    {
+      "time": 2000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_113",
+      "body": "1fd57 LocalVirtualFunction SpawnCharaAction\n  1fd60 LocalVariable EventChara\n  1fd71 NameConst KenKuSoldier_Mle\n  1fd7a ByteConst 0\n  1fd7c NameConst CH_5\n  1fd85 ByteConst 59\n  1fd87 ByteConst 2\n1fd8a Return\n  1fd8b Nothing\n1fd8c EndOfScript"
+    },
+    {
+      "time": 2000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_137",
+      "body": "20417 LocalVirtualFunction Map Object Visible Parent\n  20420 NameConst OBJ_OFF_window\n  20429 False\n2042b Return\n  2042c Nothing\n2042d EndOfScript"
+    },
+    {
+      "time": 2000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_1",
+      "body": "1ca7b LocalVirtualFunction Map Object Visible\n  1ca84 NameConst OBJ_OFF_Wall\n  1ca8d False\n1ca8f Return\n  1ca90 Nothing\n1ca91 EndOfScript"
+    },
+    {
+      "time": 10000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_2",
+      "body": "1cabe LocalVirtualFunction FadeIn\n  1cac7 FloatConst 60\n  1cacc StructConst import:-138:LinearColor size=16\n    1cad5 FloatConst 0\n    1cada FloatConst 0\n    1cadf FloatConst 0\n    1cae4 FloatConst 0\n1caeb Return\n  1caec Nothing\n1caed EndOfScript"
+    },
+    {
+      "time": 130000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_31",
+      "body": "1d5be LocalVirtualFunction ChangeAction\n  1d5c7 LocalVariable EventChara\n  1d5d8 ByteConst 0\n  1d5da IntConst 0\n  1d5df ByteConst 2\n  1d5e1 ByteConst 2\n1d5e4 Return\n  1d5e5 Nothing\n1d5e6 EndOfScript"
+    },
+    {
+      "time": 150000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_11",
+      "body": "1cdcc LocalVirtualFunction BalloonOpenLabel\n  1cdd5 NameConst CH_6\n  1cdde ByteConst 0\n  1cde0 NameConst None\n  1cde9 FloatConst 0\n  1cdee True\n  1cdef FloatConst 0\n1cdf5 Return\n  1cdf6 Nothing\n1cdf7 EndOfScript"
+    },
+    {
+      "time": 150000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_12",
+      "body": "1ce24 LocalVirtualFunction BalloonOpenLabel\n  1ce2d NameConst CH_7\n  1ce36 ByteConst 0\n  1ce38 NameConst None\n  1ce41 FloatConst 0\n  1ce46 True\n  1ce47 FloatConst 0\n1ce4d Return\n  1ce4e Nothing\n1ce4f EndOfScript"
+    },
+    {
+      "time": 150000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_13",
+      "body": "1ce7c LocalVirtualFunction BalloonOpenLabel\n  1ce85 NameConst CH_8A\n  1ce8e ByteConst 0\n  1ce90 NameConst None\n  1ce99 FloatConst 0\n  1ce9e True\n  1ce9f FloatConst 0\n1cea5 Return\n  1cea6 Nothing\n1cea7 EndOfScript"
+    },
+    {
+      "time": 150000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_6",
+      "body": "1cc14 LocalVirtualFunction BalloonOpenLabel\n  1cc1d NameConst CH_1\n  1cc26 ByteConst 0\n  1cc28 NameConst None\n  1cc31 FloatConst 0\n  1cc36 True\n  1cc37 FloatConst 0\n1cc3d Return\n  1cc3e Nothing\n1cc3f EndOfScript"
+    },
+    {
+      "time": 150000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_111",
+      "body": "1fc37 LocalVirtualFunction BalloonOpenLabel\n  1fc40 NameConst CH_3\n  1fc49 ByteConst 0\n  1fc4b NameConst None\n  1fc54 FloatConst 0\n  1fc59 True\n  1fc5a FloatConst 0\n1fc60 Return\n  1fc61 Nothing\n1fc62 EndOfScript"
+    },
+    {
+      "time": 150000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_114",
+      "body": "1fdb9 LocalVirtualFunction BalloonOpenLabel\n  1fdc2 NameConst CH_8B\n  1fdcb ByteConst 0\n  1fdcd NameConst None\n  1fdd6 FloatConst 0\n  1fddb True\n  1fddc FloatConst 0\n1fde2 Return\n  1fde3 Nothing\n1fde4 EndOfScript"
+    },
+    {
+      "time": 150000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_7",
+      "body": "1cc6c LocalVirtualFunction BalloonOpenLabel\n  1cc75 NameConst CH_2\n  1cc7e ByteConst 0\n  1cc80 NameConst None\n  1cc89 FloatConst 0\n  1cc8e True\n  1cc8f FloatConst 0\n1cc95 Return\n  1cc96 Nothing\n1cc97 EndOfScript"
+    },
+    {
+      "time": 150000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_8",
+      "body": "1ccc4 LocalVirtualFunction BalloonOpenLabel\n  1cccd NameConst CH_3\n  1ccd6 ByteConst 0\n  1ccd8 NameConst None\n  1cce1 FloatConst 0\n  1cce6 True\n  1cce7 FloatConst 0\n1cced Return\n  1ccee Nothing\n1ccef EndOfScript"
+    },
+    {
+      "time": 150000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_9",
+      "body": "1cd1c LocalVirtualFunction BalloonOpenLabel\n  1cd25 NameConst CH_4\n  1cd2e ByteConst 0\n  1cd30 NameConst None\n  1cd39 FloatConst 0\n  1cd3e True\n  1cd3f FloatConst 0\n1cd45 Return\n  1cd46 Nothing\n1cd47 EndOfScript"
+    },
+    {
+      "time": 150000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_10",
+      "body": "1cd74 LocalVirtualFunction BalloonOpenLabel\n  1cd7d NameConst CH_5\n  1cd86 ByteConst 0\n  1cd88 NameConst None\n  1cd91 FloatConst 0\n  1cd96 True\n  1cd97 FloatConst 0\n1cd9d Return\n  1cd9e Nothing\n1cd9f EndOfScript"
+    },
+    {
+      "time": 160000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_15",
+      "body": "1cf65 LocalVirtualFunction BalloonOpenLabel\n  1cf6e NameConst CH_1\n  1cf77 ByteConst 0\n  1cf79 NameConst TX_MS_TOU_10_1500_0010\n  1cf82 FloatConst 0\n  1cf87 True\n  1cf88 FloatConst 0\n1cf8e Return\n  1cf8f Nothing\n1cf90 EndOfScript"
+    },
+    {
+      "time": 220000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_16",
+      "body": "1cfbd LocalVirtualFunction BalloonOpenLabel\n  1cfc6 NameConst CH_1\n  1cfcf ByteConst 0\n  1cfd1 NameConst TX_MS_TOU_10_1500_0020\n  1cfda FloatConst 0\n  1cfdf True\n  1cfe0 FloatConst 0\n1cfe6 Return\n  1cfe7 Nothing\n1cfe8 EndOfScript"
+    },
+    {
+      "time": 240000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_32",
+      "body": "1d646 LocalVirtualFunction ChangeAction\n  1d64f LocalVariable EventChara\n  1d660 ByteConst 3\n  1d662 IntConst 0\n  1d667 ByteConst 2\n  1d669 ByteConst 2\n1d66c Return\n  1d66d Nothing\n1d66e EndOfScript"
+    },
+    {
+      "time": 320000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_33",
+      "body": "1d6ce LocalVirtualFunction ChangeAction\n  1d6d7 LocalVariable EventChara\n  1d6e8 ByteConst 0\n  1d6ea IntConst 0\n  1d6ef ByteConst 2\n  1d6f1 ByteConst 2\n1d6f4 Return\n  1d6f5 Nothing\n1d6f6 EndOfScript"
+    },
+    {
+      "time": 340000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_120",
+      "body": "1ffb5 LocalVirtualFunction PlayRichEventSe\n  1ffbe NameConst se_event_whoosh_06\n1ffc8 Return\n  1ffc9 Nothing\n1ffca EndOfScript"
+    },
+    {
+      "time": 340000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_34",
+      "body": "1d756 LocalVirtualFunction ChangeAction\n  1d75f LocalVariable EventChara\n  1d770 ByteConst 56\n  1d772 IntConst 0\n  1d777 ByteConst 2\n  1d779 ByteConst 2\n1d77c Return\n  1d77d Nothing\n1d77e EndOfScript"
+    },
+    {
+      "time": 400000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_17",
+      "body": "1d015 LocalVirtualFunction Balloon Open Label Position\n  1d01e NameConst CH_1\n  1d027 ByteConst 0\n  1d029 NameConst TX_MS_TOU_10_1500_0030\n  1d032 FloatConst 0\n  1d037 StructConst import:-140:Vector2D size=8\n    1d040 FloatConst 0\n    1d045 FloatConst 20\n  1d04b True\n  1d04c FloatConst 0\n  1d051 False\n1d053 Return\n  1d054 Nothing\n1d055 EndOfScript"
+    },
+    {
+      "time": 440000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_121",
+      "body": "1fff7 LocalVirtualFunction PlayRichEventSe\n  20000 NameConst se_event_whoosh_04\n2000a Return\n  2000b Nothing\n2000c EndOfScript"
+    },
+    {
+      "time": 440000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_35",
+      "body": "1d7de LocalVirtualFunction ChangeAction\n  1d7e7 LocalVariable EventChara\n  1d7f8 ByteConst 0\n  1d7fa IntConst 0\n  1d7ff ByteConst 2\n  1d801 ByteConst 2\n1d804 Return\n  1d805 Nothing\n1d806 EndOfScript"
+    },
+    {
+      "time": 480000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_36",
+      "body": "1d866 LocalVirtualFunction ChangeAction\n  1d86f LocalVariable EventChara\n  1d880 ByteConst 0\n  1d882 IntConst 0\n  1d887 ByteConst 2\n  1d889 ByteConst 3\n1d88c Return\n  1d88d Nothing\n1d88e EndOfScript"
+    },
+    {
+      "time": 500000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_37",
+      "body": "1d8ee LocalVirtualFunction ChangeAction\n  1d8f7 LocalVariable EventChara\n  1d908 ByteConst 3\n  1d90a IntConst 0\n  1d90f ByteConst 2\n  1d911 ByteConst 3\n1d914 Return\n  1d915 Nothing\n1d916 EndOfScript"
+    },
+    {
+      "time": 640000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_38",
+      "body": "1d976 LocalVirtualFunction ChangeAction\n  1d97f LocalVariable EventChara\n  1d990 ByteConst 0\n  1d992 IntConst 0\n  1d997 ByteConst 2\n  1d999 ByteConst 3\n1d99c Return\n  1d99d Nothing\n1d99e EndOfScript"
+    },
+    {
+      "time": 680000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_18",
+      "body": "1d082 LocalVirtualFunction BalloonOpenLabel\n  1d08b NameConst CH_1\n  1d094 ByteConst 0\n  1d096 NameConst TX_MS_TOU_10_1500_0040\n  1d09f FloatConst 0\n  1d0a4 True\n  1d0a5 FloatConst 0\n1d0ab Return\n  1d0ac Nothing\n1d0ad EndOfScript"
+    },
+    {
+      "time": 700000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_39",
+      "body": "1d9fe LocalVirtualFunction ChangeAction\n  1da07 LocalVariable EventChara\n  1da18 ByteConst 8\n  1da1a IntConst 0\n  1da1f ByteConst 1\n  1da21 ByteConst 3\n1da24 Return\n  1da25 Nothing\n1da26 EndOfScript"
+    },
+    {
+      "time": 760000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_40",
+      "body": "1da86 LocalVirtualFunction ChangeAction\n  1da8f LocalVariable EventChara\n  1daa0 ByteConst 0\n  1daa2 IntConst 0\n  1daa7 ByteConst 2\n  1daa9 ByteConst 3\n1daac Return\n  1daad Nothing\n1daae EndOfScript"
+    },
+    {
+      "time": 810000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_138",
+      "body": "2045a LocalVirtualFunction StartPlayEmotion\n  20463 NameConst CH_1\n  2046c ByteConst 0\n  2046e FloatConst 0\n  20473 VectorConst x=0 y=0 z=100\n20481 Return\n  20482 Nothing\n20483 EndOfScript"
+    },
+    {
+      "time": 822000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_122",
+      "body": "20039 LocalVirtualFunction PlayRichEventSe\n  20042 NameConst se_event_whoosh_16\n2004c Return\n  2004d Nothing\n2004e EndOfScript"
+    },
+    {
+      "time": 830000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_123",
+      "body": "2007b LocalVirtualFunction PlayRichEventSe\n  20084 NameConst se_event_bump\n2008e Return\n  2008f Nothing\n20090 EndOfScript"
+    },
+    {
+      "time": 836000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_3",
+      "body": "1cb1a LocalVirtualFunction Event Fade Out UI\n  1cb23 FloatConst 3\n  1cb28 StructConst import:-138:LinearColor size=16\n    1cb31 FloatConst 1\n    1cb36 FloatConst 1\n    1cb3b FloatConst 1\n    1cb40 FloatConst 1\n1cb47 Return\n  1cb48 Nothing\n1cb49 EndOfScript"
+    },
+    {
+      "time": 840000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_124",
+      "body": "200bd LocalVirtualFunction PlayRichEventSe\n  200c6 NameConst se_event_hitsword_high\n200d0 Return\n  200d1 Nothing\n200d2 EndOfScript"
+    },
+    {
+      "time": 840000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_41",
+      "body": "1db0e LocalVirtualFunction ChangeAction\n  1db17 LocalVariable EventChara\n  1db28 ByteConst 146\n  1db2a IntConst 0\n  1db2f ByteConst 3\n  1db31 ByteConst 2\n1db34 Return\n  1db35 Nothing\n1db36 EndOfScript"
+    },
+    {
+      "time": 842000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_4",
+      "body": "1cb76 LocalVirtualFunction Event Fade in UI\n  1cb7f FloatConst 10\n1cb85 Return\n  1cb86 Nothing\n1cb87 EndOfScript"
+    },
+    {
+      "time": 850000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_139",
+      "body": "204b0 LocalVirtualFunction StopEmotion\n  204b9 NameConst CH_1\n204c3 Return\n  204c4 Nothing\n204c5 EndOfScript"
+    },
+    {
+      "time": 860000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_19",
+      "body": "1d0da LocalVirtualFunction Balloon Open Label Position\n  1d0e3 NameConst CH_1\n  1d0ec ByteConst 0\n  1d0ee NameConst TX_MS_TOU_10_1500_0050\n  1d0f7 FloatConst 0\n  1d0fc StructConst import:-140:Vector2D size=8\n    1d105 FloatConst -25\n    1d10a FloatConst 10\n  1d110 True\n  1d111 FloatConst 0\n  1d116 False\n1d118 Return\n  1d119 Nothing\n1d11a EndOfScript"
+    },
+    {
+      "time": 898000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_42",
+      "body": "1db96 LocalVirtualFunction ChangeAction\n  1db9f LocalVariable EventChara\n  1dbb0 ByteConst 62\n  1dbb2 IntConst 0\n  1dbb7 ByteConst 3\n  1dbb9 ByteConst 2\n1dbbc Return\n  1dbbd Nothing\n1dbbe EndOfScript"
+    },
+    {
+      "time": 902000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_125",
+      "body": "200ff LocalVirtualFunction PlayRichEventSe\n  20108 NameConst se_event_whoosh_01\n20112 Return\n  20113 Nothing\n20114 EndOfScript"
+    },
+    {
+      "time": 920000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_51",
+      "body": "1e06b LocalVirtualFunction ChangeAction\n  1e074 LocalVariable EventChara\n  1e085 ByteConst 0\n  1e087 IntConst 0\n  1e08c ByteConst 2\n  1e08e ByteConst 3\n1e091 Return\n  1e092 Nothing\n1e093 EndOfScript"
+    },
+    {
+      "time": 954000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_126",
+      "body": "20141 LocalVirtualFunction PlayRichEventSe\n  2014a NameConst se_event_whoosh_13\n20154 Return\n  20155 Nothing\n20156 EndOfScript"
+    },
+    {
+      "time": 1150000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_52",
+      "body": "1e0f3 LocalVirtualFunction ChangeAction\n  1e0fc LocalVariable EventChara\n  1e10d ByteConst 3\n  1e10f IntConst 0\n  1e114 ByteConst 2\n  1e116 ByteConst 3\n1e119 Return\n  1e11a Nothing\n1e11b EndOfScript"
+    },
+    {
+      "time": 1340000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_53",
+      "body": "1e17b LocalVirtualFunction ChangeAction\n  1e184 LocalVariable EventChara\n  1e195 ByteConst 0\n  1e197 IntConst 0\n  1e19c ByteConst 2\n  1e19e ByteConst 3\n1e1a1 Return\n  1e1a2 Nothing\n1e1a3 EndOfScript"
+    },
+    {
+      "time": 1380000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_89",
+      "body": "1f468 LocalVirtualFunction BalloonOpenLabel\n  1f471 NameConst CH_2\n  1f47a ByteConst 0\n  1f47c NameConst TX_MS_TOU_10_1500_0060\n  1f485 FloatConst 0\n  1f48a True\n  1f48b FloatConst 0\n1f491 Return\n  1f492 Nothing\n1f493 EndOfScript"
+    },
+    {
+      "time": 1440000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_90",
+      "body": "1f4c0 LocalVirtualFunction BalloonOpenLabel\n  1f4c9 NameConst CH_2\n  1f4d2 ByteConst 0\n  1f4d4 NameConst TX_MS_TOU_10_1500_0070\n  1f4dd FloatConst 0\n  1f4e2 True\n  1f4e3 FloatConst 0\n1f4e9 Return\n  1f4ea Nothing\n1f4eb EndOfScript"
+    },
+    {
+      "time": 1520000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_20",
+      "body": "1d147 LocalVirtualFunction BalloonOpenLabel\n  1d150 NameConst CH_1\n  1d159 ByteConst 0\n  1d15b NameConst TX_MS_TOU_10_1500_0080\n  1d164 FloatConst 0\n  1d169 True\n  1d16a FloatConst 0\n1d170 Return\n  1d171 Nothing\n1d172 EndOfScript"
+    },
+    {
+      "time": 1560000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_54",
+      "body": "1e203 LocalVirtualFunction ChangeAction\n  1e20c LocalVariable EventChara\n  1e21d ByteConst 3\n  1e21f IntConst 0\n  1e224 ByteConst 2\n  1e226 ByteConst 3\n1e229 Return\n  1e22a Nothing\n1e22b EndOfScript"
+    },
+    {
+      "time": 1660000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_55",
+      "body": "1e28b LocalVirtualFunction ChangeAction\n  1e294 LocalVariable EventChara\n  1e2a5 ByteConst 0\n  1e2a7 IntConst 0\n  1e2ac ByteConst 2\n  1e2ae ByteConst 3\n1e2b1 Return\n  1e2b2 Nothing\n1e2b3 EndOfScript"
+    },
+    {
+      "time": 1680000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_56",
+      "body": "1e313 LocalVirtualFunction ChangeAction\n  1e31c LocalVariable EventChara\n  1e32d ByteConst 14\n  1e32f IntConst 0\n  1e334 ByteConst 2\n  1e336 ByteConst 3\n1e339 Return\n  1e33a Nothing\n1e33b EndOfScript"
+    },
+    {
+      "time": 1700000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_91",
+      "body": "1f518 LocalVirtualFunction BalloonOpenLabel\n  1f521 NameConst CH_2\n  1f52a ByteConst 0\n  1f52c NameConst TX_MS_TOU_10_1500_0110\n  1f535 FloatConst 0\n  1f53a True\n  1f53b FloatConst 0\n1f541 Return\n  1f542 Nothing\n1f543 EndOfScript"
+    },
+    {
+      "time": 1740000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_57",
+      "body": "1e39b LocalVirtualFunction ChangeAction\n  1e3a4 LocalVariable EventChara\n  1e3b5 ByteConst 0\n  1e3b7 IntConst 0\n  1e3bc ByteConst 2\n  1e3be ByteConst 3\n1e3c1 Return\n  1e3c2 Nothing\n1e3c3 EndOfScript"
+    },
+    {
+      "time": 1760000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_21",
+      "body": "1d19f LocalVirtualFunction BalloonOpenLabel\n  1d1a8 NameConst CH_1\n  1d1b1 ByteConst 0\n  1d1b3 NameConst TX_MS_TOU_10_1500_0130\n  1d1bc FloatConst 0\n  1d1c1 True\n  1d1c2 FloatConst 0\n1d1c8 Return\n  1d1c9 Nothing\n1d1ca EndOfScript"
+    },
+    {
+      "time": 1810000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_127",
+      "body": "20183 LocalVirtualFunction PlayRichEventSe\n  2018c NameConst se_event_whoosh_041\n20196 Return\n  20197 Nothing\n20198 EndOfScript"
+    },
+    {
+      "time": 1810000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_58",
+      "body": "1e423 LocalVirtualFunction ChangeAction\n  1e42c LocalVariable EventChara\n  1e43d ByteConst 10\n  1e43f IntConst 0\n  1e444 ByteConst 2\n  1e446 ByteConst 3\n1e449 Return\n  1e44a Nothing\n1e44b EndOfScript"
+    },
+    {
+      "time": 1840000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_59",
+      "body": "1e4ab LocalVirtualFunction ChangeAction\n  1e4b4 LocalVariable EventChara\n  1e4c5 ByteConst 0\n  1e4c7 IntConst 0\n  1e4cc ByteConst 2\n  1e4ce ByteConst 3\n1e4d1 Return\n  1e4d2 Nothing\n1e4d3 EndOfScript"
+    },
+    {
+      "time": 1880000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_60",
+      "body": "1e533 LocalVirtualFunction ChangeAction\n  1e53c LocalVariable EventChara\n  1e54d ByteConst 0\n  1e54f IntConst 0\n  1e554 ByteConst 2\n  1e556 ByteConst 2\n1e559 Return\n  1e55a Nothing\n1e55b EndOfScript"
+    },
+    {
+      "time": 1920000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_92",
+      "body": "1f570 LocalVirtualFunction BalloonOpenLabel\n  1f579 NameConst CH_2\n  1f582 ByteConst 0\n  1f584 NameConst TX_MS_TOU_10_1500_0150\n  1f58d FloatConst 0\n  1f592 True\n  1f593 FloatConst 0\n1f599 Return\n  1f59a Nothing\n1f59b EndOfScript"
+    },
+    {
+      "time": 1970000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_22",
+      "body": "1d1f7 LocalVirtualFunction BalloonOpenLabel\n  1d200 NameConst CH_1\n  1d209 ByteConst 0\n  1d20b NameConst TX_MS_TOU_10_1500_0160\n  1d214 FloatConst 0\n  1d219 True\n  1d21a FloatConst 0\n1d220 Return\n  1d221 Nothing\n1d222 EndOfScript"
+    },
+    {
+      "time": 2000000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_61",
+      "body": "1e5bb LocalVirtualFunction ChangeAction\n  1e5c4 LocalVariable EventChara\n  1e5d5 ByteConst 3\n  1e5d7 IntConst 0\n  1e5dc ByteConst 2\n  1e5de ByteConst 2\n1e5e1 Return\n  1e5e2 Nothing\n1e5e3 EndOfScript"
+    },
+    {
+      "time": 2080000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_62",
+      "body": "1e643 LocalVirtualFunction ChangeAction\n  1e64c LocalVariable EventChara\n  1e65d ByteConst 0\n  1e65f IntConst 0\n  1e664 ByteConst 2\n  1e666 ByteConst 2\n1e669 Return\n  1e66a Nothing\n1e66b EndOfScript"
+    },
+    {
+      "time": 2100000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_128",
+      "body": "201c5 LocalVirtualFunction PlayRichEventSe\n  201ce NameConst se_event_whoosh_041\n201d8 Return\n  201d9 Nothing\n201da EndOfScript"
+    },
+    {
+      "time": 2100000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_63",
+      "body": "1e6cb LocalVirtualFunction ChangeAction\n  1e6d4 LocalVariable EventChara\n  1e6e5 ByteConst 10\n  1e6e7 IntConst 0\n  1e6ec ByteConst 2\n  1e6ee ByteConst 2\n1e6f1 Return\n  1e6f2 Nothing\n1e6f3 EndOfScript"
+    },
+    {
+      "time": 2140000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_93",
+      "body": "1f5c8 LocalVirtualFunction BalloonOpenLabel\n  1f5d1 NameConst CH_2\n  1f5da ByteConst 0\n  1f5dc NameConst TX_MS_TOU_10_1500_0170\n  1f5e5 FloatConst 0\n  1f5ea True\n  1f5eb FloatConst 0\n1f5f1 Return\n  1f5f2 Nothing\n1f5f3 EndOfScript"
+    },
+    {
+      "time": 2180000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_64",
+      "body": "1e753 LocalVirtualFunction ChangeAction\n  1e75c LocalVariable EventChara\n  1e76d ByteConst 0\n  1e76f IntConst 0\n  1e774 ByteConst 2\n  1e776 ByteConst 2\n1e779 Return\n  1e77a Nothing\n1e77b EndOfScript"
+    },
+    {
+      "time": 2220000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_94",
+      "body": "1f620 LocalVirtualFunction BalloonOpenLabel\n  1f629 NameConst CH_2\n  1f632 ByteConst 0\n  1f634 NameConst TX_MS_TOU_10_1500_0180\n  1f63d FloatConst 0\n  1f642 True\n  1f643 FloatConst 0\n1f649 Return\n  1f64a Nothing\n1f64b EndOfScript"
+    },
+    {
+      "time": 2280000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_23",
+      "body": "1d24f LocalVirtualFunction BalloonOpenLabel\n  1d258 NameConst CH_1\n  1d261 ByteConst 0\n  1d263 NameConst TX_MS_TOU_10_1500_0210\n  1d26c FloatConst 0\n  1d271 True\n  1d272 FloatConst 0\n1d278 Return\n  1d279 Nothing\n1d27a EndOfScript"
+    },
+    {
+      "time": 2340000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_95",
+      "body": "1f678 LocalVirtualFunction BalloonOpenLabel\n  1f681 NameConst CH_2\n  1f68a ByteConst 0\n  1f68c NameConst TX_MS_TOU_10_1500_0190\n  1f695 FloatConst 0\n  1f69a True\n  1f69b FloatConst 0\n1f6a1 Return\n  1f6a2 Nothing\n1f6a3 EndOfScript"
+    },
+    {
+      "time": 2360000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_65",
+      "body": "1e7db LocalVirtualFunction ChangeAction\n  1e7e4 LocalVariable EventChara\n  1e7f5 ByteConst 0\n  1e7f7 IntConst 0\n  1e7fc ByteConst 2\n  1e7fe ByteConst 3\n1e801 Return\n  1e802 Nothing\n1e803 EndOfScript"
+    },
+    {
+      "time": 2380000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_129",
+      "body": "20207 LocalVirtualFunction PlayRichEventSe\n  20210 NameConst se_event_whoosh_041\n2021a Return\n  2021b Nothing\n2021c EndOfScript"
+    },
+    {
+      "time": 2380000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_66",
+      "body": "1e863 LocalVirtualFunction ChangeAction\n  1e86c LocalVariable EventChara\n  1e87d ByteConst 9\n  1e87f IntConst 0\n  1e884 ByteConst 2\n  1e886 ByteConst 3\n1e889 Return\n  1e88a Nothing\n1e88b EndOfScript"
+    },
+    {
+      "time": 2400000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_96",
+      "body": "1f6d0 LocalVirtualFunction BalloonOpenLabel\n  1f6d9 NameConst CH_2\n  1f6e2 ByteConst 0\n  1f6e4 NameConst TX_MS_TOU_10_1500_0200\n  1f6ed FloatConst 0\n  1f6f2 True\n  1f6f3 FloatConst 0\n1f6f9 Return\n  1f6fa Nothing\n1f6fb EndOfScript"
+    },
+    {
+      "time": 2440000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_67",
+      "body": "1e8eb LocalVirtualFunction ChangeAction\n  1e8f4 LocalVariable EventChara\n  1e905 ByteConst 0\n  1e907 IntConst 0\n  1e90c ByteConst 2\n  1e90e ByteConst 3\n1e911 Return\n  1e912 Nothing\n1e913 EndOfScript"
+    },
+    {
+      "time": 2500000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_97",
+      "body": "1f728 LocalVirtualFunction BalloonOpenLabel\n  1f731 NameConst CH_2\n  1f73a ByteConst 0\n  1f73c NameConst TX_MS_TOU_10_1500_0220\n  1f745 FloatConst 0\n  1f74a True\n  1f74b FloatConst 0\n1f751 Return\n  1f752 Nothing\n1f753 EndOfScript"
+    },
+    {
+      "time": 2560000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_98",
+      "body": "1f780 LocalVirtualFunction BalloonOpenLabel\n  1f789 NameConst CH_2\n  1f792 ByteConst 0\n  1f794 NameConst TX_MS_TOU_10_1500_0230\n  1f79d FloatConst 0\n  1f7a2 True\n  1f7a3 FloatConst 0\n1f7a9 Return\n  1f7aa Nothing\n1f7ab EndOfScript"
+    },
+    {
+      "time": 2600000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_43",
+      "body": "1dc1e LocalVirtualFunction ChangeAction\n  1dc27 LocalVariable EventChara\n  1dc38 ByteConst 3\n  1dc3a IntConst 0\n  1dc3f ByteConst 2\n  1dc41 ByteConst 2\n1dc44 Return\n  1dc45 Nothing\n1dc46 EndOfScript"
+    },
+    {
+      "time": 2660000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_44",
+      "body": "1dca6 LocalVirtualFunction ChangeAction\n  1dcaf LocalVariable EventChara\n  1dcc0 ByteConst 0\n  1dcc2 IntConst 0\n  1dcc7 ByteConst 2\n  1dcc9 ByteConst 2\n1dccc Return\n  1dccd Nothing\n1dcce EndOfScript"
+    },
+    {
+      "time": 2680000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_24",
+      "body": "1d2a7 LocalVirtualFunction BalloonOpenLabel\n  1d2b0 NameConst CH_1\n  1d2b9 ByteConst 0\n  1d2bb NameConst TX_MS_TOU_10_1500_0240\n  1d2c4 FloatConst 0\n  1d2c9 True\n  1d2ca FloatConst 0\n1d2d0 Return\n  1d2d1 Nothing\n1d2d2 EndOfScript"
+    },
+    {
+      "time": 2700000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_130",
+      "body": "20249 LocalVirtualFunction PlayRichEventSe\n  20252 NameConst se_event_whoosh_08\n2025c Return\n  2025d Nothing\n2025e EndOfScript"
+    },
+    {
+      "time": 2700000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_68",
+      "body": "1e973 LocalVirtualFunction ChangeAction\n  1e97c LocalVariable EventChara\n  1e98d ByteConst 8\n  1e98f IntConst 0\n  1e994 ByteConst 1\n  1e996 ByteConst 3\n1e999 Return\n  1e99a Nothing\n1e99b EndOfScript"
+    },
+    {
+      "time": 2750000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_99",
+      "body": "1f7d8 LocalVirtualFunction BalloonOpenLabel\n  1f7e1 NameConst CH_2\n  1f7ea ByteConst 0\n  1f7ec NameConst TX_MS_TOU_10_1500_0250\n  1f7f5 FloatConst 0\n  1f7fa True\n  1f7fb FloatConst 0\n1f801 Return\n  1f802 Nothing\n1f803 EndOfScript"
+    },
+    {
+      "time": 2760000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_69",
+      "body": "1e9fb LocalVirtualFunction ChangeAction\n  1ea04 LocalVariable EventChara\n  1ea15 ByteConst 0\n  1ea17 IntConst 0\n  1ea1c ByteConst 2\n  1ea1e ByteConst 3\n1ea21 Return\n  1ea22 Nothing\n1ea23 EndOfScript"
+    },
+    {
+      "time": 2800000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_70",
+      "body": "1ea83 LocalVirtualFunction ChangeAction\n  1ea8c LocalVariable EventChara\n  1ea9d ByteConst 3\n  1ea9f IntConst 0\n  1eaa4 ByteConst 2\n  1eaa6 ByteConst 1\n1eaa9 Return\n  1eaaa Nothing\n1eaab EndOfScript"
+    },
+    {
+      "time": 2880000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_71",
+      "body": "1eb0b LocalVirtualFunction ChangeAction\n  1eb14 LocalVariable EventChara\n  1eb25 ByteConst 0\n  1eb27 IntConst 0\n  1eb2c ByteConst 2\n  1eb2e ByteConst 1\n1eb31 Return\n  1eb32 Nothing\n1eb33 EndOfScript"
+    },
+    {
+      "time": 2940000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_100",
+      "body": "1f830 LocalVirtualFunction BalloonOpenLabel\n  1f839 NameConst CH_2\n  1f842 ByteConst 0\n  1f844 NameConst TX_MS_TOU_10_1500_0260\n  1f84d FloatConst 0\n  1f852 True\n  1f853 FloatConst 0\n1f859 Return\n  1f85a Nothing\n1f85b EndOfScript"
+    },
+    {
+      "time": 2980000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_131",
+      "body": "2028b LocalVirtualFunction PlayRichEventSe\n  20294 NameConst se_event_whoosh_06\n2029e Return\n  2029f Nothing\n202a0 EndOfScript"
+    },
+    {
+      "time": 2980000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_72",
+      "body": "1eb93 LocalVirtualFunction ChangeAction\n  1eb9c LocalVariable EventChara\n  1ebad ByteConst 0\n  1ebaf IntConst 0\n  1ebb4 ByteConst 2\n  1ebb6 ByteConst 3\n1ebb9 Return\n  1ebba Nothing\n1ebbb EndOfScript"
+    },
+    {
+      "time": 3020000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_101",
+      "body": "1f888 LocalVirtualFunction BalloonOpenLabel\n  1f891 NameConst CH_2\n  1f89a ByteConst 0\n  1f89c NameConst TX_MS_TOU_10_1500_0270\n  1f8a5 FloatConst 0\n  1f8aa True\n  1f8ab FloatConst 0\n1f8b1 Return\n  1f8b2 Nothing\n1f8b3 EndOfScript"
+    },
+    {
+      "time": 3080000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_132",
+      "body": "202cd LocalVirtualFunction PlayRichEventSe\n  202d6 NameConst se_event_set_fire\n202e0 Return\n  202e1 Nothing\n202e2 EndOfScript"
+    },
+    {
+      "time": 3080000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_73",
+      "body": "1ec1b LocalVirtualFunction ChangeAction\n  1ec24 LocalVariable EventChara\n  1ec35 ByteConst 54\n  1ec37 IntConst 0\n  1ec3c ByteConst 3\n  1ec3e ByteConst 3\n1ec41 Return\n  1ec42 Nothing\n1ec43 EndOfScript"
+    },
+    {
+      "time": 3220000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_102",
+      "body": "1f8e0 LocalVirtualFunction Balloon Open Label Position\n  1f8e9 NameConst CH_2\n  1f8f2 ByteConst 0\n  1f8f4 NameConst TX_MS_TOU_10_1500_0290\n  1f8fd FloatConst 0\n  1f902 StructConst import:-140:Vector2D size=8\n    1f90b FloatConst -5\n    1f910 FloatConst 0\n  1f916 True\n  1f917 FloatConst 0\n  1f91c False\n1f91e Return\n  1f91f Nothing\n1f920 EndOfScript"
+    },
+    {
+      "time": 3280000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_25",
+      "body": "1d2ff LocalVirtualFunction BalloonOpenLabel\n  1d308 NameConst CH_1\n  1d311 ByteConst 0\n  1d313 NameConst TX_MS_TOU_10_1500_0280\n  1d31c FloatConst 0\n  1d321 True\n  1d322 FloatConst 0\n1d328 Return\n  1d329 Nothing\n1d32a EndOfScript"
+    },
+    {
+      "time": 3310000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_74",
+      "body": "1eca3 LocalVirtualFunction ChangeAction\n  1ecac LocalVariable EventChara\n  1ecbd ByteConst 57\n  1ecbf IntConst 0\n  1ecc4 ByteConst 3\n  1ecc6 ByteConst 3\n1ecc9 Return\n  1ecca Nothing\n1eccb EndOfScript"
+    },
+    {
+      "time": 3340000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_103",
+      "body": "1f94d LocalVirtualFunction Balloon Open Label Position\n  1f956 NameConst CH_2\n  1f95f ByteConst 0\n  1f961 NameConst TX_MS_TOU_10_1500_0300\n  1f96a FloatConst 0\n  1f96f StructConst import:-140:Vector2D size=8\n    1f978 FloatConst -5\n    1f97d FloatConst 0\n  1f983 True\n  1f984 FloatConst 0\n  1f989 False\n1f98b Return\n  1f98c Nothing\n1f98d EndOfScript"
+    },
+    {
+      "time": 3380000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_133",
+      "body": "2030f LocalVirtualFunction PlayRichEventSe\n  20318 NameConst se_event_whoosh_08\n20322 Return\n  20323 Nothing\n20324 EndOfScript"
+    },
+    {
+      "time": 3380000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_45",
+      "body": "1dd2e LocalVirtualFunction ChangeAction\n  1dd37 LocalVariable EventChara\n  1dd48 ByteConst 8\n  1dd4a IntConst 0\n  1dd4f ByteConst 1\n  1dd51 ByteConst 2\n1dd54 Return\n  1dd55 Nothing\n1dd56 EndOfScript"
+    },
+    {
+      "time": 3440000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_26",
+      "body": "1d357 LocalVirtualFunction BalloonOpenLabel\n  1d360 NameConst CH_1\n  1d369 ByteConst 0\n  1d36b NameConst TX_MS_TOU_10_1500_0310\n  1d374 FloatConst 0\n  1d379 True\n  1d37a FloatConst 0\n1d380 Return\n  1d381 Nothing\n1d382 EndOfScript"
+    },
+    {
+      "time": 3450000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_46",
+      "body": "1ddb6 LocalVirtualFunction ChangeAction\n  1ddbf LocalVariable EventChara\n  1ddd0 ByteConst 0\n  1ddd2 IntConst 0\n  1ddd7 ByteConst 2\n  1ddd9 ByteConst 2\n1dddc Return\n  1dddd Nothing\n1ddde EndOfScript"
+    },
+    {
+      "time": 3480000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_75",
+      "body": "1ed2b LocalVirtualFunction ChangeAction\n  1ed34 LocalVariable EventChara\n  1ed45 ByteConst 56\n  1ed47 IntConst 0\n  1ed4c ByteConst 3\n  1ed4e ByteConst 3\n1ed51 Return\n  1ed52 Nothing\n1ed53 EndOfScript"
+    },
+    {
+      "time": 3520000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_76",
+      "body": "1edb3 LocalVirtualFunction ChangeAction\n  1edbc LocalVariable EventChara\n  1edcd ByteConst 55\n  1edcf IntConst 0\n  1edd4 ByteConst 2\n  1edd6 ByteConst 3\n1edd9 Return\n  1edda Nothing\n1eddb EndOfScript"
+    },
+    {
+      "time": 3590000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_77",
+      "body": "1ee3b LocalVirtualFunction ChangeAction\n  1ee44 LocalVariable EventChara\n  1ee55 ByteConst 56\n  1ee57 IntConst 0\n  1ee5c ByteConst 3\n  1ee5e ByteConst 3\n1ee61 Return\n  1ee62 Nothing\n1ee63 EndOfScript"
+    },
+    {
+      "time": 3640000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_104",
+      "body": "1f9ba LocalVirtualFunction Balloon Open Label Position\n  1f9c3 NameConst CH_2\n  1f9cc ByteConst 0\n  1f9ce NameConst TX_MS_TOU_10_1500_0320\n  1f9d7 FloatConst 0\n  1f9dc StructConst import:-140:Vector2D size=8\n    1f9e5 FloatConst -5\n    1f9ea FloatConst 0\n  1f9f0 True\n  1f9f1 FloatConst 0\n  1f9f6 False\n1f9f8 Return\n  1f9f9 Nothing\n1f9fa EndOfScript"
+    },
+    {
+      "time": 3700000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_78",
+      "body": "1eec3 LocalVirtualFunction ChangeAction\n  1eecc LocalVariable EventChara\n  1eedd ByteConst 59\n  1eedf IntConst 0\n  1eee4 ByteConst 3\n  1eee6 ByteConst 3\n1eee9 Return\n  1eeea Nothing\n1eeeb EndOfScript"
+    },
+    {
+      "time": 3760000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_79",
+      "body": "1ef4b LocalVirtualFunction ChangeAction\n  1ef54 LocalVariable EventChara\n  1ef65 ByteConst 0\n  1ef67 IntConst 0\n  1ef6c ByteConst 2\n  1ef6e ByteConst 3\n1ef71 Return\n  1ef72 Nothing\n1ef73 EndOfScript"
+    },
+    {
+      "time": 3780000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_105",
+      "body": "1fa27 LocalVirtualFunction BalloonOpenLabel\n  1fa30 NameConst CH_2\n  1fa39 ByteConst 0\n  1fa3b NameConst TX_MS_TOU_10_1500_0330\n  1fa44 FloatConst 0\n  1fa49 True\n  1fa4a FloatConst 0\n1fa50 Return\n  1fa51 Nothing\n1fa52 EndOfScript"
+    },
+    {
+      "time": 3840000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_106",
+      "body": "1fa7f LocalVirtualFunction BalloonOpenLabel\n  1fa88 NameConst CH_2\n  1fa91 ByteConst 0\n  1fa93 NameConst TX_MS_TOU_10_1500_0340\n  1fa9c FloatConst 0\n  1faa1 True\n  1faa2 FloatConst 0\n1faa8 Return\n  1faa9 Nothing\n1faaa EndOfScript"
+    },
+    {
+      "time": 3870000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_80",
+      "body": "1efd3 LocalVirtualFunction ChangeAction\n  1efdc LocalVariable EventChara\n  1efed ByteConst 3\n  1efef IntConst 0\n  1eff4 ByteConst 2\n  1eff6 ByteConst 0\n1eff9 Return\n  1effa Nothing\n1effb EndOfScript"
+    },
+    {
+      "time": 3940000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_81",
+      "body": "1f05b LocalVirtualFunction ChangeAction\n  1f064 LocalVariable EventChara\n  1f075 ByteConst 0\n  1f077 IntConst 0\n  1f07c ByteConst 2\n  1f07e ByteConst 3\n1f081 Return\n  1f082 Nothing\n1f083 EndOfScript"
+    },
+    {
+      "time": 3980000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_107",
+      "body": "1fad7 LocalVirtualFunction BalloonOpenLabel\n  1fae0 NameConst CH_2\n  1fae9 ByteConst 0\n  1faeb NameConst TX_MS_TOU_10_1500_0350\n  1faf4 FloatConst 0\n  1faf9 True\n  1fafa FloatConst 0\n1fb00 Return\n  1fb01 Nothing\n1fb02 EndOfScript"
+    },
+    {
+      "time": 3990000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_115",
+      "body": "1fe11 LocalVirtualFunction PlayRichEventBgm\n  1fe1a NameConst m122_extend_tou1\n  1fe23 FloatConst 3000\n  1fe28 FloatConst 0\n1fe2e Return\n  1fe2f Nothing\n1fe30 EndOfScript"
+    },
+    {
+      "time": 4140000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_82",
+      "body": "1f0e3 LocalVirtualFunction ChangeAction\n  1f0ec LocalVariable EventChara\n  1f0fd ByteConst 9\n  1f0ff IntConst 0\n  1f104 ByteConst 2\n  1f106 ByteConst 3\n1f109 Return\n  1f10a Nothing\n1f10b EndOfScript"
+    },
+    {
+      "time": 4180000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_108",
+      "body": "1fb2f LocalVirtualFunction BalloonOpenLabel\n  1fb38 NameConst CH_2\n  1fb41 ByteConst 0\n  1fb43 NameConst TX_MS_TOU_10_1500_0360\n  1fb4c FloatConst 0\n  1fb51 True\n  1fb52 FloatConst 0\n1fb58 Return\n  1fb59 Nothing\n1fb5a EndOfScript"
+    },
+    {
+      "time": 4200000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_83",
+      "body": "1f16b LocalVirtualFunction ChangeAction\n  1f174 LocalVariable EventChara\n  1f185 ByteConst 0\n  1f187 IntConst 0\n  1f18c ByteConst 2\n  1f18e ByteConst 3\n1f191 Return\n  1f192 Nothing\n1f193 EndOfScript"
+    },
+    {
+      "time": 4230000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_84",
+      "body": "1f1f3 LocalVirtualFunction ChangeAction\n  1f1fc LocalVariable EventChara\n  1f20d ByteConst 10\n  1f20f IntConst 0\n  1f214 ByteConst 2\n  1f216 ByteConst 3\n1f219 Return\n  1f21a Nothing\n1f21b EndOfScript"
+    },
+    {
+      "time": 4260000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_109",
+      "body": "1fb87 LocalVirtualFunction BalloonOpenLabel\n  1fb90 NameConst CH_2\n  1fb99 ByteConst 0\n  1fb9b NameConst TX_MS_TOU_10_1500_0380\n  1fba4 FloatConst 0\n  1fba9 True\n  1fbaa FloatConst 0\n1fbb0 Return\n  1fbb1 Nothing\n1fbb2 EndOfScript"
+    },
+    {
+      "time": 4270000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_85",
+      "body": "1f27b LocalVirtualFunction ChangeAction\n  1f284 LocalVariable EventChara\n  1f295 ByteConst 0\n  1f297 IntConst 0\n  1f29c ByteConst 2\n  1f29e ByteConst 3\n1f2a1 Return\n  1f2a2 Nothing\n1f2a3 EndOfScript"
+    },
+    {
+      "time": 4290000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_134",
+      "body": "20351 LocalVirtualFunction PlayRichEventSe\n  2035a NameConst se_event_whoosh_01\n20364 Return\n  20365 Nothing\n20366 EndOfScript"
+    },
+    {
+      "time": 4290000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_86",
+      "body": "1f303 LocalVirtualFunction ChangeAction\n  1f30c LocalVariable EventChara\n  1f31d ByteConst 65\n  1f31f IntConst 0\n  1f324 ByteConst 3\n  1f326 ByteConst 3\n1f329 Return\n  1f32a Nothing\n1f32b EndOfScript"
+    },
+    {
+      "time": 4370000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_47",
+      "body": "1de3e LocalVirtualFunction ChangeAction\n  1de47 LocalVariable EventChara\n  1de58 ByteConst 58\n  1de5a IntConst 0\n  1de5f ByteConst 3\n  1de61 ByteConst 2\n1de64 Return\n  1de65 Nothing\n1de66 EndOfScript"
+    },
+    {
+      "time": 4394000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_135",
+      "body": "20393 LocalVirtualFunction PlayRichEventSe\n  2039c NameConst se_event_whoosh12\n203a6 Return\n  203a7 Nothing\n203a8 EndOfScript"
+    },
+    {
+      "time": 4430536,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_27",
+      "body": "1d3af LocalVirtualFunction Balloon Open Label Position\n  1d3b8 NameConst CH_1\n  1d3c1 ByteConst 0\n  1d3c3 NameConst TX_MS_TOU_10_1500_0390\n  1d3cc FloatConst 0\n  1d3d1 StructConst import:-140:Vector2D size=8\n    1d3da FloatConst -15\n    1d3df FloatConst 10\n  1d3e5 True\n  1d3e6 FloatConst 0\n  1d3eb False\n1d3ed Return\n  1d3ee Nothing\n1d3ef EndOfScript"
+    },
+    {
+      "time": 4480000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_110",
+      "body": "1fbdf LocalVirtualFunction BalloonOpenLabel\n  1fbe8 NameConst CH_2\n  1fbf1 ByteConst 0\n  1fbf3 NameConst TX_MS_TOU_10_1500_0400\n  1fbfc FloatConst 0\n  1fc01 True\n  1fc02 FloatConst 0\n1fc08 Return\n  1fc09 Nothing\n1fc0a EndOfScript"
+    },
+    {
+      "time": 4500000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_28",
+      "body": "1d41c LocalVirtualFunction Balloon Open Label Position\n  1d425 NameConst CH_1\n  1d42e ByteConst 0\n  1d430 NameConst TX_MS_TOU_10_1500_0410\n  1d439 FloatConst 0\n  1d43e StructConst import:-140:Vector2D size=8\n    1d447 FloatConst -15\n    1d44c FloatConst 10\n  1d452 True\n  1d453 FloatConst 0\n  1d458 False\n1d45a Return\n  1d45b Nothing\n1d45c EndOfScript"
+    },
+    {
+      "time": 4560000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_29",
+      "body": "1d489 LocalVirtualFunction Balloon Open Label Position\n  1d492 NameConst CH_1\n  1d49b ByteConst 0\n  1d49d NameConst TX_MS_TOU_10_1500_0420\n  1d4a6 FloatConst 0\n  1d4ab StructConst import:-140:Vector2D size=8\n    1d4b4 FloatConst -15\n    1d4b9 FloatConst 10\n  1d4bf True\n  1d4c0 FloatConst 0\n  1d4c5 False\n1d4c7 Return\n  1d4c8 Nothing\n1d4c9 EndOfScript"
+    },
+    {
+      "time": 4580000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_87",
+      "body": "1f38b LocalVirtualFunction ChangeAction\n  1f394 LocalVariable EventChara\n  1f3a5 ByteConst 5\n  1f3a7 IntConst 0\n  1f3ac ByteConst 2\n  1f3ae ByteConst 3\n1f3b1 Return\n  1f3b2 Nothing\n1f3b3 EndOfScript"
+    },
+    {
+      "time": 4580000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_48",
+      "body": "1dec6 LocalVirtualFunction ChangeAction\n  1decf LocalVariable EventChara\n  1dee0 ByteConst 5\n  1dee2 IntConst 0\n  1dee7 ByteConst 2\n  1dee9 ByteConst 2\n1deec Return\n  1deed Nothing\n1deee EndOfScript"
+    },
+    {
+      "time": 4598000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_88",
+      "body": "1f413 LocalVirtualFunction ChangeAction\n  1f41c LocalVariable EventChara\n  1f42d ByteConst 63\n  1f42f IntConst 0\n  1f434 ByteConst 3\n  1f436 ByteConst 3\n1f439 Return\n  1f43a Nothing\n1f43b EndOfScript"
+    },
+    {
+      "time": 4598000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_49",
+      "body": "1df4e LocalVirtualFunction ChangeAction\n  1df57 LocalVariable EventChara\n  1df68 ByteConst 60\n  1df6a IntConst 0\n  1df6f ByteConst 3\n  1df71 ByteConst 2\n1df74 Return\n  1df75 Nothing\n1df76 EndOfScript"
+    },
+    {
+      "time": 4600000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_116",
+      "body": "1fe5d LocalVirtualFunction PlayRichEventBgmBlock\n  1fe66 IntConst 2\n1fe6c Return\n  1fe6d Nothing\n1fe6e EndOfScript"
+    },
+    {
+      "time": 4600000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_136",
+      "body": "203d5 LocalVirtualFunction PlayRichEventSe\n  203de NameConst se_event_hitsword2\n203e8 Return\n  203e9 Nothing\n203ea EndOfScript"
+    },
+    {
+      "time": 4600000,
+      "function": "SequenceEvent__ENTRYPOINTSequenceDirector_5",
+      "body": "1cbb4 LocalVirtualFunction StartBattle\n  1cbbd StringConst \"EVM_BOS_THI_C01_010\"\n  1cbd2 StringConst \"MS_TOU_10_1900\"\n  1cbe2 False\n  1cbe3 False\n1cbe5 Return\n  1cbe6 Nothing\n1cbe7 EndOfScript"
+    }
+  ],
+  "start_battle": {
+    "time": 4600000,
+    "function": "SequenceEvent__ENTRYPOINTSequenceDirector_5",
+    "body": "1cbb4 LocalVirtualFunction StartBattle\n  1cbbd StringConst \"EVM_BOS_THI_C01_010\"\n  1cbd2 StringConst \"MS_TOU_10_1900\"\n  1cbe2 False\n  1cbe3 False\n1cbe5 Return\n  1cbe6 Nothing\n1cbe7 EndOfScript"
+  },
+  "hooks": [
+    {
+      "asset": "Event/BP/BP_RichEventCommandBase",
+      "sha256": "6ed1e20d210382718bed6080c32614c1631e432f6ee8de1abaa4a8d43aad3bdf",
+      "functions": {
+        "StartBattleFunction": "1cc4c PushExecutionFlow target=1845\n1cc51 LetBool\n  1cc52 LocalVariable CallFunc_ChangeUpdateCommand_ReturnValue\n  1cc63 FinalFunction import:-230:ChangeUpdateCommand\n    1cc68 ByteConst 14\n1cc6b PopExecutionFlowIfNot\n  1cc6c LocalVariable CallFunc_ChangeUpdateCommand_ReturnValue\n1cc7d LetBool\n  1cc7e LocalVariable CallFunc_IsEventPlayTheater_ReturnValue\n  1cc8f CallMath import:-256:IsEventPlayTheater\n1cc95 JumpIfNot target=125\n  1cc9a LocalVariable CallFunc_IsEventPlayTheater_ReturnValue\n1ccab VirtualFunction FadeOutFunction\n  1ccb4 FloatConst 10\n  1ccb9 StructConst import:-500:LinearColor size=16\n    1ccc2 FloatConst 0\n    1ccc7 FloatConst 0\n    1cccc FloatConst 0\n    1ccd1 FloatConst 1\n1ccd8 PopExecutionFlow\n1ccd9 FinalFunction import:-400:StartBattleFunction\n  1ccde LocalVariable EnemyGroup\n  1ccef LocalVariable FinishEvent\n  1cd00 LocalVariable EventBattle\n  1cd11 LocalVariable SingleBattle\n  1cd22 LocalVariable EventBattleChara\n  1cd33 LocalVariable FixFirstOrderPlayer\n  1cd44 LocalVariable DarkSurface\n1cd56 PushExecutionFlow target=345\n1cd5b LetBool\n  1cd5c LocalVariable PlayBattleBGM\n  1cd6d False\n1cd6e Let property=CallFunc_Conv_StringToName_ReturnValue\n  1cd7f LocalVariable CallFunc_Conv_StringToName_ReturnValue\n  1cd90 CallMath import:-204:Conv_StringToName\n    1cd95 LocalVariable EnemyGroup\n1cda7 LetBool\n  1cda8 LocalVariable CallFunc_GetEncountVolumeRowData_ReturnValue\n  1cdb9 CallMath import:-222:GetEncountVolumeRowData\n    1cdbe LocalVariable CallFunc_GetEncountVolumeRowData_returnCode\n    1cdcf LocalVariable CallFunc_GetEncountVolumeRowData_OutData\n    1cde0 LocalVariable CallFunc_Conv_StringToName_ReturnValue\n    1cdf1 True\n1cdf3 LetBool\n  1cdf4 LocalVariable K2Node_SwitchEnum_CmpSuccess\n  1ce05 CallMath import:-192:NotEqual_ByteByte\n    1ce0a LocalVariable CallFunc_GetEncountVolumeRowData_returnCode\n    1ce1b ByteConst 0\n1ce1e JumpIfNot target=703\n  1ce23 LocalVariable K2Node_SwitchEnum_CmpSuccess\n1ce34 PopExecutionFlow\n1ce35 CallMath import:-290:SetEncountSignMode\n  1ce3a Self\n  1ce3b True\n1ce3d Let property=CallFunc_Conv_BoolToByte_ReturnValue\n  1ce4e LocalVariable CallFunc_Conv_BoolToByte_ReturnValue\n  1ce5f CallMath import:-176:Conv_BoolToByte\n    1ce64 LocalVariable SingleBattle\n1ce76 Let property=CallFunc_Conv_ByteToString_ReturnValue\n  1ce87 LocalVariable CallFunc_Conv_ByteToString_ReturnValue\n  1ce98 CallMath import:-200:Conv_ByteToString\n    1ce9d LocalVariable CallFunc_Conv_BoolToByte_ReturnValue\n1ceaf Let property=CallFunc_Conv_ByteToInt_ReturnValue\n  1cec0 LocalVariable CallFunc_Conv_ByteToInt_ReturnValue\n  1ced1 CallMath import:-177:Conv_ByteToInt\n    1ced6 LocalVariable FixFirstOrderPlayer\n1cee8 Let property=CallFunc_Conv_BoolToByte_ReturnValue_1\n  1cef9 LocalVariable CallFunc_Conv_BoolToByte_ReturnValue_1\n  1cf0a CallMath import:-176:Conv_BoolToByte\n    1cf0f LocalVariable PlayBattleBGM\n1cf21 Let property=CallFunc_Conv_IntToString_ReturnValue\n  1cf32 LocalVariable CallFunc_Conv_IntToString_ReturnValue\n  1cf43 CallMath import:-202:Conv_IntToString\n    1cf48 LocalVariable CallFunc_Conv_ByteToInt_ReturnValue\n1cf5a Let property=CallFunc_Conv_ByteToString_ReturnValue_1\n  1cf6b LocalVariable CallFunc_Conv_ByteToString_ReturnValue_1\n  1cf7c CallMath import:-200:Conv_ByteToString\n    1cf81 LocalVariable CallFunc_Conv_BoolToByte_ReturnValue_1\n1cf93 SetArray\n  1cf94 LocalVariable K2Node_MakeArray_Array\n  1cfa5 LocalVariable EnemyGroup\n  1cfb6 LocalVariable FinishEvent\n  1cfc7 LocalVariable CallFunc_Conv_ByteToString_ReturnValue\n  1cfd8 LocalVariable CallFunc_Conv_ByteToString_ReturnValue_1\n  1cfe9 LocalVariable CallFunc_Conv_IntToString_ReturnValue\n  1cffa StringConst \"\"\n1cffd Let property=OptAry\n  1d00e StructMemberContext OptAry\n    1d01f LocalVariable K2Node_MakeStruct_EventData\n  1d030 LocalVariable K2Node_MakeArray_Array\n1d041 FinalFunction import:-406:StartEventBattle\n  1d046 LocalVariable K2Node_MakeStruct_EventData\n1d058 PopExecutionFlowIfNot\n  1d059 LocalVariable DarkSurface\n1d06a PopExecutionFlow\n1d06b Let property=CallFunc_Array_Length_ReturnValue\n  1d07c LocalVariable CallFunc_Array_Length_ReturnValue\n  1d08d Context skip=28 rvalue=CallFunc_Array_Length_ReturnValue\n    1d08e ObjectConst import:-436:Default__KismetArrayLibrary\n    1d0a7 FinalFunction import:-168:Array_Length\n      1d0ac StructMemberContext EncounterList\n        1d0bd LocalVariable CallFunc_GetEncountVolumeRowData_OutData\n1d0cf LetBool\n  1d0d0 LocalVariable CallFunc_Greater_IntInt_ReturnValue\n  1d0e1 CallMath import:-184:Greater_IntInt\n    1d0e6 LocalVariable CallFunc_Array_Length_ReturnValue\n    1d0f7 IntConst 0\n1d0fd PopExecutionFlowIfNot\n  1d0fe LocalVariable CallFunc_Greater_IntInt_ReturnValue\n1d10f Let property=CallFunc_Array_Length_ReturnValue\n  1d120 LocalVariable CallFunc_Array_Length_ReturnValue\n  1d131 Context skip=28 rvalue=CallFunc_Array_Length_ReturnValue\n    1d132 ObjectConst import:-436:Default__KismetArrayLibrary\n    1d14b FinalFunction import:-168:Array_Length\n      1d150 StructMemberContext EncounterList\n        1d161 LocalVariable CallFunc_GetEncountVolumeRowData_OutData\n1d173 Let property=CallFunc_Subtract_IntInt_ReturnValue\n  1d184 LocalVariable CallFunc_Subtract_IntInt_ReturnValue\n  1d195 CallMath import:-195:Subtract_IntInt\n    1d19a LocalVariable CallFunc_Array_Length_ReturnValue\n    1d1ab IntConst 1\n1d1b1 Let property=CallFunc_Multiply_IntInt_ReturnValue\n  1d1c2 LocalVariable CallFunc_Multiply_IntInt_ReturnValue\n  1d1d3 CallMath import:-188:Multiply_IntInt\n    1d1d8 LocalVariable CallFunc_Subtract_IntInt_ReturnValue\n    1d1e9 IntConst -1\n1d1ef Let property=Temp_int_Variable\n  1d200 LocalVariable Temp_int_Variable\n  1d211 LocalVariable CallFunc_Multiply_IntInt_ReturnValue\n1d222 LetBool\n  1d223 LocalVariable Temp_bool_Variable\n  1d234 False\n1d235 Let property=Temp_int_Variable_1\n  1d246 LocalVariable Temp_int_Variable_1\n  1d257 LocalVariable Temp_int_Variable\n1d268 LetBool\n  1d269 LocalVariable CallFunc_LessEqual_IntInt_ReturnValue\n  1d27a CallMath import:-187:LessEqual_IntInt\n    1d27f LocalVariable Temp_int_Variable_1\n    1d290 IntConst 0\n1d296 LetBool\n  1d297 LocalVariable CallFunc_Not_PreBool_ReturnValue\n  1d2a8 CallMath import:-190:Not_PreBool\n    1d2ad LocalVariable Temp_bool_Variable\n1d2bf LetBool\n  1d2c0 LocalVariable CallFunc_BooleanAND_ReturnValue\n  1d2d1 CallMath import:-173:BooleanAND\n    1d2d6 LocalVariable CallFunc_Not_PreBool_ReturnValue\n    1d2e7 LocalVariable CallFunc_LessEqual_IntInt_ReturnValue\n1d2f9 PopExecutionFlowIfNot\n  1d2fa LocalVariable CallFunc_BooleanAND_ReturnValue\n1d30b PushExecutionFlow target=1732\n1d310 Let property=CallFunc_Abs_Int_ReturnValue\n  1d321 LocalVariable CallFunc_Abs_Int_ReturnValue\n  1d332 CallMath import:-170:Abs_Int\n    1d337 LocalVariable Temp_int_Variable_1\n1d349 Context skip=46 rvalue=<null-field>\n  1d34a ObjectConst import:-436:Default__KismetArrayLibrary\n  1d35b FinalFunction import:-167:Array_Get\n    1d360 StructMemberContext EncounterList\n      1d371 LocalVariable CallFunc_GetEncountVolumeRowData_OutData\n    1d382 LocalVariable CallFunc_Abs_Int_ReturnValue\n    1d393 LocalVariable CallFunc_Array_Get_Item\n1d3a5 LetBool\n  1d3a6 LocalVariable CallFunc_NotEqual_NameName_ReturnValue\n  1d3b7 CallMath import:-194:NotEqual_NameName\n    1d3bc StructMemberContext EncounterName\n      1d3cd LocalVariable CallFunc_Array_Get_Item\n    1d3de NameConst None\n1d3e8 PopExecutionFlowIfNot\n  1d3e9 LocalVariable CallFunc_NotEqual_NameName_ReturnValue\n1d3fa Let property=CallFunc_Abs_Int_ReturnValue\n  1d40b LocalVariable CallFunc_Abs_Int_ReturnValue\n  1d41c CallMath import:-170:Abs_Int\n    1d421 LocalVariable Temp_int_Variable_1\n1d433 Context skip=46 rvalue=<null-field>\n  1d434 ObjectConst import:-436:Default__KismetArrayLibrary\n  1d445 FinalFunction import:-167:Array_Get\n    1d44a StructMemberContext EncounterList\n      1d45b LocalVariable CallFunc_GetEncountVolumeRowData_OutData\n    1d46c LocalVariable CallFunc_Abs_Int_ReturnValue\n    1d47d LocalVariable CallFunc_Array_Get_Item\n1d48f LetBool\n  1d490 LocalVariable CallFunc_GetDataTableRowFromName_ReturnValue\n  1d4a1 Context skip=46 rvalue=CallFunc_GetDataTableRowFromName_ReturnValue\n    1d4a2 ObjectConst import:-121:Default__DataTableFunctionLibrary\n    1d4bb FinalFunction import:-158:GetDataTableRowFromName\n      1d4c0 ObjectConst import:-111:BattleEncounterData\n      1d4c5 StructMemberContext EncounterName\n        1d4d6 LocalVariable CallFunc_Array_Get_Item\n      1d4e7 LocalVariable CallFunc_GetDataTableRowFromName_OutRow\n1d4f9 PopExecutionFlowIfNot\n  1d4fa LocalVariable CallFunc_GetDataTableRowFromName_ReturnValue\n1d50b Context skip=42 rvalue=<null-field>\n  1d50c ObjectConst import:-436:Default__KismetArrayLibrary\n  1d51d FinalFunction import:-167:Array_Get\n    1d522 StructMemberContext Group\n      1d533 LocalVariable CallFunc_GetDataTableRowFromName_OutRow\n    1d544 IntConst 0\n    1d549 LocalVariable CallFunc_Array_Get_Item_1\n1d55b LetBool\n  1d55c LocalVariable CallFunc_GetDataTableRowFromName_ReturnValue_1\n  1d56d Context skip=46 rvalue=CallFunc_GetDataTableRowFromName_ReturnValue_1\n    1d56e ObjectConst import:-121:Default__DataTableFunctionLibrary\n    1d587 FinalFunction import:-158:GetDataTableRowFromName\n      1d58c ObjectConst import:-112:EnemyGroupData\n      1d591 StructMemberContext GroupID\n        1d5a2 LocalVariable CallFunc_Array_Get_Item_1\n      1d5b3 LocalVariable CallFunc_GetDataTableRowFromName_OutRow_1\n1d5c5 PopExecutionFlowIfNot\n  1d5c6 LocalVariable CallFunc_GetDataTableRowFromName_ReturnValue_1\n1d5d7 LetBool\n  1d5d8 LocalVariable CallFunc_NotEqual_NameName_ReturnValue_1\n  1d5e9 CallMath import:-194:NotEqual_NameName\n    1d5ee StructMemberContext BGMID_7_B47857404179EE90049AD8A2FCC54983\n      1d5ff LocalVariable CallFunc_GetDataTableRowFromName_OutRow_1\n    1d610 NameConst None\n1d61a PopExecutionFlowIfNot\n  1d61b LocalVariable CallFunc_NotEqual_NameName_ReturnValue_1\n1d62c LetBool\n  1d62d LocalVariable PlayBattleBGM\n  1d63e True\n1d63f PopExecutionFlow\n1d640 LetBool\n  1d641 LocalVariable CallFunc_Not_PreBool_ReturnValue\n  1d652 CallMath import:-190:Not_PreBool\n    1d657 LocalVariable Temp_bool_Variable\n1d669 PopExecutionFlowIfNot\n  1d66a LocalVariable CallFunc_Not_PreBool_ReturnValue\n1d67b Let property=CallFunc_Add_IntInt_ReturnValue\n  1d68c LocalVariable CallFunc_Add_IntInt_ReturnValue\n  1d69d CallMath import:-171:Add_IntInt\n    1d6a2 LocalVariable Temp_int_Variable_1\n    1d6b3 IntConst 1\n1d6b9 Let property=Temp_int_Variable_1\n  1d6ca LocalVariable Temp_int_Variable_1\n  1d6db LocalVariable CallFunc_Add_IntInt_ReturnValue\n1d6ec Jump target=1032\n1d6f1 Return\n  1d6f2 Nothing\n1d6f3 EndOfScript"
+      },
+      "defaults": [
+        {
+          "UberGraphFrame": {}
+        }
+      ]
+    },
+    {
+      "asset": "Event/BP/EventManagerBP",
+      "sha256": "053e599edcedaf453820b17a7a71fbfa9ca33c63807080ea2dedc0c1f5a3c4cb",
+      "functions": {
+        "StartBattleStart": "2ede0 LetBool\n  2ede1 LocalVariable CallFunc_StartBattleStart_ReturnValue\n  2edf2 FinalFunction import:-464:StartBattleStart\n    2edf7 LocalOutVariable refEventData\n2ee09 JumpIfNot target=1012\n  2ee0e LocalVariable CallFunc_StartBattleStart_ReturnValue\n2ee1f CallMath import:-664:SetLastBattleResult\n  2ee24 ByteConst 1\n2ee27 LetObj\n  2ee28 LocalVariable CallFunc_GetManagerInstance_ReturnValue\n  2ee39 CallMath import:-355:GetManagerInstance\n    2ee3e ObjectConst import:-87:EncountManager\n2ee44 Context skip=42 rvalue=<null-field>\n  2ee45 ObjectConst import:-826:Default__KismetArrayLibrary\n  2ee56 FinalFunction import:-262:Array_Get\n    2ee5b StructMemberContext OptAry\n      2ee6c LocalOutVariable refEventData\n    2ee7d IntConst 2\n    2ee82 LocalVariable CallFunc_Array_Get_Item\n2ee94 Context skip=42 rvalue=<null-field>\n  2ee95 ObjectConst import:-826:Default__KismetArrayLibrary\n  2eea6 FinalFunction import:-262:Array_Get\n    2eeab StructMemberContext OptAry\n      2eebc LocalOutVariable refEventData\n    2eecd IntConst 3\n    2eed2 LocalVariable CallFunc_Array_Get_Item_1\n2eee4 LetBool\n  2eee5 LocalVariable CallFunc_NotEqual_StrStr_ReturnValue\n  2eef6 CallMath import:-333:NotEqual_StrStr\n    2eefb LocalVariable CallFunc_Array_Get_Item\n    2ef0c StringConst \"0\"\n2ef10 Let property=CallFunc_Conv_StringToInt_ReturnValue\n  2ef21 LocalVariable CallFunc_Conv_StringToInt_ReturnValue\n  2ef32 CallMath import:-327:Conv_StringToInt\n    2ef37 LocalVariable CallFunc_Array_Get_Item_1\n2ef49 Let property=CallFunc_Conv_StringToInt_ReturnValue_1\n  2ef5a LocalVariable CallFunc_Conv_StringToInt_ReturnValue_1\n  2ef6b CallMath import:-327:Conv_StringToInt\n    2ef70 LocalVariable CallFunc_Array_Get_Item\n2ef82 LetBool\n  2ef83 LocalVariable CallFunc_EqualEqual_IntInt_ReturnValue\n  2ef94 CallMath import:-287:EqualEqual_IntInt\n    2ef99 LocalVariable CallFunc_Conv_StringToInt_ReturnValue\n    2efaa IntConst 0\n2efb0 Let property=CallFunc_Conv_IntToByte_ReturnValue\n  2efc1 LocalVariable CallFunc_Conv_IntToByte_ReturnValue\n  2efd2 CallMath import:-281:Conv_IntToByte\n    2efd7 LocalVariable CallFunc_Conv_StringToInt_ReturnValue_1\n2efe9 Context skip=42 rvalue=<null-field>\n  2efea ObjectConst import:-826:Default__KismetArrayLibrary\n  2effb FinalFunction import:-262:Array_Get\n    2f000 StructMemberContext OptAry\n      2f011 LocalOutVariable refEventData\n    2f022 IntConst 0\n    2f027 LocalVariable CallFunc_Array_Get_Item_2\n2f039 Let property=CallFunc_GetValidValue_ReturnValue\n  2f04a LocalVariable CallFunc_GetValidValue_ReturnValue\n  2f05b CallMath import:-319:GetValidValue\n    2f060 ObjectConst import:-223:EPlayableCharacterID\n    2f065 LocalVariable CallFunc_Conv_IntToByte_ReturnValue\n2f077 Let property=CallFunc_Conv_StringToName_ReturnValue\n  2f088 LocalVariable CallFunc_Conv_StringToName_ReturnValue\n  2f099 CallMath import:-328:Conv_StringToName\n    2f09e LocalVariable CallFunc_Array_Get_Item_2\n2f0b0 Let property=CallFunc_Conv_StringToInt_ReturnValue_2\n  2f0c1 LocalVariable CallFunc_Conv_StringToInt_ReturnValue_2\n  2f0d2 CallMath import:-327:Conv_StringToInt\n    2f0d7 ArrayGetByRef\n      2f0d8 StructMemberContext OptAry\n        2f0e9 LocalOutVariable refEventData\n      2f0fa IntConst 4\n2f100 Let property=CallFunc_Conv_IntToByte_ReturnValue_1\n  2f111 LocalVariable CallFunc_Conv_IntToByte_ReturnValue_1\n  2f122 CallMath import:-281:Conv_IntToByte\n    2f127 LocalVariable CallFunc_Conv_StringToInt_ReturnValue_2\n2f139 Let property=CallFunc_GetValidValue_ReturnValue_1\n  2f14a LocalVariable CallFunc_GetValidValue_ReturnValue_1\n  2f15b CallMath import:-319:GetValidValue\n    2f160 ObjectConst import:-223:EPlayableCharacterID\n    2f165 LocalVariable CallFunc_Conv_IntToByte_ReturnValue_1\n2f177 LetBool\n  2f178 LocalVariable CallFunc_StartEventBattle_ReturnValue\n  2f189 Context skip=60 rvalue=CallFunc_StartEventBattle_ReturnValue\n    2f18a LocalVariable CallFunc_GetManagerInstance_ReturnValue\n    2f1af LocalVirtualFunction StartEventBattle\n      2f1b8 LocalVariable CallFunc_Conv_StringToName_ReturnValue\n      2f1c9 LocalVariable CallFunc_EqualEqual_IntInt_ReturnValue\n      2f1da LocalVariable CallFunc_NotEqual_StrStr_ReturnValue\n      2f1eb LocalVariable CallFunc_GetValidValue_ReturnValue\n      2f1fc False\n      2f1fd LocalVariable CallFunc_GetValidValue_ReturnValue_1\n2f20f Context skip=24 rvalue=<null-field>\n  2f210 ObjectConst import:-848:Default__LibUIUtil_C\n  2f221 LocalVirtualFunction GetBalloonBundle\n    2f22a Self\n    2f22b LocalVariable CallFunc_GetBalloonBundle_BalloonBundle\n2f23d LetBool\n  2f23e LocalVariable CallFunc_DeleteBalloonAll_ReturnValue\n  2f24f Context skip=10 rvalue=CallFunc_DeleteBalloonAll_ReturnValue\n    2f250 LocalVariable CallFunc_GetBalloonBundle_BalloonBundle\n    2f275 FinalFunction import:-358:DeleteBalloonAll\n2f27b LetObj\n  2f27c LocalVariable CallFunc_GetManagerInstance_ReturnValue_1\n  2f28d CallMath import:-355:GetManagerInstance\n    2f292 ObjectConst import:-117:KSUIManager\n2f298 LetObj\n  2f299 LocalVariable CallFunc_Close_ReturnValue\n  2f2aa Context skip=12 rvalue=CallFunc_Close_ReturnValue\n    2f2ab LocalVariable CallFunc_GetManagerInstance_ReturnValue_1\n    2f2d0 FinalFunction import:-681:Close\n      2f2d5 ByteConst 101\n2f2d8 LetBool\n  2f2d9 InstanceVariable IsMainSeqStop\n  2f2ea True\n2f2eb LetObj\n  2f2ec LocalVariable CallFunc_GetManagerInstance_ReturnValue_2\n  2f2fd CallMath import:-355:GetManagerInstance\n    2f302 ObjectConst import:-158:SoundManager\n2f308 Context skip=10 rvalue=<null-field>\n  2f309 LocalVariable CallFunc_GetManagerInstance_ReturnValue_2\n  2f326 FinalFunction import:-782:StopAllSe\n2f32c LetBool\n  2f32d LocalOutVariable ReturnValue\n  2f33e True\n2f33f Jump target=1023\n2f344 LetBool\n  2f345 LocalOutVariable ReturnValue\n  2f356 True\n2f357 Return\n  2f358 LocalOutVariable ReturnValue\n2f369 EndOfScript",
+        "UpdateBattleStart": "2f775 PushExecutionFlow target=914\n2f77a LetBool\n  2f77b LocalVariable CallFunc_UpdateBattleStart_ReturnValue\n  2f78c FinalFunction import:-570:UpdateBattleStart\n    2f791 LocalVariable DeltaTime\n2f7a3 Context skip=24 rvalue=<null-field>\n  2f7a4 ObjectConst import:-838:Default__LibAccessor_C\n  2f7b5 LocalVirtualFunction GetKSGameMode\n    2f7be Self\n    2f7bf LocalVariable CallFunc_GetKSGameMode_KSGameMode\n2f7d1 FinalFunction import:-590:UpdateResetBattleWipeMPC_PlayingEvent\n  2f7d6 Context skip=9 rvalue=IsEncountWipe\n    2f7d7 LocalVariable CallFunc_GetKSGameMode_KSGameMode\n    2f7fc InstanceVariable IsEncountWipe\n2f80e PushExecutionFlow target=279\n2f813 PopExecutionFlowIfNot\n  2f814 InstanceVariable IsMainSeqStop\n2f825 LetBool\n  2f826 LocalVariable CallFunc_GetFinishEncountWipe_ReturnValue\n  2f837 LocalVirtualFunction GetFinishEncountWipe\n2f841 PopExecutionFlowIfNot\n  2f842 LocalVariable CallFunc_GetFinishEncountWipe_ReturnValue\n2f853 LetObj\n  2f854 LocalVariable CallFunc_GetManagerInstance_ReturnValue\n  2f865 CallMath import:-355:GetManagerInstance\n    2f86a ObjectConst import:-168:TimeZoneManager\n2f870 Context skip=11 rvalue=<null-field>\n  2f871 LocalVariable CallFunc_GetManagerInstance_ReturnValue\n  2f88e FinalFunction import:-812:SetEnable\n    2f893 True\n2f895 FinalFunction import:-435:SetAllCharacterEnable\n  2f89a False\n2f89c LetBool\n  2f89d LocalVariable CallFunc_StartSequencerStop_ReturnValue\n  2f8ae LocalVirtualFunction StartSequencerStop\n2f8b8 LetBool\n  2f8b9 InstanceVariable IsMainSeqStop\n  2f8ca False\n2f8cb PopExecutionFlow\n2f8cc LetBool\n  2f8cd LocalVariable CallFunc_IsTheaterMode_ReturnValue\n  2f8de FinalFunction import:-417:IsTheaterMode\n2f8e4 LetBool\n  2f8e5 LocalVariable CallFunc_Not_PreBool_ReturnValue\n  2f8f6 CallMath import:-303:Not_PreBool\n    2f8fb LocalVariable CallFunc_IsTheaterMode_ReturnValue\n2f90d JumpIfNot target=668\n  2f912 LocalVariable CallFunc_Not_PreBool_ReturnValue\n2f923 LetBool\n  2f924 LocalVariable CallFunc_GetBattleMode_ReturnValue\n  2f935 CallMath import:-657:GetBattleMode\n    2f93a Self\n2f93c LetBool\n  2f93d LocalVariable CallFunc_Not_PreBool_ReturnValue_1\n  2f94e CallMath import:-303:Not_PreBool\n    2f953 LocalVariable CallFunc_GetBattleMode_ReturnValue\n2f965 JumpIfNot target=713\n  2f96a LocalVariable CallFunc_Not_PreBool_ReturnValue_1\n2f97b Let property=CallFunc_GetLastBattleResult_ReturnValue\n  2f98c LocalVariable CallFunc_GetLastBattleResult_ReturnValue\n  2f99d CallMath import:-660:GetLastBattleResult\n2f9a3 LetBool\n  2f9a4 LocalVariable CallFunc_EqualEqual_ByteByte_ReturnValue\n  2f9b5 CallMath import:-286:EqualEqual_ByteByte\n    2f9ba LocalVariable CallFunc_GetLastBattleResult_ReturnValue\n    2f9cb ByteConst 1\n2f9ce JumpIfNot target=729\n  2f9d3 LocalVariable CallFunc_EqualEqual_ByteByte_ReturnValue\n2f9e4 LetBool\n  2f9e5 LocalVariable CallFunc_EqualEqual_StrStr_ReturnValue\n  2f9f6 CallMath import:-329:EqualEqual_StrStr\n    2f9fb InstanceVariable BattleEndNextEventName\n    2fa0c StringConst \"---\"\n2fa12 JumpIfNot target=882\n  2fa17 LocalVariable CallFunc_EqualEqual_StrStr_ReturnValue\n2fa28 Let property=NextEventName\n  2fa39 InstanceVariable NextEventName\n  2fa4a StringConst \"\"\n2fa4c FinalFunction import:-435:SetAllCharacterEnable\n  2fa51 True\n2fa53 LetBool\n  2fa54 InstanceVariable BeforEventBattle\n  2fa65 True\n2fa66 CallMath import:-654:AddSequenceRequestForHolding\n  2fa6b ByteConst 8\n  2fa6d StructConst import:-969:MainSequneceRequestParam size=64\n    2fa76 InstanceDelegate (null).None\n    2fa7f StructConst import:-968:MainSequenceStateParam size=16\n      2fa88 NoObject\n      2fa89 IntConst 0\n    2fa8f False\n    2fa90 ByteConst 0\n2fa94 LetBool\n  2fa95 LocalVariable CallFunc_TempEventSkip_ReturnValue\n  2faa6 FinalFunction import:-562:TempEventSkip\n    2faab True\n2faad LetBool\n  2faae LocalOutVariable ReturnValue\n  2fabf True\n2fac0 Jump target=914\n2fac5 LetBool\n  2fac6 LocalVariable CallFunc_IsFadeEnd_ReturnValue\n  2fad7 CallMath import:-662:IsFadeEnd\n    2fadc Self\n2fade LetBool\n  2fadf LocalOutVariable ReturnValue\n  2faf0 LocalVariable CallFunc_IsFadeEnd_ReturnValue\n2fb01 Jump target=914\n2fb06 LetBool\n  2fb07 LocalOutVariable ReturnValue\n  2fb18 False\n2fb19 Jump target=914\n2fb1e LetBool\n  2fb1f LocalVariable CallFunc_IsEventBattleDefeatNextEvent_ReturnValue\n  2fb30 FinalFunction import:-414:IsEventBattleDefeatNextEvent\n2fb36 JumpIfNot target=857\n  2fb3b LocalVariable CallFunc_IsEventBattleDefeatNextEvent_ReturnValue\n2fb4c Let property=NextEventName\n  2fb5d InstanceVariable NextEventName\n  2fb6e InstanceVariable BattleEndDefeatNextEventName\n2fb7f LetObj\n  2fb80 LocalVariable CallFunc_FadeOut_ReturnValue\n  2fb91 CallMath import:-656:FadeOut\n    2fb96 Self\n    2fb97 FloatConst 0\n    2fb9c StructConst import:-933:LinearColor size=16\n      2fba5 FloatConst 0\n      2fbaa FloatConst 0\n      2fbaf FloatConst 0\n      2fbb4 FloatConst 1\n    2fbba ByteConst 3\n2fbbd Jump target=547\n2fbc2 Let property=NextEventName\n  2fbd3 InstanceVariable NextEventName\n  2fbe4 StringConst \"\"\n2fbe6 Jump target=569\n2fbeb Let property=NextEventName\n  2fbfc InstanceVariable NextEventName\n  2fc0d InstanceVariable BattleEndNextEventName\n2fc1e Jump target=790\n2fc23 Return\n  2fc24 LocalOutVariable ReturnValue\n2fc35 EndOfScript"
+      },
+      "defaults": [
+        {
+          "UberGraphFrame": {},
+          "InitCameraPos": {
+            "kind": "native-struct",
+            "type": "Vector",
+            "components": [
+              {
+                "kind": "float32",
+                "bits": 0,
+                "value": 0
+              },
+              {
+                "kind": "float32",
+                "bits": 0,
+                "value": 0
+              },
+              {
+                "kind": "float32",
+                "bits": 0,
+                "value": 0
+              }
+            ]
+          },
+          "BalloonParam": {
+            "Text": {
+              "Type": "EBalloonType::NORMAL",
+              "Reset": [],
+              "Height": [],
+              "Width": [],
+              "Names": [],
+              "Text": []
+            },
+            "VoiceLabel": [],
+            "TargetActor": {
+              "kind": "object",
+              "index": 0,
+              "path": null
+            },
+            "Offset": {
+              "kind": "native-struct",
+              "type": "Vector2D",
+              "components": [
+                {
+                  "kind": "float32",
+                  "bits": 0,
+                  "value": 0
+                },
+                {
+                  "kind": "float32",
+                  "bits": 0,
+                  "value": 0
+                }
+              ]
+            },
+            "EnableTail": false,
+            "UnderOffset": {
+              "kind": "native-struct",
+              "type": "Vector2D",
+              "components": [
+                {
+                  "kind": "float32",
+                  "bits": 0,
+                  "value": 0
+                },
+                {
+                  "kind": "float32",
+                  "bits": 0,
+                  "value": 0
+                }
+              ]
+            },
+            "BalloonDir": "EEventBalloonDir::DEFAULT",
+            "BalloonOffsetScale": 0,
+            "TextPosition": "EBALLOON_TEXT_POS::eTOP",
+            "EnableCustomFadeTime": false,
+            "FadeOutTime": 0
+          },
+          "IsSetUpEventData": true,
+          "TargetInventionData": {
+            "ID": 0,
+            "InventionItemlabel": "None",
+            "LearnAbilitylabel": "None",
+            "Materials": []
+          },
+          "CharacterList": [
+            "EPlayableCharacterID::eFENCER",
+            "EPlayableCharacterID::eHUNTER",
+            "EPlayableCharacterID::eALCHEMIST",
+            "EPlayableCharacterID::eMERCHANT",
+            "EPlayableCharacterID::ePRIEST",
+            "EPlayableCharacterID::ePROFESSOR",
+            "EPlayableCharacterID::eTHIEF",
+            "EPlayableCharacterID::eDANCER"
+          ],
+          "RestoreEncountTrigger": {
+            "ID": 0,
+            "StartFlag": 0,
+            "StartFlag_2": 0,
+            "StartFlag_3": 0,
+            "EndFlag": 0,
+            "EndFlag_2": 0,
+            "EndFlag_3": 0,
+            "DayTimeDecreaseValue": 0,
+            "DayTimeEncountVolumeName": "None",
+            "NightDecreaseValue": 0,
+            "NightEncountVolumeName": "None",
+            "LostWayDecreaseValue": 0,
+            "LostWayEncountVolumeName": "None",
+            "DarkAreaDecreaseValue": 0,
+            "DarkAreaEncountVolumeName": "None"
+          },
+          "ZenithColor": {
+            "kind": "native-struct",
+            "type": "LinearColor",
+            "components": [
+              {
+                "kind": "float32",
+                "bits": 0,
+                "value": 0
+              },
+              {
+                "kind": "float32",
+                "bits": 0,
+                "value": 0
+              },
+              {
+                "kind": "float32",
+                "bits": 0,
+                "value": 0
+              },
+              {
+                "kind": "float32",
+                "bits": 1065353216,
+                "value": 1
+              }
+            ]
+          },
+          "CloudColor": {
+            "kind": "native-struct",
+            "type": "LinearColor",
+            "components": [
+              {
+                "kind": "float32",
+                "bits": 0,
+                "value": 0
+              },
+              {
+                "kind": "float32",
+                "bits": 0,
+                "value": 0
+              },
+              {
+                "kind": "float32",
+                "bits": 0,
+                "value": 0
+              },
+              {
+                "kind": "float32",
+                "bits": 1065353216,
+                "value": 1
+              }
+            ]
+          },
+          "BackupPlayerPlacement_PChat": {
+            "MoveMode": "EKSCharacterMoveMode::WALK",
+            "LadderUpEndPos": {
+              "kind": "native-struct",
+              "type": "Vector",
+              "components": [
+                {
+                  "kind": "float32",
+                  "bits": 0,
+                  "value": 0
+                },
+                {
+                  "kind": "float32",
+                  "bits": 0,
+                  "value": 0
+                },
+                {
+                  "kind": "float32",
+                  "bits": 0,
+                  "value": 0
+                }
+              ]
+            },
+            "LadderDownEndPos": {
+              "kind": "native-struct",
+              "type": "Vector",
+              "components": [
+                {
+                  "kind": "float32",
+                  "bits": 0,
+                  "value": 0
+                },
+                {
+                  "kind": "float32",
+                  "bits": 0,
+                  "value": 0
+                },
+                {
+                  "kind": "float32",
+                  "bits": 0,
+                  "value": 0
+                }
+              ]
+            },
+            "MoveLadderPosition": {
+              "kind": "native-struct",
+              "type": "Vector",
+              "components": [
+                {
+                  "kind": "float32",
+                  "bits": 0,
+                  "value": 0
+                },
+                {
+                  "kind": "float32",
+                  "bits": 0,
+                  "value": 0
+                },
+                {
+                  "kind": "float32",
+                  "bits": 0,
+                  "value": 0
+                }
+              ]
+            },
+            "PlayerLocation": {
+              "kind": "native-struct",
+              "type": "Vector",
+              "components": [
+                {
+                  "kind": "float32",
+                  "bits": 0,
+                  "value": 0
+                },
+                {
+                  "kind": "float32",
+                  "bits": 0,
+                  "value": 0
+                },
+                {
+                  "kind": "float32",
+                  "bits": 0,
+                  "value": 0
+                }
+              ]
+            },
+            "EncountTriggerId": 0,
+            "EquipLantern": {
+              "EquipLanternDayTime": [],
+              "EquipLanternNight": []
+            },
+            "EnableSwitchIndoorTrigger": []
+          },
+          "BackupPlayerPlacement_Theater": {
+            "MoveMode": "EKSCharacterMoveMode::WALK",
+            "LadderUpEndPos": {
+              "kind": "native-struct",
+              "type": "Vector",
+              "components": [
+                {
+                  "kind": "float32",
+                  "bits": 0,
+                  "value": 0
+                },
+                {
+                  "kind": "float32",
+                  "bits": 0,
+                  "value": 0
+                },
+                {
+                  "kind": "float32",
+                  "bits": 0,
+                  "value": 0
+                }
+              ]
+            },
+            "LadderDownEndPos": {
+              "kind": "native-struct",
+              "type": "Vector",
+              "components": [
+                {
+                  "kind": "float32",
+                  "bits": 0,
+                  "value": 0
+                },
+                {
+                  "kind": "float32",
+                  "bits": 0,
+                  "value": 0
+                },
+                {
+                  "kind": "float32",
+                  "bits": 0,
+                  "value": 0
+                }
+              ]
+            },
+            "MoveLadderPosition": {
+              "kind": "native-struct",
+              "type": "Vector",
+              "components": [
+                {
+                  "kind": "float32",
+                  "bits": 0,
+                  "value": 0
+                },
+                {
+                  "kind": "float32",
+                  "bits": 0,
+                  "value": 0
+                },
+                {
+                  "kind": "float32",
+                  "bits": 0,
+                  "value": 0
+                }
+              ]
+            },
+            "PlayerLocation": {
+              "kind": "native-struct",
+              "type": "Vector",
+              "components": [
+                {
+                  "kind": "float32",
+                  "bits": 0,
+                  "value": 0
+                },
+                {
+                  "kind": "float32",
+                  "bits": 0,
+                  "value": 0
+                },
+                {
+                  "kind": "float32",
+                  "bits": 0,
+                  "value": 0
+                }
+              ]
+            },
+            "EncountTriggerId": 0,
+            "EquipLantern": {
+              "EquipLanternDayTime": [],
+              "EquipLanternNight": []
+            },
+            "EnableSwitchIndoorTrigger": []
+          },
+          "m_pMPC": {
+            "kind": "object",
+            "index": -851,
+            "path": "/Game/Environment/Resource/Sky/Material/MPC/MPC_MJEnvTimeZone.MPC_MJEnvTimeZone"
+          },
+          "EventListDb": {
+            "kind": "object",
+            "index": -185,
+            "path": "/Game/Event/Database/EventList.EventList"
+          },
+          "PostProcessMaterial": [
+            {
+              "kind": "object",
+              "index": -849,
+              "path": "/Game/Event/Resource/Mono.Mono"
+            },
+            {
+              "kind": "object",
+              "index": -850,
+              "path": "/Game/UserInterface/Event/Material/DeepThinkingPostMaterial.DeepThinkingPostMaterial"
+            }
+          ],
+          "SepiaLUT": {
+            "kind": "object",
+            "index": -1002,
+            "path": "/Game/Event/Resource/LUT/LUT_CandleLight.LUT_CandleLight"
+          },
+          "GRAY_SCALE": {
+            "kind": "native-struct",
+            "type": "Vector",
+            "components": [
+              {
+                "kind": "float32",
+                "bits": 1063675494,
+                "value": 0.8999999761581421
+              },
+              {
+                "kind": "float32",
+                "bits": 1058474557,
+                "value": 0.5899999737739563
+              },
+              {
+                "kind": "float32",
+                "bits": 1038174126,
+                "value": 0.10999999940395355
+              }
+            ]
+          },
+          "GRAY_ALPHA": {
+            "kind": "native-struct",
+            "type": "Vector",
+            "components": [
+              {
+                "kind": "float32",
+                "bits": 1056964608,
+                "value": 0.5
+              },
+              {
+                "kind": "float32",
+                "bits": 1056964608,
+                "value": 0.5
+              },
+              {
+                "kind": "float32",
+                "bits": 1056964608,
+                "value": 0.5
+              }
+            ]
+          },
+          "PrimaryActorTick": {
+            "bTickEvenWhenPaused": true,
+            "bCanEverTick": true
+          },
+          "bCanBeDamaged": false,
+          "bFindCameraComponentWhenViewTarget": false,
+          "bEnableAutoLODGeneration": false
+        }
+      ]
+    }
+  ],
+  "native": {
+    "handoff": "void FUN_140eb2700(void)\r\n\r\n{\r\n  longlong lVar1;\r\n  \r\n  lVar1 = DAT_144f94d80;\r\n  if (DAT_144f94d80 != 0) {\r\n    *(undefined4 *)(DAT_144f94d80 + 0x6c8) = 600;\r\n    FUN_140ff8e30(lVar1);\r\n    if (*(char *)(lVar1 + 0x59e) != '\\0') {\r\n      *(undefined1 *)(lVar1 + 0x69d) = 1;\r\n    }\r\n    *(undefined1 *)(lVar1 + 0x69e) = 1;\r\n  }\r\n  return;\r\n}",
+    "skipGuard": "if (*(char *)(param_1 + 0x69e) != '\\0') {\r\n    *(undefined1 *)(param_1 + 0x6c4) = 0;\r\n    *(undefined4 *)(param_1 + 0x6b4) = 0;\r\n    *(undefined1 *)(param_1 + 0x6b3) = 0;\r\n    *(undefined1 *)(param_1 + 0x6bc) = 0;\r\n    return 0;\r\n  }\r\n  ",
+    "parent": "undefined8 FUN_140e965b0(longlong param_1,longlong param_2)\r\n\r\n{\r\n  undefined8 uVar1;\r\n  undefined4 local_18;\r\n  undefined4 uStack_14;\r\n  undefined4 uStack_10;\r\n  undefined4 uStack_c;\r\n  \r\n  if (*(char *)(param_1 + 0x574) == '\\x01') {\r\n    local_18 = 0;\r\n    uStack_14 = 0;\r\n    uStack_10 = 0;\r\n    uStack_c = 0x3f800000;\r\n    FUN_140ee7540(0,0x3dcccccd,&local_18,3);\r\n    return 0;\r\n  }\r\n  *(undefined4 *)(param_1 + 0x318) = *(undefined4 *)(param_2 + 0xc);\r\n  FUN_1408209f0(param_1 + 800,*(longlong *)(param_2 + 0x38) + 0x10);\r\n  if (5 < *(int *)(param_2 + 0x40)) {\r\n    FUN_1408209f0(param_1 + 0x330,*(longlong *)(param_2 + 0x38) + 0x50);\r\n  }\r\n  *(undefined4 *)(param_1 + 0x428) = *(undefined4 *)(param_1 + 0x3d0);\r\n  *(undefined4 *)(param_1 + 0x3d0) = 0;\r\n  *(undefined4 *)(param_1 + 0x6b4) = 0;\r\n  *(undefined1 *)(param_1 + 0x6b3) = 0;\r\n  *(undefined1 *)(param_1 + 0x6bc) = 0;\r\n  uVar1 = DAT_144f95e10;\r\n  FUN_140f76d20(DAT_144f94d88,0x65);\r\n  FUN_140f49d30(uVar1,param_1);\r\n  *(undefined2 *)(param_1 + 0x82a) = 0;\r\n  return 1;\r\n}"
+  },
+  "sources": [
+    {
+      "source": "/Game/Event/Database/EventList",
+      "sha256": "acbbb094b2b071271fde8e4adf26b0df3661594556b3835b96e93a97300089a3"
+    },
+    {
+      "source": "/Game/Event/json/MS_TOU_10_1800",
+      "sha256": "069ca8be13dac01186494abf207c7156a5076789f0ae325105cba012136a4345"
+    },
+    {
+      "source": "/Game/Event/RichEvent/01_Main/70_TOU/ep1/RI_MS_TOU_10_1500",
+      "sha256": "00f53c564fe34faece9e05b5d4a8f2ff28c0d023da9d82a7c2ffbcf5624d4e84"
+    }
+  ]
+}

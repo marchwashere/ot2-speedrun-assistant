@@ -1,0 +1,14 @@
+{
+  "npc": "NPC_Twn_Snw_1_2_A_TALK_1100",
+  "night_placement": "NPC_Twn_Snw_1_2_A_TALK_1100_N000",
+  "enemy_group": "ENG_NPC_Twn_Snw_1_2_A_1100",
+  "before_events": [
+    "FC_GAK_ROB_Before_1",
+    "FC_GAK_ROB_Before_2"
+  ],
+  "before_weights": [
+    0.5,
+    0.5
+  ],
+  "success_event": "FC_GAK_ROB_Success"
+}

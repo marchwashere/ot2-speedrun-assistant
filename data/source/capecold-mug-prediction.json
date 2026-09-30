@@ -1,0 +1,1312 @@
+{
+  "before": {
+    "state": 2739346306,
+    "draws": 6154
+  },
+  "after_night": {
+    "state": 1050168869,
+    "draws": 6163
+  },
+  "before_battle": {
+    "state": 2326615495,
+    "draws": 6165
+  },
+  "mug": {
+    "before": {
+      "state": 2326615495,
+      "draws": 6165
+    },
+    "after": {
+      "state": 771479355,
+      "draws": 6297
+    },
+    "menus": [
+      {
+        "round": 1,
+        "rng": {
+          "state": 1008098224,
+          "draws": 6192
+        }
+      },
+      {
+        "round": 2,
+        "rng": {
+          "state": 254449602,
+          "draws": 6218
+        }
+      },
+      {
+        "round": 3,
+        "rng": {
+          "state": 712892819,
+          "draws": 6289
+        }
+      }
+    ],
+    "steps": [
+      {
+        "actor": 0,
+        "events": [
+          {
+            "kind": "action",
+            "actor": 0,
+            "name": "ABI_SET_SCH_020"
+          },
+          {
+            "kind": "resource_changed",
+            "actor": 0,
+            "resource": "sp",
+            "before": 60,
+            "after": 46
+          },
+          {
+            "kind": "damage",
+            "actor": 0,
+            "target": 1,
+            "amount": 53,
+            "critical": false,
+            "weak": true,
+            "broken_before": false
+          },
+          {
+            "kind": "shield_changed",
+            "actor": 1,
+            "before": 1,
+            "after": 0
+          },
+          {
+            "kind": "broken",
+            "actor": 1,
+            "recover_round": 3
+          },
+          {
+            "kind": "resource_changed",
+            "actor": 1,
+            "resource": "hp",
+            "before": 280,
+            "after": 227
+          },
+          {
+            "kind": "round_started",
+            "round": 2
+          }
+        ],
+        "rng_before": {
+          "state": 1008098224,
+          "draws": 6192
+        },
+        "rng_after": {
+          "state": 254449602,
+          "draws": 6218
+        },
+        "outcome": "ongoing"
+      },
+      {
+        "actor": 0,
+        "events": [
+          {
+            "kind": "action",
+            "actor": 0,
+            "name": "ABI_SET_SCH_010"
+          },
+          {
+            "kind": "resource_changed",
+            "actor": 0,
+            "resource": "bp",
+            "before": 2,
+            "after": 0
+          },
+          {
+            "kind": "resource_changed",
+            "actor": 0,
+            "resource": "sp",
+            "before": 46,
+            "after": 32
+          },
+          {
+            "kind": "damage",
+            "actor": 0,
+            "target": 1,
+            "amount": 226,
+            "critical": false,
+            "weak": false,
+            "broken_before": true
+          },
+          {
+            "kind": "resource_changed",
+            "actor": 1,
+            "resource": "hp",
+            "before": 227,
+            "after": 1
+          },
+          {
+            "kind": "break_recovered",
+            "actor": 1,
+            "shields": 1
+          },
+          {
+            "kind": "round_started",
+            "round": 3
+          }
+        ],
+        "rng_before": {
+          "state": 254449602,
+          "draws": 6218
+        },
+        "rng_after": {
+          "state": 3976138388,
+          "draws": 6228
+        },
+        "outcome": "ongoing"
+      },
+      {
+        "actor": 1,
+        "events": [
+          {
+            "kind": "action",
+            "actor": 1,
+            "name": "ABI_NPB_2570"
+          },
+          {
+            "kind": "status_applied",
+            "actor": 1,
+            "status": {
+              "kind": "defense_up",
+              "turns": 2
+            }
+          },
+          {
+            "kind": "status_applied",
+            "actor": 1,
+            "status": {
+              "kind": "magic_defense_up",
+              "turns": 2
+            }
+          }
+        ],
+        "rng_before": {
+          "state": 3976138388,
+          "draws": 6228
+        },
+        "rng_after": {
+          "state": 712892819,
+          "draws": 6289
+        },
+        "outcome": "ongoing"
+      },
+      {
+        "actor": 0,
+        "events": [
+          {
+            "kind": "action",
+            "actor": 0,
+            "name": "attack_staff"
+          },
+          {
+            "kind": "damage",
+            "actor": 0,
+            "target": 1,
+            "amount": 11,
+            "critical": false,
+            "weak": true,
+            "broken_before": false
+          },
+          {
+            "kind": "shield_changed",
+            "actor": 1,
+            "before": 1,
+            "after": 0
+          },
+          {
+            "kind": "broken",
+            "actor": 1,
+            "recover_round": 5
+          },
+          {
+            "kind": "resource_changed",
+            "actor": 1,
+            "resource": "hp",
+            "before": 1,
+            "after": 0
+          },
+          {
+            "kind": "knocked_out",
+            "actor": 1
+          },
+          {
+            "kind": "battle_ended",
+            "outcome": "victory"
+          }
+        ],
+        "rng_before": {
+          "state": 712892819,
+          "draws": 6289
+        },
+        "rng_after": {
+          "state": 771479355,
+          "draws": 6297
+        },
+        "outcome": "victory"
+      }
+    ],
+    "trace": [
+      {
+        "reason": "actor_initialization",
+        "actor": 0,
+        "before": {
+          "state": 2326615495,
+          "draws": 6165
+        },
+        "after": {
+          "state": 1815902574,
+          "draws": 6166
+        }
+      },
+      {
+        "reason": "actor_initialization",
+        "actor": 1,
+        "before": {
+          "state": 1815902574,
+          "draws": 6166
+        },
+        "after": {
+          "state": 2749662040,
+          "draws": 6168
+        }
+      },
+      {
+        "reason": "current_order_shuffle",
+        "actor": null,
+        "before": {
+          "state": 2749662040,
+          "draws": 6168
+        },
+        "after": {
+          "state": 1365537979,
+          "draws": 6169
+        }
+      },
+      {
+        "reason": "battle_start_speaker",
+        "actor": 0,
+        "before": {
+          "state": 1365537979,
+          "draws": 6169
+        },
+        "after": {
+          "state": 422309010,
+          "draws": 6170
+        }
+      },
+      {
+        "reason": "battle_start_voice",
+        "actor": 0,
+        "before": {
+          "state": 422309010,
+          "draws": 6170
+        },
+        "after": {
+          "state": 623878413,
+          "draws": 6171
+        }
+      },
+      {
+        "reason": "study_foe_weakness",
+        "actor": 1,
+        "before": {
+          "state": 623878413,
+          "draws": 6171
+        },
+        "after": {
+          "state": 445001628,
+          "draws": 6172
+        }
+      },
+      {
+        "reason": "next_order_shuffle",
+        "actor": null,
+        "before": {
+          "state": 445001628,
+          "draws": 6172
+        },
+        "after": {
+          "state": 3826089967,
+          "draws": 6173
+        }
+      },
+      {
+        "reason": "order_voice",
+        "actor": 0,
+        "before": {
+          "state": 3826089967,
+          "draws": 6173
+        },
+        "after": {
+          "state": 1008098224,
+          "draws": 6192
+        }
+      },
+      {
+        "reason": "ability_voice",
+        "actor": 0,
+        "before": {
+          "state": 1008098224,
+          "draws": 6192
+        },
+        "after": {
+          "state": 1330531251,
+          "draws": 6193
+        }
+      },
+      {
+        "reason": "critical_hit_and_damage",
+        "actor": 0,
+        "before": {
+          "state": 1330531251,
+          "draws": 6193
+        },
+        "after": {
+          "state": 3245361066,
+          "draws": 6194
+        }
+      },
+      {
+        "reason": "damage_notification_timer",
+        "actor": 1,
+        "before": {
+          "state": 3245361066,
+          "draws": 6194
+        },
+        "after": {
+          "state": 1708978117,
+          "draws": 6195
+        }
+      },
+      {
+        "reason": "break_slow_timer",
+        "actor": 1,
+        "before": {
+          "state": 1708978117,
+          "draws": 6195
+        },
+        "after": {
+          "state": 1301226356,
+          "draws": 6196
+        }
+      },
+      {
+        "reason": "round_timing_revision",
+        "actor": null,
+        "before": {
+          "state": 1301226356,
+          "draws": 6196
+        },
+        "after": {
+          "state": 2026302862,
+          "draws": 6198
+        }
+      },
+      {
+        "reason": "round_bp_timer",
+        "actor": null,
+        "before": {
+          "state": 2026302862,
+          "draws": 6198
+        },
+        "after": {
+          "state": 898993689,
+          "draws": 6199
+        }
+      },
+      {
+        "reason": "next_order_shuffle",
+        "actor": null,
+        "before": {
+          "state": 898993689,
+          "draws": 6199
+        },
+        "after": {
+          "state": 898993689,
+          "draws": 6199
+        }
+      },
+      {
+        "reason": "order_voice",
+        "actor": 0,
+        "before": {
+          "state": 898993689,
+          "draws": 6199
+        },
+        "after": {
+          "state": 254449602,
+          "draws": 6218
+        }
+      },
+      {
+        "reason": "boost_voice",
+        "actor": 0,
+        "before": {
+          "state": 254449602,
+          "draws": 6218
+        },
+        "after": {
+          "state": 3929825149,
+          "draws": 6219
+        }
+      },
+      {
+        "reason": "boost_voice",
+        "actor": 0,
+        "before": {
+          "state": 3929825149,
+          "draws": 6219
+        },
+        "after": {
+          "state": 1696444895,
+          "draws": 6221
+        }
+      },
+      {
+        "reason": "ability_voice",
+        "actor": 0,
+        "before": {
+          "state": 1696444895,
+          "draws": 6221
+        },
+        "after": {
+          "state": 3383346470,
+          "draws": 6222
+        }
+      },
+      {
+        "reason": "critical_hit_and_damage",
+        "actor": 0,
+        "before": {
+          "state": 3383346470,
+          "draws": 6222
+        },
+        "after": {
+          "state": 184117073,
+          "draws": 6223
+        }
+      },
+      {
+        "reason": "damage_notification_timer",
+        "actor": 1,
+        "before": {
+          "state": 184117073,
+          "draws": 6223
+        },
+        "after": {
+          "state": 1419701456,
+          "draws": 6224
+        }
+      },
+      {
+        "reason": "round_timing_revision",
+        "actor": null,
+        "before": {
+          "state": 1419701456,
+          "draws": 6224
+        },
+        "after": {
+          "state": 347234762,
+          "draws": 6226
+        }
+      },
+      {
+        "reason": "round_bp_timer",
+        "actor": null,
+        "before": {
+          "state": 347234762,
+          "draws": 6226
+        },
+        "after": {
+          "state": 1231495525,
+          "draws": 6227
+        }
+      },
+      {
+        "reason": "next_order_shuffle",
+        "actor": null,
+        "before": {
+          "state": 1231495525,
+          "draws": 6227
+        },
+        "after": {
+          "state": 3976138388,
+          "draws": 6228
+        }
+      },
+      {
+        "reason": "enemy_ai_and_target",
+        "actor": 1,
+        "before": {
+          "state": 3976138388,
+          "draws": 6228
+        },
+        "after": {
+          "state": 3976138388,
+          "draws": 6228
+        }
+      },
+      {
+        "reason": "npc_status_application",
+        "actor": 1,
+        "before": {
+          "state": 3976138388,
+          "draws": 6228
+        },
+        "after": {
+          "state": 2857129035,
+          "draws": 6249
+        }
+      },
+      {
+        "reason": "npc_status_application",
+        "actor": 1,
+        "before": {
+          "state": 2857129035,
+          "draws": 6249
+        },
+        "after": {
+          "state": 496796502,
+          "draws": 6270
+        }
+      },
+      {
+        "reason": "order_voice",
+        "actor": 0,
+        "before": {
+          "state": 496796502,
+          "draws": 6270
+        },
+        "after": {
+          "state": 712892819,
+          "draws": 6289
+        }
+      },
+      {
+        "reason": "normal_accuracy",
+        "actor": 0,
+        "before": {
+          "state": 712892819,
+          "draws": 6289
+        },
+        "after": {
+          "state": 2505115146,
+          "draws": 6290
+        }
+      },
+      {
+        "reason": "attack_voice",
+        "actor": 0,
+        "before": {
+          "state": 2505115146,
+          "draws": 6290
+        },
+        "after": {
+          "state": 3622581413,
+          "draws": 6291
+        }
+      },
+      {
+        "reason": "critical_hit_and_damage",
+        "actor": 0,
+        "before": {
+          "state": 3622581413,
+          "draws": 6291
+        },
+        "after": {
+          "state": 3561805012,
+          "draws": 6292
+        }
+      },
+      {
+        "reason": "damage_notification_timer",
+        "actor": 1,
+        "before": {
+          "state": 3561805012,
+          "draws": 6292
+        },
+        "after": {
+          "state": 1782870087,
+          "draws": 6293
+        }
+      },
+      {
+        "reason": "kill_voice",
+        "actor": 0,
+        "before": {
+          "state": 1782870087,
+          "draws": 6293
+        },
+        "after": {
+          "state": 1073818094,
+          "draws": 6294
+        }
+      },
+      {
+        "reason": "break_slow_timer",
+        "actor": 1,
+        "before": {
+          "state": 1073818094,
+          "draws": 6294
+        },
+        "after": {
+          "state": 219175161,
+          "draws": 6295
+        }
+      },
+      {
+        "reason": "victory_voice",
+        "actor": 0,
+        "before": {
+          "state": 219175161,
+          "draws": 6295
+        },
+        "after": {
+          "state": 998422488,
+          "draws": 6296
+        }
+      },
+      {
+        "reason": "enemy_drop",
+        "actor": 1,
+        "before": {
+          "state": 998422488,
+          "draws": 6296
+        },
+        "after": {
+          "state": 771479355,
+          "draws": 6297
+        }
+      }
+    ],
+    "survived_round_two": true,
+    "outcome": "victory"
+  },
+  "after": {
+    "state": 3699775373,
+    "draws": 6299
+  },
+  "world_after": {
+    "map": "Twn_Snw_1_2_A",
+    "visited_maps": [
+      "Fld_Cty_1_1",
+      "Fld_Cty_1_2",
+      "Fld_Snw_1_2",
+      "Twn_Cty_1_2_A",
+      "Twn_Snw_1_2_A"
+    ],
+    "time": 4,
+    "flags": [
+      35,
+      36,
+      415,
+      570,
+      1000,
+      1001,
+      1006,
+      1015,
+      1023,
+      1024,
+      1029,
+      1030,
+      1034,
+      1046,
+      1060,
+      1064,
+      1070,
+      1300,
+      1301,
+      1306,
+      1315,
+      1323,
+      1324,
+      1329,
+      1330,
+      1334,
+      1346,
+      1360,
+      1364,
+      1370,
+      2105,
+      2206,
+      2208,
+      4009,
+      7020,
+      7060,
+      7062,
+      8000,
+      8001,
+      8002,
+      8003,
+      8004,
+      8005,
+      8006,
+      8007,
+      8008,
+      8009,
+      8010,
+      8011,
+      8012,
+      8013,
+      8014,
+      8015,
+      8016,
+      8017,
+      8018,
+      8019,
+      9000,
+      20505,
+      20509,
+      25501,
+      25563,
+      34041,
+      34067,
+      34076,
+      34077,
+      34092,
+      34151,
+      37510,
+      37517,
+      37519
+    ],
+    "event_variables": {
+      "1": 1
+    },
+    "party": [
+      7,
+      6
+    ],
+    "bench": [],
+    "story_types": [],
+    "active_scenarios": [],
+    "prologues": [],
+    "resident_levels": [
+      "Btl_SinExpose",
+      "Btl_Twn_Snw_D",
+      "Twn_Snw_1_2_A",
+      "Twn_Snw_1_2_A_Art",
+      "Twn_Snw_1_2_A_Coll",
+      "Twn_Snw_1_2_A_Sound"
+    ],
+    "shared_levels": [
+      "Btl_SinExpose"
+    ],
+    "existing_npcs": [
+      "NPC_SS_TSnow12_0200_0100",
+      "NPC_SYS_BARTENDER_Twn_Snw_1_2_A_0000",
+      "NPC_SYS_SAVE_Twn_Snw_1_2_A_0000",
+      "NPC_Twn_Snw_1_2_A_SHOP03",
+      "NPC_Twn_Snw_1_2_A_SHOP04",
+      "NPC_Twn_Snw_1_2_A_TALK_0100_D000",
+      "NPC_Twn_Snw_1_2_A_TALK_0300_N000",
+      "NPC_Twn_Snw_1_2_A_TALK_0400_N000",
+      "NPC_Twn_Snw_1_2_A_TALK_0500_D000",
+      "NPC_Twn_Snw_1_2_A_TALK_0600_N000",
+      "NPC_Twn_Snw_1_2_A_TALK_0700_N000",
+      "NPC_Twn_Snw_1_2_A_TALK_0800_N000",
+      "NPC_Twn_Snw_1_2_A_TALK_0900_N000",
+      "NPC_Twn_Snw_1_2_A_TALK_1100_N000",
+      "NPC_Twn_Snw_1_2_A_TALK_1200_N000"
+    ],
+    "npc_start_delays": {},
+    "npc_end_delays": {},
+    "first_encounter": true,
+    "encounter_counter": 796,
+    "suppress_flag_callbacks": false,
+    "suppress_level_lottery": false,
+    "suppress_time_callbacks": false
+  },
+  "trace": [
+    {
+      "reason": "eTimeZoneChange: GMK_BLACKMARKET_CONTROL",
+      "kind": "flag_lottery",
+      "subject": "GMK_BLACKMARKET_CONTROL",
+      "value": 60,
+      "before": {
+        "state": 2739346306,
+        "draws": 6154
+      },
+      "after": {
+        "state": 1277547581,
+        "draws": 6155
+      }
+    },
+    {
+      "reason": "Cape Cold: switch to night before Mug: time 2 -> 4",
+      "kind": "boundary",
+      "subject": "Twn_Snw_1_2_A",
+      "value": null,
+      "before": {
+        "state": 1277547581,
+        "draws": 6155
+      },
+      "after": {
+        "state": 1277547581,
+        "draws": 6155
+      }
+    },
+    {
+      "reason": "Cape Cold: nighttime NPC placements: NPC frame NPC_Twn_Snw_1_2_A_TALK_0300_N000",
+      "kind": "npc_frame",
+      "subject": "NPC_Twn_Snw_1_2_A_TALK_0300_N000",
+      "value": 4,
+      "before": {
+        "state": 1277547581,
+        "draws": 6155
+      },
+      "after": {
+        "state": 2764854796,
+        "draws": 6156
+      }
+    },
+    {
+      "reason": "Cape Cold: nighttime NPC placements: NPC frame NPC_Twn_Snw_1_2_A_TALK_0400_N000",
+      "kind": "npc_frame",
+      "subject": "NPC_Twn_Snw_1_2_A_TALK_0400_N000",
+      "value": 11,
+      "before": {
+        "state": 2764854796,
+        "draws": 6156
+      },
+      "after": {
+        "state": 1522584735,
+        "draws": 6157
+      }
+    },
+    {
+      "reason": "Cape Cold: nighttime NPC placements: NPC frame NPC_Twn_Snw_1_2_A_TALK_0600_N000",
+      "kind": "npc_frame",
+      "subject": "NPC_Twn_Snw_1_2_A_TALK_0600_N000",
+      "value": 1,
+      "before": {
+        "state": 1522584735,
+        "draws": 6157
+      },
+      "after": {
+        "state": 2350609638,
+        "draws": 6158
+      }
+    },
+    {
+      "reason": "Cape Cold: nighttime NPC placements: NPC frame NPC_Twn_Snw_1_2_A_TALK_0700_N000",
+      "kind": "npc_frame",
+      "subject": "NPC_Twn_Snw_1_2_A_TALK_0700_N000",
+      "value": 0,
+      "before": {
+        "state": 2350609638,
+        "draws": 6158
+      },
+      "after": {
+        "state": 93542417,
+        "draws": 6159
+      }
+    },
+    {
+      "reason": "Cape Cold: nighttime NPC placements: NPC frame NPC_Twn_Snw_1_2_A_TALK_0800_N000",
+      "kind": "npc_frame",
+      "subject": "NPC_Twn_Snw_1_2_A_TALK_0800_N000",
+      "value": 3,
+      "before": {
+        "state": 93542417,
+        "draws": 6159
+      },
+      "after": {
+        "state": 453253776,
+        "draws": 6160
+      }
+    },
+    {
+      "reason": "Cape Cold: nighttime NPC placements: NPC frame NPC_Twn_Snw_1_2_A_TALK_0900_N000",
+      "kind": "npc_frame",
+      "subject": "NPC_Twn_Snw_1_2_A_TALK_0900_N000",
+      "value": 2,
+      "before": {
+        "state": 453253776,
+        "draws": 6160
+      },
+      "after": {
+        "state": 366513939,
+        "draws": 6161
+      }
+    },
+    {
+      "reason": "Cape Cold: nighttime NPC placements: NPC frame NPC_Twn_Snw_1_2_A_TALK_1100_N000",
+      "kind": "npc_frame",
+      "subject": "NPC_Twn_Snw_1_2_A_TALK_1100_N000",
+      "value": 14,
+      "before": {
+        "state": 366513939,
+        "draws": 6161
+      },
+      "after": {
+        "state": 4057398666,
+        "draws": 6162
+      }
+    },
+    {
+      "reason": "Cape Cold: nighttime NPC placements: NPC frame NPC_Twn_Snw_1_2_A_TALK_1200_N000",
+      "kind": "npc_frame",
+      "subject": "NPC_Twn_Snw_1_2_A_TALK_1200_N000",
+      "value": 7,
+      "before": {
+        "state": 4057398666,
+        "draws": 6162
+      },
+      "after": {
+        "state": 1050168869,
+        "draws": 6163
+      }
+    },
+    {
+      "reason": "Open Mug preview: field-action timer",
+      "kind": "path_action_menu",
+      "subject": "NPC_Twn_Snw_1_2_A_TALK_1100_N000",
+      "value": null,
+      "before": {
+        "state": 1050168869,
+        "draws": 6163
+      },
+      "after": {
+        "state": 2744027220,
+        "draws": 6164
+      }
+    },
+    {
+      "reason": "Mug: select opening line",
+      "kind": "dialogue_lottery",
+      "subject": "FC_GAK_ROB_Before_1",
+      "value": 0,
+      "before": {
+        "state": 2744027220,
+        "draws": 6164
+      },
+      "after": {
+        "state": 2326615495,
+        "draws": 6165
+      }
+    },
+    {
+      "reason": "Cape Cold: return from Mug: counter B",
+      "kind": "counter",
+      "subject": "Twn_Snw_1_2_A",
+      "value": 303,
+      "before": {
+        "state": 771479355,
+        "draws": 6297
+      },
+      "after": {
+        "state": 3775907090,
+        "draws": 6298
+      }
+    },
+    {
+      "reason": "Cape Cold: return from Mug: counter A",
+      "kind": "counter",
+      "subject": "Twn_Snw_1_2_A",
+      "value": 289,
+      "before": {
+        "state": 3775907090,
+        "draws": 6298
+      },
+      "after": {
+        "state": 3699775373,
+        "draws": 6299
+      }
+    }
+  ],
+  "decisions": [
+    {
+      "callback": "eTimeZoneChange",
+      "subject": "GMK_BLACKMARKET_CONTROL",
+      "result": "roll 60; flag 25501 = true",
+      "rng": {
+        "state": 1277547581,
+        "draws": 6155
+      }
+    },
+    {
+      "callback": "eTimeZoneChange",
+      "subject": "SUB_TW21_0100_KIZETSU",
+      "result": "flag gate closed",
+      "rng": {
+        "state": 1277547581,
+        "draws": 6155
+      }
+    },
+    {
+      "callback": "eTimeZoneChange",
+      "subject": "GMK_BILL_COLLECTION_CONTROL",
+      "result": "flag gate closed",
+      "rng": {
+        "state": 1277547581,
+        "draws": 6155
+      }
+    },
+    {
+      "callback": "eTimeZoneChange",
+      "subject": "MS_COP_ST2_SINSO_0020",
+      "result": "flag gate closed",
+      "rng": {
+        "state": 1277547581,
+        "draws": 6155
+      }
+    },
+    {
+      "callback": "eTimeZoneChange",
+      "subject": "FEV_Fld_Dst_3_1_B_0100_1_TIME",
+      "result": "flag gate closed",
+      "rng": {
+        "state": 1277547581,
+        "draws": 6155
+      }
+    },
+    {
+      "callback": "eTimeZoneChange",
+      "subject": "FEV_Fld_Dst_3_1_B_0100_2_TIME",
+      "result": "flag gate closed",
+      "rng": {
+        "state": 1277547581,
+        "draws": 6155
+      }
+    },
+    {
+      "callback": "eTimeZoneChange",
+      "subject": "FEV_Fld_Dst_3_1_B_0100_3_TIME",
+      "result": "flag gate closed",
+      "rng": {
+        "state": 1277547581,
+        "draws": 6155
+      }
+    },
+    {
+      "callback": "eTimeZoneChange",
+      "subject": "FEV_Fld_Dst_3_1_B_0100_4_TIME",
+      "result": "flag gate closed",
+      "rng": {
+        "state": 1277547581,
+        "draws": 6155
+      }
+    },
+    {
+      "callback": "eTimeZoneChange",
+      "subject": "FEV_Fld_Dst_3_1_B_0100_5_TIME",
+      "result": "flag gate closed",
+      "rng": {
+        "state": 1277547581,
+        "draws": 6155
+      }
+    },
+    {
+      "callback": "eTimeZoneChange",
+      "subject": "FEV_Fld_Dst_2_3_0100_0010_FRC_0000END_TZ",
+      "result": "flag gate closed",
+      "rng": {
+        "state": 1277547581,
+        "draws": 6155
+      }
+    },
+    {
+      "callback": "eTimeZoneChange",
+      "subject": "FEV_Fld_Dst_2_3_0100_0020_FRC_0010END_TZ",
+      "result": "flag gate closed",
+      "rng": {
+        "state": 1277547581,
+        "draws": 6155
+      }
+    },
+    {
+      "callback": "eTimeZoneChange",
+      "subject": "FEV_Fld_Dst_2_3_0100_0030_FRC_0020END_TZ",
+      "result": "flag gate closed",
+      "rng": {
+        "state": 1277547581,
+        "draws": 6155
+      }
+    },
+    {
+      "callback": "eTimeZoneChange",
+      "subject": "FEV_Fld_Dst_2_3_0100_0040_FRC_0030END_TZ",
+      "result": "flag gate closed",
+      "rng": {
+        "state": 1277547581,
+        "draws": 6155
+      }
+    },
+    {
+      "callback": "eTimeZoneChange",
+      "subject": "SUB_TF31_0400_KAITEI",
+      "result": "flag gate closed",
+      "rng": {
+        "state": 1277547581,
+        "draws": 6155
+      }
+    },
+    {
+      "callback": "eTimeZoneChange",
+      "subject": "MS_COP_ST2_SINSO_0010",
+      "result": "flag gate closed",
+      "rng": {
+        "state": 1277547581,
+        "draws": 6155
+      }
+    },
+    {
+      "callback": "Cape Cold: switch to night before Mug",
+      "subject": "time",
+      "result": "2 -> 4",
+      "rng": {
+        "state": 1277547581,
+        "draws": 6155
+      }
+    },
+    {
+      "callback": "Cape Cold: nighttime NPC placements",
+      "subject": "NPC_SYS_SAVE_Twn_Snw_1_2_A_0000",
+      "result": "existing actor refreshed; no spawn draw",
+      "rng": {
+        "state": 1277547581,
+        "draws": 6155
+      }
+    },
+    {
+      "callback": "Cape Cold: nighttime NPC placements",
+      "subject": "NPC_Twn_Snw_1_2_A_SHOP03",
+      "result": "existing actor refreshed; no spawn draw",
+      "rng": {
+        "state": 1277547581,
+        "draws": 6155
+      }
+    },
+    {
+      "callback": "Cape Cold: nighttime NPC placements",
+      "subject": "NPC_Twn_Snw_1_2_A_SHOP04",
+      "result": "existing actor refreshed; no spawn draw",
+      "rng": {
+        "state": 1277547581,
+        "draws": 6155
+      }
+    },
+    {
+      "callback": "Cape Cold: nighttime NPC placements",
+      "subject": "NPC_SYS_BARTENDER_Twn_Snw_1_2_A_0000",
+      "result": "existing actor refreshed; no spawn draw",
+      "rng": {
+        "state": 1277547581,
+        "draws": 6155
+      }
+    },
+    {
+      "callback": "Cape Cold: nighttime NPC placements",
+      "subject": "NPC_SYS_GRAMOPHONE_Twn_Snw_1_2",
+      "result": "placement gate closed",
+      "rng": {
+        "state": 1277547581,
+        "draws": 6155
+      }
+    },
+    {
+      "callback": "Cape Cold: nighttime NPC placements",
+      "subject": "NPC_Twn_Snw_1_2_A_TALK_0100_D000",
+      "result": "existing actor refreshed; no spawn draw",
+      "rng": {
+        "state": 1277547581,
+        "draws": 6155
+      }
+    },
+    {
+      "callback": "Cape Cold: nighttime NPC placements",
+      "subject": "NPC_Twn_Snw_1_2_A_TALK_0300_D000",
+      "result": "placement gate closed",
+      "rng": {
+        "state": 1277547581,
+        "draws": 6155
+      }
+    },
+    {
+      "callback": "Cape Cold: nighttime NPC placements",
+      "subject": "NPC_Twn_Snw_1_2_A_TALK_0400_D000",
+      "result": "placement gate closed",
+      "rng": {
+        "state": 1277547581,
+        "draws": 6155
+      }
+    },
+    {
+      "callback": "Cape Cold: nighttime NPC placements",
+      "subject": "NPC_Twn_Snw_1_2_A_TALK_0500_D000",
+      "result": "existing actor refreshed; no spawn draw",
+      "rng": {
+        "state": 1277547581,
+        "draws": 6155
+      }
+    },
+    {
+      "callback": "Cape Cold: nighttime NPC placements",
+      "subject": "NPC_Twn_Snw_1_2_A_TALK_0600_D000",
+      "result": "placement gate closed",
+      "rng": {
+        "state": 1277547581,
+        "draws": 6155
+      }
+    },
+    {
+      "callback": "Cape Cold: nighttime NPC placements",
+      "subject": "NPC_Twn_Snw_1_2_A_TALK_0700_D000",
+      "result": "placement gate closed",
+      "rng": {
+        "state": 1277547581,
+        "draws": 6155
+      }
+    },
+    {
+      "callback": "Cape Cold: nighttime NPC placements",
+      "subject": "NPC_Twn_Snw_1_2_A_TALK_0800_D000",
+      "result": "placement gate closed",
+      "rng": {
+        "state": 1277547581,
+        "draws": 6155
+      }
+    },
+    {
+      "callback": "Cape Cold: nighttime NPC placements",
+      "subject": "NPC_Twn_Snw_1_2_A_TALK_0900_D000",
+      "result": "placement gate closed",
+      "rng": {
+        "state": 1277547581,
+        "draws": 6155
+      }
+    },
+    {
+      "callback": "Cape Cold: nighttime NPC placements",
+      "subject": "NPC_SS_TSnow12_0200_0100",
+      "result": "existing actor refreshed; no spawn draw",
+      "rng": {
+        "state": 1050168869,
+        "draws": 6163
+      }
+    },
+    {
+      "callback": "Cape Cold: nighttime NPC placements",
+      "subject": "NPC_SS_TSnow12_0200_0300",
+      "result": "placement gate closed",
+      "rng": {
+        "state": 1050168869,
+        "draws": 6163
+      }
+    },
+    {
+      "callback": "Cape Cold: return from Mug",
+      "subject": "Twn_Snw_1_2_A",
+      "result": "counter = 796",
+      "rng": {
+        "state": 3699775373,
+        "draws": 6299
+      }
+    }
+  ],
+  "verification": "Seed0+6154 through first menu6192 and battle completion/field return6299 verified against retail CRT captures. First Mug of Cape Cold's man holding three valuables; original-gear level-one Osvald; English at 2x; Icewind, 2 BP Fireball, unboosted staff if needed. Entry is daytime Cape Cold; exit is after loot/success dialogue and field restoration. Uses shared nighttime NPC evaluation and field return callbacks, not a fixed RNG offset."
+}

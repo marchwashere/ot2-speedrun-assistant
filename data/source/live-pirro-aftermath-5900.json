@@ -1,0 +1,507 @@
+{
+  "source": "outputs/pirro-victory-live-20260929.json",
+  "sha256": "d77a1060e545cc9ff91284252198193a83f426aff7d0639e913f1805501fec57",
+  "note": "Exclude pre-replay loading and manual seed reset; retained interval is continuous on game thread.",
+  "initial_advances": 5900,
+  "initial_state": 1396399372,
+  "final_advances": 5962,
+  "final_state": 1845503682,
+  "records": [
+    {
+      "position": 5900,
+      "before": 1396399372,
+      "returnRva": "0x30D7424",
+      "blueprint": "/Game/Battle/BP/EncountManagerBP.EncountManagerBP_C.CalcEncountStepCount",
+      "object": "/Game/Level/Persistent.Persistent.PersistentLevel.EncountManagerBP_C_2147481935",
+      "maximum": 400
+    },
+    {
+      "position": 5901,
+      "before": 3796875167,
+      "returnRva": "0x30D7424",
+      "blueprint": "/Game/Battle/BP/EncountManagerBP.EncountManagerBP_C.CalcEncountStepCount",
+      "object": "/Game/Level/Persistent.Persistent.PersistentLevel.EncountManagerBP_C_2147481935",
+      "maximum": 400
+    },
+    {
+      "position": 5902,
+      "before": 2900014054,
+      "returnRva": "0x30D7424",
+      "blueprint": "/Game/Battle/BP/EncountManagerBP.EncountManagerBP_C.CalcEncountStepCount",
+      "object": "/Game/Level/Persistent.Persistent.PersistentLevel.EncountManagerBP_C_2147481935",
+      "maximum": 400
+    },
+    {
+      "position": 5903,
+      "before": 756128529,
+      "returnRva": "0x30D7424",
+      "blueprint": "/Game/Battle/BP/EncountManagerBP.EncountManagerBP_C.CalcEncountStepCount",
+      "object": "/Game/Level/Persistent.Persistent.PersistentLevel.EncountManagerBP_C_2147481935",
+      "maximum": 400
+    },
+    {
+      "position": 5904,
+      "before": 4149563792,
+      "returnRva": "0x30D7424",
+      "blueprint": "/Game/Battle/BP/EncountManagerBP.EncountManagerBP_C.CalcEncountStepCount",
+      "object": "/Game/Level/Persistent.Persistent.PersistentLevel.EncountManagerBP_C_2147481935",
+      "maximum": 400
+    },
+    {
+      "position": 5905,
+      "before": 3095456275,
+      "returnRva": "0x30D7424",
+      "blueprint": "/Game/Battle/BP/EncountManagerBP.EncountManagerBP_C.CalcEncountStepCount",
+      "object": "/Game/Level/Persistent.Persistent.PersistentLevel.EncountManagerBP_C_2147481935",
+      "maximum": 400
+    },
+    {
+      "position": 5906,
+      "before": 3540642954,
+      "returnRva": "0x11C010F",
+      "blueprint": null,
+      "object": null,
+      "maximum": null
+    },
+    {
+      "position": 5907,
+      "before": 4017848613,
+      "returnRva": "0x11C010F",
+      "blueprint": null,
+      "object": null,
+      "maximum": null
+    },
+    {
+      "position": 5908,
+      "before": 2205216596,
+      "returnRva": "0x11C010F",
+      "blueprint": null,
+      "object": null,
+      "maximum": null
+    },
+    {
+      "position": 5909,
+      "before": 1130504391,
+      "returnRva": "0x11C010F",
+      "blueprint": null,
+      "object": null,
+      "maximum": null
+    },
+    {
+      "position": 5910,
+      "before": 2836011118,
+      "returnRva": "0x11C010F",
+      "blueprint": null,
+      "object": null,
+      "maximum": null
+    },
+    {
+      "position": 5911,
+      "before": 4241460601,
+      "returnRva": "0x30D7604",
+      "blueprint": null,
+      "object": null,
+      "maximum": null
+    },
+    {
+      "position": 5912,
+      "before": 3551992408,
+      "returnRva": "0x30D7604",
+      "blueprint": null,
+      "object": null,
+      "maximum": null
+    },
+    {
+      "position": 5913,
+      "before": 1997057979,
+      "returnRva": "0x30D7604",
+      "blueprint": null,
+      "object": null,
+      "maximum": null
+    },
+    {
+      "position": 5914,
+      "before": 4176165778,
+      "returnRva": "0x30D7604",
+      "blueprint": null,
+      "object": null,
+      "maximum": null
+    },
+    {
+      "position": 5915,
+      "before": 1139651597,
+      "returnRva": "0x30D7604",
+      "blueprint": null,
+      "object": null,
+      "maximum": null
+    },
+    {
+      "position": 5916,
+      "before": 1951921820,
+      "returnRva": "0x30D7604",
+      "blueprint": null,
+      "object": null,
+      "maximum": null
+    },
+    {
+      "position": 5917,
+      "before": 3832818415,
+      "returnRva": "0x30D7604",
+      "blueprint": null,
+      "object": null,
+      "maximum": null
+    },
+    {
+      "position": 5918,
+      "before": 2935921142,
+      "returnRva": "0x30D7604",
+      "blueprint": null,
+      "object": null,
+      "maximum": null
+    },
+    {
+      "position": 5919,
+      "before": 1643260129,
+      "returnRva": "0x30D7604",
+      "blueprint": null,
+      "object": null,
+      "maximum": null
+    },
+    {
+      "position": 5920,
+      "before": 2815354912,
+      "returnRva": "0x30D7604",
+      "blueprint": null,
+      "object": null,
+      "maximum": null
+    },
+    {
+      "position": 5921,
+      "before": 3066193507,
+      "returnRva": "0x30D7604",
+      "blueprint": null,
+      "object": null,
+      "maximum": null
+    },
+    {
+      "position": 5922,
+      "before": 2990192538,
+      "returnRva": "0x30D7604",
+      "blueprint": null,
+      "object": null,
+      "maximum": null
+    },
+    {
+      "position": 5923,
+      "before": 2835963893,
+      "returnRva": "0x30D7604",
+      "blueprint": null,
+      "object": null,
+      "maximum": null
+    },
+    {
+      "position": 5924,
+      "before": 2724631268,
+      "returnRva": "0x30D7604",
+      "blueprint": null,
+      "object": null,
+      "maximum": null
+    },
+    {
+      "position": 5925,
+      "before": 279148055,
+      "returnRva": "0x30D7604",
+      "blueprint": null,
+      "object": null,
+      "maximum": null
+    },
+    {
+      "position": 5926,
+      "before": 2615105662,
+      "returnRva": "0x30D7604",
+      "blueprint": null,
+      "object": null,
+      "maximum": null
+    },
+    {
+      "position": 5927,
+      "before": 2307132745,
+      "returnRva": "0x30D7604",
+      "blueprint": null,
+      "object": null,
+      "maximum": null
+    },
+    {
+      "position": 5928,
+      "before": 2667371240,
+      "returnRva": "0x30D7604",
+      "blueprint": null,
+      "object": null,
+      "maximum": null
+    },
+    {
+      "position": 5929,
+      "before": 3725438475,
+      "returnRva": "0x30D7604",
+      "blueprint": null,
+      "object": null,
+      "maximum": null
+    },
+    {
+      "position": 5930,
+      "before": 307855522,
+      "returnRva": "0x30D7604",
+      "blueprint": null,
+      "object": null,
+      "maximum": null
+    },
+    {
+      "position": 5931,
+      "before": 288040157,
+      "returnRva": "0x30D7604",
+      "blueprint": null,
+      "object": null,
+      "maximum": null
+    },
+    {
+      "position": 5932,
+      "before": 2970018860,
+      "returnRva": "0x30D7604",
+      "blueprint": null,
+      "object": null,
+      "maximum": null
+    },
+    {
+      "position": 5933,
+      "before": 1848746559,
+      "returnRva": "0x30D7604",
+      "blueprint": null,
+      "object": null,
+      "maximum": null
+    },
+    {
+      "position": 5934,
+      "before": 3412554758,
+      "returnRva": "0x30D7604",
+      "blueprint": null,
+      "object": null,
+      "maximum": null
+    },
+    {
+      "position": 5935,
+      "before": 1960041137,
+      "returnRva": "0x30D7604",
+      "blueprint": null,
+      "object": null,
+      "maximum": null
+    },
+    {
+      "position": 5936,
+      "before": 2010452656,
+      "returnRva": "0x30D7604",
+      "blueprint": null,
+      "object": null,
+      "maximum": null
+    },
+    {
+      "position": 5937,
+      "before": 1773020851,
+      "returnRva": "0x30D7604",
+      "blueprint": null,
+      "object": null,
+      "maximum": null
+    },
+    {
+      "position": 5938,
+      "before": 2038216362,
+      "returnRva": "0x30D7424",
+      "blueprint": "/Game/Battle/BP/EncountManagerBP.EncountManagerBP_C.CalcEncountStepCount",
+      "object": "/Game/Level/Persistent.Persistent.PersistentLevel.EncountManagerBP_C_2147481935",
+      "maximum": 400
+    },
+    {
+      "position": 5939,
+      "before": 3627262661,
+      "returnRva": "0x30D7424",
+      "blueprint": "/Game/Battle/BP/EncountManagerBP.EncountManagerBP_C.CalcEncountStepCount",
+      "object": "/Game/Level/Persistent.Persistent.PersistentLevel.EncountManagerBP_C_2147481935",
+      "maximum": 400
+    },
+    {
+      "position": 5940,
+      "before": 387385972,
+      "returnRva": "0x30D7424",
+      "blueprint": "/Game/Battle/BP/EncountManagerBP.EncountManagerBP_C.CalcEncountStepCount",
+      "object": "/Game/Level/Persistent.Persistent.PersistentLevel.EncountManagerBP_C_2147481935",
+      "maximum": 400
+    },
+    {
+      "position": 5941,
+      "before": 4177809255,
+      "returnRva": "0x30D7424",
+      "blueprint": "/Game/Battle/BP/EncountManagerBP.EncountManagerBP_C.CalcEncountStepCount",
+      "object": "/Game/Level/Persistent.Persistent.PersistentLevel.EncountManagerBP_C_2147481935",
+      "maximum": 400
+    },
+    {
+      "position": 5942,
+      "before": 677776526,
+      "returnRva": "0x11C010F",
+      "blueprint": null,
+      "object": null,
+      "maximum": null
+    },
+    {
+      "position": 5943,
+      "before": 3354669337,
+      "returnRva": "0x11C010F",
+      "blueprint": null,
+      "object": null,
+      "maximum": null
+    },
+    {
+      "position": 5944,
+      "before": 413118328,
+      "returnRva": "0x11C010F",
+      "blueprint": null,
+      "object": null,
+      "maximum": null
+    },
+    {
+      "position": 5945,
+      "before": 793473115,
+      "returnRva": "0x11C010F",
+      "blueprint": null,
+      "object": null,
+      "maximum": null
+    },
+    {
+      "position": 5946,
+      "before": 3442309554,
+      "returnRva": "0x11C010F",
+      "blueprint": null,
+      "object": null,
+      "maximum": null
+    },
+    {
+      "position": 5947,
+      "before": 436697517,
+      "returnRva": "0x11C010F",
+      "blueprint": null,
+      "object": null,
+      "maximum": null
+    },
+    {
+      "position": 5948,
+      "before": 459875772,
+      "returnRva": "0x11C010F",
+      "blueprint": null,
+      "object": null,
+      "maximum": null
+    },
+    {
+      "position": 5949,
+      "before": 220536207,
+      "returnRva": "0x30D7065",
+      "blueprint": "/Game/Environment/Resource/Object/EnvObj_Canoe/BP/BP_EnvObjMD_Canoe_A.BP_EnvObjMD_Canoe_A_C.ExecuteUbergraph_BP_EnvObjMD_Canoe_A",
+      "object": "/Game/Level/Level/City/Fld_Cty_1_3_LevelInstance_61.Fld_Cty_1_3.PersistentLevel.BP_EnvObjMD_Gondola_A_NoPaddle_2",
+      "maximum": null
+    },
+    {
+      "position": 5950,
+      "before": 222183958,
+      "returnRva": "0x30D7065",
+      "blueprint": "/Game/Environment/Resource/Object/EnvObj_Canoe/BP/BP_EnvObjMD_Canoe_A.BP_EnvObjMD_Canoe_A_C.ExecuteUbergraph_BP_EnvObjMD_Canoe_A",
+      "object": "/Game/Level/Level/City/Fld_Cty_1_3_LevelInstance_61.Fld_Cty_1_3.PersistentLevel.BP_EnvObjMD_Gondola_A8_23",
+      "maximum": null
+    },
+    {
+      "position": 5951,
+      "before": 675000449,
+      "returnRva": "0x30D7604",
+      "blueprint": null,
+      "object": null,
+      "maximum": null
+    },
+    {
+      "position": 5952,
+      "before": 1943589184,
+      "returnRva": "0x30D7604",
+      "blueprint": null,
+      "object": null,
+      "maximum": null
+    },
+    {
+      "position": 5953,
+      "before": 2951817987,
+      "returnRva": "0x30D7604",
+      "blueprint": null,
+      "object": null,
+      "maximum": null
+    },
+    {
+      "position": 5954,
+      "before": 2160650682,
+      "returnRva": "0x30D7604",
+      "blueprint": null,
+      "object": null,
+      "maximum": null
+    },
+    {
+      "position": 5955,
+      "before": 2567915925,
+      "returnRva": "0x30D7604",
+      "blueprint": null,
+      "object": null,
+      "maximum": null
+    },
+    {
+      "position": 5956,
+      "before": 558061060,
+      "returnRva": "0x30D7604",
+      "blueprint": null,
+      "object": null,
+      "maximum": null
+    },
+    {
+      "position": 5957,
+      "before": 2168564919,
+      "returnRva": "0x30D7604",
+      "blueprint": null,
+      "object": null,
+      "maximum": null
+    },
+    {
+      "position": 5958,
+      "before": 4100404382,
+      "returnRva": "0x30D7424",
+      "blueprint": "/Game/Battle/BP/EncountManagerBP.EncountManagerBP_C.CalcEncountStepCount",
+      "object": "/Game/Level/Persistent.Persistent.PersistentLevel.EncountManagerBP_C_2147481935",
+      "maximum": 400
+    },
+    {
+      "position": 5959,
+      "before": 717551849,
+      "returnRva": "0x30D7424",
+      "blueprint": "/Game/Battle/BP/EncountManagerBP.EncountManagerBP_C.CalcEncountStepCount",
+      "object": "/Game/Level/Persistent.Persistent.PersistentLevel.EncountManagerBP_C_2147481935",
+      "maximum": 400
+    },
+    {
+      "position": 5960,
+      "before": 3165689864,
+      "returnRva": "0x30D7424",
+      "blueprint": "/Game/Battle/BP/EncountManagerBP.EncountManagerBP_C.CalcEncountStepCount",
+      "object": "/Game/Level/Persistent.Persistent.PersistentLevel.EncountManagerBP_C_2147481935",
+      "maximum": 400
+    },
+    {
+      "position": 5961,
+      "before": 2056189611,
+      "returnRva": "0x30D7424",
+      "blueprint": "/Game/Battle/BP/EncountManagerBP.EncountManagerBP_C.CalcEncountStepCount",
+      "object": "/Game/Level/Persistent.Persistent.PersistentLevel.EncountManagerBP_C_2147481935",
+      "maximum": 400
+    }
+  ]
+}

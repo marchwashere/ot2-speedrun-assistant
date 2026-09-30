@@ -1,0 +1,9 @@
+{
+  "fixture": false,
+  "pid": 42952,
+  "gameThread": 42048,
+  "initialState": 1008098224,
+  "finalState": 1008098224,
+  "finish": "Detached with original debug registers restored",
+  "records": []
+}

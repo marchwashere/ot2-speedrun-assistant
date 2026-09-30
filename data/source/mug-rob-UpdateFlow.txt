@@ -1,0 +1,394 @@
+04853 PushExecutionFlow target=2941
+04858 PushExecutionFlow target=673
+0485d Let property=CallFunc_GetState_ReturnValue
+  0486e LocalVariable CallFunc_GetState_ReturnValue
+  0487f LocalVirtualFunction GetState
+04889 LetBool
+  0488a LocalVariable K2Node_SwitchEnum_CmpSuccess_1
+  0489b CallMath import:-61:NotEqual_ByteByte
+    048a0 LocalVariable CallFunc_GetState_ReturnValue
+    048b1 ByteConst 1
+048b4 JumpIfNot target=698
+  048b9 LocalVariable K2Node_SwitchEnum_CmpSuccess_1
+048ca LetBool
+  048cb LocalVariable K2Node_SwitchEnum_CmpSuccess_1
+  048dc CallMath import:-61:NotEqual_ByteByte
+    048e1 LocalVariable CallFunc_GetState_ReturnValue
+    048f2 ByteConst 2
+048f5 JumpIfNot target=975
+  048fa LocalVariable K2Node_SwitchEnum_CmpSuccess_1
+0490b LetBool
+  0490c LocalVariable K2Node_SwitchEnum_CmpSuccess_1
+  0491d CallMath import:-61:NotEqual_ByteByte
+    04922 LocalVariable CallFunc_GetState_ReturnValue
+    04933 ByteConst 3
+04936 JumpIfNot target=1136
+  0493b LocalVariable K2Node_SwitchEnum_CmpSuccess_1
+0494c LetBool
+  0494d LocalVariable K2Node_SwitchEnum_CmpSuccess_1
+  0495e CallMath import:-61:NotEqual_ByteByte
+    04963 LocalVariable CallFunc_GetState_ReturnValue
+    04974 ByteConst 4
+04977 JumpIfNot target=1308
+  0497c LocalVariable K2Node_SwitchEnum_CmpSuccess_1
+0498d LetBool
+  0498e LocalVariable K2Node_SwitchEnum_CmpSuccess_1
+  0499f CallMath import:-61:NotEqual_ByteByte
+    049a4 LocalVariable CallFunc_GetState_ReturnValue
+    049b5 ByteConst 5
+049b8 JumpIfNot target=1363
+  049bd LocalVariable K2Node_SwitchEnum_CmpSuccess_1
+049ce LetBool
+  049cf LocalVariable K2Node_SwitchEnum_CmpSuccess_1
+  049e0 CallMath import:-61:NotEqual_ByteByte
+    049e5 LocalVariable CallFunc_GetState_ReturnValue
+    049f6 ByteConst 6
+049f9 JumpIfNot target=1838
+  049fe LocalVariable K2Node_SwitchEnum_CmpSuccess_1
+04a0f LetBool
+  04a10 LocalVariable K2Node_SwitchEnum_CmpSuccess_1
+  04a21 CallMath import:-61:NotEqual_ByteByte
+    04a26 LocalVariable CallFunc_GetState_ReturnValue
+    04a37 ByteConst 7
+04a3a JumpIfNot target=2278
+  04a3f LocalVariable K2Node_SwitchEnum_CmpSuccess_1
+04a50 LetBool
+  04a51 LocalVariable K2Node_SwitchEnum_CmpSuccess_1
+  04a62 CallMath import:-61:NotEqual_ByteByte
+    04a67 LocalVariable CallFunc_GetState_ReturnValue
+    04a78 ByteConst 8
+04a7b JumpIfNot target=2352
+  04a80 LocalVariable K2Node_SwitchEnum_CmpSuccess_1
+04a91 LetBool
+  04a92 LocalVariable K2Node_SwitchEnum_CmpSuccess_1
+  04aa3 CallMath import:-61:NotEqual_ByteByte
+    04aa8 LocalVariable CallFunc_GetState_ReturnValue
+    04ab9 ByteConst 9
+04abc JumpIfNot target=2523
+  04ac1 LocalVariable K2Node_SwitchEnum_CmpSuccess_1
+04ad2 LetBool
+  04ad3 LocalVariable K2Node_SwitchEnum_CmpSuccess_1
+  04ae4 CallMath import:-61:NotEqual_ByteByte
+    04ae9 LocalVariable CallFunc_GetState_ReturnValue
+    04afa ByteConst 10
+04afd JumpIfNot target=2587
+  04b02 LocalVariable K2Node_SwitchEnum_CmpSuccess_1
+04b13 LetBool
+  04b14 LocalVariable K2Node_SwitchEnum_CmpSuccess_1
+  04b25 CallMath import:-61:NotEqual_ByteByte
+    04b2a LocalVariable CallFunc_GetState_ReturnValue
+    04b3b ByteConst 11
+04b3e JumpIfNot target=2661
+  04b43 LocalVariable K2Node_SwitchEnum_CmpSuccess_1
+04b54 LetBool
+  04b55 LocalVariable K2Node_SwitchEnum_CmpSuccess_1
+  04b66 CallMath import:-61:NotEqual_ByteByte
+    04b6b LocalVariable CallFunc_GetState_ReturnValue
+    04b7c ByteConst 12
+04b7f JumpIfNot target=2832
+  04b84 LocalVariable K2Node_SwitchEnum_CmpSuccess_1
+04b95 LetBool
+  04b96 LocalVariable K2Node_SwitchEnum_CmpSuccess_1
+  04ba7 CallMath import:-61:NotEqual_ByteByte
+    04bac LocalVariable CallFunc_GetState_ReturnValue
+    04bbd ByteConst 13
+04bc0 JumpIfNot target=2857
+  04bc5 LocalVariable K2Node_SwitchEnum_CmpSuccess_1
+04bd6 LetBool
+  04bd7 LocalVariable K2Node_SwitchEnum_CmpSuccess_1
+  04be8 CallMath import:-61:NotEqual_ByteByte
+    04bed LocalVariable CallFunc_GetState_ReturnValue
+    04bfe ByteConst 14
+04c01 JumpIfNot target=2921
+  04c06 LocalVariable K2Node_SwitchEnum_CmpSuccess_1
+04c17 PopExecutionFlow
+04c18 Let property=Result
+  04c29 LocalOutVariable Result
+  04c3a ByteConst 5
+04c3c Jump target=2941
+04c41 LocalVirtualFunction GetNpcPurchaseData
+  04c4a LocalVariable CallFunc_GetNpcPurchaseData_PurchaseData_1
+04c5c LocalVirtualFunction SetNextEventLabel
+  04c65 StructMemberContext RobBeforeEventID
+    04c76 LocalVariable CallFunc_GetNpcPurchaseData_PurchaseData_1
+04c88 LocalVirtualFunction GetNpcPurchaseData
+  04c91 LocalVariable CallFunc_GetNpcPurchaseData_PurchaseData_1
+04ca3 LetBool
+  04ca4 LocalVariable CallFunc_EqualEqual_NameName_ReturnValue
+  04cb5 CallMath import:-55:EqualEqual_NameName
+    04cba StructMemberContext RobBeforeEventID
+      04ccb LocalVariable CallFunc_GetNpcPurchaseData_PurchaseData_1
+    04cdc NameConst None
+04ce6 JumpIfNot target=882
+  04ceb LocalVariable CallFunc_EqualEqual_NameName_ReturnValue
+04cfc LocalVirtualFunction SetState
+  04d05 ByteConst 2
+04d08 Let property=Result
+  04d19 LocalOutVariable Result
+  04d2a ByteConst 0
+04d2c Jump target=2941
+04d31 BindDelegate BeginEventCallback
+  04d3a LocalVariable K2Node_CreateDelegate_OutputDelegate_1
+  04d4b Self
+04d4c LetBool
+  04d4d LocalVariable CallFunc_SetEventData_ReturnValue_1
+  04d5e CallMath import:-74:SetEventData
+    04d63 LocalVariable K2Node_CreateDelegate_OutputDelegate_1
+04d75 LocalVirtualFunction SetState
+  04d7e ByteConst 4
+04d81 Let property=Result
+  04d92 LocalOutVariable Result
+  04da3 ByteConst 0
+04da5 Jump target=2941
+04daa LocalVirtualFunction FaceEachOther
+04db4 SetMap count=2
+  04db5 LocalVariable K2Node_MakeMap_Map
+  04dca InstanceVariable BeforeEventLabel1
+  04ddb InstanceVariable BranchEventWeight1
+  04dec InstanceVariable BeforeEventLabel2
+  04dfd InstanceVariable BranchEventWeight2
+04e0f LocalVirtualFunction DrawEventLabel
+  04e18 LocalVariable K2Node_MakeMap_Map
+  04e29 LocalVariable CallFunc_DrawEventLabel_WinningLabel
+04e3b LocalVirtualFunction RequestPlayerTalkEvent
+  04e44 LocalVariable CallFunc_DrawEventLabel_WinningLabel
+04e56 LocalVirtualFunction SetState
+  04e5f ByteConst 3
+04e62 Let property=Result
+  04e73 LocalOutVariable Result
+  04e84 ByteConst 0
+04e86 Jump target=2941
+04e8b LocalVirtualFunction GetTargetNpc
+  04e94 LocalVariable CallFunc_GetTargetNpc_TargetNPC_1
+04ea6 LocalVirtualFunction GetNpcPurchaseData
+  04eaf LocalVariable CallFunc_GetNpcPurchaseData_PurchaseData
+04ec1 LocalVirtualFunction GetNpcSerifLabel
+  04eca StructMemberContext RobBeforeTalkID
+    04edb LocalVariable CallFunc_GetNpcPurchaseData_PurchaseData
+  04eec ByteConst 4
+  04eee LocalVariable CallFunc_GetNpcSerifLabel_OutputSerifLabel
+04f00 LetBool
+  04f01 LocalVariable CallFunc_AddNpcTalkBalloon_ReturnValue
+  04f12 LocalVirtualFunction AddNpcTalkBalloon
+    04f1b LocalVariable CallFunc_GetNpcSerifLabel_OutputSerifLabel
+    04f2c LocalVariable CallFunc_GetTargetNpc_TargetNPC_1
+04f3e LocalVirtualFunction SetState
+  04f47 ByteConst 4
+04f4a Let property=Result
+  04f5b LocalOutVariable Result
+  04f6c ByteConst 0
+04f6e Jump target=2941
+04f73 LocalVirtualFunction StartBattle
+04f7d LocalVirtualFunction SetState
+  04f86 ByteConst 5
+04f89 Let property=Result
+  04f9a LocalOutVariable Result
+  04fab ByteConst 0
+04fad Jump target=2941
+04fb2 LocalVirtualFunction GetTargetNpc
+  04fbb LocalVariable CallFunc_GetTargetNpc_TargetNPC
+04fcd Context skip=10 rvalue=<null-field>
+  04fce LocalVariable CallFunc_GetTargetNpc_TargetNPC
+  04feb FinalFunction import:-79:RemoveEmotion
+04ff1 Let property=CallFunc_GetLastBattleResult_ReturnValue
+  05002 LocalVariable CallFunc_GetLastBattleResult_ReturnValue
+  05013 CallMath import:-80:GetLastBattleResult
+05019 LetBool
+  0501a LocalVariable K2Node_SwitchEnum_CmpSuccess
+  0502b CallMath import:-61:NotEqual_ByteByte
+    05030 LocalVariable CallFunc_GetLastBattleResult_ReturnValue
+    05041 ByteConst 1
+05044 JumpIfNot target=1663
+  05049 LocalVariable K2Node_SwitchEnum_CmpSuccess
+0505a LetBool
+  0505b LocalVariable K2Node_SwitchEnum_CmpSuccess
+  0506c CallMath import:-61:NotEqual_ByteByte
+    05071 LocalVariable CallFunc_GetLastBattleResult_ReturnValue
+    05082 ByteConst 2
+05085 JumpIfNot target=1623
+  0508a LocalVariable K2Node_SwitchEnum_CmpSuccess
+0509b LetBool
+  0509c LocalVariable K2Node_SwitchEnum_CmpSuccess
+  050ad CallMath import:-61:NotEqual_ByteByte
+    050b2 LocalVariable CallFunc_GetLastBattleResult_ReturnValue
+    050c3 ByteConst 3
+050c6 JumpIfNot target=1582
+  050cb LocalVariable K2Node_SwitchEnum_CmpSuccess
+050dc PopExecutionFlow
+050dd LocalVirtualFunction SetState
+  050e6 ByteConst 13
+050e9 Let property=Result
+  050fa LocalOutVariable Result
+  0510b ByteConst 0
+0510d Jump target=2941
+05112 LocalVirtualFunction SetTargetPlayerHP
+  0511b IntConst 1
+05121 LocalVirtualFunction SetState
+  0512a ByteConst 13
+0512d Jump target=1598
+05132 LocalVirtualFunction GetNpcLabel
+  0513b LocalVariable CallFunc_GetNpcLabel_NpcLabel
+0514d LocalVirtualFunction GetItem
+  05156 LocalVariable CallFunc_GetNpcLabel_NpcLabel
+  05167 LocalVariable CallFunc_GetItem_GotItem
+  05178 LocalVariable CallFunc_GetItem_CouldNotGetItem
+  05189 LocalVariable CallFunc_GetItem_WillPlayEventLabel
+0519b Let property=GotItem
+  051ac InstanceVariable GotItem
+  051bd LocalVariable CallFunc_GetItem_GotItem
+051ce Let property=CouldNotGetItem
+  051df InstanceVariable CouldNotGetItem
+  051f0 LocalVariable CallFunc_GetItem_CouldNotGetItem
+05201 Let property=EventName
+  05212 InstanceVariable EventName
+  05223 LocalVariable CallFunc_GetItem_WillPlayEventLabel
+05234 LocalVirtualFunction SetState
+  0523d ByteConst 6
+05240 Jump target=1598
+05245 LetBool
+  05246 LocalVariable CallFunc_NotEqual_NameName_ReturnValue
+  05257 CallMath import:-63:NotEqual_NameName
+    0525c InstanceVariable EventName
+    0526d NameConst None
+05277 JumpIfNot target=2120
+  0527c LocalVariable CallFunc_NotEqual_NameName_ReturnValue
+0528d LocalVirtualFunction SetNextEventLabel
+  05296 InstanceVariable EventName
+052a8 BindDelegate BeginEventCallback
+  052b1 LocalVariable K2Node_CreateDelegate_OutputDelegate
+  052c2 Self
+052c3 LetBool
+  052c4 LocalVariable CallFunc_SetEventData_ReturnValue
+  052d5 CallMath import:-74:SetEventData
+    052da LocalVariable K2Node_CreateDelegate_OutputDelegate
+052ec Let property=Temp_byte_Variable
+  052fd LocalVariable Temp_byte_Variable
+  0530e ByteConst 7
+05310 Let property=Temp_byte_Variable_1
+  05321 LocalVariable Temp_byte_Variable_1
+  05332 ByteConst 10
+05334 LetBool
+  05335 LocalVariable Temp_bool_Variable
+  05346 LocalVariable CallFunc_SetEventData_ReturnValue
+05357 LocalVirtualFunction SetState
+  05360 SwitchValue cases=2 end=2094
+    05367 LocalVariable Temp_bool_Variable
+    05378 False
+    05379 SwitchCaseNext 2071
+    0537d LocalVariable Temp_byte_Variable
+    0538e True
+    0538f SwitchCaseNext 2085
+    05393 LocalVariable Temp_byte_Variable_1
+    053a4 LocalVariable K2Node_Select_Default
+053b6 Let property=Result
+  053c7 LocalOutVariable Result
+  053d8 ByteConst 0
+053da Jump target=2941
+053df LetObj
+  053e0 LocalVariable CallFunc_GetManagerInstance_ReturnValue
+  053f1 CallMath import:-73:GetManagerInstance
+    053f6 ObjectConst import:-25:FadeManager
+053fc LetBool
+  053fd LocalVariable CallFunc_IsBattleEndWipeOut_ReturnValue
+  0540e Context skip=10 rvalue=CallFunc_IsBattleEndWipeOut_ReturnValue
+    0540f LocalVariable CallFunc_GetManagerInstance_ReturnValue
+    05434 FinalFunction import:-75:IsBattleEndWipeOut
+0543a JumpIfNot target=2237
+  0543f LocalVariable CallFunc_IsBattleEndWipeOut_ReturnValue
+05450 Context skip=10 rvalue=<null-field>
+  05451 LocalVariable CallFunc_GetManagerInstance_ReturnValue
+  0546e FinalFunction import:-76:WipeInAtBattleEndFromEvent
+05474 LocalVirtualFunction SetState
+  0547d ByteConst 7
+05480 Let property=Result
+  05491 LocalOutVariable Result
+  054a2 ByteConst 0
+054a4 Jump target=2941
+054a9 LetBool
+  054aa LocalVariable CallFunc_OpenResultDialog_ReturnValue_1
+  054bb LocalVirtualFunction OpenResultDialog
+    054c4 InstanceVariable GotItem
+054d6 LocalVirtualFunction SetState
+  054df ByteConst 8
+054e2 Let property=Result
+  054f3 LocalOutVariable Result
+  05504 ByteConst 0
+05506 Jump target=2941
+0550b Let property=CallFunc_Array_Length_ReturnValue
+  0551c LocalVariable CallFunc_Array_Length_ReturnValue
+  0552d Context skip=19 rvalue=CallFunc_Array_Length_ReturnValue
+    0552e ObjectConst import:-89:Default__KismetArrayLibrary
+    05547 FinalFunction import:-50:Array_Length
+      0554c InstanceVariable CouldNotGetItem
+0555e LetBool
+  0555f LocalVariable CallFunc_Greater_IntInt_ReturnValue
+  05570 CallMath import:-56:Greater_IntInt
+    05575 LocalVariable CallFunc_Array_Length_ReturnValue
+    05586 IntConst 0
+0558c JumpIfNot target=2482
+  05591 LocalVariable CallFunc_Greater_IntInt_ReturnValue
+055a2 LocalVirtualFunction OpenCouldNotGetResultDialog
+  055ab InstanceVariable CouldNotGetItem
+055bd LocalVirtualFunction SetState
+  055c6 ByteConst 9
+055c9 Let property=Result
+  055da LocalOutVariable Result
+  055eb ByteConst 0
+055ed Jump target=2941
+055f2 LocalVirtualFunction RequestPlayerTalkEvent
+  055fb InstanceVariable SuccessEventLabel1
+0560d LocalVirtualFunction SetState
+  05616 ByteConst 12
+05619 Let property=Result
+  0562a LocalOutVariable Result
+  0563b ByteConst 0
+0563d Jump target=2941
+05642 LetBool
+  05643 LocalVariable CallFunc_OpenResultDialog_ReturnValue
+  05654 LocalVirtualFunction OpenResultDialog
+    0565d InstanceVariable GotItem
+0566f LocalVirtualFunction SetState
+  05678 ByteConst 11
+0567b Let property=Result
+  0568c LocalOutVariable Result
+  0569d ByteConst 0
+0569f Jump target=2941
+056a4 Let property=CallFunc_Array_Length_ReturnValue_1
+  056b5 LocalVariable CallFunc_Array_Length_ReturnValue_1
+  056c6 Context skip=19 rvalue=CallFunc_Array_Length_ReturnValue_1
+    056c7 ObjectConst import:-89:Default__KismetArrayLibrary
+    056e0 FinalFunction import:-50:Array_Length
+      056e5 InstanceVariable CouldNotGetItem
+056f7 LetBool
+  056f8 LocalVariable CallFunc_Greater_IntInt_ReturnValue_1
+  05709 CallMath import:-56:Greater_IntInt
+    0570e LocalVariable CallFunc_Array_Length_ReturnValue_1
+    0571f IntConst 0
+05725 JumpIfNot target=2791
+  0572a LocalVariable CallFunc_Greater_IntInt_ReturnValue_1
+0573b LocalVirtualFunction OpenCouldNotGetResultDialog
+  05744 InstanceVariable CouldNotGetItem
+05756 LocalVirtualFunction SetState
+  0575f ByteConst 12
+05762 Let property=Result
+  05773 LocalOutVariable Result
+  05784 ByteConst 0
+05786 Jump target=2941
+0578b Let property=Result
+  0579c LocalOutVariable Result
+  057ad ByteConst 1
+057af Jump target=2941
+057b4 LocalVirtualFunction RequestPlayerTalkEvent
+  057bd InstanceVariable FailedEventLabel
+057cf LocalVirtualFunction SetState
+  057d8 ByteConst 14
+057db Let property=Result
+  057ec LocalOutVariable Result
+  057fd ByteConst 0
+057ff Jump target=2941
+05804 Let property=Result
+  05815 LocalOutVariable Result
+  05826 ByteConst 4
+05828 Return
+  05829 Nothing
+0582a EndOfScript
