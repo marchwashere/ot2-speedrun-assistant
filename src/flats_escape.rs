@@ -61,6 +61,7 @@ pub struct Prediction {
     pub at_village_entrance: Option<CrtRng>,
     pub world_at_village_entrance: Option<WorldState>,
     pub village_return: Option<village_return::Prediction>,
+    pub village_visit: Option<village_return::Visit>,
     pub snow_search: Option<SnowSearch>,
     pub osvald: Option<osvald::Prediction>,
     pub osvald_search: Option<SnowSearch>,
@@ -114,6 +115,14 @@ pub fn predict(
     level: u32,
     settings: Settings,
 ) -> Result<Prediction> {
+    predict_to_boundary(arrival, world, level, settings, false)
+}
+
+pub fn until_first_village(arrival:CrtRng, world:&WorldState, level:u32, settings:Settings) -> Result<Prediction> {
+    predict_to_boundary(arrival, world, level, settings, true)
+}
+
+fn predict_to_boundary(arrival:CrtRng, world:&WorldState, level:u32, settings:Settings, stop_at_village:bool) -> Result<Prediction> {
     ensure(
         settings.max_boost_repeats.is_none_or(|n| n <= 256)
             && settings.snow_max_boost_repeats.is_none_or(|n| n <= 256)
@@ -158,6 +167,7 @@ pub fn predict(
         at_village_entrance: None,
         world_at_village_entrance: None,
         village_return: None,
+        village_visit: None,
         snow_search: None,
         osvald: None,
         osvald_search: None,
@@ -221,9 +231,27 @@ pub fn predict(
     };
     // Required goals gate both direct Escape and break strategies. Optional
     // walking starts from the actual escape/village-run plan, never its cap.
-    let require_osvald = settings.osvald_max_boost_repeats.is_none();
-    let require_snow = settings.snow_max_boost_repeats.is_none() || require_osvald;
+    let require_osvald = !stop_at_village && settings.osvald_max_boost_repeats.is_none();
+    let require_snow = !stop_at_village && (settings.snow_max_boost_repeats.is_none() || require_osvald);
     let mut escape = choose(None, require_snow, require_osvald)?;
+    if stop_at_village {
+        result.verification="Source-derived route through first Abandoned Village entry/tag and tutorial dismissal. Search only first Escape and a safe village run; no lookahead toward Snows, Osvald or subsequent events. Shared Loader evaluates the village load and carries CRT, counters, progression and residency. No return to Flats is simulated.";
+        if let Some(attempt) = &escape.attempt {
+            let field = restore(attempt)?;
+            let budget = MovementBudget::new(field.world_after.encounter_counter,remaining,decrement);
+            ensure(budget.reaches_reset,"Selected Flats plan cannot reach the village")?;
+            let mut at_exit=field.world_after.clone();
+            at_exit.encounter_counter=budget.counter_before_reset.unwrap();
+            result.village_visit=Some(village_return::visit(field.after,at_exit.clone())?);
+            result.at_village_entrance=Some(field.after);
+            result.world_at_village_entrance=Some(at_exit);
+            result.remaining_run=Some(budget);
+            result.field_return=Some(field);
+            result.status="First Abandoned Village visit complete; route stops here";
+        }
+        result.escape=Some(escape);
+        return Ok(result);
+    }
     if let Some(attempt) = &escape.attempt {
         let base = escape.inputs.as_ref().map_or(0, |i| i.extra_repeats);
         let mut met = project(attempt)?.unwrap().snow_reach.walking.reaches_reset;
@@ -325,6 +353,46 @@ mod tests {
     use super::*;
     use crate::world;
     use highroad::EscapeMethod;
+    #[test]
+    fn village_fork_stops_at_tag_and_ignores_all_later_search_targets() {
+        let w = world();
+        let mut covered = 0;
+        for seed in 0..24 {
+            let entry = CrtRng { state: seed, draws: 6050 };
+            let settings = Settings { max_boost_repeats: Some(4),
+                snow_max_boost_repeats: Some(0), osvald_max_boost_repeats: Some(0) };
+            let p = until_first_village(entry, &w, 5, settings).unwrap();
+            let required = until_first_village(entry, &w, 5, Settings {
+                snow_max_boost_repeats: None, osvald_max_boost_repeats: None, ..settings
+            }).unwrap();
+            assert!(p.village_return.is_none() && p.osvald.is_none());
+            assert!(p.snow_search.is_none() && p.osvald_search.is_none());
+            assert_eq!(serde_json::to_value(&p.escape).unwrap(), serde_json::to_value(&required.escape).unwrap());
+            let Some(v) = &p.village_visit else {
+                assert_eq!(p.encounter.situation.as_deref(), Some("Surprise"));
+                continue;
+            };
+            covered += 1;
+            assert!(p.escape.as_ref().unwrap().attempt.as_ref().unwrap().success);
+            assert!(p.remaining_run.as_ref().unwrap().reaches_reset);
+            assert_eq!(v.world_after.map, village_return::VILLAGE);
+            assert!(v.world_after.visited_maps.contains(village_return::VILLAGE));
+            assert_eq!(v.world_after.party, [7]);
+            let mut loader = world::Loader::new(world::catalog(),
+                p.world_at_village_entrance.clone().unwrap(), p.at_village_entrance.unwrap()).unwrap();
+            loader.visit_map(village_return::VILLAGE).unwrap();
+            loader.dismiss_tutorial(62).unwrap();
+            assert_eq!(loader.rng, v.after);
+            assert_eq!(serde_json::to_value(loader.state).unwrap(), serde_json::to_value(&v.world_after).unwrap());
+            assert_eq!(serde_json::to_value(v).unwrap(), serde_json::to_value(required.village_visit.unwrap()).unwrap());
+            // The full route still uses precisely this arrival before its return load.
+            let full = predict(entry, &w, 5, settings).unwrap();
+            let old = full.village_return.unwrap();
+            assert_eq!(old.at_village, v.after);
+            assert_eq!(serde_json::to_value(old.world_at_village).unwrap(), serde_json::to_value(&v.world_after).unwrap());
+        }
+        assert!(covered > 0);
+    }
     fn world() -> WorldState {
         let mut w = world::throne_after_second_state().unwrap();
         w.map = "Fld_Cty_1_2".into();

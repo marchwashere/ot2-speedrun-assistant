@@ -1,5 +1,14 @@
 # OT2SpeedrunAssistant
 
+This branch, `strategy/abandoned-village-fork`, is the starting point for a new
+strategy. The GUI simulates through the first Abandoned Village entry, tag and
+tutorial dismissal, then stops. Later events and their search targets are not
+evaluated. The village's complete CRT and world state are available in Detailed
+log and the JSON export, ready for the next route event.
+
+`main` preserves the previous route through Crackridge Harbor. The backend also
+retains it via `route_end=full`; the fork GUI selects `route_end=first_village`.
+
 Route state, field encounter prediction, and a local GUI. This repository imports
 the standalone **OT2BattleEngineRust** library through Cargo; it does not copy its
 battle implementation. The battle repository has no dependency on this project.

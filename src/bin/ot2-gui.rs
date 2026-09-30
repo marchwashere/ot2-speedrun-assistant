@@ -18,6 +18,10 @@ const HTML: &str = include_str!("../../viewer/index.html");
 const CSS: &str = include_str!("../../viewer/viewer.css");
 const JS: &str = include_str!("../../viewer/viewer.js");
 
+#[derive(Debug, Clone, Copy, PartialEq, Eq, serde::Serialize)]
+#[serde(rename_all="snake_case")]
+enum RouteEnd { Full, FirstVillage }
+
 fn parse_seed(text: &str) -> Result<u32, SimError> {
     let text = text.trim();
     let (digits, radix) =
@@ -53,6 +57,7 @@ fn simulate_with_plan(seed: u32, plan: BoostPlan) -> Result<Value, SimError> {
         Default::default(),
         None,
         Default::default(),
+        RouteEnd::Full,
     )
 }
 fn simulate_route(
@@ -66,6 +71,7 @@ fn simulate_route(
     highroad_settings: ot2_speedrun_assistant::highroad::Settings,
     pirro_r8_plan: Option<Vec<u8>>,
     flats_escape_settings: ot2_speedrun_assistant::flats_escape::Settings,
+    route_end: RouteEnd,
 ) -> Result<Value, SimError> {
     plan.validate()?;
     let config = BattleConfig::throne_opening(seed)?;
@@ -172,7 +178,12 @@ fn simulate_route(
                                                         Ok(p) => {
                                                             harbor_return = match ot2_speedrun_assistant::harbor::after_flats(&p) {
                                                                 Ok(p) => p.map(|p| {
-                                                                    flats_escape = Some(match ot2_speedrun_assistant::flats_escape::after_harbor(&p, prediction.level, flats_escape_settings) {
+                                                                    let selected = if route_end == RouteEnd::FirstVillage {
+                                                                        ot2_speedrun_assistant::flats_escape::until_first_village(p.after,&p.world_after,prediction.level,flats_escape_settings)
+                                                                    } else {
+                                                                        ot2_speedrun_assistant::flats_escape::after_harbor(&p,prediction.level,flats_escape_settings)
+                                                                    };
+                                                                    flats_escape = Some(match selected {
                                                                         Ok(e) => {
                                                                             cape_cold = e.osvald.as_ref().and_then(|o| match ot2_speedrun_assistant::cape_cold::after_osvald(o) {
                                                                                 Ok(p) => p.map(|p| {
@@ -249,6 +260,7 @@ fn simulate_route(
 
 #[derive(Clone)]
 struct CrtSetup {
+    route_end: RouteEnd,
     crackridge_approach_max_boost_repeats: Option<u32>,
     mug_clerics_max_boost_repeats: Option<u32>,
     seed: u32,
@@ -321,11 +333,18 @@ impl CrtSetup {
         let mut flats_osvald_max_boost_repeats = None;
         let mut mug_clerics_max_boost_repeats = None;
         let mut crackridge_approach_max_boost_repeats = None;
+        let mut route_end = None;
         for part in query.split('&') {
             let (key, value) = part
                 .split_once('=')
                 .ok_or_else(|| SimError("Invalid CRT setup.".into()))?;
             match key {
+                "route_end" if route_end.is_none() => {
+                    route_end = Some(match value {
+                        "full"=>RouteEnd::Full, "first_village"=>RouteEnd::FirstVillage,
+                        _=>return Err(SimError("Unknown route endpoint".into())),
+                    });
+                }
                 "seed" if seed.is_none() => seed = Some(parse_seed(value)?),
                 "advances" if advances.is_none() => {
                     if value.is_empty() || !value.bytes().all(|b| b.is_ascii_digit()) {
@@ -515,6 +534,7 @@ impl CrtSetup {
             },
             pirro_r8_plan: pirro_r8_boost_inputs,
             mug_clerics_max_boost_repeats: mug_clerics_max_boost_repeats.unwrap_or(None),
+            route_end: route_end.unwrap_or(RouteEnd::Full),
             crackridge_approach_max_boost_repeats: crackridge_approach_max_boost_repeats.unwrap_or(None),
             flats_escape_settings: ot2_speedrun_assistant::flats_escape::Settings {
                 max_boost_repeats: flats_escape_max_boost_repeats.unwrap_or(Some(4)),
@@ -585,6 +605,7 @@ impl CrtSetup {
             "flats_snow_max_boost_repeats":self.flats_escape_settings.snow_max_boost_repeats,
             "flats_osvald_max_boost_repeats":self.flats_escape_settings.osvald_max_boost_repeats,
             "mug_clerics_max_boost_repeats":self.mug_clerics_max_boost_repeats,
+            "route_end":self.route_end,
             "crackridge_approach_max_boost_repeats":self.crackridge_approach_max_boost_repeats,
             "shared_level_draws":u8::from(self.recreate_shared_level),
             "battle_entry_advances":self.battle_entry_advances().to_string(),
@@ -593,7 +614,7 @@ impl CrtSetup {
         })
     }
     fn outcome_policies(&self) -> Vec<(String, &'static str, Option<u32>)> {
-        vec![
+        let mut policies: Vec<(String, &'static str, Option<u32>)> = vec![
             ("crackridge_approach".into(), "Avoid surprise in Crackridge Harbor", self.crackridge_approach_max_boost_repeats),
             ("mug_clerics".into(), "Clerics after Flats night switch", self.mug_clerics_max_boost_repeats),
             (
@@ -651,7 +672,12 @@ impl CrtSetup {
                 "Avoid surprise after Harbor return",
                 self.highroad_settings.flats_approach_max_boost_repeats,
             ),
-        ]
+        ];
+        if self.route_end == RouteEnd::FirstVillage {
+            policies.retain(|(id,_,_)| !matches!(id.as_str(),"mug_clerics"|"crackridge_approach"|"osvald_walk"|"village_snow_walk"));
+            policies.push(("village_visit".into(),"First Abandoned Village visit",None));
+        }
+        policies
     }
     fn check_requirements(&self, result: &Value) -> Value {
         let f = &result["post_battle_field"];
@@ -664,6 +690,7 @@ impl CrtSetup {
             .filter(|(_, _, cap)| cap.is_none())
             .filter_map(|(id, label, _)| {
                 let met = match id.as_str() {
+                    "village_visit"=>f["flats_escape"]["village_visit"]["after"].is_object(),
                     "crackridge_approach" => safe(&f["crackridge_escape"]["encounter"]["situation"]) && f["crackridge_escape"]["attempt"]["success"] == true,
                     "mug_clerics" => f["black_market"]["clerics_present"] == true,
                     "osvald_walk" => f["flats_escape"]["osvald"]["after_recruitment"].is_object(),
@@ -708,6 +735,7 @@ impl CrtSetup {
         };
         let not_evaluated: Vec<_> = unmet.iter().filter(|item| {
             let stage=match item["id"].as_str().unwrap_or("") {
+                "village_visit"=>"flats_escape",
                 "crackridge_approach"=>"crackridge_escape",
                 "mug_clerics"=>"black_market", "osvald_walk"|"village_snow_walk"=>"flats_escape",
                 "pirro_victory"|"pirro_no_grape"=>"pirro_battle", "highroad_approach"=>"highroad",
@@ -733,6 +761,7 @@ impl CrtSetup {
             execution.highroad_settings,
             self.pirro_r8_plan.clone(),
             execution.flats_escape_settings,
+            self.route_end,
         )?;
         result["crt_setup"] = self.json();
         result["effective_search_settings"] = execution.json();
@@ -1170,6 +1199,33 @@ fn main() {
 
 #[cfg(test)]
 mod tests {
+    #[test]
+    fn village_fork_selects_real_endpoint_and_excludes_future_requirements() {
+        use super::*;
+        let setup = CrtSetup::parse("seed=0&advances=4916&route_end=first_village&encounter_max_boost_repeats=required&pirro_victory_max_boost_repeats=required&pirro_no_grape_max_boost_repeats=required&highroad_approach_max_boost_repeats=required&highroad_flats_max_boost_repeats=required&highroad_flats_approach_max_boost_repeats=required&flats_escape_max_boost_repeats=boost_only").unwrap();
+        assert_eq!(setup.json()["route_end"], "first_village");
+        for (id, _, _) in setup.outcome_policies() {
+            assert!(!matches!(id.as_str(), "mug_clerics"|"crackridge_approach"|"osvald_walk"|"village_snow_walk"));
+        }
+        let missing = setup.check_requirements(&json!({}));
+        assert!(missing["unmet"].as_array().unwrap().iter().any(|v| v["id"] == "village_visit"));
+        let result = setup.calculate().unwrap();
+        let p = &result["prediction"];
+        assert_eq!(p["required_outcomes"]["met"], true, "{}", p["required_outcomes"]);
+        let f = &p["post_battle_field"];
+        assert_eq!(f["flats_escape"]["village_visit"]["world_after"]["map"], ot2_speedrun_assistant::village_return::VILLAGE);
+        assert_eq!(f["flats_escape"]["village_visit"]["world_after"]["party"], json!([7]));
+        for key in ["cape_cold", "cape_cold_mug", "black_market", "crackridge_voyage", "crackridge_escape"] {
+            assert!(f[key].is_null(), "{key} should not be evaluated");
+        }
+        assert!(f["flats_escape"]["village_return"].is_null());
+        assert!(f["flats_escape"]["osvald"].is_null());
+        assert_eq!(CrtSetup::parse("seed=0").unwrap().route_end, RouteEnd::Full);
+        assert_eq!(CrtSetup::parse("seed=0&route_end=full").unwrap().route_end, RouteEnd::Full);
+        for query in ["seed=0&route_end=unknown", "seed=0&route_end=full&route_end=first_village"] {
+            assert!(CrtSetup::parse(query).is_err());
+        }
+    }
     #[test]
     fn mansion_outcome_budget_and_escape_strategy_are_independent_settings() {
         use super::*;

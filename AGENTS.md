@@ -1,5 +1,15 @@
 # Active project
 
+- Active branch: `strategy/abandoned-village-fork`. `main` preserves the complete
+  previous strategy. This fork's GUI sends `route_end=first_village` and stops
+  after the FIRST Abandoned Village entry/tag and tutorial dismissal, before
+  returning to Flats. Flats Escape search requires escape and a safe village
+  run only; it must not gate on Snows, Osvald, Mug or later outcomes. Shared
+  Loader carries the endpoint's CRT and world state in `flats_escape.village_visit`.
+  Future settings are hidden without deleting stored preferences. Full-route
+  APIs remain available with `route_end=full` (the API compatibility default).
+  The following older notes describe the preserved full strategy.
+
 - Crackridge first encounter is IN Fld_Wld_1_2 (Crackridge Harbor: Anchorage),
   ENT_FLD_WLD_1_2_LND, daytime progress1/danger5. User confirmed location.
   crackridge::plan first compares day switching in Flats after cleric purchases

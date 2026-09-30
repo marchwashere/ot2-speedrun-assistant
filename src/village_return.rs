@@ -14,6 +14,23 @@ pub const WALK_UPDATES: u32 = MEASURED_WALK_UPDATES + SAFETY_UPDATES;
 pub const RUN_UPDATES: u32 = MEASURED_RUN_UPDATES + SAFETY_UPDATES;
 
 #[derive(Debug, Serialize)]
+pub struct Visit {
+    pub arrival: CrtRng,
+    pub after: CrtRng,
+    pub world_after: WorldState,
+    pub trace: Vec<Trace>,
+    pub decisions: Vec<Decision>,
+}
+
+/// Fork boundary: first arrival, tag and tutorial dismissal, before leaving.
+pub fn visit(arrival: CrtRng, state: WorldState) -> Result<Visit> {
+    let mut loader = visit_loader(arrival, state)?;
+    loader.boundary("Strategy fork: first Abandoned Village visit complete");
+    Ok(Visit { arrival, after: loader.rng, world_after: loader.state,
+        trace: loader.trace, decisions: loader.decisions })
+}
+
+#[derive(Debug, Serialize)]
 pub struct MixedBudget {
     pub running_distance_percent: f64,
     pub walking_distance_percent: f64,
@@ -82,7 +99,7 @@ pub struct Prediction {
     pub verification: &'static str,
 }
 
-pub fn with_world_state(arrival: CrtRng, state: WorldState) -> Result<Prediction> {
+fn visit_loader(arrival: CrtRng, state: WorldState) -> Result<Loader<'static>> {
     ensure(
         state.map == "Fld_Cty_1_2"
             && state.time == 2
@@ -101,6 +118,10 @@ pub fn with_world_state(arrival: CrtRng, state: WorldState) -> Result<Prediction
         loader.dismiss_tutorial(62)?;
     }
     loader.boundary("Abandoned Village: tagged, field control restored");
+    Ok(loader)
+}
+pub fn with_world_state(arrival: CrtRng, state: WorldState) -> Result<Prediction> {
+    let mut loader = visit_loader(arrival,state)?;
     let at_village = loader.rng;
     let world_at_village = loader.state.clone();
     loader.visit_map("Fld_Cty_1_2")?;

@@ -71,10 +71,10 @@ function readSetup() {
   const advances = BigInt(text);
   const recreate = $('recreate-shared-level').getAttribute('aria-pressed') === 'true';
   if (advances + 12n + BigInt(recreate) > 18446744073709551615n) throw new Error('Title advances plus opening transition exceed 18446744073709551615.');
-  return {seed,advances:advances.toString(),recreate_shared_level:recreate,...eventRepeatCaps};
+  return {seed,advances:advances.toString(),recreate_shared_level:recreate,route_end:'first_village',...eventRepeatCaps};
 }
 const setupQuery = setup => {
-  const query = new URLSearchParams({seed:setup.seed,advances:setup.advances,recreate_shared_level:setup.recreate_shared_level,boost_menu:setup.boost_menu ?? 0,boost_advances:setup.boost_advances ?? 0});
+  const query = new URLSearchParams({seed:setup.seed,advances:setup.advances,recreate_shared_level:setup.recreate_shared_level,route_end:setup.route_end ?? 'first_village',boost_menu:setup.boost_menu ?? 0,boost_advances:setup.boost_advances ?? 0});
   for (const {key} of repeatSettings) query.set(key,repeatCapQuery(setup[key],key));
   for (const key of ['boost_repeat_cap','second_boost_menu','second_boost_advances','second_boost_repeat_cap']) {
     if(setup[key]!=null) query.set(key,setup[key]);
@@ -264,6 +264,7 @@ function render() {
   renderFlats();
   renderHarborReturn();
   renderFlatsEscape();
+  renderVillageVisit();
   renderVillageReturn();
   renderOsvald();
   renderCapeCold();
@@ -374,6 +375,17 @@ function renderFlatsEscape() {
   traces.push(...(s?.attempt?.trace || s?.menu.trace || []),...(p.field_return?.trace || []));
   $('trace').innerHTML+=traces.map(t=>`<tr><td>Flats · ${escapeHtml(reasons[t.reason] || t.reason)}</td><td>—</td><td>${totalAdvances(t.before)}</td><td>${totalAdvances(t.after)}</td><td>+${BigInt(t.after.draws)-BigInt(t.before.draws)}</td><td>${hex(t.before.state)}</td><td>${hex(t.after.state)}</td></tr>`).join('');
   $('pirro-verification').textContent+=` Flats: Lv${p.level} · ${p.encounter.situation} · ${p.encounter.enemies.map(e=>e.enemy.name).join(', ')}. Encounter at update ${p.first_encounter_update}/${p.run_updates}; reset counter must be ≥${p.required_counter}. ${s?.status || ''}. ${p.verification}`;
+}
+
+function renderVillageVisit() {
+  const p=result.post_battle_field?.flats_escape?.village_visit;
+  $('village-visit-log').hidden=!p;
+  if(!p) return;
+  $('village-visit-advances').textContent=totalAdvances(p.after);
+  $('village-visit-hex').textContent=hex(p.after.state);
+  $('village-visit-counter').textContent=`Counter ${p.world_after.encounter_counter} · daytime · Throné only · village tagged`;
+  $('checkpoints').innerHTML+=`<tr><td>First Abandoned Village visit · tagged, tutorial dismissed</td><td>${totalAdvances(p.after)}</td><td>${hex(p.after.state)}</td><td>${p.after.draws}</td></tr>`;
+  $('trace').innerHTML+=p.trace.map(t=>`<tr><td>${escapeHtml(t.reason)}</td><td>—</td><td>${totalAdvances(t.before)}</td><td>${totalAdvances(t.after)}</td><td>+${BigInt(t.after.draws)-BigInt(t.before.draws)}</td><td>${hex(t.before.state)}</td><td>${hex(t.after.state)}</td></tr>`).join('');
 }
 
 function renderVillageReturn() {
