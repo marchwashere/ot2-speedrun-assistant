@@ -54,7 +54,7 @@ try {
     localStorage.setItem('ot2-weighted-escape-strategies-v1','1');
   }
 } catch {for(const s of repeatSettings.filter(s=>s.strategy)) eventRepeatCaps[s.key]=4;}
-const names = {attack_sword:'Sword attack',attack_dagger:'Dagger attack',attack_axe:'Axe attack',defend:'Defend',ABI_ENE_0041:'Attack',ABI_ENE_0500:'Slash'};
+const names = {attack_sword:'Sword',attack_dagger:'Dagger',attack_axe:'Axe',defend:'Defend',ABI_ENE_0041:'Attack',ABI_ENE_0500:'Slash'};
 Object.assign(names,{ABI_SET_THI_020:'Darkest Night',ABI_SET_GST_0170:'Slice',ABI_SET_GST_0190:'Pierce Through',ABI_ENE_0200:'Double Thrust',ABI_ENE_0010:'Attack'});
 const reasons = {actor_initialization:'Actor initialization',current_order_shuffle:'First order shuffle',battle_start_speaker:'Opening speaker',battle_start_voice:'Opening voice check',ability_voice:'Ability voice check',break_voice:'Break reaction check',kill_voice:'Kill reaction check',next_order_shuffle:'Next order shuffle',order_voice:'Turn-start voice check',boost_voice:'Boost voice check',normal_accuracy:'Cached accuracy check',attack_voice:'Attack voice check',last_attack_voice:'Final-hit voice check',critical_hit_and_damage:'Critical / hit / damage',damage_notification_timer:'Damage notification timer',miss_notification_timer:'Miss notification timer',guard_disease:'Guard status checks',guard_voice:'Guard voice check',round_timing_revision:'Round timing revision',enemy_ai_and_target:'Enemy AI and target',enemy_drop:'Enemy item drop',field_encounter_reset_b_then_a:'Area counter reset (B then A)'};
 const actorName = id => result.actors[id]?.name ?? '—';
@@ -313,13 +313,29 @@ function renderActionVisibility() {
   $('flats-escape-result').hidden=!flats || (!!flats.escape && !flats.error && !hasEscapeInputs(flats.escape));
 }
 
-function boostStepsHtml(levels) {
+function attackLabel(name,boost=0) {
+  return `${boost>0?'+'+boost+' ':''}${name}`;
+}
+function stepActionLabel(step,simulation) {
+  if(!step) return '';
+  const events=step.report.events;
+  const action=events.find(e=>e.kind==='action');
+  const bp=events.find(e=>e.kind==='resource_changed' && e.resource==='bp' && e.actor===step.report.actor);
+  const weapon=action?.name?.match(/^attack_(.+)$/)?.[1];
+  const name=weapon?weapon[0].toUpperCase()+weapon.slice(1):names[action?.name] || simulation.action_names?.[action?.name] || action?.name || 'Action';
+  return attackLabel(name,bp?Math.max(0,bp.before-bp.after):0);
+}
+function instructionBoxHtml(parts,command='') {
+  const lines=command?[...parts,command]:parts;
+  return lines.length?'<div class="boost-instructions">'+lines.map(c=>`<span class="boost-step">${escapeHtml(c)}</span>`).join('')+'</div>':'';
+}
+function boostStepsHtml(levels,command='') {
   const parts=groupBoostRoutine(levels || []).map(c=>`${c.from} → ${c.to}${c.count>1?' ×'+c.count:''}`);
-  return parts.length?'<div class="boost-instructions">'+parts.map(c=>`<span class="boost-step">${c}</span>`).join('')+'</div>':'';
+  return instructionBoxHtml(parts,command);
 }
 function breakEscapeHtml(s) {
   const b=s.break_action;
-  return `<p><strong>R1 · Throné · 1st command menu</strong></p>${boostStepsHtml(b.attack_inputs)}<p class="boost-step">${b.weapon==='sword'?'Sword':'Dagger'} attack · ${b.boost} BP → Break</p><p><strong>R${b.escape_round} · Throné · 1st command menu</strong></p>${boostStepsHtml(b.escape_inputs)}<p><strong>Escape</strong></p>`;
+  return `<p><strong>R1 · Throné · 1st command menu</strong></p>${boostStepsHtml(b.attack_inputs,attackLabel(b.weapon==='sword'?'Sword':'Dagger',b.boost))}<p><strong>R${b.escape_round} · Throné · 1st command menu</strong></p>${boostStepsHtml(b.escape_inputs,'Escape')}`;
 }
 function renderHighroad() {
   const p=result.post_battle_field?.highroad;
@@ -334,7 +350,7 @@ function renderHighroad() {
     $('highroad-boost-routine').innerHTML=breakEscapeHtml(s);
   } else if(s?.inputs) {
     const parts=groupBoostRoutine(s.inputs.levels).map(c=>`${c.from} → ${c.to}${c.count>1?' ×'+c.count:''}`);
-    $('highroad-boost-routine').innerHTML=parts.length?'<p><strong>R1 · Throné · 1st command menu</strong></p><div class="boost-instructions">'+parts.map(c=>`<span class="boost-step">${c}</span>`).join('')+'</div>':'';
+    $('highroad-boost-routine').innerHTML=parts.length?'<p><strong>R1 · Throné · 1st command menu</strong></p>'+instructionBoxHtml(parts,'Escape'):'';
   } else $('highroad-boost-routine').textContent='Adjustment unavailable · see Detailed log';
   if(s?.flats_search && !s.flats_search.target_met) $('highroad-boost-routine').innerHTML+='<p class="text-bad">Flats walking target not met · increase its repeat limit in Settings</p>';
   if(s?.flats_approach_search && !s.flats_approach_search.target_met) $('highroad-boost-routine').innerHTML+='<p class="text-bad">Flats surprise target not met · increase its repeat limit in Settings</p>';
@@ -375,7 +391,7 @@ function renderFlatsEscape() {
     $('flats-escape-routine').innerHTML=breakEscapeHtml(s);
   } else if(s?.inputs) {
     const parts=groupBoostRoutine(s.inputs.levels).map(c=>`${c.from} → ${c.to}${c.count>1?' ×'+c.count:''}`);
-    $('flats-escape-routine').innerHTML=parts.length?'<p><strong>R1 · Throné · 1st command menu</strong></p><div class="boost-instructions">'+parts.map(c=>`<span class="boost-step">${c}</span>`).join('')+'</div>':'';
+    $('flats-escape-routine').innerHTML=parts.length?'<p><strong>R1 · Throné · 1st command menu</strong></p>'+instructionBoxHtml(parts,'Escape'):'';
   } else $('flats-escape-routine').textContent=p.status;
   const checkpoint=(label,rng)=>`<tr><td>${escapeHtml(label)}</td><td>${totalAdvances(rng)}</td><td>${hex(rng.state)}</td><td>${rng.draws}</td></tr>`;
   $('checkpoints').innerHTML+=checkpoint('Flats encounter · before initialization',p.before_battle_initialization);
@@ -526,9 +542,9 @@ function renderMug() {
   const instructions=[];
   if(search?.extra_advances) {
     const parts=groupBoostRoutine(search.inputs.levels).map(c=>c.from+'→'+c.to+(c.count>1?' ×'+c.count:''));
-    instructions.push('<h3>Boost adjustment</h3><p><strong>R2 · Osvald · 1st command menu</strong></p><div class="boost-instructions">'+parts.map(part=>'<span class="boost-step">'+escapeHtml(part)+'</span>').join('')+'</div>');
+    instructions.push('<h3>Boost adjustment</h3><p><strong>R2 · Osvald · 1st command menu</strong></p>'+instructionBoxHtml(parts,attackLabel('Fireball',2)));
   }
-  if(p?.mug?.survived_round_two) instructions.push('<p class="run-action">R3 · Staff attack</p>');
+  if(p?.mug?.survived_round_two) instructions.push('<p><strong>R3 · Osvald · 1st command menu</strong></p>'+instructionBoxHtml([],'Staff'));
   if(search?.cape_time_switches) {
     const n=search.cape_time_switches;
     instructions.push('<p class="action-context">After Mug · Cape Cold</p><p class="run-action">Cape Cold time switch: '+n+'</p>');
@@ -579,7 +595,7 @@ function renderCrackridgeVoyage() {
   $('crackridge-escape-result').hidden=!e;
   const actor=e?.menu?.first_actor===1?'Osvald':'Throné';
   const parts=groupBoostRoutine(e?.inputs?.levels||[]).map(c=>`${c.from}→${c.to}${c.count>1?' ×'+c.count:''}`);
-  $('crackridge-escape-routine').innerHTML=e?.error?`<p class="text-bad">${escapeHtml(e.error)}</p>`:e?.attempt?.success?`<p><strong>R1 · ${actor} · 1st command menu</strong></p>${parts.length?'<div class="boost-instructions">'+parts.map(c=>`<span class="boost-step">${c}</span>`).join('')+'</div>':''}<p class="run-action">Escape</p>`:`<p class="text-bad">${escapeHtml(e?.status||'')}</p>`;
+  $('crackridge-escape-routine').innerHTML=e?.error?`<p class="text-bad">${escapeHtml(e.error)}</p>`:e?.attempt?.success?`<p><strong>R1 · ${actor} · 1st command menu</strong></p>${instructionBoxHtml(parts,'Escape')}`:`<p class="text-bad">${escapeHtml(e?.status||'')}</p>`;
   $('crackridge-voyage-result').hidden=!p;
   $('crackridge-voyage-error').hidden=!p?.error;
   $('crackridge-voyage-error').textContent=p?.error?`Prediction unavailable · ${p.error}`:'';
@@ -671,9 +687,11 @@ function renderPirro() {
   if(won) {
     const instruction=[m,p.r8_manipulation].filter(adjustment=>adjustment?.inputs.extra_input_count>0).map(adjustment=>{
       const parts=groupBoostRoutine(adjustment.inputs.levels).map(c=>`${c.from} → ${c.to}${c.count>1?' ×'+c.count:''}`);
-      return `<p><strong>R${adjustment.round} · Throné · 1st command menu</strong></p><div class="boost-instructions">`+parts.map(c=>`<span class="boost-step">${c}</span>`).join('')+'</div>';
+      const step=p.steps.find(s=>s.round===adjustment.round && p.actors[s.report.actor].side==='player');
+      return `<p><strong>R${adjustment.round} · Throné · 1st command menu</strong></p>`+instructionBoxHtml(parts,stepActionLabel(step,p));
     }).join('');
-    const r3Notice=m?.inputs.extra_input_count>0?'':'<p><strong>R3 · Throné · 1st command menu</strong></p><p class="boost-step">No boost adjustment needed</p>';
+    const r3Step=p.steps.find(s=>s.round===3 && p.actors[s.report.actor].side==='player');
+    const r3Notice=m?.inputs.extra_input_count>0?'':'<p><strong>R3 · Throné · 1st command menu</strong></p>'+instructionBoxHtml(['No boost adjustment needed'],stepActionLabel(r3Step,p));
     $('pirro-boost-routine').innerHTML=r3Notice+instruction;
   } else {
     $('pirro-boost-routine').textContent='No boost adjustment found · see Detailed log';
@@ -716,7 +734,7 @@ function renderMansionEscape() {
   const checkpoint=(label,rng)=>`<tr><td>${escapeHtml(label)}</td><td>${totalAdvances(rng)}</td><td>${hex(rng.state)}</td><td>${rng.draws}</td></tr>`;
   $('checkpoints').innerHTML+=checkpoint('Mansion encounter · before enemy initialization',p.before_battle_initialization)+checkpoint(menuLabel,p.at_command_menu);
   if(s) {
-    $('mansion-escape-routine').innerHTML=`<p><strong>${menuLabel}</strong></p>${boostStepsHtml(s.inputs.levels)}${s.break_then_escape?`<p class="boost-step">Dagger attack · 1 BP → Break</p><p><strong>R${s.attempt.state.round} · Throné · 1st command menu</strong></p>${boostStepsHtml(s.escape_inputs?.levels)}`:''}<p><strong>Escape${s.reaches_pirro?' → run to Pirro':''}</strong></p>`;
+    $('mansion-escape-routine').innerHTML=`<p><strong>${menuLabel}</strong></p>${boostStepsHtml(s.inputs.levels,s.break_then_escape?attackLabel('Dagger',1):'Escape')}${s.break_then_escape?`<p><strong>R${s.attempt.state.round} · Throné · 1st command menu</strong></p>${boostStepsHtml(s.escape_inputs?.levels,'Escape')}`:''}${s.reaches_pirro?'<p class="action-note">Run to Pirro</p>':''}`;
     if(!s.reaches_pirro) $('mansion-escape-routine').innerHTML+='<p class="text-bad">No-second-encounter target not met. Increase its budget or select Required outcome.</p>';
     $('mansion-escape-diagnostics').innerHTML=`<span class="diagnostic-label">CRT at command menu · before boosts</span><div class="diagnostic-value"><strong>${totalAdvances(p.at_command_menu)}</strong><span>advances since initial seed</span></div><span class="rng-secondary">${hex(p.at_command_menu.state)}</span><div class="run-diagnostics"><span class="diagnostic-label">CRT after Escape · field returned</span><div class="diagnostic-value"><strong>${totalAdvances(s.after_field_return)}</strong><span>advances since initial seed</span></div><span class="rng-secondary">${hex(s.after_field_return.state)}</span></div><p class="muted small">Counter ${s.counter} · run ${p.remaining_updates} updates · ${s.counter_at_trigger} left at Pirro trigger</p>`;
     if(s.at_escape_menu) $('checkpoints').innerHTML+=checkpoint(`Mansion R${s.attempt.state.round} · command menu after break`,s.at_escape_menu);
@@ -831,7 +849,7 @@ function renderSecondBoost(second) {
     const ordinal=['1st','2nd','3rd'][m.round_menu-1] ?? m.round_menu+'th';
     const heading='R'+m.round+' · '+second.actors[m.actor].name+' · '+ordinal+' command menu';
     const parts=groupBoostRoutine(m.inputs.levels).map(c=>c.from+'→'+c.to+(c.count>1?' ×'+c.count:''));
-    routine='<p><strong>'+escapeHtml(heading)+'</strong></p><div class="boost-instructions">'+parts.map(p=>'<span class="boost-step">'+escapeHtml(p)+'</span>').join('')+'</div>';
+    routine='<p><strong>'+escapeHtml(heading)+'</strong></p>'+instructionBoxHtml(parts,stepActionLabel(step,second));
   }
   node.innerHTML=(routine?'<h3>Boost adjustment</h3>'+routine:'')+(!search.target_met?'<p class="text-bad">'+escapeHtml(status)+' Adjust its search in Settings.</p>':'');
 }
@@ -860,13 +878,13 @@ function renderBoostPlan() {
   const action = events.find(e=>e.kind==='action');
   const inputs = m.inputs;
   const targets = [...new Set(events.filter(e=>e.kind==='damage' || e.kind==='miss').map(e=>shortActorName(e.target)))].join(', ');
-  const command = action.name==='defend' ? 'Defend' : `${names[action.name] || action.name} on ${targets}`;
+  const command = stepActionLabel(step,result);
   const path = levels => levels.join('→')+' BP';
   const parts = groupBoostRoutine(inputs.levels)
     .map(({from,to,count})=>`${from}→${to}${count>1 ? ` ×${count}` : ''}`);
   const heading = `R${m.round} · ${shortActorName(m.actor)} · ${menuOrdinal} command menu`;
   const instruction = `${heading}: ${parts.join('; ')}. ${command}.`;
-  $('boost-result').innerHTML = `<b>${escapeHtml(heading)}</b><span class="boost-instructions">${parts.map(p=>`<span class="boost-step">${escapeHtml(p)}</span>`).join('')}</span>`;
+  $('boost-result').innerHTML = `<b>${escapeHtml(heading)}</b>${instructionBoxHtml(parts,command)}`;
   $('boost-help').textContent = `${inputs.extra_repeats} extra repeat${inputs.extra_repeats===1?'':'s'} · ${inputs.input_count} boost inputs · +${n} CRT advances`;
   const search=result.boost_search;
   const budget=search ? (result.crt_setup.second_fight_max_boost_repeats===null
@@ -891,7 +909,7 @@ function renderAction(step, index, simulation=result) {
   const isPlayer = simulation.actors[report.actor].side === 'player';
   const rngLabel = isPlayer ? 'Command menu · before boost' : 'Before enemy action';
   const latent=events.some(e=>e.kind==='latent_activated');
-  const description = (latent?'Latent → ':'') + (names[action?.name] || simulation.action_names?.[action?.name] || action?.name || 'Action') + (action?.name === 'defend' ? '' : ` · ${boost} BP`);
+  const description = (latent?'Latent → ':'') + stepActionLabel(step,simulation);
   const targets = [...new Set(hits.map(e => shortActorName(e.target)))].join(', ');
   const changes = events.map(e => {
     switch(e.kind) {

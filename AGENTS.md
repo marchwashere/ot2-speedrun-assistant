@@ -1,5 +1,10 @@
 # Active project
 
+- Attack display uses only the weapon/skill name, prefixed by BP spent when
+  positive: Dagger, +1 Dagger, +3 Darkest Night. Each command menu has one
+  instruction box containing the boost adjustment followed immediately by the
+  action (including Escape). Preserve Pirro R3's explicit no-adjustment notice.
+
 - Escape strategy cost model supersedes threshold-first fallback: one boost
   BUTTON press=1, one successful break action=10, one time switch=7. Mansion,
   Highroad and Flats compare complete valid plans in increasing estimated cost;
