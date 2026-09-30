@@ -16,6 +16,23 @@ back to day, and two post-Osvald switches ending day. Weighted cost274; first
 Snows encounter is Normal and has no Cait. The remaining 123 repeats satisfy
 Escape/counter/clerics targets; they are not a Cait adjustment.
 
+Exhaustive candidate audit for that configuration (0..123 inclusive): 71
+candidates fail first Escape, 34 more fail the remaining village run, leaving
+19 distinct valid nighttime shop checks. Of these, 17 have no clerics. At120,
+clerics spawn but the returned Flats counter is560, below649 required for the
+72-update walk. At123, clerics spawn with counter660, leaving12 after the walk.
+The shop check is therefore conditional on earlier Escape and counter safety;
+123 boost repetitions are not123 eligible independent cleric checks. The
+imported weights are50/20/15/15; native FUN_140ea7520 draws inclusive0..100 and
+uses <= cumulative comparisons, selecting clerics for86..100 (about14.85%).
+The current route searches time changes AFTER purchases; it cannot reroll a
+failed cleric selection at the shop before buying.
+
+Replay the audit against an Export JSON response with:
+`cargo run --offline --example audit-early-clerics -- <export.json> 123`.
+It replays each candidate from the same first command menu through the shared
+loader and reports stage rejections, actual shop rolls and counter values.
+
 The three controllable RNG events are boosting at the first Flats encounter,
 time cycles after buying from the clerics, and time switches after recruiting
 Osvald. Candidate inputs are replayed from the unchanged
