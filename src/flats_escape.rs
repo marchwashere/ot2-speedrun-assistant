@@ -105,6 +105,20 @@ pub fn first_encounter(
     Ok((entry, prediction))
 }
 
+/// Actual first-action break, after rare replacement and opening hit draws.
+pub fn unboosted_opening_break(entry:CrtRng, encounter:&encounter::Prediction, level:u32) -> Result<bool> {
+    if encounter.enemies.len()!=1 || !matches!(encounter.situation.as_deref(),Some("Normal"|"Preemptive")) {
+        return Ok(false);
+    }
+    let id=encounter.enemies[0].enemy.id.as_str();
+    if !matches!(id,"ENE_NML_FLD_CTY_010"|"ENE_NML_FLD_CTY_120") {return Ok(false);}
+    let situation=if encounter.situation.as_deref()==Some("Preemptive") {
+        Situation::Preemptive
+    } else {Situation::Normal};
+    Ok(ot2_battle_engine::field_escape::first_action_break(entry,situation,level,&[id])?
+        .is_some_and(|b|b.boost==0))
+}
+
 pub fn after_harbor(
     h: &crate::harbor::Prediction,
     level: u32,

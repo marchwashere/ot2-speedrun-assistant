@@ -18,6 +18,13 @@ No Cape Cold continuation or first-encounter fight
 simulation is run. This new route is source-derived, awaiting a retail replay.
 See [the route notes](docs/early-clerics-cait.md).
 
+Highroad adjustment can also target a lone City Ratkin I or Night Raven in the
+next Flats encounter that Throné can break with a successful unboosted dagger
+hit. Its separate Required/numeric setting preserves the harbor walk and
+non-surprise targets. The chosen Flats Escape strategy remains separately
+configurable; targeting this opening does not automatically enable a break or
+add a round-2 post-break manipulation search.
+
 `main` preserves the previous route through Crackridge Harbor. The backend also
 retains it via `route_end=full`; the fork GUI selects `route_end=osvald_encounter`.
 The old `osvald_cait` endpoint name is an alias. Cait selection is opt-in only

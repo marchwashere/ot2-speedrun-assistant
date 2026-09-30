@@ -10,7 +10,27 @@ remain API aliases. Cait can be explicitly requested with
 `early_require_cait=true` for the retained experimental route below. The default
 is false, and its search/required-outcome reporting both use this same goal.
 
-Current seed-0/title-4916 regression: retained shared level and Required targets,
+Upstream Highroad control: `highroad_flats_break_max_boost_repeats=required`
+jointly targets a safe harbor walk, an unsurprised Flats opening and an actual
+unboosted first-action break. The daytime progress1 shared encounter table has
+weight20 each for lone City Ratkin I and lone Night Raven (40 of100 base weight).
+Both have one shield and dagger weakness. Rare replacements, multiple enemies
+and Surprise do not qualify; the core replays the hit, rejecting a Night Raven
+that dodges the unboosted attack. Numeric limits are optional additional input
+pairs and preserve earlier required/achieved outcomes. GUI defaults Required;
+API omission retains legacy behavior (optional0).
+
+This target only chooses the upstream Highroad adjustment. The saved Flats
+Boost only/break preference still controls the downstream escape plan. A new
+round-2 boost search after a 0BP break is not implemented by this target.
+
+With seed0/title4916, shared level retained, Required earlier targets and Flats
+Boost only, enabling this target selects21 Highroad repeats, a Normal lone
+City Ratkin I with a successful unboosted dagger break available, and61 Flats
+repeats (previously123). All required cleric/travel/non-surprise targets pass.
+This plan still uses direct Flats Escape due to the saved Boost only preference.
+
+Historical seed-0/title-4916 regression before adding the Highroad break target: retained shared level and Required targets,
 Flats Boost only select 123 boost repeats, the normal one post-purchase switch
 back to day, and two post-Osvald switches ending day. Weighted cost274; first
 Snows encounter is Normal and has no Cait. The remaining 123 repeats satisfy

@@ -21,6 +21,7 @@ const repeatSettings = [
   {key:'highroad_escape_max_boost_repeats',id:'highroad-escape-boost-repeats',storage:'ot2-assistant-highroad-escape-boost-repeats',label:'Highroad Escape',strategy:true},
   {key:'highroad_flats_max_boost_repeats',id:'highroad-flats-boost-repeats',storage:'ot2-assistant-highroad-flats-boost-repeats',label:'Flats walking'},
   {key:'highroad_flats_approach_max_boost_repeats',id:'highroad-flats-approach-boost-repeats',storage:'ot2-assistant-highroad-flats-approach-boost-repeats',label:'Flats approach'},
+  {key:'highroad_flats_break_max_boost_repeats',id:'highroad-flats-break-boost-repeats',storage:'ot2-fork-highroad-flats-break-boost-repeats',label:'Unboosted Flats break',requiredDefault:true},
   {key:'flats_escape_max_boost_repeats',id:'flats-escape-boost-repeats',storage:'ot2-assistant-flats-escape-boost-repeats',label:'Flats Escape',strategy:true},
   {key:'flats_snow_max_boost_repeats',id:'flats-snow-boost-repeats',storage:'ot2-assistant-flats-snow-boost-repeats',label:'Post-village walk',requiredDefault:true},
   {key:'flats_osvald_max_boost_repeats',id:'flats-osvald-boost-repeats',storage:'ot2-assistant-flats-osvald-boost-repeats',label:'Osvald walk',requiredDefault:true}
@@ -296,7 +297,7 @@ function renderActionVisibility() {
   $('pirro-boost-heading').hidden=!pirroInstructions;
   $('pirro-result').hidden=!field?.pirro_battle || !pirroInstructions;
   const highroad=field?.highroad, escape=highroad?.escape;
-  $('highroad-result').hidden=!highroad || (!!escape && !highroad.error && !hasEscapeInputs(escape) && escape.flats_search?.target_met!==false && escape.flats_approach_search?.target_met!==false);
+  $('highroad-result').hidden=!highroad || (!!escape && !highroad.error && !hasEscapeInputs(escape) && escape.flats_search?.target_met!==false && escape.flats_approach_search?.target_met!==false && escape.flats_break_search?.target_met!==false);
   const flats=field?.flats_escape;
   $('flats-escape-result').hidden=!flats || (!!flats.escape && !flats.error && !hasEscapeInputs(flats.escape));
 }
@@ -319,6 +320,7 @@ function renderHighroad() {
   } else $('highroad-boost-routine').textContent='Adjustment unavailable · see Detailed log';
   if(s?.flats_search && !s.flats_search.target_met) $('highroad-boost-routine').innerHTML+='<p class="text-bad">Flats walking target not met · increase its repeat limit in Settings</p>';
   if(s?.flats_approach_search && !s.flats_approach_search.target_met) $('highroad-boost-routine').innerHTML+='<p class="text-bad">Flats surprise target not met · increase its repeat limit in Settings</p>';
+  if(s?.flats_break_search && !s.flats_break_search.target_met) $('highroad-boost-routine').innerHTML+='<p class="text-bad">Unboosted Flats break target not met · see Settings</p>';
   const checkpoint=(label,rng)=>`<tr><td>${escapeHtml(label)}</td><td>${totalAdvances(rng)}</td><td>${hex(rng.state)}</td><td>${rng.draws}</td></tr>`;
   $('checkpoints').innerHTML+=checkpoint('Al introduction · popup dismissed',p.after_al)+checkpoint('Highroad encounter · before initialization',p.before_battle_initialization);
   if(s) $('checkpoints').innerHTML+=checkpoint('Highroad R1 · Throné · 1st command menu',s.menu.rng);
@@ -339,7 +341,7 @@ function renderHighroad() {
   traces.push(...(s?.attempt?.trace || s?.menu.trace || []));
   traces.push(...(p.field_return?.trace || []));
   $('trace').innerHTML+=traces.map(t=>`<tr><td>Highroad · ${escapeHtml(reasons[t.reason] || t.reason)}</td><td>—</td><td>${totalAdvances(t.before)}</td><td>${totalAdvances(t.after)}</td><td>+${BigInt(t.after.draws)-BigInt(t.before.draws)}</td><td>${hex(t.before.state)}</td><td>${hex(t.after.state)}</td></tr>`).join('');
-  $('pirro-verification').textContent+=` Highroad: Lv${p.level} · ${p.encounter.situation} · ${p.encounter.enemies.map(e=>e.enemy.name).join(', ')}. ${search?.status || ''}. ${s ? `${s.status}; Escape ${s.baseline.chance_percent}%.` : ''} ${s?.flats_search?.status || ''}. ${s?.flats_approach_search?.status || ''}. ${p.verification}`;
+  $('pirro-verification').textContent+=` Highroad: Lv${p.level} · ${p.encounter.situation} · ${p.encounter.enemies.map(e=>e.enemy.name).join(', ')}. ${search?.status || ''}. ${s ? `${s.status}; Escape ${s.baseline.chance_percent}%.` : ''} ${s?.flats_search?.status || ''}. ${s?.flats_approach_search?.status || ''}. ${s?.flats_break_search?.status || ''}. ${p.verification}`;
 }
 
 function renderFlatsEscape() {

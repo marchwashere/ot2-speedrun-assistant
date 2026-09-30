@@ -25,6 +25,7 @@ pub struct Settings {
     pub escape_max_boost_repeats: Option<u32>,
     pub flats_max_boost_repeats: Option<u32>,
     pub flats_approach_max_boost_repeats: Option<u32>,
+    pub flats_break_max_boost_repeats: Option<u32>,
 }
 impl Default for Settings {
     fn default() -> Self {
@@ -33,6 +34,7 @@ impl Default for Settings {
             escape_max_boost_repeats: Some(4),
             flats_max_boost_repeats: Some(4),
             flats_approach_max_boost_repeats: Some(4),
+            flats_break_max_boost_repeats: Some(0),
         }
     }
 }
@@ -55,6 +57,7 @@ pub struct Escape {
     pub status: &'static str,
     pub flats_search: Option<FlatsSearch>,
     pub flats_approach_search: Option<FlatsApproachSearch>,
+    pub flats_break_search: Option<FlatsApproachSearch>,
     pub tested_candidates: u64,
 }
 #[derive(Debug, Serialize)]
@@ -179,6 +182,7 @@ pub(crate) fn escape_plan_with_limit(
         status: "No Escape solution in the CRT cycle",
         flats_search: None,
         flats_approach_search: None,
+        flats_break_search: None,
         tested_candidates: 0,
     };
     let tested = Cell::new(0u64);
@@ -242,30 +246,29 @@ fn plan_route_escape(
     danger: u32,
     settings: Settings,
 ) -> Result<Escape> {
-    let project = |a: &FieldEscapeAttempt| -> Result<(u32, bool, bool)> {
+    let project = |a: &FieldEscapeAttempt| -> Result<(u32, bool, bool, bool)> {
         let f = flats::after_highroad(&return_to_field(world, a)?)?;
         let counter = f.world_after.encounter_counter;
         let walk = f.harbor_reach.walking.reaches_reset;
-        let safe = if let Some(h) = crate::harbor::after_flats(&f)? {
-            crate::flats_escape::first_encounter(h.after, &h.world_after, level)?
-                .1
-                .situation
-                .as_deref()
-                != Some("Surprise")
+        let (safe, zero_bp_break) = if let Some(h) = crate::harbor::after_flats(&f)? {
+            let (entry, e)=crate::flats_escape::first_encounter(h.after, &h.world_after, level)?;
+            (e.situation.as_deref()!=Some("Surprise"), crate::flats_escape::unboosted_opening_break(entry,&e,level)?)
         } else {
-            false
+            (false, false)
         };
-        Ok((counter, walk, safe))
+        Ok((counter, walk, safe, zero_bp_break))
     };
     let required_walk = settings.flats_max_boost_repeats.is_none()
-        || settings.flats_approach_max_boost_repeats.is_none();
+        || settings.flats_approach_max_boost_repeats.is_none()
+        || settings.flats_break_max_boost_repeats.is_none();
     let required_safe = settings.flats_approach_max_boost_repeats.is_none();
+    let required_break = settings.flats_break_max_boost_repeats.is_none();
     let required = |a: &FieldEscapeAttempt| -> Result<bool> {
         if !required_walk {
             return Ok(true);
         }
-        let (_, walk, safe) = project(a)?;
-        Ok(walk && (!required_safe || safe))
+        let (_, walk, safe, zero_bp_break) = project(a)?;
+        Ok(walk && (!required_safe || safe) && (!required_break || zero_bp_break))
     };
     let choose = |limit, accepts: &dyn Fn(&FieldEscapeAttempt) -> Result<bool>| {
         escape_plan_with_limit(
@@ -283,7 +286,7 @@ fn plan_route_escape(
     let Some(a) = &plan.attempt else {
         return Ok(plan);
     };
-    let (counter, walk, _) = project(a)?;
+    let (counter, walk, _, _) = project(a)?;
     let base = plan.inputs.as_ref().map_or(0, |p| p.extra_repeats);
     let mut walking = FlatsSearch {
         max_extra_boost_repeats: settings.flats_max_boost_repeats,
@@ -318,7 +321,7 @@ fn plan_route_escape(
                 "Optional harbor walk not found within budget; keeping required outcomes";
         }
     }
-    let (_, _, safe) = project(plan.attempt.as_ref().unwrap())?;
+    let (_, _, safe, _) = project(plan.attempt.as_ref().unwrap())?;
     let prior = plan.inputs.as_ref().map_or(0, |p| p.extra_repeats);
     let mut approach = FlatsApproachSearch {
         max_extra_boost_repeats: settings.flats_approach_max_boost_repeats,
@@ -332,7 +335,7 @@ fn plan_route_escape(
         approach.status = "Optional Flats approach unavailable: harbor walk not reached";
     } else if !safe && let Some(extra) = settings.flats_approach_max_boost_repeats {
         let candidate = choose(Some(prior.saturating_add(extra)), &|a| {
-            let (_, walk, safe) = project(a)?;
+            let (_, walk, safe, _) = project(a)?;
             Ok(walk && safe && required(a)?)
         })?;
         approach.tested_candidates = candidate.tested_candidates;
@@ -353,13 +356,37 @@ fn plan_route_escape(
             approach.status = "Optional non-surprise Flats opening not found within budget; keeping required outcomes";
         }
     }
-    walking.selected_counter = project(plan.attempt.as_ref().unwrap())?.0;
+    let prior=plan.inputs.as_ref().map_or(0,|p|p.extra_repeats);
+    let mut break_search=FlatsApproachSearch {
+        max_extra_boost_repeats:settings.flats_break_max_boost_repeats,prior_repeats:prior,
+        added_repeats:0,tested_candidates:0,target_met:project(plan.attempt.as_ref().unwrap())?.3,
+        status:"Unboosted Flats break available in selected plan",
+    };
+    if !break_search.target_met && let Some(extra)=settings.flats_break_max_boost_repeats && extra>0 {
+        let candidate=choose(Some(prior.saturating_add(extra)), &|a| {
+            let (_,walk,safe,can_break)=project(a)?;
+            Ok(required(a)? && can_break && (!walking.target_met||walk) && (!approach.target_met||safe))
+        })?;
+        break_search.tested_candidates=candidate.tested_candidates;
+        if candidate.attempt.is_some() {
+            break_search.target_met=true;
+            break_search.added_repeats=candidate.inputs.as_ref().map_or(0,|p|p.extra_repeats).saturating_sub(prior);
+            plan=candidate;
+            if plan.method!=EscapeMethod::BreakThenEscape {plan.method=EscapeMethod::FlatsAdjustment;}
+        } else {break_search.status="Optional unboosted Flats break not found within budget; preceding outcomes preserved";}
+    }
+    if !break_search.target_met && settings.flats_break_max_boost_repeats==Some(0) {
+        break_search.status="Unboosted Flats break target not met; optional budget is zero";
+    }
+    let (counter,walk,safe,_) = project(plan.attempt.as_ref().unwrap())?;
+    walking.selected_counter=counter; walking.target_met=walk; approach.target_met=safe;
     ensure(
         required(plan.attempt.as_ref().unwrap())?,
         "Highroad plan violated required outcomes",
     )?;
     plan.flats_search = Some(walking);
     plan.flats_approach_search = Some(approach);
+    plan.flats_break_search = Some(break_search);
     Ok(plan)
 }
 #[derive(Debug, Serialize)]
@@ -441,7 +468,8 @@ fn predict_internal(
             && settings.flats_max_boost_repeats.is_none_or(|n| n <= 256)
             && settings
                 .flats_approach_max_boost_repeats
-                .is_none_or(|n| n <= 256),
+                .is_none_or(|n| n <= 256)
+            && settings.flats_break_max_boost_repeats.is_none_or(|n|n<=256),
         "Highroad caps must be 0..256 or unlimited",
     )?;
     let world = &ending.world_after;
@@ -767,6 +795,37 @@ mod tests {
             rejected_break,
             "Fixture must reject a break that fails required route outcomes"
         );
+    }
+
+    #[test]
+    fn flats_unboosted_break_target_replays_and_preserves_earlier_required_goals() {
+        let world=highroad_world();
+        let project=|a:&FieldEscapeAttempt| {
+            let f=flats::after_highroad(&return_to_field(&world,a).unwrap()).unwrap();
+            assert!(f.harbor_reach.walking.reaches_reset);
+            let h=crate::harbor::after_flats(&f).unwrap().unwrap();
+            crate::flats_escape::first_encounter(h.after,&h.world_after,5).unwrap()
+        };
+        for seed in 0..8 {
+            let mut entry=CrtRng::new(0); entry.advance(seed*7919); entry.draws=6000;
+            let settings=Settings {escape_max_boost_repeats:None,flats_max_boost_repeats:None,
+                flats_approach_max_boost_repeats:None,flats_break_max_boost_repeats:None,..Default::default()};
+            let plan=plan_route_escape(&world,entry,Situation::Normal,5,&["ENE_NML_FLD_CTY_010"],5,settings).unwrap();
+            let replay=plan.menu.clone().attempt(&plan.inputs.as_ref().unwrap().levels,5).unwrap();
+            assert_eq!(replay.after,plan.attempt.as_ref().unwrap().after);
+            let (at,e)=project(&replay);
+            assert!(crate::flats_escape::unboosted_opening_break(at,&e,5).unwrap());
+            assert!(plan.flats_break_search.as_ref().unwrap().target_met);
+            assert!(plan.flats_search.as_ref().unwrap().target_met);
+            assert!(plan.flats_approach_search.as_ref().unwrap().target_met);
+            let prior=plan_route_escape(&world,entry,Situation::Normal,5,&["ENE_NML_FLD_CTY_010"],5,
+                Settings {flats_break_max_boost_repeats:Some(0),..settings}).unwrap();
+            let optional=plan_route_escape(&world,entry,Situation::Normal,5,&["ENE_NML_FLD_CTY_010"],5,
+                Settings {flats_break_max_boost_repeats:Some(4),..settings}).unwrap();
+            let (_,e)=project(optional.attempt.as_ref().unwrap());
+            assert_ne!(e.situation.as_deref(),Some("Surprise"));
+            assert!(optional.inputs.as_ref().unwrap().extra_repeats<=prior.inputs.as_ref().unwrap().extra_repeats+4);
+        }
     }
 
     #[test]

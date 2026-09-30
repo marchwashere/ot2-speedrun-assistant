@@ -1,5 +1,17 @@
 # Active project
 
+- Highroad boost search can target the next Flats encounter's real unboosted
+  opening break. highroad_flats_break_max_boost_repeats=None means Required;
+  numeric limits are optional extra input pairs preserving required/achieved
+  harbor walking and non-surprise outcomes. Backend compatibility default0;
+  fork GUI defaults Required. Rebuild both field loads and actual rare-replaced
+  composition, then replay core first_action_break: only a lone City Ratkin I
+  or Night Raven with a successful 0BP dagger hit qualifies. Surprise, multiple
+  enemies and a missed Night Raven hit fail. This is an upstream target, not
+  automatic promotion of Flats Escape's saved Boost only setting, and does not
+  yet add a separate R2 post-break boost search. Keep diagnostic success/composition
+  in Detailed log; Manipulation displays changed Highroad inputs only.
+
 - User suspended Cait manipulation. Default early-route goal is any first Snows
   encounter WITHOUT surprise; preserve clerics, safe village run, safe Flats
   movement and safe daytime Osvald recruitment. GUI uses osvald_encounter and
