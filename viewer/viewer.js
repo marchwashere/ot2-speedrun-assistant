@@ -18,6 +18,7 @@ const repeatSettings = [
   {key:'pirro_victory_max_boost_repeats',id:'pirro-victory-boost-repeats',storage:'ot2-assistant-pirro-victory-boost-repeats',label:'Pirro victory'},
   {key:'pirro_no_grape_max_boost_repeats',id:'pirro-no-grape-boost-repeats',storage:'ot2-assistant-pirro-no-grape-boost-repeats',label:'Pirro no Healing Grape',legacy:'ot2-assistant-pirro-boost-repeats'},
   {key:'highroad_approach_max_boost_repeats',id:'highroad-approach-boost-repeats',storage:'ot2-assistant-highroad-approach-boost-repeats',label:'Highroad approach'},
+  {key:'highroad_break_max_boost_repeats',id:'highroad-break-boost-repeats',storage:'ot2-fork-highroad-break-boost-repeats',label:'Unboosted Highroad break',requiredDefault:true},
   {key:'highroad_escape_max_boost_repeats',id:'highroad-escape-boost-repeats',storage:'ot2-assistant-highroad-escape-boost-repeats',label:'Highroad Escape',strategy:true},
   {key:'highroad_flats_max_boost_repeats',id:'highroad-flats-boost-repeats',storage:'ot2-assistant-highroad-flats-boost-repeats',label:'Flats walking'},
   {key:'highroad_flats_approach_max_boost_repeats',id:'highroad-flats-approach-boost-repeats',storage:'ot2-assistant-highroad-flats-approach-boost-repeats',label:'Flats approach'},
@@ -43,6 +44,16 @@ for (const setting of repeatSettings) {
     else if (saved !== null && validRepeatCap(saved)) eventRepeatCaps[setting.key] = lastRepeatCaps[setting.key] = Number(saved);
   } catch { /* Storage may be unavailable; retain this event's default. */ }
 }
+// The user enabled cost-based breaking for this route. Migrate the previous
+// boost-only preference once; later explicit Boost only selections still work.
+try {
+  if(localStorage.getItem('ot2-weighted-escape-strategies-v1')!=='1') {
+    for(const s of repeatSettings.filter(s=>s.strategy)) {
+      eventRepeatCaps[s.key]=4;localStorage.setItem(s.storage,'4');
+    }
+    localStorage.setItem('ot2-weighted-escape-strategies-v1','1');
+  }
+} catch {for(const s of repeatSettings.filter(s=>s.strategy)) eventRepeatCaps[s.key]=4;}
 const names = {attack_sword:'Sword attack',attack_dagger:'Dagger attack',attack_axe:'Axe attack',defend:'Defend',ABI_ENE_0041:'Attack',ABI_ENE_0500:'Slash'};
 Object.assign(names,{ABI_SET_THI_020:'Darkest Night',ABI_SET_GST_0170:'Slice',ABI_SET_GST_0190:'Pierce Through',ABI_ENE_0200:'Double Thrust',ABI_ENE_0010:'Attack'});
 const reasons = {actor_initialization:'Actor initialization',current_order_shuffle:'First order shuffle',battle_start_speaker:'Opening speaker',battle_start_voice:'Opening voice check',ability_voice:'Ability voice check',break_voice:'Break reaction check',kill_voice:'Kill reaction check',next_order_shuffle:'Next order shuffle',order_voice:'Turn-start voice check',boost_voice:'Boost voice check',normal_accuracy:'Cached accuracy check',attack_voice:'Attack voice check',last_attack_voice:'Final-hit voice check',critical_hit_and_damage:'Critical / hit / damage',damage_notification_timer:'Damage notification timer',miss_notification_timer:'Miss notification timer',guard_disease:'Guard status checks',guard_voice:'Guard voice check',round_timing_revision:'Round timing revision',enemy_ai_and_target:'Enemy AI and target',enemy_drop:'Enemy item drop',field_encounter_reset_b_then_a:'Area counter reset (B then A)'};
@@ -302,6 +313,14 @@ function renderActionVisibility() {
   $('flats-escape-result').hidden=!flats || (!!flats.escape && !flats.error && !hasEscapeInputs(flats.escape));
 }
 
+function boostStepsHtml(levels) {
+  const parts=groupBoostRoutine(levels || []).map(c=>`${c.from} → ${c.to}${c.count>1?' ×'+c.count:''}`);
+  return parts.length?'<div class="boost-instructions">'+parts.map(c=>`<span class="boost-step">${c}</span>`).join('')+'</div>':'';
+}
+function breakEscapeHtml(s) {
+  const b=s.break_action;
+  return `<p><strong>R1 · Throné · 1st command menu</strong></p>${boostStepsHtml(b.attack_inputs)}<p class="boost-step">${b.weapon==='sword'?'Sword':'Dagger'} · ${b.boost} BP</p><p><strong>R${b.escape_round} · Throné · 1st command menu</strong></p>${boostStepsHtml(b.escape_inputs)}<p><strong>Escape</strong></p>`;
+}
 function renderHighroad() {
   const p=result.post_battle_field?.highroad;
   $('highroad-result').hidden=!p;
@@ -310,10 +329,9 @@ function renderHighroad() {
   if(!p) return;
   if(p.error) { $('highroad-boost-routine').textContent=`Unavailable · ${p.error}`; return; }
   const s=p.escape, search=p.approach_search;
-  if(search && !search.target_met) $('pirro-boost-routine').innerHTML+='<p class="text-bad">R8 adjustment unavailable · see Detailed log</p>';
+  if(search && (!search.target_met || (search.break_max_boost_repeats===null && !search.unboosted_break_met))) $('pirro-boost-routine').innerHTML+='<p class="text-bad">R8 adjustment unavailable · see Detailed log</p>';
   if(s?.break_action) {
-    const b=s.break_action, weapon=b.weapon==='sword'?'Sword':'Dagger';
-    $('highroad-boost-routine').innerHTML=`<p><strong>R1 · Throné · 1st command menu</strong></p><p class="boost-step">${weapon} · ${b.boost} BP</p><p><strong>R${b.escape_round} · Escape</strong></p>`;
+    $('highroad-boost-routine').innerHTML=breakEscapeHtml(s);
   } else if(s?.inputs) {
     const parts=groupBoostRoutine(s.inputs.levels).map(c=>`${c.from} → ${c.to}${c.count>1?' ×'+c.count:''}`);
     $('highroad-boost-routine').innerHTML=parts.length?'<p><strong>R1 · Throné · 1st command menu</strong></p><div class="boost-instructions">'+parts.map(c=>`<span class="boost-step">${c}</span>`).join('')+'</div>':'';
@@ -354,8 +372,7 @@ function renderFlatsEscape() {
   if(p.error) { $('flats-escape-routine').textContent=`Unavailable · ${p.error}`; return; }
   const s=p.escape;
   if(s?.break_action) {
-    const b=s.break_action;
-    $('flats-escape-routine').innerHTML=`<p><strong>R1 · Throné · 1st command menu</strong></p><p class="boost-step">${b.weapon==='sword'?'Sword':'Dagger'} · ${b.boost} BP</p><p><strong>R${b.escape_round} · Escape</strong></p>`;
+    $('flats-escape-routine').innerHTML=breakEscapeHtml(s);
   } else if(s?.inputs) {
     const parts=groupBoostRoutine(s.inputs.levels).map(c=>`${c.from} → ${c.to}${c.count>1?' ×'+c.count:''}`);
     $('flats-escape-routine').innerHTML=parts.length?'<p><strong>R1 · Throné · 1st command menu</strong></p><div class="boost-instructions">'+parts.map(c=>`<span class="boost-step">${c}</span>`).join('')+'</div>':'';
@@ -698,10 +715,10 @@ function renderMansionEscape() {
   const checkpoint=(label,rng)=>`<tr><td>${escapeHtml(label)}</td><td>${totalAdvances(rng)}</td><td>${hex(rng.state)}</td><td>${rng.draws}</td></tr>`;
   $('checkpoints').innerHTML+=checkpoint('Mansion encounter · before enemy initialization',p.before_battle_initialization)+checkpoint(menuLabel,p.at_command_menu);
   if(s) {
-    const climbs=groupBoostRoutine(s.inputs.levels).map(c=>`${c.from} → ${c.to}${c.count>1?' ×'+c.count:''}`);
-    $('mansion-escape-routine').innerHTML=`<h3>Boost routine</h3><p><strong>${menuLabel}</strong></p>${climbs.length ? `<div class="boost-instructions">${climbs.map(c=>`<span class="boost-step">${c}</span>`).join('')}</div>` : '<p class="boost-step">No boosts needed</p>'}<p><strong>${s.break_then_escape?'Dagger attack · 1 BP → next command menu: Escape':'Select Escape'}${s.reaches_pirro?' → run to Pirro':''}</strong></p>`;
+    $('mansion-escape-routine').innerHTML=`<p><strong>${menuLabel}</strong></p>${boostStepsHtml(s.inputs.levels)}${s.break_then_escape?`<p class="boost-step">Dagger · 1 BP</p><p><strong>R${s.attempt.state.round} · Throné · 1st command menu</strong></p>${boostStepsHtml(s.escape_inputs?.levels)}`:''}<p><strong>Escape${s.reaches_pirro?' → run to Pirro':''}</strong></p>`;
     if(!s.reaches_pirro) $('mansion-escape-routine').innerHTML+='<p class="text-bad">No-second-encounter target not met. Increase its budget or select Required outcome.</p>';
     $('mansion-escape-diagnostics').innerHTML=`<span class="diagnostic-label">CRT at command menu · before boosts</span><div class="diagnostic-value"><strong>${totalAdvances(p.at_command_menu)}</strong><span>advances since initial seed</span></div><span class="rng-secondary">${hex(p.at_command_menu.state)}</span><div class="run-diagnostics"><span class="diagnostic-label">CRT after Escape · field returned</span><div class="diagnostic-value"><strong>${totalAdvances(s.after_field_return)}</strong><span>advances since initial seed</span></div><span class="rng-secondary">${hex(s.after_field_return.state)}</span></div><p class="muted small">Counter ${s.counter} · run ${p.remaining_updates} updates · ${s.counter_at_trigger} left at Pirro trigger</p>`;
+    if(s.at_escape_menu) $('checkpoints').innerHTML+=checkpoint(`Mansion R${s.attempt.state.round} · command menu after break`,s.at_escape_menu);
     $('checkpoints').innerHTML+=checkpoint('Mansion Escape · after check',s.after_escape)+checkpoint('Mansion Escape · returned to field / Pirro trigger before cutscene',s.after_field_return);
   } else {
     $('mansion-escape-routine').textContent=p.status==='No plan within repeat limit' ? 'No boost routine found within the limit. Increase the optional budget or select Required outcome in Settings.' : 'No boost routine found for this remaining run.';

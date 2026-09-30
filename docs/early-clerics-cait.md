@@ -20,9 +20,10 @@ that dodges the unboosted attack. Numeric limits are optional additional input
 pairs and preserve earlier required/achieved outcomes. GUI defaults Required;
 API omission retains legacy behavior (optional0).
 
-This target only chooses the upstream Highroad adjustment. The saved Flats
-Boost only/break preference still controls the downstream escape plan. A new
-round-2 boost search after a 0BP break is not implemented by this target.
+Pirro R8 now also targets an unboosted Highroad break. Both field encounters
+compare direct Escape and actual break plus R2 boosts by time cost. See
+[weighted escape strategy](weighted-escape.md); it supersedes the historical
+Boost only regression counts below.
 
 With seed0/title4916, shared level retained, Required earlier targets and Flats
 Boost only, enabling this target selects21 Highroad repeats, a Normal lone

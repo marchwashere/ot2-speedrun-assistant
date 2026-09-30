@@ -1,5 +1,28 @@
 # Active project
 
+- Escape strategy cost model supersedes threshold-first fallback: one boost
+  BUTTON press=1, one successful break action=10, one time switch=7. Mansion,
+  Highroad and Flats compare complete valid plans in increasing estimated cost;
+  numeric legacy strategy caps enable breaking, None/Boost only excludes it.
+  GUI hides obsolete strategy threshold numbers and migrates prior Boost only
+  preferences once because the user explicitly enabled breaking for this route.
+  Outcome numeric/Required settings remain independent and retain semantics.
+  src/escape_search.rs enumerates R1 direct Escape or R1 actual break plus R2
+  boosts, preserving BP, voice history, actual hit and conditional battle draws.
+  No BP spent at R1 means 2BP at R2; spending initial 1BP means no R2 BP.
+  Shared core opening_break_menu/FieldBreakMenu clones the actual R2 battle;
+  no synthetic RNG offset. Mansion uses its separate real battle snapshot.
+  early search cost includes break and BOTH menus' inputs plus all time toggles.
+  Required goals still gate candidates before optional searches.
+- New Pirro R8 highroad_break_max_boost_repeats Required/numeric target selects
+  a lone City Ratkin I/Night Raven with an actual successful 0BP dagger break
+  available on Highroad. R3/victory/no-grape are frozen; joint Required R8 goals
+  precede optional additions, which preserve achieved goals. GUI defaults this
+  Required; API default0 preserves old target selection. Replay/export preserves
+  the exact R8 path. Targets establish break availability; fastest Escape may
+  still use direct Escape or a 1BP break when cheaper for downstream outcomes.
+  Supersedes prior notes saying R2 break manipulation is missing.
+
 - Highroad boost search can target the next Flats encounter's real unboosted
   opening break. highroad_flats_break_max_boost_repeats=None means Required;
   numeric limits are optional extra input pairs preserving required/achieved

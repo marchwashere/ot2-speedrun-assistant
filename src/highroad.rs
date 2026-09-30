@@ -4,7 +4,7 @@ use crate::{
     CrtRng, Result, SimError,
     encounter::{self, Boundary, PredictionOptions},
     ensure, flats,
-    manipulation::{BoostInputs, describe_inputs},
+    manipulation::BoostInputs,
     pirro, pirro_aftermath, second,
     world::{self, Decision, Loader, Trace, WorldState},
 };
@@ -12,16 +12,18 @@ use ot2_battle_engine::{
     Event, Outcome, Resource,
     escape::Situation,
     field_escape::{
-        FieldBreakEscape, FieldEscapeAttempt, FieldEscapeMenu, first_action_break,
+        FieldBreakEscape, FieldEscapeAttempt, FieldEscapeMenu,
         level_for_experience, route_battle_base_exp,
     },
 };
 use serde::Serialize;
-use std::cell::Cell;
+#[cfg(test)]
+use ot2_battle_engine::field_escape::first_action_break;
 
 #[derive(Debug, Clone, Copy, Serialize)]
 pub struct Settings {
     pub approach_max_boost_repeats: Option<u32>,
+    pub break_max_boost_repeats: Option<u32>,
     pub escape_max_boost_repeats: Option<u32>,
     pub flats_max_boost_repeats: Option<u32>,
     pub flats_approach_max_boost_repeats: Option<u32>,
@@ -31,6 +33,7 @@ impl Default for Settings {
     fn default() -> Self {
         Self {
             approach_max_boost_repeats: Some(4),
+            break_max_boost_repeats: Some(0),
             escape_max_boost_repeats: Some(4),
             flats_max_boost_repeats: Some(4),
             flats_approach_max_boost_repeats: Some(4),
@@ -41,6 +44,8 @@ impl Default for Settings {
 #[derive(Debug, Serialize)]
 pub struct ApproachSearch {
     pub max_boost_repeats: Option<u32>,
+    pub break_max_boost_repeats: Option<u32>,
+    pub unboosted_break_met: bool,
     pub tested_candidates: u64,
     pub target_met: bool,
     pub plan: Vec<u8>,
@@ -51,6 +56,9 @@ pub struct Escape {
     pub menu: FieldEscapeMenu,
     pub baseline: FieldEscapeAttempt,
     pub inputs: Option<BoostInputs>,
+    pub escape_boost_inputs: Option<BoostInputs>,
+    pub weighted_input_cost: u32,
+    pub boost_repeat_count: u32,
     pub attempt: Option<FieldEscapeAttempt>,
     pub method: EscapeMethod,
     pub break_action: Option<FieldBreakEscape>,
@@ -143,8 +151,8 @@ fn escape_plan(
     escape_plan_for_target(entry, situation, level, enemies, danger, cap, |_| Ok(true))
 }
 
-/// Search direct Escape, then a real immediate break, then unbounded direct
-/// Escape. Every strategy must satisfy the caller's post-battle target too.
+/// Compare direct Escape and real opening break / next-menu boost plans.
+/// Every strategy must satisfy the caller's post-battle target too.
 #[cfg(test)]
 pub(crate) fn escape_plan_for_target(
     entry: CrtRng,
@@ -158,7 +166,7 @@ pub(crate) fn escape_plan_for_target(
     escape_plan_with_limit(entry, situation, level, enemies, danger, cap, None, accepts)
 }
 
-/// `cap` chooses when to prefer a viable break. `total_limit` bounds an
+/// A finite legacy `cap` enables breaking; None means Boost only. `total_limit` bounds an
 /// optional improvement; neither permits violating the supplied outcomes.
 pub(crate) fn escape_plan_with_limit(
     entry: CrtRng,
@@ -170,71 +178,25 @@ pub(crate) fn escape_plan_with_limit(
     total_limit: Option<u32>,
     accepts: impl Fn(&FieldEscapeAttempt) -> Result<bool>,
 ) -> Result<Escape> {
-    let menu = FieldEscapeMenu::new(entry, situation, level, enemies)?;
-    let baseline = menu.clone().attempt(&[], danger)?;
-    let mut result = Escape {
-        menu,
-        baseline,
-        inputs: None,
-        attempt: None,
-        method: EscapeMethod::Unavailable,
-        break_action: None,
-        status: "No Escape solution in the CRT cycle",
-        flats_search: None,
-        flats_approach_search: None,
-        flats_break_search: None,
-        tested_candidates: 0,
-    };
-    let tested = Cell::new(0u64);
-    // Searches clone the untouched first menu. Testing a failed check never
-    // changes the state used by the break fallback or another boost candidate.
-    let search = |start: u64, end: u64| -> Result<Option<(BoostInputs, FieldEscapeAttempt)>> {
-        for repeats in start..=end {
-            tested.set(tested.get() + 1);
-            let path: Vec<u8> = (0..repeats).flat_map(|_| [1, 0]).collect();
-            let attempt = result.menu.clone().attempt(&path, danger)?;
-            if attempt.success && accepts(&attempt)? {
-                return Ok(Some((describe_inputs(repeats as u32, 0, path)?, attempt)));
+    let mut search=crate::escape_search::FieldSearch::new(entry,situation,level,enemies,danger)?;
+    let mut tested=0;
+    let maximum=total_limit.map(|n|n.saturating_mul(2).saturating_add(crate::escape_search::BREAK_INPUT_COST+1));
+    let mut cost=0u32;
+    loop {
+        if maximum.is_some_and(|m|cost>m) {let mut p=search.unavailable()?;p.tested_candidates=tested;return Ok(p);}
+        for mut plan in search.candidates(cost,cap.is_some(),total_limit)? {
+            tested+=1;
+            if accepts(plan.attempt.as_ref().unwrap())? {
+                plan.tested_candidates=tested;
+                if plan.method!=EscapeMethod::BreakThenEscape && cap.is_some_and(|n|plan.boost_repeat_count>n) {
+                    plan.method=EscapeMethod::UnlimitedFallback;
+                }
+                return Ok(plan);
             }
         }
-        Ok(None)
-    };
-    let end = u64::from(total_limit.unwrap_or(u32::MAX));
-    if let Some((inputs, attempt)) = search(0, cap.map_or(end, |n| u64::from(n).min(end)))? {
-        result.inputs = Some(inputs);
-        result.attempt = Some(attempt);
-        result.method = EscapeMethod::WithinLimit;
-        result.status = "First Escape succeeds";
-        result.tested_candidates = tested.get();
-        return Ok(result);
+        cost=cost.checked_add(1).ok_or_else(||SimError("Escape search exhausted representable cost".into()))?;
     }
-    if let Some(cap) = cap {
-        tested.set(tested.get() + 1);
-        if let Some(plan) = first_action_break(entry, situation, level, enemies)? {
-            ensure(
-                plan.at_attack_menu == result.menu.rng,
-                "Break fallback menu disagrees with Escape initialization",
-            )?;
-            if accepts(&plan.attempt)? {
-                result.attempt = Some(plan.attempt.clone());
-                result.break_action = Some(plan);
-                result.method = EscapeMethod::BreakThenEscape;
-                result.status = "Break now, then guaranteed Escape";
-                result.tested_candidates = tested.get();
-                return Ok(result);
-            }
-        }
-        if let Some((inputs, attempt)) = search(u64::from(cap) + 1, end)? {
-            result.inputs = Some(inputs);
-            result.attempt = Some(attempt);
-            result.method = EscapeMethod::UnlimitedFallback;
-            result.status = "First Escape succeeds beyond break preference";
-        }
-    }
-    result.tested_candidates = tested.get();
-    Ok(result)
 }
-
 /// Required outcomes are evaluated together BEFORE choosing Escape strategy.
 /// Numeric goals are then attempted as bounded improvements of that valid plan.
 fn plan_route_escape(
@@ -287,7 +249,7 @@ fn plan_route_escape(
         return Ok(plan);
     };
     let (counter, walk, _, _) = project(a)?;
-    let base = plan.inputs.as_ref().map_or(0, |p| p.extra_repeats);
+    let base = plan.boost_repeat_count;
     let mut walking = FlatsSearch {
         max_extra_boost_repeats: settings.flats_max_boost_repeats,
         escape_repeats: base,
@@ -299,17 +261,14 @@ fn plan_route_escape(
         required_counter: flats::harbor_reach(counter)?.walking.minimum_start_counter,
         status: "Harbor walk satisfied by the required-outcome plan",
     };
-    if !walk && let Some(extra) = settings.flats_max_boost_repeats {
+    if !walk && let Some(extra) = settings.flats_max_boost_repeats && extra>0 {
         let candidate = choose(Some(base.saturating_add(extra)), &|a| {
             Ok(required(a)? && project(a)?.1)
         })?;
         walking.tested_candidates = candidate.tested_candidates;
         if candidate.attempt.is_some() {
             walking.target_met = true;
-            walking.added_repeats = candidate
-                .inputs
-                .as_ref()
-                .map_or(0, |p| p.extra_repeats)
+            walking.added_repeats = candidate.boost_repeat_count
                 .saturating_sub(base);
             walking.status = "Optional harbor walk achieved; required outcomes preserved";
             plan = candidate;
@@ -322,7 +281,7 @@ fn plan_route_escape(
         }
     }
     let (_, _, safe, _) = project(plan.attempt.as_ref().unwrap())?;
-    let prior = plan.inputs.as_ref().map_or(0, |p| p.extra_repeats);
+    let prior = plan.boost_repeat_count;
     let mut approach = FlatsApproachSearch {
         max_extra_boost_repeats: settings.flats_approach_max_boost_repeats,
         prior_repeats: prior,
@@ -333,7 +292,7 @@ fn plan_route_escape(
     };
     if !walking.target_met {
         approach.status = "Optional Flats approach unavailable: harbor walk not reached";
-    } else if !safe && let Some(extra) = settings.flats_approach_max_boost_repeats {
+    } else if !safe && let Some(extra) = settings.flats_approach_max_boost_repeats && extra>0 {
         let candidate = choose(Some(prior.saturating_add(extra)), &|a| {
             let (_, walk, safe, _) = project(a)?;
             Ok(walk && safe && required(a)?)
@@ -341,10 +300,7 @@ fn plan_route_escape(
         approach.tested_candidates = candidate.tested_candidates;
         if candidate.attempt.is_some() {
             approach.target_met = true;
-            approach.added_repeats = candidate
-                .inputs
-                .as_ref()
-                .map_or(0, |p| p.extra_repeats)
+            approach.added_repeats = candidate.boost_repeat_count
                 .saturating_sub(prior);
             approach.status =
                 "Optional non-surprise Flats opening achieved; required outcomes preserved";
@@ -356,7 +312,7 @@ fn plan_route_escape(
             approach.status = "Optional non-surprise Flats opening not found within budget; keeping required outcomes";
         }
     }
-    let prior=plan.inputs.as_ref().map_or(0,|p|p.extra_repeats);
+    let prior=plan.boost_repeat_count;
     let mut break_search=FlatsApproachSearch {
         max_extra_boost_repeats:settings.flats_break_max_boost_repeats,prior_repeats:prior,
         added_repeats:0,tested_candidates:0,target_met:project(plan.attempt.as_ref().unwrap())?.3,
@@ -370,7 +326,7 @@ fn plan_route_escape(
         break_search.tested_candidates=candidate.tested_candidates;
         if candidate.attempt.is_some() {
             break_search.target_met=true;
-            break_search.added_repeats=candidate.inputs.as_ref().map_or(0,|p|p.extra_repeats).saturating_sub(prior);
+            break_search.added_repeats=candidate.boost_repeat_count.saturating_sub(prior);
             plan=candidate;
             if plan.method!=EscapeMethod::BreakThenEscape {plan.method=EscapeMethod::FlatsAdjustment;}
         } else {break_search.status="Optional unboosted Flats break not found within budget; preceding outcomes preserved";}
@@ -464,6 +420,7 @@ fn predict_internal(
 ) -> Result<Prediction> {
     ensure(
         settings.approach_max_boost_repeats.is_none_or(|n| n <= 256)
+            && settings.break_max_boost_repeats.is_none_or(|n| n <= 256)
             && settings.escape_max_boost_repeats.is_none_or(|n| n <= 256)
             && settings.flats_max_boost_repeats.is_none_or(|n| n <= 256)
             && settings
@@ -553,7 +510,7 @@ fn predict_internal(
         escape,
         field_return,
         approach_search: None,
-        verification: "Live capture verifies all 10 CRT calls from menu6002 through five boost cycles, Escape, two field gondola callbacks and counter B/A to6012. Other starts remain source-derived. Immediate daytime switch, skipped Al introduction, unchanged equipment, no intervening CRT actions; first land encounter. Try Escape within the cap, then an immediate single-enemy break, otherwise unlimited boost search. Break uses actual hit rolls and guarantees next-menu Escape without a lottery. Surprise combat and failed-Escape continuation are not approximated.",
+        verification: "Live capture verifies all 10 CRT calls from menu6002 through five boost cycles, Escape, two field gondola callbacks and counter B/A to6012. Other starts remain source-derived. Immediate daytime switch, skipped Al introduction, unchanged equipment, no intervening CRT actions; first land encounter. Compare direct Escape with actual break and next-menu boosts by estimated input cost: boost input1, additional break10. Break uses actual hit rolls and guarantees next-menu Escape without a lottery. Surprise combat and failed-Escape continuation are not approximated.",
     })
 }
 
@@ -568,106 +525,75 @@ pub fn from_battle(
     let Some(ending) = pirro_aftermath::after_battle(boss)? else {
         return Ok(None);
     };
-    let mut prediction = predict(&ending, route_level(second, boss)?, settings)?;
-    let mut ending = ending;
-    let mut info = ApproachSearch {
-        max_boost_repeats: settings.approach_max_boost_repeats,
-        tested_candidates: 0,
-        target_met: prediction.encounter.situation.as_deref() != Some("Surprise"),
-        plan: vec![1, 2, 3],
-        status: "Non-surprise opening",
+    let mut prediction=predict_internal(&ending,route_level(second,boss)?,settings,false)?;
+    let mut ending=ending;
+    let facts=|p:&Prediction| -> Result<[bool;2]> {
+        Ok([p.encounter.situation.as_deref()!=Some("Surprise"),
+            crate::flats_escape::unboosted_opening_break(p.before_battle_initialization,&p.encounter,p.level)?])
     };
-    let no_grape = boss.routine.heal_before_round_eight == Some(false);
-    if (!info.target_met || replay.is_some()) && no_grape {
-        let r3 = boss
-            .boost_search
-            .as_ref()
-            .map(|s| s.plan.clone())
-            .or_else(|| boss.manipulation.as_ref().map(|m| m.inputs.levels.clone()))
-            .unwrap_or(vec![1, 2, 3]);
-        let menu = pirro::r8_menu(boss, &r3)?;
-        let mut world = boss.world_at_entry.clone();
-        world.set_flag(8017, false);
-        let inventory = pirro::replay_inventory(boss)?;
-        let run = |path: &[u8]| {
-            pirro::predict_with_plans(
-                boss.arrival,
-                &world,
-                boss.initial_state.actors[0].resources.clone(),
-                inventory.clone(),
-                &r3,
-                path,
-            )
+    let caps=[settings.approach_max_boost_repeats,settings.break_max_boost_repeats];
+    let mut goals=caps.map(|c|c.is_none());
+    let mut info=ApproachSearch {max_boost_repeats:caps[0],break_max_boost_repeats:caps[1],
+        unboosted_break_met:facts(&prediction)?[1],tested_candidates:0,target_met:facts(&prediction)?[0],
+        plan:vec![1,2,3],status:"Highroad opening targets evaluated"};
+    let no_grape=boss.routine.heal_before_round_eight==Some(false);
+    let need_search=facts(&prediction)?.iter().zip(goals).any(|(met,needed)|needed && !met)
+        || facts(&prediction)?.iter().zip(caps).any(|(met,cap)|!met && cap.is_some_and(|n|n>0));
+    if (need_search || replay.is_some()) && no_grape {
+        let r3=boss.boost_search.as_ref().map(|s|s.plan.clone())
+            .or_else(||boss.manipulation.as_ref().map(|m|m.inputs.levels.clone())).unwrap_or(vec![1,2,3]);
+        let menu=pirro::r8_menu(boss,&r3)?;
+        let mut world=boss.world_at_entry.clone();world.set_flag(8017,false);
+        let inventory=pirro::replay_inventory(boss)?;
+        let run=|path:&[u8]| pirro::predict_with_plans(boss.arrival,&world,
+            boss.initial_state.actors[0].resources.clone(),inventory.clone(),&r3,path);
+        let check=|p:&pirro::Prediction,needed:[bool;2]| -> Result<bool> {
+            if p.state.outcome!=Outcome::Victory || p.routine_error.is_some() || p.routine.heal_before_round_eight!=Some(false) {return Ok(false);}
+            let after=pirro_aftermath::after_battle(p)?.unwrap();
+            let projected=predict_internal(&after,route_level(second,p)?,settings,false)?;
+            Ok(facts(&projected)?.iter().zip(needed).all(|(met,need)|!need || *met))
         };
-        let accepts = |p: &pirro::Prediction| -> Result<bool> {
-            if p.state.outcome != Outcome::Victory
-                || p.routine_error.is_some()
-                || p.routine.heal_before_round_eight != Some(false)
-            {
-                return Ok(false);
+        let mut selected=None;
+        if let Some(path)=replay {
+            if let (Some(a),Some(b))=(caps[0],caps[1]) {
+                ensure(pirro::describe_path(&path)?.extra_repeats<=a.saturating_add(b),"Pirro R8 replay exceeds its outcome budgets")?;
             }
-            let after = pirro_aftermath::after_battle(p)?.unwrap();
-            let candidate = predict_internal(
-                &after,
-                route_level(second, p)?,
-                Settings {
-                    escape_max_boost_repeats: Some(0),
-                    ..settings
-                },
-                false,
-            )?;
-            Ok(candidate.encounter.situation.as_deref() != Some("Surprise"))
-        };
-        let solution = if let Some(path) = replay {
-            ensure(
-                settings.approach_max_boost_repeats.is_none_or(|cap| {
-                    pirro::describe_path(&path).is_ok_and(|i| i.extra_repeats <= cap)
-                }),
-                "Pirro R8 replay exceeds its repeat budget",
-            )?;
-            let p = run(&path)?;
-            // A zero-adjustment export may represent a failed capped search.
-            ensure(
-                path == [1, 2, 3] || accepts(&p)?,
-                "Pirro R8 replay does not preserve the target",
-            )?;
-            Some((p, path))
+            let p=run(&path)?;
+            ensure(path==[1,2,3] || check(&p,goals)?,"Pirro R8 replay violates required opening targets")?;
+            selected=Some((p,path));
         } else {
-            let (solution, tested) = pirro::search_paths(
-                &menu,
-                menu.can_use_latent(),
-                settings.approach_max_boost_repeats,
-                &run,
-                &accepts,
-            )?;
-            info.tested_candidates = tested;
-            solution
-        };
-        if let Some((mut selected, plan)) = solution {
-            ending = pirro_aftermath::after_battle(&selected)?.unwrap();
-            prediction = predict(&ending, route_level(second, &selected)?, settings)?;
-            selected.boost_search = boss.boost_search.take();
-            *boss = selected;
-            info.plan = plan;
+            let current=facts(&prediction)?;
+            if current.iter().zip(goals).any(|(met,need)|need && !met) {
+                let (p,tested)=pirro::search_paths(&menu,menu.can_use_latent(),None,&run,&|p|check(p,goals))?;
+                selected=p;info.tested_candidates+=tested;
+            }
+            for i in 0..2 {
+                let met=if let Some((p,_))=&selected {
+                    let after=pirro_aftermath::after_battle(p)?.unwrap();
+                    facts(&predict_internal(&after,route_level(second,p)?,settings,false)?)?
+                } else {facts(&prediction)?};
+                for j in 0..2 {goals[j]|=met[j];}
+                if !met[i] && let Some(extra)=caps[i] && extra>0 {
+                    let base=selected.as_ref().map_or(0,|(_,path)|pirro::describe_path(path).unwrap().extra_repeats);
+                    let mut needed=goals;needed[i]=true;
+                    let (p,tested)=pirro::search_paths(&menu,menu.can_use_latent(),Some(base.saturating_add(extra)),&run,&|p|check(p,needed))?;
+                    info.tested_candidates+=tested;
+                    if p.is_some(){selected=p;goals[i]=true;}
+                }
+            }
         }
-    } else if let Some(path) = replay {
-        ensure(
-            path == [1, 2, 3],
-            "R8 boost replay unavailable in the healing branch",
-        )?;
-    }
-    info.target_met = prediction.encounter.situation.as_deref() != Some("Surprise");
-    if !info.target_met {
-        info.status = if no_grape {
-            "No non-surprise plan within R8 repeat limit"
-        } else {
-            "R8 swords unavailable in the healing branch"
-        };
-    }
-    prediction.approach_search = Some(info);
-    Ok(Some((ending, prediction)))
+        if let Some((mut p,path))=selected {
+            ending=pirro_aftermath::after_battle(&p)?.unwrap();
+            prediction=predict_internal(&ending,route_level(second,&p)?,settings,false)?;
+            p.boost_search=boss.boost_search.take();*boss=p;info.plan=path;
+        }
+    } else if let Some(path)=replay {ensure(path==[1,2,3],"R8 replay unavailable in healing branch")?;}
+    let met=facts(&prediction)?;info.target_met=met[0];info.unboosted_break_met=met[1];
+    if !met[0] || (caps[1].is_none() && !met[1]) {info.status="R8 opening target not met";}
+    prediction=predict(&ending,route_level(second,boss)?,settings)?;
+    prediction.approach_search=Some(info);
+    Ok(Some((ending,prediction)))
 }
-
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -726,19 +652,15 @@ mod tests {
             let break_valid = break_plan
                 .as_ref()
                 .is_some_and(|p| meets(&p.attempt) == (true, true));
-            assert_eq!(
-                plan.method,
-                if baseline_valid {
-                    EscapeMethod::WithinLimit
-                } else if break_valid {
-                    accepted_break = true;
-                    EscapeMethod::BreakThenEscape
-                } else {
-                    rejected_break |= break_plan.is_some();
-                    EscapeMethod::UnlimitedFallback
+            if baseline_valid {assert_eq!(plan.weighted_input_cost,0);}
+            if plan.method==EscapeMethod::BreakThenEscape {accepted_break=true;}
+            rejected_break |= break_plan.is_some() && !break_valid;
+            let mut exhaustive=crate::escape_search::FieldSearch::new(entry,Situation::Normal,5,&enemies,5).unwrap();
+            for cost in 0..plan.weighted_input_cost {
+                for trial in exhaustive.candidates(cost,true,None).unwrap() {
+                    assert_ne!(meets(trial.attempt.as_ref().unwrap()),(true,true),"Rejected faster candidate must fail an actual route goal");
                 }
-            );
-            let both_required = plan_route_escape(
+            }            let both_required = plan_route_escape(
                 &world,
                 entry,
                 Situation::Normal,
@@ -829,7 +751,7 @@ mod tests {
     }
 
     #[test]
-    fn escape_fallback_obeys_limit_then_break_then_unlimited_priority() {
+    fn escape_strategies_choose_minimum_input_equivalent_cost() {
         let mut covered = [false; 3];
         for seed in 0..64 {
             let entry = CrtRng {
@@ -860,7 +782,7 @@ mod tests {
                             p.attempt.as_ref().unwrap().after,
                             p.attempt.as_ref().unwrap().before_check
                         );
-                        assert!(p.inputs.is_none());
+                        assert!(p.weighted_input_cost>=crate::escape_search::BREAK_INPUT_COST);
                         // An unbounded initial search never chooses break instead.
                         assert_eq!(
                             escape_plan(entry, Situation::Normal, 5, &enemies, 5, None)
@@ -872,12 +794,6 @@ mod tests {
                     EscapeMethod::UnlimitedFallback => {
                         covered[2] = true;
                         assert!(!p.baseline.success);
-                        assert!(p.inputs.as_ref().unwrap().extra_repeats > 0);
-                        assert!(
-                            first_action_break(entry, Situation::Normal, 5, &enemies)
-                                .unwrap()
-                                .is_none()
-                        );
                         let direct =
                             escape_plan(entry, Situation::Normal, 5, &enemies, 5, None).unwrap();
                         assert_eq!(direct.inputs.unwrap().levels, p.inputs.unwrap().levels);

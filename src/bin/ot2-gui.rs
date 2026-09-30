@@ -330,6 +330,7 @@ impl CrtSetup {
         let mut pirro_boost_inputs = None;
         let mut pirro_r8_boost_inputs = None;
         let mut highroad_approach_max_boost_repeats = None;
+        let mut highroad_break_max_boost_repeats = None;
         let mut highroad_escape_max_boost_repeats = None;
         let mut highroad_flats_max_boost_repeats = None;
         let mut highroad_flats_approach_max_boost_repeats = None;
@@ -461,6 +462,9 @@ impl CrtSetup {
                     highroad_flats_approach_max_boost_repeats =
                         Some(parse_event_repeat_cap(value)?);
                 }
+                "highroad_break_max_boost_repeats" if highroad_break_max_boost_repeats.is_none() => {
+                    highroad_break_max_boost_repeats=Some(parse_event_repeat_cap(value)?);
+                }
                 "highroad_flats_break_max_boost_repeats" if highroad_flats_break_max_boost_repeats.is_none() => {
                     highroad_flats_break_max_boost_repeats=Some(parse_event_repeat_cap(value)?);
                 }
@@ -546,6 +550,7 @@ impl CrtSetup {
             pirro_plan: pirro_boost_inputs,
             highroad_settings: ot2_speedrun_assistant::highroad::Settings {
                 approach_max_boost_repeats: highroad_approach_max_boost_repeats.unwrap_or(Some(4)),
+                break_max_boost_repeats: highroad_break_max_boost_repeats.unwrap_or(Some(0)),
                 escape_max_boost_repeats: highroad_escape_max_boost_repeats.unwrap_or(Some(4)),
                 flats_max_boost_repeats: highroad_flats_max_boost_repeats.unwrap_or(Some(4)),
                 flats_approach_max_boost_repeats: highroad_flats_approach_max_boost_repeats
@@ -642,6 +647,7 @@ impl CrtSetup {
         setup["early_approach_max_boost_repeats"] = json!(self.early_settings.cait_max_boost_repeats);
         setup["early_require_cait"] = json!(self.early_settings.require_cait);
         setup["highroad_flats_break_max_boost_repeats"] = json!(self.highroad_settings.flats_break_max_boost_repeats);
+        setup["highroad_break_max_boost_repeats"] = json!(self.highroad_settings.break_max_boost_repeats);
         setup
     }
     fn outcome_policies(&self) -> Vec<(String, &'static str, Option<u32>)> {
@@ -704,6 +710,7 @@ impl CrtSetup {
                 self.highroad_settings.flats_approach_max_boost_repeats,
             ),
             ("flats_break".into(),"Unboosted first-turn break in Flats",self.highroad_settings.flats_break_max_boost_repeats),
+            ("highroad_break".into(),"Unboosted first-turn break on Highroad",self.highroad_settings.break_max_boost_repeats),
         ];
         if self.route_end == RouteEnd::FirstVillage {
             policies.retain(|(id,_,_)| !matches!(id.as_str(),"mug_clerics"|"crackridge_approach"|"osvald_walk"|"village_snow_walk"));
@@ -756,6 +763,7 @@ impl CrtSetup {
                     "harbor_walk" => f["flats"]["harbor_reach"]["walking"]["reaches_reset"] == true,
                     "flats_approach" => safe(&f["flats_escape"]["encounter"]["situation"]),
                     "flats_break" => f["highroad"]["escape"]["flats_break_search"]["target_met"]==true,
+                    "highroad_break" => f["highroad"]["approach_search"]["unboosted_break_met"]==true,
                     _ => false,
                 };
                 (!met).then(|| json!({"id":id,"label":label}))
@@ -785,7 +793,7 @@ impl CrtSetup {
                 "crackridge_approach"=>"crackridge_escape",
                 "mug_clerics"=>"black_market", "osvald_walk"|"village_snow_walk"=>"flats_escape",
                 "pirro_victory"|"pirro_no_grape"=>"pirro_battle", "highroad_approach"=>"highroad",
-                "harbor_walk"=>"flats", "flats_approach"=>"flats_escape", "flats_break"=>"highroad", _=>return false,
+                "harbor_walk"=>"flats", "flats_approach"=>"flats_escape", "flats_break"|"highroad_break"=>"highroad", _=>return false,
             };
             !f[stage].is_object()
         }).cloned().collect();
@@ -1246,6 +1254,31 @@ fn main() {
 
 #[cfg(test)]
 mod tests {
+    #[test]
+    fn weighted_breaks_and_pirro_r8_target_propagate_required_route_and_export() {
+        use super::*;
+        let query="seed=0&advances=4916&route_end=osvald_encounter&encounter_max_boost_repeats=required&pirro_victory_max_boost_repeats=required&pirro_no_grape_max_boost_repeats=required&highroad_approach_max_boost_repeats=required&highroad_break_max_boost_repeats=required&highroad_flats_max_boost_repeats=required&highroad_flats_approach_max_boost_repeats=required&highroad_flats_break_max_boost_repeats=required";
+        let setup=CrtSetup::parse(query).unwrap();
+        assert_eq!(setup.json()["highroad_break_max_boost_repeats"],Value::Null);
+        let response=setup.clone().calculate().unwrap();let p=&response["prediction"];let field=&p["post_battle_field"];
+        assert_eq!(p["required_outcomes"]["met"],true,"{}",p["required_outcomes"]);
+        assert_eq!(field["highroad"]["approach_search"]["unboosted_break_met"],true);
+        let mut changed=p.clone();changed["post_battle_field"]["highroad"]["approach_search"]["unboosted_break_met"]=json!(false);
+        assert_eq!(setup.check_requirements(&changed)["met"],false);
+        println!("weighted plan: {}",json!({"r8":field["highroad"]["approach_search"]["plan"],
+            "mansionCost":field["mansion_escape"]["solution"]["weighted_input_cost"],"mansionBreak":field["mansion_escape"]["solution"]["break_then_escape"],
+            "highroadCost":field["highroad"]["escape"]["weighted_input_cost"],"highroadBreak":field["highroad"]["escape"]["break_action"]["boost"],
+            "highroadR1":field["highroad"]["escape"]["inputs"]["levels"],"highroadR2":field["highroad"]["escape"]["escape_boost_inputs"]["levels"],
+            "flatsBreak":field["flats_escape"]["escape"]["break_action"]["boost"],"flatsR1":field["flats_escape"]["escape"]["inputs"]["levels"],
+            "flatsR2":field["flats_escape"]["escape"]["escape_boost_inputs"]["levels"],"routeCost":field["flats_escape"]["early_weighted_input_cost"]}));
+        let r8:Vec<u8>=serde_json::from_value(field["highroad"]["approach_search"]["plan"].clone()).unwrap();
+        let mut replay_setup=setup.clone();replay_setup.pirro_r8_plan=Some(r8);
+        let replay=replay_setup.calculate().unwrap();
+        assert_eq!(replay["prediction"]["post_battle_field"]["flats_escape"]["early_cait"]["after"],field["flats_escape"]["early_cait"]["after"]);
+        for bad in ["257","bad","4&highroad_break_max_boost_repeats=required"] {
+            assert!(CrtSetup::parse(&query.replace("highroad_break_max_boost_repeats=required",&format!("highroad_break_max_boost_repeats={bad}"))).is_err());
+        }
+    }
     #[test]
     fn highroad_unboosted_flats_break_policy_propagates_actual_hit_and_route() {
         use super::*;
@@ -2357,7 +2390,7 @@ mod tests {
     #[test]
     fn unlimited_event_settings_round_trip_through_search_and_export() {
         use super::*;
-        let query = "seed=0&advances=4916&encounter_max_boost_repeats=1&second_fight_max_boost_repeats=unlimited&flats_snow_max_boost_repeats=0&flats_osvald_max_boost_repeats=0&mug_clerics_max_boost_repeats=0";
+        let query = "seed=0&advances=4916&encounter_max_boost_repeats=1&second_fight_max_boost_repeats=unlimited&flats_snow_max_boost_repeats=0&flats_osvald_max_boost_repeats=0&mug_clerics_max_boost_repeats=0&crackridge_approach_max_boost_repeats=0";
         let setup = CrtSetup::parse(query).unwrap();
         assert_eq!(
             setup.event_caps,
@@ -2370,7 +2403,7 @@ mod tests {
         let prediction = &result["prediction"];
         assert!(prediction["crt_setup"]["second_fight_max_boost_repeats"].is_null());
         assert!(prediction["crt_setup"]["boost_repeat_cap"].is_null());
-        assert_eq!(prediction["required_outcomes"]["met"], true);
+        assert_eq!(prediction["required_outcomes"]["met"], true,"{}",prediction["required_outcomes"]);
         assert_eq!(
             prediction["post_battle_field"]["second_battle"]["assessment"]["only_one_enemy_action"],
             true

@@ -280,7 +280,7 @@
           </section>
           <section class="panel search-setting" aria-labelledby="escape-search-title">
           <h2 id="escape-search-title">Mansion encounter</h2>
-          <p class="muted small">Search: boost/cancel at Throné’s first command menu → Escape, or 1 BP dagger break → Escape next turn.</p>
+          <p class="muted small">Search the fastest valid direct Escape or dagger break → next-menu boosts → Escape. Boost input: 1; breaking: 10 input-equivalents.</p>
           <div class="event-setting">
             <label for="mansion-run-boost-repeats">No second encounter · run to Pirro</label>
             <input id="mansion-run-boost-repeats" type="number" min="0" max="256" step="1" value="4">
@@ -288,10 +288,9 @@
             <p class="muted small">Required: keep searching for enough counter. Otherwise, use this optional counter-search budget. A missed target stops the route before Pirro.</p>
           </div>
           <div class="event-setting">
-            <label for="mansion-escape-boost-repeats">Additional boost repeats before trying a break</label>
-            <input id="mansion-escape-boost-repeats" type="number" min="0" max="256" step="1" value="4">
+            <input id="mansion-escape-boost-repeats" type="hidden" value="4">
             <label class="unlimited-choice"><input id="mansion-escape-boost-repeats-unlimited" type="checkbox" aria-label="Boost only: Mansion Escape"> Boost only</label>
-            <p class="muted small">After the counter search, try first-attempt Escape within this additional boost budget; otherwise dagger-break, then Escape. Both strategies preserve the required counter outcome. Boost only skips the break fallback.</p>
+            <p class="muted small">Compare total input-equivalent cost while preserving counter safety. Boost only excludes breaking.</p>
           </div>
           </section>
           <section class="panel search-setting" aria-labelledby="pirro-search-title">
@@ -314,13 +313,18 @@
               <label class="unlimited-choice"><input id="highroad-approach-boost-repeats-unlimited" type="checkbox" aria-label="Required outcome: highroad approach repeats"> Required outcome</label>
               <p class="muted small">Search: R8 boost/cancel, ending at 3 BP swords, with early or late latent. Keep the R3 plan and victory.</p>
             </div>
+            <div class="event-setting">
+              <label for="highroad-break-boost-repeats">Highroad · unboosted first-turn break</label>
+              <input id="highroad-break-boost-repeats" type="number" min="0" max="256" step="1" value="4">
+              <label class="unlimited-choice"><input id="highroad-break-boost-repeats-unlimited" type="checkbox" checked aria-label="Required outcome: unboosted Highroad break"> Required outcome</label>
+              <p class="muted small">Pirro R8 boosts target one City Ratkin I or Night Raven and an actual successful unboosted dagger hit. Preserve victory and required no-surprise results.</p>
+            </div>
           </section>
           <section class="panel search-setting" aria-labelledby="highroad-search-title">
             <h2 id="highroad-search-title">New Delsta Highroad</h2>
-            <p class="muted small">Choose an Escape strategy that meets every required Highroad outcome: direct Escape up to the threshold, then a viable immediate break, then more boosts. Boost only skips breaking.</p>
+            <p class="muted small">Compare direct Escape against a single-enemy break with boosts at R1 or R2. Boost input: 1; breaking: 10 input-equivalents. Preserve every required outcome.</p>
             <div class="event-setting">
-              <label for="highroad-escape-boost-repeats">Boost repeats before trying a break</label>
-              <input id="highroad-escape-boost-repeats" type="number" min="0" max="256" step="1" value="4">
+              <input id="highroad-escape-boost-repeats" type="hidden" value="4">
               <label class="unlimited-choice"><input id="highroad-escape-boost-repeats-unlimited" type="checkbox" aria-label="Boost only: Highroad Escape"> Boost only</label>
             </div>
             <div class="event-setting">
@@ -344,10 +348,9 @@
           </section>
           <section class="panel search-setting" aria-labelledby="flats-escape-search-title">
             <h2 id="flats-escape-search-title">New Delsta Flats encounter</h2>
-            <p class="muted small">Search: R1 boost/cancel → Escape (or a single-enemy break), keeping a safe village run, early clerics and safe Flats movement. Optimize with later time switches: boost input = 1 cost unit, each switch = 7. Required targets are searched together before optional improvements.</p>
+            <p class="muted small">Search R1 boosts → Escape or break → R2 boosts → Escape, keeping a safe village run, clerics and safe travel. Minimize boost inputs + 10 per break + 7 per time switch. Required targets are searched together.</p>
             <div class="event-setting">
-              <label for="flats-escape-boost-repeats">Boost repeats before trying a break</label>
-              <input id="flats-escape-boost-repeats" type="number" min="0" max="256" step="1" value="4">
+              <input id="flats-escape-boost-repeats" type="hidden" value="4">
               <label class="unlimited-choice"><input id="flats-escape-boost-repeats-unlimited" type="checkbox" aria-label="Boost only: Flats Escape"> Boost only</label>
             </div>
             <div class="event-setting">

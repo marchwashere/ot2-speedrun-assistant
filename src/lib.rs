@@ -32,3 +32,4 @@ pub(crate) fn ensure(condition: bool, message: impl Into<String>) -> Result<()> 
         Err(SimError(message.into()))
     }
 }
+pub mod escape_search;

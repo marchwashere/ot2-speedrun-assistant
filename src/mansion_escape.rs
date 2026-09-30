@@ -35,6 +35,9 @@ pub struct Solution {
     pub break_then_escape: bool,
     pub extra_advances: u32,
     pub inputs: BoostInputs,
+    pub weighted_input_cost: usize,
+    pub escape_inputs: Option<BoostInputs>,
+    pub at_escape_menu: Option<CrtRng>,
     pub attempt: Attempt,
     pub after_escape: CrtRng,
     pub after_field_return: CrtRng,
@@ -219,7 +222,7 @@ pub fn predict(
         baseline_counter,
         solution: None,
         status: "No plan within repeat limit",
-        verification: "Source-derived, awaiting live first-encounter/Escape trace. Original level-two equipment; Direct first Escape within its additional boost budget, otherwise 1 BP dagger break then guaranteed Escape. No second encounter is mandatory for both strategies. 161 running updates measured from mansion entry, including the lookout approach. Ends at the Pirro trigger BEFORE its cutscene or map load. No extra field actions or CRT calls en route.",
+        verification: "Source-derived, awaiting live first-encounter/Escape trace. Original level-two equipment; Compare direct first Escape with actual 1 BP dagger break and any legal next-menu boosts, charging one per boost input and ten for breaking. No second encounter is mandatory for both strategies. 161 running updates measured from mansion entry, including the lookout approach. Ends at the Pirro trigger BEFORE its cutscene or map load. No extra field actions or CRT calls en route.",
     };
     // A strict positive counter is required at the trigger. Reject impossible
     // distance targets before attempting an unlimited CRT search.
@@ -247,28 +250,37 @@ pub fn predict(
             prediction.counter_base_repeats=inputs.extra_repeats;
         }
     }
-    let direct_cap=settings.max_boost_repeats.map(|n| n+prediction.counter_base_repeats);
     let require_safe_counter=base_cost!=usize::MAX;
     // Numeric budget is additional to mandatory counter manipulation. If it
     // cannot also win the first Escape check, switch to a real dagger break.
+    let mut best_inputs=usize::MAX;
     for break_then_escape in [false,true] {
-        if break_then_escape && prediction.solution.is_some() { break; }
-        let cap=if break_then_escape { None } else { direct_cap };
+        if break_then_escape && settings.max_boost_repeats.is_none() {continue;}
+        let cap=None;
+        let break_cost=if break_then_escape {crate::escape_search::BREAK_INPUT_COST as usize} else {0};
         let final_bp=u8::from(break_then_escape);
         let max_draws=cap.map_or(u32::MAX,|n| n*u32::from(max_bp)*u32::from(max_bp+1)/2);
-        let mut best_inputs=usize::MAX;
         for extra in 0..=max_draws {
-            if 2*u64::from(extra).div_ceil(u64::from(max_bp))+u64::from(final_bp) >= best_inputs as u64 { break; }
+            if 2*u64::from(extra).div_ceil(u64::from(max_bp))+u64::from(final_bp)+break_cost as u64 >= best_inputs as u64 { break; }
             let inputs=match cap {
                 Some(c)=>optimal_inputs_with_cap(extra,bp,final_bp,c)?,
                 None=>Some(optimal_inputs(extra,bp,final_bp)?),
             };
             let Some(inputs)=inputs else {continue};
-            if inputs.input_count >= best_inputs {continue;}
-            let attempt=if break_then_escape {
-                let Some(a)=battle.clone().break_then_escape(&inputs.levels)? else {continue};
-                a
-            } else { battle.clone().attempt(&inputs.levels,3)? };
+            if inputs.input_count+break_cost >= best_inputs {continue;}
+            let break_menu=if break_then_escape {battle.clone().break_menu(&inputs.levels)?} else {None};
+            if break_then_escape && break_menu.is_none() {continue;}
+            let escape_bp=break_menu.as_ref().map_or(0,|m|m.state().actors[0].resources.bp.min(3));
+            let max_escape_draws=if escape_bp==0 {0} else {
+                (best_inputs.saturating_sub(break_cost+inputs.input_count+1)/2).saturating_mul(escape_bp as usize) as u32
+            };
+            for escape_draws in 0..=max_escape_draws {
+            let escape_inputs=optimal_inputs(escape_draws,escape_bp,0)?;
+            let candidate_cost=inputs.input_count+break_cost+escape_inputs.input_count;
+            if candidate_cost>=best_inputs {continue;}
+            let at_escape_menu=break_menu.as_ref().map(|m|at(entry,m.state().rng));
+            let attempt=if let Some(m)=&break_menu {m.clone().attempt_broken(&escape_inputs.levels)?}
+                else {battle.clone().attempt(&inputs.levels,3)?};
             if !attempt.success {continue;}
             let after_escape=at(entry,attempt.after);
             let mut after_field_return=after_escape;
@@ -280,10 +292,12 @@ pub fn predict(
             let mut world_at_trigger=world.clone();
             world_at_trigger.first_encounter=false;
             world_at_trigger.encounter_counter=value.saturating_sub(remaining*decrement);
-            best_inputs=inputs.input_count;
-            prediction.solution=Some(Solution { reaches_pirro:value>=required,break_then_escape,extra_advances:extra,inputs,attempt,
+            best_inputs=candidate_cost;
+            prediction.solution=Some(Solution { reaches_pirro:value>=required,break_then_escape,extra_advances:extra+escape_draws,inputs:inputs.clone(),weighted_input_cost:best_inputs,
+                escape_inputs:break_then_escape.then_some(escape_inputs),at_escape_menu,attempt,
                 after_escape,after_field_return,counter:value,counter_at_trigger:world_at_trigger.encounter_counter,
                 trace,world_at_trigger });
+            }
         }
     }
     if let Some(s)=&prediction.solution {

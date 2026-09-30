@@ -18,12 +18,15 @@ No Cape Cold continuation or first-encounter fight
 simulation is run. This new route is source-derived, awaiting a retail replay.
 See [the route notes](docs/early-clerics-cait.md).
 
-Highroad adjustment can also target a lone City Ratkin I or Night Raven in the
-next Flats encounter that Throné can break with a successful unboosted dagger
-hit. Its separate Required/numeric setting preserves the harbor walk and
-non-surprise targets. The chosen Flats Escape strategy remains separately
-configurable; targeting this opening does not automatically enable a break or
-add a round-2 post-break manipulation search.
+Pirro R8 and Highroad adjustment can target a lone City Ratkin I or Night Raven
+in their respective next encounters, verifying a successful unboosted dagger
+break. Separate Required/numeric settings preserve the earlier route goals.
+Mansion, Highroad and Flats compare direct Escape with actual break-and-Escape
+plans, including boosts at the next menu when BP remains. The cost model is one
+per boost button press, ten per break and seven per time switch. Required early
+cleric/travel goals gate the combined Flats/time-switch search. Boost only is an
+optional strategy restriction; the GUI enables breaking by default.
+See [weighted escape strategy](docs/weighted-escape.md).
 
 `main` preserves the previous route through Crackridge Harbor. The backend also
 retains it via `route_end=full`; the fork GUI selects `route_end=osvald_encounter`.
