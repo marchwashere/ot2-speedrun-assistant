@@ -2,7 +2,7 @@
 //! searching or changing the exported plan. Usage: cargo run --offline --example
 //! audit-early-clerics -- <export.json> [maximum boost repeats]
 use ot2_speedrun_assistant::{CrtRng, early_cait, encounter, world::{self, Loader, WorldState}};
-use ot2_battle_engine::{escape::Situation, field_escape::FieldEscapeMenu};
+use ot2_battle_engine::{escape::Situation, field_escape::{FieldEscapeMenu,first_action_break}};
 use serde_json::{Value, json};
 use std::{collections::BTreeSet, error::Error};
 
@@ -25,6 +25,21 @@ fn main() -> Result<(), Box<dyn Error>> {
     let menu = FieldEscapeMenu::new(entry, situation, level, &enemies)?;
     let required = p["required_counter"].as_u64().ok_or("Expected counter threshold")? as u32;
     let distance_cost = required - 1;
+    let break_audit = if let Some(plan) = first_action_break(entry,situation,level,&enemies)? {
+        let mut w = state.clone(); w.first_encounter = false;
+        let mut loader = Loader::new(world::catalog(),w,plan.attempt.after)?;
+        loader.restore_field_after_battle("Audit Flats break then Escape")?;
+        let counter = loader.state.encounter_counter;
+        let route = if counter >= required {
+            loader.state.encounter_counter -= distance_cost;
+            Some(early_cait::project(loader.rng,loader.state,level)?)
+        } else {None};
+        json!({"weapon":plan.weapon,"boost":plan.boost,"escape_round":plan.escape_round,
+            "escape_chance":plan.attempt.chance_percent,"post_escape_counter":counter,
+            "required_counter":required,"village_run_safe":counter>=required,
+            "clerics":route.as_ref().map(|r|r.clerics_present),
+            "full_flats_walk":route.as_ref().map(|r|r.movement.walking.reaches_reset)})
+    } else {Value::Null};
     let mut stages = [0u32;5];
     let mut rows = vec![];
     let mut night_states = BTreeSet::new();
@@ -54,6 +69,6 @@ fn main() -> Result<(), Box<dyn Error>> {
     println!("{}",serde_json::to_string_pretty(&json!({"total_candidates":limit+1,
         "escape_failed":stages[0],"village_run_failed":stages[1],"cleric_approach_failed":stages[2],
         "clerics_absent":stages[3],"clerics_but_full_flats_walk_failed":stages[4],
-        "distinct_night_states":night_states.len(),"village_safe_candidates":rows}))?);
+        "distinct_night_states":night_states.len(),"opening_break":break_audit,"village_safe_candidates":rows}))?);
     Ok(())
 }
