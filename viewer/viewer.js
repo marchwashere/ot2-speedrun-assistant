@@ -319,7 +319,7 @@ function boostStepsHtml(levels) {
 }
 function breakEscapeHtml(s) {
   const b=s.break_action;
-  return `<p><strong>R1 · Throné · 1st command menu</strong></p>${boostStepsHtml(b.attack_inputs)}<p class="boost-step">${b.weapon==='sword'?'Sword':'Dagger'} · ${b.boost} BP</p><p><strong>R${b.escape_round} · Throné · 1st command menu</strong></p>${boostStepsHtml(b.escape_inputs)}<p><strong>Escape</strong></p>`;
+  return `<p><strong>R1 · Throné · 1st command menu</strong></p>${boostStepsHtml(b.attack_inputs)}<p class="boost-step">${b.weapon==='sword'?'Sword':'Dagger'} attack · ${b.boost} BP → Break</p><p><strong>R${b.escape_round} · Throné · 1st command menu</strong></p>${boostStepsHtml(b.escape_inputs)}<p><strong>Escape</strong></p>`;
 }
 function renderHighroad() {
   const p=result.post_battle_field?.highroad;
@@ -673,7 +673,8 @@ function renderPirro() {
       const parts=groupBoostRoutine(adjustment.inputs.levels).map(c=>`${c.from} → ${c.to}${c.count>1?' ×'+c.count:''}`);
       return `<p><strong>R${adjustment.round} · Throné · 1st command menu</strong></p><div class="boost-instructions">`+parts.map(c=>`<span class="boost-step">${c}</span>`).join('')+'</div>';
     }).join('');
-    $('pirro-boost-routine').innerHTML=instruction;
+    const r3Notice=m?.inputs.extra_input_count>0?'':'<p><strong>R3 · Throné · 1st command menu</strong></p><p class="boost-step">No boost adjustment needed</p>';
+    $('pirro-boost-routine').innerHTML=r3Notice+instruction;
   } else {
     $('pirro-boost-routine').textContent='No boost adjustment found · see Detailed log';
   }
@@ -715,7 +716,7 @@ function renderMansionEscape() {
   const checkpoint=(label,rng)=>`<tr><td>${escapeHtml(label)}</td><td>${totalAdvances(rng)}</td><td>${hex(rng.state)}</td><td>${rng.draws}</td></tr>`;
   $('checkpoints').innerHTML+=checkpoint('Mansion encounter · before enemy initialization',p.before_battle_initialization)+checkpoint(menuLabel,p.at_command_menu);
   if(s) {
-    $('mansion-escape-routine').innerHTML=`<p><strong>${menuLabel}</strong></p>${boostStepsHtml(s.inputs.levels)}${s.break_then_escape?`<p class="boost-step">Dagger · 1 BP</p><p><strong>R${s.attempt.state.round} · Throné · 1st command menu</strong></p>${boostStepsHtml(s.escape_inputs?.levels)}`:''}<p><strong>Escape${s.reaches_pirro?' → run to Pirro':''}</strong></p>`;
+    $('mansion-escape-routine').innerHTML=`<p><strong>${menuLabel}</strong></p>${boostStepsHtml(s.inputs.levels)}${s.break_then_escape?`<p class="boost-step">Dagger attack · 1 BP → Break</p><p><strong>R${s.attempt.state.round} · Throné · 1st command menu</strong></p>${boostStepsHtml(s.escape_inputs?.levels)}`:''}<p><strong>Escape${s.reaches_pirro?' → run to Pirro':''}</strong></p>`;
     if(!s.reaches_pirro) $('mansion-escape-routine').innerHTML+='<p class="text-bad">No-second-encounter target not met. Increase its budget or select Required outcome.</p>';
     $('mansion-escape-diagnostics').innerHTML=`<span class="diagnostic-label">CRT at command menu · before boosts</span><div class="diagnostic-value"><strong>${totalAdvances(p.at_command_menu)}</strong><span>advances since initial seed</span></div><span class="rng-secondary">${hex(p.at_command_menu.state)}</span><div class="run-diagnostics"><span class="diagnostic-label">CRT after Escape · field returned</span><div class="diagnostic-value"><strong>${totalAdvances(s.after_field_return)}</strong><span>advances since initial seed</span></div><span class="rng-secondary">${hex(s.after_field_return.state)}</span></div><p class="muted small">Counter ${s.counter} · run ${p.remaining_updates} updates · ${s.counter_at_trigger} left at Pirro trigger</p>`;
     if(s.at_escape_menu) $('checkpoints').innerHTML+=checkpoint(`Mansion R${s.attempt.state.round} · command menu after break`,s.at_escape_menu);
