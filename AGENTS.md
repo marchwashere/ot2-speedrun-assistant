@@ -1,5 +1,18 @@
 # Active project
 
+- Snows routing supersedes the old safe-Osvald-walk goal: run 64 counter
+  updates from Southern Cape Cold Snows entry to Osvald, NO leeway. Predict
+  pre-recruitment timing when entry counter <=64*12. If inevitable before,
+  search only solo Throné's opening for no surprise. Otherwise protect both
+  pre-recruitment (movement-error override) and post-recruitment party openings.
+  GUI has Before/After Osvald controls backed by immutable branch endpoints,
+  preserving the Flats boost plan. After-Osvald time switches affect only the
+  later branch. Old flats_osvald cap is ignored in this default fork; retained
+  require_cait API and full route keep their original safe-walk policies.
+  Prediction stops at first encounter before battle init; do not propagate
+  the hypothetical no-prior-encounter recruitment state as an actual state
+  after a pre-Osvald battle without simulating that battle and return callbacks.
+
 - Attack display uses only the weapon/skill name, prefixed by BP spent when
   positive: Dagger, +1 Dagger, +3 Darkest Night. Each command menu has one
   instruction box containing the boost adjustment followed immediately by the

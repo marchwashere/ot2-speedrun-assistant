@@ -145,13 +145,13 @@ impl Default for PredictionOptions {
         }
     }
 }
-#[derive(Debug, Serialize)]
+#[derive(Debug, Clone, Serialize)]
 pub struct Checkpoint {
     pub label: String,
     pub state: u32,
     pub draws: u64,
 }
-#[derive(Debug, Serialize)]
+#[derive(Debug, Clone, Serialize)]
 pub struct CounterRoll {
     pub minimum: u32,
     pub roll_b: u32,
@@ -160,7 +160,7 @@ pub struct CounterRoll {
     pub value: u32,
     pub supplied: bool,
 }
-#[derive(Debug, Serialize)]
+#[derive(Debug, Clone, Serialize)]
 pub struct Prediction {
     pub map: String,
     pub map_name: String,
@@ -184,7 +184,7 @@ pub struct Prediction {
     pub warnings: Vec<String>,
     pub endpoint: String,
 }
-#[derive(Debug, Serialize)]
+#[derive(Debug, Clone, Serialize)]
 pub struct EnemySlot {
     pub slot: usize,
     pub original_id: String,

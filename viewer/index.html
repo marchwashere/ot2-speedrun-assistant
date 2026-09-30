@@ -82,7 +82,14 @@
             <p id="early-route-warning" class="error" hidden></p>
           </section>
           <section id="osvald-cait-result" class="panel route-card" hidden>
-            <h2>Osvald recruitment spot · Southern Cape Cold Snows</h2>
+            <h2>Southern Cape Cold Snows entry → Osvald</h2>
+            <p class="run-action">Run to Osvald</p>
+            <p id="snows-encounter-predicted" class="muted small"></p>
+            <div class="encounter-timing" role="group" aria-label="Actual Snows encounter timing">
+              <button id="snows-encounter-before" type="button" aria-pressed="false">Before Osvald</button>
+              <button id="snows-encounter-after" type="button" aria-pressed="false">After Osvald</button>
+            </div>
+            <p id="snows-encounter-status" class="action-note"></p>
             <p id="osvald-cait-switches" class="run-action"></p>
           </section>
           <section id="cape-cold-result" class="panel route-card" hidden>
@@ -365,7 +372,7 @@
               <p class="muted small">72 walking / 68 running updates in total, including the cleric stop. Switch back to day before continuing.</p>
             </div>
           </section>
-          <section class="panel search-setting" aria-labelledby="cleric-time-search-title">
+          <section class="panel search-setting" aria-labelledby="cleric-time-search-title" hidden>
             <h2 id="cleric-time-search-title">After cleric purchases</h2>
             <p class="muted small">Search complete day/night cycles, ending on day, to walk to Osvald safely. Earlier Flats boosts are also candidates when cheaper. Numeric budget: extra estimated cost in pairs of input units (4 = 8 cost units). Required searches without a limit.</p>
             <div class="event-setting">
@@ -376,13 +383,13 @@
             </div>
           </section>
           <section class="panel search-setting" aria-labelledby="osvald-time-search-title">
-            <h2 id="osvald-time-search-title">After recruiting Osvald</h2>
-            <p class="muted small">Search time switches to avoid surprise, ending on either day or night. Compare against earlier boosts/cycles using the same 7-input switch cost. Numeric budget is extra cost in pairs of input units; Required has no limit.</p>
+            <h2 id="osvald-time-search-title">Southern Cape Cold Snows encounter</h2>
+            <p class="muted small">Search Flats encounter boosts and post-purchase time cycles. If an encounter is predicted before Osvald, only that solo opening must avoid surprise. Otherwise protect both timings. After-Osvald switches only affect the later opening. Each time switch costs 7 boost-input units.</p>
             <div class="event-setting">
               <label for="early-cait-boost-repeats">Avoid surprise · extra cost budget</label>
               <input id="early-cait-boost-repeats" type="number" min="0" max="256" step="1" value="4">
-              <label class="unlimited-choice"><input id="early-cait-boost-repeats-unlimited" type="checkbox" checked aria-label="Required outcome: avoid surprise after Osvald"> Required outcome</label>
-              <p class="muted small">First land encounter in Southern Cape Cold Snows, party Throné + Osvald. Preserve safe recruitment. Any enemy group is allowed.</p>
+              <label class="unlimited-choice"><input id="early-cait-boost-repeats-unlimited" type="checkbox" checked aria-label="Required outcome: avoid surprise before or after Osvald"> Required outcome</label>
+              <p class="muted small">Run to Osvald: 64 updates, no leeway. An encounter before recruitment is allowed. Numeric budgets remain optional; Required searches without a limit.</p>
             </div>
           </section>
           <section class="panel" hidden>

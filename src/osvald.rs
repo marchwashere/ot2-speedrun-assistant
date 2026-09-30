@@ -9,6 +9,7 @@ use serde::Serialize;
 
 pub const MAP: &str = "Fld_Snw_1_2";
 pub const WALK_UPDATES: u32 = 70;
+pub const RUN_UPDATES: u32 = 64;
 pub const EVENT: &str = "MS_GAK_00_0100";
 
 #[derive(Debug, Serialize)]
@@ -35,6 +36,13 @@ pub fn after_village(v: &village_return::Prediction) -> Result<Option<Prediction
 }
 
 pub fn with_world_state(arrival: CrtRng, state: WorldState) -> Result<Prediction> {
+    with_approach(arrival,state,WALK_UPDATES,false,false)
+}
+
+/// The assumed-reached branch represents a player override with no prior
+/// encounter. Recruitment resets the counter, so movement overshoot affects
+/// encounter timing but does not change this branch's recruitment CRT draws.
+pub fn with_approach(arrival:CrtRng,state:WorldState,updates:u32,dash:bool,assume_reached:bool) -> Result<Prediction> {
     ensure(
         state.map == "Fld_Cty_1_2"
             && state.time == 2
@@ -55,20 +63,21 @@ pub fn with_world_state(arrival: CrtRng, state: WorldState) -> Result<Prediction
         map: MAP.into(),
         zone: "ENT_FLD_SNW_1_2_LND".into(),
         period: "DayTime".into(),
-        dash: false,
+        dash,
         ..Default::default()
     };
     let walking = MovementBudget::new(
         loader.state.encounter_counter,
-        WALK_UPDATES,
+        updates,
         encounter::catalog().counter_decrement(&options)?,
     );
     let mut after_recruitment = None;
     let mut world_after = None;
-    let at_osvald = walking.reaches_reset.then_some(loader.rng);
-    if walking.reaches_reset {
-        loader.state.encounter_counter = walking.counter_before_reset.unwrap();
-        loader.boundary("Osvald: reached after 70 walking counter updates");
+    let reached=walking.reaches_reset || assume_reached;
+    let at_osvald = reached.then_some(loader.rng);
+    if reached {
+        loader.state.encounter_counter = walking.counter_before_reset.unwrap_or(1);
+        loader.boundary(if dash {"Osvald: running approach; no prior encounter branch"} else {"Osvald: reached after 70 walking counter updates"});
         let choices = EventChoices::from([
             ((EVENT.into(), 15), "eDIALOG_YES".into()),
             ((EVENT.into(), 61), "eDIALOG_YES".into()),

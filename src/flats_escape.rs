@@ -230,10 +230,10 @@ fn predict_to_boundary(arrival:CrtRng, world:&WorldState, level:u32, settings:Se
             if f.world_after.encounter_counter < required_counter { return Ok(None); }
             let mut w=f.world_after;
             w.encounter_counter-=remaining*decrement;
-            crate::early_cait::project_with_switches(f.after,w,level,cleric_extra,osvald_switches).map(Some)
+            crate::early_cait::project_with_policy(f.after,w,level,cleric_extra,osvald_switches,early.require_cait).map(Some)
         };
         let caps=[early.clerics_max_boost_repeats, settings.snow_max_boost_repeats,
-            settings.osvald_max_boost_repeats, early.cait_max_boost_repeats];
+            if early.require_cait {settings.osvald_max_boost_repeats} else {Some(0)}, early.cait_max_boost_repeats];
         let mut required=caps.map(|cap|cap.is_none());
         // Cache immutable projections across weighted-cost layers. Search clones
         // the untouched command menu; rejected time switches never leak state.
@@ -529,8 +529,8 @@ mod tests {
         let switches=early.post_cleric_switches-1+early.post_osvald_switches;
         for total in 0..switches {
             for k in (0..=total).step_by(2) {
-                let q=crate::early_cait::project_with_switches(p.at_village_entrance.unwrap(),
-                    p.world_at_village_entrance.clone().unwrap(),5,k,total-k).unwrap();
+                let q=crate::early_cait::project_with_policy(p.at_village_entrance.unwrap(),
+                    p.world_at_village_entrance.clone().unwrap(),5,k,total-k,true).unwrap();
                 assert_ne!(crate::early_cait::outcomes(&q),[true;4]);
             }
         }

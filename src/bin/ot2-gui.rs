@@ -720,9 +720,11 @@ impl CrtSetup {
             policies.extend([
                 ("early_clerics".into(),"Clerics on first village return",self.early_settings.clerics_max_boost_repeats),
                 ("early_snow_walk".into(),"Reach Southern Cape Cold Snows via clerics",self.flats_escape_settings.snow_max_boost_repeats),
-                ("early_osvald_walk".into(),"Recruit Osvald without an encounter",self.flats_escape_settings.osvald_max_boost_repeats),
                 ("early_cait".into(),if self.early_settings.require_cait {"First Snows encounter: Cait without surprise"} else {"First Snows encounter: avoid surprise"},self.early_settings.cait_max_boost_repeats),
             ]);
+            if self.early_settings.require_cait {
+                policies.push(("early_osvald_walk".into(),"Recruit Osvald without an encounter",self.flats_escape_settings.osvald_max_boost_repeats));
+            }
         }
         policies
     }
@@ -740,7 +742,17 @@ impl CrtSetup {
                     "early_clerics"=>f["flats_escape"]["early_cait"]["clerics_present"]==true,
                     "early_snow_walk"=>f["flats_escape"]["early_cait"]["movement"]["walking"]["reaches_reset"]==true,
                     "early_osvald_walk"=>f["flats_escape"]["early_cait"]["osvald"]["after_recruitment"].is_object(),
-                    "early_cait"=>(!self.early_settings.require_cait || f["flats_escape"]["early_cait"]["cait_present"]==true) && f["flats_escape"]["early_cait"]["non_surprise"]==true,
+                    "early_cait"=> {
+                        let early=&f["flats_escape"]["early_cait"];
+                        let approach=&early["snows_approach"];
+                        early["non_surprise"]==true && if self.early_settings.require_cait {
+                            early["cait_present"]==true
+                        } else {
+                            safe(&approach["before_osvald"]["encounter"]["situation"])
+                                && (approach["predicted_before_osvald"]==true
+                                    || safe(&approach["after_osvald"]["encounter"]["situation"]))
+                        }
+                    },
                     "village_visit"=>f["flats_escape"]["village_visit"]["after"].is_object(),
                     "crackridge_approach" => safe(&f["crackridge_escape"]["encounter"]["situation"]) && f["crackridge_escape"]["attempt"]["success"] == true,
                     "mug_clerics" => f["black_market"]["clerics_present"] == true,
@@ -1320,6 +1332,18 @@ mod tests {
         assert_eq!(early["movement"]["walking"]["reaches_reset"],true);
         assert!(early["osvald"]["after_recruitment"].is_object());
         assert_eq!(early["non_surprise"],true);
+        assert!(!setup.outcome_policies().iter().any(|(id,_,_)|id=="early_osvald_walk"));
+        let approach=&early["snows_approach"];
+        assert_eq!(approach["running"]["updates"],64);
+        assert_eq!(approach["running"]["cost"],768);
+        assert_eq!(approach["leeway"],0);
+        assert_eq!(approach["before_osvald"]["world"]["party"],json!([7]));
+        assert_eq!(approach["after_osvald"]["world"]["party"],json!([7,6]));
+        let predicted_before=approach["predicted_before_osvald"]==true;
+        let mut after_surprise=p.clone();
+        after_surprise["post_battle_field"]["flats_escape"]["early_cait"]["snows_approach"]["after_osvald"]["encounter"]["situation"]=json!("Surprise");
+        assert_eq!(setup.check_requirements(&after_surprise)["met"],predicted_before,
+            "Post-Osvald safety must be required only when perfect movement can reach recruitment first");
         assert_eq!(early["cait_present"],false,"An ordinary group must meet this route's requirements");
         assert!(f["early_weighted_input_cost"].as_u64().unwrap()<442);
         let mut surprised=p.clone();

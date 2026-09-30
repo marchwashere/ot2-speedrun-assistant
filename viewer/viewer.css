@@ -206,6 +206,8 @@ footer span { margin:0 10px; }
 #manipulation-panel p:has(+ .boost-instructions), #boost-result>b, .action-context { color:var(--muted); font-size:13px; font-weight:500; margin:16px 0 5px; }
 #manipulation-panel p:has(+ .boost-instructions) strong { font-weight:500; }
 .run-action { color:var(--gold); font:700 24px/1.35 var(--mono); margin:8px 0; }
+.encounter-timing { display:flex; gap:8px; flex-wrap:wrap; margin:12px 0; }
+.encounter-timing button[aria-pressed="true"] { color:var(--gold); border-color:var(--gold); background:rgba(220,182,110,.12); }
 .action-note { color:var(--text); font-size:14px; margin:6px 0 0; }
 #mug-adjustment>h3, #mansion-escape-routine>h3, #second-boost-routine>h3, #pirro-boost-heading, #boost-title { display:none; }
 @media(max-width:1000px) { .run-setup form { grid-template-columns:1fr 1fr; } .run-setup .primary { height:100%; } .run-state { font-size:23px; } }

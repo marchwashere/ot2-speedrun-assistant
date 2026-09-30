@@ -3,11 +3,12 @@ const $ = id => document.getElementById(id);
 const escapeHtml = value => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const hex = value => '0x' + value.toString(16).toUpperCase().padStart(8, '0');
 let result = null;
+let snowsEncounterTiming = null;
 let running = false;
 let stopped = false;
 const repeatSettings = [
   {key:'early_clerics_max_boost_repeats',id:'early-clerics-boost-repeats',storage:'ot2-fork-early-clerics-boost-repeats',label:'Early clerics',requiredDefault:true},
-  {key:'early_approach_max_boost_repeats',id:'early-cait-boost-repeats',storage:'ot2-fork-early-cait-boost-repeats',label:'Avoid surprise after Osvald',requiredDefault:true},
+  {key:'early_approach_max_boost_repeats',id:'early-cait-boost-repeats',storage:'ot2-fork-early-cait-boost-repeats',label:'Avoid surprise before or after Osvald',requiredDefault:true},
   {key:'mansion_run_max_boost_repeats',id:'mansion-run-boost-repeats',storage:'ot2-assistant-mansion-run-boost-repeats',label:'Mansion no second encounter',requiredDefault:true},
   {key:'mug_clerics_max_boost_repeats',id:'mug-clerics-boost-repeats',storage:'ot2-assistant-mug-clerics-boost-repeats',label:'Black-market clerics',requiredDefault:true},
   {key:'crackridge_approach_max_boost_repeats',id:'crackridge-approach-boost-repeats',storage:'ot2-assistant-crackridge-approach-boost-repeats',label:'Crackridge Harbor approach',requiredDefault:true},
@@ -157,6 +158,7 @@ async function simulate(event) {
     const data = calculation.prediction;
     data.boost_search = calculation.search;
     result = data;
+    snowsEncounterTiming = null;
     renderSetup(data.crt_setup);
     render();
     window.dispatchEvent(new Event('battle-simulated'));
@@ -430,29 +432,40 @@ function renderEarlyCait() {
   const p=result.post_battle_field?.flats_escape?.early_cait;
   $('early-route-result').hidden=!p;
   $('early-route-log').hidden=!p;
-  $('osvald-cait-result').hidden=!p?.post_osvald_switches || !p?.after_osvald_switches;
+  $('osvald-cait-result').hidden=!p?.snows_approach;
   if(!p) return;
+  const approach=p.snows_approach;
+  const timing=snowsEncounterTiming ?? (approach?.predicted_before_osvald?'before':'after');
+  const branch=approach?.[timing+'_osvald'];
+  const beforeOsvald=timing==='before';
+  $('snows-encounter-predicted').textContent=approach?`Predicted: ${approach.predicted_before_osvald?'before':'after'} Osvald · ${approach.measured_running_updates} running updates`:'';
+  $('snows-encounter-before').setAttribute('aria-pressed',String(beforeOsvald));
+  $('snows-encounter-after').setAttribute('aria-pressed',String(!beforeOsvald));
+  $('snows-encounter-status').textContent=branch?`${snowsEncounterTiming?'Selected':'Predicted'} encounter: ${beforeOsvald?'before':'after'} Osvald · ${branch.non_surprise?'No surprise':'Surprise'}`:'';
   const m=p.movement.mixed;
   $('early-route-run').textContent=!m?'Walking target not met':p.movement.running.reaches_reset?'Run 100%':`Run ≈${m.running_distance_percent}% · walk ${m.walking_distance_percent}%`;
   $('early-route-run').classList.toggle('text-bad',!m);
   $('early-route-switches').hidden=!p.after_night;
   $('early-route-switches').textContent=`After clerics time switch: ${p.post_cleric_switches ?? 1} → day`;
-  $('osvald-cait-switches').textContent=p.post_osvald_switches?`Osvald time switch: ${p.post_osvald_switches} → ${p.world_at_encounter?.time===4?'night':'day'}`:'';
+  $('osvald-cait-switches').hidden=beforeOsvald || !p.post_osvald_switches;
+  $('osvald-cait-switches').textContent=p.post_osvald_switches?`Osvald time switch: ${p.post_osvald_switches} → ${approach?.after_osvald.world.time===4?'night':'day'}`:'';
   $('early-route-warning').hidden=p.clerics_present && !!p.osvald?.after_recruitment;
-  $('early-route-warning').textContent=!p.clerics_present?'Clerics target not met':!p.osvald?.after_recruitment?'Osvald walking target not met':'';
-  const e=p.encounter;
-  $('early-route-encounter').textContent=e?`${e.enemies.map(slot=>slot.enemy.name).join(' · ')} · ${e.situation} · ${p.world_at_encounter?.time===4?'night':'day'} · after ${e.counter_updates} running updates from recruitment`:'First encounter not reached';
+  $('early-route-warning').textContent=!p.clerics_present?'Clerics target not met':!p.osvald?.after_recruitment?'Snows route not reached':'';
+  const e=branch?.encounter ?? p.encounter;
+  const encounterWorld=branch?.world ?? p.world_at_encounter;
+  $('early-route-encounter').textContent=e?`${e.enemies.map(slot=>slot.enemy.name).join(' · ')} · ${e.situation} · ${encounterWorld?.time===4?'night':'day'} · after ${e.counter_updates} running updates from ${beforeOsvald?'Snows entry':'recruitment'}`:'First encounter not reached';
   const f=result.post_battle_field.flats_escape;
   $('early-route-cost').textContent=f.early_weighted_input_cost==null?'':`Estimated cost: ${f.early_weighted_input_cost} boost-input units · ${f.escape?.inputs?.input_count ?? 0} boost inputs + ${1+(p.post_cleric_switches??1)+(p.post_osvald_switches??0)} time switches ×7 · ${f.early_tested_projections} cached route candidates`;
-  $('early-route-status').textContent=`Clerics: ${p.clerics_present?'yes':'no'} · safe Osvald walk: ${p.osvald?.after_recruitment?'yes':'no'} · first encounter without surprise: ${p.non_surprise?'yes':'no'}`;
-  const endpoint=p.before_battle_initialization;
+  $('early-route-status').textContent=`Clerics: ${p.clerics_present?'yes':'no'} · no surprise before Osvald: ${approach?.before_osvald.non_surprise?'yes':'no'}${approach?.after_osvald_required?` · no surprise after Osvald: ${approach.after_osvald.non_surprise?'yes':'no'}`:' · post-Osvald opening not a search target'}`;
+  const endpoint=branch?.before_battle_initialization ?? p.before_battle_initialization;
   $('early-cait-advances').textContent=endpoint?totalAdvances(endpoint):'—';
   $('early-cait-hex').textContent=endpoint?hex(endpoint.state):'—';
-  const milestones=[['First Abandoned Village visit',p.village_visit.after],['Flats return · before early clerics',p.after_flats],['Early clerics · after night switch',p.after_night],['Early clerics · purchases and time switches complete, back to day',p.after_day],['Southern Cape Cold Snows · after loading',p.osvald?.after_loading],['Osvald · before recruitment',p.osvald?.at_osvald],['Osvald · recruited, tutorials dismissed',p.osvald?.after_recruitment],['Osvald · after time switches',p.after_osvald_switches],['First Snows encounter · composition finalized, before enemy actor initialization',endpoint]];
+  const milestones=[['First Abandoned Village visit',p.village_visit.after],['Flats return · before early clerics',p.after_flats],['Early clerics · after night switch',p.after_night],['Early clerics · purchases and time switches complete, back to day',p.after_day],['Southern Cape Cold Snows · after loading',p.osvald?.after_loading],...(!beforeOsvald?[['Osvald · before recruitment',p.osvald?.at_osvald],['Osvald · recruited, tutorials dismissed',p.osvald?.after_recruitment],['Osvald · after time switches',p.after_osvald_switches]]:[]),[`First Snows encounter ${timing} Osvald · composition finalized, before enemy actor initialization`,endpoint]];
   $('checkpoints').innerHTML+=milestones.filter(([,r])=>r).map(([label,r])=>`<tr><td>${escapeHtml(label)}</td><td>${totalAdvances(r)}</td><td>${hex(r.state)}</td><td>${r.draws}</td></tr>`).join('');
-  const trace=[...p.village_visit.trace,...p.trace,...(p.osvald?.trace||[]),...(p.encounter_time_trace||[])];
+  const osvaldTrace=(p.osvald?.trace||[]).filter(t=>!beforeOsvald || BigInt(t.after.draws)<=BigInt(p.osvald.after_loading.draws));
+  const trace=[...p.village_visit.trace,...p.trace,...osvaldTrace,...(!beforeOsvald?(p.encounter_time_trace||[]):[])];
   if(e) {
-    const at_encounter=p.after_osvald_switches ?? p.osvald.after_recruitment;
+    const at_encounter=branch?.start ?? p.after_osvald_switches ?? p.osvald.after_recruitment;
     let before=at_encounter;
     for(const c of e.checkpoints) {
       const after={state:c.state,draws:BigInt(at_encounter.draws)+BigInt(c.draws)};
@@ -461,6 +474,15 @@ function renderEarlyCait() {
   }
   $('trace').innerHTML+=trace.map(t=>`<tr><td>${escapeHtml(t.reason)}</td><td>—</td><td>${totalAdvances(t.before)}</td><td>${totalAdvances(t.after)}</td><td>+${BigInt(t.after.draws)-BigInt(t.before.draws)}</td><td>${hex(t.before.state)}</td><td>${hex(t.after.state)}</td></tr>`).join('');
   $('pirro-verification').textContent+=` ${p.verification}`;
+}
+for(const timing of ['before','after']) {
+  $('snows-encounter-'+timing).addEventListener('click',()=>{
+    if(!result || running) return;
+    snowsEncounterTiming=timing;
+    // Redraw from the immutable alternatives; never advance CRT or re-search
+    // earlier controls merely because the player corrected encounter timing.
+    render();
+  });
 }
 
 function renderVillageReturn() {
