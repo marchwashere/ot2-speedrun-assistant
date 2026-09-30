@@ -20,7 +20,7 @@ const JS: &str = include_str!("../../viewer/viewer.js");
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq, serde::Serialize)]
 #[serde(rename_all="snake_case")]
-enum RouteEnd { Full, FirstVillage, OsvaldCait }
+enum RouteEnd { Full, FirstVillage, #[serde(rename="osvald_encounter")] OsvaldCait }
 
 fn parse_seed(text: &str) -> Result<u32, SimError> {
     let text = text.trim();
@@ -341,6 +341,7 @@ impl CrtSetup {
         let mut route_end = None;
         let mut early_clerics = None;
         let mut early_cait = None;
+        let mut early_require_cait = None;
         for part in query.split('&') {
             let (key, value) = part
                 .split_once('=')
@@ -349,13 +350,17 @@ impl CrtSetup {
                 "route_end" if route_end.is_none() => {
                     route_end = Some(match value {
                         "full"=>RouteEnd::Full, "first_village"=>RouteEnd::FirstVillage,
-                        "osvald_cait"=>RouteEnd::OsvaldCait,
+                        "osvald_cait"|"osvald_encounter"=>RouteEnd::OsvaldCait,
                         _=>return Err(SimError("Unknown route endpoint".into())),
                     });
                 }
                 "seed" if seed.is_none() => seed = Some(parse_seed(value)?),
                 "early_clerics_max_boost_repeats" if early_clerics.is_none() => early_clerics=Some(parse_event_repeat_cap(value)?),
-                "early_cait_max_boost_repeats" if early_cait.is_none() => early_cait=Some(parse_event_repeat_cap(value)?),
+                "early_cait_max_boost_repeats"|"early_approach_max_boost_repeats" if early_cait.is_none() => early_cait=Some(parse_event_repeat_cap(value)?),
+                "early_require_cait" if early_require_cait.is_none() => early_require_cait=Some(match value {
+                    "true"=>true, "false"=>false,
+                    _=>return Err(SimError("Cait requirement must be true or false".into())),
+                }),
                 "advances" if advances.is_none() => {
                     if value.is_empty() || !value.bytes().all(|b| b.is_ascii_digit()) {
                         return Err(SimError(
@@ -548,6 +553,7 @@ impl CrtSetup {
             early_settings: ot2_speedrun_assistant::early_cait::Settings {
                 clerics_max_boost_repeats: early_clerics.unwrap_or(None),
                 cait_max_boost_repeats: early_cait.unwrap_or(None),
+                require_cait: early_require_cait.unwrap_or(false),
             },
             crackridge_approach_max_boost_repeats: crackridge_approach_max_boost_repeats.unwrap_or(None),
             flats_escape_settings: ot2_speedrun_assistant::flats_escape::Settings {
@@ -591,7 +597,7 @@ impl CrtSetup {
         )
         .expect("validated title setup");
         // Decimal strings keep u64 counts exact in browser JavaScript and exports.
-        json!({
+        let mut setup = json!({
             "initial_seed":self.seed,"advances":self.advances.to_string(),
             "search_policies":self.outcome_policies().into_iter().map(|(id,_,cap)| (id,json!({"mode":if cap.is_none(){"required"}else{"optional"},"extra_repeat_budget":cap}))).collect::<serde_json::Map<_,_>>(),
             "input_boundary":"title_screen","route_profile":transition.profile,"cutscenes":"skip_both",
@@ -627,7 +633,10 @@ impl CrtSetup {
             "battle_entry_advances":self.battle_entry_advances().to_string(),
             "battle_seed":self.battle_seed()
             ,"boost_advances":self.boost_plan.advances,"boost_menu":self.boost_plan.player_menu
-        })
+        });
+        setup["early_approach_max_boost_repeats"] = json!(self.early_settings.cait_max_boost_repeats);
+        setup["early_require_cait"] = json!(self.early_settings.require_cait);
+        setup
     }
     fn outcome_policies(&self) -> Vec<(String, &'static str, Option<u32>)> {
         let mut policies: Vec<(String, &'static str, Option<u32>)> = vec![
@@ -698,7 +707,7 @@ impl CrtSetup {
                 ("early_clerics".into(),"Clerics on first village return",self.early_settings.clerics_max_boost_repeats),
                 ("early_snow_walk".into(),"Reach Southern Cape Cold Snows via clerics",self.flats_escape_settings.snow_max_boost_repeats),
                 ("early_osvald_walk".into(),"Recruit Osvald without an encounter",self.flats_escape_settings.osvald_max_boost_repeats),
-                ("early_cait".into(),"First Snows encounter: Cait without surprise",self.early_settings.cait_max_boost_repeats),
+                ("early_cait".into(),if self.early_settings.require_cait {"First Snows encounter: Cait without surprise"} else {"First Snows encounter: avoid surprise"},self.early_settings.cait_max_boost_repeats),
             ]);
         }
         policies
@@ -717,7 +726,7 @@ impl CrtSetup {
                     "early_clerics"=>f["flats_escape"]["early_cait"]["clerics_present"]==true,
                     "early_snow_walk"=>f["flats_escape"]["early_cait"]["movement"]["walking"]["reaches_reset"]==true,
                     "early_osvald_walk"=>f["flats_escape"]["early_cait"]["osvald"]["after_recruitment"].is_object(),
-                    "early_cait"=>f["flats_escape"]["early_cait"]["cait_present"]==true && f["flats_escape"]["early_cait"]["non_surprise"]==true,
+                    "early_cait"=>(!self.early_settings.require_cait || f["flats_escape"]["early_cait"]["cait_present"]==true) && f["flats_escape"]["early_cait"]["non_surprise"]==true,
                     "village_visit"=>f["flats_escape"]["village_visit"]["after"].is_object(),
                     "crackridge_approach" => safe(&f["crackridge_escape"]["encounter"]["situation"]) && f["crackridge_escape"]["attempt"]["success"] == true,
                     "mug_clerics" => f["black_market"]["clerics_present"] == true,
@@ -1230,11 +1239,36 @@ fn main() {
 #[cfg(test)]
 mod tests {
     #[test]
+    fn osvald_encounter_defaults_to_any_group_but_requires_no_surprise() {
+        use super::*;
+        let query="seed=0&advances=4916&route_end=osvald_encounter&encounter_max_boost_repeats=required&pirro_victory_max_boost_repeats=required&pirro_no_grape_max_boost_repeats=required&highroad_approach_max_boost_repeats=required&highroad_flats_max_boost_repeats=required&highroad_flats_approach_max_boost_repeats=required&flats_escape_max_boost_repeats=boost_only&early_approach_max_boost_repeats=required";
+        let setup=CrtSetup::parse(query).unwrap();
+        assert!(!setup.early_settings.require_cait);
+        assert_eq!(setup.json()["early_require_cait"],false);
+        assert_eq!(setup.json()["route_end"],"osvald_encounter");
+        assert!(setup.outcome_policies().iter().any(|(_,label,cap)| *label=="First Snows encounter: avoid surprise" && cap.is_none()));
+        let result=setup.clone().calculate().unwrap();
+        let p=&result["prediction"]; let f=&p["post_battle_field"]["flats_escape"];
+        let early=&f["early_cait"];
+        assert_eq!(p["required_outcomes"]["met"],true);
+        assert_eq!(early["clerics_present"],true);
+        assert_eq!(early["movement"]["walking"]["reaches_reset"],true);
+        assert!(early["osvald"]["after_recruitment"].is_object());
+        assert_eq!(early["non_surprise"],true);
+        assert_eq!(early["cait_present"],false,"An ordinary group must meet this route's requirements");
+        assert!(f["early_weighted_input_cost"].as_u64().unwrap()<442);
+        let mut surprised=p.clone();
+        surprised["post_battle_field"]["flats_escape"]["early_cait"]["non_surprise"]=json!(false);
+        assert_eq!(setup.check_requirements(&surprised)["met"],false,"Dropping Cait must not drop surprise protection");
+        assert!(CrtSetup::parse(&format!("{query}&early_require_cait=bad")).is_err());
+        assert!(CrtSetup::parse(&format!("{query}&early_cait_max_boost_repeats=required")).is_err(),"Duplicate old/new budget aliases must be rejected");
+    }
+    #[test]
     fn early_clerics_and_cait_endpoint_has_independent_policies_and_no_cape_cold() {
         use super::*;
-        let query="seed=0&advances=4916&route_end=osvald_cait&encounter_max_boost_repeats=required&pirro_victory_max_boost_repeats=required&pirro_no_grape_max_boost_repeats=required&highroad_approach_max_boost_repeats=required&highroad_flats_max_boost_repeats=required&highroad_flats_approach_max_boost_repeats=required&flats_escape_max_boost_repeats=boost_only";
+        let query="seed=0&advances=4916&route_end=osvald_cait&early_require_cait=true&encounter_max_boost_repeats=required&pirro_victory_max_boost_repeats=required&pirro_no_grape_max_boost_repeats=required&highroad_approach_max_boost_repeats=required&highroad_flats_max_boost_repeats=required&highroad_flats_approach_max_boost_repeats=required&flats_escape_max_boost_repeats=boost_only";
         let setup=CrtSetup::parse(query).unwrap();
-        assert_eq!(setup.json()["route_end"],"osvald_cait");
+        assert_eq!(setup.json()["route_end"],"osvald_encounter");
         let result=setup.calculate().unwrap(); let p=&result["prediction"];
         assert_eq!(p["required_outcomes"]["met"],true,"{}",p["required_outcomes"]);
         let f=&p["post_battle_field"]; let early=&f["flats_escape"]["early_cait"];

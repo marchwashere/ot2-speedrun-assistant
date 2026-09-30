@@ -6,19 +6,22 @@ near the Flats clerics, buys soulstones and switches back to day. It then
 recruits Osvald without an encounter and predicts the first Southern Cape Cold
 Snows encounter. A weighted search combines Flats Escape boosts, complete time
 cycles after cleric purchases (end day), and post-recruitment switches (end day
-or night). It jointly targets clerics, safe movement and a Cait without surprise,
+or night). It jointly targets clerics, safe movement and a first encounter without surprise,
 minimizing boost inputs + seven per individual time switch. Required targets
 search without a budget; numeric optional allowances add two weighted cost units
 per input-pair allowance while preserving achieved outcomes. Each candidate
 replays the route's loader, time switches, recruitment and encounter lottery.
 The GUI shows boost inputs and the Flats run/walk limit; Detailed log holds CRT
 checkpoints and encounter composition. Separate settings describe the three
-control points. No Cape Cold continuation or Cait fight
+control points. Cait selection is suspended; any enemy group is accepted.
+No Cape Cold continuation or first-encounter fight
 simulation is run. This new route is source-derived, awaiting a retail replay.
 See [the route notes](docs/early-clerics-cait.md).
 
 `main` preserves the previous route through Crackridge Harbor. The backend also
-retains it via `route_end=full`; the fork GUI selects `route_end=osvald_cait`.
+retains it via `route_end=full`; the fork GUI selects `route_end=osvald_encounter`.
+The old `osvald_cait` endpoint name is an alias. Cait selection is opt-in only
+via `early_require_cait=true`; the GUI does not request it.
 The former village-only endpoint remains available via `route_end=first_village`.
 
 Route state, field encounter prediction, and a local GUI. This repository imports

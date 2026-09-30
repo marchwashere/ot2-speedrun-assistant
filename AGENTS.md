@@ -1,5 +1,13 @@
 # Active project
 
+- User suspended Cait manipulation. Default early-route goal is any first Snows
+  encounter WITHOUT surprise; preserve clerics, safe village run, safe Flats
+  movement and safe daytime Osvald recruitment. GUI uses osvald_encounter and
+  early_approach_max_boost_repeats; old endpoint/budget names are aliases and
+  stored numeric/Required preferences survive. early_require_cait=true is an
+  API-only opt-in for retained Cait tests. Do not silently require Cait or drop
+  the non-surprise goal. Time controls and weighted optimization remain active.
+
 - Early Cait fork now permits post-purchase time cycles (end DAY) and post-Osvald
   toggles (end either DAY or NIGHT; user confirmed both). Minimize extra boost
   inputs +7 per actual toggle, including the constant two shop toggles. Weighted

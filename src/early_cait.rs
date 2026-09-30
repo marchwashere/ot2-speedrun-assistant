@@ -8,9 +8,11 @@ use serde::Serialize;
 pub struct Settings {
     pub clerics_max_boost_repeats: Option<u32>,
     pub cait_max_boost_repeats: Option<u32>,
+    /// Cait selection is opt-in; avoiding surprise remains an independent goal.
+    pub require_cait: bool,
 }
 impl Default for Settings {
-    fn default() -> Self { Self { clerics_max_boost_repeats: None, cait_max_boost_repeats: None } }
+    fn default() -> Self { Self { clerics_max_boost_repeats: None, cait_max_boost_repeats: None, require_cait: false } }
 }
 
 #[derive(Debug, Serialize)]
@@ -133,4 +135,10 @@ pub fn project_with_switches(arrival:CrtRng,state:WorldState,throne_level:u32,
 pub fn outcomes(p: &Prediction) -> [bool;4] {
     [p.clerics_present, p.movement.walking.reaches_reset,
         p.osvald.as_ref().is_some_and(|o| o.after_recruitment.is_some()), p.cait_present && p.non_surprise]
+}
+
+pub fn outcomes_for(p: &Prediction, require_cait: bool) -> [bool;4] {
+    let mut goals = outcomes(p);
+    goals[3] = p.non_surprise && (!require_cait || p.cait_present);
+    goals
 }

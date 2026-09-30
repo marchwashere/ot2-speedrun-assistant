@@ -249,13 +249,13 @@ fn predict_to_boundary(arrival:CrtRng, world:&WorldState, level:u32, settings:Se
                             let actual=if break_action {0} else {a.trace.iter().filter(|t|t.reason=="boost_voice").count() as u32};
                             if actual!=repeats {return Ok(false);}
                             let Some(prefix)=cached(a,0,0)? else {return Ok(false)};
-                            let base=crate::early_cait::outcomes(&prefix);
+                            let base=crate::early_cait::outcomes_for(&prefix,early.require_cait);
                             // These two earlier facts cannot be changed after buying.
                             if (goals[0]&&!base[0]) || (goals[1]&&!base[1]) {return Ok(false);}
                             for cleric_extra in (0..=switches).step_by(2) {
                                 let osvald_switches=switches-cleric_extra;
                                 let Some(p)=cached(a,cleric_extra,osvald_switches)? else {continue};
-                                if crate::early_cait::outcomes(&p).iter().zip(goals).all(|(met,needed)|!needed || *met) {
+                                if crate::early_cait::outcomes_for(&p,early.require_cait).iter().zip(goals).all(|(met,needed)|!needed || *met) {
                                     selected.set(Some((cleric_extra,osvald_switches))); return Ok(true);
                                 }
                             }
@@ -272,7 +272,7 @@ fn predict_to_boundary(arrival:CrtRng, world:&WorldState, level:u32, settings:Se
             .ok_or_else(||SimError("No required early route plan".into()))?;
         for i in 0..4 {
             let Some(a)=&escape.attempt else {break};
-            let outcomes=crate::early_cait::outcomes(&cached(a,cleric_extra,osvald_switches)?.unwrap());
+            let outcomes=crate::early_cait::outcomes_for(&cached(a,cleric_extra,osvald_switches)?.unwrap(),early.require_cait);
             // Optional improvements preserve all already achieved targets.
             for j in 0..4 {required[j] |= outcomes[j];}
             let base=escape.inputs.as_ref().map_or(0,|p|p.extra_repeats);
@@ -298,7 +298,7 @@ fn predict_to_boundary(arrival:CrtRng, world:&WorldState, level:u32, settings:Se
             let mut exit=f.world_after.clone(); exit.encounter_counter=budget.counter_before_reset.unwrap();
             result.at_village_entrance=Some(f.after); result.world_at_village_entrance=Some(exit);
             result.early_cait=project(a,cleric_extra,osvald_switches)?;
-            let final_outcomes=crate::early_cait::outcomes(result.early_cait.as_ref().unwrap());
+            let final_outcomes=crate::early_cait::outcomes_for(result.early_cait.as_ref().unwrap(),early.require_cait);
             for (s,met) in result.early_searches.iter_mut().zip(final_outcomes) {
                 s.target_met=met;
                 s.status=if met {"Target met in the selected joint plan"} else {"Optional target not met within budget"};
@@ -306,7 +306,7 @@ fn predict_to_boundary(arrival:CrtRng, world:&WorldState, level:u32, settings:Se
             result.remaining_run=Some(budget); result.field_return=Some(f);
             result.early_weighted_input_cost=Some(cost+2*crate::early_cait::TIME_SWITCH_INPUT_COST);
             result.early_tested_projections=tested.get();
-            result.status="Early clerics / Osvald / Cait fork evaluated";
+            result.status="Early clerics / Osvald / first Snows encounter evaluated";
         }
         result.escape=Some(escape);
         result.verification="Weighted search over Flats boosts, post-purchase complete time cycles and post-recruitment time switches, minimizing boost inputs +7 per switch including the mandatory night/day shop pair. Required outcomes gate every candidate jointly; numeric optional budgets add two weighted cost units per input-pair allowance and preserve achieved outcomes. Each candidate replays loader/time/NPC/movement/recruitment and actual final-phase encounter selection. No Cape Cold continuation.";
@@ -477,7 +477,7 @@ mod tests {
         let entry=CrtRng {state:0,draws:6050};
         let settings=Settings {max_boost_repeats:None, ..Default::default()};
         let first=until_first_village(entry,&w,5,settings).unwrap();
-        let p=until_osvald_cait(entry,&w,5,settings,Default::default()).unwrap();
+        let p=until_osvald_cait(entry,&w,5,settings,crate::early_cait::Settings {require_cait:true,..Default::default()}).unwrap();
         assert_eq!(p.before_battle_initialization,first.before_battle_initialization);
         assert_eq!(p.escape.as_ref().unwrap().menu.rng,first.escape.as_ref().unwrap().menu.rng);
         let selected=p.escape.as_ref().unwrap();
@@ -539,7 +539,7 @@ mod tests {
             p.world_at_village_entrance.clone().unwrap(),5,1,0).is_err());
         let optional=until_osvald_cait(entry,&world(),5,Settings {
             snow_max_boost_repeats:Some(0),osvald_max_boost_repeats:Some(0),..settings
-        },crate::early_cait::Settings {clerics_max_boost_repeats:Some(0),cait_max_boost_repeats:Some(0)}).unwrap();
+        },crate::early_cait::Settings {clerics_max_boost_repeats:Some(0),cait_max_boost_repeats:Some(0),require_cait:true}).unwrap();
         assert_eq!(optional.escape.as_ref().unwrap().attempt.as_ref().unwrap().after,first.escape.unwrap().attempt.unwrap().after);
         assert!(optional.early_searches.iter().any(|s|!s.target_met));
     }

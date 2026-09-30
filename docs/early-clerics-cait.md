@@ -2,6 +2,20 @@
 
 Active branch: `strategy/abandoned-village-fork`. The old route is on `main`.
 
+Current goal: Cait manipulation is suspended. Accept any enemy group in the
+first Snows encounter, but require Normal or Preemptive (never Surprise).
+Clerics and all encounter-free travel targets remain unchanged. The GUI uses
+`route_end=osvald_encounter` and `early_approach_max_boost_repeats`; old names
+remain API aliases. Cait can be explicitly requested with
+`early_require_cait=true` for the retained experimental route below. The default
+is false, and its search/required-outcome reporting both use this same goal.
+
+Current seed-0/title-4916 regression: retained shared level and Required targets,
+Flats Boost only select 123 boost repeats, the normal one post-purchase switch
+back to day, and two post-Osvald switches ending day. Weighted cost274; first
+Snows encounter is Normal and has no Cait. The remaining 123 repeats satisfy
+Escape/counter/clerics targets; they are not a Cait adjustment.
+
 The three controllable RNG events are boosting at the first Flats encounter,
 time cycles after buying from the clerics, and time switches after recruiting
 Osvald. Candidate inputs are replayed from the unchanged
@@ -25,7 +39,8 @@ From that entrance, `early_cait::project` runs:
    placements on each toggle. Predict the first land encounter in the SAME
    Snows map using the final DayTime/Night table and decrement, with carried
    counter and FirstEncount, actual Throné route level and Lv1 Osvald. Require an
-   actual CAT_SNOW replacement enemy and Normal or Preemptive situation.
+   Normal or Preemptive situation. Only when explicitly opting into Cait also
+   require an actual CAT_SNOW replacement enemy.
 
 Shop switches consume data-derived lottery and NPC creation draws, but
 do not reset the counter. Movement stays daytime before and after the shop;
@@ -46,7 +61,7 @@ Immutable projections are cached across cost layers. The first selected layer
 minimizes estimated manipulation cost across all three controls (not the full
 timing of a configured break/Escape fallback).
 
-Regression example: seed 0, title advances 4916, shared level retained,
+Historical opt-in Cait regression example: seed 0, title advances 4916, shared level retained,
 Required route outcomes and Flats Boost only select 123 boost repetitions,
 23 post-purchase switches (including the normal return to day), and 4
 post-recruitment switches. Cost: 246 boost inputs +28 switches *7 =442 units.
@@ -63,7 +78,7 @@ Search policies remain individually configurable:
 | Early clerics | early_clerics_max_boost_repeats |
 | Safe Flats walk via clerics | flats_snow_max_boost_repeats |
 | Safe Osvald walk; post-purchase cycles | flats_osvald_max_boost_repeats |
-| Cait without surprise; post-recruitment switches | early_cait_max_boost_repeats |
+| First encounter without surprise; post-recruitment switches | early_approach_max_boost_repeats (old alias: early_cait_max_boost_repeats) |
 
 Required means no candidate budget: all required goals gate the combined plan
 before optional improvements. Numeric budgets add 2 WEIGHTED input-cost units
@@ -76,7 +91,7 @@ point: Flats encounter, after cleric purchases, after Osvald recruitment.
 `boost_only` bypasses that fallback. Displayed inputs come from the selected
 replayed path. Earlier Highroad and Pirro adjustments are frozen.
 
-The fork GUI sends `route_end=osvald_cait`. Legacy endpoints `full` (API default)
+The fork GUI sends `route_end=osvald_encounter`. Legacy endpoints `full` (API default)
 and `first_village` remain available. The projection is exported as
 `post_battle_field.flats_escape.early_cait`; its encounter checkpoints are local
 to `after_osvald_switches` and must be offset once when rendering route counts.

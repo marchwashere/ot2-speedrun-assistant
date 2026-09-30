@@ -7,7 +7,7 @@ let running = false;
 let stopped = false;
 const repeatSettings = [
   {key:'early_clerics_max_boost_repeats',id:'early-clerics-boost-repeats',storage:'ot2-fork-early-clerics-boost-repeats',label:'Early clerics',requiredDefault:true},
-  {key:'early_cait_max_boost_repeats',id:'early-cait-boost-repeats',storage:'ot2-fork-early-cait-boost-repeats',label:'Cait without surprise',requiredDefault:true},
+  {key:'early_approach_max_boost_repeats',id:'early-cait-boost-repeats',storage:'ot2-fork-early-cait-boost-repeats',label:'Avoid surprise after Osvald',requiredDefault:true},
   {key:'mansion_run_max_boost_repeats',id:'mansion-run-boost-repeats',storage:'ot2-assistant-mansion-run-boost-repeats',label:'Mansion no second encounter',requiredDefault:true},
   {key:'mug_clerics_max_boost_repeats',id:'mug-clerics-boost-repeats',storage:'ot2-assistant-mug-clerics-boost-repeats',label:'Black-market clerics',requiredDefault:true},
   {key:'crackridge_approach_max_boost_repeats',id:'crackridge-approach-boost-repeats',storage:'ot2-assistant-crackridge-approach-boost-repeats',label:'Crackridge Harbor approach',requiredDefault:true},
@@ -73,10 +73,10 @@ function readSetup() {
   const advances = BigInt(text);
   const recreate = $('recreate-shared-level').getAttribute('aria-pressed') === 'true';
   if (advances + 12n + BigInt(recreate) > 18446744073709551615n) throw new Error('Title advances plus opening transition exceed 18446744073709551615.');
-  return {seed,advances:advances.toString(),recreate_shared_level:recreate,route_end:'osvald_cait',...eventRepeatCaps};
+  return {seed,advances:advances.toString(),recreate_shared_level:recreate,route_end:'osvald_encounter',...eventRepeatCaps};
 }
 const setupQuery = setup => {
-  const query = new URLSearchParams({seed:setup.seed,advances:setup.advances,recreate_shared_level:setup.recreate_shared_level,route_end:setup.route_end ?? 'osvald_cait',boost_menu:setup.boost_menu ?? 0,boost_advances:setup.boost_advances ?? 0});
+  const query = new URLSearchParams({seed:setup.seed,advances:setup.advances,recreate_shared_level:setup.recreate_shared_level,route_end:setup.route_end ?? 'osvald_encounter',boost_menu:setup.boost_menu ?? 0,boost_advances:setup.boost_advances ?? 0});
   for (const {key} of repeatSettings) query.set(key,repeatCapQuery(setup[key],key));
   for (const key of ['boost_repeat_cap','second_boost_menu','second_boost_advances','second_boost_repeat_cap']) {
     if(setup[key]!=null) query.set(key,setup[key]);
@@ -409,7 +409,7 @@ function renderEarlyCait() {
   $('early-route-encounter').textContent=e?`${e.enemies.map(slot=>slot.enemy.name).join(' · ')} · ${e.situation} · ${p.world_at_encounter?.time===4?'night':'day'} · after ${e.counter_updates} running updates from recruitment`:'First encounter not reached';
   const f=result.post_battle_field.flats_escape;
   $('early-route-cost').textContent=f.early_weighted_input_cost==null?'':`Estimated cost: ${f.early_weighted_input_cost} boost-input units · ${f.escape?.inputs?.input_count ?? 0} boost inputs + ${1+(p.post_cleric_switches??1)+(p.post_osvald_switches??0)} time switches ×7 · ${f.early_tested_projections} cached route candidates`;
-  $('early-route-status').textContent=`Clerics: ${p.clerics_present?'yes':'no'} · safe Osvald walk: ${p.osvald?.after_recruitment?'yes':'no'} · Cait without surprise: ${p.cait_present && p.non_surprise?'yes':'no'}`;
+  $('early-route-status').textContent=`Clerics: ${p.clerics_present?'yes':'no'} · safe Osvald walk: ${p.osvald?.after_recruitment?'yes':'no'} · first encounter without surprise: ${p.non_surprise?'yes':'no'}`;
   const endpoint=p.before_battle_initialization;
   $('early-cait-advances').textContent=endpoint?totalAdvances(endpoint):'—';
   $('early-cait-hex').textContent=endpoint?hex(endpoint.state):'—';
