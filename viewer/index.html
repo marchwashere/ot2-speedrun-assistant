@@ -12,10 +12,6 @@
 </head>
 <body>
   <div class="shell">
-    <header class="topbar">
-      <div class="brand"><span class="mark" aria-hidden="true">II</span><div><strong>OT2 Speedrun Assistant</strong></div></div>
-      <button class="quiet" id="quit" type="button">Quit viewer</button>
-    </header>
     <main>
       <nav class="mode-switch" aria-label="Predictor"><button id="manipulation-mode" type="button" aria-pressed="true">Manipulation</button><button id="detail-mode" type="button" aria-pressed="false">Detailed log</button><button id="field-mode" type="button" hidden disabled aria-pressed="false">Field encounters</button><button id="settings-mode" type="button" hidden disabled aria-pressed="false">Settings</button></nav>
       <section id="manipulation-panel" aria-labelledby="manipulation-title">
@@ -592,6 +588,7 @@
       </section>
       <section id="closed" class="panel closed" hidden><h2>Viewer stopped</h2><p>This window can be closed. Launch OT2 Battle Viewer again to run another simulation.</p></section>
     </main>
+    <footer class="viewer-footer"><button class="quiet" id="quit" type="button">Quit viewer</button></footer>
   </div>
 </body>
 </html>
