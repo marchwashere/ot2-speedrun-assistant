@@ -1,0 +1,2440 @@
+{
+  "100": {
+    "character": 1,
+    "maps": [
+      "Fld_Dst_3_1_A",
+      "Fld_Dst_3_1_B",
+      "Twn_Dst_1_1_A",
+      "Twn_Dst_3_1_A",
+      "Twn_Dst_3_1_A_Fire",
+      "Twn_Dst_3_1_B",
+      "Twn_Dst_3_1_C"
+    ],
+    "switches": [
+      {
+        "begin": 5000,
+        "end": 5006,
+        "maps": [
+          "Fld_Dst_3_1_A"
+        ]
+      },
+      {
+        "begin": 5006,
+        "end": 5022,
+        "maps": [
+          "Twn_Dst_3_1_A",
+          "Twn_Dst_3_1_B",
+          "Twn_Dst_3_1_C",
+          "Fld_Dst_3_1_B",
+          "Twn_Dst_3_1_A_Fire",
+          "Twn_Dst_1_1_A"
+        ]
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      }
+    ]
+  },
+  "101": {
+    "character": 1,
+    "maps": [
+      "Twn_Mnt_2_1_A",
+      "Twn_Mnt_2_1_B",
+      "Twn_Mnt_2_1_C"
+    ],
+    "switches": [
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      }
+    ]
+  },
+  "102": {
+    "character": 1,
+    "maps": [
+      "Twn_Fst_2_1_A",
+      "Twn_Fst_2_1_B",
+      "Twn_Fst_2_1_C",
+      "Dng_Fst_2_1"
+    ],
+    "switches": [
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      }
+    ]
+  },
+  "103": {
+    "character": 1,
+    "maps": [
+      "Twn_Snw_3_1_A",
+      "Twn_Snw_3_1_B",
+      "Twn_Snw_3_1_C",
+      "Twn_Snw_3_2_A",
+      "Dng_Snw_3_2_A",
+      "Dng_Snw_3_2_B"
+    ],
+    "switches": [
+      {
+        "begin": 5155,
+        "end": 5166,
+        "maps": [
+          "Twn_Dst_3_1_A",
+          "Twn_Dst_3_1_B",
+          "Twn_Dst_3_1_C"
+        ]
+      },
+      {
+        "begin": 5166,
+        "end": 5170,
+        "maps": [
+          "Twn_Snw_3_1_A",
+          "Twn_Snw_3_1_B",
+          "Twn_Snw_3_1_C",
+          "Twn_Snw_3_2_A",
+          "Dng_Snw_3_2_A",
+          "Dng_Snw_3_2_B"
+        ]
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      }
+    ]
+  },
+  "104": {
+    "character": 1,
+    "maps": [
+      "Fld_Dst_3_1_B",
+      "Twn_Dst_3_1_A",
+      "Twn_Dst_3_1_B",
+      "Twn_Dst_3_1_C",
+      "Btl_DarkHikari"
+    ],
+    "switches": [
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      }
+    ]
+  },
+  "200": {
+    "character": 2,
+    "maps": [
+      "Twn_Isd_1_1_A",
+      "Fld_Isd_1_1",
+      "Dng_Isd_1_1"
+    ],
+    "switches": [
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      }
+    ]
+  },
+  "201": {
+    "character": 2,
+    "maps": [
+      "Twn_Sea_2_1_A",
+      "Twn_Sea_2_1_B",
+      "Dng_Sea_2_1"
+    ],
+    "switches": [
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      }
+    ]
+  },
+  "202": {
+    "character": 2,
+    "maps": [
+      "Twn_Wld_2_1_A",
+      "Dng_Wld_2_1_A",
+      "Dng_Wld_2_1_B",
+      "Fld_Wld_2_1",
+      "Fld_Wld_2_2"
+    ],
+    "switches": [
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      }
+    ]
+  },
+  "203": {
+    "character": 2,
+    "maps": [
+      "Twn_Snw_3_1_A",
+      "Twn_Snw_3_1_B",
+      "Twn_Snw_3_1_C",
+      "Dng_Snw_3_3"
+    ],
+    "switches": [
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      }
+    ]
+  },
+  "204": {
+    "character": 2,
+    "maps": [
+      "Twn_Isd_1_1_A",
+      "Fld_Isd_1_1",
+      "Dng_Isd_1_1",
+      "Dng_Isd_3_2_A",
+      "Dng_Isd_3_2_B",
+      "Dng_Isd_3_2_C",
+      "Dng_Isd_3_2_D",
+      "Dng_Isd_3_2_E",
+      "Evt_KAR_30_001"
+    ],
+    "switches": [
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      }
+    ]
+  },
+  "300": {
+    "character": 3,
+    "maps": [
+      "Twn_Sea_1_1_A",
+      "Fld_Sea_1_1",
+      "Dng_Sea_1_1",
+      "Evt_KUS_10_001",
+      "Evt_KUS_10_002",
+      "Evt_KUS_10_003",
+      "Fld_Cty_1_1"
+    ],
+    "switches": [
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      }
+    ]
+  },
+  "301": {
+    "character": 3,
+    "maps": [
+      "Twn_Dst_2_1_A",
+      "Twn_Dst_2_1_B",
+      "Fld_Dst_2_5_A",
+      "Fld_Dst_2_5_B",
+      "Dng_Dst_2_4"
+    ],
+    "switches": [
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      }
+    ]
+  },
+  "302": {
+    "character": 3,
+    "maps": [
+      "Twn_Snw_2_1_A",
+      "Twn_Snw_2_1_B"
+    ],
+    "switches": [
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      }
+    ]
+  },
+  "303": {
+    "character": 3,
+    "maps": [
+      "Twn_Cty_1_2_A",
+      "Twn_Cty_1_2_B",
+      "Fld_Cty_2_2",
+      "Dng_Cty_2_2"
+    ],
+    "switches": [
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      }
+    ]
+  },
+  "304": {
+    "character": 3,
+    "maps": [
+      "Twn_Fst_3_1_A",
+      "Twn_Fst_3_1_B",
+      "Dng_Fst_3_1_A",
+      "Dng_Fst_3_1_B",
+      "Twn_Cty_1_2_B"
+    ],
+    "switches": [
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      }
+    ]
+  },
+  "400": {
+    "character": 4,
+    "maps": [
+      "Fld_Wld_1_1_A",
+      "Fld_Wld_1_1_B",
+      "Dng_Wld_1_1",
+      "Twn_Wld_1_1_A",
+      "Twn_Wld_1_1_B",
+      "Twn_Wld_1_1_C",
+      "Twn_Wld_1_2_A",
+      "Twn_Wld_1_2_B"
+    ],
+    "switches": [
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      }
+    ]
+  },
+  "401": {
+    "character": 4,
+    "maps": [
+      "Twn_Cty_2_1_A",
+      "Twn_Cty_2_1_B",
+      "Dng_Cty_2_1"
+    ],
+    "switches": [
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      }
+    ]
+  },
+  "402": {
+    "character": 4,
+    "maps": [
+      "Twn_Fst_2_1_A",
+      "Twn_Fst_2_1_B",
+      "Twn_Fst_2_1_C"
+    ],
+    "switches": [
+      {
+        "begin": 25241,
+        "end": 25246,
+        "maps": [
+          "Twn_Isd_2_1_A",
+          "Twn_Isd_2_1_B",
+          "Twn_Isd_2_1_C"
+        ]
+      },
+      {
+        "begin": 25242,
+        "end": 25246,
+        "maps": [
+          "Twn_Snw_2_1_A",
+          "Twn_Snw_2_1_B"
+        ]
+      },
+      {
+        "begin": 25243,
+        "end": 25246,
+        "maps": [
+          "Twn_Dst_2_1_A",
+          "Twn_Dst_2_1_B"
+        ]
+      },
+      {
+        "begin": 25246,
+        "end": 25247,
+        "maps": [
+          "Twn_Cty_2_1_A",
+          "Twn_Cty_2_1_B"
+        ]
+      },
+      {
+        "begin": 25247,
+        "end": 25248,
+        "maps": [
+          "Twn_Wld_1_1_C",
+          "Twn_Wld_1_2_B"
+        ]
+      },
+      {
+        "begin": 25248,
+        "end": 6116,
+        "maps": [
+          "Twn_Fst_2_1_A",
+          "Twn_Fst_2_1_B",
+          "Twn_Fst_2_1_C"
+        ]
+      }
+    ]
+  },
+  "403": {
+    "character": 4,
+    "maps": [
+      "Twn_Sea_3_1_A",
+      "Twn_Sea_3_1_B",
+      "Dng_Sea_3_1_A",
+      "Dng_Sea_3_1_B"
+    ],
+    "switches": [
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      }
+    ]
+  },
+  "410": {
+    "character": 4,
+    "maps": [],
+    "switches": [
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      }
+    ]
+  },
+  "411": {
+    "character": 4,
+    "maps": [],
+    "switches": [
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      }
+    ]
+  },
+  "412": {
+    "character": 4,
+    "maps": [],
+    "switches": [
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      }
+    ]
+  },
+  "500": {
+    "character": 5,
+    "maps": [
+      "Twn_Mnt_1_1_A",
+      "Twn_Mnt_1_2_A",
+      "Twn_Mnt_1_2_B",
+      "Fld_Mnt_1_1",
+      "Dng_Mnt_1_1",
+      "Evt_Dng_Atl_3_1_Past",
+      "Evt_Twn_Mnt_1_2_B"
+    ],
+    "switches": [
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      }
+    ]
+  },
+  "501": {
+    "character": 5,
+    "maps": [
+      "Twn_Sea_1_1_A",
+      "Dng_Sea_1_2"
+    ],
+    "switches": [
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      }
+    ]
+  },
+  "502": {
+    "character": 5,
+    "maps": [
+      "Twn_Snw_3_1_A",
+      "Twn_Snw_3_1_B",
+      "Twn_Snw_3_1_C",
+      "Dng_Snw_3_1"
+    ],
+    "switches": [
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      }
+    ]
+  },
+  "503": {
+    "character": 5,
+    "maps": [
+      "Twn_Wld_2_1_A",
+      "Dng_Wld_2_2",
+      "Fld_Wld_2_3"
+    ],
+    "switches": [
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      }
+    ]
+  },
+  "504": {
+    "character": 5,
+    "maps": [
+      "Twn_Isd_3_1_A",
+      "Fld_Isd_3_1",
+      "Dng_Isd_3_1_A",
+      "Dng_Isd_3_1_B",
+      "Dng_Isd_3_1_C",
+      "Twn_Mnt_1_2_A",
+      "Twn_Mnt_1_2_B",
+      "Dng_Mnt_1_1"
+    ],
+    "switches": [
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      }
+    ]
+  },
+  "600": {
+    "character": 6,
+    "maps": [
+      "Twn_Snw_1_1_A",
+      "Twn_Snw_1_1_B",
+      "Twn_Snw_1_1_C",
+      "Dng_Snw_1_1",
+      "Twn_Fst_3_1_A",
+      "Fld_Snw_1_1_A",
+      "Fld_Snw_1_1_B"
+    ],
+    "switches": [
+      {
+        "begin": 7000,
+        "end": 7020,
+        "maps": [
+          "Twn_Snw_1_1_A",
+          "Twn_Snw_1_1_B",
+          "Twn_Snw_1_1_C",
+          "Dng_Snw_1_1"
+        ]
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      }
+    ]
+  },
+  "601": {
+    "character": 6,
+    "maps": [
+      "Twn_Snw_1_2_A",
+      "Twn_Sea_2_1_C",
+      "Fld_Snw_1_1_A",
+      "Fld_Snw_1_1_B"
+    ],
+    "switches": [
+      {
+        "begin": 7020,
+        "end": 7051,
+        "maps": [
+          "Twn_Sea_2_1_A",
+          "Twn_Sea_2_1_B",
+          "Twn_Sea_2_1_C"
+        ]
+      },
+      {
+        "begin": 7051,
+        "end": 7053,
+        "maps": [
+          "Fld_Snw_1_1_A"
+        ]
+      },
+      {
+        "begin": 7053,
+        "end": 7060,
+        "maps": [
+          "Fld_Snw_1_1_A",
+          "Fld_Snw_1_1_B"
+        ]
+      },
+      {
+        "begin": 7060,
+        "end": 7062,
+        "maps": [
+          "Twn_Snw_1_2_A"
+        ]
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      }
+    ]
+  },
+  "602": {
+    "character": 6,
+    "maps": [
+      "Twn_Sea_2_1_A",
+      "Twn_Sea_2_1_B",
+      "Twn_Sea_2_1_C",
+      "Dng_Sea_2_2"
+    ],
+    "switches": [
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      }
+    ]
+  },
+  "603": {
+    "character": 6,
+    "maps": [
+      "Twn_Mnt_2_1_A",
+      "Twn_Mnt_2_1_B",
+      "Twn_Mnt_2_1_C",
+      "Dng_Mnt_2_3"
+    ],
+    "switches": [
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      }
+    ]
+  },
+  "604": {
+    "character": 6,
+    "maps": [
+      "Twn_Wld_3_1_A",
+      "Fld_Wld_3_1",
+      "Dng_Wld_3_1_A",
+      "Dng_Wld_3_1_B"
+    ],
+    "switches": [
+      {
+        "begin": 7209,
+        "end": 7210,
+        "maps": [
+          "Twn_Sea_2_1_A",
+          "Twn_Sea_2_1_B",
+          "Twn_Sea_2_1_C"
+        ]
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      }
+    ]
+  },
+  "700": {
+    "character": 7,
+    "maps": [
+      "Twn_Cty_1_1_A",
+      "Twn_Cty_1_1_B",
+      "Twn_Cty_1_1_C",
+      "Dng_Cty_1_1",
+      "Dng_Cty_3_1"
+    ],
+    "switches": [
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      }
+    ]
+  },
+  "701": {
+    "character": 7,
+    "maps": [
+      "Twn_Wld_1_1_C",
+      "Twn_Wld_1_2_B"
+    ],
+    "switches": [
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      }
+    ]
+  },
+  "702": {
+    "character": 7,
+    "maps": [
+      "Twn_Snw_2_1_A",
+      "Twn_Snw_2_1_B",
+      "Dng_Snw_2_1"
+    ],
+    "switches": [
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      }
+    ]
+  },
+  "703": {
+    "character": 7,
+    "maps": [
+      "Twn_Fst_2_1_A",
+      "Twn_Fst_2_1_B",
+      "Twn_Fst_2_1_C",
+      "Fld_Fst_3_1",
+      "Twn_Fst_3_2_A",
+      "Dng_Fst_3_2"
+    ],
+    "switches": [
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      }
+    ]
+  },
+  "704": {
+    "character": 7,
+    "maps": [
+      "Twn_Mnt_2_1_A",
+      "Twn_Mnt_2_1_B",
+      "Twn_Mnt_2_1_C",
+      "Fld_Mnt_3_3",
+      "Dng_Mnt_3_3"
+    ],
+    "switches": [
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      }
+    ]
+  },
+  "705": {
+    "character": 7,
+    "maps": [
+      "Twn_Cty_1_1_A",
+      "Twn_Cty_1_1_B",
+      "Twn_Cty_1_1_C",
+      "Twn_Cty_1_1_D",
+      "Fld_Cty_3_1",
+      "Twn_Cty_3_1_A",
+      "Dng_Cty_3_1",
+      "Dng_Cty_3_2_A",
+      "Dng_Cty_3_2_B"
+    ],
+    "switches": [
+      {
+        "begin": 8309,
+        "end": 8321,
+        "maps": [
+          "Twn_Cty_1_1_A",
+          "Twn_Cty_1_1_B",
+          "Twn_Cty_1_1_C",
+          "Twn_Cty_1_1_D",
+          "Fld_Cty_3_1",
+          "Twn_Cty_3_1_A",
+          "Dng_Cty_3_1",
+          "Dng_Cty_3_2_A",
+          "Dng_Cty_3_2_B"
+        ]
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      }
+    ]
+  },
+  "800": {
+    "character": 8,
+    "maps": [
+      "Twn_Fst_1_1_A",
+      "Fld_Fst_1_1",
+      "Fld_Fst_1_2",
+      "Dng_Fst_1_1",
+      "Dng_Fst_2_2_A"
+    ],
+    "switches": [
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      }
+    ]
+  },
+  "801": {
+    "character": 8,
+    "maps": [
+      "Twn_Cty_1_1_A",
+      "Twn_Cty_1_1_B",
+      "Twn_Cty_1_1_C",
+      "Twn_Cty_1_1_D",
+      "Dng_Cty_1_2"
+    ],
+    "switches": [
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      }
+    ]
+  },
+  "802": {
+    "character": 8,
+    "maps": [
+      "Twn_Isd_2_1_A",
+      "Twn_Isd_2_1_B",
+      "Twn_Isd_2_1_C"
+    ],
+    "switches": [
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      }
+    ]
+  },
+  "803": {
+    "character": 8,
+    "maps": [
+      "Twn_Dst_2_1_A",
+      "Twn_Dst_2_1_B",
+      "Dng_Dst_2_1"
+    ],
+    "switches": [
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      }
+    ]
+  },
+  "804": {
+    "character": 8,
+    "maps": [
+      "Twn_Mnt_3_1_A",
+      "Twn_Mnt_3_1_B",
+      "Dng_Mnt_3_1_A",
+      "Dng_Mnt_3_1_B"
+    ],
+    "switches": [
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      }
+    ]
+  },
+  "900": {
+    "character": 0,
+    "maps": [
+      "Twn_Cty_1_1_A",
+      "Twn_Cty_1_1_B",
+      "Twn_Cty_1_1_C"
+    ],
+    "switches": [
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      }
+    ]
+  },
+  "901": {
+    "character": 0,
+    "maps": [
+      "Twn_Mnt_2_1_A",
+      "Twn_Mnt_2_1_B",
+      "Twn_Mnt_2_1_C"
+    ],
+    "switches": [
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      }
+    ]
+  },
+  "1000": {
+    "character": 0,
+    "maps": [
+      "Twn_Fst_1_1_A",
+      "Fld_Fst_1_1",
+      "Dng_Fst_2_2_A"
+    ],
+    "switches": [
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      }
+    ]
+  },
+  "1001": {
+    "character": 0,
+    "maps": [
+      "Twn_Fst_1_1_A",
+      "Fld_Fst_1_1",
+      "Dng_Fst_2_2_A",
+      "Dng_Fst_2_2_B"
+    ],
+    "switches": [
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      }
+    ]
+  },
+  "1100": {
+    "character": 0,
+    "maps": [
+      "Twn_Dst_1_1_A"
+    ],
+    "switches": [
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      }
+    ]
+  },
+  "1101": {
+    "character": 0,
+    "maps": [
+      "Twn_Dst_3_1_A",
+      "Twn_Dst_3_1_B",
+      "Twn_Dst_3_1_C"
+    ],
+    "switches": [
+      {
+        "begin": 9350,
+        "end": 9351,
+        "maps": [
+          "Twn_Dst_3_1_A",
+          "Twn_Dst_3_1_B",
+          "Twn_Dst_3_1_C"
+        ]
+      },
+      {
+        "begin": 9351,
+        "end": 9357,
+        "maps": [
+          "Twn_Dst_3_1_A",
+          "Twn_Dst_3_1_B",
+          "Twn_Dst_3_1_C",
+          "Fld_Dst_3_1_B",
+          "Fld_Dst_3_2",
+          "Dng_Dst_3_1"
+        ]
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      }
+    ]
+  },
+  "1200": {
+    "character": 0,
+    "maps": [
+      "Twn_Mnt_1_1_A",
+      "Twn_Mnt_1_2_A",
+      "Twn_Mnt_1_2_B",
+      "Fld_Mnt_1_1"
+    ],
+    "switches": [
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      }
+    ]
+  },
+  "1201": {
+    "character": 0,
+    "maps": [
+      "Twn_Sea_2_1_A",
+      "Twn_Sea_2_1_B",
+      "Twn_Sea_2_1_C",
+      "Fld_Sea_2_3",
+      "Dng_Sea_2_3"
+    ],
+    "switches": [
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      }
+    ]
+  },
+  "1300": {
+    "character": 0,
+    "maps": [
+      "Fld_Fst_1_4"
+    ],
+    "switches": [
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      }
+    ]
+  },
+  "1301": {
+    "character": 0,
+    "maps": [],
+    "switches": [
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      }
+    ]
+  },
+  "1302": {
+    "character": 0,
+    "maps": [],
+    "switches": [
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      }
+    ]
+  },
+  "1303": {
+    "character": 0,
+    "maps": [],
+    "switches": [
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      }
+    ]
+  },
+  "1304": {
+    "character": 0,
+    "maps": [],
+    "switches": [
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      }
+    ]
+  },
+  "1305": {
+    "character": 0,
+    "maps": [
+      "Fld_Ocn_1_1",
+      "Dng_Atl_3_1",
+      "Fld_Atl_3_1"
+    ],
+    "switches": [
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      }
+    ]
+  },
+  "1306": {
+    "character": 0,
+    "maps": [
+      "Fld_Fst_1_4"
+    ],
+    "switches": [
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      },
+      {
+        "begin": 0,
+        "end": 0,
+        "maps": []
+      }
+    ]
+  }
+}
