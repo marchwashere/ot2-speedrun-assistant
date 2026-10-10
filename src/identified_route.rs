@@ -80,7 +80,7 @@ pub fn plan(menu:&Battle)->Result<pirro::Prediction> {
 /// nearest-control search policy and all downstream state propagation.
 pub fn simulate(voices:&str,pirro_first:bool,hp:u32)->Result<serde_json::Value> {
     ensure((1..=261).contains(&hp),"Enter Throné’s current R3 HP (1–261)")?;
-    let identified=crate::voice_identification::identify(voices)?;
+    let identified=crate::voice_identification::identify_observed(voices,Some((pirro_first,hp)))?;
     let candidate=&identified["candidate"];
     let initial=candidate["initial_state"].as_u64().ok_or_else(||SimError("RNG is not uniquely identified yet".into()))? as u32;
     let seed=candidate["current_state"].as_u64().unwrap() as u32;

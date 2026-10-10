@@ -164,6 +164,12 @@ fn row(s:&Snapshot,q:u32)->Candidate {
 
 /// Cache only the latest exact transcript; edits/undo rebuild from all states.
 pub fn identify(voices: &str) -> crate::Result<serde_json::Value> {
+    identify_observed(voices,None)
+}
+
+/// Apply battle observations only after the exhaustive voice set is small.
+/// Keep the shared cache voice-only so HP edits and other clients cannot poison it.
+pub fn identify_observed(voices:&str, observation:Option<(bool,u32)>)->crate::Result<serde_json::Value> {
     use std::sync::{Mutex, OnceLock};
     crate::ensure(voices.len() <= 512 && voices.bytes().all(|b| matches!(b,b'N'|b'S')),
         "Voice transcript must contain at most 512 N/S observations")?;
@@ -177,9 +183,19 @@ pub fn identify(voices: &str) -> crate::Result<serde_json::Value> {
         cache.1=next;cache.0.push(b as char);
     }
     let s=&cache.1;
-    let candidate=(s.candidates.count()==1).then(||row(s,s.candidates.first(1)[0]));
-    Ok(serde_json::json!({"count":s.candidates.count(),"observations":s.observations,
-        "draws":s.draws,"candidate":candidate,"voices":voices}))
+    let voice_count=s.candidates.count();
+    let checked=observation.is_some() && voice_count<=16 && !voices.is_empty();
+    let mut rows=if voice_count<=16 {s.candidates.first(16).into_iter().map(|q|row(s,q)).collect::<Vec<_>>()}else{Vec::new()};
+    if let Some((first,hp))=observation.filter(|_|checked) {
+        rows.retain(|r|crate::identified_route::checkpoints(r.initial_state,r.current_state,voices)
+            .map(|states|states.iter().any(|b|
+                (b.state().turn_order().first()==Some(&ot2_battle_engine::ActorId(1)))==first
+                && b.state().actors[0].resources.hp==hp)).unwrap_or(false));
+    }
+    let count=if checked {rows.len() as u64}else{voice_count};
+    let candidate=(count==1).then(||rows[0]);
+    Ok(serde_json::json!({"count":count,"voice_count":voice_count,"battle_observations_checked":checked,
+        "observations":s.observations,"draws":s.draws,"candidate":candidate,"voices":voices}))
 }
 #[cfg(test)] mod tests {
     use super::*;
@@ -196,6 +212,24 @@ pub fn identify(voices: &str) -> crate::Result<serde_json::Value> {
                 assert_eq!(jump(0,r.current_position.into())&MASK,expected);
             }
         }
+    }
+    #[test] fn observed_battle_identifies_before_voices_alone() {
+        let voices="SSNSNNSNNNSSSSNNSSNSNNNSSNSSNNNSSSSN";
+        let mut earlier=false;
+        for n in 28..=34 {
+            let v=identify_observed(&voices[..n],Some((true,155))).unwrap();
+            if v["count"]==1 && v["voice_count"].as_u64().unwrap()>1 {
+                let c=&v["candidate"];
+                crate::identified_route::checkpoint(c["initial_state"].as_u64().unwrap() as u32,
+                    c["current_state"].as_u64().unwrap() as u32,&voices[..n],Some(true),Some(155)).unwrap();
+                eprintln!("Identified at {n} observations; voice-only candidates {}",v["voice_count"]);
+                earlier=true;break;
+            }
+        }
+        assert!(earlier);
+        let bad=identify_observed(&voices[..34],Some((true,1))).unwrap();
+        assert_eq!(bad["count"],0);
+        assert_eq!(identify(&voices[..34]).unwrap()["count"],1);
     }
     #[test] fn rejects_invalid_transcripts(){assert!(identify("NSX").is_err());}
 }

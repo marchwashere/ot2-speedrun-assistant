@@ -36,11 +36,11 @@ async function filterVoices() {
   const revision=voiceRevision, transcript=voiceTranscript;
   $('voice-status').textContent=transcript?'Filtering RNG candidates…':'Ready · Left = normal · Right = special';
   try {
-    const response=await fetch('/api/identify?voices='+transcript);
+    const response=await fetch('/api/identify-observed?'+new URLSearchParams({voices:transcript,r3_first:voiceFirst,hp:String(voiceHp)}));
     const data=await response.json();
     if(revision!==voiceRevision) return;
     if(!response.ok) throw new Error(data.error || 'Identification failed');
-    $('voice-status').textContent=data.count ? `${data.count.toLocaleString()} candidates · ${data.observations} observations` : 'No matching RNG. Undo and correct the last observation.';
+    $('voice-status').textContent=data.count ? `${data.count.toLocaleString()} candidates · ${data.observations} observations` : 'No matching RNG. Check the voicelines, turn-3 order and HP.';
     voiceCandidate=data.candidate;
     if(voiceCandidate) {voiceNotification(voiceCandidate.current_state);await simulateIdentified();}
   } catch(e) {

@@ -72,3 +72,13 @@ by this checkpoint. Real Pirro rewards, latent and subsequent levels propagate.
   observations, automatic simulation, and the route beginning at Pirro.
 - This entry mode still needs retail validation. All earlier core retail fixtures
   remain applicable to the combat code; they do not substitute for that check.
+
+## Order and HP during identification
+
+Once exhaustive voice filtering leaves at most16 candidates, replay the fixed
+R1/R2 prefix for each and retain states matching both R3 first actor and current
+HP. A unique surviving RNG starts simulation immediately. Larger candidate sets
+continue voice filtering; no candidates are sampled or dropped due to this
+performance threshold. The shared cache remains voice-only, so changing HP/order
+or another client cannot contaminate it. Regression sample identifies after30
+observations instead of34; wrong HP rejects it without corrupting voice results.

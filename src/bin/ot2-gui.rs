@@ -1204,9 +1204,9 @@ fn route_with_origin(request: &str, address: &str, public_origin: Option<&str>) 
                 Ok(v)=>Response::json(200,v),Err(e)=>Response::error(422,&e.to_string())
             }
         }
-        ("GET", path) if path.starts_with("/api/identified-route?") => {
+        ("GET", path) if (path.starts_with("/api/identified-route?") || path.starts_with("/api/identify-observed?")) => {
             let mut voices=None;let mut pirro_first=None;let mut hp=None;let mut valid=true;
-            for pair in path["/api/identified-route?".len()..].split('&') {
+            for pair in path.split_once('?').unwrap().1.split('&') {
                 match pair.split_once('=') {
                     Some(("voices",v)) if voices.is_none()=>voices=Some(v),
                     Some(("hp",v)) if hp.is_none()=>match v.parse::<u32>() {Ok(n) if (1..=261).contains(&n)=>hp=Some(n),_=>valid=false},
@@ -1215,7 +1215,9 @@ fn route_with_origin(request: &str, address: &str, public_origin: Option<&str>) 
                 }
             }
             if !valid || voices.is_none() || pirro_first.is_none() || hp.is_none() {Response::error(400,"Round-3 first actor, current HP (1–261), and voice transcript are required")}
-            else {match ot2_speedrun_assistant::identified_route::simulate(voices.unwrap(),pirro_first.unwrap(),hp.unwrap()) {
+            else {match if path.starts_with("/api/identify-observed?") {
+                ot2_speedrun_assistant::voice_identification::identify_observed(voices.unwrap(),Some((pirro_first.unwrap(),hp.unwrap())))
+            } else {ot2_speedrun_assistant::identified_route::simulate(voices.unwrap(),pirro_first.unwrap(),hp.unwrap())} {
                 Ok(v)=>Response::json(200,v),Err(e)=>Response::error(422,&e.to_string())
             }}
         }
