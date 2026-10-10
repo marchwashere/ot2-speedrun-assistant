@@ -1,9 +1,13 @@
 'use strict';
 let voiceStage='order', voiceFirst=null, voiceHp=null;
+let voiceLocked=false;
 let voiceTranscript='', voiceBusy=false, voiceCandidate=null, voiceRevision=0, voiceAudio=null;
 function voiceControls() {
-  for(const id of ['voice-normal','voice-special']) $(id).disabled=voiceStage!=='lines' || stopped;
-  $('voice-undo').disabled=stopped || !voiceTranscript.length;
+  for(const id of ['voice-normal','voice-special']) $(id).disabled=voiceStage!=='lines' || stopped || voiceLocked;
+  $('voice-undo').disabled=stopped || voiceLocked || !voiceTranscript.length;
+  $('voice-lock').disabled=stopped;
+  $('voice-lock').textContent=voiceLocked?'Unlock input':'Lock input · Enter';
+  $('voice-lock-status').textContent=voiceLocked?'Input locked':'Input open · Enter to lock';
   $('voice-reset').disabled=running;
   $('voice-order-step').hidden=voiceStage!=='order';
   $('voice-hp-step').hidden=voiceStage!=='hp';
@@ -13,7 +17,7 @@ function voiceControls() {
   $('voice-transcript').textContent=voiceTranscript ? `${voiceTranscript.length} observations · ${voiceTranscript}` : '';
 }
 function recordVoice(symbol) {
-  if(voiceStage!=='lines' || stopped) return;
+  if(voiceStage!=='lines' || stopped || voiceLocked) return;
   try {voiceAudio ??= new (window.AudioContext || window.webkitAudioContext)();voiceAudio.resume();} catch {}
   voiceTranscript+=symbol;voiceRevision++;voiceCandidate=null;
   clearVoiceResult();voiceControls();
@@ -69,7 +73,7 @@ async function simulateIdentified() {
     result=data;snowsEncounterTiming=null;westernSecondOverride=null;
     $('seed').value=hex(candidate.current_state);$('advances').value='0';
     render();window.dispatchEvent(new Event('battle-simulated'));
-    $('voice-status').textContent=`Identified seed ${hex(candidate.current_state)} · 0 advances immediately after the last recorded boost · Extra boosts can still be recorded`;
+    $('voice-status').textContent=`Identified seed ${hex(candidate.current_state)} · 0 advances immediately after the last recorded boost`;
     $('status').textContent='';
   } catch(e) {
     if(revision!==voiceRevision) return;
@@ -80,13 +84,22 @@ async function simulateIdentified() {
 $('voice-normal').addEventListener('click',()=>recordVoice('N'));
 $('voice-special').addEventListener('click',()=>recordVoice('S'));
 function undoVoice() {
-  if(voiceStage!=='lines' || stopped || !voiceTranscript.length)return;
+  if(voiceStage!=='lines' || stopped || voiceLocked || !voiceTranscript.length)return;
   voiceTranscript=voiceTranscript.slice(0,-1);voiceRevision++;voiceCandidate=null;
   clearVoiceResult();voiceControls();filterVoices();
 }
 $('voice-undo').addEventListener('click',undoVoice);
+function lockVoiceInput() {
+  if(voiceStage!=='lines' || stopped)return;
+  voiceLocked=true;voiceControls();
+}
+$('voice-lock').addEventListener('click',()=>{
+  if(voiceStage!=='lines' || stopped)return;
+  voiceLocked=!voiceLocked;voiceControls();
+});
 $('voice-reset').addEventListener('click',()=>{
   if(running)return;voiceTranscript='';voiceRevision++;voiceCandidate=null;
+  voiceLocked=false;
   voiceStage='order';voiceFirst=null;voiceHp=null;$('voice-hp').value='';
   document.title='OT2 Speedrun Assistant';clearVoiceResult();voiceControls();
   $('voice-status').textContent='Choose turn-3 order: Left = Throné · Right = Pirro';
@@ -111,7 +124,10 @@ $('voice-hp-step').addEventListener('submit',e=>{
 document.addEventListener('keydown',e=>{
   if(e.repeat || e.altKey || e.ctrlKey || e.metaKey || e.shiftKey || activeScreen!=='manipulation' ||
     e.target.closest('input,textarea,select,[contenteditable="true"]')) return;
-  if(e.key==='Backspace' && voiceStage==='lines') {
+  if(e.key==='Enter' && voiceStage==='lines') {
+    // Enter only locks; it must not activate a focused voiceline/Unlock button.
+    e.preventDefault();lockVoiceInput();
+  } else if(e.key==='Backspace' && voiceStage==='lines') {
     e.preventDefault();undoVoice();
   } else if(e.key==='ArrowLeft' || e.key==='ArrowRight') {
     e.preventDefault();
