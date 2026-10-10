@@ -7,6 +7,7 @@ function voiceControls() {
   $('voice-undo').disabled=stopped || voiceLocked || !voiceTranscript.length;
   $('voice-lock').disabled=stopped;
   $('voice-lock').textContent=voiceLocked?'Unlock input':'Lock input · Enter';
+  $('voice-lock').setAttribute('aria-pressed',String(voiceLocked));
   $('voice-lock-status').textContent=voiceLocked?'Input locked':'Input open · Enter to lock';
   $('voice-reset').disabled=running;
   $('voice-order-step').hidden=voiceStage!=='order';

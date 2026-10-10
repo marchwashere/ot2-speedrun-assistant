@@ -17,7 +17,7 @@
       <section id="manipulation-panel" aria-labelledby="manipulation-title">
         <div class="intro run-intro"><h1 id="manipulation-title">Manipulation</h1><p class="muted small">Pirro R3 · voice identification → route prediction</p></div>
         <section class="panel" id="voice-identification" aria-labelledby="voice-title">
-          <h2 id="voice-title">Identify RNG · Pirro R3</h2>
+          <div class="voice-heading"><h2 id="voice-title">Identify RNG · Pirro R3</h2><button id="voice-reset" type="button">Start over</button></div>
           <div id="voice-order-step">
             <h3>1 · Who moves first on turn 3?</h3>
             <div class="voice-buttons"><button id="voice-throne-first" type="button">← Throné first</button><button id="voice-pirro-first" type="button">Pirro first →</button></div>
@@ -25,18 +25,17 @@
           <form id="voice-hp-step" hidden>
             <h3>2 · Enter Throné’s current HP</h3>
             <label for="voice-hp">HP at her turn-3 command menu</label>
-            <input id="voice-hp" type="number" min="1" max="261" step="1" required inputmode="numeric" autocomplete="off">
-            <button id="voice-hp-confirm" type="submit">Continue to voicelines ↵</button>
+            <div class="voice-hp-row"><input id="voice-hp" type="number" min="1" max="261" step="1" required inputmode="numeric" autocomplete="off">
+            <button id="voice-hp-confirm" class="primary" type="submit">Continue to voicelines ↵</button></div>
           </form>
           <div id="voice-lines-step" hidden>
             <h3>3 · Record boost voicelines</h3>
             <p>Boost 0 → 1 → 2 once. Then boost to 3, record the line, and return to 2 before the next observation. Stop at 3 BP when identified.</p>
-            <div class="voice-buttons"><button id="voice-normal" type="button">← Normal line</button><button id="voice-special" type="button">Pirro! →</button><button id="voice-undo" type="button">Undo · Backspace</button><button id="voice-lock" type="button">Lock input · Enter</button></div>
+            <div class="voice-toolbar"><div class="voice-buttons"><button id="voice-normal" type="button">← Normal line</button><button id="voice-special" type="button">Pirro! →</button></div><div class="voice-tools"><button id="voice-undo" type="button">Undo · Backspace</button><button id="voice-lock" type="button">Lock input · Enter</button></div></div>
             <p id="voice-lock-status" role="status">Input open · Enter to lock</p>
           </div>
           <p id="voice-setup-summary" class="muted small"></p>
-          <button id="voice-reset" type="button">Start over</button>
-          <p class="muted small">Arrow keys work while this page is focused.</p>
+          <p class="muted small voice-key-help">Arrow keys work while this page is focused.</p>
           <p id="voice-status" role="status" aria-live="polite">Choose turn-3 order: Left = Throné · Right = Pirro</p>
           <p id="voice-transcript" class="muted small"></p>
         </section>
