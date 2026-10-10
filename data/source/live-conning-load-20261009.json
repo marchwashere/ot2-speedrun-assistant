@@ -1,0 +1,1419 @@
+{
+  "source": "outputs/conning-load-live-20261009.json",
+  "scope": "Re-entry after leaving town and manually restoring CRT to19287194. Excludes outgoing trip before manual state change.",
+  "initial_state": 2225715474,
+  "final_state": 3071367883,
+  "world_before": {
+    "active_scenarios": [
+      701
+    ],
+    "bench": [
+      6
+    ],
+    "character_progression": {
+      "1": {
+        "character": {
+          "combat": {
+            "accuracy": 116,
+            "attack": 127,
+            "critical": 106,
+            "defense": 134,
+            "element_weaknesses": [],
+            "enemy_bp_base": 0,
+            "enemy_initialization": null,
+            "evasion": 84,
+            "growth_attack": 106,
+            "growth_magic": 106,
+            "magic": 95,
+            "magic_defense": 93,
+            "main_weapon": "sword",
+            "shields": 0,
+            "statuses": [],
+            "steal_item": null,
+            "weapon_weaknesses": [],
+            "weapons": [
+              {
+                "attack": 5,
+                "magic": 0,
+                "weapon": "sword"
+              },
+              {
+                "attack": 5,
+                "magic": 0,
+                "weapon": "lance"
+              }
+            ]
+          },
+          "id": "hikari",
+          "name": "Hikari",
+          "resources": {
+            "bp": 1,
+            "hp": 1043,
+            "latent": 0,
+            "sp": 54
+          },
+          "skills": [
+            "attack_sword",
+            "ABI_SET_WAR_010",
+            "ABI_SET_WAR_050"
+          ],
+          "stats": {
+            "max_hp": 1043,
+            "max_sp": 54,
+            "speed": 106
+          }
+        },
+        "experience": 1427,
+        "growth": {
+          "growth_attack": 106,
+          "growth_magic": 106,
+          "level": 15,
+          "parameters": {
+            "ACC": 116,
+            "AGI": 106,
+            "ATK": 127,
+            "BP": 5,
+            "CON": 106,
+            "DEF": 116,
+            "EVA": 84,
+            "HP": 1043,
+            "MATK": 95,
+            "MDEF": 84,
+            "MP": 54,
+            "POT": 3,
+            "SP": 0
+          },
+          "total_exp": 1407
+        },
+        "jp_earned": 506,
+        "jp_spent": 0,
+        "level": 15
+      },
+      "4": {
+        "character": {
+          "combat": {
+            "accuracy": 106,
+            "attack": 116,
+            "critical": 95,
+            "defense": 119,
+            "element_weaknesses": [],
+            "enemy_bp_base": 0,
+            "enemy_initialization": null,
+            "evasion": 95,
+            "growth_attack": 106,
+            "growth_magic": 106,
+            "magic": 116,
+            "magic_defense": 118,
+            "main_weapon": "lance",
+            "shields": 0,
+            "statuses": [],
+            "steal_item": null,
+            "weapon_weaknesses": [],
+            "weapons": [
+              {
+                "attack": 5,
+                "magic": 0,
+                "weapon": "lance"
+              },
+              {
+                "attack": 5,
+                "magic": 0,
+                "weapon": "bow"
+              }
+            ]
+          },
+          "id": "partitio",
+          "name": "Partitio",
+          "resources": {
+            "bp": 1,
+            "hp": 883,
+            "latent": 0,
+            "sp": 68
+          },
+          "skills": [
+            "attack_lance",
+            "ABI_SET_MER_020",
+            "ABI_SET_MER_040"
+          ],
+          "stats": {
+            "max_hp": 883,
+            "max_sp": 68,
+            "speed": 95
+          }
+        },
+        "experience": 1488,
+        "growth": {
+          "growth_attack": 106,
+          "growth_magic": 106,
+          "level": 15,
+          "parameters": {
+            "ACC": 106,
+            "AGI": 95,
+            "ATK": 116,
+            "BP": 5,
+            "CON": 95,
+            "DEF": 106,
+            "EVA": 95,
+            "HP": 883,
+            "MATK": 116,
+            "MDEF": 106,
+            "MP": 68,
+            "POT": 3,
+            "SP": 0
+          },
+          "total_exp": 1407
+        },
+        "jp_earned": 572,
+        "jp_spent": 0,
+        "level": 15
+      },
+      "6": {
+        "character": {
+          "combat": {
+            "accuracy": 103,
+            "attack": 92,
+            "critical": 82,
+            "defense": 98,
+            "element_weaknesses": [],
+            "enemy_bp_base": 0,
+            "enemy_initialization": null,
+            "evasion": 103,
+            "growth_attack": 103,
+            "growth_magic": 103,
+            "magic": 133,
+            "magic_defense": 126,
+            "main_weapon": "staff",
+            "shields": 0,
+            "statuses": [],
+            "steal_item": null,
+            "weapon_weaknesses": [],
+            "weapons": [
+              {
+                "attack": 3,
+                "magic": 4,
+                "weapon": "staff"
+              }
+            ]
+          },
+          "id": "osvald",
+          "name": "Osvald",
+          "resources": {
+            "bp": 1,
+            "hp": 584,
+            "latent": 0,
+            "sp": 79
+          },
+          "skills": [
+            "attack_staff"
+          ],
+          "stats": {
+            "max_hp": 584,
+            "max_sp": 79,
+            "speed": 92
+          }
+        },
+        "experience": 1168,
+        "growth": {
+          "growth_attack": 103,
+          "growth_magic": 103,
+          "level": 14,
+          "parameters": {
+            "ACC": 103,
+            "AGI": 92,
+            "ATK": 92,
+            "BP": 5,
+            "CON": 82,
+            "DEF": 92,
+            "EVA": 103,
+            "HP": 584,
+            "MATK": 133,
+            "MDEF": 123,
+            "MP": 79,
+            "POT": 3,
+            "SP": 0
+          },
+          "total_exp": 1017
+        },
+        "jobs": {
+          "equipped_support": [
+            "ABI_SCH_SUP_01"
+          ],
+          "learned_abilities": {},
+          "secondary_job": null,
+          "unlocked_support": [
+            "ABI_SCH_SUP_01"
+          ]
+        },
+        "jp_earned": 234,
+        "jp_spent": 130,
+        "level": 14
+      },
+      "7": {
+        "character": {
+          "combat": {
+            "accuracy": 123,
+            "attack": 123,
+            "critical": 112,
+            "defense": 104,
+            "element_weaknesses": [],
+            "enemy_bp_base": 0,
+            "enemy_initialization": null,
+            "evasion": 134,
+            "growth_attack": 112,
+            "growth_magic": 112,
+            "magic": 123,
+            "magic_defense": 102,
+            "main_weapon": "dagger",
+            "shields": 0,
+            "statuses": [],
+            "steal_item": null,
+            "weapon_weaknesses": [],
+            "weapons": [
+              {
+                "attack": 4,
+                "magic": 0,
+                "weapon": "sword"
+              },
+              {
+                "attack": 6,
+                "magic": 0,
+                "weapon": "dagger"
+              },
+              {
+                "attack": 0,
+                "magic": 0,
+                "weapon": "staff"
+              }
+            ]
+          },
+          "id": "throne",
+          "name": "Throné",
+          "resources": {
+            "bp": 1,
+            "hp": 976,
+            "latent": 80,
+            "sp": 64
+          },
+          "skills": [
+            "attack_sword",
+            "attack_dagger",
+            "ABI_SET_THI_010",
+            "ABI_SET_THI_020",
+            "attack_staff",
+            "ABI_SET_SCH_010",
+            "ABI_SET_SCH_020",
+            "ABI_SET_SCH_030",
+            "ABI_SET_SCH_060"
+          ],
+          "stats": {
+            "max_hp": 976,
+            "max_sp": 64,
+            "speed": 134
+          }
+        },
+        "experience": 2658,
+        "growth": {
+          "growth_attack": 112,
+          "growth_magic": 112,
+          "level": 17,
+          "parameters": {
+            "ACC": 123,
+            "AGI": 134,
+            "ATK": 123,
+            "BP": 5,
+            "CON": 112,
+            "DEF": 89,
+            "EVA": 134,
+            "HP": 976,
+            "MATK": 112,
+            "MDEF": 89,
+            "MP": 57,
+            "POT": 3,
+            "SP": 0
+          },
+          "total_exp": 2443
+        },
+        "jobs": {
+          "equipped_support": [
+            "ABI_SCH_SUP_01"
+          ],
+          "learned_abilities": {
+            "6": [
+              "ABI_SET_SCH_010",
+              "ABI_SET_SCH_020",
+              "ABI_SET_SCH_030",
+              "ABI_SET_SCH_060"
+            ]
+          },
+          "secondary_job": 6,
+          "unlocked_support": [
+            "ABI_SCH_SUP_01"
+          ]
+        },
+        "jp_earned": 765,
+        "jp_spent": 130,
+        "level": 17
+      },
+      "8": {
+        "character": {
+          "combat": {
+            "accuracy": 106,
+            "attack": 106,
+            "critical": 106,
+            "defense": 84,
+            "element_weaknesses": [],
+            "enemy_bp_base": 0,
+            "enemy_initialization": null,
+            "evasion": 116,
+            "growth_attack": 106,
+            "growth_magic": 106,
+            "magic": 127,
+            "magic_defense": 95,
+            "main_weapon": "dagger",
+            "shields": 0,
+            "statuses": [],
+            "steal_item": null,
+            "weapon_weaknesses": [],
+            "weapons": [
+              {
+                "attack": 4,
+                "magic": 0,
+                "weapon": "dagger"
+              }
+            ]
+          },
+          "id": "agnea",
+          "name": "Agnea",
+          "resources": {
+            "bp": 1,
+            "hp": 722,
+            "latent": 0,
+            "sp": 68
+          },
+          "skills": [
+            "attack_dagger",
+            "ABI_SET_DAN_010",
+            "ABI_SET_DAN_020"
+          ],
+          "stats": {
+            "max_hp": 722,
+            "max_sp": 68,
+            "speed": 137
+          }
+        },
+        "experience": 1488,
+        "growth": {
+          "growth_attack": 106,
+          "growth_magic": 106,
+          "level": 15,
+          "parameters": {
+            "ACC": 106,
+            "AGI": 137,
+            "ATK": 106,
+            "BP": 5,
+            "CON": 106,
+            "DEF": 74,
+            "EVA": 116,
+            "HP": 722,
+            "MATK": 127,
+            "MDEF": 84,
+            "MP": 68,
+            "POT": 3,
+            "SP": 0
+          },
+          "total_exp": 1407
+        },
+        "jp_earned": 572,
+        "jp_spent": 0,
+        "level": 15
+      }
+    },
+    "completed_scenarios": [
+      100,
+      400,
+      600,
+      601,
+      700,
+      800
+    ],
+    "confirmed_scenarios": [
+      701
+    ],
+    "encounter_counter": 1089,
+    "enemy_knowledge": {
+      "ENE_EVE_WAR_DST_080": {
+        "elements": 0,
+        "studied": true,
+        "weapons": 16
+      },
+      "ENE_EVE_WAR_DST_090": {
+        "elements": 2,
+        "studied": true,
+        "weapons": 4
+      },
+      "ENE_NML_FLD_CTY_120": {
+        "elements": 0,
+        "studied": false,
+        "weapons": 4
+      },
+      "ENE_NML_FLD_FST_110": {
+        "elements": 0,
+        "studied": true,
+        "weapons": 32
+      },
+      "ENE_NML_FLD_SEA_130": {
+        "elements": 0,
+        "studied": false,
+        "weapons": 0
+      },
+      "ENE_NML_FLD_SNW_010": {
+        "elements": 16,
+        "studied": true,
+        "weapons": 4
+      },
+      "ENE_NML_FLD_SNW_040": {
+        "elements": 0,
+        "studied": true,
+        "weapons": 8
+      },
+      "ENE_NML_FLD_SNW_050": {
+        "elements": 0,
+        "studied": true,
+        "weapons": 16
+      },
+      "ENE_NML_FLD_SNW_110": {
+        "elements": 0,
+        "studied": true,
+        "weapons": 4
+      },
+      "ENE_NML_FLD_SNW_150": {
+        "elements": 32,
+        "studied": true,
+        "weapons": 0
+      },
+      "ENE_NML_FLD_WLD_020": {
+        "elements": 2,
+        "studied": true,
+        "weapons": 4
+      },
+      "ENE_NML_OTR_130": {
+        "elements": 0,
+        "studied": true,
+        "weapons": 1
+      },
+      "ENE_NML_OTR_140": {
+        "elements": 0,
+        "studied": false,
+        "weapons": 0
+      }
+    },
+    "evasive_maneuvers": true,
+    "event_variables": {
+      "1": 4
+    },
+    "existing_npcs": [
+      "NPC_SS_TSea21_0100_0100",
+      "NPC_SS_TSea21_0100_0300",
+      "NPC_SYS_SAVE_Fld_Sea_2_3_0000",
+      "SYS_INFO_BOARD_SEA_2_3_0010"
+    ],
+    "first_encounter": false,
+    "flags": [
+      30,
+      33,
+      35,
+      36,
+      37,
+      100,
+      411,
+      415,
+      570,
+      1000,
+      1001,
+      1005,
+      1006,
+      1007,
+      1009,
+      1011,
+      1012,
+      1014,
+      1015,
+      1019,
+      1020,
+      1023,
+      1024,
+      1027,
+      1028,
+      1029,
+      1030,
+      1032,
+      1034,
+      1036,
+      1044,
+      1046,
+      1053,
+      1055,
+      1057,
+      1060,
+      1064,
+      1066,
+      1068,
+      1070,
+      1072,
+      1300,
+      1301,
+      1305,
+      1306,
+      1307,
+      1309,
+      1311,
+      1312,
+      1314,
+      1315,
+      1319,
+      1320,
+      1323,
+      1324,
+      1327,
+      1328,
+      1329,
+      1330,
+      1332,
+      1334,
+      1336,
+      1344,
+      1346,
+      1353,
+      1355,
+      1357,
+      1360,
+      1364,
+      1366,
+      1368,
+      1370,
+      1372,
+      2105,
+      2206,
+      2208,
+      4009,
+      5000,
+      5001,
+      5002,
+      5003,
+      5004,
+      5005,
+      5006,
+      5007,
+      5008,
+      5009,
+      5010,
+      5011,
+      5012,
+      5013,
+      5014,
+      5015,
+      5016,
+      5017,
+      5018,
+      5019,
+      5020,
+      5021,
+      5022,
+      5023,
+      5024,
+      5025,
+      5026,
+      5027,
+      5028,
+      5029,
+      5030,
+      5031,
+      6000,
+      6001,
+      6002,
+      6003,
+      6004,
+      6005,
+      6006,
+      6007,
+      6008,
+      6009,
+      6010,
+      6011,
+      6012,
+      6013,
+      6014,
+      6015,
+      6016,
+      6017,
+      6018,
+      6019,
+      6020,
+      6021,
+      6022,
+      6023,
+      6024,
+      6025,
+      6026,
+      6027,
+      6028,
+      6029,
+      6030,
+      6031,
+      6032,
+      6500,
+      6501,
+      6502,
+      6503,
+      6504,
+      6505,
+      6506,
+      6507,
+      6508,
+      6509,
+      6510,
+      6511,
+      6512,
+      6513,
+      6514,
+      6515,
+      6516,
+      6517,
+      6518,
+      6519,
+      6520,
+      6521,
+      6522,
+      6523,
+      6524,
+      6525,
+      6526,
+      6527,
+      6528,
+      6529,
+      6530,
+      7000,
+      7001,
+      7002,
+      7003,
+      7004,
+      7005,
+      7006,
+      7007,
+      7008,
+      7009,
+      7010,
+      7011,
+      7012,
+      7013,
+      7014,
+      7015,
+      7016,
+      7017,
+      7018,
+      7019,
+      7020,
+      7021,
+      7022,
+      7023,
+      7024,
+      7025,
+      7026,
+      7027,
+      7028,
+      7029,
+      7030,
+      7031,
+      7032,
+      7033,
+      7034,
+      7035,
+      7036,
+      7037,
+      7038,
+      7050,
+      7051,
+      7052,
+      7053,
+      7054,
+      7055,
+      7056,
+      7057,
+      7058,
+      7059,
+      7060,
+      7061,
+      7062,
+      7063,
+      7064,
+      7065,
+      7066,
+      8000,
+      8001,
+      8002,
+      8003,
+      8004,
+      8005,
+      8006,
+      8007,
+      8008,
+      8009,
+      8010,
+      8011,
+      8012,
+      8013,
+      8014,
+      8015,
+      8016,
+      8017,
+      8018,
+      8019,
+      8050,
+      9000,
+      20505,
+      20509,
+      25000,
+      25069,
+      25070,
+      25076,
+      25077,
+      25078,
+      25079,
+      25080,
+      25081,
+      25082,
+      25083,
+      25084,
+      25085,
+      25086,
+      25087,
+      25088,
+      25089,
+      25090,
+      25091,
+      25092,
+      25093,
+      25094,
+      25095,
+      25096,
+      25097,
+      25098,
+      25099,
+      25100,
+      25101,
+      25104,
+      25114,
+      25115,
+      25120,
+      25301,
+      25302,
+      25303,
+      25306,
+      25307,
+      25308,
+      25309,
+      25310,
+      25311,
+      25323,
+      25324,
+      25325,
+      25326,
+      25327,
+      25328,
+      25329,
+      25330,
+      25331,
+      25332,
+      25340,
+      25341,
+      25342,
+      25435,
+      25500,
+      25558,
+      25561,
+      25563,
+      25565,
+      30510,
+      34001,
+      34002,
+      34004,
+      34008,
+      34014,
+      34041,
+      34067,
+      34076,
+      34077,
+      34092,
+      34151,
+      37501,
+      37502,
+      37510,
+      37517,
+      37519,
+      37520
+    ],
+    "job_licenses": {
+      "6": 1
+    },
+    "main_progress_points": 5,
+    "map": "Fld_Sea_2_3",
+    "npc_end_delays": {},
+    "npc_start_delays": {},
+    "osvald_extra_skills": 2,
+    "party": [
+      7,
+      1,
+      8,
+      4
+    ],
+    "party_experience": [
+      2658,
+      1427,
+      1488,
+      1488
+    ],
+    "prologues": [],
+    "resident_levels": [
+      "Btl_Fld_Sea_Land_A",
+      "Btl_Fld_Sea_River_A",
+      "Btl_SinExpose",
+      "Fld_Sea_2_3",
+      "Fld_Sea_2_3_Art",
+      "Fld_Sea_2_3_Coll",
+      "Fld_Sea_2_3_Sound"
+    ],
+    "shared_levels": [
+      "Btl_SinExpose"
+    ],
+    "story_types": [
+      7
+    ],
+    "suppress_flag_callbacks": false,
+    "suppress_level_lottery": false,
+    "suppress_time_callbacks": false,
+    "time": 2,
+    "visited_maps": [
+      "Fld_Cty_1_1",
+      "Fld_Cty_1_2",
+      "Fld_Dst_1_1",
+      "Fld_Fst_1_3",
+      "Fld_Fst_1_4",
+      "Fld_Sea_1_2",
+      "Fld_Sea_2_2",
+      "Fld_Sea_2_3",
+      "Fld_Snw_1_2",
+      "Fld_Snw_1_3",
+      "Fld_Snw_2_2",
+      "Fld_Wld_1_3",
+      "Twn_Cty_1_2_A",
+      "Twn_Dst_1_1_A",
+      "Twn_Fst_1_1_A",
+      "Twn_Snw_2_1_A",
+      "Twn_Wld_1_1_C",
+      "Twn_Sea_2_1_A"
+    ]
+  },
+  "records": [
+    {
+      "position": 19287194,
+      "before": 2225715474,
+      "node": "CalcEncountStepCount",
+      "actor": "EncountManagerBP_C_2147481935"
+    },
+    {
+      "position": 19287195,
+      "before": 2995272589,
+      "node": "CalcEncountStepCount",
+      "actor": "EncountManagerBP_C_2147481935"
+    },
+    {
+      "position": 19287196,
+      "before": 3406192668,
+      "node": "StreamedLevel"
+    },
+    {
+      "position": 19287197,
+      "before": 1894706799,
+      "node": "StreamedLevel"
+    },
+    {
+      "position": 19287198,
+      "before": 4026290038,
+      "node": "StreamedLevel"
+    },
+    {
+      "position": 19287199,
+      "before": 598673505,
+      "node": "StreamedLevel"
+    },
+    {
+      "position": 19287200,
+      "before": 745949600,
+      "node": "StreamedLevel"
+    },
+    {
+      "position": 19287201,
+      "before": 3274850787,
+      "node": "StreamedLevel"
+    },
+    {
+      "position": 19287202,
+      "before": 3585680666,
+      "node": "ExecuteUbergraph_BP_EnvObjMD_Batlefield_A_Flag_A_TwoTone_B",
+      "actor": "EnvObjMD_Batlefield_A_Flag_A_30"
+    },
+    {
+      "position": 19287203,
+      "before": 472127349,
+      "node": "ExecuteUbergraph_BP_EnvObjMD_Batlefield_A_Flag_A_TwoTone_B",
+      "actor": "EnvObjMD_Batlefield_A_Flag_A2"
+    },
+    {
+      "position": 19287204,
+      "before": 2287234148,
+      "node": "ExecuteUbergraph_BP_Lamp_I_Sea",
+      "actor": "BP_Lamp_I_Sea26_2"
+    },
+    {
+      "position": 19287205,
+      "before": 421521815,
+      "node": "ExecuteUbergraph_BP_Lamp_I_Sea",
+      "actor": "BP_Lamp_I_Sea27_3"
+    },
+    {
+      "position": 19287206,
+      "before": 3952606718,
+      "node": "ExecuteUbergraph_BP_Lamp_I_Sea",
+      "actor": "BP_Lamp_I_Sea32"
+    },
+    {
+      "position": 19287207,
+      "before": 2530221257,
+      "node": "ExecuteUbergraph_BP_Lamp_I_Sea",
+      "actor": "BP_Lamp_I_Sea33"
+    },
+    {
+      "position": 19287208,
+      "before": 3652627560,
+      "node": "ExecuteUbergraph_BP_Lamp_I_Sea",
+      "actor": "BP_Lamp_I_Sea34"
+    },
+    {
+      "position": 19287209,
+      "before": 4261820811,
+      "node": "ExecuteUbergraph_BP_Lamp_I_Sea",
+      "actor": "BP_Lamp_I_Sea35"
+    },
+    {
+      "position": 19287210,
+      "before": 1509809698,
+      "node": "ExecuteUbergraph_BP_Lamp_I_Sea",
+      "actor": "BP_Lamp_I_Sea36"
+    },
+    {
+      "position": 19287211,
+      "before": 4220783709,
+      "node": "ExecuteUbergraph_BP_Lamp_I_Sea",
+      "actor": "BP_Lamp_I_Sea37"
+    },
+    {
+      "position": 19287212,
+      "before": 2244619692,
+      "node": "ExecuteUbergraph_BP_Lamp_I_Sea",
+      "actor": "BP_Lamp_I_Sea38"
+    },
+    {
+      "position": 19287213,
+      "before": 2884486591,
+      "node": "ExecuteUbergraph_BP_Lamp_I_Sea",
+      "actor": "BP_Lamp_I_Sea42"
+    },
+    {
+      "position": 19287214,
+      "before": 1981876614,
+      "node": "ExecuteUbergraph_BP_Lamp_I_Sea",
+      "actor": "BP_Lamp_I_Sea39"
+    },
+    {
+      "position": 19287215,
+      "before": 2161973809,
+      "node": "ExecuteUbergraph_BP_Lamp_I_Sea",
+      "actor": "BP_Lamp_I_Sea40"
+    },
+    {
+      "position": 19287216,
+      "before": 2266453040,
+      "node": "ExecuteUbergraph_BP_Lamp_I_Sea",
+      "actor": "BP_Lamp_I_Sea43"
+    },
+    {
+      "position": 19287217,
+      "before": 2580374067,
+      "node": "ExecuteUbergraph_BP_Lamp_I_Sea",
+      "actor": "BP_Lamp_I_Sea44"
+    },
+    {
+      "position": 19287218,
+      "before": 3882681386,
+      "node": "ExecuteUbergraph_BP_Lamp_I_Sea",
+      "actor": "BP_Lamp_I_Sea45"
+    },
+    {
+      "position": 19287219,
+      "before": 1266203205,
+      "node": "ExecuteUbergraph_BP_Lamp_I_Sea",
+      "actor": "BP_Lamp_I_Sea46"
+    },
+    {
+      "position": 19287220,
+      "before": 1577436148,
+      "node": "ExecuteUbergraph_BP_Lamp_I_Sea",
+      "actor": "BP_Lamp_I_Sea47"
+    },
+    {
+      "position": 19287221,
+      "before": 3120440039,
+      "node": "ExecuteUbergraph_BP_Lamp_I_Sea",
+      "actor": "BP_Lamp_I_Sea48"
+    },
+    {
+      "position": 19287222,
+      "before": 3156644366,
+      "node": "ExecuteUbergraph_BP_Lamp_I_Sea",
+      "actor": "BP_Lamp_I_Sea28"
+    },
+    {
+      "position": 19287223,
+      "before": 3232276633,
+      "node": "ExecuteUbergraph_BP_Lamp_I_Sea",
+      "actor": "BP_Lamp_I_Sea29"
+    },
+    {
+      "position": 19287224,
+      "before": 1788895480,
+      "node": "ExecuteUbergraph_BP_Lamp_I_Sea",
+      "actor": "BP_Lamp_I_Sea2"
+    },
+    {
+      "position": 19287225,
+      "before": 2096061403,
+      "node": "ExecuteUbergraph_BP_Lamp_I_Sea",
+      "actor": "BP_Lamp_I_Sea3"
+    },
+    {
+      "position": 19287226,
+      "before": 827307826,
+      "node": "ExecuteUbergraph_BP_Lamp_I_Sea",
+      "actor": "BP_Lamp_I_Sea4"
+    },
+    {
+      "position": 19287227,
+      "before": 3195453741,
+      "node": "ExecuteUbergraph_BP_Lamp_I_Sea",
+      "actor": "BP_Lamp_I_Sea5"
+    },
+    {
+      "position": 19287228,
+      "before": 2476298044,
+      "node": "ExecuteUbergraph_BP_Lamp_I_Sea",
+      "actor": "BP_Lamp_I_Sea6"
+    },
+    {
+      "position": 19287229,
+      "before": 3961168143,
+      "node": "ExecuteUbergraph_BP_Lamp_I_Sea",
+      "actor": "BP_Lamp_I_Sea7"
+    },
+    {
+      "position": 19287230,
+      "before": 835434390,
+      "node": "ExecuteUbergraph_BP_Lamp_I_Sea",
+      "actor": "BP_Lamp_I_Sea8"
+    },
+    {
+      "position": 19287231,
+      "before": 2924040193,
+      "node": "ExecuteUbergraph_BP_Lamp_I_Sea",
+      "actor": "BP_Lamp_I_Sea_2"
+    },
+    {
+      "position": 19287232,
+      "before": 1586361024,
+      "node": "ExecuteUbergraph_BP_Lamp_I_Sea",
+      "actor": "BP_Lamp_I_Sea17_24"
+    },
+    {
+      "position": 19287233,
+      "before": 1899480707,
+      "node": "ExecuteUbergraph_BP_Lamp_I_Sea",
+      "actor": "BP_Lamp_I_Sea18_25"
+    },
+    {
+      "position": 19287234,
+      "before": 3502446394,
+      "node": "ExecuteUbergraph_BP_Lamp_I_Sea",
+      "actor": "BP_Lamp_I_Sea24_31"
+    },
+    {
+      "position": 19287235,
+      "before": 2780217621,
+      "node": "SpawnNPC",
+      "actor": "BPC_LevelManager_Others_C_2147482501",
+      "npc": "NPC_Twn_Sea_2_1_A_GUILD"
+    },
+    {
+      "position": 19287236,
+      "before": 3716870020,
+      "node": "SpawnNPC",
+      "actor": "BPC_LevelManager_Others_C_2147482501",
+      "npc": "NPC_SYS_SAVE_Twn_Sea_2_1_A_0000"
+    },
+    {
+      "position": 19287237,
+      "before": 498130999,
+      "node": "SpawnNPC",
+      "actor": "BPC_LevelManager_Others_C_2147482501",
+      "npc": "NPC_Twn_Sea_2_1_A_SHOP01"
+    },
+    {
+      "position": 19287238,
+      "before": 1128765982,
+      "node": "SpawnNPC",
+      "actor": "BPC_LevelManager_Others_C_2147482501",
+      "npc": "NPC_Twn_Sea_2_1_A_SHOP04"
+    },
+    {
+      "position": 19287239,
+      "before": 161073257,
+      "node": "SpawnNPC",
+      "actor": "BPC_LevelManager_Others_C_2147482501",
+      "npc": "NPC_SYS_BARTENDER_Twn_Sea_2_1_A_0000"
+    },
+    {
+      "position": 19287240,
+      "before": 365963656,
+      "node": "SpawnNPC",
+      "actor": "BPC_LevelManager_Others_C_2147482501",
+      "npc": "NPC_Twn_Sea_2_1_A_TALK_0100_D000"
+    },
+    {
+      "position": 19287241,
+      "before": 2253799979,
+      "node": "SpawnNPC",
+      "actor": "BPC_LevelManager_Others_C_2147482501",
+      "npc": "NPC_Twn_Sea_2_1_A_TALK_0200_D000"
+    },
+    {
+      "position": 19287242,
+      "before": 490226754,
+      "node": "SpawnNPC",
+      "actor": "BPC_LevelManager_Others_C_2147482501",
+      "npc": "NPC_Twn_Sea_2_1_A_TALK_0300_D000"
+    },
+    {
+      "position": 19287243,
+      "before": 1734695421,
+      "node": "SpawnNPC",
+      "actor": "BPC_LevelManager_Others_C_2147482501",
+      "npc": "NPC_Twn_Sea_2_1_A_TALK_0400_D000"
+    },
+    {
+      "position": 19287244,
+      "before": 3285501132,
+      "node": "SpawnNPC",
+      "actor": "BPC_LevelManager_Others_C_2147482501",
+      "npc": "NPC_Twn_Sea_2_1_A_TALK_0500_D000"
+    },
+    {
+      "position": 19287245,
+      "before": 2270330975,
+      "node": "SpawnNPC",
+      "actor": "BPC_LevelManager_Others_C_2147482501",
+      "npc": "NPC_Twn_Sea_2_1_A_TALK_0600_D000"
+    },
+    {
+      "position": 19287246,
+      "before": 3580189094,
+      "node": "SpawnNPC",
+      "actor": "BPC_LevelManager_Others_C_2147482501",
+      "npc": "NPC_Twn_Sea_2_1_A_TALK_0700_D000"
+    },
+    {
+      "position": 19287247,
+      "before": 2025368017,
+      "node": "SpawnNPC",
+      "actor": "BPC_LevelManager_Others_C_2147482501",
+      "npc": "NPC_Twn_Sea_2_1_A_TALK_0800_D000"
+    },
+    {
+      "position": 19287248,
+      "before": 2693473616,
+      "node": "SpawnNPC",
+      "actor": "BPC_LevelManager_Others_C_2147482501",
+      "npc": "NPC_Twn_Sea_2_1_A_TALK_0900_D000"
+    },
+    {
+      "position": 19287249,
+      "before": 2220781267,
+      "node": "SpawnNPC",
+      "actor": "BPC_LevelManager_Others_C_2147482501",
+      "npc": "NPC_Twn_Sea_2_1_A_TALK_1000_D000"
+    },
+    {
+      "position": 19287250,
+      "before": 3572784714,
+      "node": "SpawnNPC",
+      "actor": "BPC_LevelManager_Others_C_2147482501",
+      "npc": "NPC_Twn_Sea_2_1_A_TALK_1200_D000"
+    },
+    {
+      "position": 19287251,
+      "before": 2234723301,
+      "node": "SpawnNPC",
+      "actor": "BPC_LevelManager_Others_C_2147482501",
+      "npc": "NPC_Twn_Sea_2_1_A_TALK_1600_D000"
+    },
+    {
+      "position": 19287252,
+      "before": 2347036436,
+      "node": "SpawnNPC",
+      "actor": "BPC_LevelManager_Others_C_2147482501",
+      "npc": "NPC_Twn_Sea_2_1_A_TALK_2000_D000"
+    },
+    {
+      "position": 19287253,
+      "before": 4181008775,
+      "node": "SpawnNPC",
+      "actor": "BPC_LevelManager_Others_C_2147482501",
+      "npc": "NPC_Twn_Sea_2_1_A_TALK_2200_D000"
+    },
+    {
+      "position": 19287254,
+      "before": 2516850222,
+      "node": "SpawnNPC",
+      "actor": "BPC_LevelManager_Others_C_2147482501",
+      "npc": "NACT_Twn_Sea_2_1_A_0100_D000"
+    },
+    {
+      "position": 19287255,
+      "before": 2525533241,
+      "node": "SpawnNPC",
+      "actor": "BPC_LevelManager_Others_C_2147482501",
+      "npc": "NACT_Twn_Sea_2_1_A_0200_D000"
+    },
+    {
+      "position": 19287256,
+      "before": 1083639320,
+      "node": "SpawnNPC",
+      "actor": "BPC_LevelManager_Others_C_2147482501",
+      "npc": "NACT_Twn_Sea_2_1_A_1300_D000"
+    },
+    {
+      "position": 19287257,
+      "before": 1850207355,
+      "node": "SpawnNPC",
+      "actor": "BPC_LevelManager_Others_C_2147482501",
+      "npc": "NACT_Twn_Sea_2_1_A_1500_D000"
+    },
+    {
+      "position": 19287258,
+      "before": 2509276498,
+      "node": "SpawnNPC",
+      "actor": "BPC_LevelManager_Others_C_2147482501",
+      "npc": "NACT_Twn_Sea_2_1_A_1600_D000"
+    },
+    {
+      "position": 19287259,
+      "before": 852809421,
+      "node": "SpawnNPC",
+      "actor": "BPC_LevelManager_Others_C_2147482501",
+      "npc": "NACT_Twn_Sea_2_1_A_1700_D000"
+    },
+    {
+      "position": 19287260,
+      "before": 1964871260,
+      "node": "SpawnNPC",
+      "actor": "BPC_LevelManager_Others_C_2147482501",
+      "npc": "NACT_Twn_Sea_2_1_A_1800_D000"
+    },
+    {
+      "position": 19287261,
+      "before": 632447919,
+      "node": "SpawnNPC",
+      "actor": "BPC_LevelManager_Others_C_2147482501",
+      "npc": "NACT_Twn_Sea_2_1_A_2100_D000"
+    },
+    {
+      "position": 19287262,
+      "before": 479653814,
+      "node": "SpawnNPC",
+      "actor": "BPC_LevelManager_Others_C_2147482501",
+      "npc": "NACT_Twn_Sea_2_1_A_2300_D000"
+    },
+    {
+      "position": 19287263,
+      "before": 2435852193,
+      "node": "SpawnNPC",
+      "actor": "BPC_LevelManager_Others_C_2147482501",
+      "npc": "NACT_Twn_Sea_2_1_A_2400_D000"
+    },
+    {
+      "position": 19287264,
+      "before": 2382359520,
+      "node": "SpawnNPC",
+      "actor": "BPC_LevelManager_Others_C_2147482501",
+      "npc": "NACT_Twn_Sea_2_1_A_2500_D000"
+    },
+    {
+      "position": 19287265,
+      "before": 342776611,
+      "node": "SpawnNPC",
+      "actor": "BPC_LevelManager_Others_C_2147482501",
+      "npc": "NACT_Twn_Sea_2_1_A_2600_D000"
+    },
+    {
+      "position": 19287266,
+      "before": 611965274,
+      "node": "SpawnNPC",
+      "actor": "BPC_LevelManager_Others_C_2147482501",
+      "npc": "NACT_Twn_Sea_2_1_A_2700_D000"
+    },
+    {
+      "position": 19287267,
+      "before": 2088958645,
+      "node": "SpawnNPC",
+      "actor": "BPC_LevelManager_Others_C_2147482501",
+      "npc": "NPC_SS_TMount21_0100_0200"
+    },
+    {
+      "position": 19287268,
+      "before": 1163182756,
+      "node": "RefreshBarCharacter",
+      "actor": "BPC_LevelManager_Others_C_2147482501"
+    },
+    {
+      "position": 19287269,
+      "before": 4224181975,
+      "node": "CalcItemData",
+      "actor": "KSBarCharacter_C_2147275542"
+    },
+    {
+      "position": 19287270,
+      "before": 3668248126,
+      "node": "CalcItemData",
+      "actor": "KSBarCharacter_C_2147275538"
+    },
+    {
+      "position": 19287271,
+      "before": 1486488585,
+      "node": "CalcEncountStepCount",
+      "actor": "EncountManagerBP_C_2147481935"
+    },
+    {
+      "position": 19287272,
+      "before": 3951425192,
+      "node": "CalcEncountStepCount",
+      "actor": "EncountManagerBP_C_2147481935"
+    }
+  ]
+}

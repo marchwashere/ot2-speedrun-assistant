@@ -25,7 +25,13 @@ fn approach() -> mansion_escape::Prediction {
 #[test]
 fn serial_boss_entry_preserves_escape_hp_sp_inventory_counter_and_crt() {
     let approach = approach();
-    let s = approach.solution.unwrap();
+    let mut s = approach.solution.unwrap();
+    // This combat regression retains the retail 5595 -> 5631 capture. The
+    // current route's two extra thefts change its upstream RNG; use the
+    // captured battle boundary explicitly rather than silently moving it.
+    let mut captured=CrtRng::new(0);
+    captured.advance(5595);
+    s.after_field_return=captured;
     let mut resources = s.attempt.state.actors[0].resources.clone();
     resources.hp = 240;
     resources.sp = 29;
@@ -331,6 +337,35 @@ fn r3_search_reports_zero_cap_failure_and_unlimited_recovers() {
     assert!(blocked.routine_error.is_some());
     assert_eq!(blocked.boost_search.as_ref().unwrap().tested_candidates, 0);
     assert!(!blocked.boost_search.as_ref().unwrap().target_met);
+}
+
+#[test]
+fn missing_baseline_grape_does_not_disable_required_no_grape_search() {
+    // Seed 0, title advance 4916, shared level recreated: actual route handoff.
+    let s = approach().solution.unwrap();
+    let config = BattleConfig::throne_pirro(1891164838).unwrap();
+    let mut resources = config.players[0].resources.clone().unwrap();
+    resources.hp = 261;
+    resources.sp = 40;
+    resources.latent = 0;
+    let mut inventory = config.inventory;
+    inventory.insert("healing_grape".into(), 0);
+    for item in ["shadow_soulstone", "light_soulstone", "wind_soulstone", "ice_soulstone"] {
+        inventory.insert(item.into(), 1);
+    }
+    let baseline = pirro::predict(CrtRng::new(1891164838), &s.world_at_trigger,
+        resources.clone(), inventory.clone()).unwrap();
+    assert_eq!(baseline.state.round, 7);
+    assert_eq!(baseline.routine_error.as_deref(), Some("item is out of stock"));
+    let searched = pirro::predict_with_search(CrtRng::new(1891164838), &s.world_at_trigger,
+        resources, inventory, pirro::Settings {
+            victory_max_boost_repeats: None, no_grape_max_boost_repeats: None,
+        }, None).unwrap();
+    assert!(searched.boost_search.as_ref().unwrap().tested_candidates > 0);
+    assert!(searched.boost_search.as_ref().unwrap().target_met);
+    assert_eq!(searched.state.outcome, Outcome::Victory);
+    assert_eq!(searched.routine.heal_before_round_eight, Some(false));
+    assert!(searched.routine_error.is_none());
 }
 
 #[test]

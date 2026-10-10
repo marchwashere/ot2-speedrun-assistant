@@ -10,6 +10,10 @@ use serde::Serialize;
 pub struct Prediction {
     pub arrival: CrtRng,
     pub after_clothes: CrtRng,
+    pub after_gold_ring: Option<CrtRng>,
+    pub gold_ring_before_clothes: bool,
+    pub gold_ring_roll: Option<u32>,
+    pub gold_ring_success: bool,
     pub after_boy: CrtRng,
     pub after_main_load: CrtRng,
     pub after_artist: CrtRng,
@@ -109,7 +113,31 @@ pub fn after_parlor_revisit(previous: &crate::parlor_revisit::Prediction) -> Res
     with_world_state(previous.after_popup, previous.world_after.clone())
 }
 
-pub fn with_world_state(arrival: CrtRng, state: WorldState) -> Result<Prediction> {
+pub fn with_world_state(arrival:CrtRng,state:WorldState)->Result<Prediction> {
+    let before=project(arrival,state.clone(),Some(true))?;
+    if before.gold_ring_success && mansion_safe(&before)? {return Ok(before);}
+    let after=project(arrival,state,Some(false))?;
+    if after.gold_ring_success && mansion_safe(&after)? {return Ok(after);}
+    if before.gold_ring_success {Ok(before)} else if after.gold_ring_success {Ok(after)} else {Ok(before)}
+}
+#[cfg(test)]
+pub(crate) fn legacy_after_parlor_revisit(previous:&crate::parlor_revisit::Prediction)->Result<Prediction> {
+    project(previous.after_popup,previous.world_after.clone(),None)
+}
+
+fn mansion_safe(p:&Prediction)->Result<bool> {
+    let a=&p.lookout_ambush;
+    let (_,encounter)=crate::mansion_escape::first_encounter(a.after,&a.world_after)?;
+    Ok(matches!(encounter.situation.as_deref(),Some("Normal"|"Preemptive")))
+}
+fn gold_ring(loader:&mut Loader<'_>)->u32 {
+    loader.draw(DrawKind::PathActionMenu,"Brothel Receptionist","Brothel Receptionist: open Steal menu (action timer)",None);
+    let roll=loader.draw(DrawKind::StealCheck,"Gold Ring","Brothel Receptionist: Gold Ring success check (80%)",Some(100))+1;
+    loader.trace.last_mut().unwrap().value=Some(roll);
+    loader.draw(DrawKind::DialogueLottery,"Brothel Receptionist",if roll<=80 {"Brothel Receptionist: close menu, choose success dialogue"} else {"Brothel Receptionist: close menu, choose failure dialogue"},None);
+    roll
+}
+fn project(arrival:CrtRng,state:WorldState,ring_order:Option<bool>)->Result<Prediction> {
     ensure(
         state.map == "Twn_Cty_1_1_B" && state.flag(8012) && !state.flag(8013),
         "Mansion route starts after the Steal tutorial, before stealing the clothes",
@@ -119,6 +147,9 @@ pub fn with_world_state(arrival: CrtRng, state: WorldState) -> Result<Prediction
         "Mansion route requires Throné alone in the scripted Dusk phase",
     )?;
     let mut loader = Loader::new(world::catalog(), state, arrival)?;
+    let mut after_gold_ring=None;
+    let mut gold_ring_roll=None;
+    if ring_order==Some(true) {gold_ring_roll=Some(gold_ring(&mut loader));after_gold_ring=Some(loader.rng);}
     steal_session(&mut loader, "Brothel girl", &["clothes"], false);
     loader.skipped_event("MS_TOU_10_1400")?;
     // 1400 FinishEvent invokes implicit FinishPre. No counter reset; evaluate
@@ -127,10 +158,10 @@ pub fn with_world_state(arrival: CrtRng, state: WorldState) -> Result<Prediction
         !loader.data.events["MS_TOU_10_1400"].reset_counter,
         "Re-audit clothes cleanup if EncountReset changes",
     )?;
-    loader.refresh_bar()?;
     loader.refresh_npcs("MS_TOU_10_1400 implicit FinishPre")?;
     loader.boundary("Clothes stolen; Save popup dismissed");
     let after_clothes = loader.rng;
+    if ring_order==Some(false) {gold_ring_roll=Some(gold_ring(&mut loader));after_gold_ring=Some(loader.rng);}
     steal_session(&mut loader, "Boy", &["Shadow Soulstone"], true);
     loader.boundary("Boy: Shadow Soulstone stolen; menu closed");
     let after_boy = loader.rng;
@@ -151,6 +182,8 @@ pub fn with_world_state(arrival: CrtRng, state: WorldState) -> Result<Prediction
     Ok(Prediction {
         arrival,
         after_clothes,
+        after_gold_ring,gold_ring_before_clothes:ring_order==Some(true),gold_ring_roll,
+        gold_ring_success:gold_ring_roll.is_none_or(|r|r<=80),
         after_boy,
         after_main_load,
         after_artist,
@@ -164,18 +197,40 @@ pub fn with_world_state(arrival: CrtRng, state: WorldState) -> Result<Prediction
         ]
         .into_iter()
         .map(|id| (id.into(), 1))
+        .chain(gold_ring_roll.filter(|r|*r<=80).map(|_|("gold_ring".into(),1)))
         .collect(),
         expected_draws: loader.rng.draws - arrival.draws,
         trace: loader.trace,
         decisions: loader.decisions,
         world_after: loader.state,
-        verification: "Mansion endpoint confirmed in-game on 2026-09-28: seed 0 at 5562 / 0xDDCC3032. Continues through both parlor visits, clothes theft and Save popup, Boy's Shadow Soulstone, New Delsta main load, Artist's three soulstones in one menu visit, and skipped 1500/1600. Map loads evaluate carried world state. No intervening actions or automatic time changes; individual mansion calls are source-derived, not a per-call live capture.",
+        verification: "Gold Ring is an 80% steal, before or after clothes, selected jointly with mansion safety. Antique Coin is omitted. The original route without Gold Ring was confirmed in-game on 2026-09-28 at 5562 / 0xDDCC3032. Continues through both parlor visits, clothes theft and Save popup, Boy's Shadow Soulstone, New Delsta main load, Artist's three soulstones in one menu visit, and skipped 1500/1600. Map loads evaluate carried world state. No intervening actions or automatic time changes; individual mansion calls are source-derived, not a per-call live capture.",
     })
 }
 
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    #[test]
+    fn ring_orders_preserve_mansion_safety_and_omit_coin() {
+        let previous=previous();let mut outcomes=[false;3];
+        for seed in 0..256 {
+            let start=CrtRng::new(seed);
+            let before=project(start,previous.world_after.clone(),Some(true)).unwrap();
+            let after=project(start,previous.world_after.clone(),Some(false)).unwrap();
+            let selected=with_world_state(start,previous.world_after.clone()).unwrap();
+            let old=project(start,previous.world_after.clone(),None).unwrap();
+            assert_eq!(selected.after_entry.draws,old.after_entry.draws+3);
+            assert_eq!(selected.gold_ring_success,before.gold_ring_success||after.gold_ring_success);
+            let joint=before.gold_ring_success&&mansion_safe(&before).unwrap() || after.gold_ring_success&&mansion_safe(&after).unwrap();
+            if joint {assert!(selected.gold_ring_success&&mansion_safe(&selected).unwrap());}
+            assert!(!selected.acquired_items.contains_key("antique_coin"));
+            assert_eq!(selected.acquired_items.contains_key("gold_ring"),selected.gold_ring_success);
+            assert_eq!(selected.gold_ring_success,selected.gold_ring_roll.unwrap()<=80);
+            outcomes[if !selected.gold_ring_success {2} else if selected.gold_ring_before_clothes {0} else {1}]=true;
+        }
+        assert_eq!(outcomes,[true;3]);
+    }
 
     fn previous() -> crate::parlor_revisit::Prediction {
         let city = crate::city::after_second_victory(CrtRng {
@@ -190,7 +245,7 @@ mod tests {
     #[test]
     fn confirmed_endpoint_preserves_intermediate_progression_and_trace_continuity() {
         let previous = previous();
-        let p = after_parlor_revisit(&previous).unwrap();
+        let p = legacy_after_parlor_revisit(&previous).unwrap();
         assert_eq!(p.arrival, previous.after_popup);
         for (actual, draws, state) in [
             (p.after_clothes, 5469, 0xbeb9762f),
@@ -221,11 +276,11 @@ mod tests {
     fn carries_relative_draw_counts_and_world_changes_instead_of_fixed_offsets() {
         let mut previous = previous();
         previous.after_popup.draws = 0;
-        let baseline = after_parlor_revisit(&previous).unwrap();
+        let baseline = legacy_after_parlor_revisit(&previous).unwrap();
         assert_eq!(baseline.after_entry.draws, 95);
         assert_eq!(baseline.after_entry.state, 0xddcc3032);
         previous.world_after.resident_levels.remove("Btl_SinExpose");
-        let recreated = after_parlor_revisit(&previous).unwrap();
+        let recreated = legacy_after_parlor_revisit(&previous).unwrap();
         assert_eq!(recreated.after_entry.draws, 96);
         assert_ne!(recreated.after_entry.state, baseline.after_entry.state);
         assert!(with_world_state(baseline.after_entry, baseline.world_after).is_err());
@@ -233,7 +288,7 @@ mod tests {
 
     #[test]
     fn lookout_ambush_consumes_menu_and_replacement_draws_without_resetting_counter() {
-        let p = after_parlor_revisit(&previous()).unwrap();
+        let p = legacy_after_parlor_revisit(&previous()).unwrap();
         let mut state = p.world_after.clone();
         state.encounter_counter = 137; // Remaining counter after approaching him.
         let a = ambush_lookout(p.after_entry, state).unwrap();

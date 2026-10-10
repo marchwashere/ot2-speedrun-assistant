@@ -105,6 +105,9 @@ pub fn from_route(
         .map(|(i, n)| (i.id.clone(), *n))
         .collect();
     for (id, n) in &mansion.acquired_items {
+        // Keep sale valuables in the route inventory; the battle catalog holds
+        // usable combat items only.
+        if matches!(id.as_str(),"gold_ring"|"antique_coin") {continue;}
         *inventory.entry(id.clone()).or_default() += n;
     }
     predict_with_search(
@@ -145,6 +148,7 @@ pub fn predict_with_plans(
     levels: &[u8],
     r8_levels: &[u8],
 ) -> Result<Prediction> {
+    let _profile=crate::profile::span("Pirro replay");
     ensure(
         levels.last() == Some(&3),
         "Pirro R3 boost path must end at 3 BP",
@@ -398,7 +402,7 @@ pub(crate) fn search_paths(
     let mut visited = HashSet::new();
     let mut tested = HashSet::from([(
         normal.rng.state,
-        normal.opening_crt.as_ref().unwrap().used_voices,
+        normal.opening_crt.as_ref().unwrap().used_voices.clone(),
     )]);
     while let Some((levels, bp, _rising, climbs)) = queue.pop_front() {
         if levels.len() >= best_cost.0 {
@@ -416,9 +420,9 @@ pub(crate) fn search_paths(
             let mut path = levels.clone();
             path.push(next);
             let preview = preview_inputs(&path)?;
-            let voices = preview.opening_crt.as_ref().unwrap().used_voices;
+            let voices = preview.opening_crt.as_ref().unwrap().used_voices.clone();
             let budget = if cap.is_some() { next_climbs } else { 0 };
-            if !visited.insert((preview.rng.state, voices, next, up, budget)) {
+            if !visited.insert((preview.rng.state, voices.clone(), next, up, budget)) {
                 continue;
             }
             if next == 3 && tested.insert((preview.rng.state, voices)) {
@@ -436,6 +440,31 @@ pub(crate) fn search_paths(
         }
     }
     Ok((best, count))
+}
+
+/// Visit distinct R8 futures in button-cost order. The caller tightens the bound
+/// whenever a cheaper COMPLETE continuation is found; unlike search_paths, an
+/// inexpensive immediate encounter does not stop downstream cost comparisons.
+pub(crate) fn visit_route_paths(
+    menu:&Battle, latent:bool, bound:&std::cell::Cell<u32>,
+    visit:&mut impl FnMut(&[u8])->Result<()>,
+) -> Result<()> {
+    let mut queue=VecDeque::from([(Vec::<u8>::new(),0u8)]);
+    let mut visited=HashSet::new();
+    let mut tested=HashSet::new();
+    while let Some((levels,bp))=queue.pop_front() {
+        for next in [bp.checked_add(1).filter(|&n|n<=3),bp.checked_sub(1)].into_iter().flatten() {
+            let mut path=levels.clone();path.push(next);
+            // Every continuation includes the mandatory night/day shop pair (14).
+            if path.len() as u32>bound.get().saturating_sub(14)+3 {continue;}
+            let p=if latent {menu.preview_boost_inputs_after_latent(&path)?} else {menu.preview_boost_inputs(&path)?};
+            let voices=p.opening_crt.as_ref().unwrap().used_voices.clone();
+            if !visited.insert((p.rng.state,voices.clone(),next)) {continue;}
+            if next==3 && tested.insert((p.rng.state,voices)) {visit(&path)?;}
+            queue.push_back((path,next));
+        }
+    }
+    Ok(())
 }
 
 /// Freeze the prior route. Search only R3 boost inputs; replay every later
@@ -478,7 +507,14 @@ pub fn predict_with_search(
         .steps
         .iter()
         .any(|s| s.round == 3 && s.report.actor == ActorId(0));
-    let can_search = menu_reached && best.routine_error.is_none();
+    // A missing grape in the baseline's optional healing branch does not
+    // invalidate the already-reached R3 menu: its boosts can avoid that branch.
+    // Failed commands roll the policy back, so inspect the R8 preview directly.
+    let missing_baseline_grape = best.state.round == 7
+        && best.state.next_queue.first() == Some(&ActorId(1))
+        && inventory.get("healing_grape").copied().unwrap_or(0) == 0
+        && best.routine_error.as_deref() == Some("item is out of stock");
+    let can_search = menu_reached && (best.routine_error.is_none() || missing_baseline_grape);
     let menu = if !info.target_met && can_search {
         let mut config = BattleConfig::throne_pirro(arrival.state)?;
         let mut starting_resources = resources.clone();

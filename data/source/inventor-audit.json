@@ -1,0 +1,3732 @@
+{
+  "events": [
+    {
+      "id": "SYS_INV_GUILD_0010",
+      "EventIndex": 0,
+      "ExecCode": "SYS_INV_GUILD_0010",
+      "CueSheetName": "None",
+      "RadarMapExitCode": "None",
+      "MapID": "None",
+      "Kind": "EEventKind::EVENT_SUB",
+      "EventSoundLabel": "None",
+      "MissionLabel": "SS_CTY1_0700",
+      "EventSkip": 1,
+      "LevelTriggerID": "ELevelTriggerID::Invalid",
+      "LanthanumFlag": 0,
+      "EncountTrigger": "None",
+      "CameraLockTrigger1": "None",
+      "CameraLockTrigger2": "None",
+      "CameraLockTrigger3": "None",
+      "StartFadeOutFlag": 0,
+      "ChengeTimeSequencer": "None",
+      "ChengeFinishTimeSequencer": "None",
+      "TargetChara": 0,
+      "EncountReset": true,
+      "Args": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": "SYS_INV_GUILD_0C10",
+      "EventIndex": 0,
+      "ExecCode": "SYS_INV_GUILD_0C10",
+      "CueSheetName": "None",
+      "RadarMapExitCode": "None",
+      "MapID": "None",
+      "Kind": "EEventKind::EVENT_OTHER",
+      "EventSoundLabel": "None",
+      "MissionLabel": "None",
+      "EventSkip": 1,
+      "LevelTriggerID": "ELevelTriggerID::Trigger_01",
+      "LanthanumFlag": 0,
+      "EncountTrigger": "None",
+      "CameraLockTrigger1": "None",
+      "CameraLockTrigger2": "None",
+      "CameraLockTrigger3": "None",
+      "StartFadeOutFlag": 0,
+      "ChengeTimeSequencer": "None",
+      "ChengeFinishTimeSequencer": "None",
+      "TargetChara": 0,
+      "EncountReset": true,
+      "Args": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    },
+    {
+      "id": "SYS_INV_GUILD_0D10",
+      "EventIndex": 0,
+      "ExecCode": "SYS_INV_GUILD_0D10",
+      "CueSheetName": "None",
+      "RadarMapExitCode": "None",
+      "MapID": "None",
+      "Kind": "EEventKind::EVENT_OTHER",
+      "EventSoundLabel": "None",
+      "MissionLabel": "None",
+      "EventSkip": 1,
+      "LevelTriggerID": "ELevelTriggerID::Trigger_01",
+      "LanthanumFlag": 0,
+      "EncountTrigger": "None",
+      "CameraLockTrigger1": "None",
+      "CameraLockTrigger2": "None",
+      "CameraLockTrigger3": "None",
+      "StartFadeOutFlag": 0,
+      "ChengeTimeSequencer": "None",
+      "ChengeFinishTimeSequencer": "None",
+      "TargetChara": 0,
+      "EncountReset": true,
+      "Args": [
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        "",
+        ""
+      ]
+    }
+  ],
+  "commands": {
+    "SYS_INV_GUILD_0010": {
+      "0": {
+        "cmd": 62,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "2"
+        ]
+      },
+      "1": {
+        "cmd": 1250,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "1",
+          "SwitchIndoorTriggerBP_House_Inventor",
+          "0"
+        ]
+      },
+      "2": {
+        "cmd": 1,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "0"
+        ]
+      },
+      "3": {
+        "cmd": 2,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "0"
+        ]
+      },
+      "4": {
+        "cmd": 200,
+        "target": -1,
+        "pos": "X=-610,Y=1520,Z=193.15",
+        "dir": 3,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "10",
+          "1",
+          "0",
+          "JobMasterInv_Mle"
+        ]
+      },
+      "5": {
+        "cmd": 230,
+        "target": 0,
+        "pos": "X=-610,Y=1600,Z=193.15",
+        "dir": 2,
+        "text": "",
+        "async": "0",
+        "opt": [
+          ""
+        ]
+      },
+      "6": {
+        "cmd": 300,
+        "target": -1,
+        "pos": "X=-610,Y=1560,Z=193.15",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "0",
+          "0"
+        ]
+      },
+      "7": {
+        "cmd": 8010,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "0"
+        ]
+      },
+      "8": {
+        "cmd": 52,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "2"
+        ]
+      },
+      "9": {
+        "cmd": 10,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "500"
+        ]
+      },
+      "10": {
+        "cmd": 40,
+        "target": 10,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": 3,
+        "text": "TX_SS_FC13_0100_0010",
+        "async": "0",
+        "opt": [
+          "1",
+          "0",
+          "0",
+          "0"
+        ]
+      },
+      "11": {
+        "cmd": 10,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "500"
+        ]
+      },
+      "12": {
+        "cmd": 240,
+        "target": 10,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": 3,
+        "text": "",
+        "async": "1",
+        "opt": [
+          "13",
+          "0"
+        ]
+      },
+      "13": {
+        "cmd": 910,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "1",
+        "opt": [
+          "se_event_whoosh_03"
+        ]
+      },
+      "14": {
+        "cmd": 40,
+        "target": 10,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": 3,
+        "text": "TX_SS_FC13_0100_0020",
+        "async": "0",
+        "opt": [
+          "1",
+          "0",
+          "0",
+          "0"
+        ]
+      },
+      "15": {
+        "cmd": 240,
+        "target": 10,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": 3,
+        "text": "",
+        "async": "1",
+        "opt": [
+          "0",
+          "0"
+        ]
+      },
+      "16": {
+        "cmd": 10,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "500"
+        ]
+      },
+      "17": {
+        "cmd": 240,
+        "target": 10,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": 3,
+        "text": "",
+        "async": "1",
+        "opt": [
+          "19",
+          "0"
+        ]
+      },
+      "18": {
+        "cmd": 910,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "1",
+        "opt": [
+          "se_event_whoosh_06"
+        ]
+      },
+      "19": {
+        "cmd": 40,
+        "target": 10,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": 3,
+        "text": "TX_SS_FC13_0100_0030",
+        "async": "0",
+        "opt": [
+          "1",
+          "0",
+          "0",
+          "0"
+        ]
+      },
+      "20": {
+        "cmd": 10,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "500"
+        ]
+      },
+      "21": {
+        "cmd": 240,
+        "target": 10,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": 3,
+        "text": "",
+        "async": "1",
+        "opt": [
+          "0",
+          "0"
+        ]
+      },
+      "22": {
+        "cmd": 40,
+        "target": 10,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": 3,
+        "text": "TX_SS_FC13_0100_0040",
+        "async": "0",
+        "opt": [
+          "1",
+          "0",
+          "0",
+          "0"
+        ]
+      },
+      "23": {
+        "cmd": 10,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "500"
+        ]
+      },
+      "24": {
+        "cmd": 240,
+        "target": 10,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": 1,
+        "text": "",
+        "async": "1",
+        "opt": [
+          "0",
+          "0"
+        ]
+      },
+      "25": {
+        "cmd": 910,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "1",
+        "opt": [
+          "se_event_whoosh_06"
+        ]
+      },
+      "26": {
+        "cmd": 10,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "300"
+        ]
+      },
+      "27": {
+        "cmd": 240,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": 1,
+        "text": "",
+        "async": "1",
+        "opt": [
+          "0",
+          "0"
+        ]
+      },
+      "28": {
+        "cmd": 10,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "100"
+        ]
+      },
+      "29": {
+        "cmd": 40,
+        "target": 10,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": 1,
+        "text": "TX_SS_FC13_0100_0050",
+        "async": "0",
+        "opt": [
+          "7",
+          "0",
+          "0",
+          "0"
+        ]
+      },
+      "30": {
+        "cmd": 10,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "500"
+        ]
+      },
+      "31": {
+        "cmd": 40,
+        "target": 10,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": 1,
+        "text": "TX_SS_FC13_0100_0060",
+        "async": "0",
+        "opt": [
+          "7",
+          "0",
+          "0",
+          "0"
+        ]
+      },
+      "32": {
+        "cmd": 10,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "500"
+        ]
+      },
+      "33": {
+        "cmd": 40,
+        "target": 10,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": 1,
+        "text": "TX_SS_FC13_0100_0070",
+        "async": "0",
+        "opt": [
+          "7",
+          "0",
+          "0",
+          "0"
+        ]
+      },
+      "34": {
+        "cmd": 10,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "300"
+        ]
+      },
+      "35": {
+        "cmd": 240,
+        "target": 10,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": 2,
+        "text": "",
+        "async": "1",
+        "opt": [
+          "0",
+          "0"
+        ]
+      },
+      "36": {
+        "cmd": 10,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "200"
+        ]
+      },
+      "37": {
+        "cmd": 240,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": 2,
+        "text": "",
+        "async": "1",
+        "opt": [
+          "0",
+          "0"
+        ]
+      },
+      "38": {
+        "cmd": 240,
+        "target": 10,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": 2,
+        "text": "",
+        "async": "1",
+        "opt": [
+          "13",
+          "0"
+        ]
+      },
+      "39": {
+        "cmd": 910,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "1",
+        "opt": [
+          "se_event_whoosh_03"
+        ]
+      },
+      "40": {
+        "cmd": 40,
+        "target": 10,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": 2,
+        "text": "TX_SS_FC13_0100_0080",
+        "async": "0",
+        "opt": [
+          "1",
+          "0",
+          "0",
+          "0"
+        ]
+      },
+      "41": {
+        "cmd": 10,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "500"
+        ]
+      },
+      "42": {
+        "cmd": 240,
+        "target": 10,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": 2,
+        "text": "",
+        "async": "1",
+        "opt": [
+          "0",
+          "0"
+        ]
+      },
+      "43": {
+        "cmd": 40,
+        "target": 10,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": 2,
+        "text": "TX_SS_FC13_0100_0090",
+        "async": "0",
+        "opt": [
+          "1",
+          "0",
+          "0",
+          "0"
+        ]
+      },
+      "44": {
+        "cmd": 10,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "500"
+        ]
+      },
+      "45": {
+        "cmd": 40,
+        "target": 10,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": 2,
+        "text": "TX_SS_FC13_0100_0100",
+        "async": "0",
+        "opt": [
+          "1",
+          "0",
+          "0",
+          "0"
+        ]
+      },
+      "46": {
+        "cmd": 10,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "500"
+        ]
+      },
+      "47": {
+        "cmd": 240,
+        "target": 10,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": 3,
+        "text": "",
+        "async": "1",
+        "opt": [
+          "0",
+          "0"
+        ]
+      },
+      "48": {
+        "cmd": 910,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "1",
+        "opt": [
+          "se_event_whoosh_06"
+        ]
+      },
+      "49": {
+        "cmd": 40,
+        "target": 10,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": 3,
+        "text": "TX_SS_FC13_0100_0110",
+        "async": "0",
+        "opt": [
+          "1",
+          "0",
+          "0",
+          "0"
+        ]
+      },
+      "50": {
+        "cmd": 10,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "500"
+        ]
+      },
+      "51": {
+        "cmd": 40,
+        "target": 10,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": 3,
+        "text": "TX_SS_FC13_0100_0120",
+        "async": "0",
+        "opt": [
+          "1",
+          "0",
+          "0",
+          "0"
+        ]
+      },
+      "52": {
+        "cmd": 10,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "500"
+        ]
+      },
+      "53": {
+        "cmd": 240,
+        "target": 10,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": 3,
+        "text": "",
+        "async": "1",
+        "opt": [
+          "9",
+          "0"
+        ]
+      },
+      "54": {
+        "cmd": 910,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "1",
+        "opt": [
+          "se_event_whoosh_041"
+        ]
+      },
+      "55": {
+        "cmd": 40,
+        "target": 10,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": 3,
+        "text": "TX_SS_FC13_0100_0130",
+        "async": "0",
+        "opt": [
+          "1",
+          "0",
+          "0",
+          "0"
+        ]
+      },
+      "56": {
+        "cmd": 2000,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "ITM_EQP_JOB_0011",
+          "1"
+        ]
+      },
+      "57": {
+        "cmd": 2000,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "ITM_TRE_INV_01",
+          "1"
+        ]
+      },
+      "58": {
+        "cmd": 2000,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "ITM_TRE_INV_02",
+          "1"
+        ]
+      },
+      "59": {
+        "cmd": 5006,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "eGET_TREASUREBOX",
+        "async": "0",
+        "opt": [
+          "ITM_EQP_JOB_0011",
+          "se_system_joblicense"
+        ]
+      },
+      "60": {
+        "cmd": 7100,
+        "target": 59,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "0"
+        ]
+      },
+      "61": {
+        "cmd": 10,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "500"
+        ]
+      },
+      "62": {
+        "cmd": 240,
+        "target": 10,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": 3,
+        "text": "",
+        "async": "1",
+        "opt": [
+          "0",
+          "0"
+        ]
+      },
+      "63": {
+        "cmd": 40,
+        "target": 10,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": 3,
+        "text": "TX_SS_FC13_0100_0140",
+        "async": "0",
+        "opt": [
+          "1",
+          "0",
+          "0",
+          "0"
+        ]
+      },
+      "64": {
+        "cmd": 10,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "500"
+        ]
+      },
+      "65": {
+        "cmd": 240,
+        "target": 10,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": 3,
+        "text": "",
+        "async": "1",
+        "opt": [
+          "19",
+          "0"
+        ]
+      },
+      "66": {
+        "cmd": 910,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "1",
+        "opt": [
+          "se_event_whoosh_06"
+        ]
+      },
+      "67": {
+        "cmd": 40,
+        "target": 10,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": 3,
+        "text": "TX_SS_FC13_0100_0150",
+        "async": "0",
+        "opt": [
+          "1",
+          "0",
+          "0",
+          "0"
+        ]
+      },
+      "68": {
+        "cmd": 10,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "500"
+        ]
+      },
+      "69": {
+        "cmd": 40,
+        "target": 10,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": 3,
+        "text": "TX_SS_FC13_0100_0160",
+        "async": "0",
+        "opt": [
+          "1",
+          "0",
+          "0",
+          "0"
+        ]
+      },
+      "70": {
+        "cmd": 10,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "500"
+        ]
+      },
+      "71": {
+        "cmd": 240,
+        "target": 10,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": 3,
+        "text": "",
+        "async": "1",
+        "opt": [
+          "13",
+          "0"
+        ]
+      },
+      "72": {
+        "cmd": 910,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "1",
+        "opt": [
+          "se_event_whoosh_03"
+        ]
+      },
+      "73": {
+        "cmd": 40,
+        "target": 10,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": 3,
+        "text": "TX_SS_FC13_0100_0170",
+        "async": "0",
+        "opt": [
+          "1",
+          "0",
+          "0",
+          "0"
+        ]
+      },
+      "74": {
+        "cmd": 62,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "2"
+        ]
+      },
+      "75": {
+        "cmd": 310,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          ""
+        ]
+      },
+      "76": {
+        "cmd": 8010,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "1"
+        ]
+      },
+      "77": {
+        "cmd": 100,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "1"
+        ]
+      },
+      "78": {
+        "cmd": 70,
+        "target": 2408,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "1"
+        ]
+      },
+      "79": {
+        "cmd": 70,
+        "target": 2409,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "1"
+        ]
+      },
+      "80": {
+        "cmd": 70,
+        "target": 406,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "0"
+        ]
+      },
+      "81": {
+        "cmd": 70,
+        "target": 411,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "1"
+        ]
+      },
+      "82": {
+        "cmd": 70,
+        "target": 20417,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "1"
+        ]
+      },
+      "83": {
+        "cmd": 70,
+        "target": 100,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "0"
+        ]
+      },
+      "84": {
+        "cmd": 7240,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "GUILD_008"
+        ]
+      },
+      "85": {
+        "cmd": 9990,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          ""
+        ]
+      },
+      "86": {
+        "cmd": 52,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "2"
+        ]
+      },
+      "87": {
+        "cmd": 1300,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "SS_CTY1_0700"
+        ]
+      },
+      "88": {
+        "cmd": 10000,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          ""
+        ]
+      }
+    },
+    "SYS_INV_GUILD_0D10": {
+      "0": {
+        "cmd": 8610,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "INVENTION_ITEM_04",
+          "0",
+          "1",
+          "0"
+        ]
+      },
+      "1": {
+        "cmd": 10000,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          ""
+        ]
+      },
+      "2": {
+        "cmd": 4,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "0"
+        ]
+      },
+      "3": {
+        "cmd": 40,
+        "target": 5111,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": 2,
+        "text": "TX_SS_FC13_0100_0200",
+        "async": "0",
+        "opt": [
+          "1",
+          "0",
+          "0",
+          "0"
+        ]
+      },
+      "4": {
+        "cmd": 40,
+        "target": 5111,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": 2,
+        "text": "TX_SS_FC13_0100_0210",
+        "async": "0",
+        "opt": [
+          "1",
+          "0",
+          "0",
+          "0"
+        ]
+      },
+      "5": {
+        "cmd": 65,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "1000",
+          "2"
+        ]
+      },
+      "6": {
+        "cmd": 2000,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "ITM_TRE_INV_04",
+          "1"
+        ]
+      },
+      "7": {
+        "cmd": 70,
+        "target": 20525,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "1"
+        ]
+      },
+      "8": {
+        "cmd": 8030,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          ""
+        ]
+      },
+      "9": {
+        "cmd": 1250,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "1",
+          "SwitchIndoorTriggerBP_House_Inventor",
+          "0"
+        ]
+      },
+      "10": {
+        "cmd": 1,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "0"
+        ]
+      },
+      "11": {
+        "cmd": 2,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "0"
+        ]
+      },
+      "12": {
+        "cmd": 200,
+        "target": -1,
+        "pos": "X=-813,Y=1787,Z=193.15",
+        "dir": 2,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "10",
+          "1",
+          "0",
+          "JobMasterInv_Mle"
+        ]
+      },
+      "13": {
+        "cmd": 230,
+        "target": 0,
+        "pos": "X=-813,Y=1564,Z=193.15",
+        "dir": 3,
+        "text": "",
+        "async": "0",
+        "opt": [
+          ""
+        ]
+      },
+      "14": {
+        "cmd": 300,
+        "target": -1,
+        "pos": "X=-813,Y=1675.5,Z=193.15",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "0",
+          "0"
+        ]
+      },
+      "15": {
+        "cmd": 8010,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "0"
+        ]
+      },
+      "16": {
+        "cmd": 910,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "1",
+        "opt": [
+          "se_bat_mt_invention"
+        ]
+      },
+      "17": {
+        "cmd": 10,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "1500"
+        ]
+      },
+      "18": {
+        "cmd": 910,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "1",
+        "opt": [
+          "se_bat_ability_inventor_04_01"
+        ]
+      },
+      "19": {
+        "cmd": 10,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "4000"
+        ]
+      },
+      "20": {
+        "cmd": 9100,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "1"
+        ]
+      },
+      "21": {
+        "cmd": 55,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "1000",
+          "2"
+        ]
+      },
+      "22": {
+        "cmd": 240,
+        "target": 10,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": 2,
+        "text": "",
+        "async": "1",
+        "opt": [
+          "0",
+          "0"
+        ]
+      },
+      "23": {
+        "cmd": 10,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "500"
+        ]
+      },
+      "24": {
+        "cmd": 240,
+        "target": 10,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": 2,
+        "text": "",
+        "async": "1",
+        "opt": [
+          "9",
+          "0"
+        ]
+      },
+      "25": {
+        "cmd": 910,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "1",
+        "opt": [
+          "se_event_whoosh_041"
+        ]
+      },
+      "26": {
+        "cmd": 10,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "50"
+        ]
+      },
+      "27": {
+        "cmd": 240,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": 3,
+        "text": "",
+        "async": "1",
+        "opt": [
+          "0",
+          "0"
+        ]
+      },
+      "28": {
+        "cmd": 40,
+        "target": 10,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": 2,
+        "text": "TX_SS_FC13_0100_0250",
+        "async": "0",
+        "opt": [
+          "1",
+          "0",
+          "0",
+          "0"
+        ]
+      },
+      "29": {
+        "cmd": 10,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "500"
+        ]
+      },
+      "30": {
+        "cmd": 240,
+        "target": 10,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": 2,
+        "text": "",
+        "async": "1",
+        "opt": [
+          "0",
+          "0"
+        ]
+      },
+      "31": {
+        "cmd": 40,
+        "target": 10,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": 2,
+        "text": "TX_SS_FC13_0100_0260",
+        "async": "0",
+        "opt": [
+          "1",
+          "0",
+          "0",
+          "0"
+        ]
+      },
+      "32": {
+        "cmd": 10,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "500"
+        ]
+      },
+      "33": {
+        "cmd": 240,
+        "target": 10,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": 2,
+        "text": "",
+        "async": "1",
+        "opt": [
+          "19",
+          "0"
+        ]
+      },
+      "34": {
+        "cmd": 910,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "1",
+        "opt": [
+          "se_event_whoosh_06"
+        ]
+      },
+      "35": {
+        "cmd": 40,
+        "target": 10,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": 2,
+        "text": "TX_SS_FC13_0100_0270",
+        "async": "0",
+        "opt": [
+          "1",
+          "0",
+          "0",
+          "0"
+        ]
+      },
+      "36": {
+        "cmd": 10,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "500"
+        ]
+      },
+      "37": {
+        "cmd": 240,
+        "target": 10,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": 2,
+        "text": "",
+        "async": "1",
+        "opt": [
+          "0",
+          "0"
+        ]
+      },
+      "38": {
+        "cmd": 40,
+        "target": 10,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": 2,
+        "text": "TX_SS_FC13_0100_0370",
+        "async": "0",
+        "opt": [
+          "1",
+          "0",
+          "0",
+          "0"
+        ]
+      },
+      "39": {
+        "cmd": 10,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "500"
+        ]
+      },
+      "40": {
+        "cmd": 40,
+        "target": 10,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": 2,
+        "text": "TX_SS_FC13_0100_0380",
+        "async": "0",
+        "opt": [
+          "1",
+          "0",
+          "0",
+          "0"
+        ]
+      },
+      "41": {
+        "cmd": 8620,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "INVENTION_ITEM_04"
+        ]
+      },
+      "42": {
+        "cmd": 70,
+        "target": 2411,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "1"
+        ]
+      },
+      "43": {
+        "cmd": 70,
+        "target": 20525,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "0"
+        ]
+      },
+      "44": {
+        "cmd": 10,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "500"
+        ]
+      },
+      "45": {
+        "cmd": 4000,
+        "target": 2408,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "",
+          "51"
+        ]
+      },
+      "46": {
+        "cmd": 4000,
+        "target": 2409,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "",
+          "51"
+        ]
+      },
+      "47": {
+        "cmd": 4000,
+        "target": 2410,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "",
+          "51"
+        ]
+      },
+      "48": {
+        "cmd": 4000,
+        "target": 2411,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "",
+          "51"
+        ]
+      },
+      "49": {
+        "cmd": 4000,
+        "target": 2412,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "",
+          "51"
+        ]
+      },
+      "50": {
+        "cmd": 4000,
+        "target": 2413,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "",
+          "51"
+        ]
+      },
+      "51": {
+        "cmd": 4000,
+        "target": 2414,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "67",
+          "51"
+        ]
+      },
+      "52": {
+        "cmd": 9100,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "1"
+        ]
+      },
+      "53": {
+        "cmd": 240,
+        "target": 10,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": 2,
+        "text": "",
+        "async": "1",
+        "opt": [
+          "0",
+          "0"
+        ]
+      },
+      "54": {
+        "cmd": 40,
+        "target": 10,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": 2,
+        "text": "TX_SS_FC13_0100_0390",
+        "async": "0",
+        "opt": [
+          "1",
+          "0",
+          "0",
+          "0"
+        ]
+      },
+      "55": {
+        "cmd": 10,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "500"
+        ]
+      },
+      "56": {
+        "cmd": 710,
+        "target": 10,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "11"
+        ]
+      },
+      "57": {
+        "cmd": 40,
+        "target": 10,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": 2,
+        "text": "TX_SS_FC13_0100_0400",
+        "async": "0",
+        "opt": [
+          "1",
+          "0",
+          "0",
+          "0"
+        ]
+      },
+      "58": {
+        "cmd": 10,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "1000"
+        ]
+      },
+      "59": {
+        "cmd": 62,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "2"
+        ]
+      },
+      "60": {
+        "cmd": 310,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          ""
+        ]
+      },
+      "61": {
+        "cmd": 8010,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "1"
+        ]
+      },
+      "62": {
+        "cmd": 100,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "1"
+        ]
+      },
+      "63": {
+        "cmd": 9990,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          ""
+        ]
+      },
+      "64": {
+        "cmd": 230,
+        "target": 0,
+        "pos": "X=-813,Y=1564,Z=193.15",
+        "dir": 3,
+        "text": "",
+        "async": "0",
+        "opt": [
+          ""
+        ]
+      },
+      "65": {
+        "cmd": 30,
+        "target": 5111,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": 3,
+        "text": "",
+        "async": "0",
+        "opt": [
+          ""
+        ]
+      },
+      "66": {
+        "cmd": 52,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "2"
+        ]
+      },
+      "67": {
+        "cmd": 10000,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          ""
+        ]
+      },
+      "68": {
+        "cmd": 62,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "2"
+        ]
+      },
+      "69": {
+        "cmd": 8030,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          ""
+        ]
+      },
+      "70": {
+        "cmd": 1000,
+        "target": -1,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "SYS_INV_GUILD_9000"
+        ]
+      },
+      "71": {
+        "cmd": 10000,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          ""
+        ]
+      }
+    },
+    "SYS_INV_GUILD_0C10": {
+      "0": {
+        "cmd": 8610,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "INVENTION_ITEM_03",
+          "0",
+          "1",
+          "0"
+        ]
+      },
+      "1": {
+        "cmd": 10000,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          ""
+        ]
+      },
+      "2": {
+        "cmd": 4,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "0"
+        ]
+      },
+      "3": {
+        "cmd": 40,
+        "target": 5111,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": 2,
+        "text": "TX_SS_FC13_0100_0200",
+        "async": "0",
+        "opt": [
+          "1",
+          "0",
+          "0",
+          "0"
+        ]
+      },
+      "4": {
+        "cmd": 40,
+        "target": 5111,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": 2,
+        "text": "TX_SS_FC13_0100_0210",
+        "async": "0",
+        "opt": [
+          "1",
+          "0",
+          "0",
+          "0"
+        ]
+      },
+      "5": {
+        "cmd": 65,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "1000",
+          "2"
+        ]
+      },
+      "6": {
+        "cmd": 2000,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "ITM_TRE_INV_03",
+          "1"
+        ]
+      },
+      "7": {
+        "cmd": 70,
+        "target": 20524,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "1"
+        ]
+      },
+      "8": {
+        "cmd": 8030,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          ""
+        ]
+      },
+      "9": {
+        "cmd": 1250,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "1",
+          "SwitchIndoorTriggerBP_House_Inventor",
+          "0"
+        ]
+      },
+      "10": {
+        "cmd": 1,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "0"
+        ]
+      },
+      "11": {
+        "cmd": 2,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "0"
+        ]
+      },
+      "12": {
+        "cmd": 200,
+        "target": -1,
+        "pos": "X=-813,Y=1787,Z=193.15",
+        "dir": 2,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "10",
+          "1",
+          "0",
+          "JobMasterInv_Mle"
+        ]
+      },
+      "13": {
+        "cmd": 230,
+        "target": 0,
+        "pos": "X=-813,Y=1564,Z=193.15",
+        "dir": 3,
+        "text": "",
+        "async": "0",
+        "opt": [
+          ""
+        ]
+      },
+      "14": {
+        "cmd": 300,
+        "target": -1,
+        "pos": "X=-813,Y=1675.5,Z=193.15",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "0",
+          "0"
+        ]
+      },
+      "15": {
+        "cmd": 8010,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "0"
+        ]
+      },
+      "16": {
+        "cmd": 910,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "1",
+        "opt": [
+          "se_bat_mt_invention"
+        ]
+      },
+      "17": {
+        "cmd": 10,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "1500"
+        ]
+      },
+      "18": {
+        "cmd": 910,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "1",
+        "opt": [
+          "se_bat_ability_inventor_03_01"
+        ]
+      },
+      "19": {
+        "cmd": 10,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "2000"
+        ]
+      },
+      "20": {
+        "cmd": 9100,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "1"
+        ]
+      },
+      "21": {
+        "cmd": 55,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "1000",
+          "2"
+        ]
+      },
+      "22": {
+        "cmd": 240,
+        "target": 10,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": 2,
+        "text": "",
+        "async": "1",
+        "opt": [
+          "0",
+          "0"
+        ]
+      },
+      "23": {
+        "cmd": 10,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "500"
+        ]
+      },
+      "24": {
+        "cmd": 240,
+        "target": 10,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": 2,
+        "text": "",
+        "async": "1",
+        "opt": [
+          "9",
+          "0"
+        ]
+      },
+      "25": {
+        "cmd": 910,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "1",
+        "opt": [
+          "se_event_whoosh_041"
+        ]
+      },
+      "26": {
+        "cmd": 40,
+        "target": 10,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": 2,
+        "text": "TX_SS_FC13_0100_0220",
+        "async": "0",
+        "opt": [
+          "1",
+          "0",
+          "0",
+          "0"
+        ]
+      },
+      "27": {
+        "cmd": 10,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "500"
+        ]
+      },
+      "28": {
+        "cmd": 240,
+        "target": 10,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": 2,
+        "text": "",
+        "async": "1",
+        "opt": [
+          "0",
+          "0"
+        ]
+      },
+      "29": {
+        "cmd": 40,
+        "target": 10,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": 2,
+        "text": "TX_SS_FC13_0100_0230",
+        "async": "0",
+        "opt": [
+          "1",
+          "0",
+          "0",
+          "0"
+        ]
+      },
+      "30": {
+        "cmd": 10,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "500"
+        ]
+      },
+      "31": {
+        "cmd": 240,
+        "target": 10,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": 2,
+        "text": "",
+        "async": "1",
+        "opt": [
+          "19",
+          "0"
+        ]
+      },
+      "32": {
+        "cmd": 910,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "1",
+        "opt": [
+          "se_event_whoosh_06"
+        ]
+      },
+      "33": {
+        "cmd": 40,
+        "target": 10,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": 2,
+        "text": "TX_SS_FC13_0100_0240",
+        "async": "0",
+        "opt": [
+          "1",
+          "0",
+          "0",
+          "0"
+        ]
+      },
+      "34": {
+        "cmd": 10,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "500"
+        ]
+      },
+      "35": {
+        "cmd": 240,
+        "target": 10,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": 2,
+        "text": "",
+        "async": "1",
+        "opt": [
+          "0",
+          "0"
+        ]
+      },
+      "36": {
+        "cmd": 40,
+        "target": 10,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": 2,
+        "text": "TX_SS_FC13_0100_0370",
+        "async": "0",
+        "opt": [
+          "1",
+          "0",
+          "0",
+          "0"
+        ]
+      },
+      "37": {
+        "cmd": 10,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "500"
+        ]
+      },
+      "38": {
+        "cmd": 240,
+        "target": 10,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": 2,
+        "text": "",
+        "async": "1",
+        "opt": [
+          "13",
+          "0"
+        ]
+      },
+      "39": {
+        "cmd": 910,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "1",
+        "opt": [
+          "se_event_whoosh_03"
+        ]
+      },
+      "40": {
+        "cmd": 40,
+        "target": 10,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": 2,
+        "text": "TX_SS_FC13_0100_0380",
+        "async": "0",
+        "opt": [
+          "1",
+          "0",
+          "0",
+          "0"
+        ]
+      },
+      "41": {
+        "cmd": 8620,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "INVENTION_ITEM_03"
+        ]
+      },
+      "42": {
+        "cmd": 70,
+        "target": 2410,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "1"
+        ]
+      },
+      "43": {
+        "cmd": 70,
+        "target": 20524,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "0"
+        ]
+      },
+      "44": {
+        "cmd": 10,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "500"
+        ]
+      },
+      "45": {
+        "cmd": 4000,
+        "target": 2408,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "",
+          "51"
+        ]
+      },
+      "46": {
+        "cmd": 4000,
+        "target": 2409,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "",
+          "51"
+        ]
+      },
+      "47": {
+        "cmd": 4000,
+        "target": 2410,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "",
+          "51"
+        ]
+      },
+      "48": {
+        "cmd": 4000,
+        "target": 2411,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "",
+          "51"
+        ]
+      },
+      "49": {
+        "cmd": 4000,
+        "target": 2412,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "",
+          "51"
+        ]
+      },
+      "50": {
+        "cmd": 4000,
+        "target": 2413,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "",
+          "51"
+        ]
+      },
+      "51": {
+        "cmd": 4000,
+        "target": 2414,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "68",
+          "51"
+        ]
+      },
+      "52": {
+        "cmd": 9100,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "1"
+        ]
+      },
+      "53": {
+        "cmd": 240,
+        "target": 10,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": 2,
+        "text": "",
+        "async": "1",
+        "opt": [
+          "0",
+          "0"
+        ]
+      },
+      "54": {
+        "cmd": 910,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "1",
+        "opt": [
+          "se_event_whoosh_041"
+        ]
+      },
+      "55": {
+        "cmd": 40,
+        "target": 10,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": 2,
+        "text": "TX_SS_FC13_0100_0390",
+        "async": "0",
+        "opt": [
+          "1",
+          "0",
+          "0",
+          "0"
+        ]
+      },
+      "56": {
+        "cmd": 10,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "500"
+        ]
+      },
+      "57": {
+        "cmd": 710,
+        "target": 10,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "11"
+        ]
+      },
+      "58": {
+        "cmd": 40,
+        "target": 10,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": 2,
+        "text": "TX_SS_FC13_0100_0400",
+        "async": "0",
+        "opt": [
+          "1",
+          "0",
+          "0",
+          "0"
+        ]
+      },
+      "59": {
+        "cmd": 10,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "1000"
+        ]
+      },
+      "60": {
+        "cmd": 62,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "2"
+        ]
+      },
+      "61": {
+        "cmd": 310,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          ""
+        ]
+      },
+      "62": {
+        "cmd": 8010,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "1"
+        ]
+      },
+      "63": {
+        "cmd": 100,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "1"
+        ]
+      },
+      "64": {
+        "cmd": 9990,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          ""
+        ]
+      },
+      "65": {
+        "cmd": 230,
+        "target": 0,
+        "pos": "X=-813,Y=1564,Z=193.15",
+        "dir": 3,
+        "text": "",
+        "async": "0",
+        "opt": [
+          ""
+        ]
+      },
+      "66": {
+        "cmd": 30,
+        "target": 5111,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": 3,
+        "text": "",
+        "async": "0",
+        "opt": [
+          ""
+        ]
+      },
+      "67": {
+        "cmd": 52,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "2"
+        ]
+      },
+      "68": {
+        "cmd": 10000,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          ""
+        ]
+      },
+      "69": {
+        "cmd": 62,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "2"
+        ]
+      },
+      "70": {
+        "cmd": 8030,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          ""
+        ]
+      },
+      "71": {
+        "cmd": 1000,
+        "target": -1,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          "SYS_INV_GUILD_9000"
+        ]
+      },
+      "72": {
+        "cmd": 10000,
+        "target": 0,
+        "pos": "X=0.0,Y=0.0,Z=0.0",
+        "dir": -1,
+        "text": "",
+        "async": "0",
+        "opt": [
+          ""
+        ]
+      }
+    }
+  },
+  "recipes": {
+    "source": "/Game/ExtraJobEvent/InventorEvent/Database/InventorInventionQuestDB",
+    "sha256": "6adc861b21339e2090f8942f30d70cdd8c1af0dc83086cd9dc5a2fa4e47632cb",
+    "rows": [
+      {
+        "id": "INVENTION_ITEM_01",
+        "ID": 0,
+        "InventionItemlabel": "ITM_TRE_INV_01",
+        "LearnAbilitylabel": "ABI_SET_INV_010",
+        "Materials": [
+          {
+            "Itemlabel": "ITM_CSM_0010",
+            "RequiredCount": 5
+          },
+          {
+            "Itemlabel": "ITM_CSM_0020",
+            "RequiredCount": 3
+          },
+          {
+            "Itemlabel": "None",
+            "RequiredCount": 0
+          },
+          {
+            "Itemlabel": "None",
+            "RequiredCount": 0
+          },
+          {
+            "Itemlabel": "None",
+            "RequiredCount": 0
+          },
+          {
+            "Itemlabel": "None",
+            "RequiredCount": 0
+          },
+          {
+            "Itemlabel": "None",
+            "RequiredCount": 0
+          }
+        ]
+      },
+      {
+        "id": "INVENTION_ITEM_02",
+        "ID": 1,
+        "InventionItemlabel": "ITM_TRE_INV_02",
+        "LearnAbilitylabel": "ABI_SET_INV_020",
+        "Materials": [
+          {
+            "Itemlabel": "ITM_CSM_0010",
+            "RequiredCount": 5
+          },
+          {
+            "Itemlabel": "ITM_CSM_0020",
+            "RequiredCount": 3
+          },
+          {
+            "Itemlabel": "None",
+            "RequiredCount": 0
+          },
+          {
+            "Itemlabel": "None",
+            "RequiredCount": 0
+          },
+          {
+            "Itemlabel": "None",
+            "RequiredCount": 0
+          },
+          {
+            "Itemlabel": "None",
+            "RequiredCount": 0
+          },
+          {
+            "Itemlabel": "None",
+            "RequiredCount": 0
+          }
+        ]
+      },
+      {
+        "id": "INVENTION_ITEM_03",
+        "ID": 2,
+        "InventionItemlabel": "ITM_TRE_INV_03",
+        "LearnAbilitylabel": "ABI_SET_INV_030",
+        "Materials": [
+          {
+            "Itemlabel": "ITM_EQP_ACS_390",
+            "RequiredCount": 1
+          },
+          {
+            "Itemlabel": "ITM_EQP_ACS_420",
+            "RequiredCount": 1
+          },
+          {
+            "Itemlabel": "None",
+            "RequiredCount": 0
+          },
+          {
+            "Itemlabel": "None",
+            "RequiredCount": 0
+          },
+          {
+            "Itemlabel": "None",
+            "RequiredCount": 0
+          },
+          {
+            "Itemlabel": "None",
+            "RequiredCount": 0
+          },
+          {
+            "Itemlabel": "None",
+            "RequiredCount": 0
+          }
+        ]
+      },
+      {
+        "id": "INVENTION_ITEM_04",
+        "ID": 3,
+        "InventionItemlabel": "ITM_TRE_INV_04",
+        "LearnAbilitylabel": "ABI_SET_INV_040",
+        "Materials": [
+          {
+            "Itemlabel": "ITM_CSM_0290",
+            "RequiredCount": 1
+          },
+          {
+            "Itemlabel": "ITM_CSM_0320",
+            "RequiredCount": 1
+          },
+          {
+            "Itemlabel": "ITM_CSM_0350",
+            "RequiredCount": 1
+          },
+          {
+            "Itemlabel": "ITM_TRE_INV_PARTS_01",
+            "RequiredCount": 1
+          },
+          {
+            "Itemlabel": "None",
+            "RequiredCount": 0
+          },
+          {
+            "Itemlabel": "None",
+            "RequiredCount": 0
+          },
+          {
+            "Itemlabel": "None",
+            "RequiredCount": 0
+          }
+        ]
+      },
+      {
+        "id": "INVENTION_ITEM_05",
+        "ID": 4,
+        "InventionItemlabel": "ITM_TRE_INV_05",
+        "LearnAbilitylabel": "ABI_SET_INV_050",
+        "Materials": [
+          {
+            "Itemlabel": "ITM_CSM_0220",
+            "RequiredCount": 1
+          },
+          {
+            "Itemlabel": "ITM_TRE_INV_PARTS_03",
+            "RequiredCount": 1
+          },
+          {
+            "Itemlabel": "ITM_TRE_INV_PARTS_02",
+            "RequiredCount": 1
+          },
+          {
+            "Itemlabel": "None",
+            "RequiredCount": 0
+          },
+          {
+            "Itemlabel": "None",
+            "RequiredCount": 0
+          },
+          {
+            "Itemlabel": "None",
+            "RequiredCount": 0
+          },
+          {
+            "Itemlabel": "None",
+            "RequiredCount": 0
+          }
+        ]
+      },
+      {
+        "id": "INVENTION_ITEM_06",
+        "ID": 5,
+        "InventionItemlabel": "ITM_TRE_INV_06",
+        "LearnAbilitylabel": "ABI_SET_INV_060",
+        "Materials": [
+          {
+            "Itemlabel": "ITM_EQP_BOW_120",
+            "RequiredCount": 1
+          },
+          {
+            "Itemlabel": "ITM_EQP_SWD_150",
+            "RequiredCount": 1
+          },
+          {
+            "Itemlabel": "ITM_EQP_AXE_140",
+            "RequiredCount": 1
+          },
+          {
+            "Itemlabel": "None",
+            "RequiredCount": 0
+          },
+          {
+            "Itemlabel": "None",
+            "RequiredCount": 0
+          },
+          {
+            "Itemlabel": "None",
+            "RequiredCount": 0
+          },
+          {
+            "Itemlabel": "None",
+            "RequiredCount": 0
+          }
+        ]
+      },
+      {
+        "id": "INVENTION_ITEM_07",
+        "ID": 6,
+        "InventionItemlabel": "ITM_TRE_INV_07",
+        "LearnAbilitylabel": "ABI_SET_INV_070",
+        "Materials": [
+          {
+            "Itemlabel": "ITM_TRE_INV_PARTS_04",
+            "RequiredCount": 1
+          },
+          {
+            "Itemlabel": "ITM_TRE_INV_PARTS_05",
+            "RequiredCount": 1
+          },
+          {
+            "Itemlabel": "ITM_TRE_INV_PARTS_06",
+            "RequiredCount": 1
+          },
+          {
+            "Itemlabel": "None",
+            "RequiredCount": 0
+          },
+          {
+            "Itemlabel": "None",
+            "RequiredCount": 0
+          },
+          {
+            "Itemlabel": "None",
+            "RequiredCount": 0
+          },
+          {
+            "Itemlabel": "None",
+            "RequiredCount": 0
+          }
+        ]
+      },
+      {
+        "id": "INVENTION_ITEM_08",
+        "ID": 7,
+        "InventionItemlabel": "ITM_TRE_INV_08",
+        "LearnAbilitylabel": "ABI_SET_INV_080",
+        "Materials": [
+          {
+            "Itemlabel": "ITM_CSM_0010",
+            "RequiredCount": 5
+          },
+          {
+            "Itemlabel": "ITM_CSM_0020",
+            "RequiredCount": 3
+          },
+          {
+            "Itemlabel": "ITM_CSM_0030",
+            "RequiredCount": 1
+          },
+          {
+            "Itemlabel": "ITM_CSM_0040",
+            "RequiredCount": 5
+          },
+          {
+            "Itemlabel": "ITM_CSM_0050",
+            "RequiredCount": 3
+          },
+          {
+            "Itemlabel": "ITM_CSM_0060",
+            "RequiredCount": 1
+          },
+          {
+            "Itemlabel": "None",
+            "RequiredCount": 0
+          }
+        ]
+      }
+    ]
+  },
+  "guild": {
+    "id": "GUILD_008",
+    "ID": 9,
+    "GuildName": "None",
+    "GuildNpcLabel": "NPC_Fld_Cty_1_3_GUILD",
+    "WorldMapLocation": "eMAP_Fld_Cty_1_3",
+    "LicenseItem": "None",
+    "GuildStampLabel": "None",
+    "JobIconLabel": "None",
+    "FistTaskEvent": "None",
+    "FirstReconfirm": "None",
+    "JobLicenseData": [
+      {
+        "TaskTitle": "None",
+        "NeedItemLabel": "None",
+        "NeedItemNum": 0,
+        "NeedMoney": 0,
+        "NeedAbility": "None",
+        "LearnedCount": 0,
+        "TaskDescription": "None"
+      },
+      {
+        "TaskTitle": "None",
+        "NeedItemLabel": "None",
+        "NeedItemNum": 0,
+        "NeedMoney": 0,
+        "NeedAbility": "None",
+        "LearnedCount": 0,
+        "TaskDescription": "None"
+      },
+      {
+        "TaskTitle": "None",
+        "NeedItemLabel": "None",
+        "NeedItemNum": 0,
+        "NeedMoney": 0,
+        "NeedAbility": "None",
+        "LearnedCount": 0,
+        "TaskDescription": "None"
+      }
+    ],
+    "GuildTalkData": [
+      {
+        "Title": "None",
+        "TalkEvent": "None"
+      },
+      {
+        "Title": "None",
+        "TalkEvent": "None"
+      },
+      {
+        "Title": "None",
+        "TalkEvent": "None"
+      }
+    ],
+    "CompleteEvent": [
+      "None",
+      "None",
+      "None"
+    ],
+    "OpenGuildMenu": false,
+    "UnVisitedShowRadarIcon": false,
+    "OverrideEmotion": 21
+  },
+  "quest": {
+    "id": "SS_CTY1_0700",
+    "ID": 6,
+    "AreaIndex": 1,
+    "StoryCategory": "ESUB_STORY_CATEGORY::COMMON",
+    "MissionIndex": 46,
+    "WorldMapIcon": "eMAP_Fld_Cty_1_3",
+    "StartConditionParty": [
+      "EPlayableCharacterID::eNONE",
+      "EPlayableCharacterID::eNONE",
+      "EPlayableCharacterID::eNONE",
+      "EPlayableCharacterID::eNONE"
+    ],
+    "TitleTextLabel": "SMR_FC13_0100_TITLE",
+    "DetailTextLabel": "SMR_FC13_0100_DETAIL",
+    "ClearTextLabel": [
+      "SMR_FC13_0100_RESULT",
+      "None",
+      "None"
+    ],
+    "NPCName": "CN_NPC_SS_FC13_0100_0100",
+    "NPCLabel": "JobMasterInv_Mle",
+    "RewardMoney": 10000,
+    "RewardParam": [
+      "ITM_EQP_HLM_370",
+      "1",
+      "None",
+      "None",
+      "None",
+      "None"
+    ],
+    "RelatedMainStoryTask": "None",
+    "RelatedFlagSections": [
+      {
+        "Begin": 20417,
+        "End": 20419
+      },
+      {
+        "Begin": 0,
+        "End": 0
+      },
+      {
+        "Begin": 0,
+        "End": 0
+      }
+    ]
+  },
+  "blueprint": {
+    "asset": "Event/BP/EventManagerBP",
+    "sha256": "053e599edcedaf453820b17a7a71fbfa9ca33c63807080ea2dedc0c1f5a3c4cb",
+    "functions": {
+      "StartInventorEventDialog": "6548c LetBool\n  6548d LocalVariable CallFunc_StartInventorEventDialog_ReturnValue\n  6549e FinalFunction import:-503:StartInventorEventDialog\n    654a3 LocalOutVariable refEventData\n654b5 LetBool\n  654b6 LocalVariable CallFunc_IsTheaterMode_ReturnValue\n  654c7 FinalFunction import:-417:IsTheaterMode\n654cd LetBool\n  654ce LocalVariable CallFunc_Not_PreBool_ReturnValue\n  654df CallMath import:-303:Not_PreBool\n    654e4 LocalVariable CallFunc_IsTheaterMode_ReturnValue\n654f6 JumpIfNot target=509\n  654fb LocalVariable CallFunc_Not_PreBool_ReturnValue\n6550c Context skip=42 rvalue=<null-field>\n  6550d ObjectConst import:-826:Default__KismetArrayLibrary\n  6551e FinalFunction import:-262:Array_Get\n    65523 StructMemberContext OptAry\n      65534 LocalOutVariable refEventData\n    65545 IntConst 0\n    6554a LocalVariable CallFunc_Array_Get_Item\n6555c Let property=CallFunc_Conv_StringToName_ReturnValue\n  6556d LocalVariable CallFunc_Conv_StringToName_ReturnValue\n  6557e CallMath import:-328:Conv_StringToName\n    65583 LocalVariable CallFunc_Array_Get_Item\n65595 LetBool\n  65596 LocalVariable CallFunc_GetDataTableRowFromName_ReturnValue\n  655a7 Context skip=37 rvalue=CallFunc_GetDataTableRowFromName_ReturnValue\n    655a8 ObjectConst import:-189:Default__DataTableFunctionLibrary\n    655c1 FinalFunction import:-251:GetDataTableRowFromName\n      655c6 ObjectConst import:-187:InventorInventionQuestDB\n      655cb LocalVariable CallFunc_Conv_StringToName_ReturnValue\n      655dc LocalVariable CallFunc_GetDataTableRowFromName_OutRow\n655ee JumpIfNot target=509\n  655f3 LocalVariable CallFunc_GetDataTableRowFromName_ReturnValue\n65604 Context skip=19 rvalue=<null-field>\n  65605 ObjectConst import:-826:Default__KismetArrayLibrary\n  65616 FinalFunction import:-260:Array_Clear\n    6561b InstanceVariable RequestInventionItemDetail\n6562d Context skip=19 rvalue=<null-field>\n  6562e ObjectConst import:-826:Default__KismetArrayLibrary\n  6563f FinalFunction import:-260:Array_Clear\n    65644 InstanceVariable RequestInventionItemNum\n65656 Context skip=19 rvalue=<null-field>\n  65657 ObjectConst import:-826:Default__KismetArrayLibrary\n  65668 FinalFunction import:-260:Array_Clear\n    6566d InstanceVariable EquippedReasonItemList\n6567f Let property=InventorArg\n  65690 InstanceVariable InventorArg\n  656a1 StructMemberContext OptAry\n    656b2 LocalOutVariable refEventData\n656c3 Let property=TargetInventionData\n  656d4 InstanceVariable TargetInventionData\n  656e5 LocalVariable CallFunc_GetDataTableRowFromName_OutRow\n656f6 Let property=InventorParam\n  65707 InstanceVariable InventorParam\n  65718 ByteConst 1\n6571a LetBool\n  6571b InstanceVariable RequestEquipItemDialog\n  6572c False\n6572d LetBool\n  6572e LocalOutVariable ReturnValue\n  6573f True\n65740 Jump target=540\n65745 Let property=InventorParam\n  65756 InstanceVariable InventorParam\n  65767 ByteConst 0\n65769 LetBool\n  6576a LocalOutVariable ReturnValue\n  6577b True\n6577c Return\n  6577d LocalOutVariable ReturnValue\n6578e EndOfScript",
+      "StartInventorLearnAbility": "6591e LetBool\n  6591f LocalVariable CallFunc_StartInventorLearnAbility_ReturnValue\n  65930 FinalFunction import:-504:StartInventorLearnAbility\n    65935 LocalOutVariable refEventData\n65947 Context skip=42 rvalue=<null-field>\n  65948 ObjectConst import:-826:Default__KismetArrayLibrary\n  65959 FinalFunction import:-262:Array_Get\n    6595e StructMemberContext OptAry\n      6596f LocalOutVariable refEventData\n    65980 IntConst 0\n    65985 LocalVariable CallFunc_Array_Get_Item\n65997 Let property=CallFunc_Conv_StringToName_ReturnValue\n  659a8 LocalVariable CallFunc_Conv_StringToName_ReturnValue\n  659b9 CallMath import:-328:Conv_StringToName\n    659be LocalVariable CallFunc_Array_Get_Item\n659d0 LetBool\n  659d1 LocalVariable CallFunc_GetDataTableRowFromName_ReturnValue\n  659e2 Context skip=37 rvalue=CallFunc_GetDataTableRowFromName_ReturnValue\n    659e3 ObjectConst import:-189:Default__DataTableFunctionLibrary\n    659fc FinalFunction import:-251:GetDataTableRowFromName\n      65a01 ObjectConst import:-187:InventorInventionQuestDB\n      65a06 LocalVariable CallFunc_Conv_StringToName_ReturnValue\n      65a17 LocalVariable CallFunc_GetDataTableRowFromName_OutRow\n65a29 JumpIfNot target=276\n  65a2e LocalVariable CallFunc_GetDataTableRowFromName_ReturnValue\n65a3f Let property=TargetInventionData\n  65a50 InstanceVariable TargetInventionData\n  65a61 LocalVariable CallFunc_GetDataTableRowFromName_OutRow\n65a72 Let property=InventorAbilityParam\n  65a83 InstanceVariable InventorAbilityParam\n  65a94 ByteConst 1\n65a96 LetBool\n  65a97 LocalOutVariable ReturnValue\n  65aa8 True\n65aa9 Jump target=307\n65aae Let property=InventorAbilityParam\n  65abf InstanceVariable InventorAbilityParam\n  65ad0 ByteConst 0\n65ad2 LetBool\n  65ad3 LocalOutVariable ReturnValue\n  65ae4 True\n65ae5 Return\n  65ae6 LocalOutVariable ReturnValue\n65af7 EndOfScript",
+      "UpdateInventorEventDialog": "65c25 LetBool\n  65c26 LocalVariable CallFunc_UpdateInventorEventDialog_ReturnValue\n  65c37 FinalFunction import:-583:UpdateInventorEventDialog\n    65c3c LocalVariable DeltaTime\n65c4e LocalVirtualFunction UpdateInventorFrow\n  65c57 LocalVariable CallFunc_UpdateInventorFrow_ReturnParam\n65c69 LetBool\n  65c6a LocalVariable CallFunc_EqualEqual_ByteByte_ReturnValue\n  65c7b CallMath import:-286:EqualEqual_ByteByte\n    65c80 LocalVariable CallFunc_UpdateInventorFrow_ReturnParam\n    65c91 ByteConst 1\n65c94 LetBool\n  65c95 LocalOutVariable ReturnValue\n  65ca6 LocalVariable CallFunc_EqualEqual_ByteByte_ReturnValue\n65cb7 Return\n  65cb8 LocalOutVariable ReturnValue\n65cc9 EndOfScript",
+      "UpdateInventorFrow": "66c8c PushExecutionFlow target=4123\n66c91 PushExecutionFlow target=416\n66c96 LetBool\n  66c97 LocalVariable K2Node_SwitchEnum_CmpSuccess\n  66ca8 CallMath import:-305:NotEqual_ByteByte\n    66cad InstanceVariable InventorParam\n    66cbe ByteConst 0\n66cc1 JumpIfNot target=441\n  66cc6 LocalVariable K2Node_SwitchEnum_CmpSuccess\n66cd7 LetBool\n  66cd8 LocalVariable K2Node_SwitchEnum_CmpSuccess\n  66ce9 CallMath import:-305:NotEqual_ByteByte\n    66cee InstanceVariable InventorParam\n    66cff ByteConst 1\n66d02 JumpIfNot target=466\n  66d07 LocalVariable K2Node_SwitchEnum_CmpSuccess\n66d18 LetBool\n  66d19 LocalVariable K2Node_SwitchEnum_CmpSuccess\n  66d2a CallMath import:-305:NotEqual_ByteByte\n    66d2f InstanceVariable InventorParam\n    66d40 ByteConst 2\n66d43 JumpIfNot target=758\n  66d48 LocalVariable K2Node_SwitchEnum_CmpSuccess\n66d59 LetBool\n  66d5a LocalVariable K2Node_SwitchEnum_CmpSuccess\n  66d6b CallMath import:-305:NotEqual_ByteByte\n    66d70 InstanceVariable InventorParam\n    66d81 ByteConst 3\n66d84 JumpIfNot target=1321\n  66d89 LocalVariable K2Node_SwitchEnum_CmpSuccess\n66d9a LetBool\n  66d9b LocalVariable K2Node_SwitchEnum_CmpSuccess\n  66dac CallMath import:-305:NotEqual_ByteByte\n    66db1 InstanceVariable InventorParam\n    66dc2 ByteConst 4\n66dc5 JumpIfNot target=1508\n  66dca LocalVariable K2Node_SwitchEnum_CmpSuccess\n66ddb LetBool\n  66ddc LocalVariable K2Node_SwitchEnum_CmpSuccess\n  66ded CallMath import:-305:NotEqual_ByteByte\n    66df2 InstanceVariable InventorParam\n    66e03 ByteConst 5\n66e06 JumpIfNot target=2172\n  66e0b LocalVariable K2Node_SwitchEnum_CmpSuccess\n66e1c LetBool\n  66e1d LocalVariable K2Node_SwitchEnum_CmpSuccess\n  66e2e CallMath import:-305:NotEqual_ByteByte\n    66e33 InstanceVariable InventorParam\n    66e44 ByteConst 6\n66e47 JumpIfNot target=2708\n  66e4c LocalVariable K2Node_SwitchEnum_CmpSuccess\n66e5d LetBool\n  66e5e LocalVariable K2Node_SwitchEnum_CmpSuccess\n  66e6f CallMath import:-305:NotEqual_ByteByte\n    66e74 InstanceVariable InventorParam\n    66e85 ByteConst 7\n66e88 JumpIfNot target=3662\n  66e8d LocalVariable K2Node_SwitchEnum_CmpSuccess\n66e9e LetBool\n  66e9f LocalVariable K2Node_SwitchEnum_CmpSuccess\n  66eb0 CallMath import:-305:NotEqual_ByteByte\n    66eb5 InstanceVariable InventorParam\n    66ec6 ByteConst 8\n66ec9 JumpIfNot target=1321\n  66ece LocalVariable K2Node_SwitchEnum_CmpSuccess\n66edf PopExecutionFlow\n66ee0 Let property=ReturnParam\n  66ef1 LocalOutVariable ReturnParam\n  66f02 ByteConst 0\n66f04 Jump target=4123\n66f09 Let property=ReturnParam\n  66f1a LocalOutVariable ReturnParam\n  66f2b ByteConst 1\n66f2d Jump target=4123\n66f32 Let property=CallFunc_GetNoBoostAbility_ReturnValue\n  66f43 LocalVariable CallFunc_GetNoBoostAbility_ReturnValue\n  66f54 Context skip=42 rvalue=CallFunc_GetNoBoostAbility_ReturnValue\n    66f55 ObjectConst import:-843:Default__LibCharacter_C\n    66f6e LocalVirtualFunction GetNoBoostAbility\n      66f77 StructMemberContext LearnAbilitylabel\n        66f88 InstanceVariable TargetInventionData\n      66f99 Self\n      66f9a LocalVariable CallFunc_GetNoBoostAbility_IsSuccess\n66fac JumpIfNot target=733\n  66fb1 LocalVariable CallFunc_GetNoBoostAbility_IsSuccess\n66fc2 CallMath import:-678:GetGameText\n  66fc7 StructMemberContext DisplayName\n    66fd8 LocalVariable CallFunc_GetNoBoostAbility_ReturnValue\n  66fe9 LocalVariable CallFunc_GetGameText_OutText_2\n66ffb Let property=InventorItemName\n  6700c InstanceVariable InventorItemName\n  6701d LocalVariable CallFunc_GetGameText_OutText_2\n6702e LocalVirtualFunction CheckInventorItemList\n  67037 LocalVariable CallFunc_CheckInventorItemList_EnoughItem\n  67048 LocalVariable CallFunc_CheckInventorItemList_EquipItem\n6705a LetBool\n  6705b InstanceVariable RequestEquipItemDialog\n  6706c LocalVariable CallFunc_CheckInventorItemList_EquipItem\n6707d JumpIfNot target=712\n  67082 LocalVariable CallFunc_CheckInventorItemList_EnoughItem\n67093 Let property=InventorParam\n  670a4 InstanceVariable InventorParam\n  670b5 ByteConst 4\n670b7 PopExecutionFlow\n670b8 Let property=InventorParam\n  670c9 InstanceVariable InventorParam\n  670da ByteConst 2\n670dc PopExecutionFlow\n670dd Let property=InventorItemName\n  670ee InstanceVariable InventorItemName\n  670ff TextConst kind=0\n67101 Jump target=626\n67106 LetObj\n  67107 LocalVariable CallFunc_GetManagerInstance_ReturnValue\n  67118 CallMath import:-355:GetManagerInstance\n    6711d ObjectConst import:-85:DialogManager\n67123 CallMath import:-678:GetGameText\n  67128 NameConst aGUILD_TYPE_12_DIALOG_02\n  67131 LocalVariable CallFunc_GetGameText_OutText_1\n67143 Context skip=43 rvalue=<null-field>\n  67144 ObjectConst import:-825:Default__ItemFunction_C\n  67155 LocalVirtualFunction GetItemTextFromArray\n    6715e InstanceVariable RequestInventionItemDetail\n    6716f InstanceVariable RequestInventionItemNum\n    67180 True\n    67181 Self\n    67182 LocalVariable CallFunc_GetItemTextFromArray_Text_1\n67194 Let property=ArgumentName\n  671a5 StructMemberContext ArgumentName\n    671b6 LocalVariable K2Node_MakeStruct_FormatArgumentData_2\n  671c7 StringConst \"0\"\n671ca Let property=ArgumentValueType\n  671db StructMemberContext ArgumentValueType\n    671ec LocalVariable K2Node_MakeStruct_FormatArgumentData_2\n  671fd ByteConst 4\n671ff Let property=ArgumentValue\n  67210 StructMemberContext ArgumentValue\n    67221 LocalVariable K2Node_MakeStruct_FormatArgumentData_2\n  67232 LocalVariable CallFunc_GetItemTextFromArray_Text_1\n67243 Let property=ArgumentValueInt\n  67254 StructMemberContext ArgumentValueInt\n    67265 LocalVariable K2Node_MakeStruct_FormatArgumentData_2\n  67276 IntConst 0\n6727b Let property=ArgumentValueFloat\n  6728c StructMemberContext ArgumentValueFloat\n    6729d LocalVariable K2Node_MakeStruct_FormatArgumentData_2\n  672ae FloatConst 0\n672b3 Let property=ArgumentValueGender\n  672c4 StructMemberContext ArgumentValueGender\n    672d5 LocalVariable K2Node_MakeStruct_FormatArgumentData_2\n  672e6 ByteConst 0\n672e8 SetArray\n  672e9 LocalVariable K2Node_MakeArray_Array_3\n  672fa LocalVariable K2Node_MakeStruct_FormatArgumentData_2\n6730c Let property=CallFunc_Format_ReturnValue_2\n  6731d LocalVariable CallFunc_Format_ReturnValue_2\n  6732e CallMath import:-344:Format\n    67333 LocalVariable CallFunc_GetGameText_OutText_1\n    67344 LocalVariable K2Node_MakeArray_Array_3\n67356 CallMath import:-678:GetGameText\n  6735b NameConst eDIALOG_OK\n  67364 LocalVariable CallFunc_GetGameText_OutText_5\n67376 SetArray\n  67377 LocalVariable K2Node_MakeArray_Array_5\n  67388 LocalVariable CallFunc_GetGameText_OutText_5\n6739a Let property=CallFunc_CreateEventParam_ReturnValue_1\n  673ab LocalVariable CallFunc_CreateEventParam_ReturnValue_1\n  673bc CallMath import:-719:CreateEventParam\n    673c1 InstanceVariable InventorItemName\n    673d2 LocalVariable CallFunc_Format_ReturnValue_2\n    673e3 LocalVariable K2Node_MakeArray_Array_5\n673f5 LetObj\n  673f6 LocalVariable CallFunc_OpenRequestDialog_ReturnValue_1\n  67407 Context skip=23 rvalue=CallFunc_OpenRequestDialog_ReturnValue_1\n    67408 LocalVariable CallFunc_GetManagerInstance_ReturnValue\n    6742d VirtualFunction OpenRequestDialog\n      67436 LocalVariable CallFunc_CreateEventParam_ReturnValue_1\n67448 Let property=InventorParam\n  67459 InstanceVariable InventorParam\n  6746a ByteConst 3\n6746c PopExecutionFlow\n6746d CallMath import:-724:IsDialogRunning\n  67472 LocalVariable CallFunc_IsDialogRunning_IsRunning_1\n67484 JumpIfNot target=1355\n  67489 LocalVariable CallFunc_IsDialogRunning_IsRunning_1\n6749a PopExecutionFlow\n6749b Context skip=42 rvalue=<null-field>\n  6749c ObjectConst import:-826:Default__KismetArrayLibrary\n  674ad FinalFunction import:-262:Array_Get\n    674b2 StructMemberContext Args\n      674c3 InstanceVariable PlayEventData\n    674d4 IntConst 1\n    674d9 LocalVariable CallFunc_Array_Get_Item_4\n674eb Let property=CallFunc_Conv_StringToInt_ReturnValue_1\n  674fc LocalVariable CallFunc_Conv_StringToInt_ReturnValue_1\n  6750d CallMath import:-327:Conv_StringToInt\n    67512 LocalVariable CallFunc_Array_Get_Item_4\n67524 Let property=EventIndex\n  67535 InstanceVariable EventIndex\n  67546 LocalVariable CallFunc_Conv_StringToInt_ReturnValue_1\n67557 Let property=ReturnParam\n  67568 LocalOutVariable ReturnParam\n  67579 ByteConst 1\n6757b Jump target=4123\n67580 Context skip=43 rvalue=<null-field>\n  67581 ObjectConst import:-825:Default__ItemFunction_C\n  67592 LocalVirtualFunction GetItemTextFromArray\n    6759b InstanceVariable RequestInventionItemDetail\n    675ac InstanceVariable RequestInventionItemNum\n    675bd True\n    675be Self\n    675bf LocalVariable CallFunc_GetItemTextFromArray_Text\n675d1 Let property=ArgumentName\n  675e2 StructMemberContext ArgumentName\n    675f3 LocalVariable K2Node_MakeStruct_FormatArgumentData_1\n  67604 StringConst \"0\"\n67607 Let property=ArgumentValueType\n  67618 StructMemberContext ArgumentValueType\n    67629 LocalVariable K2Node_MakeStruct_FormatArgumentData_1\n  6763a ByteConst 4\n6763c Let property=ArgumentValue\n  6764d StructMemberContext ArgumentValue\n    6765e LocalVariable K2Node_MakeStruct_FormatArgumentData_1\n  6766f LocalVariable CallFunc_GetItemTextFromArray_Text\n67680 Let property=ArgumentValueInt\n  67691 StructMemberContext ArgumentValueInt\n    676a2 LocalVariable K2Node_MakeStruct_FormatArgumentData_1\n  676b3 IntConst 0\n676b8 Let property=ArgumentValueFloat\n  676c9 StructMemberContext ArgumentValueFloat\n    676da LocalVariable K2Node_MakeStruct_FormatArgumentData_1\n  676eb FloatConst 0\n676f0 Let property=ArgumentValueGender\n  67701 StructMemberContext ArgumentValueGender\n    67712 LocalVariable K2Node_MakeStruct_FormatArgumentData_1\n  67723 ByteConst 0\n67725 SetArray\n  67726 LocalVariable K2Node_MakeArray_Array_1\n  67737 LocalVariable K2Node_MakeStruct_FormatArgumentData_1\n67749 CallMath import:-678:GetGameText\n  6774e NameConst aGUILD_TYPE_12_DIALOG_01\n  67757 LocalVariable CallFunc_GetGameText_OutText\n67769 Let property=CallFunc_Format_ReturnValue_1\n  6777a LocalVariable CallFunc_Format_ReturnValue_1\n  6778b CallMath import:-344:Format\n    67790 LocalVariable CallFunc_GetGameText_OutText\n    677a1 LocalVariable K2Node_MakeArray_Array_1\n677b3 CallMath import:-678:GetGameText\n  677b8 NameConst eDIALOG_NO\n  677c1 LocalVariable CallFunc_GetGameText_OutText_3\n677d3 CallMath import:-678:GetGameText\n  677d8 NameConst eDIALOG_YES\n  677e1 LocalVariable CallFunc_GetGameText_OutText_4\n677f3 BindDelegate DialogFinishCallback\n  677fc LocalVariable K2Node_CreateDelegate_OutputDelegate\n  6780d Self\n6780e SetArray\n  6780f LocalVariable K2Node_MakeArray_Array_4\n  67820 LocalVariable CallFunc_GetGameText_OutText_4\n  67831 LocalVariable CallFunc_GetGameText_OutText_3\n67843 Let property=CallFunc_CreateEventParam_CancelKey_FinishCallback_ReturnValue\n  67854 LocalVariable CallFunc_CreateEventParam_CancelKey_FinishCallback_ReturnValue\n  67865 CallMath import:-721:CreateEventParam_CancelKey_FinishCallback\n    6786a InstanceVariable InventorItemName\n    6787b LocalVariable CallFunc_Format_ReturnValue_1\n    6788c LocalVariable K2Node_MakeArray_Array_4\n    6789d False\n    6789e LocalVariable K2Node_CreateDelegate_OutputDelegate\n678b0 Let property=TmpDialogParam\n  678c1 LocalVariable TmpDialogParam\n  678d2 LocalVariable CallFunc_CreateEventParam_CancelKey_FinishCallback_ReturnValue\n678e3 LetObj\n  678e4 LocalVariable CallFunc_GetManagerInstance_ReturnValue_1\n  678f5 CallMath import:-355:GetManagerInstance\n    678fa ObjectConst import:-85:DialogManager\n67900 LetObj\n  67901 LocalVariable CallFunc_OpenRequestDialog_ReturnValue\n  67912 Context skip=23 rvalue=CallFunc_OpenRequestDialog_ReturnValue\n    67913 LocalVariable CallFunc_GetManagerInstance_ReturnValue_1\n    67938 VirtualFunction OpenRequestDialog\n      67941 LocalVariable TmpDialogParam\n67953 Let property=InventorParam\n  67964 InstanceVariable InventorParam\n  67975 ByteConst 5\n67977 PopExecutionFlow\n67978 CallMath import:-724:IsDialogRunning\n  6797d LocalVariable CallFunc_IsDialogRunning_IsRunning\n6798f JumpIfNot target=2206\n  67994 LocalVariable CallFunc_IsDialogRunning_IsRunning\n679a5 PopExecutionFlow\n679a6 Context skip=33 rvalue=<null-field>\n  679a7 ObjectConst import:-826:Default__KismetArrayLibrary\n  679b8 FinalFunction import:-262:Array_Get\n    679bd InstanceVariable InventorArg\n    679ce IntConst 3\n    679d3 LocalVariable CallFunc_Array_Get_Item\n679e5 Context skip=33 rvalue=<null-field>\n  679e6 ObjectConst import:-826:Default__KismetArrayLibrary\n  679f7 FinalFunction import:-262:Array_Get\n    679fc InstanceVariable InventorArg\n    67a0d IntConst 2\n    67a12 LocalVariable CallFunc_Array_Get_Item_1\n67a24 Let property=CallFunc_Conv_StringToName_ReturnValue\n  67a35 LocalVariable CallFunc_Conv_StringToName_ReturnValue\n  67a46 CallMath import:-328:Conv_StringToName\n    67a4b LocalVariable CallFunc_Array_Get_Item\n67a5d Let property=CallFunc_Conv_StringToName_ReturnValue_1\n  67a6e LocalVariable CallFunc_Conv_StringToName_ReturnValue_1\n  67a7f CallMath import:-328:Conv_StringToName\n    67a84 LocalVariable CallFunc_Array_Get_Item_1\n67a96 SetArray\n  67a97 LocalVariable K2Node_MakeArray_Array_2\n  67aa8 LocalVariable CallFunc_Conv_StringToName_ReturnValue_1\n  67ab9 LocalVariable CallFunc_Conv_StringToName_ReturnValue\n67acb Context skip=37 rvalue=<null-field>\n  67acc ObjectConst import:-826:Default__KismetArrayLibrary\n  67add FinalFunction import:-262:Array_Get\n    67ae2 LocalVariable K2Node_MakeArray_Array_2\n    67af3 InstanceVariable DialogSelectIndex\n    67b04 LocalVariable CallFunc_Array_Get_Item_3\n67b16 Let property=CallFunc_Conv_NameToString_ReturnValue_1\n  67b27 LocalVariable CallFunc_Conv_NameToString_ReturnValue_1\n  67b38 CallMath import:-325:Conv_NameToString\n    67b3d LocalVariable CallFunc_Array_Get_Item_3\n67b4f Let property=CallFunc_Conv_StringToInt_ReturnValue\n  67b60 LocalVariable CallFunc_Conv_StringToInt_ReturnValue\n  67b71 CallMath import:-327:Conv_StringToInt\n    67b76 LocalVariable CallFunc_Conv_NameToString_ReturnValue_1\n67b88 Let property=EventIndex\n  67b99 InstanceVariable EventIndex\n  67baa LocalVariable CallFunc_Conv_StringToInt_ReturnValue\n67bbb LetBool\n  67bbc LocalVariable CallFunc_EqualEqual_IntInt_ReturnValue\n  67bcd CallMath import:-287:EqualEqual_IntInt\n    67bd2 InstanceVariable DialogSelectIndex\n    67be3 IntConst 0\n67be9 JumpIfNot target=2683\n  67bee LocalVariable CallFunc_EqualEqual_IntInt_ReturnValue\n67bff JumpIfNot target=2662\n  67c04 InstanceVariable RequestEquipItemDialog\n67c15 Let property=InventorParam\n  67c26 InstanceVariable InventorParam\n  67c37 ByteConst 7\n67c39 PopExecutionFlow\n67c3a Let property=InventorParam\n  67c4b InstanceVariable InventorParam\n  67c5c ByteConst 6\n67c5e PopExecutionFlow\n67c5f Let property=ReturnParam\n  67c70 LocalOutVariable ReturnParam\n  67c81 ByteConst 1\n67c83 Jump target=4123\n67c88 Let property=Temp_int_Loop_Counter_Variable\n  67c99 LocalVariable Temp_int_Loop_Counter_Variable\n  67caa IntConst 0\n67caf Let property=Temp_int_Array_Index_Variable\n  67cc0 LocalVariable Temp_int_Array_Index_Variable\n  67cd1 IntConst 0\n67cd6 Let property=CallFunc_Array_Length_ReturnValue\n  67ce7 LocalVariable CallFunc_Array_Length_ReturnValue\n  67cf8 Context skip=28 rvalue=CallFunc_Array_Length_ReturnValue\n    67cf9 ObjectConst import:-826:Default__KismetArrayLibrary\n    67d12 FinalFunction import:-264:Array_Length\n      67d17 StructMemberContext Materials\n        67d28 InstanceVariable TargetInventionData\n67d3a LetBool\n  67d3b LocalVariable CallFunc_Less_IntInt_ReturnValue\n  67d4c CallMath import:-296:Less_IntInt\n    67d51 LocalVariable Temp_int_Loop_Counter_Variable\n    67d62 LocalVariable CallFunc_Array_Length_ReturnValue\n67d74 JumpIfNot target=3637\n  67d79 LocalVariable CallFunc_Less_IntInt_ReturnValue\n67d8a Let property=Temp_int_Array_Index_Variable\n  67d9b LocalVariable Temp_int_Array_Index_Variable\n  67dac LocalVariable Temp_int_Loop_Counter_Variable\n67dbd PushExecutionFlow target=3563\n67dc2 Context skip=46 rvalue=<null-field>\n  67dc3 ObjectConst import:-826:Default__KismetArrayLibrary\n  67dd4 FinalFunction import:-262:Array_Get\n    67dd9 StructMemberContext Materials\n      67dea InstanceVariable TargetInventionData\n    67dfb LocalVariable Temp_int_Array_Index_Variable\n    67e0c LocalVariable CallFunc_Array_Get_Item_2\n67e1e LetBool\n  67e1f LocalVariable CallFunc_NotEqual_NameName_ReturnValue\n  67e30 CallMath import:-308:NotEqual_NameName\n    67e35 StructMemberContext Itemlabel\n      67e46 LocalVariable CallFunc_Array_Get_Item_2\n    67e57 NameConst None\n67e61 PopExecutionFlowIfNot\n  67e62 LocalVariable CallFunc_NotEqual_NameName_ReturnValue\n67e73 Context skip=46 rvalue=<null-field>\n  67e74 ObjectConst import:-826:Default__KismetArrayLibrary\n  67e85 FinalFunction import:-262:Array_Get\n    67e8a StructMemberContext Materials\n      67e9b InstanceVariable TargetInventionData\n    67eac LocalVariable Temp_int_Array_Index_Variable\n    67ebd LocalVariable CallFunc_Array_Get_Item_2\n67ecf LetObj\n  67ed0 LocalVariable CallFunc_GetInstance_ReturnValue\n  67ee1 CallMath import:-669:GetInstance\n67ee7 LetBool\n  67ee8 LocalVariable CallFunc_SubItemFromBackpack_ReturnValue\n  67ef9 Context skip=46 rvalue=CallFunc_SubItemFromBackpack_ReturnValue\n    67efa LocalVariable CallFunc_GetInstance_ReturnValue\n    67f1f FinalFunction import:-673:SubItemFromBackpack\n      67f24 StructMemberContext Itemlabel\n        67f35 LocalVariable CallFunc_Array_Get_Item_2\n      67f46 StructMemberContext RequiredCount\n        67f57 LocalVariable CallFunc_Array_Get_Item_2\n67f69 Context skip=46 rvalue=<null-field>\n  67f6a ObjectConst import:-826:Default__KismetArrayLibrary\n  67f7b FinalFunction import:-262:Array_Get\n    67f80 StructMemberContext Materials\n      67f91 InstanceVariable TargetInventionData\n    67fa2 LocalVariable Temp_int_Array_Index_Variable\n    67fb3 LocalVariable CallFunc_Array_Get_Item_2\n67fc5 Let property=CallFunc_Conv_IntToString_ReturnValue\n  67fd6 LocalVariable CallFunc_Conv_IntToString_ReturnValue\n  67fe7 CallMath import:-324:Conv_IntToString\n    67fec StructMemberContext RequiredCount\n      67ffd LocalVariable CallFunc_Array_Get_Item_2\n6800f Let property=CallFunc_Conv_NameToString_ReturnValue\n  68020 LocalVariable CallFunc_Conv_NameToString_ReturnValue\n  68031 CallMath import:-325:Conv_NameToString\n    68036 StructMemberContext Itemlabel\n      68047 LocalVariable CallFunc_Array_Get_Item_2\n68059 Let property=CallFunc_Concat_StrStr_ReturnValue\n  6806a LocalVariable CallFunc_Concat_StrStr_ReturnValue\n  6807b CallMath import:-320:Concat_StrStr\n    68080 StringConst \"SubItemLabel:\"\n    6808f LocalVariable CallFunc_Conv_NameToString_ReturnValue\n680a1 Let property=CallFunc_Concat_StrStr_ReturnValue_1\n  680b2 LocalVariable CallFunc_Concat_StrStr_ReturnValue_1\n  680c3 CallMath import:-320:Concat_StrStr\n    680c8 LocalVariable CallFunc_Concat_StrStr_ReturnValue\n    680d9 UnicodeStringConst \"×\"\n680df Let property=CallFunc_Concat_StrStr_ReturnValue_2\n  680f0 LocalVariable CallFunc_Concat_StrStr_ReturnValue_2\n  68101 CallMath import:-320:Concat_StrStr\n    68106 LocalVariable CallFunc_Concat_StrStr_ReturnValue_1\n    68117 LocalVariable CallFunc_Conv_IntToString_ReturnValue\n68129 CallMath import:-340:PrintString\n  6812e Self\n  6812f LocalVariable CallFunc_Concat_StrStr_ReturnValue_2\n  68140 True\n  68141 True\n  68142 StructConst import:-933:LinearColor size=16\n    6814b FloatConst 0\n    68150 FloatConst 0.6600000262260437\n    68155 FloatConst 1\n    6815a FloatConst 1\n  68160 FloatConst 2\n68166 PopExecutionFlow\n68167 Let property=CallFunc_Add_IntInt_ReturnValue\n  68178 LocalVariable CallFunc_Add_IntInt_ReturnValue\n  68189 CallMath import:-272:Add_IntInt\n    6818e LocalVariable Temp_int_Loop_Counter_Variable\n    6819f IntConst 1\n681a5 Let property=Temp_int_Loop_Counter_Variable\n  681b6 LocalVariable Temp_int_Loop_Counter_Variable\n  681c7 LocalVariable CallFunc_Add_IntInt_ReturnValue\n681d8 Jump target=2754\n681dd Let property=ReturnParam\n  681ee LocalOutVariable ReturnParam\n  681ff ByteConst 1\n68201 Jump target=4123\n68206 Context skip=33 rvalue=<null-field>\n  68207 ObjectConst import:-825:Default__ItemFunction_C\n  68218 LocalVirtualFunction Get Item Text Name Only\n    68221 InstanceVariable EquippedReasonItemList\n    68232 Self\n    68233 LocalVariable CallFunc_Get_Item_Text_Name_Only_RetText\n68245 SetArray\n  68246 LocalVariable CallFunc_GetDialogText_ButtonTexts\n68258 CallMath import:-803:GetDialogText\n  6825d LocalVariable CallFunc_GetDialogText_DetailText\n  6826e LocalVariable CallFunc_GetDialogText_ButtonTexts\n  6827f NameConst aGUILD_TYPE_12_DIALOG_07\n  68288 ByteConst 2\n6828b Let property=ArgumentName\n  6829c StructMemberContext ArgumentName\n    682ad LocalVariable K2Node_MakeStruct_FormatArgumentData\n  682be StringConst \"0\"\n682c1 Let property=ArgumentValueType\n  682d2 StructMemberContext ArgumentValueType\n    682e3 LocalVariable K2Node_MakeStruct_FormatArgumentData\n  682f4 ByteConst 4\n682f6 Let property=ArgumentValue\n  68307 StructMemberContext ArgumentValue\n    68318 LocalVariable K2Node_MakeStruct_FormatArgumentData\n  68329 LocalVariable CallFunc_Get_Item_Text_Name_Only_RetText\n6833a Let property=ArgumentValueInt\n  6834b StructMemberContext ArgumentValueInt\n    6835c LocalVariable K2Node_MakeStruct_FormatArgumentData\n  6836d IntConst 0\n68372 Let property=ArgumentValueFloat\n  68383 StructMemberContext ArgumentValueFloat\n    68394 LocalVariable K2Node_MakeStruct_FormatArgumentData\n  683a5 FloatConst 0\n683aa Let property=ArgumentValueGender\n  683bb StructMemberContext ArgumentValueGender\n    683cc LocalVariable K2Node_MakeStruct_FormatArgumentData\n  683dd ByteConst 0\n683df SetArray\n  683e0 LocalVariable K2Node_MakeArray_Array\n  683f1 LocalVariable K2Node_MakeStruct_FormatArgumentData\n68403 Let property=CallFunc_Format_ReturnValue\n  68414 LocalVariable CallFunc_Format_ReturnValue\n  68425 CallMath import:-344:Format\n    6842a LocalVariable CallFunc_GetDialogText_DetailText\n    6843b LocalVariable K2Node_MakeArray_Array\n6844d Let property=CallFunc_CreateEventParam_ReturnValue\n  6845e LocalVariable CallFunc_CreateEventParam_ReturnValue\n  6846f CallMath import:-719:CreateEventParam\n    68474 TextConst kind=0\n    68476 LocalVariable CallFunc_Format_ReturnValue\n    68487 LocalVariable CallFunc_GetDialogText_ButtonTexts\n68499 LetObj\n  6849a LocalVariable CallFunc_OpenDialog_ReturnValue\n  684ab CallMath import:-725:OpenDialog\n    684b0 LocalVariable CallFunc_CreateEventParam_ReturnValue\n684c2 Let property=InventorParam\n  684d3 InstanceVariable InventorParam\n  684e4 ByteConst 8\n684e6 PopExecutionFlow\n684e7 Return\n  684e8 Nothing\n684e9 EndOfScript",
+      "UpdateInventorLearnAbilityFrow": "6abf7 PushExecutionFlow target=2471\n6abfc PushExecutionFlow target=281\n6ac01 LetBool\n  6ac02 LocalVariable K2Node_SwitchEnum_CmpSuccess_1\n  6ac13 CallMath import:-305:NotEqual_ByteByte\n    6ac18 InstanceVariable InventorAbilityParam\n    6ac29 ByteConst 0\n6ac2c JumpIfNot target=306\n  6ac31 LocalVariable K2Node_SwitchEnum_CmpSuccess_1\n6ac42 LetBool\n  6ac43 LocalVariable K2Node_SwitchEnum_CmpSuccess_1\n  6ac54 CallMath import:-305:NotEqual_ByteByte\n    6ac59 InstanceVariable InventorAbilityParam\n    6ac6a ByteConst 1\n6ac6d JumpIfNot target=331\n  6ac72 LocalVariable K2Node_SwitchEnum_CmpSuccess_1\n6ac83 LetBool\n  6ac84 LocalVariable K2Node_SwitchEnum_CmpSuccess_1\n  6ac95 CallMath import:-305:NotEqual_ByteByte\n    6ac9a InstanceVariable InventorAbilityParam\n    6acab ByteConst 2\n6acae JumpIfNot target=1574\n  6acb3 LocalVariable K2Node_SwitchEnum_CmpSuccess_1\n6acc4 LetBool\n  6acc5 LocalVariable K2Node_SwitchEnum_CmpSuccess_1\n  6acd6 CallMath import:-305:NotEqual_ByteByte\n    6acdb InstanceVariable InventorAbilityParam\n    6acec ByteConst 3\n6acef JumpIfNot target=1629\n  6acf4 LocalVariable K2Node_SwitchEnum_CmpSuccess_1\n6ad05 LetBool\n  6ad06 LocalVariable K2Node_SwitchEnum_CmpSuccess_1\n  6ad17 CallMath import:-305:NotEqual_ByteByte\n    6ad1c InstanceVariable InventorAbilityParam\n    6ad2d ByteConst 4\n6ad30 JumpIfNot target=2295\n  6ad35 LocalVariable K2Node_SwitchEnum_CmpSuccess_1\n6ad46 LetBool\n  6ad47 LocalVariable K2Node_SwitchEnum_CmpSuccess_1\n  6ad58 CallMath import:-305:NotEqual_ByteByte\n    6ad5d InstanceVariable InventorAbilityParam\n    6ad6e ByteConst 5\n6ad71 JumpIfNot target=2416\n  6ad76 LocalVariable K2Node_SwitchEnum_CmpSuccess_1\n6ad87 PopExecutionFlow\n6ad88 Let property=NewParam\n  6ad99 LocalOutVariable NewParam\n  6adaa ByteConst 0\n6adac Jump target=2471\n6adb1 Let property=NewParam\n  6adc2 LocalOutVariable NewParam\n  6add3 ByteConst 1\n6add5 Jump target=2471\n6adda LetBool\n  6addb LocalVariable CallFunc_GetDataTableRowFromName_ReturnValue\n  6adec Context skip=46 rvalue=CallFunc_GetDataTableRowFromName_ReturnValue\n    6aded ObjectConst import:-189:Default__DataTableFunctionLibrary\n    6ae06 FinalFunction import:-251:GetDataTableRowFromName\n      6ae0b ObjectConst import:-181:AbilitySetData\n      6ae10 StructMemberContext LearnAbilitylabel\n        6ae21 InstanceVariable TargetInventionData\n      6ae32 LocalVariable CallFunc_GetDataTableRowFromName_OutRow\n6ae44 JumpIfNot target=1549\n  6ae49 LocalVariable CallFunc_GetDataTableRowFromName_ReturnValue\n6ae5a LetBool\n  6ae5b LocalVariable CallFunc_GetDataTableRowFromName_ReturnValue_1\n  6ae6c Context skip=46 rvalue=CallFunc_GetDataTableRowFromName_ReturnValue_1\n    6ae6d ObjectConst import:-189:Default__DataTableFunctionLibrary\n    6ae86 FinalFunction import:-251:GetDataTableRowFromName\n      6ae8b ObjectConst import:-180:AbilityData\n      6ae90 StructMemberContext NoBoost\n        6aea1 LocalVariable CallFunc_GetDataTableRowFromName_OutRow\n      6aeb2 LocalVariable CallFunc_GetDataTableRowFromName_OutRow_1\n6aec4 JumpIfNot target=1549\n  6aec9 LocalVariable CallFunc_GetDataTableRowFromName_ReturnValue_1\n6aeda CallMath import:-804:GetGameText\n  6aedf LocalVariable CallFunc_GetGameText_OutText\n  6aef0 StructMemberContext DisplayName\n    6af01 LocalVariable CallFunc_GetDataTableRowFromName_OutRow_1\n6af13 Let property=AbilityName\n  6af24 LocalVariable AbilityName\n  6af35 LocalVariable CallFunc_GetGameText_OutText\n6af46 Let property=Temp_int_Loop_Counter_Variable\n  6af57 LocalVariable Temp_int_Loop_Counter_Variable\n  6af68 IntConst 0\n6af6d Let property=Temp_int_Array_Index_Variable\n  6af7e LocalVariable Temp_int_Array_Index_Variable\n  6af8f IntConst 0\n6af94 Let property=CallFunc_Array_Length_ReturnValue\n  6afa5 LocalVariable CallFunc_Array_Length_ReturnValue\n  6afb6 Context skip=19 rvalue=CallFunc_Array_Length_ReturnValue\n    6afb7 ObjectConst import:-826:Default__KismetArrayLibrary\n    6afd0 FinalFunction import:-264:Array_Length\n      6afd5 InstanceVariable CharacterList\n6afe7 LetBool\n  6afe8 LocalVariable CallFunc_Less_IntInt_ReturnValue\n  6aff9 CallMath import:-296:Less_IntInt\n    6affe LocalVariable Temp_int_Loop_Counter_Variable\n    6b00f LocalVariable CallFunc_Array_Length_ReturnValue\n6b021 PopExecutionFlowIfNot\n  6b022 LocalVariable CallFunc_Less_IntInt_ReturnValue\n6b033 Let property=Temp_int_Array_Index_Variable\n  6b044 LocalVariable Temp_int_Array_Index_Variable\n  6b055 LocalVariable Temp_int_Loop_Counter_Variable\n6b066 PushExecutionFlow target=1475\n6b06b Let property=CallFunc_MakeLiteralByte_ReturnValue\n  6b07c LocalVariable CallFunc_MakeLiteralByte_ReturnValue\n  6b08d CallMath import:-339:MakeLiteralByte\n    6b092 ByteConst 11\n6b095 Let property=CallFunc_Conv_ByteToInt_ReturnValue\n  6b0a6 LocalVariable CallFunc_Conv_ByteToInt_ReturnValue\n  6b0b7 CallMath import:-280:Conv_ByteToInt\n    6b0bc LocalVariable CallFunc_MakeLiteralByte_ReturnValue\n6b0ce Context skip=37 rvalue=<null-field>\n  6b0cf ObjectConst import:-826:Default__KismetArrayLibrary\n  6b0e0 FinalFunction import:-262:Array_Get\n    6b0e5 InstanceVariable CharacterList\n    6b0f6 LocalVariable Temp_int_Array_Index_Variable\n    6b107 LocalVariable CallFunc_Array_Get_Item\n6b119 Let property=CallFunc_Conv_ByteToInt_ReturnValue_1\n  6b12a LocalVariable CallFunc_Conv_ByteToInt_ReturnValue_1\n  6b13b CallMath import:-280:Conv_ByteToInt\n    6b140 LocalVariable CallFunc_Array_Get_Item\n6b152 Context skip=65 rvalue=<null-field>\n  6b153 ObjectConst import:-843:Default__LibCharacter_C\n  6b164 LocalVirtualFunction AcquisitionAbility\n    6b16d LocalVariable CallFunc_Conv_ByteToInt_ReturnValue_1\n    6b17e LocalVariable CallFunc_Conv_ByteToInt_ReturnValue\n    6b18f StructMemberContext LearnAbilitylabel\n      6b1a0 InstanceVariable TargetInventionData\n    6b1b1 IntConst 0\n    6b1b6 Self\n    6b1b7 LocalVariable CallFunc_AcquisitionAbility_IsSuccess\n6b1c9 LetObj\n  6b1ca LocalVariable CallFunc_GetManagerInstance_ReturnValue\n  6b1db CallMath import:-355:GetManagerInstance\n    6b1e0 ObjectConst import:-85:DialogManager\n6b1e6 Let property=ArgumentName\n  6b1f7 StructMemberContext ArgumentName\n    6b208 LocalVariable K2Node_MakeStruct_FormatArgumentData\n  6b219 StringConst \"0\"\n6b21c Let property=ArgumentValueType\n  6b22d StructMemberContext ArgumentValueType\n    6b23e LocalVariable K2Node_MakeStruct_FormatArgumentData\n  6b24f ByteConst 4\n6b251 Let property=ArgumentValue\n  6b262 StructMemberContext ArgumentValue\n    6b273 LocalVariable K2Node_MakeStruct_FormatArgumentData\n  6b284 LocalVariable AbilityName\n6b295 Let property=ArgumentValueInt\n  6b2a6 StructMemberContext ArgumentValueInt\n    6b2b7 LocalVariable K2Node_MakeStruct_FormatArgumentData\n  6b2c8 IntConst 0\n6b2cd Let property=ArgumentValueFloat\n  6b2de StructMemberContext ArgumentValueFloat\n    6b2ef LocalVariable K2Node_MakeStruct_FormatArgumentData\n  6b300 FloatConst 0\n6b305 Let property=ArgumentValueGender\n  6b316 StructMemberContext ArgumentValueGender\n    6b327 LocalVariable K2Node_MakeStruct_FormatArgumentData\n  6b338 ByteConst 0\n6b33a SetArray\n  6b33b LocalVariable K2Node_MakeArray_Array\n  6b34c LocalVariable K2Node_MakeStruct_FormatArgumentData\n6b35e SetArray\n  6b35f LocalVariable CallFunc_GetDialogText_ButtonTexts\n6b371 CallMath import:-803:GetDialogText\n  6b376 LocalVariable CallFunc_GetDialogText_DetailText\n  6b387 LocalVariable CallFunc_GetDialogText_ButtonTexts\n  6b398 NameConst aGUILD_TYPE_12_DIALOG_06\n  6b3a1 ByteConst 2\n6b3a4 Let property=CallFunc_Format_ReturnValue\n  6b3b5 LocalVariable CallFunc_Format_ReturnValue\n  6b3c6 CallMath import:-344:Format\n    6b3cb LocalVariable CallFunc_GetDialogText_DetailText\n    6b3dc LocalVariable K2Node_MakeArray_Array\n6b3ee Let property=CallFunc_CreateEventParam_ReturnValue\n  6b3ff LocalVariable CallFunc_CreateEventParam_ReturnValue\n  6b410 CallMath import:-719:CreateEventParam\n    6b415 TextConst kind=0\n    6b417 LocalVariable CallFunc_Format_ReturnValue\n    6b428 LocalVariable CallFunc_GetDialogText_ButtonTexts\n6b43a LetObj\n  6b43b LocalVariable CallFunc_OpenRequestDialog_ReturnValue\n  6b44c Context skip=23 rvalue=CallFunc_OpenRequestDialog_ReturnValue\n    6b44d LocalVariable CallFunc_GetManagerInstance_ReturnValue\n    6b472 VirtualFunction OpenRequestDialog\n      6b47b LocalVariable CallFunc_CreateEventParam_ReturnValue\n6b48d Let property=InventorAbilityParam\n  6b49e InstanceVariable InventorAbilityParam\n  6b4af ByteConst 2\n6b4b1 PopExecutionFlow\n6b4b2 Let property=CallFunc_Add_IntInt_ReturnValue\n  6b4c3 LocalVariable CallFunc_Add_IntInt_ReturnValue\n  6b4d4 CallMath import:-272:Add_IntInt\n    6b4d9 LocalVariable Temp_int_Loop_Counter_Variable\n    6b4ea IntConst 1\n6b4f0 Let property=Temp_int_Loop_Counter_Variable\n  6b501 LocalVariable Temp_int_Loop_Counter_Variable\n  6b512 LocalVariable CallFunc_Add_IntInt_ReturnValue\n6b523 Jump target=625\n6b528 Let property=NewParam\n  6b539 LocalOutVariable NewParam\n  6b54a ByteConst 1\n6b54c Jump target=2471\n6b551 CallMath import:-724:IsDialogRunning\n  6b556 LocalVariable CallFunc_IsDialogRunning_IsRunning_1\n6b568 JumpIfNot target=1608\n  6b56d LocalVariable CallFunc_IsDialogRunning_IsRunning_1\n6b57e PopExecutionFlow\n6b57f Let property=InventorAbilityParam\n  6b590 InstanceVariable InventorAbilityParam\n  6b5a1 ByteConst 3\n6b5a3 PopExecutionFlow\n6b5a4 LocalVirtualFunction LearnInventorSupportAbility\n  6b5ad LocalVariable CallFunc_LearnInventorSupportAbility_IsLearned\n  6b5be LocalVariable CallFunc_LearnInventorSupportAbility_AbilityLabel\n  6b5cf LocalVariable CallFunc_LearnInventorSupportAbility_AbilityIndex\n6b5e1 JumpIfNot target=2270\n  6b5e6 LocalVariable CallFunc_LearnInventorSupportAbility_IsLearned\n6b5f7 LetBool\n  6b5f8 LocalVariable CallFunc_GetSupportAbilityRowData_ReturnValue\n  6b609 CallMath import:-796:GetSupportAbilityRowData\n    6b60e LocalVariable CallFunc_GetSupportAbilityRowData_returnCode\n    6b61f LocalVariable CallFunc_GetSupportAbilityRowData_OutData\n    6b630 LocalVariable CallFunc_LearnInventorSupportAbility_AbilityLabel\n    6b641 True\n6b643 LetBool\n  6b644 LocalVariable K2Node_SwitchEnum_CmpSuccess\n  6b655 CallMath import:-305:NotEqual_ByteByte\n    6b65a LocalVariable CallFunc_GetSupportAbilityRowData_returnCode\n    6b66b ByteConst 0\n6b66e JumpIfNot target=1823\n  6b673 LocalVariable K2Node_SwitchEnum_CmpSuccess\n6b684 LetBool\n  6b685 LocalVariable K2Node_SwitchEnum_CmpSuccess\n  6b696 CallMath import:-305:NotEqual_ByteByte\n    6b69b LocalVariable CallFunc_GetSupportAbilityRowData_returnCode\n    6b6ac ByteConst 1\n6b6af JumpIfNot target=2270\n  6b6b4 LocalVariable K2Node_SwitchEnum_CmpSuccess\n6b6c5 PopExecutionFlow\n6b6c6 SetArray\n  6b6c7 LocalVariable CallFunc_GetDialogText_ButtonTexts_1\n6b6d9 CallMath import:-803:GetDialogText\n  6b6de LocalVariable CallFunc_GetDialogText_DetailText_1\n  6b6ef LocalVariable CallFunc_GetDialogText_ButtonTexts_1\n  6b700 NameConst aGUILD_TYPE_09_DIALOG_05\n  6b709 ByteConst 2\n6b70c Let property=ArgumentName\n  6b71d StructMemberContext ArgumentName\n    6b72e LocalVariable K2Node_MakeStruct_FormatArgumentData_1\n  6b73f StringConst \"0\"\n6b742 Let property=ArgumentValueType\n  6b753 StructMemberContext ArgumentValueType\n    6b764 LocalVariable K2Node_MakeStruct_FormatArgumentData_1\n  6b775 ByteConst 0\n6b777 Let property=ArgumentValue\n  6b788 StructMemberContext ArgumentValue\n    6b799 LocalVariable K2Node_MakeStruct_FormatArgumentData_1\n  6b7aa TextConst kind=0\n6b7ac Let property=ArgumentValueInt\n  6b7bd StructMemberContext ArgumentValueInt\n    6b7ce LocalVariable K2Node_MakeStruct_FormatArgumentData_1\n  6b7df LocalVariable CallFunc_LearnInventorSupportAbility_AbilityIndex\n6b7f0 Let property=ArgumentValueFloat\n  6b801 StructMemberContext ArgumentValueFloat\n    6b812 LocalVariable K2Node_MakeStruct_FormatArgumentData_1\n  6b823 FloatConst 0\n6b828 Let property=ArgumentValueGender\n  6b839 StructMemberContext ArgumentValueGender\n    6b84a LocalVariable K2Node_MakeStruct_FormatArgumentData_1\n  6b85b ByteConst 0\n6b85d SetArray\n  6b85e LocalVariable K2Node_MakeArray_Array_1\n  6b86f LocalVariable K2Node_MakeStruct_FormatArgumentData_1\n6b881 Let property=CallFunc_Format_ReturnValue_1\n  6b892 LocalVariable CallFunc_Format_ReturnValue_1\n  6b8a3 CallMath import:-344:Format\n    6b8a8 LocalVariable CallFunc_GetDialogText_DetailText_1\n    6b8b9 LocalVariable K2Node_MakeArray_Array_1\n6b8cb CallMath import:-678:GetGameText\n  6b8d0 StructMemberContext DisplayName\n    6b8e1 LocalVariable CallFunc_GetSupportAbilityRowData_OutData\n  6b8f2 LocalVariable CallFunc_GetGameText_OutText_1\n6b904 Let property=CallFunc_CreateEventParam_ReturnValue_1\n  6b915 LocalVariable CallFunc_CreateEventParam_ReturnValue_1\n  6b926 CallMath import:-719:CreateEventParam\n    6b92b LocalVariable CallFunc_GetGameText_OutText_1\n    6b93c LocalVariable CallFunc_Format_ReturnValue_1\n    6b94d LocalVariable CallFunc_GetDialogText_ButtonTexts_1\n6b95f LetObj\n  6b960 LocalVariable CallFunc_OpenDialog_ReturnValue\n  6b971 CallMath import:-725:OpenDialog\n    6b976 LocalVariable CallFunc_CreateEventParam_ReturnValue_1\n6b988 Let property=InventorAbilityParam\n  6b999 InstanceVariable InventorAbilityParam\n  6b9aa ByteConst 4\n6b9ac PopExecutionFlow\n6b9ad Let property=NewParam\n  6b9be LocalOutVariable NewParam\n  6b9cf ByteConst 1\n6b9d1 Jump target=2471\n6b9d6 CallMath import:-724:IsDialogRunning\n  6b9db LocalVariable CallFunc_IsDialogRunning_IsRunning\n6b9ed JumpIfNot target=2329\n  6b9f2 LocalVariable CallFunc_IsDialogRunning_IsRunning\n6ba03 PopExecutionFlow\n6ba04 CallMath import:-730:OpenTutorial\n  6ba09 ByteConst 57\n  6ba0b False\n  6ba0c IntConst 0\n  6ba11 LocalVariable CallFunc_OpenTutorial_IsOpen\n6ba23 JumpIfNot target=2391\n  6ba28 LocalVariable CallFunc_OpenTutorial_IsOpen\n6ba39 Let property=InventorAbilityParam\n  6ba4a InstanceVariable InventorAbilityParam\n  6ba5b ByteConst 5\n6ba5d PopExecutionFlow\n6ba5e Let property=NewParam\n  6ba6f LocalOutVariable NewParam\n  6ba80 ByteConst 1\n6ba82 Jump target=2471\n6ba87 LetBool\n  6ba88 LocalVariable CallFunc_IsRunningTutorial_ReturnValue\n  6ba99 CallMath import:-729:IsRunningTutorial\n6ba9f JumpIfNot target=2451\n  6baa4 LocalVariable CallFunc_IsRunningTutorial_ReturnValue\n6bab5 PopExecutionFlow\n6bab6 Let property=NewParam\n  6bac7 LocalOutVariable NewParam\n  6bad8 ByteConst 1\n6bada Return\n  6badb Nothing\n6badc EndOfScript",
+      "LearnInventorSupportAbility": "6beac PushExecutionFlow target=800\n6beb1 Let property=Temp_int_Loop_Counter_Variable\n  6bec2 LocalVariable Temp_int_Loop_Counter_Variable\n  6bed3 IntConst 0\n6bed8 Let property=Temp_int_Array_Index_Variable\n  6bee9 LocalVariable Temp_int_Array_Index_Variable\n  6befa IntConst 0\n6beff Let property=CallFunc_Array_Length_ReturnValue_1\n  6bf10 LocalVariable CallFunc_Array_Length_ReturnValue_1\n  6bf21 Context skip=19 rvalue=CallFunc_Array_Length_ReturnValue_1\n    6bf22 ObjectConst import:-826:Default__KismetArrayLibrary\n    6bf3b FinalFunction import:-264:Array_Length\n      6bf40 InstanceVariable CharacterList\n6bf52 LetBool\n  6bf53 LocalVariable CallFunc_Less_IntInt_ReturnValue\n  6bf64 CallMath import:-296:Less_IntInt\n    6bf69 LocalVariable Temp_int_Loop_Counter_Variable\n    6bf7a LocalVariable CallFunc_Array_Length_ReturnValue_1\n6bf8c JumpIfNot target=449\n  6bf91 LocalVariable CallFunc_Less_IntInt_ReturnValue\n6bfa2 Let property=Temp_int_Array_Index_Variable\n  6bfb3 LocalVariable Temp_int_Array_Index_Variable\n  6bfc4 LocalVariable Temp_int_Loop_Counter_Variable\n6bfd5 PushExecutionFlow target=726\n6bfda Let property=CallFunc_MakeLiteralByte_ReturnValue\n  6bfeb LocalVariable CallFunc_MakeLiteralByte_ReturnValue\n  6bffc CallMath import:-339:MakeLiteralByte\n    6c001 ByteConst 11\n6c004 Let property=CallFunc_Conv_ByteToInt_ReturnValue\n  6c015 LocalVariable CallFunc_Conv_ByteToInt_ReturnValue\n  6c026 CallMath import:-280:Conv_ByteToInt\n    6c02b LocalVariable CallFunc_MakeLiteralByte_ReturnValue\n6c03d Context skip=37 rvalue=<null-field>\n  6c03e ObjectConst import:-826:Default__KismetArrayLibrary\n  6c04f FinalFunction import:-262:Array_Get\n    6c054 InstanceVariable CharacterList\n    6c065 LocalVariable Temp_int_Array_Index_Variable\n    6c076 LocalVariable CallFunc_Array_Get_Item\n6c088 Let property=CallFunc_Conv_ByteToInt_ReturnValue_1\n  6c099 LocalVariable CallFunc_Conv_ByteToInt_ReturnValue_1\n  6c0aa CallMath import:-280:Conv_ByteToInt\n    6c0af LocalVariable CallFunc_Array_Get_Item\n6c0c1 Context skip=42 rvalue=<null-field>\n  6c0c2 ObjectConst import:-843:Default__LibCharacter_C\n  6c0d3 LocalVirtualFunction AcquisitionSupportAbility\n    6c0dc LocalVariable CallFunc_Conv_ByteToInt_ReturnValue_1\n    6c0ed LocalVariable CallFunc_Conv_ByteToInt_ReturnValue\n    6c0fe Self\n    6c0ff LocalVariable CallFunc_AcquisitionSupportAbility_AcquisitionAbility\n6c111 Let property=LearnAbility\n  6c122 LocalVariable LearnAbility\n  6c133 LocalVariable CallFunc_AcquisitionSupportAbility_AcquisitionAbility\n6c144 PopExecutionFlow\n6c145 Let property=CallFunc_Array_Length_ReturnValue\n  6c156 LocalVariable CallFunc_Array_Length_ReturnValue\n  6c167 Context skip=19 rvalue=CallFunc_Array_Length_ReturnValue\n    6c168 ObjectConst import:-826:Default__KismetArrayLibrary\n    6c181 FinalFunction import:-264:Array_Length\n      6c186 LocalVariable LearnAbility\n6c198 LetBool\n  6c199 LocalVariable CallFunc_Greater_IntInt_ReturnValue\n  6c1aa CallMath import:-291:Greater_IntInt\n    6c1af LocalVariable CallFunc_Array_Length_ReturnValue\n    6c1c0 IntConst 0\n6c1c6 JumpIfNot target=656\n  6c1cb LocalVariable CallFunc_Greater_IntInt_ReturnValue\n6c1dc LetBool\n  6c1dd LocalOutVariable IsLearned\n  6c1ee True\n6c1ef Let property=AbilityLabel\n  6c200 LocalOutVariable AbilityLabel\n  6c211 StructMemberContext AbilityName\n    6c222 ArrayGetByRef\n      6c223 LocalVariable LearnAbility\n      6c234 IntConst 0\n6c239 Let property=AbilityIndex\n  6c24a LocalOutVariable AbilityIndex\n  6c25b StructMemberContext GetParam\n    6c26c ArrayGetByRef\n      6c26d LocalVariable LearnAbility\n      6c27e IntConst 0\n6c283 Jump target=800\n6c288 LetBool\n  6c289 LocalOutVariable IsLearned\n  6c29a False\n6c29b Let property=AbilityLabel\n  6c2ac LocalOutVariable AbilityLabel\n  6c2bd NameConst None\n6c2c6 Let property=AbilityIndex\n  6c2d7 LocalOutVariable AbilityIndex\n  6c2e8 IntConst 0\n6c2ed Jump target=800\n6c2f2 Let property=CallFunc_Add_IntInt_ReturnValue\n  6c303 LocalVariable CallFunc_Add_IntInt_ReturnValue\n  6c314 CallMath import:-272:Add_IntInt\n    6c319 LocalVariable Temp_int_Loop_Counter_Variable\n    6c32a IntConst 1\n6c330 Let property=Temp_int_Loop_Counter_Variable\n  6c341 LocalVariable Temp_int_Loop_Counter_Variable\n  6c352 LocalVariable CallFunc_Add_IntInt_ReturnValue\n6c363 Jump target=51\n6c368 Return\n  6c369 Nothing\n6c36a EndOfScript"
+    },
+    "defaults": [
+      {
+        "UberGraphFrame": {},
+        "InitCameraPos": {
+          "kind": "native-struct",
+          "type": "Vector",
+          "components": [
+            {
+              "kind": "float32",
+              "bits": 0,
+              "value": 0
+            },
+            {
+              "kind": "float32",
+              "bits": 0,
+              "value": 0
+            },
+            {
+              "kind": "float32",
+              "bits": 0,
+              "value": 0
+            }
+          ]
+        },
+        "BalloonParam": {
+          "Text": {
+            "Type": "EBalloonType::NORMAL",
+            "Reset": [],
+            "Height": [],
+            "Width": [],
+            "Names": [],
+            "Text": []
+          },
+          "VoiceLabel": [],
+          "TargetActor": {
+            "kind": "object",
+            "index": 0,
+            "path": null
+          },
+          "Offset": {
+            "kind": "native-struct",
+            "type": "Vector2D",
+            "components": [
+              {
+                "kind": "float32",
+                "bits": 0,
+                "value": 0
+              },
+              {
+                "kind": "float32",
+                "bits": 0,
+                "value": 0
+              }
+            ]
+          },
+          "EnableTail": false,
+          "UnderOffset": {
+            "kind": "native-struct",
+            "type": "Vector2D",
+            "components": [
+              {
+                "kind": "float32",
+                "bits": 0,
+                "value": 0
+              },
+              {
+                "kind": "float32",
+                "bits": 0,
+                "value": 0
+              }
+            ]
+          },
+          "BalloonDir": "EEventBalloonDir::DEFAULT",
+          "BalloonOffsetScale": 0,
+          "TextPosition": "EBALLOON_TEXT_POS::eTOP",
+          "EnableCustomFadeTime": false,
+          "FadeOutTime": 0
+        },
+        "IsSetUpEventData": true,
+        "TargetInventionData": {
+          "ID": 0,
+          "InventionItemlabel": "None",
+          "LearnAbilitylabel": "None",
+          "Materials": []
+        },
+        "CharacterList": [
+          "EPlayableCharacterID::eFENCER",
+          "EPlayableCharacterID::eHUNTER",
+          "EPlayableCharacterID::eALCHEMIST",
+          "EPlayableCharacterID::eMERCHANT",
+          "EPlayableCharacterID::ePRIEST",
+          "EPlayableCharacterID::ePROFESSOR",
+          "EPlayableCharacterID::eTHIEF",
+          "EPlayableCharacterID::eDANCER"
+        ],
+        "RestoreEncountTrigger": {
+          "ID": 0,
+          "StartFlag": 0,
+          "StartFlag_2": 0,
+          "StartFlag_3": 0,
+          "EndFlag": 0,
+          "EndFlag_2": 0,
+          "EndFlag_3": 0,
+          "DayTimeDecreaseValue": 0,
+          "DayTimeEncountVolumeName": "None",
+          "NightDecreaseValue": 0,
+          "NightEncountVolumeName": "None",
+          "LostWayDecreaseValue": 0,
+          "LostWayEncountVolumeName": "None",
+          "DarkAreaDecreaseValue": 0,
+          "DarkAreaEncountVolumeName": "None"
+        },
+        "ZenithColor": {
+          "kind": "native-struct",
+          "type": "LinearColor",
+          "components": [
+            {
+              "kind": "float32",
+              "bits": 0,
+              "value": 0
+            },
+            {
+              "kind": "float32",
+              "bits": 0,
+              "value": 0
+            },
+            {
+              "kind": "float32",
+              "bits": 0,
+              "value": 0
+            },
+            {
+              "kind": "float32",
+              "bits": 1065353216,
+              "value": 1
+            }
+          ]
+        },
+        "CloudColor": {
+          "kind": "native-struct",
+          "type": "LinearColor",
+          "components": [
+            {
+              "kind": "float32",
+              "bits": 0,
+              "value": 0
+            },
+            {
+              "kind": "float32",
+              "bits": 0,
+              "value": 0
+            },
+            {
+              "kind": "float32",
+              "bits": 0,
+              "value": 0
+            },
+            {
+              "kind": "float32",
+              "bits": 1065353216,
+              "value": 1
+            }
+          ]
+        },
+        "BackupPlayerPlacement_PChat": {
+          "MoveMode": "EKSCharacterMoveMode::WALK",
+          "LadderUpEndPos": {
+            "kind": "native-struct",
+            "type": "Vector",
+            "components": [
+              {
+                "kind": "float32",
+                "bits": 0,
+                "value": 0
+              },
+              {
+                "kind": "float32",
+                "bits": 0,
+                "value": 0
+              },
+              {
+                "kind": "float32",
+                "bits": 0,
+                "value": 0
+              }
+            ]
+          },
+          "LadderDownEndPos": {
+            "kind": "native-struct",
+            "type": "Vector",
+            "components": [
+              {
+                "kind": "float32",
+                "bits": 0,
+                "value": 0
+              },
+              {
+                "kind": "float32",
+                "bits": 0,
+                "value": 0
+              },
+              {
+                "kind": "float32",
+                "bits": 0,
+                "value": 0
+              }
+            ]
+          },
+          "MoveLadderPosition": {
+            "kind": "native-struct",
+            "type": "Vector",
+            "components": [
+              {
+                "kind": "float32",
+                "bits": 0,
+                "value": 0
+              },
+              {
+                "kind": "float32",
+                "bits": 0,
+                "value": 0
+              },
+              {
+                "kind": "float32",
+                "bits": 0,
+                "value": 0
+              }
+            ]
+          },
+          "PlayerLocation": {
+            "kind": "native-struct",
+            "type": "Vector",
+            "components": [
+              {
+                "kind": "float32",
+                "bits": 0,
+                "value": 0
+              },
+              {
+                "kind": "float32",
+                "bits": 0,
+                "value": 0
+              },
+              {
+                "kind": "float32",
+                "bits": 0,
+                "value": 0
+              }
+            ]
+          },
+          "EncountTriggerId": 0,
+          "EquipLantern": {
+            "EquipLanternDayTime": [],
+            "EquipLanternNight": []
+          },
+          "EnableSwitchIndoorTrigger": []
+        },
+        "BackupPlayerPlacement_Theater": {
+          "MoveMode": "EKSCharacterMoveMode::WALK",
+          "LadderUpEndPos": {
+            "kind": "native-struct",
+            "type": "Vector",
+            "components": [
+              {
+                "kind": "float32",
+                "bits": 0,
+                "value": 0
+              },
+              {
+                "kind": "float32",
+                "bits": 0,
+                "value": 0
+              },
+              {
+                "kind": "float32",
+                "bits": 0,
+                "value": 0
+              }
+            ]
+          },
+          "LadderDownEndPos": {
+            "kind": "native-struct",
+            "type": "Vector",
+            "components": [
+              {
+                "kind": "float32",
+                "bits": 0,
+                "value": 0
+              },
+              {
+                "kind": "float32",
+                "bits": 0,
+                "value": 0
+              },
+              {
+                "kind": "float32",
+                "bits": 0,
+                "value": 0
+              }
+            ]
+          },
+          "MoveLadderPosition": {
+            "kind": "native-struct",
+            "type": "Vector",
+            "components": [
+              {
+                "kind": "float32",
+                "bits": 0,
+                "value": 0
+              },
+              {
+                "kind": "float32",
+                "bits": 0,
+                "value": 0
+              },
+              {
+                "kind": "float32",
+                "bits": 0,
+                "value": 0
+              }
+            ]
+          },
+          "PlayerLocation": {
+            "kind": "native-struct",
+            "type": "Vector",
+            "components": [
+              {
+                "kind": "float32",
+                "bits": 0,
+                "value": 0
+              },
+              {
+                "kind": "float32",
+                "bits": 0,
+                "value": 0
+              },
+              {
+                "kind": "float32",
+                "bits": 0,
+                "value": 0
+              }
+            ]
+          },
+          "EncountTriggerId": 0,
+          "EquipLantern": {
+            "EquipLanternDayTime": [],
+            "EquipLanternNight": []
+          },
+          "EnableSwitchIndoorTrigger": []
+        },
+        "m_pMPC": {
+          "kind": "object",
+          "index": -851,
+          "path": "/Game/Environment/Resource/Sky/Material/MPC/MPC_MJEnvTimeZone.MPC_MJEnvTimeZone"
+        },
+        "EventListDb": {
+          "kind": "object",
+          "index": -185,
+          "path": "/Game/Event/Database/EventList.EventList"
+        },
+        "PostProcessMaterial": [
+          {
+            "kind": "object",
+            "index": -849,
+            "path": "/Game/Event/Resource/Mono.Mono"
+          },
+          {
+            "kind": "object",
+            "index": -850,
+            "path": "/Game/UserInterface/Event/Material/DeepThinkingPostMaterial.DeepThinkingPostMaterial"
+          }
+        ],
+        "SepiaLUT": {
+          "kind": "object",
+          "index": -1002,
+          "path": "/Game/Event/Resource/LUT/LUT_CandleLight.LUT_CandleLight"
+        },
+        "GRAY_SCALE": {
+          "kind": "native-struct",
+          "type": "Vector",
+          "components": [
+            {
+              "kind": "float32",
+              "bits": 1063675494,
+              "value": 0.8999999761581421
+            },
+            {
+              "kind": "float32",
+              "bits": 1058474557,
+              "value": 0.5899999737739563
+            },
+            {
+              "kind": "float32",
+              "bits": 1038174126,
+              "value": 0.10999999940395355
+            }
+          ]
+        },
+        "GRAY_ALPHA": {
+          "kind": "native-struct",
+          "type": "Vector",
+          "components": [
+            {
+              "kind": "float32",
+              "bits": 1056964608,
+              "value": 0.5
+            },
+            {
+              "kind": "float32",
+              "bits": 1056964608,
+              "value": 0.5
+            },
+            {
+              "kind": "float32",
+              "bits": 1056964608,
+              "value": 0.5
+            }
+          ]
+        },
+        "PrimaryActorTick": {
+          "bTickEvenWhenPaused": true,
+          "bCanEverTick": true
+        },
+        "bCanBeDamaged": false,
+        "bFindCameraComponentWhenViewTarget": false,
+        "bEnableAutoLODGeneration": false
+      }
+    ]
+  }
+}

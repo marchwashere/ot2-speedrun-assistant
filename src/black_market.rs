@@ -82,7 +82,7 @@ pub fn after_mug_with_switches(p: &cape_cold_mug::Prediction, switches:u32) -> R
     for _ in 0..switches {
         let time=if l.state.time==4 {2} else {4};
         l.set_time(time,"Cape Cold: post-Mug time switch")?;
-        l.refresh_bar()?;
+
         l.refresh_npcs("Cape Cold: time-switch placements")?;
         cape_switches.push(TimeSwitch {time,after:l.rng});
     }
@@ -91,7 +91,7 @@ pub fn after_mug_with_switches(p: &cape_cold_mug::Prediction, switches:u32) -> R
     let switched_at_village=l.state.time!=2;
     if switched_at_village {
         l.set_time(2, "Abandoned Village: switch to day after fast travel")?;
-        l.refresh_bar()?;
+
         l.refresh_npcs("Abandoned Village: daytime placements")?;
     }
     let after_day = l.rng;
@@ -104,7 +104,7 @@ pub fn after_mug_with_switches(p: &cape_cold_mug::Prediction, switches:u32) -> R
     l.boundary("Flats entry -> cleric spawns: 42 daytime movement updates (40 measured + 2 safety); walking reference");
     let at_clerics = l.rng;
     l.set_time(4, "Flats: switch to night near black market")?;
-    l.refresh_bar()?;
+
     l.refresh_npcs("Flats: nighttime black-market placements")?;
     let clerics_present = clerics_present(&l.state);
     Ok(Route { cape_switches, switched_at_village, after_travel, after_day, after_flats, at_clerics, cleric_reach, after_night:l.rng, clerics_present,

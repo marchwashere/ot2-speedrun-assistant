@@ -112,6 +112,19 @@ pub struct BoostInputs {
 /// press. All three source voice sets draw 1/2/3 times on rising to BP 1/2/3;
 /// their rows are 100% and not PlayOnce. Lowering BP draws nothing.
 pub fn optimal_inputs(extra: u32, available_bp: u8, final_bp: u8) -> Result<BoostInputs> {
+    // Pure button paths depend only on these three inputs. Bound cache storage,
+    // never the draw count or required-outcome search.
+    thread_local! {static PATHS:std::cell::RefCell<std::collections::BTreeMap<(u32,u8,u8),BoostInputs>>=std::cell::RefCell::new(std::collections::BTreeMap::new());}
+    let key=(extra,available_bp.min(3),final_bp);
+    if extra<=256 {
+        if let Some(path)=PATHS.with(|p|p.borrow().get(&key).cloned()) {return Ok(path);}
+    }
+    let path=optimal_inputs_uncached(extra,available_bp,final_bp)?;
+    if extra<=256 {PATHS.with(|p|p.borrow_mut().insert(key,path.clone()));}
+    Ok(path)
+}
+fn optimal_inputs_uncached(extra:u32,available_bp:u8,final_bp:u8)->Result<BoostInputs> {
+    let _profile=crate::profile::span("boost shortest path");
     let maximum = available_bp.min(3);
     ensure(final_bp <= maximum, "Invalid boost input target")?;
     let target = extra as usize + usize::from(final_bp) * usize::from(final_bp + 1) / 2;
@@ -680,6 +693,20 @@ fn search_constrained(
 
 #[cfg(test)]
 mod tests {
+    #[test]
+    fn cached_boost_paths_match_uncached_planner_and_large_counts() {
+        for available in 1..=3 {
+            for final_bp in 0..=available {
+                for extra in [0,1,2,3,7,16,31,64,255,256,257,300] {
+                    let expected=super::optimal_inputs_uncached(extra,available,final_bp).unwrap();
+                    assert_eq!(super::optimal_inputs(extra,available,final_bp).unwrap(),expected);
+                    assert_eq!(super::optimal_inputs(extra,available,final_bp).unwrap(),expected);
+                }
+            }
+        }
+        assert!(super::optimal_inputs(1,0,0).is_err());
+        assert!(super::optimal_inputs(0,1,2).is_err());
+    }
     #[test]
     fn mug_tie_prefers_two_grouped_instructions() {
         let expected = vec![1,0,1,2,1,2,1,2,1,2];

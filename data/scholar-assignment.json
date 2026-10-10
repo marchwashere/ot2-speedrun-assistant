@@ -1,0 +1,245 @@
+{
+  "job_id": 6,
+  "label": "ePROFESSOR",
+  "name": "Scholar",
+  "permission_flag": 7,
+  "license": {
+    "item": "ITM_EQP_JOB_0006",
+    "name": "Scholar License",
+    "max_count": 3,
+    "guild": "GUILD_005",
+    "completion_flag": 411,
+    "in_progress_flag": 406
+  },
+  "default_abilities": [
+    "ABI_SET_SCH_010",
+    "ABI_SET_SCH_020"
+  ],
+  "selected_abilities": [
+    "ABI_SET_SCH_030",
+    "ABI_SET_SCH_060"
+  ],
+  "jp_costs": [
+    0,
+    0,
+    30,
+    100,
+    500,
+    1000,
+    3000,
+    5000
+  ],
+  "abilities": [
+    {
+      "id": "ABI_SET_SCH_010",
+      "name": "Fireball",
+      "get_param": 1,
+      "default": true,
+      "divine": false,
+      "ability_rows": [
+        "ABI_SCH_010_01",
+        "ABI_SCH_010_02",
+        "ABI_SCH_010_03",
+        "ABI_SCH_010_04"
+      ],
+      "super_magic": "ABI_SET_SCH_011",
+      "hyper_magic": "ABI_SET_SCH_012"
+    },
+    {
+      "id": "ABI_SET_SCH_020",
+      "name": "Icewind",
+      "get_param": 1,
+      "default": true,
+      "divine": false,
+      "ability_rows": [
+        "ABI_SCH_020_01",
+        "ABI_SCH_020_02",
+        "ABI_SCH_020_03",
+        "ABI_SCH_020_04"
+      ],
+      "super_magic": "ABI_SET_SCH_021",
+      "hyper_magic": "ABI_SET_SCH_022"
+    },
+    {
+      "id": "ABI_SET_SCH_030",
+      "name": "Lightning Bolt",
+      "get_param": 0,
+      "default": false,
+      "divine": false,
+      "ability_rows": [
+        "ABI_SCH_030_01",
+        "ABI_SCH_030_02",
+        "ABI_SCH_030_03",
+        "ABI_SCH_030_04"
+      ],
+      "super_magic": "ABI_SET_SCH_031",
+      "hyper_magic": "ABI_SET_SCH_032"
+    },
+    {
+      "id": "ABI_SET_SCH_040",
+      "name": "Analyze",
+      "get_param": 0,
+      "default": false,
+      "divine": false,
+      "ability_rows": [
+        "ABI_SCH_040_01",
+        "ABI_SCH_040_02",
+        "ABI_SCH_040_03",
+        "ABI_SCH_040_04"
+      ],
+      "super_magic": null,
+      "hyper_magic": null
+    },
+    {
+      "id": "ABI_SET_SCH_050",
+      "name": "Stroke of Genius",
+      "get_param": 0,
+      "default": false,
+      "divine": false,
+      "ability_rows": [
+        "ABI_SCH_050_01",
+        "ABI_SCH_050_02",
+        "ABI_SCH_050_03",
+        "ABI_SCH_050_04"
+      ],
+      "super_magic": null,
+      "hyper_magic": null
+    },
+    {
+      "id": "ABI_SET_SCH_060",
+      "name": "Elemental Barrage",
+      "get_param": 0,
+      "default": false,
+      "divine": false,
+      "ability_rows": [
+        "ABI_SCH_060_01",
+        "ABI_SCH_060_02",
+        "ABI_SCH_060_03",
+        "ABI_SCH_060_04"
+      ],
+      "super_magic": null,
+      "hyper_magic": null
+    },
+    {
+      "id": "ABI_SET_SCH_070",
+      "name": "Advanced Magic",
+      "get_param": 0,
+      "default": false,
+      "divine": false,
+      "ability_rows": [
+        "ABI_SCH_070_01",
+        "ABI_SCH_070_02",
+        "ABI_SCH_070_03",
+        "ABI_SCH_070_04"
+      ],
+      "super_magic": null,
+      "hyper_magic": null
+    },
+    {
+      "id": "ABI_SET_SCH_090",
+      "name": "Alephan's Wisdom",
+      "get_param": 2,
+      "default": false,
+      "divine": true,
+      "ability_rows": [
+        "ABI_SCH_090_01",
+        "ABI_SCH_090_02",
+        "ABI_SCH_090_03",
+        "ABI_SCH_090_04"
+      ],
+      "super_magic": null,
+      "hyper_magic": null
+    }
+  ],
+  "supports": [
+    {
+      "id": "ABI_SCH_SUP_01",
+      "name": "Evasive Maneuvers",
+      "support_ability_id": 61,
+      "learned_ability_count": 4,
+      "effect": "eENCOUNT_DOWN",
+      "value": 50
+    },
+    {
+      "id": "ABI_SCH_SUP_02",
+      "name": "Elemental Augmentation",
+      "support_ability_id": 62,
+      "learned_ability_count": 5,
+      "effect": "ePARAMETER_UP_MATK",
+      "value": 50
+    },
+    {
+      "id": "ABI_SCH_SUP_03",
+      "name": "Extra Experience",
+      "support_ability_id": 63,
+      "learned_ability_count": 6,
+      "effect": "eRESULT_EXP_UP",
+      "value": 10
+    },
+    {
+      "id": "ABI_SCH_SUP_04",
+      "name": "Advanced Magic Master",
+      "support_ability_id": 64,
+      "learned_ability_count": 7,
+      "effect": "eMAGIC_BUFF_COUNT_PLUS",
+      "value": 1
+    }
+  ],
+  "parameter_revision": {
+    "HP": 100,
+    "MP": 113,
+    "BP": 100,
+    "SP": 100,
+    "POT": 100,
+    "ATK": 100,
+    "DEF": 100,
+    "MATK": 110,
+    "MDEF": 105,
+    "ACC": 100,
+    "EVA": 100,
+    "CON": 100,
+    "AGI": 100
+  },
+  "proper_equipment": [
+    false,
+    false,
+    false,
+    false,
+    false,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true,
+    true
+  ],
+  "tutorials": [
+    {
+      "id": 58,
+      "label": "eCHANGE_BATTLE_JOB",
+      "list_flag": 1057,
+      "opened_flag": 1357
+    },
+    {
+      "id": 54,
+      "label": "eGET_ABILITY",
+      "list_flag": 1053,
+      "opened_flag": 1353
+    },
+    {
+      "id": 57,
+      "label": "eEQUIP_SUPPORT_ABILITY_PROMPT",
+      "list_flag": 1055,
+      "opened_flag": 1355
+    },
+    {
+      "id": 56,
+      "label": "eEQUIP_SUPPORT_ABILITY",
+      "list_flag": 1055,
+      "opened_flag": 1355
+    }
+  ]
+}

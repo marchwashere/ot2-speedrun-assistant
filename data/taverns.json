@@ -1,0 +1,203 @@
+{
+  "no_appearance_rate": 50,
+  "one_character_rate": 25,
+  "gift_rate": 5,
+  "maps": {
+    "Twn_Mnt_2_1_A": {
+      "name": "Montwise",
+      "slots": 2,
+      "allowed": [
+        false,
+        true,
+        true,
+        true,
+        true,
+        false,
+        false,
+        true
+      ]
+    },
+    "Twn_Mnt_3_1_A": {
+      "name": "Merry Hills",
+      "slots": 2,
+      "allowed": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        false
+      ]
+    },
+    "Twn_Dst_2_1_A": {
+      "name": "Sai",
+      "slots": 2,
+      "allowed": [
+        true,
+        true,
+        false,
+        false,
+        true,
+        true,
+        true,
+        false
+      ]
+    },
+    "Twn_Dst_3_1_A": {
+      "name": "Ku",
+      "slots": 2,
+      "allowed": [
+        false,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        false
+      ]
+    },
+    "Twn_Cty_2_1_A": {
+      "name": "Clockbank",
+      "slots": 2,
+      "allowed": [
+        true,
+        true,
+        true,
+        false,
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    "Twn_Isd_2_1_A": {
+      "name": "Tropu'hopu",
+      "slots": 2,
+      "allowed": [
+        true,
+        true,
+        true,
+        false,
+        true,
+        true,
+        true,
+        false
+      ]
+    },
+    "Twn_Isd_3_1_A": {
+      "name": "Nameless Village",
+      "slots": 2,
+      "allowed": [
+        true,
+        true,
+        true,
+        true,
+        false,
+        true,
+        true,
+        true
+      ]
+    },
+    "Twn_Wld_2_1_A": {
+      "name": "Crackridge",
+      "slots": 2,
+      "allowed": [
+        true,
+        false,
+        true,
+        true,
+        false,
+        true,
+        true,
+        true
+      ]
+    },
+    "Twn_Wld_3_1_A": {
+      "name": "Gravell",
+      "slots": 2,
+      "allowed": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        false,
+        true,
+        true
+      ]
+    },
+    "Twn_Sea_2_1_A": {
+      "name": "Conning Creek",
+      "slots": 2,
+      "allowed": [
+        true,
+        false,
+        true,
+        true,
+        true,
+        false,
+        true,
+        true
+      ]
+    },
+    "Twn_Fst_2_1_A": {
+      "name": "Wellgrove",
+      "slots": 2,
+      "allowed": [
+        false,
+        true,
+        true,
+        false,
+        true,
+        true,
+        false,
+        true
+      ]
+    },
+    "Twn_Fst_3_1_A": {
+      "name": "Timberain",
+      "slots": 2,
+      "allowed": [
+        true,
+        true,
+        false,
+        true,
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    "Twn_Snw_2_1_A": {
+      "name": "Winterbloom",
+      "slots": 1,
+      "allowed": [
+        true,
+        true,
+        false,
+        false,
+        true,
+        true,
+        false,
+        true
+      ]
+    },
+    "Twn_Snw_3_1_A": {
+      "name": "Stormhail",
+      "slots": 2,
+      "allowed": [
+        false,
+        false,
+        true,
+        true,
+        false,
+        true,
+        true,
+        true
+      ]
+    }
+  }
+}

@@ -156,7 +156,6 @@ pub fn with_world_state(arrival: CrtRng, state: WorldState) -> Result<Prediction
         !loader.data.events["MS_TOU_10_1300"].reset_counter,
         "1300 cleanup needs re-audit if EncountReset changes",
     )?;
-    loader.refresh_bar()?;
     loader.refresh_npcs("MS_TOU_10_1300 implicit FinishPre")?;
     loader.boundary("Steal tutorial dismissed; control returned");
     Ok(Prediction {

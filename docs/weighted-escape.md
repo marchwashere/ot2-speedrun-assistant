@@ -34,7 +34,7 @@ next menu. Any later first-menu BP is evaluated from actual state. Both plans
 retain the configured no-second-encounter target and carry actual resources to
 Pirro. Its route distance remains161 running updates.
 
-Flats jointly searches both battle menus, post-purchase time cycles and
+Flats jointly searches both battle menus, a fixed post-purchase switch to day and
 post-Osvald time switches in weighted cost layers. Every required outcome gates
 each candidate: Escape, safe village run, clerics, safe Flats→Snows walking,
 safe recruitment and a non-surprise first Snows encounter. Numeric optional
@@ -55,3 +55,32 @@ equivalent R1-only adjustment. Plans are source-derived, pending live validation
 The optimizer is local to each latest controllable event. It does not globally
 trade extra Pirro R8 inputs against every downstream plan. Each event freezes
 the upstream plan and minimizes its complete own configured outcome cost.
+
+Southern Cape Cold Snows now searches its own opening Escape/break inputs for
+Cait plus no surprise in the first Eastern Cape Cold Snows land encounter.
+Each trial propagates field restoration, actual recruitment when needed, safe
+onward travel (+2 updates per speed), shared map loading and encounter generation.
+The current progression-1 day/night tables both have FirstEncount=0 and a 2% Cait
+rate: the first base group is weighted, and rare replacement remains eligible.
+Selected timing branches are independent complete plans. The search preserves
+first-try Escape and safe onward movement, minimizing input cost +10 per zero-BP
+break. It assumes no intervening time changes or RNG-consuming actions in Eastern.
+The predicted Eastern endpoint stops before battle initialization; no Cait battle
+or post-Cait route is simulated yet. Retail verification remains outstanding.
+
+The early route now includes Gold Ring (Brothel Receptionist, Backstreets) and
+Antique Coin (Boy, New Delsta main) after Artist's three soulstones. The former
+uses the user's 80% chance with StealItemExec's inclusive 1..100 draw; the latter
+has ProperSteal=-15 and is guaranteed at the route's level. Both NPCPurchaseData
+rows specify generic success dialogue (StealSuccessTalkID=None). Their single
+menu sessions use action-timer, success-check and closing-dialogue draws.
+
+Second-fight manipulation compares both Ring/clothes orders at every candidate,
+requiring Ring success plus no surprise in the mansion. Equal-valid-cost orders
+prefer Ring first. Preserve the original battle policy and achieved fight-two
+order/action targets. Failed trials are never carried into selected execution.
+Mansion entry, lookout, escape, Pirro and every later route step consume the
+selected real state, including any changed RNG-driven world flags. Sale valuables
+are carried in route acquisitions, outside the combat consumable catalog.
+Historical captures without the two added steals are separate regression inputs;
+new route endpoints await retail verification.

@@ -112,6 +112,20 @@ pub fn return_to_field(world: &WorldState, attempt: &FieldEscapeAttempt) -> Resu
     restore_field(world, attempt, "Fld_Cty_1_3", "Highroad Escape")
 }
 
+pub(crate) fn apply_escape_resources(state:&mut WorldState,attempt:&FieldEscapeAttempt)->Result<()> {
+    state.sync_progression()?;
+    for (index,&id) in state.party.iter().enumerate() {
+        let character=&mut state.character_progression.get_mut(&id).unwrap().character;
+        let maximum=ot2_battle_engine::field_escape::player_latent_max(&character.id)?;
+        let resource=character.resources.as_mut().unwrap();
+        let cost=attempt.party_sp_cost.get(index).copied().unwrap_or(0);
+        ensure(resource.sp>=cost,"Insufficient carried SP for selected break")?;
+        resource.sp-=cost;
+        resource.latent=resource.latent.saturating_add(attempt.party_latent_gain.get(index).copied().unwrap_or(0)).min(maximum);
+    }
+    Ok(())
+}
+
 pub(crate) fn restore_field(
     world: &WorldState,
     attempt: &FieldEscapeAttempt,
@@ -128,6 +142,8 @@ pub(crate) fn restore_field(
     )?;
     let mut state = world.clone();
     state.first_encounter = false;
+    apply_escape_resources(&mut state,attempt)?;
+    state.enemy_knowledge.extend(attempt.enemy_knowledge.clone());
     let mut loader = Loader::new(world::catalog(), state, attempt.after)?;
     loader.restore_field_after_battle(&format!("Return from successful {label}"))?;
     loader.boundary(format!("{label}: field control restored"));
@@ -180,7 +196,7 @@ pub(crate) fn escape_plan_with_limit(
 ) -> Result<Escape> {
     let mut search=crate::escape_search::FieldSearch::new(entry,situation,level,enemies,danger)?;
     let mut tested=0;
-    let maximum=total_limit.map(|n|n.saturating_mul(2).saturating_add(crate::escape_search::BREAK_INPUT_COST+1));
+    let maximum=total_limit.map(|n|n.saturating_mul(2).saturating_add(crate::escape_search::BREAK_INPUT_COST+crate::escape_search::ROUND_INPUT_COST+1));
     let mut cost=0u32;
     loop {
         if maximum.is_some_and(|m|cost>m) {let mut p=search.unavailable()?;p.tested_candidates=tested;return Ok(p);}
@@ -214,7 +230,7 @@ fn plan_route_escape(
         let walk = f.harbor_reach.walking.reaches_reset;
         let (safe, zero_bp_break) = if let Some(h) = crate::harbor::after_flats(&f)? {
             let (entry, e)=crate::flats_escape::first_encounter(h.after, &h.world_after, level)?;
-            (e.situation.as_deref()!=Some("Surprise"), crate::flats_escape::unboosted_opening_break(entry,&e,level)?)
+            (e.situation.as_deref()!=Some("Surprise"), crate::flats_escape::opening_break(entry,&e,level)?)
         } else {
             (false, false)
         };
@@ -232,17 +248,19 @@ fn plan_route_escape(
         let (_, walk, safe, zero_bp_break) = project(a)?;
         Ok(walk && (!required_safe || safe) && (!required_break || zero_bp_break))
     };
-    let choose = |limit, accepts: &dyn Fn(&FieldEscapeAttempt) -> Result<bool>| {
-        escape_plan_with_limit(
-            entry,
-            situation,
-            level,
-            enemies,
-            danger,
-            settings.escape_max_boost_repeats,
-            limit,
-            accepts,
-        )
+    let choose = |limit:Option<u32>, accepts: &dyn Fn(&FieldEscapeAttempt) -> Result<bool>| {
+        let mut search=crate::escape_search::FieldSearch::new(entry,situation,level,enemies,danger)?;
+        if settings.break_max_boost_repeats.is_none() {search.require_break();}
+        let maximum=limit.map(|n:u32|n.saturating_mul(2).saturating_add(crate::escape_search::BREAK_INPUT_COST+crate::escape_search::ROUND_INPUT_COST+1));
+        let mut tested=0;
+        for cost in 0..u32::MAX {
+            if maximum.is_some_and(|m|cost>m) {return search.unavailable();}
+            for mut plan in search.candidates(cost,true,limit)? {
+                tested+=1;
+                if accepts(plan.attempt.as_ref().unwrap())? {plan.tested_candidates=tested;return Ok(plan);}
+            }
+        }
+        Err(SimError("Break search exhausted representable cost".into()))
     };
     let mut plan = choose(None, &required)?;
     let Some(a) = &plan.attempt else {
@@ -359,10 +377,11 @@ pub struct Prediction {
     pub escape: Option<Escape>,
     pub field_return: Option<FieldReturn>,
     pub approach_search: Option<ApproachSearch>,
+    pub formation_search: Option<crate::formation_search::Report>,
     pub verification: &'static str,
 }
 
-fn reward(base: u32, party: usize, steps: &[second::Step]) -> u32 {
+pub(crate) fn reward(base: u32, party: usize, steps: &[second::Step]) -> u32 {
     let mut broken = false;
     let mut overkill = false;
     for step in steps {
@@ -390,6 +409,12 @@ fn reward(base: u32, party: usize, steps: &[second::Step]) -> u32 {
     base + (u32::from(broken) + u32::from(overkill)) * (base / 10).max(1)
 }
 pub fn route_level(second: &second::Prediction, boss: &pirro::Prediction) -> Result<u32> {
+    let (before,after)=route_experience(second,boss)?;
+    let level = level_for_experience(after);
+    ensure(level > level_for_experience(before),"Highroad healthy-HP profile requires the post-Pirro level-up")?;
+    Ok(level)
+}
+pub(crate) fn route_experience(second:&second::Prediction,boss:&pirro::Prediction)->Result<(u32,u32)> {
     let before = second.opening_exp
         + reward(
             route_battle_base_exp("ENG_EVE_THI_C01_020")?,
@@ -397,12 +422,21 @@ pub fn route_level(second: &second::Prediction, boss: &pirro::Prediction) -> Res
             &second.steps,
         );
     let after = before + reward(route_battle_base_exp(boss.group)?, 1, &boss.steps);
-    let level = level_for_experience(after);
-    ensure(
-        level > level_for_experience(before),
-        "Highroad healthy-HP profile requires the post-Pirro level-up",
-    )?;
-    Ok(level)
+    Ok((before,after))
+}
+pub(crate) fn carry_progression(world:&mut WorldState,second:&second::Prediction,boss:&pirro::Prediction)->Result<()> {
+    world.party_experience=vec![route_experience(second,boss)?.1];
+    world.sync_progression()?;
+    // Opening and second scripted fights finish on round two; Pirro takes
+    // multiple rounds. None receives the one-turn JP bonus.
+    let mut jp=0;
+    for group in ["ENG_EVE_THI_C01_010",second.group,boss.group] {
+        jp+=ot2_battle_engine::progression::formation_reward(group)?.jp;
+    }
+    world.character_progression.get_mut(&7).unwrap().jp_earned=jp;
+    world.character_progression.get_mut(&7).unwrap().character=ot2_battle_engine::field_escape::route_player(7,world.party_experience[0])?;
+    world.character_progression.get_mut(&7).unwrap().character.resources.as_mut().unwrap().latent=boss.state.actors[0].resources.latent;
+    Ok(())
 }
 
 pub fn predict(
@@ -412,7 +446,7 @@ pub fn predict(
 ) -> Result<Prediction> {
     predict_internal(ending, level, settings, true)
 }
-fn predict_internal(
+pub(crate) fn predict_internal(
     ending: &pirro_aftermath::Prediction,
     level: u32,
     settings: Settings,
@@ -449,7 +483,7 @@ fn predict_internal(
         map: loader.state.map.clone(),
         zone: "ENT_FLD_CTY_1_3_LND".into(),
         period: "DayTime".into(),
-        progress: 1,
+        progress: loader.state.main_progress_points,
         first_encounter: loader.state.first_encounter,
         boundary: Boundary::CurrentCounter,
         current_counter: Some(loader.state.encounter_counter),
@@ -510,7 +544,8 @@ fn predict_internal(
         escape,
         field_return,
         approach_search: None,
-        verification: "Live capture verifies all 10 CRT calls from menu6002 through five boost cycles, Escape, two field gondola callbacks and counter B/A to6012. Other starts remain source-derived. Immediate daytime switch, skipped Al introduction, unchanged equipment, no intervening CRT actions; first land encounter. Compare direct Escape with actual break and next-menu boosts by estimated input cost: boost input1, additional break10. Break uses actual hit rolls and guarantees next-menu Escape without a lottery. Surprise combat and failed-Escape continuation are not approximated.",
+        formation_search: None,
+        verification: "Live capture verifies all 10 CRT calls from menu6002 through five boost cycles, Escape, two field gondola callbacks and counter B/A to6012. Other starts remain source-derived. Immediate daytime switch, skipped Al introduction, unchanged equipment, no intervening CRT actions; first land encounter. Compare direct Escape with actual break and next-menu boosts by estimated input cost: boost input1, break6 plus8 per elapsed round. Break uses actual hit rolls and guarantees next-menu Escape without a lottery. Surprise combat and failed-Escape continuation are not approximated.",
     })
 }
 
@@ -522,14 +557,15 @@ pub fn from_battle(
     settings: Settings,
     replay: Option<Vec<u8>>,
 ) -> Result<Option<(pirro_aftermath::Prediction, Prediction)>> {
-    let Some(ending) = pirro_aftermath::after_battle(boss)? else {
+    let Some(mut ending) = pirro_aftermath::after_battle(boss)? else {
         return Ok(None);
     };
+    carry_progression(&mut ending.world_after,second,boss)?;
     let mut prediction=predict_internal(&ending,route_level(second,boss)?,settings,false)?;
     let mut ending=ending;
     let facts=|p:&Prediction| -> Result<[bool;2]> {
         Ok([p.encounter.situation.as_deref()!=Some("Surprise"),
-            crate::flats_escape::unboosted_opening_break(p.before_battle_initialization,&p.encounter,p.level)?])
+            crate::flats_escape::opening_break(p.before_battle_initialization,&p.encounter,p.level)?])
     };
     let caps=[settings.approach_max_boost_repeats,settings.break_max_boost_repeats];
     let mut goals=caps.map(|c|c.is_none());
@@ -559,7 +595,7 @@ pub fn from_battle(
                 ensure(pirro::describe_path(&path)?.extra_repeats<=a.saturating_add(b),"Pirro R8 replay exceeds its outcome budgets")?;
             }
             let p=run(&path)?;
-            ensure(path==[1,2,3] || check(&p,goals)?,"Pirro R8 replay violates required opening targets")?;
+            ensure(check(&p,goals)?,"Pirro R8 replay violates required opening targets")?;
             selected=Some((p,path));
         } else {
             let current=facts(&prediction)?;
@@ -590,6 +626,8 @@ pub fn from_battle(
     } else if let Some(path)=replay {ensure(path==[1,2,3],"R8 replay unavailable in healing branch")?;}
     let met=facts(&prediction)?;info.target_met=met[0];info.unboosted_break_met=met[1];
     if !met[0] || (caps[1].is_none() && !met[1]) {info.status="R8 opening target not met";}
+    carry_progression(&mut ending.world_after,second,boss)?;
+    ensure(met[0] && (caps[1].is_some() || met[1]),"Pirro R8 did not secure a safe Throné-breakable Highroad encounter")?;
     prediction=predict(&ending,route_level(second,boss)?,settings)?;
     prediction.approach_search=Some(info);
     Ok(Some((ending,prediction)))
@@ -693,7 +731,7 @@ mod tests {
             )
             .unwrap();
             assert!(meets(optional.attempt.as_ref().unwrap()).0);
-            let boost_only = plan_route_escape(
+            let unlimited_escape = plan_route_escape(
                 &world,
                 entry,
                 Situation::Normal,
@@ -706,8 +744,12 @@ mod tests {
                 },
             )
             .unwrap();
-            assert!(boost_only.break_action.is_none());
-            assert_eq!(meets(boost_only.attempt.as_ref().unwrap()), (true, true));
+            // An unlimited boost budget does not exclude a cheaper optional break.
+            assert!(unlimited_escape.attempt.as_ref().unwrap().success);
+            let required_break_plan=plan_route_escape(&world,entry,Situation::Normal,5,&enemies,5,Settings {break_max_boost_repeats:None,escape_max_boost_repeats:None,..settings}).unwrap();
+            assert!(required_break_plan.break_action.is_some());
+            assert_eq!(meets(required_break_plan.attempt.as_ref().unwrap()),(true,true));
+            assert_eq!(meets(unlimited_escape.attempt.as_ref().unwrap()), (true, true));
         }
         assert!(
             accepted_break,
@@ -733,10 +775,11 @@ mod tests {
             let settings=Settings {escape_max_boost_repeats:None,flats_max_boost_repeats:None,
                 flats_approach_max_boost_repeats:None,flats_break_max_boost_repeats:None,..Default::default()};
             let plan=plan_route_escape(&world,entry,Situation::Normal,5,&["ENE_NML_FLD_CTY_010"],5,settings).unwrap();
-            let replay=plan.menu.clone().attempt(&plan.inputs.as_ref().unwrap().levels,5).unwrap();
+            let mut replay_search=crate::escape_search::FieldSearch::new(entry,Situation::Normal,5,&["ENE_NML_FLD_CTY_010"],5).unwrap();
+            let replay=replay_search.candidates(plan.weighted_input_cost,true,None).unwrap().into_iter().find(|c|c.inputs==plan.inputs && serde_json::to_value(&c.break_action).unwrap()==serde_json::to_value(&plan.break_action).unwrap()).unwrap().attempt.unwrap();
             assert_eq!(replay.after,plan.attempt.as_ref().unwrap().after);
             let (at,e)=project(&replay);
-            assert!(crate::flats_escape::unboosted_opening_break(at,&e,5).unwrap());
+            assert!(crate::flats_escape::opening_break(at,&e,5).unwrap());
             assert!(plan.flats_break_search.as_ref().unwrap().target_met);
             assert!(plan.flats_search.as_ref().unwrap().target_met);
             assert!(plan.flats_approach_search.as_ref().unwrap().target_met);
@@ -806,5 +849,12 @@ mod tests {
             }
         }
         assert_eq!(covered, [true; 3]);
+    }
+}
+
+impl Escape {
+    pub fn enemy_knowledge(&self) -> ot2_battle_engine::knowledge::EnemyHistory {
+        self.break_action.as_ref().map(|b|b.enemy_knowledge.clone())
+            .unwrap_or_else(||self.menu.enemy_knowledge.clone())
     }
 }

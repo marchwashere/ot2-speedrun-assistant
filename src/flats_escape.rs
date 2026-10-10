@@ -17,6 +17,34 @@ use serde::Serialize;
 /// from harbor and ends at the Abandoned Village transition, not its loaded map.
 pub const RUN_UPDATES: u32 = 170;
 
+#[derive(Debug, PartialEq, Eq, PartialOrd, Ord)]
+struct ProjectionKey {
+    sp_cost: Vec<u32>,
+    latent_gain: Vec<u16>,
+    after_state: u32,
+    after_draws: u64,
+    success: bool,
+    walk: bool,
+    enemy_knowledge: crate::state_key::EnemyHistoryKey,
+}
+impl ProjectionKey {
+    fn new(attempt: &ot2_battle_engine::field_escape::FieldEscapeAttempt, walk: bool) -> Self {
+        // The enclosing projection cache fixes world, level, movement and target
+        // settings. These are all remaining inputs read by restore/project.
+        Self { sp_cost:attempt.party_sp_cost.clone(), latent_gain:attempt.party_latent_gain.clone(), after_state: attempt.after.state, after_draws: attempt.after.draws,
+            success: attempt.success, walk,
+            enemy_knowledge: crate::state_key::EnemyHistoryKey::new(&attempt.enemy_knowledge) }
+    }
+}
+
+fn southern_route_safe(p:&crate::early_cait::Prediction,level:u32)->Result<bool> {
+    if !p.southern_rare_target {return Ok(false);}
+    let encounter=p.encounter.as_ref().unwrap();
+    let Some(v)=crate::snows_rare::kill(p.before_battle_initialization.unwrap(),p.world_at_encounter.as_ref().unwrap(),level,encounter)? else {return Ok(false)};
+    let (_,_,eastern)=crate::snows_escape::southern_rare_entry(&v,encounter.counter_updates.unwrap(),level)?;
+    Ok(matches!(eastern.situation.as_deref(),Some("Normal"|"Preemptive")))
+}
+
 #[derive(Debug, Clone, Copy, Serialize)]
 pub struct Settings {
     pub max_boost_repeats: Option<u32>,
@@ -63,6 +91,7 @@ pub struct Prediction {
     pub village_return: Option<village_return::Prediction>,
     pub village_visit: Option<village_return::Visit>,
     pub early_cait: Option<crate::early_cait::Prediction>,
+    pub snows_escape: Option<crate::snows_escape::Alternatives>,
     pub early_searches: Vec<SnowSearch>,
     pub early_weighted_input_cost: Option<u32>,
     pub early_tested_projections: u64,
@@ -92,7 +121,7 @@ pub fn first_encounter(
         map: world.map.clone(),
         zone: "ENT_FLD_CTY_1_2_LND".into(),
         period: "DayTime".into(),
-        progress: 1,
+        progress: world.main_progress_points,
         first_encounter: true,
         boundary: Boundary::CurrentCounter,
         current_counter: Some(world.encounter_counter),
@@ -103,6 +132,13 @@ pub fn first_encounter(
     let mut entry = arrival;
     let prediction = encounter::catalog().predict(&mut entry, &options)?;
     Ok((entry, prediction))
+}
+
+/// Safe Throné opening break; spending the available turn-one BP is allowed.
+pub fn opening_break(entry:CrtRng, encounter:&encounter::Prediction, level:u32) -> Result<bool> {
+    if encounter.enemies.len()!=1 || !matches!(encounter.situation.as_deref(),Some("Normal"|"Preemptive")) {return Ok(false);}
+    let situation=if encounter.situation.as_deref()==Some("Preemptive") {Situation::Preemptive} else {Situation::Normal};
+    Ok(ot2_battle_engine::field_escape::first_action_break(entry,situation,level,&[encounter.enemies[0].enemy.id.as_str()])?.is_some())
 }
 
 /// Actual first-action break, after rare replacement and opening hit draws.
@@ -133,22 +169,31 @@ pub fn predict(
     level: u32,
     settings: Settings,
 ) -> Result<Prediction> {
-    predict_to_boundary(arrival, world, level, settings, false, None)
+    predict_to_boundary(arrival, world, level, settings, false, None, None)
 }
 
 pub fn until_first_village(arrival:CrtRng, world:&WorldState, level:u32, settings:Settings) -> Result<Prediction> {
-    predict_to_boundary(arrival, world, level, settings, true, None)
+    predict_to_boundary(arrival, world, level, settings, true, None, None)
 }
 
 pub fn until_osvald_cait(arrival:CrtRng, world:&WorldState, level:u32, settings:Settings,
     early:crate::early_cait::Settings) -> Result<Prediction> {
     ensure(early.clerics_max_boost_repeats.is_none_or(|n|n<=256)
         && early.cait_max_boost_repeats.is_none_or(|n|n<=256), "Early route caps must be 0..256 or Required")?;
-    predict_to_boundary(arrival, world, level, settings, false, Some(early))
+    predict_to_boundary(arrival, world, level, settings, false, Some(early), None)
+}
+
+/// The ceiling is derived from an already valid complete route, never a retry
+/// limit on a Required outcome. An exhausted candidate cannot improve that route.
+pub(crate) fn within_route_cost(arrival:CrtRng, world:&WorldState, level:u32, settings:Settings,
+    early:crate::early_cait::Settings, ceiling:u32) -> Result<Option<Prediction>> {
+    let p=predict_to_boundary(arrival,world,level,settings,false,Some(early),Some(ceiling))?;
+    Ok(p.escape.is_some().then_some(p))
 }
 
 fn predict_to_boundary(arrival:CrtRng, world:&WorldState, level:u32, settings:Settings, stop_at_village:bool,
-    early:Option<crate::early_cait::Settings>) -> Result<Prediction> {
+    early:Option<crate::early_cait::Settings>, ceiling:Option<u32>) -> Result<Prediction> {
+    let _profile=crate::profile::span("Flats continuation");
     ensure(
         settings.max_boost_repeats.is_none_or(|n| n <= 256)
             && settings.snow_max_boost_repeats.is_none_or(|n| n <= 256)
@@ -195,6 +240,7 @@ fn predict_to_boundary(arrival:CrtRng, world:&WorldState, level:u32, settings:Se
         village_return: None,
         village_visit: None,
         early_cait: None,
+        snows_escape: None,
         early_searches: vec![],
         early_weighted_input_cost: None,
         early_tested_projections: 0,
@@ -202,7 +248,7 @@ fn predict_to_boundary(arrival:CrtRng, world:&WorldState, level:u32, settings:Se
         osvald: None,
         osvald_search: None,
         status: "Surprise opening: increase the Highroad Flats-approach allowance",
-        verification: "Source-derived, awaiting live verification. 170 running updates from harbor return to Abandoned Village entrance (measured ~165 plus five-update allowance). Daytime, unchanged equipment, solo route level, no intervening CRT actions. Search minimum-cost direct Escape or an actual single-enemy break with boosts at either command menu. Boost input cost1; additional break cost10. Every selected strategy must also leave a strictly positive counter at the village entrance. A break whose reset is too short is rejected. Uses the shared field-restoration callbacks; never just offsets the final RNG. The village-approach boundary is before loading; the separate village_return then tags the village, returns to Flats and predicts the padded walk to Southern Cape Cold Snows.",
+        verification: "Source-derived, awaiting live verification. 170 running updates from harbor return to Abandoned Village entrance (measured ~165 plus five-update allowance). Daytime, unchanged equipment, solo route level, no intervening CRT actions. Search minimum-cost direct Escape or an actual single-enemy break with boosts at either command menu. Boost input cost1; break cost6 plus8 per elapsed round. Every selected strategy must also leave a strictly positive counter at the village entrance. A break whose reset is too short is rejected. Uses the shared field-restoration callbacks; never just offsets the final RNG. The village-approach boundary is before loading; the separate village_return then tags the village, returns to Flats and predicts the padded walk to Southern Cape Cold Snows.",
     };
     if situation == Situation::Surprise {
         return Ok(result);
@@ -225,59 +271,63 @@ fn predict_to_boundary(arrival:CrtRng, world:&WorldState, level:u32, settings:Se
         highroad::restore_field(world, attempt, "Fld_Cty_1_2", "Flats Escape")
     };
     if let Some(early) = early {
-        let project = |a:&ot2_battle_engine::field_escape::FieldEscapeAttempt, cleric_extra, osvald_switches| {
+        let project = |a:&ot2_battle_engine::field_escape::FieldEscapeAttempt, walk| {
             let f=restore(a)?;
             if f.world_after.encounter_counter < required_counter { return Ok(None); }
             let mut w=f.world_after;
             w.encounter_counter-=remaining*decrement;
-            crate::early_cait::project_with_policy(f.after,w,level,cleric_extra,osvald_switches,early.require_cait).map(Some)
+            if early.clerics_max_boost_repeats.is_none() {
+                crate::early_cait::project_with_required_clerics(f.after,w,level,0,early.require_cait,walk)
+            } else {
+                crate::early_cait::project_with_approach(f.after,w,level,0,early.require_cait,walk).map(Some)
+            }
         };
         let caps=[early.clerics_max_boost_repeats, settings.snow_max_boost_repeats,
             if early.require_cait {settings.osvald_max_boost_repeats} else {Some(0)}, early.cait_max_boost_repeats];
         let mut required=caps.map(|cap|cap.is_none());
+        // Never surprised by a planned encounter, irrespective of optional caps.
+        required[3]=true;
         // Cache immutable projections across weighted-cost layers. Search clones
-        // the untouched command menu; rejected time switches never leak state.
+        // the untouched command menu. Post-Osvald time switches are not allowed.
         use std::{cell::{Cell,RefCell},collections::BTreeMap,rc::Rc};
-        let cache=RefCell::new(BTreeMap::<(u32,u64,u32,u32),Option<Rc<crate::early_cait::Prediction>>>::new());
+        let cache=RefCell::new(BTreeMap::<ProjectionKey,Option<Rc<crate::early_cait::Prediction>>>::new());
         let tested=Cell::new(0u64);
-        let cached = |a:&ot2_battle_engine::field_escape::FieldEscapeAttempt,k,m| -> Result<Option<Rc<crate::early_cait::Prediction>>> {
-            let key=(a.after.state,a.after.draws,k,m);
+        let cached = |a:&ot2_battle_engine::field_escape::FieldEscapeAttempt,walk| -> Result<Option<Rc<crate::early_cait::Prediction>>> {
+            let key=ProjectionKey::new(a,walk);
             if let Some(p)=cache.borrow().get(&key) {return Ok(p.clone());}
-            let p=project(a,k,m)?.map(Rc::new);
+            let p=project(a,walk)?.map(Rc::new);
             cache.borrow_mut().insert(key,p.clone()); tested.set(tested.get()+1); Ok(p)
         };
-        let search=RefCell::new(crate::escape_search::FieldSearch::new(entry,situation,level,&enemies,danger)?);
-        let choose = |ceiling:Option<u32>,goals:[bool;4]| -> Result<Option<(Escape,u32,u32,u32)>> {
+        let mut break_search=crate::escape_search::FieldSearch::new(entry,situation,level,&enemies,danger)?;
+        if !early.require_cait {
+            ensure(opening_break(entry,&result.encounter,level)?,"Forward Flats route requires a safe Throné-breakable opening")?;
+            break_search.require_break();
+        }
+        let search=RefCell::new(break_search);
+        let choose = |ceiling:Option<u32>,goals:[bool;4],southern:bool| -> Result<Option<(Escape,u32)>> {
 
             let mut cost=0u32;
             loop {
                 if ceiling.is_some_and(|c|cost>c) {return Ok(None);}
-                // Equal weighted cost: prefer fewer switches, then fewer at the
-                // clerics. The mandatory night/day shop pair is a constant +14.
-                for switches in 0..=cost/crate::early_cait::TIME_SWITCH_INPUT_COST {
-                    let boost_cost=cost-switches*crate::early_cait::TIME_SWITCH_INPUT_COST;
-                    for candidate in search.borrow_mut().candidates(boost_cost,settings.max_boost_repeats.is_some(),None)? {
-                        let a=candidate.attempt.as_ref().unwrap();
-                        let Some(prefix)=cached(a,0,0)? else {continue};
-                        let base=crate::early_cait::outcomes_for(&prefix,early.require_cait);
-                        if (goals[0]&&!base[0]) || (goals[1]&&!base[1]) {continue;}
-                        for cleric_extra in (0..=switches).step_by(2) {
-                            let osvald_switches=switches-cleric_extra;
-                            let Some(p)=cached(a,cleric_extra,osvald_switches)? else {continue};
-                            if crate::early_cait::outcomes_for(&p,early.require_cait).iter().zip(goals).all(|(met,needed)|!needed || *met) {
-                                return Ok(Some((candidate,cleric_extra,osvald_switches,cost)));
-                            }
-                        }
+                // The fixed night/day shop pair is a constant +14.
+                for candidate in search.borrow_mut().candidates(cost,true,None)? {
+                    let a=candidate.attempt.as_ref().unwrap();
+                    let Some(p)=cached(a,southern)? else {continue};
+                    if southern && !southern_route_safe(&p,level)? {continue;}
+                    if crate::early_cait::outcomes_for(&p,early.require_cait).iter().zip(goals).all(|(met,needed)|!needed || *met) {
+                        return Ok(Some((candidate,cost)));
                     }
                 }
                 cost=cost.checked_add(1).ok_or_else(||SimError("Weighted early route search exhausted representable cost".into()))?;
             }
         };
-        let (mut escape,mut cleric_extra,mut osvald_switches,mut cost)=choose(None,required)?
-            .ok_or_else(||SimError("No required early route plan".into()))?;
+        let Some((mut escape,mut cost))=choose(ceiling,required,false)? else {
+            result.status="No early route within incumbent cost";
+            return Ok(result);
+        };
         for i in 0..4 {
             let Some(a)=&escape.attempt else {break};
-            let outcomes=crate::early_cait::outcomes_for(&cached(a,cleric_extra,osvald_switches)?.unwrap(),early.require_cait);
+            let outcomes=crate::early_cait::outcomes_for(&cached(a,false)?.unwrap(),early.require_cait);
             // Optional improvements preserve all already achieved targets.
             for j in 0..4 {required[j] |= outcomes[j];}
             let base=escape.boost_repeat_count;
@@ -287,34 +337,45 @@ fn predict_to_boundary(arrival:CrtRng, world:&WorldState, level:u32, settings:Se
             if !met && let Some(extra)=caps[i] {
                 let mut goals=required; goals[i]=true;
                 // Numeric optional budgets retain their two-input-pair units,
-                // now including equivalent time-switch cost instead of boosts only.
-                if let Some((candidate,k,m,c))=choose(Some(cost.saturating_add(2*extra)),goals)? {
+                if let Some((candidate,c))=choose(Some(cost.saturating_add(2*extra)),goals,false)? {
                     added=candidate.boost_repeat_count.saturating_sub(base);
-                    escape=candidate; cleric_extra=k; osvald_switches=m; cost=c; required[i]=true; met=true;
+                    escape=candidate; cost=c; required[i]=true; met=true;
                 }
             }
             result.early_searches.push(SnowSearch {max_extra_boost_repeats:caps[i],base_repeats:base,
                 added_repeats:added,tested_candidates:tested.get()-before_tested,target_met:met,
                 status:if met {"Target met; preceding outcomes preserved"} else {"Optional target not met within budget"}});
         }
+        // Freeze the selected Flats plan before searching the Snows continuation.
+        let walk=false;
+        let p=cached(escape.attempt.as_ref().unwrap(),false)?.unwrap();
+        let southern=!early.require_cait && p.snows_approach.as_ref().is_some_and(|a|!a.predicted_before_osvald) && southern_route_safe(&p,level)?;
         if let Some(a)=&escape.attempt {
             let f=restore(a)?;
             let budget=MovementBudget::new(f.world_after.encounter_counter,remaining,decrement);
             let mut exit=f.world_after.clone(); exit.encounter_counter=budget.counter_before_reset.unwrap();
             result.at_village_entrance=Some(f.after); result.world_at_village_entrance=Some(exit);
-            result.early_cait=project(a,cleric_extra,osvald_switches)?;
+            result.early_cait=project(a,walk)?;
+            if southern && let Some(p)=result.early_cait.as_mut() {
+                p.rare_victory=crate::snows_rare::kill(p.before_battle_initialization.unwrap(),p.world_at_encounter.as_ref().unwrap(),level,p.encounter.as_ref().unwrap())?;
+                ensure(p.rare_victory.is_some(),"Southern rare formation cannot be cleared by Shadow Soulstone (M)")?;
+                p.after_rare=Some(crate::snows_escape::after_southern_rare(p.rare_victory.as_ref().unwrap(),p.encounter.as_ref().unwrap().counter_updates.unwrap(),level)?);
+            }
             let final_outcomes=crate::early_cait::outcomes_for(result.early_cait.as_ref().unwrap(),early.require_cait);
             for (s,met) in result.early_searches.iter_mut().zip(final_outcomes) {
                 s.target_met=met;
-                s.status=if met {"Target met in the selected joint plan"} else {"Optional target not met within budget"};
+                s.status=if met {"Target met in the frozen forward plan"} else {"Optional target not met within budget"};
             }
             result.remaining_run=Some(budget); result.field_return=Some(f);
             result.early_weighted_input_cost=Some(cost+2*crate::early_cait::TIME_SWITCH_INPUT_COST);
             result.early_tested_projections=tested.get();
+            if let Some(p)=result.early_cait.as_ref().filter(|p|p.snows_approach.is_some() && !southern) {
+                result.snows_escape=Some(if crate::world::diagnostics_enabled() {crate::snows_escape::alternatives(p,level)?} else {crate::snows_escape::trial_alternatives(p,level,ceiling.map(|c|c.saturating_sub(cost)))?});
+            }
             result.status="Early clerics / Osvald / first Snows encounter evaluated";
         }
         result.escape=Some(escape);
-        result.verification="Weighted search over direct Escape or break with R1/R2 boosts, post-purchase complete time cycles and post-recruitment time switches, minimizing boost inputs +10 per break +7 per switch including the mandatory night/day shop pair. Required outcomes gate every candidate jointly; numeric optional budgets add two weighted cost units per input-pair allowance and preserve achieved outcomes. Each candidate replays loader/time/NPC/movement/recruitment and actual final-phase encounter selection. No Cape Cold continuation.";
+        result.verification="Forward search over mandatory Throné break with R1/R2 boosts and the fixed night/day cleric shop pair. No time switch after Osvald recruitment. Minimize boost inputs +6 per break +3 per Defend +8 per elapsed round, with a constant 14 for the mandatory shop pair. Required outcomes gate every candidate jointly; numeric optional budgets add two weighted cost units per input-pair allowance and preserve achieved outcomes. Each candidate replays loader/time/NPC/movement/recruitment and actual final-phase encounter selection. No Cape Cold continuation.";
         return Ok(result);
     }
     let project = |attempt: &ot2_battle_engine::field_escape::FieldEscapeAttempt| -> Result<Option<village_return::Prediction>> {
@@ -471,6 +532,33 @@ mod tests {
     use crate::world;
     use highroad::EscapeMethod;
     #[test]
+    fn projection_cache_distinguishes_history_at_identical_rng_endpoints() {
+        let direct=ot2_battle_engine::field_escape::FieldEscapeAttempt {party_sp_cost:vec![],party_latent_gain:vec![],
+            enemy_knowledge:Default::default(),success:true,chance_percent:100,
+            before_check:CrtRng::new(0),after:CrtRng::new(1),trace:vec![],
+        };
+        let mut revealed=direct.clone();
+        revealed.enemy_knowledge.insert("ENE_NML_FLD_CTY_010".into(),
+            ot2_battle_engine::knowledge::EnemyKnowledge {weapons:4,elements:0,studied:false});
+        let w=world();
+        let a=highroad::restore_field(&w,&direct,"Fld_Cty_1_2","cache regression").unwrap();
+        let b=highroad::restore_field(&w,&revealed,"Fld_Cty_1_2","cache regression").unwrap();
+        assert_eq!(a.after,b.after);
+        assert_ne!(a.world_after.enemy_knowledge,b.world_after.enemy_knowledge);
+        let mut cache=std::collections::BTreeMap::new();
+        cache.insert(ProjectionKey::new(&direct,false),a.world_after.enemy_knowledge);
+        cache.insert(ProjectionKey::new(&revealed,false),b.world_after.enemy_knowledge);
+        assert_eq!(cache.len(),2,"Same RNG is insufficient when a break reveals a weakness");
+        assert_ne!(ProjectionKey::new(&direct,false),ProjectionKey::new(&direct,true));
+        let mut broken=direct.clone();broken.party_latent_gain=vec![25];
+        assert_ne!(ProjectionKey::new(&direct,false),ProjectionKey::new(&broken,false));
+        let mut carried=w.clone();carried.sync_progression().unwrap();
+        carried.character_progression.get_mut(&7).unwrap().character.resources.as_mut().unwrap().latent=70;
+        let after=highroad::restore_field(&carried,&broken,"Fld_Cty_1_2","latent regression").unwrap();
+        assert_eq!(after.world_after.character_progression[&7].character.resources.as_ref().unwrap().latent,80);
+        assert_eq!(carried.character_progression[&7].character.resources.as_ref().unwrap().latent,70);
+    }
+    #[test]
     fn cait_fork_replays_joint_targets_and_freezes_the_incoming_encounter() {
         let w=world();
         let entry=CrtRng {state:0,draws:6050};
@@ -523,24 +611,26 @@ mod tests {
         assert_eq!(serde_json::to_value(e).unwrap(),serde_json::to_value(&early.encounter).unwrap());
         assert_eq!(p.early_weighted_input_cost,Some(selected.weighted_input_cost+
             crate::early_cait::TIME_SWITCH_INPUT_COST*(1+early.post_cleric_switches+early.post_osvald_switches)));
-        assert!(early.post_cleric_switches>1 || early.post_osvald_switches>0,"Exercise the new time-switch control points");
+        assert_eq!(early.post_cleric_switches,1,"The shop must return to day exactly once");
+        assert_eq!(early.post_osvald_switches,0,"Osvald time manipulation is removed from route search");
         // Independently exhaust every cheaper phase allocation for this selected
         // Escape state, including ending the encounter at night.
         let switches=early.post_cleric_switches-1+early.post_osvald_switches;
         for total in 0..switches {
-            for k in (0..=total).step_by(2) {
-                let q=crate::early_cait::project_with_policy(p.at_village_entrance.unwrap(),
-                    p.world_at_village_entrance.clone().unwrap(),5,k,total-k,true).unwrap();
-                assert_ne!(crate::early_cait::outcomes(&q),[true;4]);
-            }
+            let q=crate::early_cait::project_with_policy(p.at_village_entrance.unwrap(),
+                p.world_at_village_entrance.clone().unwrap(),5,total,true).unwrap();
+            assert_ne!(crate::early_cait::outcomes(&q),[true;4]);
         }
-        assert!(crate::early_cait::project_with_switches(p.at_village_entrance.unwrap(),
-            p.world_at_village_entrance.clone().unwrap(),5,1,0).is_err());
         let optional=until_osvald_cait(entry,&world(),5,Settings {
             snow_max_boost_repeats:Some(0),osvald_max_boost_repeats:Some(0),..settings
         },crate::early_cait::Settings {clerics_max_boost_repeats:Some(0),cait_max_boost_repeats:Some(0),require_cait:true}).unwrap();
-        assert_eq!(optional.escape.as_ref().unwrap().attempt.as_ref().unwrap().after,first.escape.unwrap().attempt.unwrap().after);
-        assert!(optional.early_searches.iter().any(|s|!s.target_met));
+        // Zero optional budgets still cannot relax the mandatory opening target.
+        // Without time manipulation, that may require more battle boosts than
+        // the standalone Escape which does not protect later encounters.
+        assert_eq!(optional.before_battle_initialization,first.before_battle_initialization);
+        assert!(optional.escape.as_ref().unwrap().attempt.as_ref().unwrap().success);
+        assert!(optional.early_cait.as_ref().unwrap().non_surprise);
+        assert_eq!(optional.early_cait.as_ref().unwrap().post_osvald_switches,0);
     }
     #[test]
     fn village_fork_stops_at_tag_and_ignores_all_later_search_targets() {

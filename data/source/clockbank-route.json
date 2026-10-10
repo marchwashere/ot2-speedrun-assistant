@@ -1,0 +1,341 @@
+{
+  "sources": [
+    {
+      "source": "/Game/Level/Database/LevelTable",
+      "sha256": "153569a707872dfec0504f8bd301d2b30baf6154469d5673c35680ed0ed30232"
+    },
+    {
+      "source": "/Game/Level/Database/LevelTriggerTable",
+      "sha256": "559c8f57a7f04bff11ddf182ee69dfd58d3619c78ee8cef10f379791cbce6b77"
+    }
+  ],
+  "maps": [
+    {
+      "name": "Western Clockbank Highroad",
+      "id": "Fld_Cty_1_4",
+      "ID": 47,
+      "LevelKind": 1,
+      "AreaID": 1,
+      "TownLabel": 0,
+      "SubTownLabel": 17,
+      "MapChangeType": 5,
+      "TransportationType": 0,
+      "EncountStepMin": 1000,
+      "RandomStepA": 400,
+      "RandomStepB": 400,
+      "FirstEncountStepRatio": 0.5,
+      "BgmLabelDayTime": "bgm_m29_field_city_1",
+      "BgmLabelNight": "bgm_m29_field_city_1",
+      "BgmLabelDarkness": "m100_field_finalchapter",
+      "Bgm2Label": "bgm_null",
+      "Bgm2EnableFlag": 25540,
+      "Bgm3Label": "None",
+      "Bgm3EnableFlag": 0,
+      "Bgm4Label": "None",
+      "Bgm4EnableFlag": 0,
+      "Bgm5Label": "None",
+      "Bgm5EnableFlag": 0,
+      "TimeZoneChangeSeLabel": "se_system_timechange",
+      "TimeZoneChangeSe2Label": "None",
+      "TimeZoneChangeSe2EnableFlag": 0,
+      "ScreenFadeInTime": 1,
+      "ScreenFadeOutTime": 1,
+      "EncountOffset": 0,
+      "BattleMapNameList": [
+        "Btl_Fld_Cty_Land_A",
+        "Btl_Fld_Cty_River_A",
+        "None",
+        "None",
+        "None"
+      ],
+      "EncountVolumeNameList": [
+        "EVM_FLD_CTY_1_4_LND_DAY"
+      ],
+      "DarkAreaEncountVolumeName": "EVM_FLD_CTY_1_4_LND_DRK",
+      "Intencity": 0,
+      "AttenuationRadius": 0,
+      "LightColor": {
+        "kind": "native-struct",
+        "type": "LinearColor",
+        "components": [
+          {
+            "kind": "float32",
+            "bits": 0,
+            "value": 0
+          },
+          {
+            "kind": "float32",
+            "bits": 0,
+            "value": 0
+          },
+          {
+            "kind": "float32",
+            "bits": 0,
+            "value": 0
+          },
+          {
+            "kind": "float32",
+            "bits": 0,
+            "value": 0
+          }
+        ]
+      },
+      "SourceRadius": 0,
+      "TorchFlag": false,
+      "ImpossibleTimeZoneChangeFlag": false,
+      "TimeZoneSeqChangeFlag": 0,
+      "ReplaceTimeZoneSeqLabel": "None",
+      "ReverbFlag": false,
+      "ImpossibleFCFlag": false,
+      "BarPlacementChara": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "BarPCPos1": [
+        0,
+        0,
+        0
+      ],
+      "BarPCDir1": 0,
+      "BarPCPos2": [
+        0,
+        0,
+        0
+      ],
+      "BarPCDir2": 0,
+      "BarItemLabel1": "None",
+      "BarItemCnt1": 0,
+      "BarItemLabel2": "None",
+      "BarItemCnt2": 0,
+      "BarItemLabel3": "None",
+      "BarItemCnt3": 0,
+      "BarEventLabel": "None",
+      "BanLostWay": false,
+      "BanMainMenuPartyMemberChange": false
+    },
+    {
+      "name": "Southern Clockbank Highroad",
+      "id": "Fld_Cty_2_1",
+      "ID": 48,
+      "LevelKind": 1,
+      "AreaID": 1,
+      "TownLabel": 0,
+      "SubTownLabel": 19,
+      "MapChangeType": 5,
+      "TransportationType": 0,
+      "EncountStepMin": 1000,
+      "RandomStepA": 400,
+      "RandomStepB": 400,
+      "FirstEncountStepRatio": 0.5,
+      "BgmLabelDayTime": "bgm_m29_field_city_1",
+      "BgmLabelNight": "bgm_m29_field_city_1",
+      "BgmLabelDarkness": "m100_field_finalchapter",
+      "Bgm2Label": "bgm_null",
+      "Bgm2EnableFlag": 25540,
+      "Bgm3Label": "None",
+      "Bgm3EnableFlag": 0,
+      "Bgm4Label": "None",
+      "Bgm4EnableFlag": 0,
+      "Bgm5Label": "None",
+      "Bgm5EnableFlag": 0,
+      "TimeZoneChangeSeLabel": "se_system_timechange",
+      "TimeZoneChangeSe2Label": "None",
+      "TimeZoneChangeSe2EnableFlag": 0,
+      "ScreenFadeInTime": 1,
+      "ScreenFadeOutTime": 1,
+      "EncountOffset": 0,
+      "BattleMapNameList": [
+        "Btl_Fld_Cty_Land_A",
+        "Btl_Fld_Cty_River_A",
+        "None",
+        "None",
+        "None"
+      ],
+      "EncountVolumeNameList": [
+        "EVM_FLD_CTY_2_1_LND_DAY"
+      ],
+      "DarkAreaEncountVolumeName": "None",
+      "Intencity": 0,
+      "AttenuationRadius": 0,
+      "LightColor": {
+        "kind": "native-struct",
+        "type": "LinearColor",
+        "components": [
+          {
+            "kind": "float32",
+            "bits": 0,
+            "value": 0
+          },
+          {
+            "kind": "float32",
+            "bits": 0,
+            "value": 0
+          },
+          {
+            "kind": "float32",
+            "bits": 0,
+            "value": 0
+          },
+          {
+            "kind": "float32",
+            "bits": 0,
+            "value": 0
+          }
+        ]
+      },
+      "SourceRadius": 0,
+      "TorchFlag": false,
+      "ImpossibleTimeZoneChangeFlag": false,
+      "TimeZoneSeqChangeFlag": 0,
+      "ReplaceTimeZoneSeqLabel": "None",
+      "ReverbFlag": false,
+      "ImpossibleFCFlag": false,
+      "BarPlacementChara": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "BarPCPos1": [
+        0,
+        0,
+        0
+      ],
+      "BarPCDir1": 0,
+      "BarPCPos2": [
+        0,
+        0,
+        0
+      ],
+      "BarPCDir2": 0,
+      "BarItemLabel1": "None",
+      "BarItemCnt1": 0,
+      "BarItemLabel2": "None",
+      "BarItemCnt2": 0,
+      "BarItemLabel3": "None",
+      "BarItemCnt3": 0,
+      "BarEventLabel": "None",
+      "BanLostWay": false,
+      "BanMainMenuPartyMemberChange": false
+    }
+  ],
+  "transitions": [
+    {
+      "id": "Fld_Cty_1_3_2",
+      "ID": 21,
+      "NextMapName": "Fld_Cty_1_4",
+      "NextLevelTriggerID": "ELevelTriggerID::Trigger_04",
+      "MapInCharaDir": "EKSCharacterDir::LEFT",
+      "MapInCharaMoveMode": "ECharacterMoveModeForDB::WALK",
+      "NextMapNoticeText": "Fld_Cty_1_4",
+      "EnableAutoSave": true,
+      "ConditionalTransitionData": [
+        {
+          "EnableFlag": 0,
+          "NextMapName": "None",
+          "NextLevelTriggerID": "ELevelTriggerID::Start",
+          "MapInCharaDir": "EKSCharacterDir::FRONT",
+          "MapInCharaMoveMode": "ECharacterMoveModeForDB::DEFAULT",
+          "NextMapNoticeText": "None",
+          "EnableAutoSave": false
+        }
+      ],
+      "FlagList": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    },
+    {
+      "id": "Fld_Cty_1_4_2",
+      "ID": 31,
+      "NextMapName": "Fld_Cty_2_1",
+      "NextLevelTriggerID": "ELevelTriggerID::Trigger_03",
+      "MapInCharaDir": "EKSCharacterDir::LEFT",
+      "MapInCharaMoveMode": "ECharacterMoveModeForDB::WALK",
+      "NextMapNoticeText": "Fld_Cty_2_1",
+      "EnableAutoSave": true,
+      "ConditionalTransitionData": [
+        {
+          "EnableFlag": 0,
+          "NextMapName": "None",
+          "NextLevelTriggerID": "ELevelTriggerID::Start",
+          "MapInCharaDir": "EKSCharacterDir::FRONT",
+          "MapInCharaMoveMode": "ECharacterMoveModeForDB::DEFAULT",
+          "NextMapNoticeText": "None",
+          "EnableAutoSave": false
+        }
+      ],
+      "FlagList": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ]
+    }
+  ],
+  "assumption": "User confirms no encounter in Western Clockbank Highroad before Southern Clockbank entry. Continue current time and party without a time switch."
+}

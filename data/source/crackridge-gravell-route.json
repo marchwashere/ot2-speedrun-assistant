@@ -1,0 +1,281 @@
+{
+  "source": "/Game/Shop/Database/GuildData",
+  "sha256": "ec86ddce780025453431be946972781b8388aee46699f8402297a35704caf982",
+  "guild": {
+    "id": "GUILD_003",
+    "ID": 4,
+    "GuildName": "eGUILD_TYPE_04",
+    "GuildNpcLabel": "NPC_Fld_Wld_2_1_GUILD",
+    "WorldMapLocation": "eMAP_Fld_Wld_2_1",
+    "LicenseItem": "ITM_EQP_JOB_0000",
+    "GuildStampLabel": "GUILD_STAMP_07",
+    "JobIconLabel": "job_title_job07",
+    "FistTaskEvent": "SYS_MER_GUILD_0010",
+    "FirstReconfirm": "SYS_MER_GUILD_0020",
+    "JobLicenseData": [
+      {
+        "TaskTitle": "eGUILD_TYPE_04_TASK_TITLE_01",
+        "NeedItemLabel": "None",
+        "NeedItemNum": 0,
+        "NeedMoney": 0,
+        "NeedAbility": "None",
+        "LearnedCount": 0,
+        "TaskDescription": "eGUILD_TYPE_04_TASK_TEXT_01"
+      },
+      {
+        "TaskTitle": "eGUILD_TYPE_04_TASK_TITLE_02",
+        "NeedItemLabel": "None",
+        "NeedItemNum": 0,
+        "NeedMoney": 100000,
+        "NeedAbility": "None",
+        "LearnedCount": 0,
+        "TaskDescription": "eGUILD_TYPE_04_TASK_TEXT_02"
+      },
+      {
+        "TaskTitle": "eGUILD_TYPE_04_TASK_TITLE_03",
+        "NeedItemLabel": "None",
+        "NeedItemNum": 0,
+        "NeedMoney": 300000,
+        "NeedAbility": "None",
+        "LearnedCount": 0,
+        "TaskDescription": "eGUILD_TYPE_04_TASK_TEXT_03"
+      }
+    ],
+    "GuildTalkData": [
+      {
+        "Title": "eGUILD_SUB_CONTENT_00",
+        "TalkEvent": "SYS_MER_GUILD_0060"
+      },
+      {
+        "Title": "eGUILD_SUB_CONTENT_01",
+        "TalkEvent": "SYS_MER_GUILD_0070"
+      },
+      {
+        "Title": "eGUILD_SUB_CONTENT_02",
+        "TalkEvent": "SYS_MER_GUILD_0080"
+      }
+    ],
+    "CompleteEvent": [
+      "SYS_MER_GUILD_0030",
+      "None",
+      "None"
+    ],
+    "OpenGuildMenu": true,
+    "UnVisitedShowRadarIcon": true,
+    "OverrideEmotion": 0
+  },
+  "events": {
+    "SYS_MER_GUILD_0010": {
+      "map_id": 0,
+      "reset_counter": false,
+      "completion": null,
+      "commands": [
+        {
+          "index": 0,
+          "cmd": 40,
+          "target": 5104,
+          "text": "TX_SYS_GUILD_MER_0010",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 1,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        }
+      ]
+    },
+    "SYS_MER_GUILD_0030": {
+      "map_id": 0,
+      "reset_counter": false,
+      "completion": null,
+      "commands": [
+        {
+          "index": 0,
+          "cmd": 40,
+          "target": 5104,
+          "text": "TX_SYS_GUILD_MAR_0100",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 1,
+          "cmd": 40,
+          "target": 5104,
+          "text": "TX_SYS_GUILD_MAR_0110",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 2,
+          "cmd": 40,
+          "target": 5104,
+          "text": "TX_SYS_GUILD_MAR_0120",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 3,
+          "cmd": 40,
+          "target": 5104,
+          "text": "TX_SYS_GUILD_MAR_0130",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 4,
+          "cmd": 70,
+          "target": 406,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 5,
+          "cmd": 70,
+          "target": 411,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 6,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        }
+      ]
+    }
+  },
+  "maps": [
+    {
+      "label": "Fld_Wld_2_1",
+      "id": 87
+    },
+    {
+      "label": "Twn_Wld_2_1_A",
+      "id": 101
+    },
+    {
+      "label": "Fld_Wld_3_2",
+      "id": 90
+    }
+  ],
+  "tables": [
+    {
+      "id": "ENC_FLD_WLD_2_1_LND_DAY_010",
+      "first": 7,
+      "groups": [
+        {
+          "id": "ENG_FLD_WLD_2_1_LND_DAY_110",
+          "weight": 15
+        },
+        {
+          "id": "ENG_FLD_WLD_2_1_LND_DAY_120",
+          "weight": 15
+        },
+        {
+          "id": "ENG_FLD_WLD_2_1_LND_DAY_130",
+          "weight": 15
+        },
+        {
+          "id": "ENG_FLD_WLD_2_1_LND_DAY_140",
+          "weight": 15
+        },
+        {
+          "id": "ENG_FLD_WLD_2_1_LND_DAY_150",
+          "weight": 15
+        },
+        {
+          "id": "ENG_FLD_WLD_2_1_LND_DAY_160",
+          "weight": 15
+        },
+        {
+          "id": "ENG_FLD_WLD_2_1_LND_DAY_170",
+          "weight": 10
+        },
+        {
+          "id": "None",
+          "weight": 0
+        },
+        {
+          "id": "None",
+          "weight": 0
+        }
+      ]
+    },
+    {
+      "id": "ENC_FLD_WLD_3_2_LND_NGT_010",
+      "first": 3,
+      "groups": [
+        {
+          "id": "ENG_FLD_WLD_3_2_LND_NGT_110",
+          "weight": 10
+        },
+        {
+          "id": "ENG_FLD_WLD_3_2_LND_NGT_120",
+          "weight": 15
+        },
+        {
+          "id": "ENG_FLD_WLD_3_2_LND_NGT_130",
+          "weight": 15
+        },
+        {
+          "id": "ENG_FLD_WLD_3_2_LND_NGT_140",
+          "weight": 15
+        },
+        {
+          "id": "ENG_FLD_WLD_3_2_LND_NGT_150",
+          "weight": 15
+        },
+        {
+          "id": "ENG_FLD_WLD_3_2_LND_NGT_160",
+          "weight": 15
+        },
+        {
+          "id": "ENG_FLD_WLD_3_2_LND_NGT_170",
+          "weight": 15
+        },
+        {
+          "id": "None",
+          "weight": 0
+        },
+        {
+          "id": "None",
+          "weight": 0
+        }
+      ]
+    }
+  ],
+  "target": "ENE_NML_OTR_150",
+  "search": "Strict nearest-menu propagation: protect each following opening; final Western return Escape controls license -> Gravell load -> night -> Chubby Cait and non-surprise. Stop at first command menu; no unrequested Chubby Cait victory simulated."
+}

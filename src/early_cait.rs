@@ -17,6 +17,11 @@ impl Default for Settings {
 
 #[derive(Debug, Serialize)]
 pub struct Prediction {
+    pub walk_to_osvald: bool,
+    pub southern_cait_target: bool,
+    pub southern_rare_target: bool,
+    pub rare_victory: Option<crate::snows_rare::Victory>,
+    pub after_rare: Option<crate::snows_escape::AfterRare>,
     /// Alternative first-encounter endpoints, before any encounter battle.
     pub snows_approach: Option<SnowsApproach>,
     pub village_visit: village_return::Visit,
@@ -27,7 +32,7 @@ pub struct Prediction {
     pub after_night: Option<CrtRng>,
     pub clerics_present: bool,
     pub after_day: Option<CrtRng>,
-    /// Includes the normal night -> day switch; always odd to finish daytime.
+    /// The fixed night -> day switch after purchasing; always exactly one.
     pub post_cleric_switches: u32,
     pub post_osvald_switches: u32,
     pub after_osvald_switches: Option<CrtRng>,
@@ -70,7 +75,7 @@ pub struct SnowsApproach {
 
 fn encounter_branch(start:CrtRng,world:WorldState,party_levels:Vec<u32>) -> Result<EncounterBranch> {
     let options=PredictionOptions {map:osvald::MAP.into(),zone:"ENT_FLD_SNW_1_2_LND".into(),
-        period:if world.time==2 {"DayTime"} else {"Night"}.into(),progress:1,
+        period:if world.time==2 {"DayTime"} else {"Night"}.into(),progress:world.main_progress_points,
         first_encounter:world.first_encounter,boundary:Boundary::CurrentCounter,
         current_counter:Some(world.encounter_counter),party_levels,dash:true,..Default::default()};
     let mut rng=start;
@@ -80,21 +85,38 @@ fn encounter_branch(start:CrtRng,world:WorldState,party_levels:Vec<u32>) -> Resu
 }
 
 pub fn project(arrival: CrtRng, state: WorldState, throne_level: u32) -> Result<Prediction> {
-    project_with_switches(arrival,state,throne_level,0,0)
+    project_with_switches(arrival,state,throne_level,0)
 }
 
 pub const TIME_SWITCH_INPUT_COST:u32=7;
 
-/// Additional cleric switches must form full day/night cycles. Osvald switches
-/// may end in either phase, and use that phase's actual encounter table.
+/// The shop always ends with one switch back to day. Additional switches are
+/// allowed only after Osvald and use the resulting phase's encounter table.
 pub fn project_with_switches(arrival:CrtRng,state:WorldState,throne_level:u32,
-    cleric_extra:u32,osvald_switches:u32) -> Result<Prediction> {
-    project_with_policy(arrival,state,throne_level,cleric_extra,osvald_switches,false)
+    osvald_switches:u32) -> Result<Prediction> {
+    project_with_policy(arrival,state,throne_level,osvald_switches,false)
 }
 
 pub fn project_with_policy(arrival:CrtRng,state:WorldState,throne_level:u32,
-    cleric_extra:u32,osvald_switches:u32,require_cait:bool) -> Result<Prediction> {
-    ensure(cleric_extra%2==0,"Extra cleric switches must end back on day")?;
+    osvald_switches:u32,require_cait:bool) -> Result<Prediction> {
+    project_with_approach(arrival,state,throne_level,osvald_switches,require_cait,false)
+}
+
+pub fn project_with_approach(arrival:CrtRng,state:WorldState,throne_level:u32,
+    osvald_switches:u32,require_cait:bool,walk:bool) -> Result<Prediction> {
+    Ok(project_with_cleric_requirement(arrival,state,throne_level,osvald_switches,require_cait,walk,false)?
+        .expect("Unfiltered early projection always returns its prediction"))
+}
+
+/// Search-only projection when every candidate must have clerics. Failed
+/// lotteries cannot be repaired by the remaining day/recruitment callbacks.
+pub(crate) fn project_with_required_clerics(arrival:CrtRng,state:WorldState,throne_level:u32,
+    osvald_switches:u32,require_cait:bool,walk:bool) -> Result<Option<Prediction>> {
+    project_with_cleric_requirement(arrival,state,throne_level,osvald_switches,require_cait,walk,true)
+}
+
+fn project_with_cleric_requirement(arrival:CrtRng,state:WorldState,throne_level:u32,
+    osvald_switches:u32,require_cait:bool,walk:bool,require_clerics:bool) -> Result<Option<Prediction>> {
     let visit = village_return::visit(arrival, state)?;
     let mut l = Loader::new(world::catalog(), visit.world_after.clone(), visit.after)?;
     l.visit_map("Fld_Cty_1_2")?;
@@ -103,10 +125,12 @@ pub fn project_with_policy(arrival:CrtRng,state:WorldState,throne_level:u32,
     let world_at_flats = l.state.clone();
     let movement = village_return::snow_reach(l.state.encounter_counter)?;
     let cleric_reach = black_market::cleric_reach(l.state.encounter_counter)?;
+    if require_clerics && !cleric_reach.walking.reaches_reset {return Ok(None);}
     let mut p = Prediction {
+        walk_to_osvald:walk, southern_cait_target:false,southern_rare_target:false,rare_victory:None,after_rare:None,
         snows_approach:None,village_visit: visit, after_flats, world_at_flats, movement, cleric_reach,
         after_night: None, clerics_present: false, after_day: None,
-        post_cleric_switches:1+cleric_extra,post_osvald_switches:osvald_switches,
+        post_cleric_switches:1,post_osvald_switches:osvald_switches,
         after_osvald_switches:None,world_at_encounter:None,encounter_time_trace:vec![],encounter_time_decisions:vec![],remaining_walk: None,
         osvald: None, encounter: None, before_battle_initialization: None,
         cait_present: false, non_surprise: false, trace: vec![], decisions: vec![],
@@ -116,17 +140,13 @@ pub fn project_with_policy(arrival:CrtRng,state:WorldState,throne_level:u32,
         l.state.encounter_counter = left;
         l.boundary("Flats return -> clerics: 42 daytime walking updates");
         l.set_time(4, "Early clerics: switch to night near the spawns")?;
-        l.refresh_bar()?;
         l.refresh_npcs("Early clerics: night placements")?;
         p.after_night = Some(l.rng);
         p.clerics_present = black_market::clerics_present(&l.state);
+        if require_clerics && !p.clerics_present {return Ok(None);}
         l.boundary("Early cleric purchases: ordinary shop transactions, no CRT draws");
-        for _ in 0..=cleric_extra {
-            let time=if l.state.time==4 {2} else {4};
-            l.set_time(time, "After cleric purchases: time switch")?;
-            l.refresh_bar()?;
-            l.refresh_npcs("After cleric purchases: time-switch placements")?;
-        }
+        l.set_time(2, "After cleric purchases: fixed switch to day")?;
+        l.refresh_npcs("After cleric purchases: daytime placements")?;
         p.after_day = Some(l.rng);
         let updates = village_return::WALK_UPDATES - black_market::CLERIC_APPROACH_UPDATES;
         let remaining = MovementBudget::new(l.state.encounter_counter, updates, p.movement.walking.decrement);
@@ -138,7 +158,7 @@ pub fn project_with_policy(arrival:CrtRng,state:WorldState,throne_level:u32,
             // recruitment. When perfect movement predicts recruitment first,
             // protect BOTH openings from the same control plan; otherwise the
             // solo opening is the only surprise-avoidance constraint.
-            let recruited = if require_cait {osvald::with_world_state(l.rng,l.state.clone())?}
+            let recruited = if require_cait || walk {osvald::with_world_state(l.rng,l.state.clone())?}
                 else {osvald::with_approach(l.rng,l.state.clone(),
                     osvald::RUN_UPDATES,true,true)?};
             if let (Some(after), Some(w)) = (recruited.after_recruitment, &recruited.world_after) {
@@ -146,7 +166,6 @@ pub fn project_with_policy(arrival:CrtRng,state:WorldState,throne_level:u32,
                 for _ in 0..osvald_switches {
                     let time=if time_loader.state.time==2 {4} else {2};
                     time_loader.set_time(time,"After Osvald recruitment: time switch")?;
-                    time_loader.refresh_bar()?;
                     time_loader.refresh_npcs("After Osvald recruitment: time-switch placements")?;
                 }
                 ensure(w.time == 2 && w.party == [7,6], "Cait encounter requires recruited daytime party")?;
@@ -160,11 +179,13 @@ pub fn project_with_policy(arrival:CrtRng,state:WorldState,throne_level:u32,
                 // A passed family gate alone does not guarantee an eligible replacement slot.
                 let labels = &encounter::catalog().rare_labels["CAT_SNOW"];
                 p.cait_present = e.enemies.iter().any(|slot| labels.contains(&slot.enemy.id));
-                p.non_surprise = if require_cait {after.non_surprise}
+                p.non_surprise = if require_cait || walk {after.non_surprise}
                     else {before.non_surprise && (predicted_before || after.non_surprise)};
                 p.before_battle_initialization = Some(branch.before_battle_initialization);
                 p.world_at_encounter=Some(branch.world.clone());
                 p.encounter = Some(e);
+                p.southern_cait_target = !predicted_before && p.cait_present && after.non_surprise;
+                p.southern_rare_target = !predicted_before && crate::snows_rare::target_met(p.encounter.as_ref().unwrap());
                 if !require_cait {p.snows_approach=Some(SnowsApproach {measured_running_updates:osvald::RUN_UPDATES,
                     leeway:0,running:MovementBudget::new(recruited.world_at_entry.encounter_counter,
                         osvald::RUN_UPDATES,before.encounter.decrement.unwrap()),predicted_before_osvald:predicted_before,
@@ -179,7 +200,7 @@ pub fn project_with_policy(arrival:CrtRng,state:WorldState,throne_level:u32,
     }
     p.trace = l.trace;
     p.decisions = l.decisions;
-    Ok(p)
+    Ok(Some(p))
 }
 
 /// Four outcomes across Flats boosts and both later time-switch control points.
@@ -205,6 +226,23 @@ mod tests {
         w.visited_maps.insert("Fld_Cty_1_1".into());
         w.resident_levels=world::catalog().maps[&w.map].streams.iter().cloned().collect();
         w
+    }
+    #[test]
+    fn required_cleric_projection_rejects_only_failed_goals_and_preserves_complete_successes() {
+        for (require_cait,walk) in [(false,false),(false,true),(true,false)] {
+            let mut covered=[false;2];
+            for seed in 0..64 {
+                let full=project_with_approach(CrtRng::new(seed),world(),5,0,require_cait,walk).unwrap();
+                let filtered=project_with_required_clerics(CrtRng::new(seed),world(),5,0,require_cait,walk).unwrap();
+                covered[usize::from(full.clerics_present)]=true;
+                if full.clerics_present {
+                    assert_eq!(serde_json::to_value(filtered.unwrap()).unwrap(),serde_json::to_value(full).unwrap());
+                } else {
+                    assert!(filtered.is_none(),"Required clerics must reject this candidate before onward projection");
+                }
+            }
+            assert_eq!(covered,[true;2]);
+        }
     }
     #[test]
     fn running_timing_uses_exact_distance_and_replays_two_independent_parties() {
@@ -254,7 +292,7 @@ mod tests {
         for seed in 0..100 {
             let first=project(CrtRng::new(seed),world(),5).unwrap();
             let Some(a)=first.snows_approach else {continue};
-            let later=project_with_switches(CrtRng::new(seed),world(),5,0,1).unwrap();
+            let later=project_with_switches(CrtRng::new(seed),world(),5,1).unwrap();
             let b=later.snows_approach.unwrap();
             assert_eq!(a.before_osvald.before_battle_initialization,b.before_osvald.before_battle_initialization);
             assert_eq!(a.before_osvald.non_surprise,b.before_osvald.non_surprise);
@@ -263,5 +301,29 @@ mod tests {
             return;
         }
         panic!("No reachable Snows prefix");
+    }
+
+    #[test]
+    fn walking_cait_target_requires_safe_recruitment_and_actual_cait_without_surprise() {
+        let mut reached=false;
+        let mut cait=false;
+        let mut rejected=false;
+        for seed in 0..1024 {
+            let p=project_with_approach(CrtRng::new(seed),world(),5,0,false,true).unwrap();
+            assert!(p.walk_to_osvald);
+            if let Some(a)=&p.snows_approach {
+                reached=true;
+                assert!(!a.predicted_before_osvald);
+                assert!(p.osvald.as_ref().unwrap().walking.reaches_reset);
+                assert_eq!(p.before_battle_initialization,Some(a.after_osvald.before_battle_initialization));
+                assert_eq!(p.non_surprise,a.after_osvald.non_surprise);
+                assert_eq!(p.southern_cait_target,p.cait_present && a.after_osvald.non_surprise);
+                cait |= p.southern_cait_target;
+            } else {
+                rejected=true;
+                assert!(!p.southern_cait_target);
+            }
+        }
+        assert!(reached && cait && rejected);
     }
 }

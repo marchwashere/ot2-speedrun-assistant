@@ -93,8 +93,9 @@ pub fn predict_with_boost_inputs(
     // EncountReset=false. No NPC event override and no battle-map construction:
     // Cape Cold's battle sublevel is already resident from arrival.
     let before_battle = loader.rng;
-    let mug = mug::predict_with_boost_inputs(before_battle, round_two)?;
+    let mug = mug::predict_with_history(before_battle, round_two,&loader.state.enemy_knowledge)?;
     loader.rng = mug.after;
+    loader.state.enemy_knowledge=mug.enemy_knowledge.clone();
     loader.restore_field_after_battle("Cape Cold: return from Mug")?;
     // FC_GAK_ROB_Success also has EncountReset=false; getting the three
     // valuables is deterministic. It does not add a second counter reset.

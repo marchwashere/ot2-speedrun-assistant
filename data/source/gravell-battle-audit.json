@@ -1,0 +1,5880 @@
+{
+  "sources": [
+    {
+      "source": "/Game/Ability/Database/AbilityData",
+      "sha256": "0a5c871b8ef220e8d38fe7806df5abcc2c2f4008a70cee3e357145572784da74"
+    },
+    {
+      "source": "/Game/Ability/Database/AbilitySetData",
+      "sha256": "34568a4256c18b359fcb77e64b65dae4840664d3795edea9ec5fcaeb7dda8ff1"
+    },
+    {
+      "source": "/Game/Character/Database/JobData",
+      "sha256": "787d98d2be48d04bafa080a4ea828ee7f3d762455ff0a414795d9e4cb7db7ac1"
+    },
+    {
+      "source": "/Game/Ability/Database/SupportAbilityData",
+      "sha256": "36838ea19d3de60693ef2e8e1c92cf9563ba36ab975e7bf71d75c0bd2d271818"
+    }
+  ],
+  "abilities": [
+    {
+      "id": "ABI_DAN_060_01",
+      "ID": 1185,
+      "AbilityID": 11850,
+      "DisplayName": "ABN_DAN_060",
+      "Detail": "ABD_DAN_060_01",
+      "CommandActor": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/BP/BattleAction/_Common/CommonCommand.CommonCommand_C",
+          "number": 0,
+          "text": "/Game/Battle/BP/BattleAction/_Common/CommonCommand.CommonCommand_C"
+        },
+        "subPath": ""
+      },
+      "AbilityType": "EABILITY_TYPE::eOTHER",
+      "AbilityUseType": "EABILITY_USE_TYPE::eBATTLE_ONLY",
+      "AlwaysDisable": false,
+      "Attribute": "EATTRIBUTE_TYPE::eNONE",
+      "DependWeapon": false,
+      "RestrictWeapon": "EWEAPON_CATEGORY::eNONE",
+      "TargetType": "EBATTLE_TARGET_TYPE::ePARTY_SINGLE",
+      "ExceptEnforcer": true,
+      "CostType": "EABILITY_COST_TYPE::eMP",
+      "CostValue": 5,
+      "HitRatio": 0,
+      "CriticalRatio": 0,
+      "CriticalPower": 125,
+      "AbilityRatio": 100,
+      "BaseCount": 0,
+      "MinimumCount": 0,
+      "RandomCountMin": 0,
+      "RandomCountMax": 0,
+      "EstimateOrderType": "EBATTLE_ACTION_ORDER_ESTIMATE_TYPE::eCOUNT_UP",
+      "EstimateOrderCount": 1,
+      "Ailment": [
+        {
+          "AilmentName": "ORDER_COUNT_UP",
+          "InvocationValue": 1,
+          "InvocationTurn": 0,
+          "DiseaseRate": 100
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        }
+      ],
+      "KeepBoostEffect": false,
+      "EnableItemAll": false,
+      "EnableSkillAll": true,
+      "EnableConvergence": false,
+      "EnableDiffusion": false,
+      "EnableReflection": false,
+      "EnableCounter": false,
+      "EnableHideOut": false,
+      "EnableRepeat": true,
+      "EnableCover": false,
+      "EnableProvoke": false,
+      "EnableDisableMagic": false,
+      "EnableEnchant": false,
+      "EnableChaseAttack": false,
+      "EnableWeakCheckAll": false,
+      "EnableNormalAttackAll": false,
+      "EnableSession": false,
+      "EnableBusinessSupport": false,
+      "EnableForceWeakness": false,
+      "EnableNoUseMaterial": false,
+      "EnableSwitchWeapon": false,
+      "EnableCompensationMagic": false,
+      "EnableExcitement": false,
+      "SongAbilityFlag": false,
+      "DanceAbilityFlag": false,
+      "EnableAutoTameMonster": false,
+      "UseAbilityCamera": true,
+      "ActionCommandSequencer": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/Seq_Dan_060_Ohadake.Seq_Dan_060_Ohadake",
+          "number": 0,
+          "text": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/Seq_Dan_060_Ohadake.Seq_Dan_060_Ohadake"
+        },
+        "subPath": ""
+      },
+      "AbilitySE": [
+        "None",
+        "None",
+        "None",
+        "None"
+      ],
+      "SlideFrame": 77
+    },
+    {
+      "id": "ABI_DAN_070_04",
+      "ID": 15004,
+      "AbilityID": 80017,
+      "DisplayName": "ABN_DAN_070",
+      "Detail": "ABD_DAN_070_04",
+      "CommandActor": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/BP/BattleAction/RandomSelectAbility/RandomSelectAbilityCommand.RandomSelectAbilityCommand_C",
+          "number": 0,
+          "text": "/Game/Battle/BP/BattleAction/RandomSelectAbility/RandomSelectAbilityCommand.RandomSelectAbilityCommand_C"
+        },
+        "subPath": ""
+      },
+      "AbilityType": "EABILITY_TYPE::eOTHER",
+      "AbilityUseType": "EABILITY_USE_TYPE::eBATTLE_ONLY",
+      "AlwaysDisable": false,
+      "Attribute": "EATTRIBUTE_TYPE::eNONE",
+      "DependWeapon": false,
+      "RestrictWeapon": "EWEAPON_CATEGORY::eNONE",
+      "TargetType": "EBATTLE_TARGET_TYPE::eSELF",
+      "ExceptEnforcer": false,
+      "CostType": "EABILITY_COST_TYPE::eMP",
+      "CostValue": 25,
+      "HitRatio": 0,
+      "CriticalRatio": 0,
+      "CriticalPower": 125,
+      "AbilityRatio": 100,
+      "BaseCount": 4,
+      "MinimumCount": 0,
+      "RandomCountMin": 0,
+      "RandomCountMax": 0,
+      "EstimateOrderType": "EBATTLE_ACTION_ORDER_ESTIMATE_TYPE::eNONE",
+      "EstimateOrderCount": 0,
+      "Ailment": [
+        {
+          "AilmentName": "ABI_DAN_MAKA_039",
+          "InvocationValue": 20,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "ABI_DAN_MAKA_038",
+          "InvocationValue": 20,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "ABI_DAN_MAKA_037",
+          "InvocationValue": 20,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "ABI_DAN_MAKA_036",
+          "InvocationValue": 40,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "ABI_DAN_MAKA_035",
+          "InvocationValue": 20,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "ABI_DAN_MAKA_034",
+          "InvocationValue": 20,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "ABI_DAN_MAKA_033",
+          "InvocationValue": 20,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "ABI_DAN_MAKA_032",
+          "InvocationValue": 40,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "ABI_DAN_MAKA_031",
+          "InvocationValue": 40,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "ABI_DAN_MAKA_030",
+          "InvocationValue": 40,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "ABI_DAN_MAKA_029",
+          "InvocationValue": 10,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "ABI_DAN_MAKA_028",
+          "InvocationValue": 20,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "ABI_DAN_MAKA_027",
+          "InvocationValue": 80,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "ABI_DAN_MAKA_026",
+          "InvocationValue": 40,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "ABI_DAN_MAKA_025",
+          "InvocationValue": 40,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "ABI_DAN_MAKA_024",
+          "InvocationValue": 40,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "ABI_DAN_MAKA_023",
+          "InvocationValue": 40,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "ABI_DAN_MAKA_022",
+          "InvocationValue": 40,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "ABI_DAN_MAKA_021",
+          "InvocationValue": 40,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "ABI_DAN_MAKA_020",
+          "InvocationValue": 40,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "ABI_DAN_MAKA_019",
+          "InvocationValue": 20,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "ABI_DAN_MAKA_018",
+          "InvocationValue": 20,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "ABI_DAN_MAKA_017",
+          "InvocationValue": 20,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "ABI_DAN_MAKA_016",
+          "InvocationValue": 20,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "ABI_DAN_MAKA_015",
+          "InvocationValue": 20,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "ABI_DAN_MAKA_014",
+          "InvocationValue": 20,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "ABI_DAN_MAKA_013",
+          "InvocationValue": 20,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "ABI_DAN_MAKA_012",
+          "InvocationValue": 20,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "ABI_DAN_MAKA_011",
+          "InvocationValue": 20,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "ABI_DAN_MAKA_010",
+          "InvocationValue": 20,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "ABI_DAN_MAKA_009",
+          "InvocationValue": 10,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "ABI_DAN_MAKA_008",
+          "InvocationValue": 10,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "ABI_DAN_MAKA_007",
+          "InvocationValue": 10,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "ABI_DAN_MAKA_006",
+          "InvocationValue": 40,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "ABI_DAN_MAKA_005",
+          "InvocationValue": 10,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "ABI_DAN_MAKA_004",
+          "InvocationValue": 40,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "ABI_DAN_MAKA_003",
+          "InvocationValue": 5,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "ABI_DAN_MAKA_002",
+          "InvocationValue": 1,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "ABI_DAN_MAKA_001",
+          "InvocationValue": 1,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        }
+      ],
+      "KeepBoostEffect": false,
+      "EnableItemAll": false,
+      "EnableSkillAll": false,
+      "EnableConvergence": false,
+      "EnableDiffusion": false,
+      "EnableReflection": false,
+      "EnableCounter": false,
+      "EnableHideOut": false,
+      "EnableRepeat": true,
+      "EnableCover": false,
+      "EnableProvoke": false,
+      "EnableDisableMagic": false,
+      "EnableEnchant": false,
+      "EnableChaseAttack": false,
+      "EnableWeakCheckAll": false,
+      "EnableNormalAttackAll": false,
+      "EnableSession": true,
+      "EnableBusinessSupport": false,
+      "EnableForceWeakness": false,
+      "EnableNoUseMaterial": false,
+      "EnableSwitchWeapon": false,
+      "EnableCompensationMagic": false,
+      "EnableExcitement": false,
+      "SongAbilityFlag": false,
+      "DanceAbilityFlag": false,
+      "EnableAutoTameMonster": false,
+      "UseAbilityCamera": true,
+      "ActionCommandSequencer": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/Seq_Dan_070_MakafushiginoMai.Seq_Dan_070_MakafushiginoMai",
+          "number": 0,
+          "text": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/Seq_Dan_070_MakafushiginoMai.Seq_Dan_070_MakafushiginoMai"
+        },
+        "subPath": ""
+      },
+      "AbilitySE": [
+        "None",
+        "None",
+        "None",
+        "None"
+      ],
+      "SlideFrame": 112
+    },
+    {
+      "id": "ABI_INV_020_01",
+      "ID": 1565,
+      "AbilityID": 15650,
+      "DisplayName": "ABN_INV_020",
+      "Detail": "ABD_INV_020_01",
+      "CommandActor": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/BP/BattleAction/_Common/CommonCommand.CommonCommand_C",
+          "number": 0,
+          "text": "/Game/Battle/BP/BattleAction/_Common/CommonCommand.CommonCommand_C"
+        },
+        "subPath": ""
+      },
+      "AbilityType": "EABILITY_TYPE::eBUFF",
+      "AbilityUseType": "EABILITY_USE_TYPE::eBATTLE_ONLY",
+      "AlwaysDisable": false,
+      "Attribute": "EATTRIBUTE_TYPE::eNONE",
+      "DependWeapon": false,
+      "RestrictWeapon": "EWEAPON_CATEGORY::eNONE",
+      "TargetType": "EBATTLE_TARGET_TYPE::ePARTY_SINGLE",
+      "ExceptEnforcer": false,
+      "CostType": "EABILITY_COST_TYPE::eINVENTOR",
+      "CostValue": 0,
+      "HitRatio": 0,
+      "CriticalRatio": 0,
+      "CriticalPower": 125,
+      "AbilityRatio": 100,
+      "BaseCount": 0,
+      "MinimumCount": 0,
+      "RandomCountMin": 0,
+      "RandomCountMax": 0,
+      "EstimateOrderType": "EBATTLE_ACTION_ORDER_ESTIMATE_TYPE::eFIRST",
+      "EstimateOrderCount": 0,
+      "Ailment": [
+        {
+          "AilmentName": "ADD_BE_THE_FIRST",
+          "InvocationValue": 0,
+          "InvocationTurn": 5,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        }
+      ],
+      "KeepBoostEffect": false,
+      "EnableItemAll": false,
+      "EnableSkillAll": true,
+      "EnableConvergence": false,
+      "EnableDiffusion": false,
+      "EnableReflection": false,
+      "EnableCounter": false,
+      "EnableHideOut": false,
+      "EnableRepeat": true,
+      "EnableCover": false,
+      "EnableProvoke": false,
+      "EnableDisableMagic": false,
+      "EnableEnchant": false,
+      "EnableChaseAttack": false,
+      "EnableWeakCheckAll": false,
+      "EnableNormalAttackAll": false,
+      "EnableSession": false,
+      "EnableBusinessSupport": false,
+      "EnableForceWeakness": false,
+      "EnableNoUseMaterial": false,
+      "EnableSwitchWeapon": false,
+      "EnableCompensationMagic": false,
+      "EnableExcitement": true,
+      "SongAbilityFlag": false,
+      "DanceAbilityFlag": false,
+      "EnableAutoTameMonster": false,
+      "UseAbilityCamera": true,
+      "ActionCommandSequencer": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/Sequencer/ActionCommand/PC/Inventor/Seq_Inv_020_SpringBoots.Seq_Inv_020_SpringBoots",
+          "number": 0,
+          "text": "/Game/Battle/Sequencer/ActionCommand/PC/Inventor/Seq_Inv_020_SpringBoots.Seq_Inv_020_SpringBoots"
+        },
+        "subPath": ""
+      },
+      "AbilitySE": [
+        "None",
+        "None",
+        "None",
+        "None"
+      ],
+      "SlideFrame": 112
+    },
+    {
+      "id": "ABI_MER_070_03",
+      "ID": 1071,
+      "AbilityID": 10710,
+      "DisplayName": "ABN_MER_070",
+      "Detail": "ABD_MER_070_03",
+      "CommandActor": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/BP/BattleAction/SummonAbility/CallMercenaryAbilityCommand.CallMercenaryAbilityCommand_C",
+          "number": 0,
+          "text": "/Game/Battle/BP/BattleAction/SummonAbility/CallMercenaryAbilityCommand.CallMercenaryAbilityCommand_C"
+        },
+        "subPath": ""
+      },
+      "AbilityType": "EABILITY_TYPE::eOTHER",
+      "AbilityUseType": "EABILITY_USE_TYPE::eBATTLE_ONLY",
+      "AlwaysDisable": false,
+      "Attribute": "EATTRIBUTE_TYPE::eNONE",
+      "DependWeapon": false,
+      "RestrictWeapon": "EWEAPON_CATEGORY::eNONE",
+      "TargetType": "EBATTLE_TARGET_TYPE::eENEMY_ALL",
+      "ExceptEnforcer": false,
+      "CostType": "EABILITY_COST_TYPE::eNONE",
+      "CostValue": 0,
+      "HitRatio": 0,
+      "CriticalRatio": 0,
+      "CriticalPower": 125,
+      "AbilityRatio": 100,
+      "BaseCount": 0,
+      "MinimumCount": 0,
+      "RandomCountMin": 0,
+      "RandomCountMax": 0,
+      "EstimateOrderType": "EBATTLE_ACTION_ORDER_ESTIMATE_TYPE::eNONE",
+      "EstimateOrderCount": 0,
+      "Ailment": [
+        {
+          "AilmentName": "PC_ABI_MER_YOHEI_01_01_INVADE",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        }
+      ],
+      "KeepBoostEffect": false,
+      "EnableItemAll": false,
+      "EnableSkillAll": false,
+      "EnableConvergence": false,
+      "EnableDiffusion": false,
+      "EnableReflection": false,
+      "EnableCounter": false,
+      "EnableHideOut": false,
+      "EnableRepeat": true,
+      "EnableCover": false,
+      "EnableProvoke": false,
+      "EnableDisableMagic": false,
+      "EnableEnchant": false,
+      "EnableChaseAttack": false,
+      "EnableWeakCheckAll": false,
+      "EnableNormalAttackAll": false,
+      "EnableSession": false,
+      "EnableBusinessSupport": true,
+      "EnableForceWeakness": false,
+      "EnableNoUseMaterial": false,
+      "EnableSwitchWeapon": false,
+      "EnableCompensationMagic": false,
+      "EnableExcitement": false,
+      "SongAbilityFlag": false,
+      "DanceAbilityFlag": false,
+      "EnableAutoTameMonster": true,
+      "UseAbilityCamera": true,
+      "ActionCommandSequencer": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/Sequencer/ActionCommand/PC/Merchant/Seq_Mer_070_YoheiYobi.Seq_Mer_070_YoheiYobi",
+          "number": 0,
+          "text": "/Game/Battle/Sequencer/ActionCommand/PC/Merchant/Seq_Mer_070_YoheiYobi.Seq_Mer_070_YoheiYobi"
+        },
+        "subPath": ""
+      },
+      "AbilitySE": [
+        "None",
+        "None",
+        "None",
+        "None"
+      ],
+      "SlideFrame": 214
+    }
+  ],
+  "random_effects": [
+    {
+      "id": "ABI_DAN_MAKA_001",
+      "ID": 1675,
+      "AbilityID": 16750,
+      "DisplayName": "ABN_DAN_MAKA_001",
+      "Detail": "None",
+      "CommandActor": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/BP/BattleAction/_Common/CommonCommand.CommonCommand_C",
+          "number": 0,
+          "text": "/Game/Battle/BP/BattleAction/_Common/CommonCommand.CommonCommand_C"
+        },
+        "subPath": ""
+      },
+      "AbilityType": "EABILITY_TYPE::eOTHER",
+      "AbilityUseType": "EABILITY_USE_TYPE::eBATTLE_ONLY",
+      "AlwaysDisable": false,
+      "Attribute": "EATTRIBUTE_TYPE::eNONE",
+      "DependWeapon": false,
+      "RestrictWeapon": "EWEAPON_CATEGORY::eNONE",
+      "TargetType": "EBATTLE_TARGET_TYPE::ePARTY_ALL",
+      "ExceptEnforcer": false,
+      "CostType": "EABILITY_COST_TYPE::eNONE",
+      "CostValue": 0,
+      "HitRatio": 0,
+      "CriticalRatio": 0,
+      "CriticalPower": 100,
+      "AbilityRatio": 100,
+      "BaseCount": 0,
+      "MinimumCount": 0,
+      "RandomCountMin": 0,
+      "RandomCountMax": 0,
+      "EstimateOrderType": "EBATTLE_ACTION_ORDER_ESTIMATE_TYPE::eNONE",
+      "EstimateOrderCount": 0,
+      "Ailment": [
+        {
+          "AilmentName": "JPUP",
+          "InvocationValue": 10000,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        }
+      ],
+      "KeepBoostEffect": false,
+      "EnableItemAll": false,
+      "EnableSkillAll": false,
+      "EnableConvergence": false,
+      "EnableDiffusion": false,
+      "EnableReflection": false,
+      "EnableCounter": false,
+      "EnableHideOut": false,
+      "EnableRepeat": false,
+      "EnableCover": false,
+      "EnableProvoke": false,
+      "EnableDisableMagic": false,
+      "EnableEnchant": false,
+      "EnableChaseAttack": false,
+      "EnableWeakCheckAll": false,
+      "EnableNormalAttackAll": false,
+      "EnableSession": false,
+      "EnableBusinessSupport": false,
+      "EnableForceWeakness": false,
+      "EnableNoUseMaterial": false,
+      "EnableSwitchWeapon": false,
+      "EnableCompensationMagic": false,
+      "EnableExcitement": false,
+      "SongAbilityFlag": false,
+      "DanceAbilityFlag": false,
+      "EnableAutoTameMonster": false,
+      "UseAbilityCamera": false,
+      "ActionCommandSequencer": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makasushigi_001.Seq_DAN_Makasushigi_001",
+          "number": 0,
+          "text": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makasushigi_001.Seq_DAN_Makasushigi_001"
+        },
+        "subPath": ""
+      },
+      "AbilitySE": [
+        "None",
+        "None",
+        "None",
+        "None"
+      ],
+      "SlideFrame": 0
+    },
+    {
+      "id": "ABI_DAN_MAKA_002",
+      "ID": 1676,
+      "AbilityID": 16760,
+      "DisplayName": "ABN_DAN_MAKA_002",
+      "Detail": "None",
+      "CommandActor": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/BP/BattleAction/_Common/CommonCommand.CommonCommand_C",
+          "number": 0,
+          "text": "/Game/Battle/BP/BattleAction/_Common/CommonCommand.CommonCommand_C"
+        },
+        "subPath": ""
+      },
+      "AbilityType": "EABILITY_TYPE::eOTHER",
+      "AbilityUseType": "EABILITY_USE_TYPE::eBATTLE_ONLY",
+      "AlwaysDisable": false,
+      "Attribute": "EATTRIBUTE_TYPE::eNONE",
+      "DependWeapon": false,
+      "RestrictWeapon": "EWEAPON_CATEGORY::eNONE",
+      "TargetType": "EBATTLE_TARGET_TYPE::ePARTY_ALL",
+      "ExceptEnforcer": false,
+      "CostType": "EABILITY_COST_TYPE::eNONE",
+      "CostValue": 0,
+      "HitRatio": 0,
+      "CriticalRatio": 0,
+      "CriticalPower": 100,
+      "AbilityRatio": 100,
+      "BaseCount": 0,
+      "MinimumCount": 0,
+      "RandomCountMin": 0,
+      "RandomCountMax": 0,
+      "EstimateOrderType": "EBATTLE_ACTION_ORDER_ESTIMATE_TYPE::eNONE",
+      "EstimateOrderCount": 0,
+      "Ailment": [
+        {
+          "AilmentName": "EXPUP",
+          "InvocationValue": 10000,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        }
+      ],
+      "KeepBoostEffect": false,
+      "EnableItemAll": false,
+      "EnableSkillAll": false,
+      "EnableConvergence": false,
+      "EnableDiffusion": false,
+      "EnableReflection": false,
+      "EnableCounter": false,
+      "EnableHideOut": false,
+      "EnableRepeat": false,
+      "EnableCover": false,
+      "EnableProvoke": false,
+      "EnableDisableMagic": false,
+      "EnableEnchant": false,
+      "EnableChaseAttack": false,
+      "EnableWeakCheckAll": false,
+      "EnableNormalAttackAll": false,
+      "EnableSession": false,
+      "EnableBusinessSupport": false,
+      "EnableForceWeakness": false,
+      "EnableNoUseMaterial": false,
+      "EnableSwitchWeapon": false,
+      "EnableCompensationMagic": false,
+      "EnableExcitement": false,
+      "SongAbilityFlag": false,
+      "DanceAbilityFlag": false,
+      "EnableAutoTameMonster": false,
+      "UseAbilityCamera": false,
+      "ActionCommandSequencer": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makasushigi_002.Seq_DAN_Makasushigi_002",
+          "number": 0,
+          "text": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makasushigi_002.Seq_DAN_Makasushigi_002"
+        },
+        "subPath": ""
+      },
+      "AbilitySE": [
+        "None",
+        "None",
+        "None",
+        "None"
+      ],
+      "SlideFrame": 0
+    },
+    {
+      "id": "ABI_DAN_MAKA_003",
+      "ID": 1677,
+      "AbilityID": 16770,
+      "DisplayName": "ABN_DAN_MAKA_003",
+      "Detail": "None",
+      "CommandActor": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/BP/BattleAction/TransformEnemy/TransformEnemyCommand.TransformEnemyCommand_C",
+          "number": 0,
+          "text": "/Game/Battle/BP/BattleAction/TransformEnemy/TransformEnemyCommand.TransformEnemyCommand_C"
+        },
+        "subPath": ""
+      },
+      "AbilityType": "EABILITY_TYPE::eOTHER",
+      "AbilityUseType": "EABILITY_USE_TYPE::eBATTLE_ONLY",
+      "AlwaysDisable": false,
+      "Attribute": "EATTRIBUTE_TYPE::eNONE",
+      "DependWeapon": false,
+      "RestrictWeapon": "EWEAPON_CATEGORY::eNONE",
+      "TargetType": "EBATTLE_TARGET_TYPE::eENEMY_ALL",
+      "ExceptEnforcer": false,
+      "CostType": "EABILITY_COST_TYPE::eNONE",
+      "CostValue": 0,
+      "HitRatio": 0,
+      "CriticalRatio": 0,
+      "CriticalPower": 100,
+      "AbilityRatio": 100,
+      "BaseCount": 0,
+      "MinimumCount": 0,
+      "RandomCountMin": 0,
+      "RandomCountMax": 0,
+      "EstimateOrderType": "EBATTLE_ACTION_ORDER_ESTIMATE_TYPE::eNONE",
+      "EstimateOrderCount": 0,
+      "Ailment": [
+        {
+          "AilmentName": "ENE_NML_OTR_130",
+          "InvocationValue": 30,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "ENE_NML_OTR_140",
+          "InvocationValue": 15,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "ENE_NML_OTR_150",
+          "InvocationValue": 5,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "ENE_NML_WTR_510",
+          "InvocationValue": 30,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "ENE_NML_WTR_590",
+          "InvocationValue": 15,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "ENE_NML_WTR_600",
+          "InvocationValue": 5,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        }
+      ],
+      "KeepBoostEffect": false,
+      "EnableItemAll": false,
+      "EnableSkillAll": false,
+      "EnableConvergence": false,
+      "EnableDiffusion": false,
+      "EnableReflection": false,
+      "EnableCounter": false,
+      "EnableHideOut": false,
+      "EnableRepeat": false,
+      "EnableCover": false,
+      "EnableProvoke": false,
+      "EnableDisableMagic": false,
+      "EnableEnchant": false,
+      "EnableChaseAttack": false,
+      "EnableWeakCheckAll": false,
+      "EnableNormalAttackAll": false,
+      "EnableSession": false,
+      "EnableBusinessSupport": false,
+      "EnableForceWeakness": false,
+      "EnableNoUseMaterial": false,
+      "EnableSwitchWeapon": false,
+      "EnableCompensationMagic": false,
+      "EnableExcitement": false,
+      "SongAbilityFlag": false,
+      "DanceAbilityFlag": false,
+      "EnableAutoTameMonster": false,
+      "UseAbilityCamera": false,
+      "ActionCommandSequencer": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makafushigi_003.Seq_DAN_Makafushigi_003",
+          "number": 0,
+          "text": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makafushigi_003.Seq_DAN_Makafushigi_003"
+        },
+        "subPath": ""
+      },
+      "AbilitySE": [
+        "None",
+        "None",
+        "None",
+        "None"
+      ],
+      "SlideFrame": 0
+    },
+    {
+      "id": "ABI_DAN_MAKA_004",
+      "ID": 1678,
+      "AbilityID": 16780,
+      "DisplayName": "ABN_DAN_MAKA_004",
+      "Detail": "None",
+      "CommandActor": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/BP/BattleAction/_Common/CommonCommand.CommonCommand_C",
+          "number": 0,
+          "text": "/Game/Battle/BP/BattleAction/_Common/CommonCommand.CommonCommand_C"
+        },
+        "subPath": ""
+      },
+      "AbilityType": "EABILITY_TYPE::eMAGIC",
+      "AbilityUseType": "EABILITY_USE_TYPE::eBATTLE_ONLY",
+      "AlwaysDisable": false,
+      "Attribute": "EATTRIBUTE_TYPE::eFIRE",
+      "DependWeapon": false,
+      "RestrictWeapon": "EWEAPON_CATEGORY::eNONE",
+      "TargetType": "EBATTLE_TARGET_TYPE::ePARTY_ALL",
+      "ExceptEnforcer": false,
+      "CostType": "EABILITY_COST_TYPE::eNONE",
+      "CostValue": 0,
+      "HitRatio": 0,
+      "CriticalRatio": 0,
+      "CriticalPower": 100,
+      "AbilityRatio": 900,
+      "BaseCount": 0,
+      "MinimumCount": 0,
+      "RandomCountMin": 0,
+      "RandomCountMax": 0,
+      "EstimateOrderType": "EBATTLE_ACTION_ORDER_ESTIMATE_TYPE::eNONE",
+      "EstimateOrderCount": 0,
+      "Ailment": [
+        {
+          "AilmentName": "MAGIC_DAMAGE",
+          "InvocationValue": 105,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        }
+      ],
+      "KeepBoostEffect": false,
+      "EnableItemAll": false,
+      "EnableSkillAll": false,
+      "EnableConvergence": false,
+      "EnableDiffusion": false,
+      "EnableReflection": false,
+      "EnableCounter": false,
+      "EnableHideOut": false,
+      "EnableRepeat": false,
+      "EnableCover": false,
+      "EnableProvoke": false,
+      "EnableDisableMagic": false,
+      "EnableEnchant": false,
+      "EnableChaseAttack": false,
+      "EnableWeakCheckAll": false,
+      "EnableNormalAttackAll": false,
+      "EnableSession": false,
+      "EnableBusinessSupport": false,
+      "EnableForceWeakness": true,
+      "EnableNoUseMaterial": false,
+      "EnableSwitchWeapon": false,
+      "EnableCompensationMagic": false,
+      "EnableExcitement": false,
+      "SongAbilityFlag": false,
+      "DanceAbilityFlag": false,
+      "EnableAutoTameMonster": false,
+      "UseAbilityCamera": false,
+      "ActionCommandSequencer": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makafushigi_004.Seq_DAN_Makafushigi_004",
+          "number": 0,
+          "text": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makafushigi_004.Seq_DAN_Makafushigi_004"
+        },
+        "subPath": ""
+      },
+      "AbilitySE": [
+        "None",
+        "None",
+        "None",
+        "None"
+      ],
+      "SlideFrame": 0
+    },
+    {
+      "id": "ABI_DAN_MAKA_005",
+      "ID": 1679,
+      "AbilityID": 16790,
+      "DisplayName": "ABN_DAN_MAKA_005",
+      "Detail": "None",
+      "CommandActor": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/BP/BattleAction/_Common/CommonCommand.CommonCommand_C",
+          "number": 0,
+          "text": "/Game/Battle/BP/BattleAction/_Common/CommonCommand.CommonCommand_C"
+        },
+        "subPath": ""
+      },
+      "AbilityType": "EABILITY_TYPE::eREVIVE_RECOVERY",
+      "AbilityUseType": "EABILITY_USE_TYPE::eBATTLE_ONLY",
+      "AlwaysDisable": false,
+      "Attribute": "EATTRIBUTE_TYPE::eNONE",
+      "DependWeapon": false,
+      "RestrictWeapon": "EWEAPON_CATEGORY::eNONE",
+      "TargetType": "EBATTLE_TARGET_TYPE::ePARTY_ALL",
+      "ExceptEnforcer": false,
+      "CostType": "EABILITY_COST_TYPE::eNONE",
+      "CostValue": 0,
+      "HitRatio": 0,
+      "CriticalRatio": 0,
+      "CriticalPower": 100,
+      "AbilityRatio": 100,
+      "BaseCount": 0,
+      "MinimumCount": 0,
+      "RandomCountMin": 0,
+      "RandomCountMax": 0,
+      "EstimateOrderType": "EBATTLE_ACTION_ORDER_ESTIMATE_TYPE::eNONE",
+      "EstimateOrderCount": 0,
+      "Ailment": [
+        {
+          "AilmentName": "REVIVE_RATIO",
+          "InvocationValue": 100,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "MP_RATIO_RECOVERY",
+          "InvocationValue": 100,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "BP_RECOVERY",
+          "InvocationValue": 5,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "REMOVE_DECONDITION_PARTY_ALL",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        }
+      ],
+      "KeepBoostEffect": false,
+      "EnableItemAll": false,
+      "EnableSkillAll": false,
+      "EnableConvergence": false,
+      "EnableDiffusion": false,
+      "EnableReflection": false,
+      "EnableCounter": false,
+      "EnableHideOut": false,
+      "EnableRepeat": false,
+      "EnableCover": false,
+      "EnableProvoke": false,
+      "EnableDisableMagic": false,
+      "EnableEnchant": false,
+      "EnableChaseAttack": false,
+      "EnableWeakCheckAll": false,
+      "EnableNormalAttackAll": false,
+      "EnableSession": false,
+      "EnableBusinessSupport": false,
+      "EnableForceWeakness": false,
+      "EnableNoUseMaterial": false,
+      "EnableSwitchWeapon": false,
+      "EnableCompensationMagic": false,
+      "EnableExcitement": false,
+      "SongAbilityFlag": false,
+      "DanceAbilityFlag": false,
+      "EnableAutoTameMonster": false,
+      "UseAbilityCamera": false,
+      "ActionCommandSequencer": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makafushigi_005.Seq_DAN_Makafushigi_005",
+          "number": 0,
+          "text": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makafushigi_005.Seq_DAN_Makafushigi_005"
+        },
+        "subPath": ""
+      },
+      "AbilitySE": [
+        "None",
+        "None",
+        "None",
+        "None"
+      ],
+      "SlideFrame": 0
+    },
+    {
+      "id": "ABI_DAN_MAKA_006",
+      "ID": 1680,
+      "AbilityID": 16800,
+      "DisplayName": "ABN_DAN_MAKA_006",
+      "Detail": "None",
+      "CommandActor": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/BP/BattleAction/SummonAbility/SummonAbilityCommand.SummonAbilityCommand_C",
+          "number": 0,
+          "text": "/Game/Battle/BP/BattleAction/SummonAbility/SummonAbilityCommand.SummonAbilityCommand_C"
+        },
+        "subPath": ""
+      },
+      "AbilityType": "EABILITY_TYPE::eOTHER",
+      "AbilityUseType": "EABILITY_USE_TYPE::eBATTLE_ONLY",
+      "AlwaysDisable": false,
+      "Attribute": "EATTRIBUTE_TYPE::eNONE",
+      "DependWeapon": false,
+      "RestrictWeapon": "EWEAPON_CATEGORY::eNONE",
+      "TargetType": "EBATTLE_TARGET_TYPE::eENEMY_ALL",
+      "ExceptEnforcer": false,
+      "CostType": "EABILITY_COST_TYPE::eNONE",
+      "CostValue": 0,
+      "HitRatio": 0,
+      "CriticalRatio": 0,
+      "CriticalPower": 100,
+      "AbilityRatio": 100,
+      "BaseCount": 0,
+      "MinimumCount": 0,
+      "RandomCountMin": 0,
+      "RandomCountMax": 0,
+      "EstimateOrderType": "EBATTLE_ACTION_ORDER_ESTIMATE_TYPE::eNONE",
+      "EstimateOrderCount": 0,
+      "Ailment": [
+        {
+          "AilmentName": "PC_ABI_MAKA_001_INVADE",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        }
+      ],
+      "KeepBoostEffect": false,
+      "EnableItemAll": false,
+      "EnableSkillAll": false,
+      "EnableConvergence": false,
+      "EnableDiffusion": false,
+      "EnableReflection": false,
+      "EnableCounter": false,
+      "EnableHideOut": false,
+      "EnableRepeat": false,
+      "EnableCover": false,
+      "EnableProvoke": false,
+      "EnableDisableMagic": false,
+      "EnableEnchant": false,
+      "EnableChaseAttack": false,
+      "EnableWeakCheckAll": false,
+      "EnableNormalAttackAll": false,
+      "EnableSession": false,
+      "EnableBusinessSupport": false,
+      "EnableForceWeakness": false,
+      "EnableNoUseMaterial": false,
+      "EnableSwitchWeapon": false,
+      "EnableCompensationMagic": false,
+      "EnableExcitement": false,
+      "SongAbilityFlag": false,
+      "DanceAbilityFlag": false,
+      "EnableAutoTameMonster": false,
+      "UseAbilityCamera": false,
+      "ActionCommandSequencer": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makafushigi_006.Seq_DAN_Makafushigi_006",
+          "number": 0,
+          "text": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makafushigi_006.Seq_DAN_Makafushigi_006"
+        },
+        "subPath": ""
+      },
+      "AbilitySE": [
+        "None",
+        "None",
+        "None",
+        "None"
+      ],
+      "SlideFrame": 0
+    },
+    {
+      "id": "ABI_DAN_MAKA_006_INV",
+      "ID": 1681,
+      "AbilityID": 16810,
+      "DisplayName": "ABN_DAN_MAKA_006_INV",
+      "Detail": "None",
+      "CommandActor": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/BP/BattleAction/_Common/CommonCommand.CommonCommand_C",
+          "number": 0,
+          "text": "/Game/Battle/BP/BattleAction/_Common/CommonCommand.CommonCommand_C"
+        },
+        "subPath": ""
+      },
+      "AbilityType": "EABILITY_TYPE::ePHYSICS",
+      "AbilityUseType": "EABILITY_USE_TYPE::eBATTLE_ONLY",
+      "AlwaysDisable": false,
+      "Attribute": "EATTRIBUTE_TYPE::eNONE",
+      "DependWeapon": false,
+      "RestrictWeapon": "EWEAPON_CATEGORY::eNONE",
+      "TargetType": "EBATTLE_TARGET_TYPE::eENEMY_ALL",
+      "ExceptEnforcer": false,
+      "CostType": "EABILITY_COST_TYPE::eNONE",
+      "CostValue": 0,
+      "HitRatio": 0,
+      "CriticalRatio": 0,
+      "CriticalPower": 100,
+      "AbilityRatio": 400,
+      "BaseCount": 0,
+      "MinimumCount": 0,
+      "RandomCountMin": 0,
+      "RandomCountMax": 0,
+      "EstimateOrderType": "EBATTLE_ACTION_ORDER_ESTIMATE_TYPE::eNONE",
+      "EstimateOrderCount": 0,
+      "Ailment": [
+        {
+          "AilmentName": "PHYSICS_DAMAGE",
+          "InvocationValue": 180,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        }
+      ],
+      "KeepBoostEffect": false,
+      "EnableItemAll": false,
+      "EnableSkillAll": false,
+      "EnableConvergence": false,
+      "EnableDiffusion": false,
+      "EnableReflection": false,
+      "EnableCounter": true,
+      "EnableHideOut": true,
+      "EnableRepeat": false,
+      "EnableCover": false,
+      "EnableProvoke": false,
+      "EnableDisableMagic": false,
+      "EnableEnchant": false,
+      "EnableChaseAttack": false,
+      "EnableWeakCheckAll": false,
+      "EnableNormalAttackAll": false,
+      "EnableSession": false,
+      "EnableBusinessSupport": false,
+      "EnableForceWeakness": true,
+      "EnableNoUseMaterial": false,
+      "EnableSwitchWeapon": false,
+      "EnableCompensationMagic": false,
+      "EnableExcitement": false,
+      "SongAbilityFlag": false,
+      "DanceAbilityFlag": false,
+      "EnableAutoTameMonster": true,
+      "UseAbilityCamera": false,
+      "ActionCommandSequencer": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makasushigi_006_INV.Seq_DAN_Makasushigi_006_INV",
+          "number": 0,
+          "text": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makasushigi_006_INV.Seq_DAN_Makasushigi_006_INV"
+        },
+        "subPath": ""
+      },
+      "AbilitySE": [
+        "None",
+        "None",
+        "None",
+        "None"
+      ],
+      "SlideFrame": 0
+    },
+    {
+      "id": "ABI_DAN_MAKA_007",
+      "ID": 1682,
+      "AbilityID": 16820,
+      "DisplayName": "ABN_DAN_MAKA_007",
+      "Detail": "None",
+      "CommandActor": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/BP/BattleAction/_Common/CommonCommand.CommonCommand_C",
+          "number": 0,
+          "text": "/Game/Battle/BP/BattleAction/_Common/CommonCommand.CommonCommand_C"
+        },
+        "subPath": ""
+      },
+      "AbilityType": "EABILITY_TYPE::eDEBUFF",
+      "AbilityUseType": "EABILITY_USE_TYPE::eBATTLE_ONLY",
+      "AlwaysDisable": false,
+      "Attribute": "EATTRIBUTE_TYPE::eNONE",
+      "DependWeapon": false,
+      "RestrictWeapon": "EWEAPON_CATEGORY::eNONE",
+      "TargetType": "EBATTLE_TARGET_TYPE::ePARTY_ALL",
+      "ExceptEnforcer": false,
+      "CostType": "EABILITY_COST_TYPE::eNONE",
+      "CostValue": 0,
+      "HitRatio": 0,
+      "CriticalRatio": 0,
+      "CriticalPower": 100,
+      "AbilityRatio": 100,
+      "BaseCount": 0,
+      "MinimumCount": 0,
+      "RandomCountMin": 0,
+      "RandomCountMax": 0,
+      "EstimateOrderType": "EBATTLE_ACTION_ORDER_ESTIMATE_TYPE::eNONE",
+      "EstimateOrderCount": 0,
+      "Ailment": [
+        {
+          "AilmentName": "HP1",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        }
+      ],
+      "KeepBoostEffect": false,
+      "EnableItemAll": false,
+      "EnableSkillAll": false,
+      "EnableConvergence": false,
+      "EnableDiffusion": false,
+      "EnableReflection": false,
+      "EnableCounter": false,
+      "EnableHideOut": false,
+      "EnableRepeat": false,
+      "EnableCover": false,
+      "EnableProvoke": false,
+      "EnableDisableMagic": false,
+      "EnableEnchant": false,
+      "EnableChaseAttack": false,
+      "EnableWeakCheckAll": false,
+      "EnableNormalAttackAll": false,
+      "EnableSession": false,
+      "EnableBusinessSupport": false,
+      "EnableForceWeakness": false,
+      "EnableNoUseMaterial": false,
+      "EnableSwitchWeapon": false,
+      "EnableCompensationMagic": false,
+      "EnableExcitement": false,
+      "SongAbilityFlag": false,
+      "DanceAbilityFlag": false,
+      "EnableAutoTameMonster": false,
+      "UseAbilityCamera": false,
+      "ActionCommandSequencer": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makafushigi_007.Seq_DAN_Makafushigi_007",
+          "number": 0,
+          "text": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makafushigi_007.Seq_DAN_Makafushigi_007"
+        },
+        "subPath": ""
+      },
+      "AbilitySE": [
+        "None",
+        "None",
+        "None",
+        "None"
+      ],
+      "SlideFrame": 0
+    },
+    {
+      "id": "ABI_DAN_MAKA_008",
+      "ID": 1683,
+      "AbilityID": 16830,
+      "DisplayName": "ABN_DAN_MAKA_008",
+      "Detail": "None",
+      "CommandActor": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/BP/BattleAction/_Common/CommonCommand.CommonCommand_C",
+          "number": 0,
+          "text": "/Game/Battle/BP/BattleAction/_Common/CommonCommand.CommonCommand_C"
+        },
+        "subPath": ""
+      },
+      "AbilityType": "EABILITY_TYPE::eDEBUFF",
+      "AbilityUseType": "EABILITY_USE_TYPE::eBATTLE_ONLY",
+      "AlwaysDisable": false,
+      "Attribute": "EATTRIBUTE_TYPE::eNONE",
+      "DependWeapon": false,
+      "RestrictWeapon": "EWEAPON_CATEGORY::eNONE",
+      "TargetType": "EBATTLE_TARGET_TYPE::ePARTY_SINGLE",
+      "ExceptEnforcer": false,
+      "CostType": "EABILITY_COST_TYPE::eNONE",
+      "CostValue": 0,
+      "HitRatio": 0,
+      "CriticalRatio": 0,
+      "CriticalPower": 100,
+      "AbilityRatio": 100,
+      "BaseCount": 0,
+      "MinimumCount": 0,
+      "RandomCountMin": 0,
+      "RandomCountMax": 0,
+      "EstimateOrderType": "EBATTLE_ACTION_ORDER_ESTIMATE_TYPE::eNONE",
+      "EstimateOrderCount": 0,
+      "Ailment": [
+        {
+          "AilmentName": "INSTANT_DEATH_EXCEPT_ENFORCER",
+          "InvocationValue": 100,
+          "InvocationTurn": 0,
+          "DiseaseRate": 50
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        }
+      ],
+      "KeepBoostEffect": false,
+      "EnableItemAll": false,
+      "EnableSkillAll": false,
+      "EnableConvergence": false,
+      "EnableDiffusion": false,
+      "EnableReflection": false,
+      "EnableCounter": false,
+      "EnableHideOut": false,
+      "EnableRepeat": false,
+      "EnableCover": false,
+      "EnableProvoke": false,
+      "EnableDisableMagic": false,
+      "EnableEnchant": false,
+      "EnableChaseAttack": false,
+      "EnableWeakCheckAll": false,
+      "EnableNormalAttackAll": false,
+      "EnableSession": false,
+      "EnableBusinessSupport": false,
+      "EnableForceWeakness": false,
+      "EnableNoUseMaterial": false,
+      "EnableSwitchWeapon": false,
+      "EnableCompensationMagic": false,
+      "EnableExcitement": false,
+      "SongAbilityFlag": false,
+      "DanceAbilityFlag": false,
+      "EnableAutoTameMonster": false,
+      "UseAbilityCamera": false,
+      "ActionCommandSequencer": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makafushigi_008.Seq_DAN_Makafushigi_008",
+          "number": 0,
+          "text": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makafushigi_008.Seq_DAN_Makafushigi_008"
+        },
+        "subPath": ""
+      },
+      "AbilitySE": [
+        "None",
+        "None",
+        "None",
+        "None"
+      ],
+      "SlideFrame": 0
+    },
+    {
+      "id": "ABI_DAN_MAKA_009",
+      "ID": 1684,
+      "AbilityID": 16840,
+      "DisplayName": "ABN_DAN_MAKA_009",
+      "Detail": "None",
+      "CommandActor": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/BP/BattleAction/_Common/CommonCommand.CommonCommand_C",
+          "number": 0,
+          "text": "/Game/Battle/BP/BattleAction/_Common/CommonCommand.CommonCommand_C"
+        },
+        "subPath": ""
+      },
+      "AbilityType": "EABILITY_TYPE::eOTHER",
+      "AbilityUseType": "EABILITY_USE_TYPE::eBATTLE_ONLY",
+      "AlwaysDisable": false,
+      "Attribute": "EATTRIBUTE_TYPE::eNONE",
+      "DependWeapon": false,
+      "RestrictWeapon": "EWEAPON_CATEGORY::eNONE",
+      "TargetType": "EBATTLE_TARGET_TYPE::ePARTY_ALL",
+      "ExceptEnforcer": false,
+      "CostType": "EABILITY_COST_TYPE::eNONE",
+      "CostValue": 0,
+      "HitRatio": 0,
+      "CriticalRatio": 0,
+      "CriticalPower": 100,
+      "AbilityRatio": 100,
+      "BaseCount": 0,
+      "MinimumCount": 0,
+      "RandomCountMin": 0,
+      "RandomCountMax": 0,
+      "EstimateOrderType": "EBATTLE_ACTION_ORDER_ESTIMATE_TYPE::eNONE",
+      "EstimateOrderCount": 0,
+      "Ailment": [
+        {
+          "AilmentName": "JPUP",
+          "InvocationValue": 500,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        }
+      ],
+      "KeepBoostEffect": false,
+      "EnableItemAll": false,
+      "EnableSkillAll": false,
+      "EnableConvergence": false,
+      "EnableDiffusion": false,
+      "EnableReflection": false,
+      "EnableCounter": false,
+      "EnableHideOut": false,
+      "EnableRepeat": false,
+      "EnableCover": false,
+      "EnableProvoke": false,
+      "EnableDisableMagic": false,
+      "EnableEnchant": false,
+      "EnableChaseAttack": false,
+      "EnableWeakCheckAll": false,
+      "EnableNormalAttackAll": false,
+      "EnableSession": false,
+      "EnableBusinessSupport": false,
+      "EnableForceWeakness": false,
+      "EnableNoUseMaterial": false,
+      "EnableSwitchWeapon": false,
+      "EnableCompensationMagic": false,
+      "EnableExcitement": false,
+      "SongAbilityFlag": false,
+      "DanceAbilityFlag": false,
+      "EnableAutoTameMonster": false,
+      "UseAbilityCamera": false,
+      "ActionCommandSequencer": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makasushigi_009.Seq_DAN_Makasushigi_009",
+          "number": 0,
+          "text": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makasushigi_009.Seq_DAN_Makasushigi_009"
+        },
+        "subPath": ""
+      },
+      "AbilitySE": [
+        "None",
+        "None",
+        "None",
+        "None"
+      ],
+      "SlideFrame": 0
+    },
+    {
+      "id": "ABI_DAN_MAKA_010",
+      "ID": 1685,
+      "AbilityID": 16850,
+      "DisplayName": "ABN_DAN_MAKA_010",
+      "Detail": "None",
+      "CommandActor": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/BP/BattleAction/_Common/CommonCommand.CommonCommand_C",
+          "number": 0,
+          "text": "/Game/Battle/BP/BattleAction/_Common/CommonCommand.CommonCommand_C"
+        },
+        "subPath": ""
+      },
+      "AbilityType": "EABILITY_TYPE::eOTHER",
+      "AbilityUseType": "EABILITY_USE_TYPE::eBATTLE_ONLY",
+      "AlwaysDisable": false,
+      "Attribute": "EATTRIBUTE_TYPE::eNONE",
+      "DependWeapon": false,
+      "RestrictWeapon": "EWEAPON_CATEGORY::eNONE",
+      "TargetType": "EBATTLE_TARGET_TYPE::ePARTY_ALL",
+      "ExceptEnforcer": false,
+      "CostType": "EABILITY_COST_TYPE::eNONE",
+      "CostValue": 0,
+      "HitRatio": 0,
+      "CriticalRatio": 0,
+      "CriticalPower": 100,
+      "AbilityRatio": 100,
+      "BaseCount": 0,
+      "MinimumCount": 0,
+      "RandomCountMin": 0,
+      "RandomCountMax": 0,
+      "EstimateOrderType": "EBATTLE_ACTION_ORDER_ESTIMATE_TYPE::eNONE",
+      "EstimateOrderCount": 0,
+      "Ailment": [
+        {
+          "AilmentName": "EXPUP",
+          "InvocationValue": 500,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        }
+      ],
+      "KeepBoostEffect": false,
+      "EnableItemAll": false,
+      "EnableSkillAll": false,
+      "EnableConvergence": false,
+      "EnableDiffusion": false,
+      "EnableReflection": false,
+      "EnableCounter": false,
+      "EnableHideOut": false,
+      "EnableRepeat": false,
+      "EnableCover": false,
+      "EnableProvoke": false,
+      "EnableDisableMagic": false,
+      "EnableEnchant": false,
+      "EnableChaseAttack": false,
+      "EnableWeakCheckAll": false,
+      "EnableNormalAttackAll": false,
+      "EnableSession": false,
+      "EnableBusinessSupport": false,
+      "EnableForceWeakness": false,
+      "EnableNoUseMaterial": false,
+      "EnableSwitchWeapon": false,
+      "EnableCompensationMagic": false,
+      "EnableExcitement": false,
+      "SongAbilityFlag": false,
+      "DanceAbilityFlag": false,
+      "EnableAutoTameMonster": false,
+      "UseAbilityCamera": false,
+      "ActionCommandSequencer": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makasushigi_010.Seq_DAN_Makasushigi_010",
+          "number": 0,
+          "text": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makasushigi_010.Seq_DAN_Makasushigi_010"
+        },
+        "subPath": ""
+      },
+      "AbilitySE": [
+        "None",
+        "None",
+        "None",
+        "None"
+      ],
+      "SlideFrame": 0
+    },
+    {
+      "id": "ABI_DAN_MAKA_011",
+      "ID": 1686,
+      "AbilityID": 16860,
+      "DisplayName": "ABN_DAN_MAKA_011",
+      "Detail": "None",
+      "CommandActor": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/BP/BattleAction/_Common/CommonCommand.CommonCommand_C",
+          "number": 0,
+          "text": "/Game/Battle/BP/BattleAction/_Common/CommonCommand.CommonCommand_C"
+        },
+        "subPath": ""
+      },
+      "AbilityType": "EABILITY_TYPE::eMAGIC",
+      "AbilityUseType": "EABILITY_USE_TYPE::eBATTLE_ONLY",
+      "AlwaysDisable": false,
+      "Attribute": "EATTRIBUTE_TYPE::eLIGHT",
+      "DependWeapon": false,
+      "RestrictWeapon": "EWEAPON_CATEGORY::eNONE",
+      "TargetType": "EBATTLE_TARGET_TYPE::eENEMY_ALL",
+      "ExceptEnforcer": false,
+      "CostType": "EABILITY_COST_TYPE::eNONE",
+      "CostValue": 0,
+      "HitRatio": 0,
+      "CriticalRatio": 0,
+      "CriticalPower": 100,
+      "AbilityRatio": 100,
+      "BaseCount": 0,
+      "MinimumCount": 0,
+      "RandomCountMin": 0,
+      "RandomCountMax": 0,
+      "EstimateOrderType": "EBATTLE_ACTION_ORDER_ESTIMATE_TYPE::eNONE",
+      "EstimateOrderCount": 0,
+      "Ailment": [
+        {
+          "AilmentName": "MAGIC_DAMAGE",
+          "InvocationValue": 130,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        }
+      ],
+      "KeepBoostEffect": false,
+      "EnableItemAll": false,
+      "EnableSkillAll": false,
+      "EnableConvergence": false,
+      "EnableDiffusion": false,
+      "EnableReflection": true,
+      "EnableCounter": false,
+      "EnableHideOut": false,
+      "EnableRepeat": false,
+      "EnableCover": false,
+      "EnableProvoke": false,
+      "EnableDisableMagic": false,
+      "EnableEnchant": false,
+      "EnableChaseAttack": false,
+      "EnableWeakCheckAll": false,
+      "EnableNormalAttackAll": false,
+      "EnableSession": false,
+      "EnableBusinessSupport": false,
+      "EnableForceWeakness": true,
+      "EnableNoUseMaterial": false,
+      "EnableSwitchWeapon": false,
+      "EnableCompensationMagic": false,
+      "EnableExcitement": false,
+      "SongAbilityFlag": false,
+      "DanceAbilityFlag": false,
+      "EnableAutoTameMonster": true,
+      "UseAbilityCamera": false,
+      "ActionCommandSequencer": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makasushigi_011.Seq_DAN_Makasushigi_011",
+          "number": 0,
+          "text": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makasushigi_011.Seq_DAN_Makasushigi_011"
+        },
+        "subPath": ""
+      },
+      "AbilitySE": [
+        "None",
+        "None",
+        "None",
+        "None"
+      ],
+      "SlideFrame": 0
+    },
+    {
+      "id": "ABI_DAN_MAKA_012",
+      "ID": 1687,
+      "AbilityID": 16870,
+      "DisplayName": "ABN_DAN_MAKA_012",
+      "Detail": "None",
+      "CommandActor": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/BP/BattleAction/_Common/CommonCommand.CommonCommand_C",
+          "number": 0,
+          "text": "/Game/Battle/BP/BattleAction/_Common/CommonCommand.CommonCommand_C"
+        },
+        "subPath": ""
+      },
+      "AbilityType": "EABILITY_TYPE::eOTHER",
+      "AbilityUseType": "EABILITY_USE_TYPE::eBATTLE_ONLY",
+      "AlwaysDisable": false,
+      "Attribute": "EATTRIBUTE_TYPE::eNONE",
+      "DependWeapon": false,
+      "RestrictWeapon": "EWEAPON_CATEGORY::eNONE",
+      "TargetType": "EBATTLE_TARGET_TYPE::ePARTY_ALL",
+      "ExceptEnforcer": false,
+      "CostType": "EABILITY_COST_TYPE::eNONE",
+      "CostValue": 0,
+      "HitRatio": 0,
+      "CriticalRatio": 0,
+      "CriticalPower": 100,
+      "AbilityRatio": 100,
+      "BaseCount": 0,
+      "MinimumCount": 0,
+      "RandomCountMin": 0,
+      "RandomCountMax": 0,
+      "EstimateOrderType": "EBATTLE_ACTION_ORDER_ESTIMATE_TYPE::eNONE",
+      "EstimateOrderCount": 0,
+      "Ailment": [
+        {
+          "AilmentName": "BP_RECOVERY",
+          "InvocationValue": 5,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        }
+      ],
+      "KeepBoostEffect": false,
+      "EnableItemAll": false,
+      "EnableSkillAll": false,
+      "EnableConvergence": false,
+      "EnableDiffusion": false,
+      "EnableReflection": false,
+      "EnableCounter": false,
+      "EnableHideOut": false,
+      "EnableRepeat": false,
+      "EnableCover": false,
+      "EnableProvoke": false,
+      "EnableDisableMagic": false,
+      "EnableEnchant": false,
+      "EnableChaseAttack": false,
+      "EnableWeakCheckAll": false,
+      "EnableNormalAttackAll": false,
+      "EnableSession": false,
+      "EnableBusinessSupport": false,
+      "EnableForceWeakness": false,
+      "EnableNoUseMaterial": false,
+      "EnableSwitchWeapon": false,
+      "EnableCompensationMagic": false,
+      "EnableExcitement": false,
+      "SongAbilityFlag": false,
+      "DanceAbilityFlag": false,
+      "EnableAutoTameMonster": false,
+      "UseAbilityCamera": false,
+      "ActionCommandSequencer": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makasushigi_012.Seq_DAN_Makasushigi_012",
+          "number": 0,
+          "text": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makasushigi_012.Seq_DAN_Makasushigi_012"
+        },
+        "subPath": ""
+      },
+      "AbilitySE": [
+        "None",
+        "None",
+        "None",
+        "None"
+      ],
+      "SlideFrame": 0
+    },
+    {
+      "id": "ABI_DAN_MAKA_013",
+      "ID": 1688,
+      "AbilityID": 16880,
+      "DisplayName": "ABN_DAN_MAKA_013",
+      "Detail": "None",
+      "CommandActor": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/BP/BattleAction/_Common/CommonCommand.CommonCommand_C",
+          "number": 0,
+          "text": "/Game/Battle/BP/BattleAction/_Common/CommonCommand.CommonCommand_C"
+        },
+        "subPath": ""
+      },
+      "AbilityType": "EABILITY_TYPE::eBUFF",
+      "AbilityUseType": "EABILITY_USE_TYPE::eBATTLE_ONLY",
+      "AlwaysDisable": false,
+      "Attribute": "EATTRIBUTE_TYPE::eNONE",
+      "DependWeapon": false,
+      "RestrictWeapon": "EWEAPON_CATEGORY::eNONE",
+      "TargetType": "EBATTLE_TARGET_TYPE::ePARTY_ALL",
+      "ExceptEnforcer": false,
+      "CostType": "EABILITY_COST_TYPE::eNONE",
+      "CostValue": 0,
+      "HitRatio": 0,
+      "CriticalRatio": 0,
+      "CriticalPower": 100,
+      "AbilityRatio": 100,
+      "BaseCount": 0,
+      "MinimumCount": 0,
+      "RandomCountMin": 0,
+      "RandomCountMax": 0,
+      "EstimateOrderType": "EBATTLE_ACTION_ORDER_ESTIMATE_TYPE::eNONE",
+      "EstimateOrderCount": 0,
+      "Ailment": [
+        {
+          "AilmentName": "ADD_MAGIC_REFLECTION",
+          "InvocationValue": 0,
+          "InvocationTurn": 1,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        }
+      ],
+      "KeepBoostEffect": false,
+      "EnableItemAll": false,
+      "EnableSkillAll": false,
+      "EnableConvergence": false,
+      "EnableDiffusion": false,
+      "EnableReflection": false,
+      "EnableCounter": false,
+      "EnableHideOut": false,
+      "EnableRepeat": false,
+      "EnableCover": false,
+      "EnableProvoke": false,
+      "EnableDisableMagic": false,
+      "EnableEnchant": false,
+      "EnableChaseAttack": false,
+      "EnableWeakCheckAll": false,
+      "EnableNormalAttackAll": false,
+      "EnableSession": false,
+      "EnableBusinessSupport": false,
+      "EnableForceWeakness": false,
+      "EnableNoUseMaterial": false,
+      "EnableSwitchWeapon": false,
+      "EnableCompensationMagic": false,
+      "EnableExcitement": true,
+      "SongAbilityFlag": false,
+      "DanceAbilityFlag": false,
+      "EnableAutoTameMonster": false,
+      "UseAbilityCamera": false,
+      "ActionCommandSequencer": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makasushigi_013.Seq_DAN_Makasushigi_013",
+          "number": 0,
+          "text": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makasushigi_013.Seq_DAN_Makasushigi_013"
+        },
+        "subPath": ""
+      },
+      "AbilitySE": [
+        "None",
+        "None",
+        "None",
+        "None"
+      ],
+      "SlideFrame": 0
+    },
+    {
+      "id": "ABI_DAN_MAKA_014",
+      "ID": 1689,
+      "AbilityID": 16890,
+      "DisplayName": "ABN_DAN_MAKA_014",
+      "Detail": "None",
+      "CommandActor": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/BP/BattleAction/_Common/CommonCommand.CommonCommand_C",
+          "number": 0,
+          "text": "/Game/Battle/BP/BattleAction/_Common/CommonCommand.CommonCommand_C"
+        },
+        "subPath": ""
+      },
+      "AbilityType": "EABILITY_TYPE::eDEBUFF",
+      "AbilityUseType": "EABILITY_USE_TYPE::eBATTLE_ONLY",
+      "AlwaysDisable": false,
+      "Attribute": "EATTRIBUTE_TYPE::eNONE",
+      "DependWeapon": false,
+      "RestrictWeapon": "EWEAPON_CATEGORY::eNONE",
+      "TargetType": "EBATTLE_TARGET_TYPE::ePARTY_ALL",
+      "ExceptEnforcer": false,
+      "CostType": "EABILITY_COST_TYPE::eNONE",
+      "CostValue": 0,
+      "HitRatio": 0,
+      "CriticalRatio": 0,
+      "CriticalPower": 100,
+      "AbilityRatio": 100,
+      "BaseCount": 0,
+      "MinimumCount": 0,
+      "RandomCountMin": 0,
+      "RandomCountMax": 0,
+      "EstimateOrderType": "EBATTLE_ACTION_ORDER_ESTIMATE_TYPE::eNONE",
+      "EstimateOrderCount": 0,
+      "Ailment": [
+        {
+          "AilmentName": "ADD_POISON_NORMAL",
+          "InvocationValue": 0,
+          "InvocationTurn": 9,
+          "DiseaseRate": 100
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        }
+      ],
+      "KeepBoostEffect": false,
+      "EnableItemAll": false,
+      "EnableSkillAll": false,
+      "EnableConvergence": false,
+      "EnableDiffusion": false,
+      "EnableReflection": false,
+      "EnableCounter": false,
+      "EnableHideOut": false,
+      "EnableRepeat": false,
+      "EnableCover": false,
+      "EnableProvoke": false,
+      "EnableDisableMagic": false,
+      "EnableEnchant": false,
+      "EnableChaseAttack": false,
+      "EnableWeakCheckAll": false,
+      "EnableNormalAttackAll": false,
+      "EnableSession": false,
+      "EnableBusinessSupport": false,
+      "EnableForceWeakness": false,
+      "EnableNoUseMaterial": false,
+      "EnableSwitchWeapon": false,
+      "EnableCompensationMagic": false,
+      "EnableExcitement": false,
+      "SongAbilityFlag": false,
+      "DanceAbilityFlag": false,
+      "EnableAutoTameMonster": false,
+      "UseAbilityCamera": false,
+      "ActionCommandSequencer": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makasushigi_014.Seq_DAN_Makasushigi_014",
+          "number": 0,
+          "text": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makasushigi_014.Seq_DAN_Makasushigi_014"
+        },
+        "subPath": ""
+      },
+      "AbilitySE": [
+        "None",
+        "None",
+        "None",
+        "None"
+      ],
+      "SlideFrame": 0
+    },
+    {
+      "id": "ABI_DAN_MAKA_015",
+      "ID": 1690,
+      "AbilityID": 16900,
+      "DisplayName": "ABN_DAN_MAKA_015",
+      "Detail": "None",
+      "CommandActor": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/BP/BattleAction/_Common/CommonCommand.CommonCommand_C",
+          "number": 0,
+          "text": "/Game/Battle/BP/BattleAction/_Common/CommonCommand.CommonCommand_C"
+        },
+        "subPath": ""
+      },
+      "AbilityType": "EABILITY_TYPE::eDEBUFF",
+      "AbilityUseType": "EABILITY_USE_TYPE::eBATTLE_ONLY",
+      "AlwaysDisable": false,
+      "Attribute": "EATTRIBUTE_TYPE::eNONE",
+      "DependWeapon": false,
+      "RestrictWeapon": "EWEAPON_CATEGORY::eNONE",
+      "TargetType": "EBATTLE_TARGET_TYPE::ePARTY_ALL",
+      "ExceptEnforcer": false,
+      "CostType": "EABILITY_COST_TYPE::eNONE",
+      "CostValue": 0,
+      "HitRatio": 0,
+      "CriticalRatio": 0,
+      "CriticalPower": 100,
+      "AbilityRatio": 50,
+      "BaseCount": 0,
+      "MinimumCount": 0,
+      "RandomCountMin": 0,
+      "RandomCountMax": 0,
+      "EstimateOrderType": "EBATTLE_ACTION_ORDER_ESTIMATE_TYPE::eNONE",
+      "EstimateOrderCount": 0,
+      "Ailment": [
+        {
+          "AilmentName": "ADD_DISABLE_ITEM_MENU",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "PHYSICS_DAMAGE",
+          "InvocationValue": 100,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        }
+      ],
+      "KeepBoostEffect": false,
+      "EnableItemAll": false,
+      "EnableSkillAll": false,
+      "EnableConvergence": false,
+      "EnableDiffusion": false,
+      "EnableReflection": false,
+      "EnableCounter": false,
+      "EnableHideOut": false,
+      "EnableRepeat": false,
+      "EnableCover": false,
+      "EnableProvoke": false,
+      "EnableDisableMagic": false,
+      "EnableEnchant": false,
+      "EnableChaseAttack": false,
+      "EnableWeakCheckAll": false,
+      "EnableNormalAttackAll": false,
+      "EnableSession": false,
+      "EnableBusinessSupport": false,
+      "EnableForceWeakness": false,
+      "EnableNoUseMaterial": false,
+      "EnableSwitchWeapon": false,
+      "EnableCompensationMagic": false,
+      "EnableExcitement": false,
+      "SongAbilityFlag": false,
+      "DanceAbilityFlag": false,
+      "EnableAutoTameMonster": false,
+      "UseAbilityCamera": false,
+      "ActionCommandSequencer": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makasushigi_015.Seq_DAN_Makasushigi_015",
+          "number": 0,
+          "text": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makasushigi_015.Seq_DAN_Makasushigi_015"
+        },
+        "subPath": ""
+      },
+      "AbilitySE": [
+        "None",
+        "None",
+        "None",
+        "None"
+      ],
+      "SlideFrame": 0
+    },
+    {
+      "id": "ABI_DAN_MAKA_016",
+      "ID": 1691,
+      "AbilityID": 16910,
+      "DisplayName": "ABN_DAN_MAKA_016",
+      "Detail": "None",
+      "CommandActor": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/BP/BattleAction/_Common/CommonCommand.CommonCommand_C",
+          "number": 0,
+          "text": "/Game/Battle/BP/BattleAction/_Common/CommonCommand.CommonCommand_C"
+        },
+        "subPath": ""
+      },
+      "AbilityType": "EABILITY_TYPE::eDEBUFF",
+      "AbilityUseType": "EABILITY_USE_TYPE::eBATTLE_ONLY",
+      "AlwaysDisable": false,
+      "Attribute": "EATTRIBUTE_TYPE::eNONE",
+      "DependWeapon": false,
+      "RestrictWeapon": "EWEAPON_CATEGORY::eNONE",
+      "TargetType": "EBATTLE_TARGET_TYPE::ePARTY_ALL",
+      "ExceptEnforcer": false,
+      "CostType": "EABILITY_COST_TYPE::eNONE",
+      "CostValue": 0,
+      "HitRatio": 0,
+      "CriticalRatio": 0,
+      "CriticalPower": 100,
+      "AbilityRatio": 100,
+      "BaseCount": 0,
+      "MinimumCount": 0,
+      "RandomCountMin": 0,
+      "RandomCountMax": 0,
+      "EstimateOrderType": "EBATTLE_ACTION_ORDER_ESTIMATE_TYPE::eNONE",
+      "EstimateOrderCount": 0,
+      "Ailment": [
+        {
+          "AilmentName": "BP_DAMAGE",
+          "InvocationValue": 5,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        }
+      ],
+      "KeepBoostEffect": false,
+      "EnableItemAll": false,
+      "EnableSkillAll": false,
+      "EnableConvergence": false,
+      "EnableDiffusion": false,
+      "EnableReflection": false,
+      "EnableCounter": false,
+      "EnableHideOut": false,
+      "EnableRepeat": false,
+      "EnableCover": false,
+      "EnableProvoke": false,
+      "EnableDisableMagic": false,
+      "EnableEnchant": false,
+      "EnableChaseAttack": false,
+      "EnableWeakCheckAll": false,
+      "EnableNormalAttackAll": false,
+      "EnableSession": false,
+      "EnableBusinessSupport": false,
+      "EnableForceWeakness": false,
+      "EnableNoUseMaterial": false,
+      "EnableSwitchWeapon": false,
+      "EnableCompensationMagic": false,
+      "EnableExcitement": false,
+      "SongAbilityFlag": false,
+      "DanceAbilityFlag": false,
+      "EnableAutoTameMonster": false,
+      "UseAbilityCamera": false,
+      "ActionCommandSequencer": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makasushigi_016.Seq_DAN_Makasushigi_016",
+          "number": 0,
+          "text": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makasushigi_016.Seq_DAN_Makasushigi_016"
+        },
+        "subPath": ""
+      },
+      "AbilitySE": [
+        "None",
+        "None",
+        "None",
+        "None"
+      ],
+      "SlideFrame": 0
+    },
+    {
+      "id": "ABI_DAN_MAKA_017",
+      "ID": 1692,
+      "AbilityID": 16920,
+      "DisplayName": "ABN_DAN_MAKA_017",
+      "Detail": "None",
+      "CommandActor": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/BP/BattleAction/SummonAbility/SummonAbilityCommand.SummonAbilityCommand_C",
+          "number": 0,
+          "text": "/Game/Battle/BP/BattleAction/SummonAbility/SummonAbilityCommand.SummonAbilityCommand_C"
+        },
+        "subPath": ""
+      },
+      "AbilityType": "EABILITY_TYPE::eSUMMON",
+      "AbilityUseType": "EABILITY_USE_TYPE::eBATTLE_ONLY",
+      "AlwaysDisable": false,
+      "Attribute": "EATTRIBUTE_TYPE::eNONE",
+      "DependWeapon": false,
+      "RestrictWeapon": "EWEAPON_CATEGORY::eNONE",
+      "TargetType": "EBATTLE_TARGET_TYPE::eENEMY_ALL",
+      "ExceptEnforcer": false,
+      "CostType": "EABILITY_COST_TYPE::eNONE",
+      "CostValue": 0,
+      "HitRatio": 0,
+      "CriticalRatio": 0,
+      "CriticalPower": 100,
+      "AbilityRatio": 100,
+      "BaseCount": 0,
+      "MinimumCount": 0,
+      "RandomCountMin": 0,
+      "RandomCountMax": 0,
+      "EstimateOrderType": "EBATTLE_ACTION_ORDER_ESTIMATE_TYPE::eNONE",
+      "EstimateOrderCount": 0,
+      "Ailment": [
+        {
+          "AilmentName": "PC_ABI_MAKA_002_INVADE",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        }
+      ],
+      "KeepBoostEffect": false,
+      "EnableItemAll": false,
+      "EnableSkillAll": false,
+      "EnableConvergence": false,
+      "EnableDiffusion": false,
+      "EnableReflection": false,
+      "EnableCounter": false,
+      "EnableHideOut": false,
+      "EnableRepeat": false,
+      "EnableCover": false,
+      "EnableProvoke": false,
+      "EnableDisableMagic": false,
+      "EnableEnchant": false,
+      "EnableChaseAttack": false,
+      "EnableWeakCheckAll": false,
+      "EnableNormalAttackAll": false,
+      "EnableSession": false,
+      "EnableBusinessSupport": false,
+      "EnableForceWeakness": false,
+      "EnableNoUseMaterial": false,
+      "EnableSwitchWeapon": false,
+      "EnableCompensationMagic": false,
+      "EnableExcitement": false,
+      "SongAbilityFlag": false,
+      "DanceAbilityFlag": false,
+      "EnableAutoTameMonster": false,
+      "UseAbilityCamera": false,
+      "ActionCommandSequencer": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makasushigi_017.Seq_DAN_Makasushigi_017",
+          "number": 0,
+          "text": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makasushigi_017.Seq_DAN_Makasushigi_017"
+        },
+        "subPath": ""
+      },
+      "AbilitySE": [
+        "None",
+        "None",
+        "None",
+        "None"
+      ],
+      "SlideFrame": 0
+    },
+    {
+      "id": "ABI_DAN_MAKA_017_INV",
+      "ID": 1693,
+      "AbilityID": 16930,
+      "DisplayName": "ABN_DAN_MAKA_017_INV",
+      "Detail": "None",
+      "CommandActor": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/BP/BattleAction/_Common/CommonCommand.CommonCommand_C",
+          "number": 0,
+          "text": "/Game/Battle/BP/BattleAction/_Common/CommonCommand.CommonCommand_C"
+        },
+        "subPath": ""
+      },
+      "AbilityType": "EABILITY_TYPE::eBUFF",
+      "AbilityUseType": "EABILITY_USE_TYPE::eBATTLE_ONLY",
+      "AlwaysDisable": false,
+      "Attribute": "EATTRIBUTE_TYPE::eNONE",
+      "DependWeapon": false,
+      "RestrictWeapon": "EWEAPON_CATEGORY::eNONE",
+      "TargetType": "EBATTLE_TARGET_TYPE::eENEMY_ALL",
+      "ExceptEnforcer": false,
+      "CostType": "EABILITY_COST_TYPE::eNONE",
+      "CostValue": 0,
+      "HitRatio": 0,
+      "CriticalRatio": 0,
+      "CriticalPower": 100,
+      "AbilityRatio": 100,
+      "BaseCount": 0,
+      "MinimumCount": 0,
+      "RandomCountMin": 0,
+      "RandomCountMax": 0,
+      "EstimateOrderType": "EBATTLE_ACTION_ORDER_ESTIMATE_TYPE::eNONE",
+      "EstimateOrderCount": 0,
+      "Ailment": [
+        {
+          "AilmentName": "ADD_ATK_UP",
+          "InvocationValue": 150,
+          "InvocationTurn": 5,
+          "DiseaseRate": 100
+        },
+        {
+          "AilmentName": "ADD_MATK_UP",
+          "InvocationValue": 150,
+          "InvocationTurn": 5,
+          "DiseaseRate": 100
+        },
+        {
+          "AilmentName": "ADD_DEF_UP",
+          "InvocationValue": 150,
+          "InvocationTurn": 5,
+          "DiseaseRate": 100
+        },
+        {
+          "AilmentName": "ADD_MDEF_UP",
+          "InvocationValue": 150,
+          "InvocationTurn": 5,
+          "DiseaseRate": 100
+        },
+        {
+          "AilmentName": "ADD_AGI_UP",
+          "InvocationValue": 150,
+          "InvocationTurn": 5,
+          "DiseaseRate": 100
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        }
+      ],
+      "KeepBoostEffect": false,
+      "EnableItemAll": false,
+      "EnableSkillAll": false,
+      "EnableConvergence": false,
+      "EnableDiffusion": false,
+      "EnableReflection": false,
+      "EnableCounter": false,
+      "EnableHideOut": false,
+      "EnableRepeat": false,
+      "EnableCover": false,
+      "EnableProvoke": false,
+      "EnableDisableMagic": false,
+      "EnableEnchant": false,
+      "EnableChaseAttack": false,
+      "EnableWeakCheckAll": false,
+      "EnableNormalAttackAll": false,
+      "EnableSession": false,
+      "EnableBusinessSupport": false,
+      "EnableForceWeakness": false,
+      "EnableNoUseMaterial": false,
+      "EnableSwitchWeapon": false,
+      "EnableCompensationMagic": false,
+      "EnableExcitement": false,
+      "SongAbilityFlag": false,
+      "DanceAbilityFlag": false,
+      "EnableAutoTameMonster": false,
+      "UseAbilityCamera": false,
+      "ActionCommandSequencer": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makasushigi_017_INV.Seq_DAN_Makasushigi_017_INV",
+          "number": 0,
+          "text": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makasushigi_017_INV.Seq_DAN_Makasushigi_017_INV"
+        },
+        "subPath": ""
+      },
+      "AbilitySE": [
+        "None",
+        "None",
+        "None",
+        "None"
+      ],
+      "SlideFrame": 0
+    },
+    {
+      "id": "ABI_DAN_MAKA_018",
+      "ID": 1694,
+      "AbilityID": 16940,
+      "DisplayName": "ABN_DAN_MAKA_018",
+      "Detail": "None",
+      "CommandActor": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/BP/BattleAction/_Common/CommonCommand.CommonCommand_C",
+          "number": 0,
+          "text": "/Game/Battle/BP/BattleAction/_Common/CommonCommand.CommonCommand_C"
+        },
+        "subPath": ""
+      },
+      "AbilityType": "EABILITY_TYPE::eOTHER",
+      "AbilityUseType": "EABILITY_USE_TYPE::eBATTLE_ONLY",
+      "AlwaysDisable": false,
+      "Attribute": "EATTRIBUTE_TYPE::eNONE",
+      "DependWeapon": false,
+      "RestrictWeapon": "EWEAPON_CATEGORY::eNONE",
+      "TargetType": "EBATTLE_TARGET_TYPE::ePARTY_ALL",
+      "ExceptEnforcer": false,
+      "CostType": "EABILITY_COST_TYPE::eNONE",
+      "CostValue": 0,
+      "HitRatio": 0,
+      "CriticalRatio": 0,
+      "CriticalPower": 100,
+      "AbilityRatio": 100,
+      "BaseCount": 0,
+      "MinimumCount": 0,
+      "RandomCountMin": 0,
+      "RandomCountMax": 0,
+      "EstimateOrderType": "EBATTLE_ACTION_ORDER_ESTIMATE_TYPE::eNONE",
+      "EstimateOrderCount": 0,
+      "Ailment": [
+        {
+          "AilmentName": "JPUP",
+          "InvocationValue": 200,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        }
+      ],
+      "KeepBoostEffect": false,
+      "EnableItemAll": false,
+      "EnableSkillAll": false,
+      "EnableConvergence": false,
+      "EnableDiffusion": false,
+      "EnableReflection": false,
+      "EnableCounter": false,
+      "EnableHideOut": false,
+      "EnableRepeat": false,
+      "EnableCover": false,
+      "EnableProvoke": false,
+      "EnableDisableMagic": false,
+      "EnableEnchant": false,
+      "EnableChaseAttack": false,
+      "EnableWeakCheckAll": false,
+      "EnableNormalAttackAll": false,
+      "EnableSession": false,
+      "EnableBusinessSupport": false,
+      "EnableForceWeakness": false,
+      "EnableNoUseMaterial": false,
+      "EnableSwitchWeapon": false,
+      "EnableCompensationMagic": false,
+      "EnableExcitement": false,
+      "SongAbilityFlag": false,
+      "DanceAbilityFlag": false,
+      "EnableAutoTameMonster": false,
+      "UseAbilityCamera": false,
+      "ActionCommandSequencer": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makasushigi_018.Seq_DAN_Makasushigi_018",
+          "number": 0,
+          "text": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makasushigi_018.Seq_DAN_Makasushigi_018"
+        },
+        "subPath": ""
+      },
+      "AbilitySE": [
+        "None",
+        "None",
+        "None",
+        "None"
+      ],
+      "SlideFrame": 0
+    },
+    {
+      "id": "ABI_DAN_MAKA_019",
+      "ID": 1695,
+      "AbilityID": 16950,
+      "DisplayName": "ABN_DAN_MAKA_019",
+      "Detail": "None",
+      "CommandActor": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/BP/BattleAction/_Common/CommonCommand.CommonCommand_C",
+          "number": 0,
+          "text": "/Game/Battle/BP/BattleAction/_Common/CommonCommand.CommonCommand_C"
+        },
+        "subPath": ""
+      },
+      "AbilityType": "EABILITY_TYPE::eOTHER",
+      "AbilityUseType": "EABILITY_USE_TYPE::eBATTLE_ONLY",
+      "AlwaysDisable": false,
+      "Attribute": "EATTRIBUTE_TYPE::eNONE",
+      "DependWeapon": false,
+      "RestrictWeapon": "EWEAPON_CATEGORY::eNONE",
+      "TargetType": "EBATTLE_TARGET_TYPE::ePARTY_ALL",
+      "ExceptEnforcer": false,
+      "CostType": "EABILITY_COST_TYPE::eNONE",
+      "CostValue": 0,
+      "HitRatio": 0,
+      "CriticalRatio": 0,
+      "CriticalPower": 100,
+      "AbilityRatio": 100,
+      "BaseCount": 0,
+      "MinimumCount": 0,
+      "RandomCountMin": 0,
+      "RandomCountMax": 0,
+      "EstimateOrderType": "EBATTLE_ACTION_ORDER_ESTIMATE_TYPE::eNONE",
+      "EstimateOrderCount": 0,
+      "Ailment": [
+        {
+          "AilmentName": "EXPUP",
+          "InvocationValue": 200,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        }
+      ],
+      "KeepBoostEffect": false,
+      "EnableItemAll": false,
+      "EnableSkillAll": false,
+      "EnableConvergence": false,
+      "EnableDiffusion": false,
+      "EnableReflection": false,
+      "EnableCounter": false,
+      "EnableHideOut": false,
+      "EnableRepeat": false,
+      "EnableCover": false,
+      "EnableProvoke": false,
+      "EnableDisableMagic": false,
+      "EnableEnchant": false,
+      "EnableChaseAttack": false,
+      "EnableWeakCheckAll": false,
+      "EnableNormalAttackAll": false,
+      "EnableSession": false,
+      "EnableBusinessSupport": false,
+      "EnableForceWeakness": false,
+      "EnableNoUseMaterial": false,
+      "EnableSwitchWeapon": false,
+      "EnableCompensationMagic": false,
+      "EnableExcitement": false,
+      "SongAbilityFlag": false,
+      "DanceAbilityFlag": false,
+      "EnableAutoTameMonster": false,
+      "UseAbilityCamera": false,
+      "ActionCommandSequencer": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makasushigi_019.Seq_DAN_Makasushigi_019",
+          "number": 0,
+          "text": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makasushigi_019.Seq_DAN_Makasushigi_019"
+        },
+        "subPath": ""
+      },
+      "AbilitySE": [
+        "None",
+        "None",
+        "None",
+        "None"
+      ],
+      "SlideFrame": 0
+    },
+    {
+      "id": "ABI_DAN_MAKA_020",
+      "ID": 1696,
+      "AbilityID": 16960,
+      "DisplayName": "ABN_DAN_MAKA_020",
+      "Detail": "None",
+      "CommandActor": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/BP/BattleAction/_Common/CommonCommand.CommonCommand_C",
+          "number": 0,
+          "text": "/Game/Battle/BP/BattleAction/_Common/CommonCommand.CommonCommand_C"
+        },
+        "subPath": ""
+      },
+      "AbilityType": "EABILITY_TYPE::eMP_RECOVERY",
+      "AbilityUseType": "EABILITY_USE_TYPE::eBATTLE_ONLY",
+      "AlwaysDisable": false,
+      "Attribute": "EATTRIBUTE_TYPE::eNONE",
+      "DependWeapon": false,
+      "RestrictWeapon": "EWEAPON_CATEGORY::eNONE",
+      "TargetType": "EBATTLE_TARGET_TYPE::ePARTY_ALL",
+      "ExceptEnforcer": false,
+      "CostType": "EABILITY_COST_TYPE::eNONE",
+      "CostValue": 0,
+      "HitRatio": 0,
+      "CriticalRatio": 0,
+      "CriticalPower": 100,
+      "AbilityRatio": 100,
+      "BaseCount": 0,
+      "MinimumCount": 0,
+      "RandomCountMin": 0,
+      "RandomCountMax": 0,
+      "EstimateOrderType": "EBATTLE_ACTION_ORDER_ESTIMATE_TYPE::eNONE",
+      "EstimateOrderCount": 0,
+      "Ailment": [
+        {
+          "AilmentName": "MP_FIXED_RECOVERY",
+          "InvocationValue": 50,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        }
+      ],
+      "KeepBoostEffect": false,
+      "EnableItemAll": false,
+      "EnableSkillAll": false,
+      "EnableConvergence": false,
+      "EnableDiffusion": false,
+      "EnableReflection": false,
+      "EnableCounter": false,
+      "EnableHideOut": false,
+      "EnableRepeat": false,
+      "EnableCover": false,
+      "EnableProvoke": false,
+      "EnableDisableMagic": false,
+      "EnableEnchant": false,
+      "EnableChaseAttack": false,
+      "EnableWeakCheckAll": false,
+      "EnableNormalAttackAll": false,
+      "EnableSession": false,
+      "EnableBusinessSupport": false,
+      "EnableForceWeakness": false,
+      "EnableNoUseMaterial": false,
+      "EnableSwitchWeapon": false,
+      "EnableCompensationMagic": false,
+      "EnableExcitement": false,
+      "SongAbilityFlag": false,
+      "DanceAbilityFlag": false,
+      "EnableAutoTameMonster": false,
+      "UseAbilityCamera": false,
+      "ActionCommandSequencer": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makasushigi_020.Seq_DAN_Makasushigi_020",
+          "number": 0,
+          "text": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makasushigi_020.Seq_DAN_Makasushigi_020"
+        },
+        "subPath": ""
+      },
+      "AbilitySE": [
+        "None",
+        "None",
+        "None",
+        "None"
+      ],
+      "SlideFrame": 0
+    },
+    {
+      "id": "ABI_DAN_MAKA_021",
+      "ID": 1697,
+      "AbilityID": 16970,
+      "DisplayName": "ABN_DAN_MAKA_021",
+      "Detail": "None",
+      "CommandActor": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/BP/BattleAction/_Common/CommonCommand.CommonCommand_C",
+          "number": 0,
+          "text": "/Game/Battle/BP/BattleAction/_Common/CommonCommand.CommonCommand_C"
+        },
+        "subPath": ""
+      },
+      "AbilityType": "EABILITY_TYPE::eOTHER",
+      "AbilityUseType": "EABILITY_USE_TYPE::eBATTLE_ONLY",
+      "AlwaysDisable": false,
+      "Attribute": "EATTRIBUTE_TYPE::eNONE",
+      "DependWeapon": false,
+      "RestrictWeapon": "EWEAPON_CATEGORY::eNONE",
+      "TargetType": "EBATTLE_TARGET_TYPE::ePARTY_ALL",
+      "ExceptEnforcer": false,
+      "CostType": "EABILITY_COST_TYPE::eNONE",
+      "CostValue": 0,
+      "HitRatio": 0,
+      "CriticalRatio": 0,
+      "CriticalPower": 100,
+      "AbilityRatio": 100,
+      "BaseCount": 0,
+      "MinimumCount": 0,
+      "RandomCountMin": 0,
+      "RandomCountMax": 0,
+      "EstimateOrderType": "EBATTLE_ACTION_ORDER_ESTIMATE_TYPE::eNONE",
+      "EstimateOrderCount": 0,
+      "Ailment": [
+        {
+          "AilmentName": "BP_RECOVERY",
+          "InvocationValue": 1,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        }
+      ],
+      "KeepBoostEffect": false,
+      "EnableItemAll": false,
+      "EnableSkillAll": false,
+      "EnableConvergence": false,
+      "EnableDiffusion": false,
+      "EnableReflection": false,
+      "EnableCounter": false,
+      "EnableHideOut": false,
+      "EnableRepeat": false,
+      "EnableCover": false,
+      "EnableProvoke": false,
+      "EnableDisableMagic": false,
+      "EnableEnchant": false,
+      "EnableChaseAttack": false,
+      "EnableWeakCheckAll": false,
+      "EnableNormalAttackAll": false,
+      "EnableSession": false,
+      "EnableBusinessSupport": false,
+      "EnableForceWeakness": false,
+      "EnableNoUseMaterial": false,
+      "EnableSwitchWeapon": false,
+      "EnableCompensationMagic": false,
+      "EnableExcitement": false,
+      "SongAbilityFlag": false,
+      "DanceAbilityFlag": false,
+      "EnableAutoTameMonster": false,
+      "UseAbilityCamera": false,
+      "ActionCommandSequencer": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makasushigi_021.Seq_DAN_Makasushigi_021",
+          "number": 0,
+          "text": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makasushigi_021.Seq_DAN_Makasushigi_021"
+        },
+        "subPath": ""
+      },
+      "AbilitySE": [
+        "None",
+        "None",
+        "None",
+        "None"
+      ],
+      "SlideFrame": 0
+    },
+    {
+      "id": "ABI_DAN_MAKA_022",
+      "ID": 1698,
+      "AbilityID": 16980,
+      "DisplayName": "ABN_DAN_MAKA_022",
+      "Detail": "None",
+      "CommandActor": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/BP/BattleAction/_Common/CommonCommand.CommonCommand_C",
+          "number": 0,
+          "text": "/Game/Battle/BP/BattleAction/_Common/CommonCommand.CommonCommand_C"
+        },
+        "subPath": ""
+      },
+      "AbilityType": "EABILITY_TYPE::eMAGIC",
+      "AbilityUseType": "EABILITY_USE_TYPE::eBATTLE_ONLY",
+      "AlwaysDisable": false,
+      "Attribute": "EATTRIBUTE_TYPE::eTHUNDER",
+      "DependWeapon": false,
+      "RestrictWeapon": "EWEAPON_CATEGORY::eNONE",
+      "TargetType": "EBATTLE_TARGET_TYPE::eENEMY_SINGLE",
+      "ExceptEnforcer": false,
+      "CostType": "EABILITY_COST_TYPE::eNONE",
+      "CostValue": 0,
+      "HitRatio": 0,
+      "CriticalRatio": 0,
+      "CriticalPower": 100,
+      "AbilityRatio": 100,
+      "BaseCount": 0,
+      "MinimumCount": 0,
+      "RandomCountMin": 0,
+      "RandomCountMax": 0,
+      "EstimateOrderType": "EBATTLE_ACTION_ORDER_ESTIMATE_TYPE::eNONE",
+      "EstimateOrderCount": 0,
+      "Ailment": [
+        {
+          "AilmentName": "MAGIC_DAMAGE",
+          "InvocationValue": 130,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        }
+      ],
+      "KeepBoostEffect": false,
+      "EnableItemAll": false,
+      "EnableSkillAll": false,
+      "EnableConvergence": false,
+      "EnableDiffusion": false,
+      "EnableReflection": true,
+      "EnableCounter": false,
+      "EnableHideOut": false,
+      "EnableRepeat": false,
+      "EnableCover": false,
+      "EnableProvoke": false,
+      "EnableDisableMagic": false,
+      "EnableEnchant": false,
+      "EnableChaseAttack": false,
+      "EnableWeakCheckAll": false,
+      "EnableNormalAttackAll": false,
+      "EnableSession": false,
+      "EnableBusinessSupport": false,
+      "EnableForceWeakness": true,
+      "EnableNoUseMaterial": false,
+      "EnableSwitchWeapon": false,
+      "EnableCompensationMagic": false,
+      "EnableExcitement": false,
+      "SongAbilityFlag": false,
+      "DanceAbilityFlag": false,
+      "EnableAutoTameMonster": true,
+      "UseAbilityCamera": false,
+      "ActionCommandSequencer": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makafushigi_022.Seq_DAN_Makafushigi_022",
+          "number": 0,
+          "text": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makafushigi_022.Seq_DAN_Makafushigi_022"
+        },
+        "subPath": ""
+      },
+      "AbilitySE": [
+        "None",
+        "None",
+        "None",
+        "None"
+      ],
+      "SlideFrame": 0
+    },
+    {
+      "id": "ABI_DAN_MAKA_023",
+      "ID": 1699,
+      "AbilityID": 16990,
+      "DisplayName": "ABN_DAN_MAKA_023",
+      "Detail": "None",
+      "CommandActor": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/BP/BattleAction/_Common/CommonCommand.CommonCommand_C",
+          "number": 0,
+          "text": "/Game/Battle/BP/BattleAction/_Common/CommonCommand.CommonCommand_C"
+        },
+        "subPath": ""
+      },
+      "AbilityType": "EABILITY_TYPE::eMAGIC",
+      "AbilityUseType": "EABILITY_USE_TYPE::eBATTLE_ONLY",
+      "AlwaysDisable": false,
+      "Attribute": "EATTRIBUTE_TYPE::eFIRE",
+      "DependWeapon": false,
+      "RestrictWeapon": "EWEAPON_CATEGORY::eNONE",
+      "TargetType": "EBATTLE_TARGET_TYPE::ePARTY_ALL",
+      "ExceptEnforcer": false,
+      "CostType": "EABILITY_COST_TYPE::eNONE",
+      "CostValue": 0,
+      "HitRatio": 0,
+      "CriticalRatio": 0,
+      "CriticalPower": 100,
+      "AbilityRatio": 50,
+      "BaseCount": 0,
+      "MinimumCount": 0,
+      "RandomCountMin": 0,
+      "RandomCountMax": 0,
+      "EstimateOrderType": "EBATTLE_ACTION_ORDER_ESTIMATE_TYPE::eNONE",
+      "EstimateOrderCount": 0,
+      "Ailment": [
+        {
+          "AilmentName": "MAGIC_DAMAGE",
+          "InvocationValue": 105,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        }
+      ],
+      "KeepBoostEffect": false,
+      "EnableItemAll": false,
+      "EnableSkillAll": false,
+      "EnableConvergence": false,
+      "EnableDiffusion": false,
+      "EnableReflection": false,
+      "EnableCounter": false,
+      "EnableHideOut": false,
+      "EnableRepeat": false,
+      "EnableCover": false,
+      "EnableProvoke": false,
+      "EnableDisableMagic": false,
+      "EnableEnchant": false,
+      "EnableChaseAttack": false,
+      "EnableWeakCheckAll": false,
+      "EnableNormalAttackAll": false,
+      "EnableSession": false,
+      "EnableBusinessSupport": false,
+      "EnableForceWeakness": false,
+      "EnableNoUseMaterial": false,
+      "EnableSwitchWeapon": false,
+      "EnableCompensationMagic": false,
+      "EnableExcitement": false,
+      "SongAbilityFlag": false,
+      "DanceAbilityFlag": false,
+      "EnableAutoTameMonster": false,
+      "UseAbilityCamera": false,
+      "ActionCommandSequencer": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makasushigi_023.Seq_DAN_Makasushigi_023",
+          "number": 0,
+          "text": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makasushigi_023.Seq_DAN_Makasushigi_023"
+        },
+        "subPath": ""
+      },
+      "AbilitySE": [
+        "None",
+        "None",
+        "None",
+        "None"
+      ],
+      "SlideFrame": 0
+    },
+    {
+      "id": "ABI_DAN_MAKA_024",
+      "ID": 1700,
+      "AbilityID": 17000,
+      "DisplayName": "ABN_DAN_MAKA_024",
+      "Detail": "None",
+      "CommandActor": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/BP/BattleAction/_Common/CommonCommand.CommonCommand_C",
+          "number": 0,
+          "text": "/Game/Battle/BP/BattleAction/_Common/CommonCommand.CommonCommand_C"
+        },
+        "subPath": ""
+      },
+      "AbilityType": "EABILITY_TYPE::eDEBUFF",
+      "AbilityUseType": "EABILITY_USE_TYPE::eBATTLE_ONLY",
+      "AlwaysDisable": false,
+      "Attribute": "EATTRIBUTE_TYPE::eNONE",
+      "DependWeapon": false,
+      "RestrictWeapon": "EWEAPON_CATEGORY::eNONE",
+      "TargetType": "EBATTLE_TARGET_TYPE::ePARTY_ALL",
+      "ExceptEnforcer": false,
+      "CostType": "EABILITY_COST_TYPE::eNONE",
+      "CostValue": 0,
+      "HitRatio": 0,
+      "CriticalRatio": 0,
+      "CriticalPower": 100,
+      "AbilityRatio": 100,
+      "BaseCount": 0,
+      "MinimumCount": 0,
+      "RandomCountMin": 0,
+      "RandomCountMax": 0,
+      "EstimateOrderType": "EBATTLE_ACTION_ORDER_ESTIMATE_TYPE::eNONE",
+      "EstimateOrderCount": 0,
+      "Ailment": [
+        {
+          "AilmentName": "ADD_SILENCE",
+          "InvocationValue": 0,
+          "InvocationTurn": 2,
+          "DiseaseRate": 100
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        }
+      ],
+      "KeepBoostEffect": false,
+      "EnableItemAll": false,
+      "EnableSkillAll": false,
+      "EnableConvergence": false,
+      "EnableDiffusion": false,
+      "EnableReflection": false,
+      "EnableCounter": false,
+      "EnableHideOut": false,
+      "EnableRepeat": false,
+      "EnableCover": false,
+      "EnableProvoke": false,
+      "EnableDisableMagic": false,
+      "EnableEnchant": false,
+      "EnableChaseAttack": false,
+      "EnableWeakCheckAll": false,
+      "EnableNormalAttackAll": false,
+      "EnableSession": false,
+      "EnableBusinessSupport": false,
+      "EnableForceWeakness": false,
+      "EnableNoUseMaterial": false,
+      "EnableSwitchWeapon": false,
+      "EnableCompensationMagic": false,
+      "EnableExcitement": false,
+      "SongAbilityFlag": false,
+      "DanceAbilityFlag": false,
+      "EnableAutoTameMonster": false,
+      "UseAbilityCamera": false,
+      "ActionCommandSequencer": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makasushigi_024.Seq_DAN_Makasushigi_024",
+          "number": 0,
+          "text": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makasushigi_024.Seq_DAN_Makasushigi_024"
+        },
+        "subPath": ""
+      },
+      "AbilitySE": [
+        "None",
+        "None",
+        "None",
+        "None"
+      ],
+      "SlideFrame": 0
+    },
+    {
+      "id": "ABI_DAN_MAKA_025",
+      "ID": 1701,
+      "AbilityID": 17010,
+      "DisplayName": "ABN_DAN_MAKA_025",
+      "Detail": "None",
+      "CommandActor": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/BP/BattleAction/_Common/CommonCommand.CommonCommand_C",
+          "number": 0,
+          "text": "/Game/Battle/BP/BattleAction/_Common/CommonCommand.CommonCommand_C"
+        },
+        "subPath": ""
+      },
+      "AbilityType": "EABILITY_TYPE::eDEBUFF",
+      "AbilityUseType": "EABILITY_USE_TYPE::eBATTLE_ONLY",
+      "AlwaysDisable": false,
+      "Attribute": "EATTRIBUTE_TYPE::eNONE",
+      "DependWeapon": false,
+      "RestrictWeapon": "EWEAPON_CATEGORY::eNONE",
+      "TargetType": "EBATTLE_TARGET_TYPE::eSELF",
+      "ExceptEnforcer": false,
+      "CostType": "EABILITY_COST_TYPE::eNONE",
+      "CostValue": 0,
+      "HitRatio": 0,
+      "CriticalRatio": 0,
+      "CriticalPower": 100,
+      "AbilityRatio": 100,
+      "BaseCount": 0,
+      "MinimumCount": 0,
+      "RandomCountMin": 0,
+      "RandomCountMax": 0,
+      "EstimateOrderType": "EBATTLE_ACTION_ORDER_ESTIMATE_TYPE::eNONE",
+      "EstimateOrderCount": 0,
+      "Ailment": [
+        {
+          "AilmentName": "MP_RATIO_DAMAGE",
+          "InvocationValue": 100,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        }
+      ],
+      "KeepBoostEffect": false,
+      "EnableItemAll": false,
+      "EnableSkillAll": false,
+      "EnableConvergence": false,
+      "EnableDiffusion": false,
+      "EnableReflection": false,
+      "EnableCounter": false,
+      "EnableHideOut": false,
+      "EnableRepeat": false,
+      "EnableCover": false,
+      "EnableProvoke": false,
+      "EnableDisableMagic": false,
+      "EnableEnchant": false,
+      "EnableChaseAttack": false,
+      "EnableWeakCheckAll": false,
+      "EnableNormalAttackAll": false,
+      "EnableSession": false,
+      "EnableBusinessSupport": false,
+      "EnableForceWeakness": false,
+      "EnableNoUseMaterial": false,
+      "EnableSwitchWeapon": false,
+      "EnableCompensationMagic": false,
+      "EnableExcitement": false,
+      "SongAbilityFlag": false,
+      "DanceAbilityFlag": false,
+      "EnableAutoTameMonster": false,
+      "UseAbilityCamera": false,
+      "ActionCommandSequencer": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makasushigi_025.Seq_DAN_Makasushigi_025",
+          "number": 0,
+          "text": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makasushigi_025.Seq_DAN_Makasushigi_025"
+        },
+        "subPath": ""
+      },
+      "AbilitySE": [
+        "None",
+        "None",
+        "None",
+        "None"
+      ],
+      "SlideFrame": 0
+    },
+    {
+      "id": "ABI_DAN_MAKA_026",
+      "ID": 1702,
+      "AbilityID": 17020,
+      "DisplayName": "ABN_DAN_MAKA_026",
+      "Detail": "None",
+      "CommandActor": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/BP/BattleAction/_Common/CommonCommand.CommonCommand_C",
+          "number": 0,
+          "text": "/Game/Battle/BP/BattleAction/_Common/CommonCommand.CommonCommand_C"
+        },
+        "subPath": ""
+      },
+      "AbilityType": "EABILITY_TYPE::eBUFF",
+      "AbilityUseType": "EABILITY_USE_TYPE::eBATTLE_ONLY",
+      "AlwaysDisable": false,
+      "Attribute": "EATTRIBUTE_TYPE::eNONE",
+      "DependWeapon": false,
+      "RestrictWeapon": "EWEAPON_CATEGORY::eNONE",
+      "TargetType": "EBATTLE_TARGET_TYPE::ePARTY_ALL",
+      "ExceptEnforcer": false,
+      "CostType": "EABILITY_COST_TYPE::eNONE",
+      "CostValue": 0,
+      "HitRatio": 0,
+      "CriticalRatio": 0,
+      "CriticalPower": 100,
+      "AbilityRatio": 100,
+      "BaseCount": 0,
+      "MinimumCount": 0,
+      "RandomCountMin": 0,
+      "RandomCountMax": 0,
+      "EstimateOrderType": "EBATTLE_ACTION_ORDER_ESTIMATE_TYPE::eNONE",
+      "EstimateOrderCount": 0,
+      "Ailment": [
+        {
+          "AilmentName": "ADD_ATK_UP",
+          "InvocationValue": 150,
+          "InvocationTurn": 2,
+          "DiseaseRate": 100
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        }
+      ],
+      "KeepBoostEffect": false,
+      "EnableItemAll": false,
+      "EnableSkillAll": false,
+      "EnableConvergence": false,
+      "EnableDiffusion": false,
+      "EnableReflection": false,
+      "EnableCounter": false,
+      "EnableHideOut": false,
+      "EnableRepeat": false,
+      "EnableCover": false,
+      "EnableProvoke": false,
+      "EnableDisableMagic": false,
+      "EnableEnchant": false,
+      "EnableChaseAttack": false,
+      "EnableWeakCheckAll": false,
+      "EnableNormalAttackAll": false,
+      "EnableSession": false,
+      "EnableBusinessSupport": false,
+      "EnableForceWeakness": false,
+      "EnableNoUseMaterial": false,
+      "EnableSwitchWeapon": false,
+      "EnableCompensationMagic": false,
+      "EnableExcitement": true,
+      "SongAbilityFlag": false,
+      "DanceAbilityFlag": false,
+      "EnableAutoTameMonster": false,
+      "UseAbilityCamera": false,
+      "ActionCommandSequencer": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makasushigi_026.Seq_DAN_Makasushigi_026",
+          "number": 0,
+          "text": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makasushigi_026.Seq_DAN_Makasushigi_026"
+        },
+        "subPath": ""
+      },
+      "AbilitySE": [
+        "None",
+        "None",
+        "None",
+        "None"
+      ],
+      "SlideFrame": 0
+    },
+    {
+      "id": "ABI_DAN_MAKA_027",
+      "ID": 1703,
+      "AbilityID": 17030,
+      "DisplayName": "ABN_DAN_MAKA_027",
+      "Detail": "None",
+      "CommandActor": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/BP/BattleAction/_Common/CommonCommand.CommonCommand_C",
+          "number": 0,
+          "text": "/Game/Battle/BP/BattleAction/_Common/CommonCommand.CommonCommand_C"
+        },
+        "subPath": ""
+      },
+      "AbilityType": "EABILITY_TYPE::eHP_RECOVERY",
+      "AbilityUseType": "EABILITY_USE_TYPE::eBATTLE_ONLY",
+      "AlwaysDisable": false,
+      "Attribute": "EATTRIBUTE_TYPE::eNONE",
+      "DependWeapon": false,
+      "RestrictWeapon": "EWEAPON_CATEGORY::eNONE",
+      "TargetType": "EBATTLE_TARGET_TYPE::eSELF",
+      "ExceptEnforcer": false,
+      "CostType": "EABILITY_COST_TYPE::eNONE",
+      "CostValue": 0,
+      "HitRatio": 0,
+      "CriticalRatio": 0,
+      "CriticalPower": 100,
+      "AbilityRatio": 100,
+      "BaseCount": 0,
+      "MinimumCount": 0,
+      "RandomCountMin": 0,
+      "RandomCountMax": 0,
+      "EstimateOrderType": "EBATTLE_ACTION_ORDER_ESTIMATE_TYPE::eNONE",
+      "EstimateOrderCount": 0,
+      "Ailment": [
+        {
+          "AilmentName": "HP_FIXED_RECOVERY",
+          "InvocationValue": 400,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        }
+      ],
+      "KeepBoostEffect": false,
+      "EnableItemAll": false,
+      "EnableSkillAll": false,
+      "EnableConvergence": false,
+      "EnableDiffusion": false,
+      "EnableReflection": false,
+      "EnableCounter": false,
+      "EnableHideOut": false,
+      "EnableRepeat": false,
+      "EnableCover": false,
+      "EnableProvoke": false,
+      "EnableDisableMagic": false,
+      "EnableEnchant": false,
+      "EnableChaseAttack": false,
+      "EnableWeakCheckAll": false,
+      "EnableNormalAttackAll": false,
+      "EnableSession": false,
+      "EnableBusinessSupport": false,
+      "EnableForceWeakness": false,
+      "EnableNoUseMaterial": false,
+      "EnableSwitchWeapon": false,
+      "EnableCompensationMagic": false,
+      "EnableExcitement": false,
+      "SongAbilityFlag": false,
+      "DanceAbilityFlag": false,
+      "EnableAutoTameMonster": false,
+      "UseAbilityCamera": false,
+      "ActionCommandSequencer": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makasushigi_027.Seq_DAN_Makasushigi_027",
+          "number": 0,
+          "text": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makasushigi_027.Seq_DAN_Makasushigi_027"
+        },
+        "subPath": ""
+      },
+      "AbilitySE": [
+        "None",
+        "None",
+        "None",
+        "None"
+      ],
+      "SlideFrame": 0
+    },
+    {
+      "id": "ABI_DAN_MAKA_028",
+      "ID": 1704,
+      "AbilityID": 17040,
+      "DisplayName": "ABN_DAN_MAKA_028",
+      "Detail": "None",
+      "CommandActor": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/BP/BattleAction/_Common/CommonCommand.CommonCommand_C",
+          "number": 0,
+          "text": "/Game/Battle/BP/BattleAction/_Common/CommonCommand.CommonCommand_C"
+        },
+        "subPath": ""
+      },
+      "AbilityType": "EABILITY_TYPE::eMAGIC",
+      "AbilityUseType": "EABILITY_USE_TYPE::eBATTLE_ONLY",
+      "AlwaysDisable": false,
+      "Attribute": "EATTRIBUTE_TYPE::eWIND",
+      "DependWeapon": false,
+      "RestrictWeapon": "EWEAPON_CATEGORY::eNONE",
+      "TargetType": "EBATTLE_TARGET_TYPE::ePARTY_ALL",
+      "ExceptEnforcer": false,
+      "CostType": "EABILITY_COST_TYPE::eNONE",
+      "CostValue": 0,
+      "HitRatio": 0,
+      "CriticalRatio": 0,
+      "CriticalPower": 100,
+      "AbilityRatio": 100,
+      "BaseCount": 0,
+      "MinimumCount": 0,
+      "RandomCountMin": 0,
+      "RandomCountMax": 0,
+      "EstimateOrderType": "EBATTLE_ACTION_ORDER_ESTIMATE_TYPE::eNONE",
+      "EstimateOrderCount": 0,
+      "Ailment": [
+        {
+          "AilmentName": "MAGIC_DAMAGE",
+          "InvocationValue": 200,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "ORDER_COUNT_DOWN",
+          "InvocationValue": 10,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        }
+      ],
+      "KeepBoostEffect": false,
+      "EnableItemAll": false,
+      "EnableSkillAll": false,
+      "EnableConvergence": false,
+      "EnableDiffusion": false,
+      "EnableReflection": false,
+      "EnableCounter": false,
+      "EnableHideOut": false,
+      "EnableRepeat": false,
+      "EnableCover": false,
+      "EnableProvoke": false,
+      "EnableDisableMagic": false,
+      "EnableEnchant": false,
+      "EnableChaseAttack": false,
+      "EnableWeakCheckAll": false,
+      "EnableNormalAttackAll": false,
+      "EnableSession": false,
+      "EnableBusinessSupport": false,
+      "EnableForceWeakness": false,
+      "EnableNoUseMaterial": false,
+      "EnableSwitchWeapon": false,
+      "EnableCompensationMagic": false,
+      "EnableExcitement": false,
+      "SongAbilityFlag": false,
+      "DanceAbilityFlag": false,
+      "EnableAutoTameMonster": false,
+      "UseAbilityCamera": false,
+      "ActionCommandSequencer": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makasushigi_028.Seq_DAN_Makasushigi_028",
+          "number": 0,
+          "text": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makasushigi_028.Seq_DAN_Makasushigi_028"
+        },
+        "subPath": ""
+      },
+      "AbilitySE": [
+        "None",
+        "None",
+        "None",
+        "None"
+      ],
+      "SlideFrame": 0
+    },
+    {
+      "id": "ABI_DAN_MAKA_029",
+      "ID": 1705,
+      "AbilityID": 17050,
+      "DisplayName": "ABN_DAN_MAKA_040",
+      "Detail": "None",
+      "CommandActor": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/BP/BattleAction/_Common/CommonCommand.CommonCommand_C",
+          "number": 0,
+          "text": "/Game/Battle/BP/BattleAction/_Common/CommonCommand.CommonCommand_C"
+        },
+        "subPath": ""
+      },
+      "AbilityType": "EABILITY_TYPE::eDEBUFF",
+      "AbilityUseType": "EABILITY_USE_TYPE::eBATTLE_ONLY",
+      "AlwaysDisable": false,
+      "Attribute": "EATTRIBUTE_TYPE::eNONE",
+      "DependWeapon": false,
+      "RestrictWeapon": "EWEAPON_CATEGORY::eNONE",
+      "TargetType": "EBATTLE_TARGET_TYPE::eENEMY_SINGLE",
+      "ExceptEnforcer": false,
+      "CostType": "EABILITY_COST_TYPE::eNONE",
+      "CostValue": 0,
+      "HitRatio": 0,
+      "CriticalRatio": 0,
+      "CriticalPower": 100,
+      "AbilityRatio": 100,
+      "BaseCount": 0,
+      "MinimumCount": 0,
+      "RandomCountMin": 0,
+      "RandomCountMax": 0,
+      "EstimateOrderType": "EBATTLE_ACTION_ORDER_ESTIMATE_TYPE::eNONE",
+      "EstimateOrderCount": 0,
+      "Ailment": [
+        {
+          "AilmentName": "SP_DAMAGE_DIRECT",
+          "InvocationValue": 10,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        }
+      ],
+      "KeepBoostEffect": false,
+      "EnableItemAll": false,
+      "EnableSkillAll": false,
+      "EnableConvergence": false,
+      "EnableDiffusion": false,
+      "EnableReflection": false,
+      "EnableCounter": false,
+      "EnableHideOut": false,
+      "EnableRepeat": false,
+      "EnableCover": false,
+      "EnableProvoke": false,
+      "EnableDisableMagic": false,
+      "EnableEnchant": false,
+      "EnableChaseAttack": false,
+      "EnableWeakCheckAll": false,
+      "EnableNormalAttackAll": false,
+      "EnableSession": false,
+      "EnableBusinessSupport": false,
+      "EnableForceWeakness": false,
+      "EnableNoUseMaterial": false,
+      "EnableSwitchWeapon": false,
+      "EnableCompensationMagic": false,
+      "EnableExcitement": false,
+      "SongAbilityFlag": false,
+      "DanceAbilityFlag": false,
+      "EnableAutoTameMonster": false,
+      "UseAbilityCamera": false,
+      "ActionCommandSequencer": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makasushigi_029_B.Seq_DAN_Makasushigi_029_B",
+          "number": 0,
+          "text": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makasushigi_029_B.Seq_DAN_Makasushigi_029_B"
+        },
+        "subPath": ""
+      },
+      "AbilitySE": [
+        "None",
+        "None",
+        "None",
+        "None"
+      ],
+      "SlideFrame": 0
+    },
+    {
+      "id": "ABI_DAN_MAKA_030",
+      "ID": 1706,
+      "AbilityID": 17060,
+      "DisplayName": "ABN_DAN_MAKA_030",
+      "Detail": "None",
+      "CommandActor": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/BP/BattleAction/_Common/CommonCommand.CommonCommand_C",
+          "number": 0,
+          "text": "/Game/Battle/BP/BattleAction/_Common/CommonCommand.CommonCommand_C"
+        },
+        "subPath": ""
+      },
+      "AbilityType": "EABILITY_TYPE::eDEBUFF",
+      "AbilityUseType": "EABILITY_USE_TYPE::eBATTLE_ONLY",
+      "AlwaysDisable": false,
+      "Attribute": "EATTRIBUTE_TYPE::eNONE",
+      "DependWeapon": false,
+      "RestrictWeapon": "EWEAPON_CATEGORY::eNONE",
+      "TargetType": "EBATTLE_TARGET_TYPE::ePARTY_ALL",
+      "ExceptEnforcer": false,
+      "CostType": "EABILITY_COST_TYPE::eNONE",
+      "CostValue": 0,
+      "HitRatio": 0,
+      "CriticalRatio": 0,
+      "CriticalPower": 100,
+      "AbilityRatio": 100,
+      "BaseCount": 0,
+      "MinimumCount": 0,
+      "RandomCountMin": 0,
+      "RandomCountMax": 0,
+      "EstimateOrderType": "EBATTLE_ACTION_ORDER_ESTIMATE_TYPE::eNONE",
+      "EstimateOrderCount": 0,
+      "Ailment": [
+        {
+          "AilmentName": "ADD_DEF_DOWN",
+          "InvocationValue": 50,
+          "InvocationTurn": 2,
+          "DiseaseRate": 100
+        },
+        {
+          "AilmentName": "ADD_MDEF_DOWN",
+          "InvocationValue": 50,
+          "InvocationTurn": 2,
+          "DiseaseRate": 100
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        }
+      ],
+      "KeepBoostEffect": false,
+      "EnableItemAll": false,
+      "EnableSkillAll": false,
+      "EnableConvergence": false,
+      "EnableDiffusion": false,
+      "EnableReflection": false,
+      "EnableCounter": false,
+      "EnableHideOut": false,
+      "EnableRepeat": false,
+      "EnableCover": false,
+      "EnableProvoke": false,
+      "EnableDisableMagic": false,
+      "EnableEnchant": false,
+      "EnableChaseAttack": false,
+      "EnableWeakCheckAll": false,
+      "EnableNormalAttackAll": false,
+      "EnableSession": false,
+      "EnableBusinessSupport": false,
+      "EnableForceWeakness": false,
+      "EnableNoUseMaterial": false,
+      "EnableSwitchWeapon": false,
+      "EnableCompensationMagic": false,
+      "EnableExcitement": false,
+      "SongAbilityFlag": false,
+      "DanceAbilityFlag": false,
+      "EnableAutoTameMonster": false,
+      "UseAbilityCamera": false,
+      "ActionCommandSequencer": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makasushigi_030.Seq_DAN_Makasushigi_030",
+          "number": 0,
+          "text": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makasushigi_030.Seq_DAN_Makasushigi_030"
+        },
+        "subPath": ""
+      },
+      "AbilitySE": [
+        "None",
+        "None",
+        "None",
+        "None"
+      ],
+      "SlideFrame": 0
+    },
+    {
+      "id": "ABI_DAN_MAKA_031",
+      "ID": 1707,
+      "AbilityID": 17070,
+      "DisplayName": "ABN_DAN_MAKA_031",
+      "Detail": "None",
+      "CommandActor": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/BP/BattleAction/_Common/CommonCommand.CommonCommand_C",
+          "number": 0,
+          "text": "/Game/Battle/BP/BattleAction/_Common/CommonCommand.CommonCommand_C"
+        },
+        "subPath": ""
+      },
+      "AbilityType": "EABILITY_TYPE::eOTHER",
+      "AbilityUseType": "EABILITY_USE_TYPE::eBATTLE_ONLY",
+      "AlwaysDisable": false,
+      "Attribute": "EATTRIBUTE_TYPE::eNONE",
+      "DependWeapon": false,
+      "RestrictWeapon": "EWEAPON_CATEGORY::eNONE",
+      "TargetType": "EBATTLE_TARGET_TYPE::eSELF",
+      "ExceptEnforcer": false,
+      "CostType": "EABILITY_COST_TYPE::eNONE",
+      "CostValue": 0,
+      "HitRatio": 0,
+      "CriticalRatio": 0,
+      "CriticalPower": 100,
+      "AbilityRatio": 100,
+      "BaseCount": 0,
+      "MinimumCount": 0,
+      "RandomCountMin": 0,
+      "RandomCountMax": 0,
+      "EstimateOrderType": "EBATTLE_ACTION_ORDER_ESTIMATE_TYPE::eNONE",
+      "EstimateOrderCount": 0,
+      "Ailment": [
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        }
+      ],
+      "KeepBoostEffect": false,
+      "EnableItemAll": false,
+      "EnableSkillAll": false,
+      "EnableConvergence": false,
+      "EnableDiffusion": false,
+      "EnableReflection": false,
+      "EnableCounter": false,
+      "EnableHideOut": false,
+      "EnableRepeat": false,
+      "EnableCover": false,
+      "EnableProvoke": false,
+      "EnableDisableMagic": false,
+      "EnableEnchant": false,
+      "EnableChaseAttack": false,
+      "EnableWeakCheckAll": false,
+      "EnableNormalAttackAll": false,
+      "EnableSession": false,
+      "EnableBusinessSupport": false,
+      "EnableForceWeakness": false,
+      "EnableNoUseMaterial": false,
+      "EnableSwitchWeapon": false,
+      "EnableCompensationMagic": false,
+      "EnableExcitement": false,
+      "SongAbilityFlag": false,
+      "DanceAbilityFlag": false,
+      "EnableAutoTameMonster": false,
+      "UseAbilityCamera": false,
+      "ActionCommandSequencer": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makasushigi_031.Seq_DAN_Makasushigi_031",
+          "number": 0,
+          "text": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makasushigi_031.Seq_DAN_Makasushigi_031"
+        },
+        "subPath": ""
+      },
+      "AbilitySE": [
+        "None",
+        "None",
+        "None",
+        "None"
+      ],
+      "SlideFrame": 0
+    },
+    {
+      "id": "ABI_DAN_MAKA_032",
+      "ID": 19224,
+      "AbilityID": 17071,
+      "DisplayName": "ABN_DAN_MAKA_032",
+      "Detail": "None",
+      "CommandActor": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/BP/BattleAction/_Common/CommonCommand.CommonCommand_C",
+          "number": 0,
+          "text": "/Game/Battle/BP/BattleAction/_Common/CommonCommand.CommonCommand_C"
+        },
+        "subPath": ""
+      },
+      "AbilityType": "EABILITY_TYPE::eOTHER",
+      "AbilityUseType": "EABILITY_USE_TYPE::eBATTLE_ONLY",
+      "AlwaysDisable": false,
+      "Attribute": "EATTRIBUTE_TYPE::eNONE",
+      "DependWeapon": false,
+      "RestrictWeapon": "EWEAPON_CATEGORY::eNONE",
+      "TargetType": "EBATTLE_TARGET_TYPE::ePARTY_ALL",
+      "ExceptEnforcer": false,
+      "CostType": "EABILITY_COST_TYPE::eNONE",
+      "CostValue": 0,
+      "HitRatio": 0,
+      "CriticalRatio": 0,
+      "CriticalPower": 100,
+      "AbilityRatio": 100,
+      "BaseCount": 0,
+      "MinimumCount": 0,
+      "RandomCountMin": 0,
+      "RandomCountMax": 0,
+      "EstimateOrderType": "EBATTLE_ACTION_ORDER_ESTIMATE_TYPE::eNONE",
+      "EstimateOrderCount": 0,
+      "Ailment": [
+        {
+          "AilmentName": "RECOVERY_POTENTIALITY_ACTION",
+          "InvocationValue": 30,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        }
+      ],
+      "KeepBoostEffect": false,
+      "EnableItemAll": false,
+      "EnableSkillAll": false,
+      "EnableConvergence": false,
+      "EnableDiffusion": false,
+      "EnableReflection": false,
+      "EnableCounter": false,
+      "EnableHideOut": false,
+      "EnableRepeat": false,
+      "EnableCover": false,
+      "EnableProvoke": false,
+      "EnableDisableMagic": false,
+      "EnableEnchant": false,
+      "EnableChaseAttack": false,
+      "EnableWeakCheckAll": false,
+      "EnableNormalAttackAll": false,
+      "EnableSession": false,
+      "EnableBusinessSupport": false,
+      "EnableForceWeakness": false,
+      "EnableNoUseMaterial": false,
+      "EnableSwitchWeapon": false,
+      "EnableCompensationMagic": false,
+      "EnableExcitement": false,
+      "SongAbilityFlag": false,
+      "DanceAbilityFlag": false,
+      "EnableAutoTameMonster": false,
+      "UseAbilityCamera": false,
+      "ActionCommandSequencer": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makasushigi_032.Seq_DAN_Makasushigi_032",
+          "number": 0,
+          "text": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makasushigi_032.Seq_DAN_Makasushigi_032"
+        },
+        "subPath": ""
+      },
+      "AbilitySE": [
+        "None",
+        "None",
+        "None",
+        "None"
+      ],
+      "SlideFrame": 0
+    },
+    {
+      "id": "ABI_DAN_MAKA_033",
+      "ID": 19225,
+      "AbilityID": 17072,
+      "DisplayName": "ABN_DAN_MAKA_033",
+      "Detail": "None",
+      "CommandActor": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/BP/BattleAction/_Common/CommonCommand.CommonCommand_C",
+          "number": 0,
+          "text": "/Game/Battle/BP/BattleAction/_Common/CommonCommand.CommonCommand_C"
+        },
+        "subPath": ""
+      },
+      "AbilityType": "EABILITY_TYPE::eOTHER",
+      "AbilityUseType": "EABILITY_USE_TYPE::eBATTLE_ONLY",
+      "AlwaysDisable": false,
+      "Attribute": "EATTRIBUTE_TYPE::eNONE",
+      "DependWeapon": false,
+      "RestrictWeapon": "EWEAPON_CATEGORY::eNONE",
+      "TargetType": "EBATTLE_TARGET_TYPE::ePARTY_ALL",
+      "ExceptEnforcer": false,
+      "CostType": "EABILITY_COST_TYPE::eNONE",
+      "CostValue": 0,
+      "HitRatio": 0,
+      "CriticalRatio": 0,
+      "CriticalPower": 100,
+      "AbilityRatio": 100,
+      "BaseCount": 0,
+      "MinimumCount": 0,
+      "RandomCountMin": 0,
+      "RandomCountMax": 0,
+      "EstimateOrderType": "EBATTLE_ACTION_ORDER_ESTIMATE_TYPE::eNONE",
+      "EstimateOrderCount": 0,
+      "Ailment": [
+        {
+          "AilmentName": "RECOVERY_POTENTIALITY_ACTION",
+          "InvocationValue": 300,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        }
+      ],
+      "KeepBoostEffect": false,
+      "EnableItemAll": false,
+      "EnableSkillAll": false,
+      "EnableConvergence": false,
+      "EnableDiffusion": false,
+      "EnableReflection": false,
+      "EnableCounter": false,
+      "EnableHideOut": false,
+      "EnableRepeat": false,
+      "EnableCover": false,
+      "EnableProvoke": false,
+      "EnableDisableMagic": false,
+      "EnableEnchant": false,
+      "EnableChaseAttack": false,
+      "EnableWeakCheckAll": false,
+      "EnableNormalAttackAll": false,
+      "EnableSession": false,
+      "EnableBusinessSupport": false,
+      "EnableForceWeakness": false,
+      "EnableNoUseMaterial": false,
+      "EnableSwitchWeapon": false,
+      "EnableCompensationMagic": false,
+      "EnableExcitement": false,
+      "SongAbilityFlag": false,
+      "DanceAbilityFlag": false,
+      "EnableAutoTameMonster": false,
+      "UseAbilityCamera": false,
+      "ActionCommandSequencer": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makasushigi_033.Seq_DAN_Makasushigi_033",
+          "number": 0,
+          "text": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makasushigi_033.Seq_DAN_Makasushigi_033"
+        },
+        "subPath": ""
+      },
+      "AbilitySE": [
+        "None",
+        "None",
+        "None",
+        "None"
+      ],
+      "SlideFrame": 0
+    },
+    {
+      "id": "ABI_DAN_MAKA_034",
+      "ID": 19226,
+      "AbilityID": 17073,
+      "DisplayName": "ABN_DAN_MAKA_034",
+      "Detail": "None",
+      "CommandActor": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/BP/BattleAction/_Common/CommonCommand.CommonCommand_C",
+          "number": 0,
+          "text": "/Game/Battle/BP/BattleAction/_Common/CommonCommand.CommonCommand_C"
+        },
+        "subPath": ""
+      },
+      "AbilityType": "EABILITY_TYPE::eOTHER",
+      "AbilityUseType": "EABILITY_USE_TYPE::eBATTLE_ONLY",
+      "AlwaysDisable": false,
+      "Attribute": "EATTRIBUTE_TYPE::eNONE",
+      "DependWeapon": false,
+      "RestrictWeapon": "EWEAPON_CATEGORY::eNONE",
+      "TargetType": "EBATTLE_TARGET_TYPE::ePARTY_ALL",
+      "ExceptEnforcer": false,
+      "CostType": "EABILITY_COST_TYPE::eNONE",
+      "CostValue": 0,
+      "HitRatio": 0,
+      "CriticalRatio": 0,
+      "CriticalPower": 100,
+      "AbilityRatio": 100,
+      "BaseCount": 0,
+      "MinimumCount": 0,
+      "RandomCountMin": 0,
+      "RandomCountMax": 0,
+      "EstimateOrderType": "EBATTLE_ACTION_ORDER_ESTIMATE_TYPE::eNONE",
+      "EstimateOrderCount": 0,
+      "Ailment": [
+        {
+          "AilmentName": "DAMAGE_POTENTIALITY_ACTION",
+          "InvocationValue": 300,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        }
+      ],
+      "KeepBoostEffect": false,
+      "EnableItemAll": false,
+      "EnableSkillAll": false,
+      "EnableConvergence": false,
+      "EnableDiffusion": false,
+      "EnableReflection": false,
+      "EnableCounter": false,
+      "EnableHideOut": false,
+      "EnableRepeat": false,
+      "EnableCover": false,
+      "EnableProvoke": false,
+      "EnableDisableMagic": false,
+      "EnableEnchant": false,
+      "EnableChaseAttack": false,
+      "EnableWeakCheckAll": false,
+      "EnableNormalAttackAll": false,
+      "EnableSession": false,
+      "EnableBusinessSupport": false,
+      "EnableForceWeakness": false,
+      "EnableNoUseMaterial": false,
+      "EnableSwitchWeapon": false,
+      "EnableCompensationMagic": false,
+      "EnableExcitement": false,
+      "SongAbilityFlag": false,
+      "DanceAbilityFlag": false,
+      "EnableAutoTameMonster": false,
+      "UseAbilityCamera": false,
+      "ActionCommandSequencer": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makasushigi_034.Seq_DAN_Makasushigi_034",
+          "number": 0,
+          "text": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makasushigi_034.Seq_DAN_Makasushigi_034"
+        },
+        "subPath": ""
+      },
+      "AbilitySE": [
+        "None",
+        "None",
+        "None",
+        "None"
+      ],
+      "SlideFrame": 0
+    },
+    {
+      "id": "ABI_DAN_MAKA_035",
+      "ID": 19227,
+      "AbilityID": 17074,
+      "DisplayName": "ABN_DAN_MAKA_035",
+      "Detail": "None",
+      "CommandActor": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/BP/BattleAction/_Common/CommonCommand.CommonCommand_C",
+          "number": 0,
+          "text": "/Game/Battle/BP/BattleAction/_Common/CommonCommand.CommonCommand_C"
+        },
+        "subPath": ""
+      },
+      "AbilityType": "EABILITY_TYPE::eOTHER",
+      "AbilityUseType": "EABILITY_USE_TYPE::eBATTLE_ONLY",
+      "AlwaysDisable": false,
+      "Attribute": "EATTRIBUTE_TYPE::eNONE",
+      "DependWeapon": false,
+      "RestrictWeapon": "EWEAPON_CATEGORY::eNONE",
+      "TargetType": "EBATTLE_TARGET_TYPE::eALL",
+      "ExceptEnforcer": false,
+      "CostType": "EABILITY_COST_TYPE::eNONE",
+      "CostValue": 0,
+      "HitRatio": 0,
+      "CriticalRatio": 0,
+      "CriticalPower": 100,
+      "AbilityRatio": 100,
+      "BaseCount": 0,
+      "MinimumCount": 0,
+      "RandomCountMin": 0,
+      "RandomCountMax": 0,
+      "EstimateOrderType": "EBATTLE_ACTION_ORDER_ESTIMATE_TYPE::eNONE",
+      "EstimateOrderCount": 0,
+      "Ailment": [
+        {
+          "AilmentName": "REVERSE_BUFF",
+          "InvocationValue": 99,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        }
+      ],
+      "KeepBoostEffect": false,
+      "EnableItemAll": false,
+      "EnableSkillAll": false,
+      "EnableConvergence": false,
+      "EnableDiffusion": false,
+      "EnableReflection": false,
+      "EnableCounter": false,
+      "EnableHideOut": false,
+      "EnableRepeat": false,
+      "EnableCover": false,
+      "EnableProvoke": false,
+      "EnableDisableMagic": false,
+      "EnableEnchant": false,
+      "EnableChaseAttack": false,
+      "EnableWeakCheckAll": false,
+      "EnableNormalAttackAll": false,
+      "EnableSession": false,
+      "EnableBusinessSupport": false,
+      "EnableForceWeakness": false,
+      "EnableNoUseMaterial": false,
+      "EnableSwitchWeapon": false,
+      "EnableCompensationMagic": false,
+      "EnableExcitement": false,
+      "SongAbilityFlag": false,
+      "DanceAbilityFlag": false,
+      "EnableAutoTameMonster": false,
+      "UseAbilityCamera": false,
+      "ActionCommandSequencer": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makasushigi_035.Seq_DAN_Makasushigi_035",
+          "number": 0,
+          "text": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makasushigi_035.Seq_DAN_Makasushigi_035"
+        },
+        "subPath": ""
+      },
+      "AbilitySE": [
+        "None",
+        "None",
+        "None",
+        "None"
+      ],
+      "SlideFrame": 0
+    },
+    {
+      "id": "ABI_DAN_MAKA_036",
+      "ID": 19228,
+      "AbilityID": 17075,
+      "DisplayName": "ABN_DAN_MAKA_036",
+      "Detail": "None",
+      "CommandActor": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/BP/BattleAction/_Common/CommonCommand.CommonCommand_C",
+          "number": 0,
+          "text": "/Game/Battle/BP/BattleAction/_Common/CommonCommand.CommonCommand_C"
+        },
+        "subPath": ""
+      },
+      "AbilityType": "EABILITY_TYPE::eOTHER",
+      "AbilityUseType": "EABILITY_USE_TYPE::eBATTLE_ONLY",
+      "AlwaysDisable": false,
+      "Attribute": "EATTRIBUTE_TYPE::eNONE",
+      "DependWeapon": false,
+      "RestrictWeapon": "EWEAPON_CATEGORY::eNONE",
+      "TargetType": "EBATTLE_TARGET_TYPE::eSELF",
+      "ExceptEnforcer": false,
+      "CostType": "EABILITY_COST_TYPE::eNONE",
+      "CostValue": 0,
+      "HitRatio": 0,
+      "CriticalRatio": 0,
+      "CriticalPower": 100,
+      "AbilityRatio": 100,
+      "BaseCount": 0,
+      "MinimumCount": 0,
+      "RandomCountMin": 0,
+      "RandomCountMax": 0,
+      "EstimateOrderType": "EBATTLE_ACTION_ORDER_ESTIMATE_TYPE::eNONE",
+      "EstimateOrderCount": 0,
+      "Ailment": [
+        {
+          "AilmentName": "GET_LEAF",
+          "InvocationValue": 1000,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        }
+      ],
+      "KeepBoostEffect": false,
+      "EnableItemAll": false,
+      "EnableSkillAll": false,
+      "EnableConvergence": false,
+      "EnableDiffusion": false,
+      "EnableReflection": false,
+      "EnableCounter": false,
+      "EnableHideOut": false,
+      "EnableRepeat": false,
+      "EnableCover": false,
+      "EnableProvoke": false,
+      "EnableDisableMagic": false,
+      "EnableEnchant": false,
+      "EnableChaseAttack": false,
+      "EnableWeakCheckAll": false,
+      "EnableNormalAttackAll": false,
+      "EnableSession": false,
+      "EnableBusinessSupport": false,
+      "EnableForceWeakness": false,
+      "EnableNoUseMaterial": false,
+      "EnableSwitchWeapon": false,
+      "EnableCompensationMagic": false,
+      "EnableExcitement": false,
+      "SongAbilityFlag": false,
+      "DanceAbilityFlag": false,
+      "EnableAutoTameMonster": false,
+      "UseAbilityCamera": false,
+      "ActionCommandSequencer": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makasushigi_036.Seq_DAN_Makasushigi_036",
+          "number": 0,
+          "text": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makasushigi_036.Seq_DAN_Makasushigi_036"
+        },
+        "subPath": ""
+      },
+      "AbilitySE": [
+        "None",
+        "None",
+        "None",
+        "None"
+      ],
+      "SlideFrame": 0
+    },
+    {
+      "id": "ABI_DAN_MAKA_037",
+      "ID": 19229,
+      "AbilityID": 17076,
+      "DisplayName": "ABN_DAN_MAKA_037",
+      "Detail": "None",
+      "CommandActor": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/BP/BattleAction/_Common/CommonCommand.CommonCommand_C",
+          "number": 0,
+          "text": "/Game/Battle/BP/BattleAction/_Common/CommonCommand.CommonCommand_C"
+        },
+        "subPath": ""
+      },
+      "AbilityType": "EABILITY_TYPE::eOTHER",
+      "AbilityUseType": "EABILITY_USE_TYPE::eBATTLE_ONLY",
+      "AlwaysDisable": false,
+      "Attribute": "EATTRIBUTE_TYPE::eNONE",
+      "DependWeapon": false,
+      "RestrictWeapon": "EWEAPON_CATEGORY::eNONE",
+      "TargetType": "EBATTLE_TARGET_TYPE::eSELF",
+      "ExceptEnforcer": false,
+      "CostType": "EABILITY_COST_TYPE::eNONE",
+      "CostValue": 0,
+      "HitRatio": 0,
+      "CriticalRatio": 0,
+      "CriticalPower": 100,
+      "AbilityRatio": 100,
+      "BaseCount": 0,
+      "MinimumCount": 0,
+      "RandomCountMin": 0,
+      "RandomCountMax": 0,
+      "EstimateOrderType": "EBATTLE_ACTION_ORDER_ESTIMATE_TYPE::eNONE",
+      "EstimateOrderCount": 0,
+      "Ailment": [
+        {
+          "AilmentName": "GET_LEAF",
+          "InvocationValue": 10000,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        }
+      ],
+      "KeepBoostEffect": false,
+      "EnableItemAll": false,
+      "EnableSkillAll": false,
+      "EnableConvergence": false,
+      "EnableDiffusion": false,
+      "EnableReflection": false,
+      "EnableCounter": false,
+      "EnableHideOut": false,
+      "EnableRepeat": false,
+      "EnableCover": false,
+      "EnableProvoke": false,
+      "EnableDisableMagic": false,
+      "EnableEnchant": false,
+      "EnableChaseAttack": false,
+      "EnableWeakCheckAll": false,
+      "EnableNormalAttackAll": false,
+      "EnableSession": false,
+      "EnableBusinessSupport": false,
+      "EnableForceWeakness": false,
+      "EnableNoUseMaterial": false,
+      "EnableSwitchWeapon": false,
+      "EnableCompensationMagic": false,
+      "EnableExcitement": false,
+      "SongAbilityFlag": false,
+      "DanceAbilityFlag": false,
+      "EnableAutoTameMonster": false,
+      "UseAbilityCamera": false,
+      "ActionCommandSequencer": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makasushigi_037.Seq_DAN_Makasushigi_037",
+          "number": 0,
+          "text": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makasushigi_037.Seq_DAN_Makasushigi_037"
+        },
+        "subPath": ""
+      },
+      "AbilitySE": [
+        "None",
+        "None",
+        "None",
+        "None"
+      ],
+      "SlideFrame": 0
+    },
+    {
+      "id": "ABI_DAN_MAKA_038",
+      "ID": 19230,
+      "AbilityID": 17077,
+      "DisplayName": "ABN_DAN_MAKA_038",
+      "Detail": "None",
+      "CommandActor": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/BP/BattleAction/_Common/CommonCommand.CommonCommand_C",
+          "number": 0,
+          "text": "/Game/Battle/BP/BattleAction/_Common/CommonCommand.CommonCommand_C"
+        },
+        "subPath": ""
+      },
+      "AbilityType": "EABILITY_TYPE::eOTHER",
+      "AbilityUseType": "EABILITY_USE_TYPE::eBATTLE_ONLY",
+      "AlwaysDisable": false,
+      "Attribute": "EATTRIBUTE_TYPE::eNONE",
+      "DependWeapon": false,
+      "RestrictWeapon": "EWEAPON_CATEGORY::eNONE",
+      "TargetType": "EBATTLE_TARGET_TYPE::eSELF",
+      "ExceptEnforcer": false,
+      "CostType": "EABILITY_COST_TYPE::eNONE",
+      "CostValue": 0,
+      "HitRatio": 0,
+      "CriticalRatio": 0,
+      "CriticalPower": 100,
+      "AbilityRatio": 100,
+      "BaseCount": 0,
+      "MinimumCount": 0,
+      "RandomCountMin": 0,
+      "RandomCountMax": 0,
+      "EstimateOrderType": "EBATTLE_ACTION_ORDER_ESTIMATE_TYPE::eNONE",
+      "EstimateOrderCount": 0,
+      "Ailment": [
+        {
+          "AilmentName": "ADD_LAST_ACT_SPECIAL",
+          "InvocationValue": 0,
+          "InvocationTurn": 1,
+          "DiseaseRate": 100
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        }
+      ],
+      "KeepBoostEffect": false,
+      "EnableItemAll": false,
+      "EnableSkillAll": false,
+      "EnableConvergence": false,
+      "EnableDiffusion": false,
+      "EnableReflection": false,
+      "EnableCounter": false,
+      "EnableHideOut": false,
+      "EnableRepeat": false,
+      "EnableCover": false,
+      "EnableProvoke": false,
+      "EnableDisableMagic": false,
+      "EnableEnchant": false,
+      "EnableChaseAttack": false,
+      "EnableWeakCheckAll": false,
+      "EnableNormalAttackAll": false,
+      "EnableSession": false,
+      "EnableBusinessSupport": false,
+      "EnableForceWeakness": false,
+      "EnableNoUseMaterial": false,
+      "EnableSwitchWeapon": false,
+      "EnableCompensationMagic": false,
+      "EnableExcitement": false,
+      "SongAbilityFlag": false,
+      "DanceAbilityFlag": false,
+      "EnableAutoTameMonster": false,
+      "UseAbilityCamera": false,
+      "ActionCommandSequencer": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makasushigi_038.Seq_DAN_Makasushigi_038",
+          "number": 0,
+          "text": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makasushigi_038.Seq_DAN_Makasushigi_038"
+        },
+        "subPath": ""
+      },
+      "AbilitySE": [
+        "None",
+        "None",
+        "None",
+        "None"
+      ],
+      "SlideFrame": 0
+    },
+    {
+      "id": "ABI_DAN_MAKA_038_Session",
+      "ID": 19373,
+      "AbilityID": 17077,
+      "DisplayName": "ABN_DAN_MAKA_038",
+      "Detail": "None",
+      "CommandActor": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/BP/BattleAction/_Common/CommonCommand.CommonCommand_C",
+          "number": 0,
+          "text": "/Game/Battle/BP/BattleAction/_Common/CommonCommand.CommonCommand_C"
+        },
+        "subPath": ""
+      },
+      "AbilityType": "EABILITY_TYPE::eOTHER",
+      "AbilityUseType": "EABILITY_USE_TYPE::eBATTLE_ONLY",
+      "AlwaysDisable": false,
+      "Attribute": "EATTRIBUTE_TYPE::eNONE",
+      "DependWeapon": false,
+      "RestrictWeapon": "EWEAPON_CATEGORY::eNONE",
+      "TargetType": "EBATTLE_TARGET_TYPE::eSELF",
+      "ExceptEnforcer": false,
+      "CostType": "EABILITY_COST_TYPE::eNONE",
+      "CostValue": 0,
+      "HitRatio": 0,
+      "CriticalRatio": 0,
+      "CriticalPower": 100,
+      "AbilityRatio": 100,
+      "BaseCount": 0,
+      "MinimumCount": 0,
+      "RandomCountMin": 0,
+      "RandomCountMax": 0,
+      "EstimateOrderType": "EBATTLE_ACTION_ORDER_ESTIMATE_TYPE::eNONE",
+      "EstimateOrderCount": 0,
+      "Ailment": [
+        {
+          "AilmentName": "ADD_LAST_ACT_SPECIAL_DEPEND",
+          "InvocationValue": 0,
+          "InvocationTurn": 1,
+          "DiseaseRate": 100
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        }
+      ],
+      "KeepBoostEffect": false,
+      "EnableItemAll": false,
+      "EnableSkillAll": false,
+      "EnableConvergence": false,
+      "EnableDiffusion": false,
+      "EnableReflection": false,
+      "EnableCounter": false,
+      "EnableHideOut": false,
+      "EnableRepeat": false,
+      "EnableCover": false,
+      "EnableProvoke": false,
+      "EnableDisableMagic": false,
+      "EnableEnchant": false,
+      "EnableChaseAttack": false,
+      "EnableWeakCheckAll": false,
+      "EnableNormalAttackAll": false,
+      "EnableSession": false,
+      "EnableBusinessSupport": false,
+      "EnableForceWeakness": false,
+      "EnableNoUseMaterial": false,
+      "EnableSwitchWeapon": false,
+      "EnableCompensationMagic": false,
+      "EnableExcitement": false,
+      "SongAbilityFlag": false,
+      "DanceAbilityFlag": false,
+      "EnableAutoTameMonster": false,
+      "UseAbilityCamera": false,
+      "ActionCommandSequencer": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makasushigi_038.Seq_DAN_Makasushigi_038",
+          "number": 0,
+          "text": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makasushigi_038.Seq_DAN_Makasushigi_038"
+        },
+        "subPath": ""
+      },
+      "AbilitySE": [
+        "None",
+        "None",
+        "None",
+        "None"
+      ],
+      "SlideFrame": 0
+    },
+    {
+      "id": "ABI_DAN_MAKA_039",
+      "ID": 19231,
+      "AbilityID": 17078,
+      "DisplayName": "ABN_DAN_MAKA_039",
+      "Detail": "None",
+      "CommandActor": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/BP/BattleAction/RandomCountAttack/RandomCountAttackCommand.RandomCountAttackCommand_C",
+          "number": 0,
+          "text": "/Game/Battle/BP/BattleAction/RandomCountAttack/RandomCountAttackCommand.RandomCountAttackCommand_C"
+        },
+        "subPath": ""
+      },
+      "AbilityType": "EABILITY_TYPE::eMAGIC",
+      "AbilityUseType": "EABILITY_USE_TYPE::eBATTLE_ONLY",
+      "AlwaysDisable": false,
+      "Attribute": "EATTRIBUTE_TYPE::eFIRE",
+      "DependWeapon": false,
+      "RestrictWeapon": "EWEAPON_CATEGORY::eNONE",
+      "TargetType": "EBATTLE_TARGET_TYPE::eALL",
+      "ExceptEnforcer": false,
+      "CostType": "EABILITY_COST_TYPE::eNONE",
+      "CostValue": 0,
+      "HitRatio": 0,
+      "CriticalRatio": 0,
+      "CriticalPower": 100,
+      "AbilityRatio": 100,
+      "BaseCount": 10,
+      "MinimumCount": 10,
+      "RandomCountMin": 0,
+      "RandomCountMax": 0,
+      "EstimateOrderType": "EBATTLE_ACTION_ORDER_ESTIMATE_TYPE::eNONE",
+      "EstimateOrderCount": 0,
+      "Ailment": [
+        {
+          "AilmentName": "RANDOM_TARGET_MAGIC_DAMAGE",
+          "InvocationValue": 150,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        }
+      ],
+      "KeepBoostEffect": false,
+      "EnableItemAll": false,
+      "EnableSkillAll": false,
+      "EnableConvergence": false,
+      "EnableDiffusion": false,
+      "EnableReflection": false,
+      "EnableCounter": false,
+      "EnableHideOut": false,
+      "EnableRepeat": false,
+      "EnableCover": false,
+      "EnableProvoke": false,
+      "EnableDisableMagic": false,
+      "EnableEnchant": false,
+      "EnableChaseAttack": false,
+      "EnableWeakCheckAll": false,
+      "EnableNormalAttackAll": false,
+      "EnableSession": false,
+      "EnableBusinessSupport": false,
+      "EnableForceWeakness": true,
+      "EnableNoUseMaterial": false,
+      "EnableSwitchWeapon": false,
+      "EnableCompensationMagic": false,
+      "EnableExcitement": false,
+      "SongAbilityFlag": false,
+      "DanceAbilityFlag": false,
+      "EnableAutoTameMonster": true,
+      "UseAbilityCamera": false,
+      "ActionCommandSequencer": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makasushigi_039.Seq_DAN_Makasushigi_039",
+          "number": 0,
+          "text": "/Game/Battle/Sequencer/ActionCommand/PC/Dancer/MakafushiginoMai/Seq_DAN_Makasushigi_039.Seq_DAN_Makasushigi_039"
+        },
+        "subPath": ""
+      },
+      "AbilitySE": [
+        "None",
+        "None",
+        "None",
+        "None"
+      ],
+      "SlideFrame": 0
+    }
+  ],
+  "sequences": [
+    {
+      "id": "ABI_DAN_060_01",
+      "asset": "Battle/Sequencer/ActionCommand/PC/Dancer/Seq_Dan_060_Ohadake",
+      "events": [
+        {
+          "time": 1600,
+          "function": "SequenceEvent__ENTRYPOINTSequenceDirector_3",
+          "body": "08ee8 LocalVirtualFunction PlayVoice\n  08ef1 ByteConst 18\n  08ef3 ByteConst 0\n  08ef5 ByteConst 0\n08ef8 Return\n  08ef9 Nothing\n08efa EndOfScript"
+        },
+        {
+          "time": 7981,
+          "function": "SequenceEvent__ENTRYPOINTSequenceDirector_1",
+          "body": "08e23 LocalVirtualFunction PlaySE\n  08e2c NameConst se_bat_ability_dancer_12\n08e36 Return\n  08e37 Nothing\n08e38 EndOfScript"
+        },
+        {
+          "time": 7981,
+          "function": "SequenceEvent__ENTRYPOINTSequenceDirector_2",
+          "body": "08e98 LocalVirtualFunction PlayAction\n  08ea1 LocalVariable Character\n  08eb2 ByteConst 135\n  08eb4 ByteConst 8\n  08eb6 ByteConst 111\n08eb9 Return\n  08eba Nothing\n08ebb EndOfScript"
+        },
+        {
+          "time": 52142,
+          "function": "SequenceEvent__ENTRYPOINTSequenceDirector_0",
+          "body": "08de3 LocalVirtualFunction ExecAilment\n  08dec IntConst 0\n  08df1 True\n  08df2 True\n08df4 Return\n  08df5 Nothing\n08df6 EndOfScript"
+        }
+      ]
+    },
+    {
+      "id": "ABI_DAN_070_04",
+      "asset": "Battle/Sequencer/ActionCommand/PC/Dancer/Seq_Dan_070_MakafushiginoMai",
+      "events": [
+        {
+          "time": 2400,
+          "function": "SequenceEvent__ENTRYPOINTSequenceDirector_6",
+          "body": "0b7bf LocalVirtualFunction CallSessionSupporter\n0b7c9 Return\n  0b7ca Nothing\n0b7cb EndOfScript"
+        },
+        {
+          "time": 4000,
+          "function": "SequenceEvent__ENTRYPOINTSequenceDirector_7",
+          "body": "0b7f8 LocalVirtualFunction WaitSessionSupporter\n0b802 Return\n  0b803 Nothing\n0b804 EndOfScript"
+        },
+        {
+          "time": 4287,
+          "function": "SequenceEvent__ENTRYPOINTSequenceDirector_12",
+          "body": "0b917 LocalVirtualFunction PlayVoice\n  0b920 ByteConst 18\n  0b922 ByteConst 0\n  0b924 ByteConst 0\n0b927 Return\n  0b928 Nothing\n0b929 EndOfScript"
+        },
+        {
+          "time": 8008,
+          "function": "SequenceEvent__ENTRYPOINTSequenceDirector_4",
+          "body": "0b6ec LocalVirtualFunction PlayAction\n  0b6f5 LocalVariable Character\n  0b706 ByteConst 136\n  0b708 ByteConst 8\n  0b70a ByteConst 112\n0b70d Return\n  0b70e Nothing\n0b70f EndOfScript"
+        },
+        {
+          "time": 14695,
+          "function": "SequenceEvent__ENTRYPOINTSequenceDirector_2",
+          "body": "0b635 LocalVirtualFunction PlaySE\n  0b63e NameConst se_bat_ability_dancer_07_1\n0b648 Return\n  0b649 Nothing\n0b64a EndOfScript"
+        },
+        {
+          "time": 20000,
+          "function": "SequenceEvent__ENTRYPOINTSequenceDirector_8",
+          "body": "0b831 LocalVirtualFunction PlaySessionAction\n  0b83a ByteConst 81\n0b83d Return\n  0b83e Nothing\n0b83f EndOfScript"
+        },
+        {
+          "time": 68070,
+          "function": "SequenceEvent__ENTRYPOINTSequenceDirector_3",
+          "body": "0b677 LocalVirtualFunction PlaySE\n  0b680 NameConst se_bat_ability_dancer_07_2\n0b68a Return\n  0b68b Nothing\n0b68c EndOfScript"
+        },
+        {
+          "time": 100380,
+          "function": "SequenceEvent__ENTRYPOINTSequenceDirector_0",
+          "body": "0b5c3 LocalVirtualFunction ExecSpecialAilment\n0b5cd Return\n  0b5ce Nothing\n0b5cf EndOfScript"
+        },
+        {
+          "time": 102323,
+          "function": "SequenceEvent__ENTRYPOINTSequenceDirector_9",
+          "body": "0b86c LocalVirtualFunction WaitSummonAbility\n0b876 Return\n  0b877 Nothing\n0b878 EndOfScript"
+        },
+        {
+          "time": 112007,
+          "function": "SequenceEvent__ENTRYPOINTSequenceDirector_1",
+          "body": "0b5fc LocalVirtualFunction ExecSessionAbility\n0b606 Return\n  0b607 Nothing\n0b608 EndOfScript"
+        },
+        {
+          "time": 112007,
+          "function": "SequenceEvent__ENTRYPOINTSequenceDirector_5",
+          "body": "0b76f LocalVirtualFunction PlayAction\n  0b778 LocalVariable Character\n  0b789 ByteConst 81\n  0b78b ByteConst 0\n  0b78d ByteConst 0\n0b790 Return\n  0b791 Nothing\n0b792 EndOfScript"
+        },
+        {
+          "time": 112807,
+          "function": "SequenceEvent__ENTRYPOINTSequenceDirector_10",
+          "body": "0b8a5 LocalVirtualFunction WaitSessionAbility\n0b8af Return\n  0b8b0 Nothing\n0b8b1 EndOfScript"
+        },
+        {
+          "time": 114507,
+          "function": "SequenceEvent__ENTRYPOINTSequenceDirector_11",
+          "body": "0b8de LocalVirtualFunction ReturnSessionSupporter\n0b8e8 Return\n  0b8e9 Nothing\n0b8ea EndOfScript"
+        }
+      ]
+    },
+    {
+      "id": "ABI_INV_020_01",
+      "asset": "Battle/Sequencer/ActionCommand/PC/Inventor/Seq_Inv_020_SpringBoots",
+      "events": [
+        {
+          "time": 2400,
+          "function": "SequenceEvent__ENTRYPOINTSequenceDirector_4",
+          "body": "0e7e6 LocalVirtualFunction PlayVoice\n  0e7ef ByteConst 18\n  0e7f1 ByteConst 0\n  0e7f3 ByteConst 0\n0e7f6 Return\n  0e7f7 Nothing\n0e7f8 EndOfScript"
+        },
+        {
+          "time": 8659,
+          "function": "SequenceEvent__ENTRYPOINTSequenceDirector_3",
+          "body": "0e795 LocalVirtualFunction PlayAction\n  0e79e LocalVariable Character\n  0e7af ByteConst 118\n  0e7b1 ByteConst 0\n  0e7b3 ByteConst 0\n  0e7b5 False\n0e7b7 Return\n  0e7b8 Nothing\n0e7b9 EndOfScript"
+        },
+        {
+          "time": 8800,
+          "function": "SequenceEvent__ENTRYPOINTSequenceDirector_1",
+          "body": "0e6de LocalVirtualFunction PlaySE\n  0e6e7 NameConst se_bat_ability_Inventor_02\n0e6f1 Return\n  0e6f2 Nothing\n0e6f3 EndOfScript"
+        },
+        {
+          "time": 23983,
+          "function": "SequenceEvent__ENTRYPOINTSequenceDirector_0",
+          "body": "0e69e LocalVirtualFunction ExecAilment\n  0e6a7 IntConst 0\n  0e6ac True\n  0e6ad False\n0e6af Return\n  0e6b0 Nothing\n0e6b1 EndOfScript"
+        },
+        {
+          "time": 60000,
+          "function": "SequenceEvent__ENTRYPOINTSequenceDirector_2",
+          "body": "0e720 LocalVirtualFunction PlaySE\n  0e729 NameConst se_bat_buff\n0e733 Return\n  0e734 Nothing\n0e735 EndOfScript"
+        }
+      ]
+    },
+    {
+      "id": "ABI_MER_070_03",
+      "asset": "Battle/Sequencer/ActionCommand/PC/Merchant/Seq_Mer_070_YoheiYobi",
+      "events": [
+        {
+          "time": 800,
+          "function": "SequenceEvent__ENTRYPOINTSequenceDirector_23",
+          "body": "0c23d LocalVirtualFunction PlayVoice\n  0c246 ByteConst 18\n  0c248 ByteConst 0\n  0c24a ByteConst 0\n0c24d Return\n  0c24e Nothing\n0c24f EndOfScript"
+        },
+        {
+          "time": 4000,
+          "function": "SequenceEvent__ENTRYPOINTSequenceDirector_11",
+          "body": "0bf18 LocalVirtualFunction PlayAction\n  0bf21 LocalVariable Character\n  0bf32 ByteConst 137\n  0bf34 ByteConst 4\n  0bf36 ByteConst 112\n0bf39 Return\n  0bf3a Nothing\n0bf3b EndOfScript"
+        },
+        {
+          "time": 4123,
+          "function": "SequenceEvent__ENTRYPOINTSequenceDirector_12",
+          "body": "0bf68 LocalVirtualFunction CallBusinessSupporter\n0bf72 Return\n  0bf73 Nothing\n0bf74 EndOfScript"
+        },
+        {
+          "time": 7024,
+          "function": "SequenceEvent__ENTRYPOINTSequenceDirector_13",
+          "body": "0bfa1 LocalVirtualFunction WaitBusinessSupporter\n0bfab Return\n  0bfac Nothing\n0bfad EndOfScript"
+        },
+        {
+          "time": 9745,
+          "function": "SequenceEvent__ENTRYPOINTSequenceDirector_14",
+          "body": "0bfda LocalVirtualFunction PlayBusinessSupportAction\n  0bfe3 ByteConst 80\n0bfe6 Return\n  0bfe7 Nothing\n0bfe8 EndOfScript"
+        },
+        {
+          "time": 24384,
+          "function": "SequenceEvent__ENTRYPOINTSequenceDirector_0",
+          "body": "0bc46 LocalVirtualFunction ExecSummonCharacter\n  0bc4f IntConst 0\n  0bc54 True\n0bc56 Return\n  0bc57 Nothing\n0bc58 EndOfScript"
+        },
+        {
+          "time": 27701,
+          "function": "SequenceEvent__ENTRYPOINTSequenceDirector_15",
+          "body": "0c015 LocalVirtualFunction CheckBoostLevelLessToMarker\n  0c01e IntConst 1\n  0c023 False\n  0c024 StringConst \"Character\"\n0c030 Return\n  0c031 Nothing\n0c032 EndOfScript"
+        },
+        {
+          "time": 32000,
+          "function": "SequenceEvent__ENTRYPOINTSequenceDirector_1",
+          "body": "0bc85 LocalVirtualFunction ExecSummonCharacter\n  0bc8e IntConst 0\n  0bc93 True\n0bc95 Return\n  0bc96 Nothing\n0bc97 EndOfScript"
+        },
+        {
+          "time": 36043,
+          "function": "SequenceEvent__ENTRYPOINTSequenceDirector_16",
+          "body": "0c05f LocalVirtualFunction CheckBoostLevelLessToMarker\n  0c068 IntConst 2\n  0c06d False\n  0c06e StringConst \"Character\"\n0c07a Return\n  0c07b Nothing\n0c07c EndOfScript"
+        },
+        {
+          "time": 40000,
+          "function": "SequenceEvent__ENTRYPOINTSequenceDirector_2",
+          "body": "0bcc4 LocalVirtualFunction ExecSummonCharacter\n  0bccd IntConst 0\n  0bcd2 True\n0bcd4 Return\n  0bcd5 Nothing\n0bcd6 EndOfScript"
+        },
+        {
+          "time": 44024,
+          "function": "SequenceEvent__ENTRYPOINTSequenceDirector_17",
+          "body": "0c0a9 LocalVirtualFunction CheckBoostLevelLessToMarker\n  0c0b2 IntConst 3\n  0c0b7 False\n  0c0b8 StringConst \"Character\"\n0c0c4 Return\n  0c0c5 Nothing\n0c0c6 EndOfScript"
+        },
+        {
+          "time": 48000,
+          "function": "SequenceEvent__ENTRYPOINTSequenceDirector_3",
+          "body": "0bd03 LocalVirtualFunction ExecSummonCharacter\n  0bd0c IntConst 0\n  0bd11 True\n0bd13 Return\n  0bd14 Nothing\n0bd15 EndOfScript"
+        },
+        {
+          "time": 53280,
+          "function": "SequenceEvent__ENTRYPOINTSequenceDirector_4",
+          "body": "0bd42 LocalVirtualFunction ExecSummonAbility\n  0bd4b IntConst 0\n0bd51 Return\n  0bd52 Nothing\n0bd53 EndOfScript"
+        },
+        {
+          "time": 60168,
+          "function": "SequenceEvent__ENTRYPOINTSequenceDirector_18",
+          "body": "0c0f3 LocalVirtualFunction CheckBoostLevelLessToMarker\n  0c0fc IntConst 1\n  0c101 False\n  0c102 StringConst \"Ability\"\n0c10c Return\n  0c10d Nothing\n0c10e EndOfScript"
+        },
+        {
+          "time": 64778,
+          "function": "SequenceEvent__ENTRYPOINTSequenceDirector_5",
+          "body": "0bd80 LocalVirtualFunction ExecSummonAbility\n  0bd89 IntConst 1\n0bd8f Return\n  0bd90 Nothing\n0bd91 EndOfScript"
+        },
+        {
+          "time": 70324,
+          "function": "SequenceEvent__ENTRYPOINTSequenceDirector_19",
+          "body": "0c13b LocalVirtualFunction CheckBoostLevelLessToMarker\n  0c144 IntConst 2\n  0c149 False\n  0c14a StringConst \"Ability\"\n0c154 Return\n  0c155 Nothing\n0c156 EndOfScript"
+        },
+        {
+          "time": 76778,
+          "function": "SequenceEvent__ENTRYPOINTSequenceDirector_6",
+          "body": "0bdbe LocalVirtualFunction ExecSummonAbility\n  0bdc7 IntConst 2\n0bdcd Return\n  0bdce Nothing\n0bdcf EndOfScript"
+        },
+        {
+          "time": 82293,
+          "function": "SequenceEvent__ENTRYPOINTSequenceDirector_20",
+          "body": "0c183 LocalVirtualFunction CheckBoostLevelLessToMarker\n  0c18c IntConst 3\n  0c191 False\n  0c192 StringConst \"Ability\"\n0c19c Return\n  0c19d Nothing\n0c19e EndOfScript"
+        },
+        {
+          "time": 88778,
+          "function": "SequenceEvent__ENTRYPOINTSequenceDirector_7",
+          "body": "0bdfc LocalVirtualFunction ExecSummonAbility\n  0be05 IntConst 3\n0be0b Return\n  0be0c Nothing\n0be0d EndOfScript"
+        },
+        {
+          "time": 93712,
+          "function": "SequenceEvent__ENTRYPOINTSequenceDirector_8",
+          "body": "0be3a LocalVirtualFunction WaitSummonAbility\n0be44 Return\n  0be45 Nothing\n0be46 EndOfScript"
+        },
+        {
+          "time": 104612,
+          "function": "SequenceEvent__ENTRYPOINTSequenceDirector_9",
+          "body": "0be73 LocalVirtualFunction ReturnSummonCharacter\n0be7d Return\n  0be7e Nothing\n0be7f EndOfScript"
+        },
+        {
+          "time": 105145,
+          "function": "SequenceEvent__ENTRYPOINTSequenceDirector_10",
+          "body": "0beac LocalVirtualFunction ShowBusinessSupportInfomation\n0beb6 Return\n  0beb7 Nothing\n0beb8 EndOfScript"
+        },
+        {
+          "time": 108591,
+          "function": "SequenceEvent__ENTRYPOINTSequenceDirector_21",
+          "body": "0c1cb LocalVirtualFunction ReturnBusinessSupporter\n0c1d5 Return\n  0c1d6 Nothing\n0c1d7 EndOfScript"
+        },
+        {
+          "time": 111855,
+          "function": "SequenceEvent__ENTRYPOINTSequenceDirector_22",
+          "body": "0c204 LocalVirtualFunction WaitBusinessSupporter\n0c20e Return\n  0c20f Nothing\n0c210 EndOfScript"
+        }
+      ]
+    }
+  ],
+  "selection": {
+    "blueprint": "Battle/BP/BattleAction/RandomSelectAbility/RandomSelectAbilityCommand.SelectRandomAbility",
+    "sum": 997,
+    "repeat": 4,
+    "exp100": "ABI_DAN_MAKA_002",
+    "weight": 1
+  },
+  "status": "Source metadata and sequences collected; full action execution and RNG search not implemented."
+}

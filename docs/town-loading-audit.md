@@ -116,12 +116,12 @@ Only separately retained shared levels bypass this unload cycle.
 The importer checks FlagOverrideDB against every queried placement/lottery/branch
 flag. None intersect in this data set; importing a new dependency fails instead
 of silently ignoring override semantics. Unknown event commands/maps and
-dawn/dusk transitions other than scripted Day-to-Dusk and Night-to-Dawn fail explicitly. Tavern maps with an active
-BarEventLabel also fail until their complete callback data is imported; there
-is no assumption that an empty bench guarantees zero draws.
+dawn/dusk transitions other than scripted Day-to-Dusk and Night-to-Dawn fail explicitly.
+Tavern appearance/member/item setup draws now follow imported per-map data,
+including hidden placeholders for an empty bench; see `tavern-loading.md`.
 
-Remaining coverage: other towns and their special callbacks, active tavern
-placement/gift paths, other dawn/dusk transitions and timer-driven time changes,
+Remaining coverage: other towns and their special callbacks, tavern conversations
+and receiving gifts, other dawn/dusk transitions and timer-driven time changes,
 theater/reminiscence and darkness save modes. Do not advertise
 the API as a complete arbitrary-save emulator.
 
@@ -139,3 +139,45 @@ Test identical starting CRT states under different world states. Compare caller
 sequence, flag/actor changes and intermediate CRT boundaries, not just final
 draw totals. No finite capture set alone proves every scenario; coverage must
 also follow the relevant native branches and cooked data.
+
+## Conning Creek hidden backdrop correction (2026-10-09)
+
+The re-entry capture `outputs/conning-load-live-20261009.json` includes an
+outgoing trip followed by a manual CRT rewind. Only its final 79-call segment,
+19,287,194 -> 19,287,273, is the Conning load fixture. It contains four counter
+calls, six streamed-level constructors, 33 field environment callbacks (two
+flags and 31 lamps), 33 NPC frame calls, and three tavern calls. The latter are
+one appearance lottery and two placeholder item rolls; there are no eligible
+benched-character selection rolls.
+
+The previous loader also executed the hidden `Btl_Twn_Sea_B` backdrop's two
+flag and twelve lamp BeginPlay callbacks. Native `FUN_140ed98a0` queues both
+commands 1 and 3 for field streams, but only command 1 for BattleMapNameList
+streams. Construction and showing must not be conflated: preserve the battle
+stream's constructor draw and residency, but execute environment initialization
+only for newly created field streams during town loading. Keep battle actor
+data available for battle activation.
+
+Those 14 premature calls also changed the tavern lottery from three calls to
+one, producing the observed net excess of 12. The regression compares every
+call's state, category and NPC identity and checks both first-visit and revisit
+world states; both now end at 19,287,273. This is a lifecycle fix, not a fixed
+Conning-specific subtraction.
+
+Follow-up native audit: queue consumer `FUN_140ed4030` dispatches command1
+to `FUN_140ed22a0` (requests stream loading via vtable+0x270) and command3
+to `FUN_140ed8640`. The latter requires a loaded level at+0x128 and invokes
+`FUN_142c78250(...,1)`, setting visibility bit3 at+0xba. Field/battle transition
+`FUN_140eda7e0` separately queues show3 for the selected battle backdrop and
+hide4 for the field/other backdrops. These branches distinguish residency from
+visibility, not story progression. A preloaded backdrop can therefore consume
+constructor RNG without yet executing its environment BeginPlay RNG.
+
+The dumped lamp ReceiveBeginPlay enters its graph at235 ->151 and calls
+RandomFloatInRange(0,3), then SetNewTime. The flag graph calls
+RandomFloatInRange(0.9,1.1), then SetPlayRate. Neither graph contains a story
+flag branch. Story can affect which map/actors are selected elsewhere, but does
+not gate these two RNG callbacks themselves. Do not generalize this to every
+environment Blueprint. `tools/audit-stream-load-show.cjs` checks this native/
+Blueprint chain. The captured town still executes its own two flag and31 lamp
+calls; only the hidden battle backdrop's14 calls are excluded at town entry.

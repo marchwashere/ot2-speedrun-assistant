@@ -1,0 +1,7 @@
+ot2.example.com {
+    basic_auth {
+        runner REPLACE_WITH_CADDY_HASH_PASSWORD_OUTPUT
+    }
+    encode zstd gzip
+    reverse_proxy 127.0.0.1:54345
+}

@@ -50,7 +50,6 @@ pub fn with_day_switch(arrival: CrtRng, state: WorldState, location: DaySwitchLo
     let mut after_day_switch = arrival;
     if location == DaySwitchLocation::Flats {
         loader.set_time(2, "Flats: switch to day after buying soulstones, before fast travel")?;
-        loader.refresh_bar()?;
         loader.refresh_npcs("Flats: daytime placements after cleric purchases")?;
         after_day_switch = loader.rng;
     }
@@ -59,7 +58,6 @@ pub fn with_day_switch(arrival: CrtRng, state: WorldState, location: DaySwitchLo
     let at_new_delsta_harbor = loader.rng;
     if location == DaySwitchLocation::Harbor {
         loader.set_time(2, "New Delsta Harbor: immediate switch to day")?;
-        loader.refresh_bar()?;
         loader.refresh_npcs("New Delsta Harbor: daytime placements")?;
         after_day_switch = loader.rng;
     }
@@ -84,7 +82,7 @@ pub fn first_encounter(p: &Prediction, throne_level: u32) -> Result<(CrtRng, enc
     ensure(p.world_after.party == [7,6], "Crackridge route requires Throné and Osvald")?;
     let options = PredictionOptions {
         map: CRACKRIDGE_HARBOR.into(), zone: "ENT_FLD_WLD_1_2_LND".into(),
-        period: "DayTime".into(), progress: 1, first_encounter: p.world_after.first_encounter,
+        period: "DayTime".into(), progress: p.world_after.main_progress_points, first_encounter: p.world_after.first_encounter,
         boundary: Boundary::CurrentCounter, current_counter: Some(p.world_after.encounter_counter),
         party_levels: vec![throne_level,1], dash: true, ..Default::default()
     };
@@ -121,7 +119,7 @@ pub fn escape(p: &Prediction, level:u32) -> Result<EscapePrediction> {
         _=>return Ok(EscapePrediction {encounter,before_battle_initialization:entry,menu:None,inputs:None,attempt:None,field_return:None,status:"Surprise: no clean first-menu Escape plan",verification:"Source-derived; not live-validated"}),
     };
     let enemies:Vec<_>=encounter.enemies.iter().map(|e|e.enemy.id.as_str()).collect();
-    let menu=FieldEscapeMenu::new_party(entry,situation,[level,1],&enemies)?;
+    let menu=FieldEscapeMenu::with_history(entry,situation,&[level,1],&enemies,&p.world_after.enemy_knowledge)?;
     // Throné Ch1 contributes one committed progress point. Recruitment with
     // skipped Osvald prologue does not commit another chapter-clear point.
     let danger=encounter::catalog().volumes[encounter.volume.as_ref().unwrap()].encounters.iter()
@@ -132,7 +130,7 @@ pub fn escape(p: &Prediction, level:u32) -> Result<EscapePrediction> {
         if attempt.success {
             let inputs=manipulation::describe_inputs(repeats,0,path)?;
             let field_return=highroad::restore_field(&p.world_after,&attempt,CRACKRIDGE_HARBOR,"Crackridge Harbor Escape")?;
-            return Ok(EscapePrediction {encounter,before_battle_initialization:entry,menu:Some(menu),inputs:Some(inputs),attempt:Some(attempt),field_return:Some(field_return),status:"First Escape succeeds",verification:"Source-derived first encounter, healthy original-gear Throné/Osvald and first-menu Escape. Study Foe reveals one weakness per distinct new enemy type. No intervening CRT actions or previous regional weakness discoveries. Retail alignment pending."});
+            return Ok(EscapePrediction {encounter,before_battle_initialization:entry,menu:Some(menu),inputs:Some(inputs),attempt:Some(attempt),field_return:Some(field_return),status:"First Escape succeeds",verification:"Source-derived first encounter, healthy original-gear Throné/Osvald and first-menu Escape. Study Foe uses saved weakness and preparation history per distinct new enemy type. No intervening CRT actions or previous regional weakness discoveries. Retail alignment pending."});
         }
     }
     Err(crate::SimError("No Escape in CRT cycle".into()))

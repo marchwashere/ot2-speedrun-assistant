@@ -16,7 +16,7 @@
       <button class="quiet" id="quit" type="button">Quit viewer</button>
     </header>
     <main>
-      <nav class="mode-switch" aria-label="Predictor"><button id="manipulation-mode" type="button" aria-pressed="true">Manipulation</button><button id="detail-mode" type="button" aria-pressed="false">Detailed log</button><button id="field-mode" type="button" aria-pressed="false">Field encounters</button><button id="settings-mode" type="button" aria-pressed="false">Settings</button></nav>
+      <nav class="mode-switch" aria-label="Predictor"><button id="manipulation-mode" type="button" aria-pressed="true">Manipulation</button><button id="detail-mode" type="button" aria-pressed="false">Detailed log</button><button id="field-mode" type="button" hidden disabled aria-pressed="false">Field encounters</button><button id="settings-mode" type="button" hidden disabled aria-pressed="false">Settings</button></nav>
       <section id="manipulation-panel" aria-labelledby="manipulation-title">
         <div class="intro run-intro"><h1 id="manipulation-title">Manipulation</h1><p class="muted small">Village strategy fork · early clerics → Osvald → first encounter</p></div>
         <section class="panel setup run-setup" aria-labelledby="seed-label">
@@ -45,10 +45,15 @@
             <section id="second-battle-result" class="panel route-card" aria-labelledby="second-title">
               <h2 id="second-title">Second fight</h2>
               <div id="second-boost-routine"></div>
+              <p id="gold-ring-order" class="run-action"></p>
             </section>
           </div>
+          <section id="early-steals-result" class="panel route-card" hidden>
+            <h2>New Delsta steals</h2>
+          </section>
           <section id="mansion-escape-result" class="panel route-card" hidden>
             <h2>Mansion encounter escape → Pirro cutscene trigger</h2>
+            <p id="mansion-encounter-name" class="action-note"></p>
             <p id="mansion-escape-status" class="run-state"></p>
             <div id="mansion-escape-routine"></div>
           </section>
@@ -59,6 +64,7 @@
           </section>
           <section id="highroad-result" class="panel route-card" hidden>
             <h2>Highroad Escape</h2>
+            <p id="highroad-encounter-name" class="action-note"></p>
             <div id="highroad-boost-routine"></div>
           </section>
           <section id="flats-result" class="panel route-card" hidden>
@@ -68,6 +74,7 @@
           </section>
           <section id="flats-escape-result" class="panel route-card" hidden>
             <h2>New Delsta Flats (after Harbor return) → Abandoned Village</h2>
+            <p id="flats-encounter-name" class="action-note"></p>
             <div id="flats-escape-routine"></div>
           </section>
           <section id="village-return-result" class="panel route-card" hidden>
@@ -77,20 +84,39 @@
           <section id="early-route-result" class="panel route-card" hidden>
             <h2>New Delsta Flats (Abandoned Village exit) → Southern Cape Cold Snows</h2>
             <p id="early-route-run" class="run-state"></p>
-            <p class="action-note">Switch to night at clerics → buy soulstones</p>
-            <p id="early-route-switches" class="run-action"></p>
+            <p id="early-route-switches" class="run-action" hidden></p>
             <p id="early-route-warning" class="error" hidden></p>
           </section>
           <section id="osvald-cait-result" class="panel route-card" hidden>
-            <h2>Southern Cape Cold Snows entry → Osvald</h2>
-            <p class="run-action">Run to Osvald</p>
+            <h2>Southern Cape Cold Snows</h2>
+            <p class="action-note">Entry → Osvald</p>
+            <p id="osvald-run-instruction" class="run-action">Run to Osvald</p>
             <p id="snows-encounter-predicted" class="muted small"></p>
             <div class="encounter-timing" role="group" aria-label="Actual Snows encounter timing">
               <button id="snows-encounter-before" type="button" aria-pressed="false">Before Osvald</button>
               <button id="snows-encounter-after" type="button" aria-pressed="false">After Osvald</button>
             </div>
             <p id="snows-encounter-status" class="action-note"></p>
-            <p id="osvald-cait-switches" class="run-action"></p>
+            <p id="southern-encounter-name" class="action-note"></p>
+            <div id="snows-escape-routine"></div>
+            <div id="snows-onward-result" hidden>
+              <p id="snows-onward-title" class="action-note">Osvald → Eastern Cape Cold Snows</p>
+              <p id="snows-onward-run" class="run-state"></p>
+            </div>
+          </section>
+          <section id="eastern-escape-result" class="panel route-card" hidden>
+            <h2>Eastern Cape Cold Snows</h2>
+            <p id="eastern-encounter-name" class="action-note"></p>
+            <div id="eastern-escape-routine"></div>
+            <p id="eastern-onward-run" class="run-action">Run 100% to Western Winterbloom Snows</p>
+          </section>
+          <section id="rare-fight-result" class="panel route-card" hidden>
+            <h2 id="rare-fight-title">Western Winterbloom Snows</h2>
+            <p id="western-encounter-name" class="action-note"></p>
+            <div id="western-first-routine"></div>
+            <div class="timing-controls"><button id="western-second-no" type="button">No second encounter</button><button id="western-second-yes" type="button">Got second encounter</button></div>
+            <p id="western-second-status" class="action-note"></p>
+            <div id="western-second-routine"></div>
           </section>
           <section id="cape-cold-result" class="panel route-card" hidden>
             <h2>Osvald recruitment spot, Southern Cape Cold Snows → Cape Cold</h2>
@@ -107,16 +133,74 @@
           <section id="cleric-approach-result" class="panel route-card" hidden>
             <h2>New Delsta Flats (Abandoned Village entry) → Cleric spawns</h2>
             <p id="cleric-approach-run" class="run-state"></p>
-            <p class="action-note">Switch to night at the cleric spawns</p>
           </section>
           <section id="crackridge-switch-result" class="panel route-card" hidden>
-            <h2>Cleric purchase → Crackridge Harbor</h2>
+            <h2 id="crackridge-travel-title">Cleric purchase → Crackridge Harbor</h2>
             <p id="crackridge-switch-instruction" class="run-action"></p>
           </section>
           <section id="crackridge-escape-result" class="panel route-card" hidden>
             <h2>Crackridge Harbor encounter</h2>
+            <p id="winter-crackridge-encounter" class="action-note"></p>
             <div id="crackridge-escape-routine"></div>
+            <p id="winter-crackridge-run" class="run-state"></p>
           </section>
+          <section id="cropdale-walk-result" class="panel route-card" hidden>
+            <h2>Eastern Cropdale Trail entry → Cropdale</h2>
+            <p id="cropdale-running-limit" class="run-state"></p>
+          </section>
+          <section id="cropdale-time-result" class="panel route-card" hidden>
+            <h2>Cropdale · Agnea recruitment</h2><div id="cropdale-time-routine"></div>
+          </section>
+          <section id="cropdale-return-escape-result" class="panel route-card" hidden>
+            <h2>Cropdale → Eastern Cropdale Trail → Southern Cropdale Trail</h2>
+            <p id="cropdale-return-encounter" class="action-note"></p>
+            <div id="cropdale-return-escape-routine"></div>
+          </section>
+          <section id="oresrush-walk-result" class="panel route-card" hidden>
+            <h2>Southern Cropdale Trail entry → Southern Oresrush Wilds</h2>
+            <p id="oresrush-running-limit" class="run-state"></p>
+          </section>
+          <section id="oresrush-time-result" class="panel route-card" hidden>
+            <h2>Oresrush · after Mother’s route starts</h2><div id="oresrush-time-routine"></div>
+          </section>
+          <section id="ryu-walk-result" class="panel route-card" hidden>
+            <h2>Southern Oresrush Wilds return → Northern Ryu Sands</h2>
+            <p id="ryu-running-limit" class="run-state"></p>
+          </section>
+          <section id="ryu-town-walk-result" class="panel route-card" hidden>
+            <h2>Northern Ryu Sands entry → Ryu</h2>
+            <p id="ryu-town-running-limit" class="run-state"></p>
+          </section>
+          <section id="hikari-recruit-result" class="panel route-card" hidden>
+            <h2>Hikari recruitment</h2>
+            <div id="hikari-recruit-routine"></div>
+          </section>
+          <section id="canalbrine-water-result" class="panel route-card" hidden>
+            <h2>Canalbrine Bridge · first water encounter</h2>
+            <p id="canalbrine-water-encounter" class="encounter-name"></p>
+            <div id="canalbrine-water-routine"></div>
+          </section>
+          <section id="conning-north-result" class="panel route-card" hidden>
+            <h2>Northern Conning Creek Coast</h2><p id="conning-north-encounter" class="encounter-name"></p><div id="conning-north-routine"></div>
+          </section>
+          <section id="conning-west-result" class="panel route-card" hidden>
+            <h2>Western Conning Creek Coast</h2><p id="conning-west-encounter" class="encounter-name"></p><div id="conning-west-routine"></div>
+          </section>
+          <section id="conning-steal-result" class="panel route-card" hidden>
+            <h2>Conning Creek → Harbor</h2><div id="conning-steal-routine"></div>
+          </section>
+          <section id="inventor-escape-result" class="panel route-card" hidden>
+            <h2>Eastern New Delsta Highroad → Arkar</h2><div id="inventor-escape-routine"></div>
+          </section>
+          <section id="clockbank-movement-result" class="panel route-card" hidden>
+            <h2>Southern Clockbank Highroad → Clockbank</h2><div id="clockbank-movement-routine"></div>
+          </section>
+          <section id="clockbank-bg-result" class="panel route-card" hidden><h2>Clockbank: Industrial District · after Clockite delivery</h2><div id="clockbank-bg-routine"></div></section>
+          <section id="crackridge-return-result" class="panel route-card" hidden><h2>Crackridge Harbor · after Clockite delivery</h2><div id="crackridge-return-routine"></div></section>
+          <section id="southern-crackridge-result" class="panel route-card" hidden><h2>Southern Crackridge Wilds</h2><div id="southern-crackridge-routine"></div></section>
+          <section id="western-crackridge-result" class="panel route-card" hidden><h2>Western Crackridge Wilds · before Crackridge</h2><div id="western-crackridge-routine"></div></section>
+          <section id="western-crackridge-return-result" class="panel route-card" hidden><h2>Western Crackridge Wilds · after Crackridge</h2><div id="western-crackridge-return-routine"></div></section>
+          <section id="gravell-result" class="panel route-card" hidden><h2>Western Gravell Wilds · night</h2><div id="gravell-routine"></div></section>
         </div>
       </section>
       <section id="detail-panel" hidden aria-labelledby="detail-title">
@@ -186,6 +270,74 @@
             <span class="diagnostic-label">Composition finalized · before enemy actor initialization</span>
             <div class="diagnostic-value"><strong id="early-cait-advances"></strong><span>advances since initial seed</span></div>
             <span id="early-cait-hex" class="rng-secondary"></span>
+          </section>
+          <section id="eastern-snows-log" class="panel log-panel" hidden>
+            <h2>Eastern Cape Cold Snows · after loading</h2>
+            <div class="diagnostic-value"><strong id="eastern-snows-advances"></strong><span>advances since initial seed</span></div>
+            <p id="eastern-snows-hex" class="rng-secondary"></p>
+            <p id="eastern-snows-counter" class="muted small"></p>
+          </section>
+          <section id="progression-log" class="panel log-panel" hidden>
+            <h2>Party after rare victory</h2>
+            <div id="progression-details"></div>
+          </section>
+          <section id="winterbloom-log" class="panel log-panel" hidden>
+            <h2>Winterbloom · after night switch</h2>
+            <div class="diagnostic-value"><strong id="winterbloom-advances"></strong><span>advances since initial seed</span></div>
+            <p id="winterbloom-hex" class="rng-secondary"></p>
+            <p id="winterbloom-verification" class="muted small"></p>
+          </section>
+          <section id="oresrush-movement-log" class="panel log-panel" hidden>
+            <h2>Southern Cropdale Trail entry → Southern Oresrush Wilds</h2>
+            <p id="oresrush-movement-budget" class="muted small"></p>
+          </section>
+          <section id="oresrush-route-log" class="panel log-panel" hidden>
+            <h2>Oresrush · Mother route, Partitio recruitment and Southern return</h2>
+            <p id="oresrush-town-movement-budget" class="muted small"></p>
+            <p id="ryu-movement-budget" class="muted small"></p>
+            <p id="oresrush-route-verification" class="accuracy-note"></p>
+            <details class="routine"><summary>Route decisions</summary><div class="table-scroll"><table><thead><tr><th>Stage</th><th>Callback</th><th>Subject</th><th>Result</th><th>Advances since initial seed</th><th>CRT (hex)</th><th>Draws since battle entry</th></tr></thead><tbody id="oresrush-route-decisions"></tbody></table></div></details>
+          </section>
+          <section id="ryu-route-log" class="panel log-panel" hidden>
+            <h2>Northern Ryu Sands entry → Ryu</h2>
+            <p id="ryu-town-movement-budget" class="muted small"></p>
+            <p id="ryu-route-verification" class="accuracy-note"></p>
+            <details class="routine"><summary>Route decisions</summary><div class="table-scroll"><table><thead><tr><th>Stage</th><th>Callback</th><th>Subject</th><th>Result</th><th>Advances since initial seed</th><th>CRT (hex)</th><th>Draws since battle entry</th></tr></thead><tbody id="ryu-route-decisions"></tbody></table></div></details>
+          </section>
+          <section id="hikari-recruit-log" class="panel log-panel" hidden>
+            <h2>Hikari · recruited, Chapter 1 skipped</h2>
+            <div class="run-diagnostics"><span class="diagnostic-label">After replacement and tutorials · field control restored</span><div class="diagnostic-value"><strong id="hikari-recruit-advances"></strong><span>advances since initial seed</span></div><span id="hikari-recruit-hex" class="rng-secondary"></span></div>
+            <p id="hikari-recruit-counter" class="muted small"></p>
+            <p id="hikari-search-detail" class="muted small"></p>
+            <p id="hikari-recruit-verification" class="accuracy-note"></p>
+            <div class="table-scroll"><table><thead><tr><th>Character</th><th>Party</th><th>Level</th><th>EXP</th><th>JP</th></tr></thead><tbody id="hikari-recruit-ledger"></tbody></table></div>
+            <details class="routine"><summary>Recruit battle</summary><div class="table-scroll"><table><thead><tr><th>Round</th><th>Actor</th><th>Action</th><th>Damage</th><th>Advances since initial seed</th><th>CRT (hex)</th></tr></thead><tbody id="hikari-recruit-battle"></tbody></table></div></details>
+            <details class="routine"><summary>Recruitment decisions</summary><div class="table-scroll"><table><thead><tr><th>Stage</th><th>Callback</th><th>Subject</th><th>Result</th><th>Advances since initial seed</th><th>CRT (hex)</th><th>Draws since battle entry</th></tr></thead><tbody id="hikari-recruit-decisions"></tbody></table></div></details>
+          </section>
+          <section id="scholar-setup-log" class="panel log-panel" hidden>
+            <h2>Throné · Scholar and Evasive Maneuvers equipped</h2>
+            <div class="run-diagnostics"><span class="diagnostic-label">After skill purchases and menu closure</span><div class="diagnostic-value"><strong id="scholar-setup-advances"></strong><span>advances since initial seed</span></div><span id="scholar-setup-hex" class="rng-secondary"></span></div>
+            <p id="scholar-setup-counter" class="muted small"></p>
+            <p id="scholar-setup-jp" class="action-note"></p>
+            <p id="scholar-setup-stats" class="muted small"></p>
+            <p id="scholar-setup-verification" class="accuracy-note"></p>
+          </section>
+          <section id="canalbrine-route-log" class="panel log-panel" hidden>
+            <h2>Ryu → Northern Ryu Sands → Canalbrine Bridge</h2>
+            <div class="table-scroll"><table><thead><tr><th>Loaded area</th><th>Advances since initial seed</th><th>CRT (hex)</th><th>Entry counter</th></tr></thead><tbody id="canalbrine-route-checkpoints"></tbody></table></div>
+            <p id="canalbrine-route-verification" class="accuracy-note"></p>
+            <details class="routine"><summary>Loading decisions</summary><div class="table-scroll"><table><thead><tr><th>Stage</th><th>Callback</th><th>Subject</th><th>Result</th><th>Advances since initial seed</th><th>CRT (hex)</th></tr></thead><tbody id="canalbrine-route-decisions"></tbody></table></div></details>
+          </section>
+          <section id="conning-log" class="panel" hidden>
+            <h2>Conning Creek Coasts → Conning Creek</h2><p id="conning-verification" class="muted small"></p>
+            <table><thead><tr><th>Event</th><th>Advances</th><th>CRT</th><th>Counter</th></tr></thead><tbody id="conning-checkpoints"></tbody></table>
+          </section>
+          <section id="canalbrine-water-log" class="panel log-panel" hidden>
+            <h2>Canalbrine Bridge · water encounter and Escape</h2>
+            <p id="canalbrine-water-detail" class="muted small"></p>
+            <div class="table-scroll"><table><thead><tr><th>Checkpoint</th><th>Advances since initial seed</th><th>CRT (hex)</th></tr></thead><tbody id="canalbrine-water-checkpoints"></tbody></table></div>
+            <p id="canalbrine-water-return" class="muted small"></p>
+            <details class="routine"><summary>Boarding decisions</summary><div class="table-scroll"><table><thead><tr><th>Callback</th><th>Subject</th><th>Result</th><th>Advances since initial seed</th><th>CRT (hex)</th></tr></thead><tbody id="canalbrine-water-decisions"></tbody></table></div></details>
           </section>
           <section id="village-visit-log" class="panel log-panel" hidden>
           <h2>First Abandoned Village visit · fork endpoint</h2>
@@ -259,6 +411,7 @@
         <p class="muted small">Required outcomes sharing an event are searched together before optional improvements. Numeric budgets allow extra repeats; an optional miss keeps the required plan. Escape strategy preferences are separate.</p>
         <p class="muted small">1 repeat = 1 cancel + 1 reboost (2 extra button presses). A budget of 4 allows 8 extra presses, excluding normal action boosts. Larger boost climbs receive no discount.</p>
         <form id="settings-form" class="settings-form" novalidate>
+          <p class="muted small">Never surprised by a planned encounter: always required.</p>
           <section class="panel search-setting" aria-labelledby="first-search-title">
           <h2 id="first-search-title">First battle</h2>
           <p class="muted small">Search: boost/cancel inputs at a party command menu, then the fixed action.</p>
@@ -279,7 +432,7 @@
             <h2 id="second-search-title">Second fight</h2>
             <p class="muted small">Search: boost/cancel inputs at a party command menu, then the fixed action.</p>
             <div class="event-setting">
-              <label for="mansion-approach-boost-repeats">First mansion encounter · avoid surprise attack</label>
+              <label for="mansion-approach-boost-repeats">Gold Ring success + first mansion encounter without surprise</label>
               <input id="mansion-approach-boost-repeats" type="number" min="0" max="256" step="1" value="4">
               <label class="unlimited-choice"><input id="mansion-approach-boost-repeats-unlimited" type="checkbox" aria-label="Required outcome: mansion approach repeats"> Required outcome</label>
               <p class="muted small">Keep the first-battle plan and any achieved one-enemy-action result.</p>
@@ -315,22 +468,16 @@
               <p class="muted small">Optional: additional repeats beyond victory. Required: search victory and no Healing Grape together.</p>
             </div>
             <div class="event-setting">
-              <label for="highroad-approach-boost-repeats">Highroad · avoid surprise attack</label>
+              <label for="highroad-approach-boost-repeats">Highroad · no surprise + Throné break</label>
               <input id="highroad-approach-boost-repeats" type="number" min="0" max="256" step="1" value="4">
               <label class="unlimited-choice"><input id="highroad-approach-boost-repeats-unlimited" type="checkbox" aria-label="Required outcome: highroad approach repeats"> Required outcome</label>
-              <p class="muted small">Search: R8 boost/cancel, ending at 3 BP swords, with early or late latent. Keep the R3 plan and victory.</p>
-            </div>
-            <div class="event-setting">
-              <label for="highroad-break-boost-repeats">Highroad · unboosted first-turn break</label>
-              <input id="highroad-break-boost-repeats" type="number" min="0" max="256" step="1" value="4">
-              <label class="unlimited-choice"><input id="highroad-break-boost-repeats-unlimited" type="checkbox" checked aria-label="Required outcome: unboosted Highroad break"> Required outcome</label>
-              <p class="muted small">Pirro R8 boosts target one City Ratkin I or Night Raven and an actual successful unboosted dagger hit. Preserve victory and required no-surprise results.</p>
+              <p class="muted small">Search R8 boosts for a safe turn-one Throné break (BP allowed), then freeze that choice.</p>
             </div>
           </section>
           <section class="panel search-setting" aria-labelledby="highroad-search-title">
             <h2 id="highroad-search-title">New Delsta Highroad</h2>
-            <p class="muted small">Compare direct Escape against a single-enemy break with boosts at R1 or R2. Boost input: 1; breaking: 10 input-equivalents. Preserve every required outcome.</p>
-            <div class="event-setting">
+            <p class="muted small">Break on turn one, then Escape. Search this encounter’s boosts for a safe harbor walk and a Throné-breakable Flats encounter. Earlier choices stay fixed.</p>
+            <div class="event-setting" hidden>
               <input id="highroad-escape-boost-repeats" type="hidden" value="4">
               <label class="unlimited-choice"><input id="highroad-escape-boost-repeats-unlimited" type="checkbox" aria-label="Boost only: Highroad Escape"> Boost only</label>
             </div>
@@ -341,22 +488,16 @@
               <p class="muted small">Optional: additional repeats beyond the required plan, preserving Escape. Required: include the safe harbor walk in every strategy candidate.</p>
             </div>
             <div class="event-setting">
-              <label for="highroad-flats-approach-boost-repeats">Flats encounter · avoid surprise attack</label>
+              <label for="highroad-flats-approach-boost-repeats">Flats encounter · no surprise + Throné break</label>
               <input id="highroad-flats-approach-boost-repeats" type="number" min="0" max="256" step="1" value="4">
               <label class="unlimited-choice"><input id="highroad-flats-approach-boost-repeats-unlimited" type="checkbox" aria-label="Required outcome: Flats approach repeats"> Required outcome</label>
-              <p class="muted small">Optional: additional repeats beyond the selected plan. Required: jointly require Escape, a safe harbor walk, and no surprise after returning from harbor.</p>
-            </div>
-            <div class="event-setting">
-              <label for="highroad-flats-break-boost-repeats">Flats · unboosted first-turn break</label>
-              <input id="highroad-flats-break-boost-repeats" type="number" min="0" max="256" step="1" value="4">
-              <label class="unlimited-choice"><input id="highroad-flats-break-boost-repeats-unlimited" type="checkbox" checked aria-label="Required outcome: unboosted Flats break"> Required outcome</label>
-              <p class="muted small">Target one City Ratkin I or Night Raven. Replay the unboosted dagger hit to ensure it breaks. Preserve Harbor walking and any achieved no-surprise result.</p>
+              <p class="muted small">Required: safe harbor walk and a turn-one Throné break after Harbor (BP allowed).</p>
             </div>
           </section>
           <section class="panel search-setting" aria-labelledby="flats-escape-search-title">
             <h2 id="flats-escape-search-title">New Delsta Flats encounter</h2>
-            <p class="muted small">Search R1 boosts → Escape or break → R2 boosts → Escape, keeping a safe village run, clerics and safe travel. Minimize boost inputs + 10 per break + 7 per time switch. Required targets are searched together.</p>
-            <div class="event-setting">
+            <p class="muted small">Break on turn one, then Escape. Search R1/R2 boosts for the village run, clerics and safe onward travel, then freeze this choice before searching Snows.</p>
+            <div class="event-setting" hidden>
               <input id="flats-escape-boost-repeats" type="hidden" value="4">
               <label class="unlimited-choice"><input id="flats-escape-boost-repeats-unlimited" type="checkbox" aria-label="Boost only: Flats Escape"> Boost only</label>
             </div>
@@ -374,7 +515,7 @@
           </section>
           <section class="panel search-setting" aria-labelledby="cleric-time-search-title" hidden>
             <h2 id="cleric-time-search-title">After cleric purchases</h2>
-            <p class="muted small">Search complete day/night cycles, ending on day, to walk to Osvald safely. Earlier Flats boosts are also candidates when cheaper. Numeric budget: extra estimated cost in pairs of input units (4 = 8 cost units). Required searches without a limit.</p>
+            <p class="muted small">Search Flats encounter boosts to walk to Osvald safely. After buying from the clerics, always switch once back to day. Numeric budget: extra estimated cost in pairs of input units (4 = 8 cost units). Required searches without a limit.</p>
             <div class="event-setting">
               <label for="flats-osvald-boost-repeats">Walk to Osvald · extra cost budget</label>
               <input id="flats-osvald-boost-repeats" type="number" min="0" max="256" step="1" value="4">
@@ -384,12 +525,12 @@
           </section>
           <section class="panel search-setting" aria-labelledby="osvald-time-search-title">
             <h2 id="osvald-time-search-title">Southern Cape Cold Snows encounter</h2>
-            <p class="muted small">Search Flats encounter boosts and post-purchase time cycles. If an encounter is predicted before Osvald, only that solo opening must avoid surprise. Otherwise protect both timings. After-Osvald switches only affect the later opening. Each time switch costs 7 boost-input units.</p>
+            <p class="muted small">Search Flats encounter boosts. After buying from the clerics, always switch once back to day and stay daytime through Osvald. If an encounter is predicted before Osvald, only that solo opening must avoid surprise. Otherwise protect both timings.</p>
             <div class="event-setting">
               <label for="early-cait-boost-repeats">Avoid surprise · extra cost budget</label>
               <input id="early-cait-boost-repeats" type="number" min="0" max="256" step="1" value="4">
               <label class="unlimited-choice"><input id="early-cait-boost-repeats-unlimited" type="checkbox" checked aria-label="Required outcome: avoid surprise before or after Osvald"> Required outcome</label>
-              <p class="muted small">Run to Osvald: 64 updates, no leeway. An encounter before recruitment is allowed. Numeric budgets remain optional; Required searches without a limit.</p>
+              <p class="muted small">Target Cait after Osvald in Southern Cape Cold Snows, or in Eastern Cape Cold Snows. Regular Octopuff is not a target there. Otherwise search an Eastern Escape, a full 167-update run without a second encounter, and a rare in Western Winterbloom. Western escape adjustments require a safe Throné-breakable encounter in Crackridge Harbor after the boat. The Crackridge break is mandatory; BP is allowed. Stop searching later rares once an earlier rare is secured. Allow 70 walking updates to Osvald; otherwise use 64 running updates.</p>
             </div>
           </section>
           <section class="panel" hidden>
@@ -406,6 +547,18 @@
               <label class="unlimited-choice"><input id="crackridge-approach-boost-repeats-unlimited" type="checkbox" checked aria-label="Required outcome: Crackridge Harbor approach"> Required outcome</label>
               <p class="muted small">First compare day switching in Flats before teleport versus Harbor after teleport. If both cause surprise, search Mug R2 boosts and Cape Cold time switches while keeping clerics. Optional budget adds 2 input-cost units per repeat to the clerics plan; each time switch costs 7. Required has no budget limit. At the Harbor encounter, boosts are searched until first Escape succeeds.</p>
             </div>
+          </section>
+          <section class="panel search-setting" aria-labelledby="hikari-search-title">
+            <h2 id="hikari-search-title">Oresrush → Conning Creek search</h2>
+            <label class="unlimited-choice"><input type="checkbox" checked disabled> Required: Cultured Cait in either coast; no surprise in either</label>
+            <p class="muted small">Compare Oresrush switches after Mother’s route starts, then propagate using the closest boost menus. Compare Northern Cait (Canalbrine boosts) with Western Cait (Northern boosts); choose Western only when its complete plan costs less. Three switches before Partitio and two after are free, separately. Leave by day. Each additional switch costs 7 boost inputs. No Cropdale switches.</p>
+            <label class="unlimited-choice"><input type="checkbox" checked disabled> Required: Canalbrine Bridge water encounter without surprise</label>
+            <p class="muted small">Adjust boosts at the second player command, return to 0 BP, then use the unboosted default attack. Keep the selected route to Ryu. Search together with the water Escape for the fewest total boost inputs.</p>
+          </section>
+          <section class="panel search-setting" aria-labelledby="canalbrine-water-search-title">
+            <h2 id="canalbrine-water-search-title">Canalbrine Bridge · water Escape</h2>
+            <label class="unlimited-choice"><input type="checkbox" checked disabled> Required: first Escape succeeds</label>
+            <p class="muted small">Adjust boosts at the first command menu, return to 0 BP, then Escape. Search has no repeat limit. These targets apply to the onward route after Hikari recruitment.</p>
           </section>
           <button id="save-settings" class="primary" type="submit">Save settings</button>
           <p id="settings-status" class="status" role="status"></p>

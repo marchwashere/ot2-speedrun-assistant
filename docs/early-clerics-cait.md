@@ -1,3 +1,31 @@
+Current policy: after buying soulstones, switch exactly once from night back to
+day. Extra post-cleric cycles are removed from prediction and search. Battle
+boost/break controls and post-Osvald switches remain available. Older cycle-search
+examples below describe historical plans.
+
+The current rare goal is OR, not AND: Cait after recruiting Osvald in
+Southern Cape Cold Snows; Cait in Eastern Cape Cold Snows; or one
+Eastern encounter followed by a full 167-update run without a second encounter
+and a rare in Western Winterbloom. Joint Southern/Eastern boost and zero-BP
+break searches use actual input cost, preserving earlier required outcomes.
+Regular Octopuff is excluded from Southern/Eastern rare targets only; encounter
+generation still includes it. Western Queen Octopuff remains eligible.
+An earlier rare stops later rare searching. Every selected formation must die
+to one Shadow Soulstone (M), including its companions. Source-derived core
+item/voice/victory/drop callbacks carry the shared field return, after which
+Osvald learns two skills and equips Evasive Maneuvers. The carried world records
+that support for subsequent movement at 50%; it is absent before the rare kill.
+New completion and Western endpoints await live validation.
+
+Cait destination now accepts either Southern Cape Cold Snows **after Osvald
+recruitment** or Eastern Cape Cold Snows, always without surprise. A Southern
+candidate may use the actual safe 70-update walk to Osvald instead of the
+64-update run. Preserve required/achieved upstream targets and compare its
+adjustment cost against the existing Eastern plan including Southern Escape.
+The GUI shows the selected approach. A Southern Cait endpoint stops before
+battle initialization; it must not be escaped or assigned invented combat RNG.
+The suspended-Cait and Eastern-only descriptions below are historical.
+
 # Early clerics and Osvald Cait fork
 
 Active branch: `strategy/abandoned-village-fork`. The old route is on `main`.
@@ -142,3 +170,25 @@ update a gold/inventory ledger. Current tests verify input replay, shared loader
 state and CRT, no resets on the shop switches, recruitment party/progression,
 actual replacement slots, independent policies and exclusion of Cape Cold.
 This strategy is source-derived and has not been live-validated.
+# Mandatory encounter safety and continued travel after a Southern rare
+
+Every expected encounter must be Normal or Preemptive. This is a hard rule,
+independent of numeric optional budgets. Search at the preceding controllable
+event; boost inputs at an encounter cannot repair its opening situation.
+
+A Southern rare completes the rare target, but not the travel route. Replay
+Shadow Soulstone (M), actual victory/drop callbacks and field restoration.
+Carry prior route EXP plus the rare reward/earned EXP bonuses into both party
+levels; learn two Osvald skills and equip Evasive Maneuvers. The next Eastern
+map load, encounter selector, actor initialization and Escape use these new
+levels and the 50% movement support. Reject upstream Southern rare candidates
+that would cause an Eastern surprise. Search minimum-cost successful Escape;
+show its instructions even when zero adjustment is needed. Western rare
+selection is absent from this branch.
+
+For the daytime 167-update Eastern run, Evasive Maneuvers truncates decrement
+to 6. A fresh half counter triggers the first encounter at updates 84..150;
+the maximum remaining cost is 83*6=498, below the minimum normal post-battle
+counter of 1000. Thus running the rest cannot cause a second encounter.
+Night branches still evaluate their actual decrement/counter instead of
+assuming the daytime guarantee. New continuation endpoints await retail tracing.

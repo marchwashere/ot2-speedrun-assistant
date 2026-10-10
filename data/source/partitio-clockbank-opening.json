@@ -1,0 +1,523 @@
+{
+  "sources": [
+    {
+      "source": "/Game/Story/Database/MainStory",
+      "sha256": "a9e4a56d3bd1449ba1045d1adef07c3f9146e133b7571f4012627acd25b4121d"
+    },
+    {
+      "source": "/Game/Event/Database/EventList",
+      "sha256": "acbbb094b2b071271fde8e4adf26b0df3661594556b3835b96e93a97300089a3"
+    },
+    {
+      "source": "/Game/Level/Database/LevelTable",
+      "sha256": "153569a707872dfec0504f8bd301d2b30baf6154469d5673c35680ed0ed30232"
+    },
+    {
+      "source": "/Game/Event/json/MS_SHO_20_0050",
+      "sha256": "c4bae721ce7379ef883c28ea43e4c49c986c3a15ac28b0659e606ddbb715b7f3"
+    }
+  ],
+  "story": {
+    "id": "MS_SHO_01",
+    "ID": 401,
+    "PlayerCharaID": "EPlayableCharacterID::eMERCHANT",
+    "StartWMapLocation": "eMAP_Twn_Cty_2_1",
+    "SwitchWMapLocation": [
+      {
+        "WMapLocation": "None",
+        "RelationLevel": [
+          "None",
+          "None",
+          "None",
+          "None",
+          "None",
+          "None",
+          "None",
+          "None",
+          "None"
+        ],
+        "StartFlag": 0,
+        "EndFlag": 0
+      },
+      {
+        "WMapLocation": "None",
+        "RelationLevel": [
+          "None",
+          "None",
+          "None",
+          "None",
+          "None",
+          "None",
+          "None",
+          "None",
+          "None"
+        ],
+        "StartFlag": 0,
+        "EndFlag": 0
+      },
+      {
+        "WMapLocation": "None",
+        "RelationLevel": [
+          "None",
+          "None",
+          "None",
+          "None",
+          "None"
+        ],
+        "StartFlag": 0,
+        "EndFlag": 0
+      },
+      {
+        "WMapLocation": "None",
+        "RelationLevel": [
+          "None",
+          "None",
+          "None",
+          "None",
+          "None"
+        ],
+        "StartFlag": 0,
+        "EndFlag": 0
+      },
+      {
+        "WMapLocation": "None",
+        "RelationLevel": [
+          "None",
+          "None",
+          "None",
+          "None",
+          "None"
+        ],
+        "StartFlag": 0,
+        "EndFlag": 0
+      },
+      {
+        "WMapLocation": "None",
+        "RelationLevel": [
+          "None",
+          "None",
+          "None",
+          "None",
+          "None"
+        ],
+        "StartFlag": 0,
+        "EndFlag": 0
+      }
+    ],
+    "RelationCharaID": [
+      "EPlayableCharacterID::eNONE",
+      "EPlayableCharacterID::eNONE"
+    ],
+    "ReleaseFlag": [
+      6019,
+      0,
+      0,
+      0
+    ],
+    "ReleaseNoticeFlag": false,
+    "SealFlag": 0,
+    "StoryCategory": "EMAIN_STORY_CATEGORY::COMMON",
+    "ExStoryCategory": "EEXTRA_STORY_CATEGORY::NONE",
+    "ChapterIndex": 2,
+    "ChapterText": "MSC_SHO_20_000",
+    "SubTitleText": "MST_SHO_20_000",
+    "StoryDetailText": "MSS_SHO_20",
+    "OpeningEvent": "MS_SHO_20_0050",
+    "RecommendationPoint": [
+      0,
+      18,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "ClearDifficultyPoint": 2,
+    "RecoverSwoonOnClear": false,
+    "RelationLevel": [
+      "Twn_Cty_2_1_A",
+      "Twn_Cty_2_1_B",
+      "Dng_Cty_2_1",
+      "None",
+      "None",
+      "None",
+      "None",
+      "None",
+      "None",
+      "None",
+      "None",
+      "None",
+      "None",
+      "None",
+      "None",
+      "None"
+    ],
+    "EventFlagRange": [
+      6050,
+      6081,
+      34051,
+      34052,
+      34024,
+      34024,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "OffEventFlagRange": [
+      25404,
+      25404,
+      34025,
+      34025,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "NotVisitedOnClear": [
+      "None",
+      "None",
+      "None",
+      "None",
+      "None",
+      "None",
+      "None"
+    ],
+    "VisitedOnClear": [
+      "None",
+      "None",
+      "None",
+      "None",
+      "None"
+    ]
+  },
+  "event": {
+    "id": "MS_SHO_20_0050",
+    "EventIndex": 0,
+    "ExecCode": "MS_SHO_20_0050",
+    "CueSheetName": "CueSheet_VO_EventSHO020",
+    "RadarMapExitCode": "None",
+    "MapID": "64",
+    "Kind": "EEventKind::EVENT_MAIN",
+    "EventSoundLabel": "ES_SHO_20_0050",
+    "MissionLabel": "ML_SHO_20_0050",
+    "EventSkip": 1,
+    "LevelTriggerID": "ELevelTriggerID::Trigger_01",
+    "LanthanumFlag": 0,
+    "EncountTrigger": "None",
+    "CameraLockTrigger1": "None",
+    "CameraLockTrigger2": "None",
+    "CameraLockTrigger3": "None",
+    "StartFadeOutFlag": 1,
+    "ChengeTimeSequencer": "None",
+    "ChengeFinishTimeSequencer": "None",
+    "TargetChara": 0,
+    "EncountReset": true,
+    "Args": [
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  "map": {
+    "id": "Twn_Cty_2_1_A",
+    "ID": 64,
+    "LevelKind": 0,
+    "AreaID": 1,
+    "TownLabel": 19,
+    "SubTownLabel": 19,
+    "MapChangeType": 2,
+    "TransportationType": 0,
+    "EncountStepMin": 1000,
+    "RandomStepA": 400,
+    "RandomStepB": 400,
+    "FirstEncountStepRatio": 0.5,
+    "BgmLabelDayTime": "bgm_m13_town_city_a",
+    "BgmLabelNight": "bgm_m13_town_city_a",
+    "BgmLabelDarkness": "m100_field_finalchapter",
+    "Bgm2Label": "bgm_null",
+    "Bgm2EnableFlag": 25540,
+    "Bgm3Label": "None",
+    "Bgm3EnableFlag": 0,
+    "Bgm4Label": "None",
+    "Bgm4EnableFlag": 0,
+    "Bgm5Label": "None",
+    "Bgm5EnableFlag": 0,
+    "TimeZoneChangeSeLabel": "se_system_timechange",
+    "TimeZoneChangeSe2Label": "se_event_bell_church",
+    "TimeZoneChangeSe2EnableFlag": 20223,
+    "ScreenFadeInTime": 1,
+    "ScreenFadeOutTime": 1,
+    "EncountOffset": 0,
+    "BattleMapNameList": [
+      "Btl_Twn_Cty_C",
+      "None",
+      "None",
+      "None",
+      "None"
+    ],
+    "EncountVolumeNameList": [
+      "None"
+    ],
+    "DarkAreaEncountVolumeName": "None",
+    "Intencity": 0,
+    "AttenuationRadius": 0,
+    "LightColor": {
+      "kind": "native-struct",
+      "type": "LinearColor",
+      "components": [
+        {
+          "kind": "float32",
+          "bits": 0,
+          "value": 0
+        },
+        {
+          "kind": "float32",
+          "bits": 0,
+          "value": 0
+        },
+        {
+          "kind": "float32",
+          "bits": 0,
+          "value": 0
+        },
+        {
+          "kind": "float32",
+          "bits": 0,
+          "value": 0
+        }
+      ]
+    },
+    "SourceRadius": 0,
+    "TorchFlag": false,
+    "ImpossibleTimeZoneChangeFlag": false,
+    "TimeZoneSeqChangeFlag": 0,
+    "ReplaceTimeZoneSeqLabel": "None",
+    "ReverbFlag": false,
+    "ImpossibleFCFlag": false,
+    "BarPlacementChara": [
+      true,
+      true,
+      true,
+      false,
+      true,
+      true,
+      true,
+      true
+    ],
+    "BarPCPos1": [
+      3827.5,
+      -641.3499755859375,
+      974.27001953125
+    ],
+    "BarPCDir1": 3,
+    "BarPCPos2": [
+      4024.218994140625,
+      -184.5572967529297,
+      952.1500244140625
+    ],
+    "BarPCDir2": 2,
+    "BarItemLabel1": "ITM_CSM_0050",
+    "BarItemCnt1": 1,
+    "BarItemLabel2": "ITM_CSM_0080",
+    "BarItemCnt2": 1,
+    "BarItemLabel3": "None",
+    "BarItemCnt3": 0,
+    "BarEventLabel": "BarTalk_A",
+    "BanLostWay": false,
+    "BanMainMenuPartyMemberChange": false
+  },
+  "commands": {
+    "0": {
+      "cmd": 1550,
+      "target": 0,
+      "pos": "X=0.0,Y=0.0,Z=0.0",
+      "dir": -1,
+      "text": "",
+      "async": "0",
+      "opt": [
+        "1"
+      ]
+    },
+    "1": {
+      "cmd": 1,
+      "target": 0,
+      "pos": "X=0.0,Y=0.0,Z=0.0",
+      "dir": -1,
+      "text": "",
+      "async": "0",
+      "opt": [
+        "0"
+      ]
+    },
+    "2": {
+      "cmd": 2,
+      "target": 0,
+      "pos": "X=0.0,Y=0.0,Z=0.0",
+      "dir": -1,
+      "text": "",
+      "async": "0",
+      "opt": [
+        "0"
+      ]
+    },
+    "3": {
+      "cmd": 1500,
+      "target": 0,
+      "pos": "X=0.0,Y=0.0,Z=0.0",
+      "dir": -1,
+      "text": "",
+      "async": "0",
+      "opt": [
+        "RI_MS_SHO_20_0100"
+      ]
+    },
+    "4": {
+      "cmd": 1501,
+      "target": 0,
+      "pos": "X=0.0,Y=0.0,Z=0.0",
+      "dir": -1,
+      "text": "",
+      "async": "0",
+      "opt": [
+        ""
+      ]
+    },
+    "5": {
+      "cmd": 1,
+      "target": 0,
+      "pos": "X=0.0,Y=0.0,Z=0.0",
+      "dir": -1,
+      "text": "",
+      "async": "0",
+      "opt": [
+        "1"
+      ]
+    },
+    "6": {
+      "cmd": 2,
+      "target": 0,
+      "pos": "X=0.0,Y=0.0,Z=0.0",
+      "dir": -1,
+      "text": "",
+      "async": "0",
+      "opt": [
+        "1"
+      ]
+    },
+    "7": {
+      "cmd": 310,
+      "target": 0,
+      "pos": "X=0.0,Y=0.0,Z=0.0",
+      "dir": -1,
+      "text": "",
+      "async": "0",
+      "opt": [
+        ""
+      ]
+    },
+    "8": {
+      "cmd": 9980,
+      "target": 0,
+      "pos": "X=0.0,Y=0.0,Z=0.0",
+      "dir": -1,
+      "text": "",
+      "async": "0",
+      "opt": [
+        ""
+      ]
+    },
+    "9": {
+      "cmd": 71,
+      "target": 6076,
+      "pos": "X=0.0,Y=0.0,Z=0.0",
+      "dir": -1,
+      "text": "",
+      "async": "0",
+      "opt": [
+        "1"
+      ]
+    },
+    "10": {
+      "cmd": 230,
+      "target": 0,
+      "pos": "X=800,Y=1600,Z=682.15",
+      "dir": 1,
+      "text": "",
+      "async": "0",
+      "opt": [
+        ""
+      ]
+    },
+    "11": {
+      "cmd": 9990,
+      "target": 0,
+      "pos": "X=0.0,Y=0.0,Z=0.0",
+      "dir": -1,
+      "text": "",
+      "async": "0",
+      "opt": [
+        ""
+      ]
+    },
+    "12": {
+      "cmd": 52,
+      "target": 0,
+      "pos": "X=0.0,Y=0.0,Z=0.0",
+      "dir": -1,
+      "text": "",
+      "async": "0",
+      "opt": [
+        "2"
+      ]
+    },
+    "13": {
+      "cmd": 10000,
+      "target": 0,
+      "pos": "X=0.0,Y=0.0,Z=0.0",
+      "dir": -1,
+      "text": "",
+      "async": "0",
+      "opt": [
+        ""
+      ]
+    }
+  }
+}

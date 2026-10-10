@@ -96,6 +96,7 @@ mod tests {
                 draws: 5962
             }
         );
+        assert_eq!(p.world_after.main_progress_points, 1);
         assert_eq!(p.world_after.time, 1);
         assert!(!p.world_after.active_scenarios.contains(&700));
         assert!(

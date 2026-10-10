@@ -1,5 +1,481 @@
 # Active project
 
+- Cat fixed elemental damage must use EnemyDB.UseCatDamageType: integer divide
+  post-resistance damage by100, minimum1. SSM deals11 to Cultured Cait8HP,
+  so the coast pack does NOT grant Overkill EXP. Missing this awarded129 extra
+  EXP and made Agnea Lv15 instead of14, reversing Highroad menu order.
+  Source audit data/source/cat-fixed-damage.json (core).
+
+- After Castti skip/bench: fast travel New Delsta main town, accept Agnea Chapter 2 through
+  MapInStorySelect/MS_ODO_01 and skip MS_ODO_20_0100, then load Eastern New
+  Delsta Highroad, exactly one expected encounter, no surprise hard requirement.
+  Existing Western Coast boost/Conning town+Harbor switch search now preserves
+  successful Pomegranate steal AND this safe opening; freeze earlier choices.
+  Search nearest Highroad first menu boost/cancel for successful Escape. Then
+  Arkar license SYS_INV_GUILD_0010, Elemental Bomb Bottle0D10, Critical Scope0C10.
+  Assume crafting materials available; execute script flags/counter resets and
+  track license11 plus globally unlocked Inventor abilities. Only variable
+  encounter/Escape guidance in Manipulation; arrival/craft CRT in Detailed log.
+  Highroad return uses all progression-tier enemies; after regenerating core
+  field imports also run tools/import-highroad-return.cjs. Retail validation pending.
+
+- After Canalbrine boat arrival recruit Castti via MS_KUS_00_0100: deliver one
+  Healing Grape (command32 Yes), accept126 Yes, skip Chapter1 at135 No, retain
+  Castti on bench (full party unchanged). Import her starting stats/EXP ledger
+  and skipped-prologue flags/points. Use actual FinishPre refresh/reset. Assumes
+  the grape is available and no earlier Castti interaction. Endpoint in Detailed
+  log only; retail validation pending. See data/source/castti-recruit-audit.json.
+
+- Canalbrine has six CRT-consuming gondola BeginPlay actors (three NoPaddle,
+  three Paddle). Both classes call RandomFloatInRange(0,20) -> SetNewTime at
+  entry214. Import their per-actor callbacks in level actor order, only for
+  created visible field streams, as for canoe/flag/lamp callbacks. They were
+  missing from the initial voyage prediction (19287459 vs retail19287465).
+  Source audit: tools/audit-canalbrine-voyage.cjs. Do not add a fixed +6 offset.
+
+- After Conning Harbor Pomegranate steal, fast travel to tagged New Delsta
+  Harbor, skip SC_LinerShip_Cty_to_Isd to map69 Fld_Isd_1_3 (Beasting Bay:
+  Anchorage), then skip SC_LinerShip_Isd_to_Sea to map123 Twn_Sea_1_1_A
+  (Canalbrine). Both events load ocean189 first and reset at FinishPre.
+  Carry party/EXP/time unchanged; no additional time switch or recruitment.
+  Fixed travel checkpoints belong in Detailed log. Retail verification pending.
+
+- Conning Harbor Townsperson Energizing Pomegranate (M) steal follows Harbor
+  entry. Freeze earlier selected route; search Western Coast menu boosts plus
+  town and Harbor time switches, two free switches PER zone, seven input
+  equivalents for each further switch. Exit daytime. Preserve Western opening,
+  rare victory/first-try Escape, real carried EXP/levels and shared loader state.
+  ProperSteal is 8; use actual Throné level and FieldCommandWidgetSteal thresholds.
+  See docs/conning-pomegranate.md. Source-derived steal awaits retail validation.
+
+- Route now continues Conning Creek town -> Conning Creek: Harbor, map125
+  Twn_Sea_2_1_B (GameTextEN confirms name; LevelTriggerTable town exit5160
+  targets Harbor trigger02, WALK, no flag writes/conditional destination).
+  Use shared Loader.visit_map and carry the town endpoint, party/progression and
+  day unchanged. No Osvald chapter start. Harbor CRT/counter/trace belong in
+  Detailed log, not a fixed-action Manipulation widget. Retail check pending.
+
+- Town load must not run hidden battle-backdrop BeginPlay callbacks. Preserve
+  all streamed-level constructor draws, but initialize environment actors only
+  in created field_streams. Conning re-entry live fixture 2026-10-09 is the final
+  segment after a manual CRT rewind: 19287194 -> 19287273 (79 calls). Earlier
+  records belong to leaving town. See docs/town-loading-audit.md and the per-call
+  regression; do not patch this with a town-specific draw subtraction.
+
+- Attack instructions must identify the target position for single-target attacks in multi-enemy battles (rightmost/leftmost/middle, numbered from right for larger formations). Use the actual report action name, not the equipped weapon, so Osvald spell breaks never display as Staff. All-target spells need no target position.
+
+- Snows searches may insert safe Defends after breaking. Accept a Defend only when its resulting player menu still has every living enemy broken; reject recovery/enemy-menu branches without running enemy AI. Replay guard RNG, turn order and BP recovery in Battle. User-specified Defend cost is 8 boost-input equivalents. Defend itself draws21 for Guard application plus1 guard voice; round/menu progression is additional. Field CRT imports must retain type17 guard rows for Throné/Osvald (copied from audited Pirro/Mug data by import-field-spells.cjs). Search successive safe Defends (bounded by the two-member break window), show actor/round/menu plus Defend in Manipulation, and keep final Escape guaranteed. This does not enable exposed Defend turns or arbitrary enemy combat.
+
+- Snows break search now includes unboosted first-actor spells: Osvald Fireball/Icewind (innate), and Throné Darkest Night against a lone 1-shield dark weakness. Require every surviving enemy broken; reject full victory or any live unbroken target, never skip enemy AI. Preserve SP costs and per-target latent gains on field return. Spell break has the existing 10-input-equivalent action cost; compare R1/R2 boosts and direct Escape. UI names the actual skill. Callback data imports Fireball/Icewind from the Mug source, reusing real actor voices; multi-target reaction is aggregated. New spell-break RNG awaits retail verification.
+
+- Crackridge Harbor joins Highroad and post-Harbor Flats as a mandatory Throné break encounter. The preceding Winterbloom control selects a non-surprised single enemy that her real turn-one Sword/Dagger attack can break (BP allowed). Execute the break, then guaranteed Escape at the actual next player menu; carry +25 latent, real levels/stats/weakness history and remaining BP. Never select direct Escape for these three active-route encounters. Freeze previous choices and preserve all onward movement/surprise goals.
+
+- Latest Pirro → Snows policy: strict forward propagation. Pirro R8 requires no surprise plus an actual Throné turn-one breakable Highroad formation; Highroad requires the same for Flats after Harbor, preserving safe Harbor walking. BP is allowed for the break. Execute mandatory breaks in both encounters; search R1/R2 boosts using actual remaining BP. Freeze each selected upstream control before proceeding; do not run formation_search::optimize or revisit Flats to reduce Snows cost. Track +25 latent per successful break (cap80 for Throné); preserve carried resources through the rare item clear. No joint global optimum claim.
+
+- Search optimization: propagate remaining incumbent cost into Snows and Hikari/Canalbrine/coast trials. A bound is NOT a Required-outcome retry limit. Formation and Oresrush searches use increasing cost frontiers, growing until a complete candidate exists; preserve candidate ordering and Northern tie preference. Quiet Flats trials compute only the predicted Osvald timing; detailed winning replay reconstructs overrides. Oresrush PrefixCache reuses town/Mother entry and Partitio recruitment per before-switch count, scoped to one immutable entry. Never share it across different world/RNG inputs. See docs/search-pruning.md.
+
+- Latest time-switch policy supersedes Cropdale search below: NO Cropdale adjustments. Freeze earlier route/Eastern Cropdale Escape, compare Oresrush switches only after Mother Chapter 2 opening, before and after Partitio recruitment. Each side has its own two free switches; additional switches cost seven inputs. Total switches even (exit day); odd/odd allocations recruit by night and are replayed accordingly. Preserve walking-safe return-to-Ryu legs; strict nearest-menu downstream propagation and Northern Cait tie preference. Manipulation shows separate before/after Partitio lines in Oresrush chronological position.
+
+- Tavern correction: shared Loader.refresh_bar uses data/taverns.json imported from cooked LevelTable/GameParam. Appearance 0..50/51..74/75..99 requests 0/1/2 slots, capped by map capacity (Winterbloom one). Each slot consumes a selection draw only if eligible bench remains, then ALWAYS an item-gift roll even for hidden ID-zero placeholders. Do not restore the old empty-bench one-draw shortcut. See docs/tavern-loading.md. Corrected source-derived totals await retail replay.
+
+- Manipulation presentation: show only variable run decisions, not fixed every-run setup/routine reminders. Keep adjustments (including explicit zero-adjustment notices), menu identity, dynamic attack/break/SSM-vs-Escape choices, steal order and computed movement limits. Fixed Scholar assignment, party replacement, recruitment/story instructions, guaranteed travel and fixed night/day instructions belong in Detailed log. Cropdale before/after Agnea switch counts must be separate stacked lines via instructionBoxHtml.
+
+- Cait location policy: actively search Canalbrine boosts for Northern Cultured Cait, comparing full downstream boost cost with the first-safe-Northern propagated Western fallback. Do not freeze Canalbrine at its first safe opening and accidentally force Western. Western only wins when strictly cheaper; prefer Northern on equal cost, including across Cropdale switch candidates. Preserve both no-surprise checks and successful Escapes.
+
+- Latest search policy: Compare even Cropdale switch counts, first before Agnea and rest after, exiting by day. First two switches free; each later switch costs 7 boost inputs. Each candidate uses strict sequential propagation, not cross-menu allocations. Select lowest switch + Eastern Escape + downstream input cost; stop when switch cost alone cannot improve the best plan. Keep earlier route decisions fixed; use nearest boost menus only for the Conning continuation. Hikari protects Canalbrine opening, Canalbrine Escape protects Northern opening, Northern action protects Western opening and targets Cultured Cait if Northern did not supply it. Western boosts only secure Escape. All required outcomes remain mandatory; no joint minimum-input-cost claim. This supersedes the older joint-search notes below.
+
+- Conning Creek extension: after the Canalbrine water Escape, visit
+  Northern then Western Conning Creek Coast. Switch to night just before each
+  first land encounter, switch back to day after each fight. Require no surprise
+  on BOTH encounters, Cultured Cait in either (not both required), clear that
+  pack with Shadow Soulstone M and Escape the other. Carry real EXP/JP, stats
+  and party [7,1,8,4], bench [6]. End at Conning Creek town entry: DO NOT start
+  Osvald Chapter 3 or replace anyone in the party. Optional Cropdale switches
+  must put the FIRST day-to-night switch BEFORE Agnea recruitment; ALL remaining
+  switches happen AFTER recruitment. Leave Cropdale during day (zero or an even
+  number of switches). The first two switches cost zero; each further switch
+  costs seven boost INPUTS. Replay recruitment at its actual time of day and
+  source-driven NPC/bar/flag callbacks; never substitute a fixed RNG offset.
+  enter_cropdale_with_switches records each boundary and departure() selects
+  the actual final checkpoint. conning::extend_selected_routes runs at the GUI
+  API boundary after earlier route selection, outside intermediate search probes,
+  and feeds Manipulation/Settings/Detailed log. search_cropdale minimizes total
+  input-equivalent cost across time switches, Eastern return Escape, Hikari
+  menu2, Canalbrine Escape and both coast menus, freezing the earlier selected
+  Crackridge approach. Cache exact world/RNG states and replay the winner with
+  diagnostics. Northern/Western cards show night, formation, boosts/item/Escape
+  and day. Source-derived endpoints still await retail validation. See
+  docs/conning-coasts.md; do not claim global optimality before Cropdale.
+
+- Canalbrine Bridge water encounter is now authorized after the encounterless
+  Ryu -> Northern Ryu -> Bridge continuation. The last upstream control is
+  the SECOND command menu of Hikari's recruitment fight, before its ordinary
+  unboosted weapon action. src/hikari_manipulation.rs jointly searches that
+  menu's boost/cancel cycles and the FIRST water encounter menu's cycles by
+  their combined input cost. Require Normal/Preemptive and successful first
+  Escape, with no repeat cap; ties prefer fewer Hikari cycles. Both menus have
+  one available BP, so each 0->1->0 cycle is two inputs and one CRT draw. Replay
+  the complete Hikari victory/recruitment, Scholar setup and shared map loads
+  for each distinct Hikari candidate; preserve the selected earlier route.
+  Carry the actual party[7,1,8,4], bench[6], all EXP/JP, resources, gear, jobs,
+  equipped supports and enemy knowledge. Benched Osvald performs no Study Foe.
+  Water zoneENT_FLD_SEA_1_2_WTR atProgress5 selects level11 table030, with no
+  fixed first formation; no river-specific CRT offset. Boarding and tutorial6
+  consume zero CRT and do not reset the counter (flags1005/1305 remain tracked).
+  User has not measured water movement; do not invent distance, decrements or
+  a second-encounter guarantee. ryu.hikari_search and canalbrine.water retain
+  both adjustments, selection, first-menu/escape checkpoints and field return.
+  See docs/canalbrine-water.md and tools/audit-canalbrine-water-encounter.cjs.
+  This extension is source-audited and awaits retail validation.
+
+- Continue after Throné's Scholar setup: daytime Ryu -> Northern Ryu Sands
+  -> Canalbrine Bridge (Fld_Sea_1_2/Map107). User explicitly guarantees no
+  encounter on these legs; do not add an encounter search or ask for movement
+  distances. src/canalbrine.rs uses shared Loader.visit_map for both loads,
+  preserving party[7,1,8,4], bench[6], all EXP/JP/gear/jobs/supports, Progress5
+  and Mother701. Land transitions1130/1001 have no flags or overrides; do not
+  use the alternate1003 canoe transition. Bridge has no automatic event or
+  tutorial/tavern callback. Map constructor, eligible NPC and real outgoing/
+  incoming counter draws are derived from data. Walking adds no CRT calls;
+  pre-exit counters are unmeasured and are not invented. Both arrival counters
+  are the real incoming reset. Show both CRT checkpoints in Detailed log and
+  JSON; no diagnostic-only Manipulation widget. Append only after selecting
+  valid Ryu movement and completing Hikari/Scholar, never during cost trials.
+  See tools/audit-canalbrine-bridge-loading.cjs and docs/canalbrine-loading.md.
+
+- After Hikari replaces Osvald in Ryu, assign Throné Scholar, learn Lightning
+  Bolt (ABI_SET_SCH_030) then Elemental Barrage (ABI_SET_SCH_060), and equip
+  Evasive Maneuvers (ABI_SCH_SUP_01). This costs30+100=130JP. Scholar's two
+  default abilities count toward the four-skill support unlock. Native job,
+  learning, support and menu-close callbacks consume zeroCRT and do not reset
+  the counter. src/scholar.rs carries separate assignment/learning/equipment
+  checkpoints and real JP/resources. Core jobs helpers apply source subjob
+  revisions before flat gear and preserve job bonuses through levelups. Newly
+  permitted staff is source zero-stat ITM_EQP_ROD_010; assignment does not heal.
+  CharacterJobs and job_licenses are included in exact search keys/exports.
+  Count secondary licenses on active AND benched members; Osvald's main job
+  consumes none. Guild first TaskClear grants one license and notification100.
+  Evasive depends on active equipped support, so Osvald replacement disables
+  it until Throné equips it. Tutorial54 follows acquisition;56/57 share gates,
+  as do58/59; carry earlier Osvald/guild menu flags. No invented ability IDs
+  for Osvald's unspecified two skills. See docs/scholar-assignment.md and the
+  native/cooked audit. Manipulation shows all three setup instructions.
+
+- Hikari recruitment is now explicitly authorized, superseding the earlier
+  cancellation below. After the selected safe Ryu arrival, src/hikari.rs runs
+  MS_KEN_00_0100 YES47 until scripted battle600@66. Event lookup is fixed
+  ENM_EVE_WAR_C00_010 -> ENG_EVE_WAR_C00_010 and consumes no field-selection
+  CRT rolls. Core routine: first actor regular Ice Soulstone, next actor
+  unboosted original default weapon. Carry all four participants' resources,
+  enemy knowledge and EXP/JP; only participants receive battle rewards.
+  Restore the real field B/A counter before MS_KEN_00_0300; skip NO138,
+  join at EXP0/Lv1, select Osvald replacement at3005@148, then apply that
+  event's distinct FinishPre B/A and tutorial67. Do not finish the old intro
+  event during serial handoff. Full party becomes[7,1,8,4], bench[6]; preserve
+  Osvald ledger/skills and disable Evasive while he is benched. Progress5,
+  active Mother701 retained. Manipulation shows the swap; Detailed log keeps
+  menus, final CRT/counter and all five ledgers. Required movement search is
+  unchanged; fixed recruitment runs after each selected valid continuation,
+  never on rejected movement candidates. See tools/audit-hikari-recruitment.cjs
+  and docs/hikari-recruitment.md. New endpoint awaits retail validation.
+
+- Continue from Southern Oresrush return through Northern Ryu Sands
+  (Fld_Dst_1_1/Map19) and Ryu (Twn_Dst_1_1_A/Map28), before Hikari recruitment.
+  Northern -> town is padded146 walking /140 running updates (143/137 +3),
+  day + Evasive costs584/840. At the Eastern Cropdale return Escape menu,
+  replay the COMPLETE continuation and require all three subsequent walking
+  budgets: Southern Cropdale approach, Southern return -> Northern Ryu, and
+  Northern Ryu -> Ryu. Preserve minimum-input cost order and uncapped required
+  search. Ryu entry/counter/CRT belong in Detailed log; Manipulation shows
+  location-specific running share. Carry the four-character EXP/JP/gear ledger.
+  Source audit covers395 placed BP actors/49 classes and embedded level scripts;
+  both maps have no additional environmental runtime CRT draw or tavern event.
+  See tools/audit-ryu-loading.cjs. Hikari implementation was explicitly cancelled;
+  do not recruit, swap Osvald or simulate the battle in this extension.
+
+- Southern Oresrush Wilds return -> Northern Ryu Sands uses padded130 walking
+  /122 running updates (measured127/119 +3). Derive costs from the ACTUAL
+  southern_return world after Mother acceptance and Partitio recruitment;
+  day + Evasive costs520/732. The last controllable event is Eastern Cropdale
+  return Escape: replay all subsequent map/story/recruit callbacks for each
+  successful Escape and reject candidates without a safe walking budget on
+  either Southern Cropdale -> Southern Oresrush or Southern return -> Ryu.
+  Keep cost order and uncapped required search; no synthetic CRT offsets.
+  This supersedes the older note treating the first Oresrush approach as
+  informational only. Manipulation shows the location-specific run/walk share;
+  Detailed log holds counters/costs. Reserve1, round down to0.1%, interpolate
+  independently measured densities. The continuation above now loads Northern
+  Ryu and Ryu, stopping before Hikari recruitment.
+
+- Continue Southern Cropdale's measured mixed-movement arrival through shared
+  Loader to Southern Oresrush Wilds (Fld_Wld_1_3/MapID86), then Oresrush
+  (Twn_Wld_1_1_C/MapID100). The Wilds -> town leg is 75 RUNNING updates only;
+  no walking measurement is invented. Day + Evasive costs450 and first counter
+  is500..899, so it is always safe on this route. Select Throné Mother Ch2
+  MS_TOU_01/scenario701 through MapInStorySelect: save confirmation, active
+  story7/701 and task-view30510 before playing MS_TOU_2A_0100. Its skipped
+  opening sets8050, refreshes the newly eligible ordinary story NPC and rolls
+  its real FinishPre counter. No assumed MainMissionPlayingFlag2005 assignment.
+  Recruit Partitio ID4 using FIRST invitation MS_SHO_00_0100 YES58 / NO72,
+  dismiss tutorials66/69, then visit Southern Oresrush again. Carry party
+  [7,6,8,4], original Partitio gear, zero EXP/JP, progress4, Mother701 still
+  active, enemy history and all world flags. Entry CRT/counters and callbacks
+  belong in Detailed log; Manipulation has the town approach Run100% card.
+  These new endpoints are source-derived and await retail validation.
+- SkipPrologueReminiscence applies imported MainStory on/off event-flag ranges
+  as well as progression points. Replay it for all supported recruited members;
+  older Osvald/Agnea additional flags do not change the route's eligible NPCs
+  or CRT. StartAddMemberEnd uses global reminiscence guard2900, not per-character
+  flags. Partitio greeting7450 uses the top member's FirstJob (Throné opt6).
+  Confirmed story IDs are persistent WorldState and exact WorldKey fields.
+
+- Southern Cropdale Trail entry -> Southern Oresrush Wilds uses padded122
+  walking /112 running updates (measured119/109 +3 leeway). Derive costs from the carried
+  time and Evasive Maneuvers and use the actual Southern entry counter in each
+  timing branch. oresrush_reach is movement budgeting, now also required by the
+  Ryu continuation search above; it adds no map load. Manipulation displays a location card
+  with running/walking distance share; Detailed log keeps numeric budgets.
+  Reserve one counter point and round mixed share down to0.1%, following the
+  existing interpolation; speed-switch overshoot is not individually simulated.
+
+- Search acceleration preserves complete selected-plan output, not only final
+  CRT. FieldSearch keeps direct and post-break boost prefixes with real voice
+  history; each Escape check runs on a clone. Eastern search contexts survive
+  cost layers, and ordered visitors stop once a continuation is accepted.
+  Formation trials suppress only Loader diagnostics and replay the winner with
+  its original cost bound for the complete log. Keep this quiet scope after
+  Pirro: earlier mansion code currently mutates diagnostic trace entries.
+  Required-cleric failures stop before unnecessary day/recruitment callbacks;
+  optional targets retain full projection semantics. No retry caps added.
+  Exact typed WorldKey replaces JSON dedup keys; Flats projection identity
+  includes weakness/Study Foe history, not just CRT. New state fields must be
+  included (exhaustive destructuring forces an audit). A full map-result cache
+  was benchmarked and removed because key/result copying made searches slower.
+
+- Search profiling: opt-in OT2_PROFILE thread-local inclusive timers and ignored
+  release GUI test profile_current_route. Pure boost paths cache common draw
+  counts0..256 with exact argument keys; larger counts still run uncapped.
+  Zero-BP-break/cancel strategies have only even cost layers (break cost10);
+  skip impossible odd Eastern layers before initialization. Preserve serialized
+  outputs/candidate order, both overrides and Required outcomes. Current seed0
+  title4997 complete response is byte-identical before/after; 3.893s ->2.904s.
+  See docs/search-performance.md. Do not confuse cache bounds with retry caps.
+
+- Carry saved main_progress_points and completed_scenarios separately from EXP,
+  party size and flags. Completed/skipped MainStory rows contribute imported
+  ClearDifficultyPoint once; command3120 NO invokes native SkipPrologueReminiscence
+  via AddReminiscenceDialogFinishCallback. Throné completion gives1; Osvald skipped
+  rows600/601 add1/0; Agnea skipped row800 adds1, total3. Every route encounter
+  uses carried points for tier selection. Eastern Cropdale return crosses the
+  progress3 boundary (tier020, danger8): retail Birdian II + Birdian I x2.
+  No extra CRT calls belong to point bookkeeping. Do not substitute party size
+  or a fixed tier override. EndPrologueReminiscence is NOT the skip-completion
+  callback; prior claim that skips contribute no progress was wrong.
+
+- After Agnea, return to Eastern Cropdale Trail (Fld_Fst_1_3), then load
+  Southern Cropdale Trail (Fld_Fst_1_4, MapID132). User guarantees exactly one
+  encounter on this return leg; do not invent movement counts or enforce a
+  second-encounter counter target. Gate no-surprise at the preceding Crackridge
+  Escape candidate, after replaying Cropdale/Agnea and the return map load.
+  Use the real three-member party [7,6,8], original gear, carried EXP/history,
+  Agnea's voice set, and Osvald Study Foe; minimum-input first-menu boost/cancel
+  Escape. Southern map entry and its newly rolled counter use shared Loader.
+  Show exact enemies/actor/boost/Escape by location; diagnostics in Detailed log.
+  New return encounter and Southern endpoint await retail validation.
+
+
+- Shared environment initialization includes BP_EnvObjMD_Flag_A BeginPlay:
+  one CRT draw per actor for animation speed, in level actor-array order.
+  Cropdale has four (_5, _6, _8, _9); retail entry6802 instead of old6798.
+  Import actual instances; no fixed map offset. Preserve constructor residency
+  separately from environment BeginPlay callbacks, as for canoes.
+
+
+- Continue the active voyage through Cropdale (Twn_Fst_1_1_A, MapID145)
+  using shared Loader, then MS_ODO_00_0200: invitation125 YES, chapter134 NO.
+  Carry every earlier ledger/history entry; append Agnea (ID8), zero EXP/JP,
+  original starting gear and character-specific growth. Recruitment finishes
+  its placement refresh/counter reset and tutorials66/73. Cropdale and Agnea
+  checkpoints/traces belong in Detailed log, not diagnostic-only Manipulation
+  widgets. Source-derived endpoints await retail validation.
+
+
+- The active Winterbloom fork continues through tagged New Delsta Harbor and
+  SC_LinerShip_Cty_to_Wld to Crackridge Harbor, then Eastern Cropdale Trail
+  (Fld_Fst_1_3). Protect Crackridge no-surprise at the preceding Western
+  controllable fight for BOTH Winterbloom timing endpoints. Use carried party
+  levels/history/Evasive, never the old voyage adapter's Osvald level1.
+  Crackridge boosts secure first Escape and safe onward travel; measured total
+  budgets are172 running /182 walking. No new day switch on an already-day route.
+  Crackridge Escape candidates must also load Eastern Cropdale Trail and roll
+  a counter permitting the padded147 walking updates to Cropdale (measured144),
+  with137 running updates (measured134). Reject successful escapes failing
+  either leg. Show a separate Trail entry -> Cropdale running share, using both
+  measured densities, reserve1 point and round share down to0.1%.
+
+- Save enemy_knowledge (revealed weapon/element icons plus Study Foe studied flag)
+  in WorldState. Every supported field Escape/break/rare/Mug adapter receives
+  carried history and returns selected history; rejected candidates must never
+  mutate it. Fully known types draw nothing; duplicates share reveals. Western
+  second encounter capture validates menu6630 and failed unadjusted Escape; old
+  menu6628 omitted two repeat-Study Foe rolls. No compensating RNG offsets.
+
+- Western Snows -> Scholar License -> Winterbloom tag is 345 RUNNING counter
+  updates, without padding. Track Evasive Maneuvers from the actual rare victory:
+  an earlier rare enables it at Western entry; a Western rare enables it only
+  after the first fight. Flee every other planned encounter using carried levels.
+  Protect both the predicted second opening and the movement-error override;
+  disable "No second encounter" when perfect movement predicts one. Immutable
+  alternatives carry actual Escape/field-return RNG into shared Winterbloom load.
+  Scholar guild events have no counter reset. MapInStorySelect is an in-place
+  event, declined without starting chapter 2. Winterbloom has a tavern lottery
+  even with an empty bench (before sub-member selection); don't skip that draw.
+  New Western/town endpoints are source-derived and await retail validation.
+
+- Regular Octopuff is NOT a target in Southern/Eastern Cape Cold Snows.
+  Cait remains eligible; Western Winterbloom rare targets are unchanged.
+  Preserve real Octopuff encounter generation and mandatory no-surprise rules.
+  This supersedes earlier notes accepting regular Octopuff in Cape Cold Snows.
+
+- Rare AoE reaction is aggregated after ALL target damage timers, as in
+  LibAilment.Battle_ExecDamageHP. Never roll a kill voice per defeated enemy.
+  Retail Cultured Cait + Majestic Snow Marmot + Snow Yak (2026-10-02): entry6514,
+  Osvald menu6563, victory/drops6572, field return6574. The former6576 endpoint
+  was two duplicate kill reaction rolls, not an incorrect field B/A reset.
+- Carry character_progression through every map/party transition: EXP,
+  earned/spent JP, character-specific growth, original equipment stats and
+  resources. Scripted fight rewards seed the ledger; escaping earns no reward.
+  Rare rewards include every accompanying enemy, with source battle bonuses.
+  Two Osvald skill purchases spend130 JP; derived levels feed onward encounters.
+
+- Search acceleration must preserve candidate ordering, selected button paths,
+  complete CRT traces and Required/no-surprise goals. Snows cost layers cache
+  immutable Southern continuations; Eastern search evaluates only newly added
+  cost layers, and Flats reuses the computed timing alternatives. Never turn
+  a performance optimization into an arbitrary retry cap. The uncached-route
+  oracle test compares whole serialized results for both recruitment timings.
+
+- Post-Osvald time switching is removed from the active early-clerics route.
+  Flats search projects recruitment with zero additional switches; Southern
+  encounter branches stay daytime. Do not offer or display Osvald time-switch
+  adjustments. The fixed night/day cleric shop pair stays in the route.
+  This supersedes earlier notes permitting post-recruitment time manipulation.
+
+- Formation constraints are removed from the active route: do not require one
+  enemy, one shield, City Ratkin I/Night Raven, or an unboosted Throné break.
+  Ignore legacy saved highroad_break/highroad_flats_break required preferences.
+  Select supported formations by actual downstream manipulation cost. Breaking
+  remains an optional strategy when the core can simulate it and it is cheaper;
+  multi-enemy direct Escape is valid. Never-surprise remains mandatory.
+  src/formation_search.rs compares frozen-R3 Pirro R8 futures and Highroad escape
+  allocations through real Flats/clerics/Snows continuations. Required outcomes
+  have no arbitrary retry cap; pruning uses an existing complete valid route's
+  cost. Cost model stays inputs +10/break +7/time switch. Report the baseline and
+  selected costs in Detailed log/export. Earlier decisions and unsupported
+  battle actions are outside this optimizer; do not claim universal optimality.
+  This supersedes older lone-enemy/unboosted-break target notes below.
+
+- Manipulation widgets are grouped by location/visit, never by rare encounter
+  status. Southern Cape Cold Snows includes recruitment, its encounter action
+  (Escape or Shadow M) and onward movement. Eastern Cape Cold Snows uses one
+  widget for either Escape or Shadow M; Western has its own location widget
+  only when its encounter is planned. Show the exact selected enemy formation
+  in each encounter widget; group duplicates as Name ×N. Preserve location
+  headings when the selected rare target changes.
+
+- HARD RULE: every encounter the route expects must be Normal or Preemptive,
+  NEVER Surprise. Numeric optional settings cannot relax this rule. Search at
+  the preceding controllable event; encounter-menu boosting cannot undo surprise.
+  A Southern rare ends rare searching, NOT travel. Carry its real Shadow M
+  victory/field reset and Evasive Maneuvers into Southern onward movement,
+  Eastern entry, its first encounter and a successful Escape. Show Eastern
+  escape instructions and safe onward running even after an earlier rare;
+  do not target another Western rare in this branch. Validate all planned
+  encounter openings, including downstream openings after rare victories.
+
+- First rare after clerics AND Osvald may be a Cait or Octopuff in Southern
+  or Eastern Cape Cold Snows. Otherwise accept an Eastern Escape, full 167-run
+  update traversal without a second encounter, and a non-surprise rare in
+  Western Winterbloom Snows (Fld_Snw_2_2, MapID155). These are alternatives:
+  never search for a Western rare after an earlier rare is secured.
+  Joint Southern/Eastern search allocates actual boost/break input costs.
+  Every selected rare formation must die to one Shadow Soulstone (M); reject
+  packs with survivors. Core handles item callbacks, one AoE voice, victory,
+  and drops; shared Loader handles field reset. After the kill, Osvald learns
+  two extra skills and equips Evasive Maneuvers; carried world support is 50%
+  for subsequent movement, never before the kill. Source-derived new endpoints
+  await retail validation. This supersedes the Cait-only rules below.
+
+- Cait target accepts either a non-surprise Southern Cape Cold Snows Cait
+  AFTER Osvald recruitment (allow the real safe 70-update walking approach),
+  or the first Eastern Cape Cold Snows Cait. Preserve existing required and
+  achieved upstream targets. Compare Southern upstream adjustments against
+  the existing Eastern plan including its Southern escape adjustment cost.
+  A selected Southern Cait stops at its encounter composition: do not flee
+  it or invent Cait combat/after-battle RNG. Show Walk/Run to Osvald explicitly.
+  The older Eastern-only requirement below is superseded by this rule.
+
+- Keep every simulated action widget visible in Manipulation even when zero
+  extra boosts are needed. Explicitly write "No extra boost adjustment needed";
+  never hide a battle/escape widget based on adjustment cost. Keep unavailable
+  future events and diagnostic-only data separate as before.
+
+- Early route now includes Gold Ring from the Backstreets Brothel Receptionist
+  (80% rand1..100 check) and Boy's guaranteed Antique Coin in New Delsta main
+  immediately after Artist's three soulstones. Each new menu visit consumes
+  open/check/closing-dialogue draws. Compare ring-before-clothes and
+  ring-after-clothes from immutable initial world/RNG; prefer a successful order
+  with a non-surprise mansion opening, then before on equal valid cost. The
+  second-fight boost search's mansion_approach target now requires BOTH ring
+  success and non-surprise, preserving first-fight inputs/achieved fight-two
+  conditions and minimizing extra button inputs. Existing Required/numeric
+  settings and replay/export carry the joint target. UI shows selected theft
+  order and Antique Coin after soulstones; diagnostics include both checkpoints.
+  Sale valuables remain in mansion.acquired_items and are excluded from Pirro's
+  combat-item catalog. Recompute all downstream events; never add compensating
+  offsets. Old retail snapshots omit these two steals and are tested separately.
+  New theft route endpoints await retail verification.
+
+- Southern Cape Cold Snows Escape search now REQUIRES a Cait and no surprise
+  in the first Eastern Cape Cold Snows encounter. Search by actual button cost
+  plus 10 for zero-BP breaks, propagating the actual Escape return, recruitment
+  when needed, padded onward movement and shared map load for every candidate.
+  Preserve safe onward movement and first-Escape success; no arbitrary retry cap.
+  Both timing overrides receive their own complete valid continuation. Project
+  Eastern land encounter with party levels [Throne route level,1], progress1,
+  carried time/FirstEncount/counter and no intervening CRT actions. Current
+  day/night tables have FirstEncount index0 (no fixed group) and Cait rate2%.
+  Keep boost instructions in Manipulation and encounter diagnostics/CRT in
+  Detailed log. Eastern composition endpoint is before battle initialization;
+  no Cait battle simulation or second-encounter guarantee is added here.
+
+- First Southern Cape Cold Snows encounter now has a real flee continuation in
+  src/snows_escape.rs. Compare direct first-menu boost/cancel Escape against a
+  successful ZERO-BP weapon break and Escape, ordered by inputs +10 per break.
+  Carry actual party/menu actors and core snapshots; no failed-Escape trials
+  leak into execution. Before Osvald: restore field, run the remaining approach,
+  recruit with the actual post-battle FirstEncount=false reset (full counter).
+  After Osvald: first Escape must leave a safe full remaining run, including
+  night costs. Timing controls select immutable complete branch results.
+  User corrected the onward destination to EASTERN Cape Cold Snows (Fld_Snw_1_3),
+  not Winterbloom; retain measured 85 run /90 walk updates from Osvald, plus
+  two updates of player-error allowance per speed (87 run /92 walk). For a
+  post-Osvald encounter, subtract its measured running distance and convert
+  the remaining walk distance before adding the full two updates once. The
+  Escape search and running-limit calculation must use the same padded budget.
+  Pre-Osvald movement stays at 64 running updates with no allowance.
+  Before-encounter onward mixed movement interpolates measured densities,
+  rounds running share down and reserves one counter point. Its Eastern entry
+  uses shared Loader with imported MapID153, no fixed load offset. Instructions
+  stay in Manipulation; entry CRT/counter and full trace stay in Detailed log.
+  Supersedes old notes that prediction stops before this encounter's battle.
+  New Snows/Eastern endpoints are source-derived and await retail validation.
+
+- Post-cleric time manipulation is removed: after buying, always switch ONCE
+  from night back to day with shared time/bar/NPC callbacks. The weighted
+  Flats search enumerates battle boosts/breaks and post-Osvald switches only.
+  Supersedes older notes permitting extra post-purchase cycles.
+
 - Snows routing supersedes the old safe-Osvald-walk goal: run 64 counter
   updates from Southern Cape Cold Snows entry to Osvald, NO leeway. Predict
   pre-recruitment timing when entry counter <=64*12. If inevitable before,
@@ -710,3 +1186,90 @@
   assumes independent uniform reset starting states, with within-pair CRT
   correlation preserved. Do not present it as exact route-conditioned odds.
   See docs/flats-escape.md and examples/flats_second_encounter_odds.rs.
+
+## Resolved Eastern Snows Fireball retail mismatch (2026-10-07)
+Seed 0/title advance 12034178, before-Osvald branch, Eastern Frost Mole I x2:
+user confirms Fireball, then Throne four 0->1->0 cycles and Escape; observed
+field return 12035657. Original model predicted12035667. Field spell importer
+was missing Osvald type18 Fireball/Icewind voice rows; corrected from Mug data,
+with regression asserting one Fireball ability-voice draw. Exact same action
+replay now predicts12035668, so this correction DOES NOT resolve the report.
+Retail capture snows-fireball-live-20261007.json confirmed the full sequence.
+Fixes: import ability voice rows; aggregate single-damage-key multi-target break
+timer after reaction voice; allow next-player ally-break acknowledgement.
+Throne acknowledges Osvald after7 voice checks instead of17. Exact original
+Fireball + four boost cycles now returns12035657. Regression fixture/test:
+OT2BattleEngineRust/data/source/live-snows-fireball-20261007.json and
+tests/snows_fireball_live.rs. This validates the captured path, not every spell.
+Diagnostic: examples/audit_snows_spell.rs replays saved profile-safe-defend.json.
+
+- Field spell voice completeness audit: import type18 Darkest Night for Throné in both field profiles, plus Fireball/Icewind for Osvald. supported_field_spells_have_eligible_voice_rows checks each available spell actually selects a voice and consumes one CRT draw. Ally-break acknowledgement is shared by normal and scripted attacks. Shared delayed break timer currently handles single-damage-key area actions; do not claim arbitrary multi-hit area timing is retail-validated.
+
+
+- Second Snows capture clarification: user confirmed NO boost before Fireball, then3 Throne cycles. snows-boost-fireball-live-20261007.json is misleadingly named; it is an UNBOOSTED Fireball replay and returns12035656 exactly as corrected core predicts. Do not infer voice suppression from it. The optimized one-Osvald/three-Throne plan remains unverified by these captures. Temporary pre-spell search restriction was removed before deployment.
+
+- Boosted field spell breaks: permit +1 Fireball/Icewind/Darkest Night at the opening menu and price the actual boost path (no mandatory final cancel). Replay the real BP damage tier and resources; reject victory or any surviving unbroken enemy. Physical zero-BP policies remain unchanged. Snows/Eastern searches must evaluate odd cost layers. Regression compares [1] Fireball with [1,0] on the retail two-mole fixture: both survive/break, RNG endpoints match, and boosted cast saves one input.
+
+- Route update: remove Gold Ring and Antique Coin steals entirely. Keep clothes, Boy Shadow Soulstone and Artist three soulstones. Second-fight adjustment only protects the mansion approach; no ring success/order target. Propagate actual remaining events through all downstream RNG/searches.
+
+- Latest route: restore Gold Ring only (80% steal). Compare before/after clothes at equal travel cost and select success plus safe mansion approach via second-fight boosts. Antique Coin stays removed. Show chosen theft order and ring checkpoint; propagate the three actual steal-session draws.
+
+- Fixed timer-refresh route: enter Winterbloom TOWN, dismiss the chapter prompt without starting story, immediately switch to Night. Fast travel to New Delsta Harbor at Night; immediately switch to Day before boarding for Crackridge. Use shared manual_time_switch callbacks, preserve encounter counters and carry RNG through both Western encounter-count branches and upstream safety search. These fixed actions belong in Detailed log, not extra variable-action Manipulation widgets.
+
+- Retail Winterbloom trace 2026-10-09: seed0 absolute19286216 -> town/story19286249 -> manual Night19286262. Manual stable-phase switches call native f5cb60 -> ed58b0 placement refresh, not RefreshBarCharacter. Remove tavern draw from manual_time_switch; retain map-load/recruitment tavern callbacks. Fixture/test live-winterbloom-night-20261009 validates all46 states and NPC labels. Do not subtract a fixed endpoint offset.
+
+- Tavern trigger audit: RefreshPlacementOnChangeLevel explicitly calls RefreshBarCharacter AFTER RefreshSpawnCurrentLevel; never infer the former from native ed58b0 alone. Manual switches, transitional-phase placement refresh and FinishPre dirty-placement cleanup do not inherit map-load tavern lottery. Legacy duplicated calls removed. See docs/tavern-loading.md.
+
+- Southern Cropdale correction: route uses Fld_Fst_1_4 /MapID132 and ENT_FLD_FST_1_4_LND, not Fld_Fst_1_1 /129. Retail capture2026-10-09 verifies all12 draws19286486->19286498: outgoing2, six level constructors, save-point/info-board NPC frames2, incoming2. Old wrong map added a nonexistent GD stream and two flag-animation draws. Regression retail_southern_cropdale_load_20261009.
+
+- Retail Oresrush Mother acceptance:19286550->19286557. Resolved cause: BarMenuStorySelect calls PlayEventForce (e920f0 sets+0x59d), EventLoadLevel e8dd70 bypasses same-map rejection when forced. RequestLoadFieldLevel/OnFieldLevelShown each call ResetEncountVolume. Shared loader preserves forced transitions and FirstEncount; temporary chapter-specific reset patch removed. See docs/oresrush-partitio.md and tools/audit-forced-event-load.cjs.
+
+- Oresrush allowance: first THREE time switches before Partitio and first TWO after are free independently, all after Mother chapter starts. Further switches cost7 boost inputs; leave by day. Search pruning must use the combined five-switch allowance.
+
+- Clockbank continuation: after Inventor scope, visit Western Clockbank Highroad47 then Southern48 with no intervening encounter (user confirmed). Slow/fast measurement117/110, padded120/113; use water-zone shared measured_reach (8 base, Evasive50%, dash1.4 truncated =>4/5). Then visit Clockbank main64, accept Partitio MS_SHO_01 via MapInStorySelect and skip opening MS_SHO_20_0050 (daytime, flag6076, FinishPre counter reset). Fixed checkpoints in Detailed log; movement percentage in Manipulation. No later industrial-district event yet. Source data/source/partitio-clockbank-opening.json. Retail endpoint verification pending.
+
+- Corrected Clockbank movement: raw slow117=68 water+49 land; fast110=66 water+44 land. User now requests SIX padding updates, all LAND: slow68water+55land, fast66water+50land. Calculate each zone separately (day/Evasive: water4/5, land5/7), costs547/680. Display equal fast-distance percentage for EACH terrain section; counter584 =>27.0% fast,73.0% slow. This supersedes the earlier all-water120/113 calculation.
+
+- Inventor Highroad Escape boosts must jointly guarantee Escape AND Southern Clockbank all-slow safety with six land-update padding. Reject downstream entry counters <=547 and continue from the original menu without spending earlier controls. Baseline uniform-CRT safe probability97.089401679%; current counter584 is already safe. Do not treat a short counter as an unrecoverable route error.
+
+- Clockbank movement presentation now starts fast on water, then switches ONCE to slow. Percentage is total unpadded route distance, estimated using slow-count terrain weights68:49. Piecewise water then land costs retain six land-padding updates; counter584 =>36.0% fast then64.0% slow, superseding equal per-terrain27%.
+
+- Partitio Ch2 Clockite continuation: after opening visit Industrial District65, run0100 (links0110),0200 (links0300),0400 (links0410),0500 (factory54 then links0600 returning65),0610 (scripted Clockite x5 and item popup; NOT Purchase). Visit factory54, delivery0615 Yes at command2 links0620, which loads65 before FinishPre; endpoint flags6059+6077. Skip scenes/advance short dialogues, no optional actions. Detailed log includes stages. Source data/source/partitio-clockite-route.json. Runtime integration passes; retail check pending.
+
+- After Clockite delivery fast travel directly to tagged Crackridge Harbor, daytime; predict first land encounter using actual carried party/levels/knowledge/progression and FirstEncount. Require Normal/Preemptive: nearest earlier control is Inventor Highroad boosts, jointly preserving first-try Escape and slow-safe Clockbank. Harbor itself searches boost/cancel for first-try Escape; this NEW return is not one of the earlier mandatory-break encounters. Show a distinct Harbor-after-Clockite widget and entry/menu/return checkpoints. Core additive import-highroad-return also covers Wildlands1_3 encounter groups. Retail validation pending.
+
+- After the post-Clockite Harbor escape, enter Southern Crackridge Wilds Fld_Wld_2_2 (MapID88), land ENT_FLD_WLD_2_2_LND. Current progression selects fixed first base group ENG_FLD_WLD_2_1_LND_DAY_170 (Wild Mole IV x2 + Armor Eater); rare replacement still applies. Harbor Escape boost search also requires this Southern encounter Normal/Preemptive, using actual carried progression/party. Southern searches its own first-try Escape. No extra EXP from either escape. Separate location widget plus Detailed log checkpoints; retail validation pending.
+
+- Latest continuation: Southern Crackridge -> Western Crackridge Fld_Wld_2_1/87 encounter -> tag Crackridge Twn_Wld_2_1_A/101 -> return Western encounter -> Merchant first license GUILD_003/job4 (SYS_MER_GUILD_0010+0030; no reset) -> Western Gravell Fld_Wld_3_2/90 -> Night -> Chubby Cait ENE_NML_OTR_150 and no surprise. Every planned opening rejects surprise. Strict nearest-menu propagation: preceding Escape boosts protect next opening; Western return boosts jointly escape and target Gravell. Carry party stats/EXP/knowledge; no EXP for escapes. Stop before Gravell actions until user specifies routine. Assumes the requested one encounter on each Western pass; travel distances unmeasured. Source data/source/crackridge-gravell-route.json; retail validation pending.
+
+- Conning Harbor Townsperson now steals Pom M ITM_CSM_0080 then Wind Soulstone L ITM_CSM_0400 in ONE menu session: open, two success checks, close. Both PurchaseItem rows ProperSteal8; require both successes with carried level. Second Western Crackridge visit now uses boost/cancel then Wind Soulstone L (2700 fixed wind), not Escape. Shared item sequence/victory/drop/reward/level-up path carries updated stats to Merchant license and safe Chubby Cait Gravell selection. Reject packs the item cannot clear. Earlier Western visit still Escape. Supersedes the two-rare-only EXP assumption.
+
+- User-observed Townsperson optimization: after stealing Pom M and Wind Soulstone L, change the selected path action before closing the window. Suppress the Steal closing-voice draw for THIS session only; total three CRT calls (open + two checks). Record a zero-draw boundary and show the changed closing instruction. Other theft sessions unchanged. Propagate/search from the actual resulting state, never subtract an offset at the route end.
+
+- Gravell setup requested after Merchant License: Throné Inventor, Hikari Merchant+Donate BP+Hired Help, Agnea Stimulate+Bewildering Grace, Partitio Hired Help; everyone A Step Ahead, Hikari Grows on Trees. T1 means A Step Ahead bonus turn. If Agnea last, Thunder L goes BEFORE Agnea on T1 (confirmed). Track real JP/job stats/resources/support unlocks; retain Evasive Maneuvers. Merchant JobID is0, NOT GuildData ID4; corrected license key. Current implemented endpoint remains before Gravell battle init: A Step Ahead/BG100/Guards exact action support is PENDING, so do not emit the old ordinary first-menu RNG as valid. source/gravell-battle-audit.json records source sequences/random tables.
+
+- 2026-10-10: Gravell BG/Guards pending status superseded. All39 max-BP effects execute in battle/grace.rs; complete minimum-input fight search/replay and real victory/all-alive/EXP100 acceptance in gravell_routine. Assistant integrates rewards/progression/field return and boost instructions. Unplanned enemy continuation is rejected, not fabricated. See core docs/gravell-search.md; new flow still awaits end-to-end retail validation.
+
+- Gravell routine revised: T1 earlier merchant +1 Donate BP to later merchant, later merchant +3 Guards, Agnea Defend, Throne Pom M to Agnea; T2 Agnea +3 BG then next player Thunder L. Both merchants learn Donate BP. Strict propagation freezes first Guards state with sufficient damage for Thunder L, then searches BG; victory/EXP100/all-alive unchanged. Supersedes previous Agnea-first/Stimulate/Boots branching routine.
+
+- Latest setup: equip A Step Ahead on all four immediately after Inventor crafting; preserve secondary jobs until Merchant license. All later field openings (Clockite Harbor and both Crackridge passes) must use the extra turn. Do NOT equip Hikari Grows on Trees; derive rewards from actual supports. Partitio learns Hired Help and Donate BP at Merchant setup.
+
+- BG coarse search: after Clockite delivery in Industrial District, alternate night/day in real Loader callbacks, exiting day. Scan exact first-child EXP100 anchors; prioritize departure ~850 draws earlier (650..1100 window), Chubby initialization 214..380 earlier, BG/Guards combined <=100 inputs. Strict forward controls; 32-repeat local exploration plus safe A Step Ahead Defends (8 input equivalents) and Western return Escape vs Wind L (10 action equivalents). Compare complete costs within first viable target, not global optimum. Failed local windows move to later targets; Required outcomes are never silently dropped. Replay all town switches and full BG effects, demand victory/EXP100/all alive. First-effect targeting intentionally misses possible later-effect EXP100 alternatives. New plans await retail validation.
+
+- BG search now accepts its target EXP100 lottery at ANY actually executed child, not only the first. Execute targeting, effects, callbacks and early termination in sequence. Trace must contain the target lottery; final real EXP100/victory/all-alive remain mandatory. Widen coarse arrival windows for child-effect draws (214..1200 battle-entry gap; 650..1900 departure gap). These are search heuristics, not RNG offsets.
+
+- Latest time-cost model: breaking6 input equivalents, Defend3, each actual round transition8. Charge transition once using the resulting battle round, including transitions after a break. Same-round Defend3, round-ending Defend11. A Step Ahead safe Defends are restricted to the bonus round and cost3. These are search costs, never CRT draw overrides. Wind Soulstone victory cost10 and town-switch cost7 remain unchanged.
+
+- 2026-10-10 Clockbank BG optimization: preserve the fast validated baseline and
+  apply deterministic bounded cost refinement (10,000 work units total). Search
+  extra BG inputs and nearby Guards alternatives, retain only cheaper fully
+  replayed plans. Never report a required outcome unavailable because refinement
+  ran out of work. Cache by exact battle constructor inputs, not CRT alone;
+  never cache truncated failures. See docs/clockbank-bg-search.md for limits,
+  benchmark fixture, and the distinction between cheaper plans and global optimality.
+
+- Adaptive Clockbank refinement supersedes fixed margins as eligibility rules:
+  total incumbent cost bounds local adjustments; gap estimates only order trials.
+  Bounded fair work per target preserves speed and an accepted fallback. Regression
+  recovers+4280 at136 switches/cost1217 for the former484-switch outlier.
+  See docs/clockbank-bg-search.md for remaining search-quality limits.

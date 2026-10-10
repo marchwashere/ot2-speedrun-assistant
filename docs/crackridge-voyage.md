@@ -38,9 +38,13 @@ The route now continues through the first daytime land encounter in
 Crackridge Harbor: Anchorage, ENT_FLD_WLD_1_2_LND. The carried first-encounter
 counter is consumed by movement, then the selector resets B/A and chooses
 the fixed first formation, surprise/preemptive roll, two traveler timing
-draws and rare replacement. Main progress remains 1 after Throné Ch1:
-skipping Osvald's prologue does not commit chapter-clear progress
-(EndPrologueReminiscence/FUN_140f04de0 requires flag2900). Danger is5.
+draws and rare replacement. Main progress is 2 after Throné Chapter 1 and skipping Osvald's story.
+The NO callback invokes SkipPrologueReminiscence (FUN_140f15190), which
+completes the character's prologue rows through FUN_140f54e00 / FUN_140f4ec50
+and adds their ClearDifficultyPoint. Osvald's rows600/601 contribute1/0.
+EndPrologueReminiscence is a separate restoration callback; its early return
+does not undo skip completion. Crackridge remains in the lower tier at2;
+Danger is5. WorldState carries the points into later selections.
 
 `crackridge::plan` first obtains the existing minimum-cost clerics plan. It
 tests the established Harbor day switch, then a day switch in Flats after

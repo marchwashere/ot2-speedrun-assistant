@@ -26,6 +26,7 @@ fn situation(p: &second::Prediction) -> Result<Option<String>> {
         .transpose()
         .map(Option::flatten)
 }
+fn ring_success(p:&second::Prediction)->bool {p.mansion.as_ref().is_some_and(|m|m.gold_ring_success)}
 fn safe(value: &Option<String>) -> bool {
     matches!(value.as_deref(), Some("Normal" | "Preemptive"))
 }
@@ -48,7 +49,7 @@ pub fn predict(
     let mut info = Search {
         max_boost_repeats: cap,
         situation: baseline_situation.clone(),
-        target_met: safe(&baseline_situation),
+        target_met: safe(&baseline_situation) && ring_success(&best),
         baseline_situation,
         limit_reached: false,
         tested_candidates: 0,
@@ -60,7 +61,7 @@ pub fn predict(
         }
         info.plan = plan;
         info.situation = situation(&best)?;
-        info.target_met = safe(&info.situation);
+        info.target_met = safe(&info.situation) && ring_success(&best);
     } else if !info.target_met && best.state.outcome == Outcome::Victory && best.mansion.is_some() {
         let preserve_one_action = best.assessment.only_one_enemy_action;
         let preserve_order = best.assessment.order_conditions_met;
@@ -113,7 +114,7 @@ pub fn predict(
                     continue;
                 }
                 let candidate_situation = situation(&trial)?;
-                if !safe(&candidate_situation) {
+                if !safe(&candidate_situation) || !ring_success(&trial) {
                     continue;
                 }
                 best_cost = inputs.extra_input_count;

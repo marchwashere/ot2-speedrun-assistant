@@ -404,3 +404,7 @@ The serial route now continues from a successful mansion Escape into Pirro's
 Chapter 1 boss battle. Manipulation shows the fixed routine's selected branch,
 outcome and post-victory CRT; Detailed log includes the full fight. See
 [the Pirro route audit](docs/throne-pirro.md) for boundaries and validation status.
+
+## Hosting on Debian
+
+See [the deployment guide](deploy/README.md) for the pinned battle-core revision, systemd service, and authenticated Caddy setup.

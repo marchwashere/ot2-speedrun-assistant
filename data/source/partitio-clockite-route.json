@@ -1,0 +1,2858 @@
+{
+  "assumptions": [
+    "Skip all skippable scenes; advance the short dialogue scenes.",
+    "Receive the scripted five Clockite and dismiss the item popup; no Purchase path action.",
+    "No detours or optional dialogue; enter factory and speak to Floyd, Yes to deliver."
+  ],
+  "sources": [
+    {
+      "source": "/Game/Event/Database/EventList",
+      "sha256": "acbbb094b2b071271fde8e4adf26b0df3661594556b3835b96e93a97300089a3"
+    },
+    {
+      "source": "/Game/Placement/Database/PlacementData",
+      "sha256": "0d5f12698b8e1f97740d5cc527b040b8bc8f10e343919c4fcac03b8fa6d5e793"
+    }
+  ],
+  "events": [
+    {
+      "row": {
+        "id": "MS_SHO_20_0100",
+        "EventIndex": 0,
+        "ExecCode": "MS_SHO_20_0100",
+        "CueSheetName": "CueSheet_VO_EventSHO020",
+        "RadarMapExitCode": "None",
+        "MapID": "65",
+        "Kind": "EEventKind::EVENT_MAIN",
+        "EventSoundLabel": "ES_SHO_20_0100",
+        "MissionLabel": "ML_SHO_20_0100",
+        "EventSkip": 1,
+        "LevelTriggerID": "ELevelTriggerID::Trigger_01",
+        "LanthanumFlag": 0,
+        "EncountTrigger": "None",
+        "CameraLockTrigger1": "None",
+        "CameraLockTrigger2": "None",
+        "CameraLockTrigger3": "None",
+        "StartFadeOutFlag": 1,
+        "ChengeTimeSequencer": "None",
+        "ChengeFinishTimeSequencer": "None",
+        "TargetChara": 0,
+        "EncountReset": true,
+        "Args": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      },
+      "sha256": "6840da2b78b8cc0f84af7f1702aed96a448416d231cefa0b0b286edb4d8f7087",
+      "commands": {
+        "0": {
+          "cmd": 1250,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "1",
+            "SwitchIndoorTriggerBP_StreetHouse"
+          ]
+        },
+        "1": {
+          "cmd": 1,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "0"
+          ]
+        },
+        "2": {
+          "cmd": 2,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "0"
+          ]
+        },
+        "3": {
+          "cmd": 1500,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "RI_MS_SHO_20_0101"
+          ]
+        },
+        "4": {
+          "cmd": 1501,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            ""
+          ]
+        },
+        "5": {
+          "cmd": 1,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "1"
+          ]
+        },
+        "6": {
+          "cmd": 2,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "1"
+          ]
+        },
+        "7": {
+          "cmd": 310,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            ""
+          ]
+        },
+        "8": {
+          "cmd": 1250,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "0",
+            "SwitchIndoorTriggerBP_StreetHouse"
+          ]
+        },
+        "9": {
+          "cmd": 9980,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            ""
+          ]
+        },
+        "10": {
+          "cmd": 71,
+          "target": 6050,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "1"
+          ]
+        },
+        "11": {
+          "cmd": 9990,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            ""
+          ]
+        },
+        "12": {
+          "cmd": 1000,
+          "target": -1,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "MS_SHO_20_0110"
+          ]
+        },
+        "13": {
+          "cmd": 10000,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            ""
+          ]
+        }
+      }
+    },
+    {
+      "row": {
+        "id": "MS_SHO_20_0110",
+        "EventIndex": 0,
+        "ExecCode": "MS_SHO_20_0110",
+        "CueSheetName": "CueSheet_VO_EventSHO020",
+        "RadarMapExitCode": "None",
+        "MapID": "65",
+        "Kind": "EEventKind::EVENT_MAIN",
+        "EventSoundLabel": "ES_SHO_20_0110",
+        "MissionLabel": "ML_SHO_20_0110",
+        "EventSkip": 1,
+        "LevelTriggerID": "ELevelTriggerID::Trigger_01",
+        "LanthanumFlag": 0,
+        "EncountTrigger": "None",
+        "CameraLockTrigger1": "None",
+        "CameraLockTrigger2": "None",
+        "CameraLockTrigger3": "None",
+        "StartFadeOutFlag": 1,
+        "ChengeTimeSequencer": "None",
+        "ChengeFinishTimeSequencer": "None",
+        "TargetChara": 0,
+        "EncountReset": true,
+        "Args": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      },
+      "sha256": "56d4eb92972db7c5cbbf2e40f24bf965862056c43b243495be3b07689388f220",
+      "commands": {
+        "0": {
+          "cmd": 8031,
+          "target": 34052,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "0"
+          ]
+        },
+        "1": {
+          "cmd": 1,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "0"
+          ]
+        },
+        "2": {
+          "cmd": 2,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "0"
+          ]
+        },
+        "3": {
+          "cmd": 1500,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "RI_MS_SHO_20_0110"
+          ]
+        },
+        "4": {
+          "cmd": 1501,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            ""
+          ]
+        },
+        "5": {
+          "cmd": 1,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "1"
+          ]
+        },
+        "6": {
+          "cmd": 2,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "1"
+          ]
+        },
+        "7": {
+          "cmd": 310,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            ""
+          ]
+        },
+        "8": {
+          "cmd": 9980,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            ""
+          ]
+        },
+        "9": {
+          "cmd": 71,
+          "target": 6051,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "1"
+          ]
+        },
+        "10": {
+          "cmd": 230,
+          "target": 0,
+          "pos": "X=8998.37,Y=3978.99,Z=1732.11",
+          "dir": 1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            ""
+          ]
+        },
+        "11": {
+          "cmd": 9990,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            ""
+          ]
+        },
+        "12": {
+          "cmd": 52,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "2"
+          ]
+        },
+        "13": {
+          "cmd": 10000,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            ""
+          ]
+        }
+      }
+    },
+    {
+      "row": {
+        "id": "MS_SHO_20_0200",
+        "EventIndex": 0,
+        "ExecCode": "MS_SHO_20_0200",
+        "CueSheetName": "CueSheet_VO_EventSHO020",
+        "RadarMapExitCode": "None",
+        "MapID": "65",
+        "Kind": "EEventKind::EVENT_MAIN",
+        "EventSoundLabel": "ES_SHO_20_0200",
+        "MissionLabel": "ML_SHO_20_0200",
+        "EventSkip": 1,
+        "LevelTriggerID": "ELevelTriggerID::Trigger_01",
+        "LanthanumFlag": 0,
+        "EncountTrigger": "None",
+        "CameraLockTrigger1": "None",
+        "CameraLockTrigger2": "None",
+        "CameraLockTrigger3": "None",
+        "StartFadeOutFlag": 1,
+        "ChengeTimeSequencer": "None",
+        "ChengeFinishTimeSequencer": "None",
+        "TargetChara": 0,
+        "EncountReset": true,
+        "Args": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      },
+      "sha256": "eb31424b4322aff0891f0ba7c827bba6e603c8f4fd0cbdafc3c734cb452672ab",
+      "commands": {
+        "0": {
+          "cmd": 8031,
+          "target": 34052,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "1"
+          ]
+        },
+        "1": {
+          "cmd": 1,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "0"
+          ]
+        },
+        "2": {
+          "cmd": 2,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "0"
+          ]
+        },
+        "3": {
+          "cmd": 1500,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "RI_MS_SHO_20_0300"
+          ]
+        },
+        "4": {
+          "cmd": 1501,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            ""
+          ]
+        },
+        "5": {
+          "cmd": 1,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "1"
+          ]
+        },
+        "6": {
+          "cmd": 2,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "1"
+          ]
+        },
+        "7": {
+          "cmd": 310,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            ""
+          ]
+        },
+        "8": {
+          "cmd": 9980,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            ""
+          ]
+        },
+        "9": {
+          "cmd": 71,
+          "target": 6052,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "1"
+          ]
+        },
+        "10": {
+          "cmd": 9990,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            ""
+          ]
+        },
+        "11": {
+          "cmd": 1000,
+          "target": -1,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "MS_SHO_20_0300"
+          ]
+        },
+        "12": {
+          "cmd": 10000,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            ""
+          ]
+        }
+      }
+    },
+    {
+      "row": {
+        "id": "MS_SHO_20_0300",
+        "EventIndex": 0,
+        "ExecCode": "MS_SHO_20_0300",
+        "CueSheetName": "CueSheet_VO_EventSHO020",
+        "RadarMapExitCode": "None",
+        "MapID": "65",
+        "Kind": "EEventKind::EVENT_MAIN",
+        "EventSoundLabel": "ES_SHO_20_0300",
+        "MissionLabel": "ML_SHO_20_0300",
+        "EventSkip": 1,
+        "LevelTriggerID": "ELevelTriggerID::Trigger_01",
+        "LanthanumFlag": 0,
+        "EncountTrigger": "None",
+        "CameraLockTrigger1": "None",
+        "CameraLockTrigger2": "None",
+        "CameraLockTrigger3": "None",
+        "StartFadeOutFlag": 1,
+        "ChengeTimeSequencer": "None",
+        "ChengeFinishTimeSequencer": "None",
+        "TargetChara": 0,
+        "EncountReset": true,
+        "Args": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      },
+      "sha256": "f523405eb106f352da5eb1ff2baebaba115a9fcec726fd40049e75bd25f9c310",
+      "commands": {
+        "0": {
+          "cmd": 1250,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "1",
+            "HouseB_SwitchIndoorTriggerBP"
+          ]
+        },
+        "1": {
+          "cmd": 1,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "0"
+          ]
+        },
+        "2": {
+          "cmd": 2,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "0"
+          ]
+        },
+        "3": {
+          "cmd": 1500,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "RI_MS_SHO_20_0200"
+          ]
+        },
+        "4": {
+          "cmd": 1501,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            ""
+          ]
+        },
+        "5": {
+          "cmd": 1,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "1"
+          ]
+        },
+        "6": {
+          "cmd": 2,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "1"
+          ]
+        },
+        "7": {
+          "cmd": 310,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            ""
+          ]
+        },
+        "8": {
+          "cmd": 9980,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            ""
+          ]
+        },
+        "9": {
+          "cmd": 1250,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "0",
+            "SwitchIndoorTriggerBP_House_A_1F2"
+          ]
+        },
+        "10": {
+          "cmd": 1250,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "0",
+            "HouseB_SwitchIndoorTriggerBP"
+          ]
+        },
+        "11": {
+          "cmd": 71,
+          "target": 6053,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "1"
+          ]
+        },
+        "12": {
+          "cmd": 70,
+          "target": 34051,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "1"
+          ]
+        },
+        "13": {
+          "cmd": 8030,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            ""
+          ]
+        },
+        "14": {
+          "cmd": 230,
+          "target": 0,
+          "pos": "X=9868.69,Y=4264.36,Z=1731.37",
+          "dir": 2,
+          "text": "",
+          "async": "0",
+          "opt": [
+            ""
+          ]
+        },
+        "15": {
+          "cmd": 9990,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            ""
+          ]
+        },
+        "16": {
+          "cmd": 52,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "2"
+          ]
+        },
+        "17": {
+          "cmd": 10000,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            ""
+          ]
+        }
+      }
+    },
+    {
+      "row": {
+        "id": "MS_SHO_20_0400",
+        "EventIndex": 0,
+        "ExecCode": "MS_SHO_20_0400",
+        "CueSheetName": "CueSheet_VO_EventSHO020",
+        "RadarMapExitCode": "None",
+        "MapID": "65",
+        "Kind": "EEventKind::EVENT_MAIN",
+        "EventSoundLabel": "ES_SHO_20_0400",
+        "MissionLabel": "ML_SHO_20_0400",
+        "EventSkip": 1,
+        "LevelTriggerID": "ELevelTriggerID::Trigger_01",
+        "LanthanumFlag": 0,
+        "EncountTrigger": "None",
+        "CameraLockTrigger1": "None",
+        "CameraLockTrigger2": "None",
+        "CameraLockTrigger3": "None",
+        "StartFadeOutFlag": 1,
+        "ChengeTimeSequencer": "None",
+        "ChengeFinishTimeSequencer": "None",
+        "TargetChara": 0,
+        "EncountReset": true,
+        "Args": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      },
+      "sha256": "c93034da2b7bb42540e8909966387685dcf98119da5dcd85525d0299752d0708",
+      "commands": {
+        "0": {
+          "cmd": 1250,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "1",
+            "HouseB_SwitchIndoorTriggerBP"
+          ]
+        },
+        "1": {
+          "cmd": 1,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "0"
+          ]
+        },
+        "2": {
+          "cmd": 2,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "0"
+          ]
+        },
+        "3": {
+          "cmd": 1500,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "RI_MS_SHO_20_0400"
+          ]
+        },
+        "4": {
+          "cmd": 1501,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            ""
+          ]
+        },
+        "5": {
+          "cmd": 1,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "1"
+          ]
+        },
+        "6": {
+          "cmd": 2,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "1"
+          ]
+        },
+        "7": {
+          "cmd": 310,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            ""
+          ]
+        },
+        "8": {
+          "cmd": 1250,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "0",
+            "HouseB_SwitchIndoorTriggerBP"
+          ]
+        },
+        "9": {
+          "cmd": 9980,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            ""
+          ]
+        },
+        "10": {
+          "cmd": 71,
+          "target": 6054,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "1"
+          ]
+        },
+        "11": {
+          "cmd": 70,
+          "target": 34052,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "1"
+          ]
+        },
+        "12": {
+          "cmd": 8030,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            ""
+          ]
+        },
+        "13": {
+          "cmd": 9990,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            ""
+          ]
+        },
+        "14": {
+          "cmd": 1000,
+          "target": -1,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "MS_SHO_20_0410"
+          ]
+        },
+        "15": {
+          "cmd": 10000,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            ""
+          ]
+        }
+      }
+    },
+    {
+      "row": {
+        "id": "MS_SHO_20_0410",
+        "EventIndex": 0,
+        "ExecCode": "MS_SHO_20_0410",
+        "CueSheetName": "CueSheet_VO_EventSHO020",
+        "RadarMapExitCode": "None",
+        "MapID": "65",
+        "Kind": "EEventKind::EVENT_MAIN",
+        "EventSoundLabel": "ES_SHO_20_0410",
+        "MissionLabel": "ML_SHO_20_0410",
+        "EventSkip": 1,
+        "LevelTriggerID": "ELevelTriggerID::Trigger_01",
+        "LanthanumFlag": 0,
+        "EncountTrigger": "None",
+        "CameraLockTrigger1": "None",
+        "CameraLockTrigger2": "None",
+        "CameraLockTrigger3": "None",
+        "StartFadeOutFlag": 1,
+        "ChengeTimeSequencer": "None",
+        "ChengeFinishTimeSequencer": "None",
+        "TargetChara": 0,
+        "EncountReset": true,
+        "Args": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      },
+      "sha256": "0b2a73f8eff155afc7a628405b44c61e75367a9e267d485c53b893377e25e065",
+      "commands": {
+        "0": {
+          "cmd": 62,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "2"
+          ]
+        },
+        "1": {
+          "cmd": 8031,
+          "target": 34051,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "1"
+          ]
+        },
+        "2": {
+          "cmd": 2,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "0"
+          ]
+        },
+        "3": {
+          "cmd": 4,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "0"
+          ]
+        },
+        "4": {
+          "cmd": 200,
+          "target": -1,
+          "pos": "X=11000,Y=2300,Z=1798.66",
+          "dir": 0,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "10",
+            "1",
+            "0",
+            "ShoJ000_Mle"
+          ]
+        },
+        "5": {
+          "cmd": 300,
+          "target": -1,
+          "pos": "X=10600,Y=2300,Z=1732.15",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "0",
+            "0"
+          ]
+        },
+        "6": {
+          "cmd": 20,
+          "target": 10,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": 0,
+          "text": "",
+          "async": "1",
+          "opt": [
+            "400",
+            "0",
+            "-1",
+            "0"
+          ]
+        },
+        "7": {
+          "cmd": 52,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "2"
+          ]
+        },
+        "8": {
+          "cmd": 25,
+          "target": -255,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            ""
+          ]
+        },
+        "9": {
+          "cmd": 40,
+          "target": 10,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": 0,
+          "text": "TX_MS_SHO_20_0400_0130",
+          "async": "0",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        "10": {
+          "cmd": 13,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            ""
+          ]
+        },
+        "11": {
+          "cmd": 40,
+          "target": 10,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": 0,
+          "text": "TX_MS_SHO_20_0400_0140",
+          "async": "0",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        "12": {
+          "cmd": 13,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            ""
+          ]
+        },
+        "13": {
+          "cmd": 20,
+          "target": 10,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": 0,
+          "text": "",
+          "async": "1",
+          "opt": [
+            "400",
+            "0",
+            "-1",
+            "0"
+          ]
+        },
+        "14": {
+          "cmd": 62,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "2"
+          ]
+        },
+        "15": {
+          "cmd": 2,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "1"
+          ]
+        },
+        "16": {
+          "cmd": 4,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "1"
+          ]
+        },
+        "17": {
+          "cmd": 310,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            ""
+          ]
+        },
+        "18": {
+          "cmd": 9980,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            ""
+          ]
+        },
+        "19": {
+          "cmd": 220,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            ""
+          ]
+        },
+        "20": {
+          "cmd": 71,
+          "target": 6055,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "1"
+          ]
+        },
+        "21": {
+          "cmd": 230,
+          "target": 0,
+          "pos": "X=10270,Y=2300,Z=1732.15",
+          "dir": 0,
+          "text": "",
+          "async": "0",
+          "opt": [
+            ""
+          ]
+        },
+        "22": {
+          "cmd": 9990,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            ""
+          ]
+        },
+        "23": {
+          "cmd": 52,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "2"
+          ]
+        },
+        "24": {
+          "cmd": 10000,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            ""
+          ]
+        }
+      }
+    },
+    {
+      "row": {
+        "id": "MS_SHO_20_0500",
+        "EventIndex": 0,
+        "ExecCode": "MS_SHO_20_0500",
+        "CueSheetName": "CueSheet_VO_EventSHO020",
+        "RadarMapExitCode": "None",
+        "MapID": "54",
+        "Kind": "EEventKind::EVENT_MAIN",
+        "EventSoundLabel": "ES_SHO_20_0500",
+        "MissionLabel": "ML_SHO_20_0500",
+        "EventSkip": 1,
+        "LevelTriggerID": "ELevelTriggerID::Trigger_01",
+        "LanthanumFlag": 0,
+        "EncountTrigger": "None",
+        "CameraLockTrigger1": "None",
+        "CameraLockTrigger2": "None",
+        "CameraLockTrigger3": "None",
+        "StartFadeOutFlag": 1,
+        "ChengeTimeSequencer": "None",
+        "ChengeFinishTimeSequencer": "None",
+        "TargetChara": 0,
+        "EncountReset": true,
+        "Args": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      },
+      "sha256": "c7402d4b53ed93ffa14255b9a527318f5a5c98d3bde07e088cd0b660fd06a6ff",
+      "commands": {
+        "0": {
+          "cmd": 8031,
+          "target": 34024,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "0"
+          ]
+        },
+        "1": {
+          "cmd": 8031,
+          "target": 34025,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "0"
+          ]
+        },
+        "2": {
+          "cmd": 1,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "0"
+          ]
+        },
+        "3": {
+          "cmd": 2,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "0"
+          ]
+        },
+        "4": {
+          "cmd": 1500,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "RI_MS_SHO_20_0500"
+          ]
+        },
+        "5": {
+          "cmd": 1501,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            ""
+          ]
+        },
+        "6": {
+          "cmd": 1,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "1"
+          ]
+        },
+        "7": {
+          "cmd": 2,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "1"
+          ]
+        },
+        "8": {
+          "cmd": 310,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            ""
+          ]
+        },
+        "9": {
+          "cmd": 9980,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            ""
+          ]
+        },
+        "10": {
+          "cmd": 71,
+          "target": 6056,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "1"
+          ]
+        },
+        "11": {
+          "cmd": 70,
+          "target": 25404,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "1"
+          ]
+        },
+        "12": {
+          "cmd": 9990,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            ""
+          ]
+        },
+        "13": {
+          "cmd": 1000,
+          "target": -1,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "MS_SHO_20_0600"
+          ]
+        },
+        "14": {
+          "cmd": 10000,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            ""
+          ]
+        }
+      }
+    },
+    {
+      "row": {
+        "id": "MS_SHO_20_0600",
+        "EventIndex": 0,
+        "ExecCode": "MS_SHO_20_0600",
+        "CueSheetName": "CueSheet_VO_EventSHO020",
+        "RadarMapExitCode": "None",
+        "MapID": "65",
+        "Kind": "EEventKind::EVENT_MAIN",
+        "EventSoundLabel": "ES_SHO_20_0600",
+        "MissionLabel": "ML_SHO_20_0600",
+        "EventSkip": 1,
+        "LevelTriggerID": "ELevelTriggerID::Trigger_01",
+        "LanthanumFlag": 0,
+        "EncountTrigger": "None",
+        "CameraLockTrigger1": "None",
+        "CameraLockTrigger2": "None",
+        "CameraLockTrigger3": "None",
+        "StartFadeOutFlag": 1,
+        "ChengeTimeSequencer": "None",
+        "ChengeFinishTimeSequencer": "None",
+        "TargetChara": 0,
+        "EncountReset": true,
+        "Args": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      },
+      "sha256": "e36eca13f2622f7c3c81606d9477d2ed4ccaa5a89ab1b0938feeb0a53ceb330b",
+      "commands": {
+        "0": {
+          "cmd": 62,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "2"
+          ]
+        },
+        "1": {
+          "cmd": 2,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "0"
+          ]
+        },
+        "2": {
+          "cmd": 4,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "0"
+          ]
+        },
+        "3": {
+          "cmd": 200,
+          "target": -1,
+          "pos": "X=10350,Y=4800,Z=1732.37",
+          "dir": 0,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "10",
+            "1",
+            "0",
+            "ShoJ000_Mle"
+          ]
+        },
+        "4": {
+          "cmd": 300,
+          "target": -1,
+          "pos": "X=10000,Y=4800,Z=1732.37",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "0",
+            "0"
+          ]
+        },
+        "5": {
+          "cmd": 20,
+          "target": 10,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": 0,
+          "text": "",
+          "async": "1",
+          "opt": [
+            "350",
+            "0",
+            "-1",
+            "0"
+          ]
+        },
+        "6": {
+          "cmd": 52,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "2"
+          ]
+        },
+        "7": {
+          "cmd": 25,
+          "target": -255,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            ""
+          ]
+        },
+        "8": {
+          "cmd": 14,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            ""
+          ]
+        },
+        "9": {
+          "cmd": 240,
+          "target": 10,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": 0,
+          "text": "",
+          "async": "1",
+          "opt": [
+            "10",
+            "0"
+          ]
+        },
+        "10": {
+          "cmd": 40,
+          "target": 10,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "TX_MS_SHO_20_0600_0010",
+          "async": "0",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        "11": {
+          "cmd": 13,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            ""
+          ]
+        },
+        "12": {
+          "cmd": 240,
+          "target": 10,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": 2,
+          "text": "",
+          "async": "1",
+          "opt": [
+            "0",
+            "0"
+          ]
+        },
+        "13": {
+          "cmd": 13,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            ""
+          ]
+        },
+        "14": {
+          "cmd": 240,
+          "target": 10,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": 2,
+          "text": "",
+          "async": "1",
+          "opt": [
+            "19",
+            "0"
+          ]
+        },
+        "15": {
+          "cmd": 40,
+          "target": 10,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "TX_MS_SHO_20_0600_0020",
+          "async": "0",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        "16": {
+          "cmd": 10,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "700"
+          ]
+        },
+        "17": {
+          "cmd": 40,
+          "target": 10,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "TX_MS_SHO_20_0600_0030",
+          "async": "0",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        "18": {
+          "cmd": 62,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "2"
+          ]
+        },
+        "19": {
+          "cmd": 2,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "1"
+          ]
+        },
+        "20": {
+          "cmd": 4,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "1"
+          ]
+        },
+        "21": {
+          "cmd": 310,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            ""
+          ]
+        },
+        "22": {
+          "cmd": 9980,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            ""
+          ]
+        },
+        "23": {
+          "cmd": 220,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            ""
+          ]
+        },
+        "24": {
+          "cmd": 71,
+          "target": 6057,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "1"
+          ]
+        },
+        "25": {
+          "cmd": 230,
+          "target": 0,
+          "pos": "X=10000,Y=4800,Z=1732.37",
+          "dir": 2,
+          "text": "",
+          "async": "0",
+          "opt": [
+            ""
+          ]
+        },
+        "26": {
+          "cmd": 9990,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            ""
+          ]
+        },
+        "27": {
+          "cmd": 52,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "2"
+          ]
+        },
+        "28": {
+          "cmd": 10000,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            ""
+          ]
+        }
+      }
+    },
+    {
+      "row": {
+        "id": "MS_SHO_20_0610",
+        "EventIndex": 0,
+        "ExecCode": "MS_SHO_20_0610",
+        "CueSheetName": "CueSheet_VO_EventSHO020",
+        "RadarMapExitCode": "None",
+        "MapID": "65",
+        "Kind": "EEventKind::EVENT_MAIN",
+        "EventSoundLabel": "ES_SHO_20_0610",
+        "MissionLabel": "ML_SHO_20_0610",
+        "EventSkip": 1,
+        "LevelTriggerID": "ELevelTriggerID::Trigger_01",
+        "LanthanumFlag": 0,
+        "EncountTrigger": "None",
+        "CameraLockTrigger1": "None",
+        "CameraLockTrigger2": "None",
+        "CameraLockTrigger3": "None",
+        "StartFadeOutFlag": 1,
+        "ChengeTimeSequencer": "None",
+        "ChengeFinishTimeSequencer": "None",
+        "TargetChara": 0,
+        "EncountReset": true,
+        "Args": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      },
+      "sha256": "cafc6ff3ae2c195e230b54a3727114ad144e74ff93272d5ee7b174ae5fb71054",
+      "commands": {
+        "0": {
+          "cmd": 1250,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "1",
+            "SwitchIndoorTriggerBP_SentryBox_A8"
+          ]
+        },
+        "1": {
+          "cmd": 1,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "0"
+          ]
+        },
+        "2": {
+          "cmd": 2,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "0"
+          ]
+        },
+        "3": {
+          "cmd": 1500,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "RI_MS_SHO_20_0610"
+          ]
+        },
+        "4": {
+          "cmd": 1501,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            ""
+          ]
+        },
+        "5": {
+          "cmd": 1,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "1"
+          ]
+        },
+        "6": {
+          "cmd": 2,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "1"
+          ]
+        },
+        "7": {
+          "cmd": 310,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            ""
+          ]
+        },
+        "8": {
+          "cmd": 9980,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            ""
+          ]
+        },
+        "9": {
+          "cmd": 71,
+          "target": 6058,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "1"
+          ]
+        },
+        "10": {
+          "cmd": 230,
+          "target": 0,
+          "pos": "X=8935.81,Y=5754.55,Z=1352.15",
+          "dir": 1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            ""
+          ]
+        },
+        "11": {
+          "cmd": 2000,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "ITM_TRE_SHO_20_0010",
+            "5"
+          ]
+        },
+        "12": {
+          "cmd": 9990,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            ""
+          ]
+        },
+        "13": {
+          "cmd": 52,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "2"
+          ]
+        },
+        "14": {
+          "cmd": 5005,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "eGET_TREASUREBOX",
+          "async": "0",
+          "opt": [
+            "ITM_TRE_SHO_20_0010",
+            "5"
+          ]
+        },
+        "15": {
+          "cmd": 10000,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            ""
+          ]
+        }
+      }
+    },
+    {
+      "row": {
+        "id": "MS_SHO_20_0615",
+        "EventIndex": 0,
+        "ExecCode": "MS_SHO_20_0615",
+        "CueSheetName": "CueSheet_VO_EventSHO020",
+        "RadarMapExitCode": "None",
+        "MapID": "None",
+        "Kind": "EEventKind::EVENT_MAIN",
+        "EventSoundLabel": "ES_SHO_20_0615",
+        "MissionLabel": "None",
+        "EventSkip": 0,
+        "LevelTriggerID": "ELevelTriggerID::Trigger_01",
+        "LanthanumFlag": 0,
+        "EncountTrigger": "None",
+        "CameraLockTrigger1": "None",
+        "CameraLockTrigger2": "None",
+        "CameraLockTrigger3": "None",
+        "StartFadeOutFlag": 0,
+        "ChengeTimeSequencer": "None",
+        "ChengeFinishTimeSequencer": "None",
+        "TargetChara": 0,
+        "EncountReset": false,
+        "Args": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      },
+      "sha256": "8057858749a52128d87c0cd98e91ed40d58d6673a0b2519ac862b130bb7047d3",
+      "commands": {
+        "0": {
+          "cmd": 40,
+          "target": -1,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": 3,
+          "text": "TX_MS_SHO_20_0600_0040",
+          "async": "0",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        "1": {
+          "cmd": 40,
+          "target": -1,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": 3,
+          "text": "TX_MS_SHO_20_0600_0050",
+          "async": "0",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        "2": {
+          "cmd": 5500,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "2",
+            "6"
+          ]
+        },
+        "3": {
+          "cmd": 62,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "2"
+          ]
+        },
+        "4": {
+          "cmd": 9990,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            ""
+          ]
+        },
+        "5": {
+          "cmd": 1000,
+          "target": -1,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "MS_SHO_20_0620"
+          ]
+        },
+        "6": {
+          "cmd": 10000,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            ""
+          ]
+        },
+        "7": {
+          "cmd": 10000,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            ""
+          ]
+        }
+      }
+    },
+    {
+      "row": {
+        "id": "MS_SHO_20_0620",
+        "EventIndex": 0,
+        "ExecCode": "MS_SHO_20_0620",
+        "CueSheetName": "CueSheet_VO_EventSHO020",
+        "RadarMapExitCode": "None",
+        "MapID": "54",
+        "Kind": "EEventKind::EVENT_MAIN",
+        "EventSoundLabel": "ES_SHO_20_0620",
+        "MissionLabel": "ML_SHO_20_0620",
+        "EventSkip": 1,
+        "LevelTriggerID": "ELevelTriggerID::Trigger_01",
+        "LanthanumFlag": 0,
+        "EncountTrigger": "None",
+        "CameraLockTrigger1": "None",
+        "CameraLockTrigger2": "None",
+        "CameraLockTrigger3": "None",
+        "StartFadeOutFlag": 1,
+        "ChengeTimeSequencer": "None",
+        "ChengeFinishTimeSequencer": "None",
+        "TargetChara": 0,
+        "EncountReset": true,
+        "Args": [
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          "",
+          ""
+        ]
+      },
+      "sha256": "b74cf9dbff94bfe968b8fab1c1145291c1eb5bd0a050f63fbaab622b0b853d23",
+      "commands": {
+        "0": {
+          "cmd": 8031,
+          "target": 34024,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "0"
+          ]
+        },
+        "1": {
+          "cmd": 8031,
+          "target": 34025,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "0"
+          ]
+        },
+        "2": {
+          "cmd": 1,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "0"
+          ]
+        },
+        "3": {
+          "cmd": 2,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "0"
+          ]
+        },
+        "4": {
+          "cmd": 1500,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "RI_MS_SHO_20_0620"
+          ]
+        },
+        "5": {
+          "cmd": 1501,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            ""
+          ]
+        },
+        "6": {
+          "cmd": 1,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "1"
+          ]
+        },
+        "7": {
+          "cmd": 2,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "1"
+          ]
+        },
+        "8": {
+          "cmd": 310,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            ""
+          ]
+        },
+        "9": {
+          "cmd": 9980,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            ""
+          ]
+        },
+        "10": {
+          "cmd": 71,
+          "target": 6059,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "1"
+          ]
+        },
+        "11": {
+          "cmd": 71,
+          "target": 6077,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "1"
+          ]
+        },
+        "12": {
+          "cmd": 70,
+          "target": 25126,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "1"
+          ]
+        },
+        "13": {
+          "cmd": 500,
+          "target": 65,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            ""
+          ]
+        },
+        "14": {
+          "cmd": 230,
+          "target": 0,
+          "pos": "X=10668.49,Y=4798.78,Z=1731.37",
+          "dir": 0,
+          "text": "",
+          "async": "0",
+          "opt": [
+            ""
+          ]
+        },
+        "15": {
+          "cmd": 9990,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            ""
+          ]
+        },
+        "16": {
+          "cmd": 52,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            "2"
+          ]
+        },
+        "17": {
+          "cmd": 10000,
+          "target": 0,
+          "pos": "X=0.0,Y=0.0,Z=0.0",
+          "dir": -1,
+          "text": "",
+          "async": "0",
+          "opt": [
+            ""
+          ]
+        }
+      }
+    }
+  ],
+  "delivery": {
+    "id": "NPC_SHO_20_02_0100_0000",
+    "ID": 10,
+    "PlacementType": 1,
+    "MainScenarioType": 4,
+    "MainScenarioID": 401,
+    "ResourceLabel": "NPC_SHO_20_0100",
+    "InvalidRadarIcon": false,
+    "IgnoreGravity": false,
+    "IndoorFlag": false,
+    "HouseInFloor": 0,
+    "TriggerScaleX": 0,
+    "TriggerScaleY": 0,
+    "TriggerScaleZ": 0,
+    "SpawnStartFlag": 6056,
+    "SpawnEndFlag": 6059,
+    "TimeZoneSpawnType": "ETIMEZONE_TRIGGER_TYPE::eALL",
+    "SpawnStartDelayCount": 0,
+    "SpawnEndDelayCount": 0,
+    "CompProloguePlayerID": "EPlayableCharacterID::eNONE",
+    "NorSpawnPrologue": false,
+    "NotSpawnFinal": false,
+    "NotCoexistencePlacementLabel": [
+      "None",
+      "None",
+      "None",
+      "None",
+      "None"
+    ],
+    "SpawnDir": "RIGHT",
+    "SpawnPosX": -2063.52001953125,
+    "SpawnPosY": 2551.7900390625,
+    "SpawnPosZ": 282.1499938964844,
+    "FaintSpawnPosX": 0,
+    "FaintSpawnPosY": 0,
+    "FaintSpawnPosZ": 0,
+    "EmotionOffsetX": 0,
+    "EmotionOffsetY": 0,
+    "EmotionOffsetZ": 0,
+    "CaptionTextLabel": "None",
+    "SinglePlayMotion": 0,
+    "Emotion": "8",
+    "Permission_FCmd": 0,
+    "AllowBanFlag_FCmd": 0,
+    "FixDirInFieldCommand": false,
+    "EventType_A": "eDELIVERY_ITEM",
+    "EventStartFlag_A": 6058,
+    "EventEndFlag_A": 6059,
+    "TimeZoneTriggerType_A": "ETIMEZONE_TRIGGER_TYPE::eALL",
+    "EventParam_A_1_ID": "None",
+    "EventParam_A_1": "ITM_TRE_SHO_20_0010",
+    "EventParam_A_2_ID": "None",
+    "EventParam_A_2": "5",
+    "EventParam_A_3_ID": "None",
+    "EventParam_A_3": "None",
+    "EventParam_A_4_ID": "None",
+    "EventParam_A_4": "None",
+    "EventParam_A_5_ID": "None",
+    "EventParam_A_5": "None",
+    "EventParam_A_6_ID": "None",
+    "EventParam_A_6": "None",
+    "EventParam_A_7_ID": "None",
+    "EventParam_A_7": "None",
+    "EventParam_A_8_ID": "None",
+    "EventParam_A_8": "None",
+    "EventParam_A_9_ID": "None",
+    "EventParam_A_9": "None",
+    "EventParam_A_10_ID": "None",
+    "EventParam_A_10": "None",
+    "EventLabel_A": "MS_SHO_20_0615",
+    "EventType_B": "eNORMAL_TALK",
+    "EventStartFlag_B": 0,
+    "EventEndFlag_B": 0,
+    "TimeZoneTriggerType_B": "ETIMEZONE_TRIGGER_TYPE::eALL",
+    "EventParam_B_1_ID": "None",
+    "EventParam_B_1": "None",
+    "EventParam_B_2_ID": "None",
+    "EventParam_B_2": "None",
+    "EventParam_B_3_ID": "None",
+    "EventParam_B_3": "None",
+    "EventParam_B_4_ID": "None",
+    "EventParam_B_4": "None",
+    "EventParam_B_5_ID": "None",
+    "EventParam_B_5": "None",
+    "EventParam_B_6_ID": "None",
+    "EventParam_B_6": "None",
+    "EventParam_B_7_ID": "None",
+    "EventParam_B_7": "None",
+    "EventParam_B_8_ID": "None",
+    "EventParam_B_8": "None",
+    "EventParam_B_9_ID": "None",
+    "EventParam_B_9": "None",
+    "EventParam_B_10_ID": "None",
+    "EventParam_B_10": "None",
+    "EventLabel_B": "TALK_NPC_GENERAL_001",
+    "EventType_C": "",
+    "EventStartFlag_C": 0,
+    "EventEndFlag_C": 0,
+    "TimeZoneTriggerType_C": "ETIMEZONE_TRIGGER_TYPE::None",
+    "EventParam_C_1_ID": "None",
+    "EventParam_C_1": "None",
+    "EventParam_C_2_ID": "None",
+    "EventParam_C_2": "None",
+    "EventParam_C_3_ID": "None",
+    "EventParam_C_3": "None",
+    "EventParam_C_4_ID": "None",
+    "EventParam_C_4": "None",
+    "EventParam_C_5_ID": "None",
+    "EventParam_C_5": "None",
+    "EventParam_C_6_ID": "None",
+    "EventParam_C_6": "None",
+    "EventParam_C_7_ID": "None",
+    "EventParam_C_7": "None",
+    "EventParam_C_8_ID": "None",
+    "EventParam_C_8": "None",
+    "EventParam_C_9_ID": "None",
+    "EventParam_C_9": "None",
+    "EventParam_C_10_ID": "None",
+    "EventParam_C_10": "None",
+    "EventLabel_C": "None",
+    "EventType_D": "",
+    "EventStartFlag_D": 0,
+    "EventEndFlag_D": 0,
+    "TimeZoneTriggerType_D": "ETIMEZONE_TRIGGER_TYPE::None",
+    "EventParam_D_1_ID": "None",
+    "EventParam_D_1": "None",
+    "EventParam_D_2_ID": "None",
+    "EventParam_D_2": "None",
+    "EventParam_D_3_ID": "None",
+    "EventParam_D_3": "None",
+    "EventParam_D_4_ID": "None",
+    "EventParam_D_4": "None",
+    "EventParam_D_5_ID": "None",
+    "EventParam_D_5": "None",
+    "EventParam_D_6_ID": "None",
+    "EventParam_D_6": "None",
+    "EventParam_D_7_ID": "None",
+    "EventParam_D_7": "None",
+    "EventParam_D_8_ID": "None",
+    "EventParam_D_8": "None",
+    "EventParam_D_9_ID": "None",
+    "EventParam_D_9": "None",
+    "EventParam_D_10_ID": "None",
+    "EventParam_D_10": "None",
+    "EventLabel_D": "None",
+    "EventType_E": "",
+    "EventStartFlag_E": 0,
+    "EventEndFlag_E": 0,
+    "TimeZoneTriggerType_E": "ETIMEZONE_TRIGGER_TYPE::None",
+    "EventParam_E_1_ID": "None",
+    "EventParam_E_1": "None",
+    "EventParam_E_2_ID": "None",
+    "EventParam_E_2": "None",
+    "EventParam_E_3_ID": "None",
+    "EventParam_E_3": "None",
+    "EventParam_E_4_ID": "None",
+    "EventParam_E_4": "None",
+    "EventParam_E_5_ID": "None",
+    "EventParam_E_5": "None",
+    "EventParam_E_6_ID": "None",
+    "EventParam_E_6": "None",
+    "EventParam_E_7_ID": "None",
+    "EventParam_E_7": "None",
+    "EventParam_E_8_ID": "None",
+    "EventParam_E_8": "None",
+    "EventParam_E_9_ID": "None",
+    "EventParam_E_9": "None",
+    "EventParam_E_10_ID": "None",
+    "EventParam_E_10": "None",
+    "EventLabel_E": "None",
+    "EventType_F": "",
+    "EventStartFlag_F": 0,
+    "EventEndFlag_F": 0,
+    "TimeZoneTriggerType_F": "ETIMEZONE_TRIGGER_TYPE::None",
+    "EventParam_F_1": "None",
+    "EventParam_F_2": "None",
+    "EventParam_F_3": "None",
+    "EventParam_F_4": "None",
+    "EventParam_F_5": "None",
+    "EventParam_F_6": "None",
+    "EventParam_F_7": "None",
+    "EventParam_F_8": "None",
+    "EventParam_F_9": "None",
+    "EventParam_F_10": "None",
+    "EventLabel_F": "None",
+    "EventType_G": "",
+    "EventStartFlag_G": 0,
+    "EventEndFlag_G": 0,
+    "TimeZoneTriggerType_G": "ETIMEZONE_TRIGGER_TYPE::None",
+    "EventParam_G_1": "None",
+    "EventParam_G_2": "None",
+    "EventParam_G_3": "None",
+    "EventParam_G_4": "None",
+    "EventParam_G_5": "None",
+    "EventParam_G_6": "None",
+    "EventParam_G_7": "None",
+    "EventParam_G_8": "None",
+    "EventParam_G_9": "None",
+    "EventParam_G_10": "None",
+    "EventLabel_G": "None",
+    "EventType_H": "",
+    "EventStartFlag_H": 0,
+    "EventEndFlag_H": 0,
+    "TimeZoneTriggerType_H": "ETIMEZONE_TRIGGER_TYPE::None",
+    "EventParam_H_1": "None",
+    "EventParam_H_2": "None",
+    "EventParam_H_3": "None",
+    "EventParam_H_4": "None",
+    "EventParam_H_5": "None",
+    "EventParam_H_6": "None",
+    "EventParam_H_7": "None",
+    "EventParam_H_8": "None",
+    "EventParam_H_9": "None",
+    "EventParam_H_10": "None",
+    "EventLabel_H": "None",
+    "EventType_I": "",
+    "EventStartFlag_I": 0,
+    "EventEndFlag_I": 0,
+    "TimeZoneTriggerType_I": "ETIMEZONE_TRIGGER_TYPE::None",
+    "EventParam_I_1": "None",
+    "EventParam_I_2": "None",
+    "EventParam_I_3": "None",
+    "EventParam_I_4": "None",
+    "EventParam_I_5": "None",
+    "EventParam_I_6": "None",
+    "EventParam_I_7": "None",
+    "EventParam_I_8": "None",
+    "EventParam_I_9": "None",
+    "EventParam_I_10": "None",
+    "EventLabel_I": "None",
+    "EventType_J": "",
+    "EventStartFlag_J": 0,
+    "EventEndFlag_J": 0,
+    "TimeZoneTriggerType_J": "ETIMEZONE_TRIGGER_TYPE::None",
+    "EventParam_J_1": "None",
+    "EventParam_J_2": "None",
+    "EventParam_J_3": "None",
+    "EventParam_J_4": "None",
+    "EventParam_J_5": "None",
+    "EventParam_J_6": "None",
+    "EventParam_J_7": "None",
+    "EventParam_J_8": "None",
+    "EventParam_J_9": "None",
+    "EventParam_J_10": "None",
+    "EventLabel_J": "None"
+  }
+}

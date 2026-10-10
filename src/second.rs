@@ -323,9 +323,17 @@ pub fn after_rejoin_with_plan(
         after.state == battle.state().rng.state,
         "second battle CRT continuity failed",
     )?;
-    let city = (battle.state().outcome == Outcome::Victory && routine_error.is_none())
+    let mut city = (battle.state().outcome == Outcome::Victory && routine_error.is_none())
         .then(|| crate::city::after_second_victory(after))
         .transpose()?;
+    if let Some(city)=&mut city {
+        let base=ot2_battle_engine::progression::formation_reward("ENG_EVE_THI_C01_020")?;
+        city.world_after.party_experience=vec![exp+crate::highroad::reward(base.exp,3,&steps)];
+        city.world_after.sync_progression()?;
+        let throne=city.world_after.character_progression.get_mut(&7).unwrap();
+        throne.jp_earned=base.jp+ot2_battle_engine::progression::formation_reward("ENG_EVE_THI_C01_010")?.jp;
+        throne.character.resources=Some(battle.state().actors[0].resources.clone());
+    }
     let parlor = city.as_ref().map(crate::parlor::after_city).transpose()?;
     let parlor_revisit = parlor
         .as_ref()

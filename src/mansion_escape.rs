@@ -257,7 +257,7 @@ pub fn predict(
     for break_then_escape in [false,true] {
         if break_then_escape && settings.max_boost_repeats.is_none() {continue;}
         let cap=None;
-        let break_cost=if break_then_escape {crate::escape_search::BREAK_INPUT_COST as usize} else {0};
+        let break_cost=if break_then_escape {(crate::escape_search::BREAK_INPUT_COST+crate::escape_search::ROUND_INPUT_COST) as usize} else {0};
         let final_bp=u8::from(break_then_escape);
         let max_draws=cap.map_or(u32::MAX,|n| n*u32::from(max_bp)*u32::from(max_bp+1)/2);
         for extra in 0..=max_draws {

@@ -1,0 +1,19 @@
+[Unit]
+Description=OT2 Speedrun Assistant
+After=network.target
+
+[Service]
+User=ot2
+Group=ot2
+WorkingDirectory=/opt/ot2
+EnvironmentFile=/etc/ot2.env
+ExecStart=/opt/ot2/ot2-gui --no-open --port 54345
+Restart=on-failure
+RestartSec=3
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=strict
+ProtectHome=true
+
+[Install]
+WantedBy=multi-user.target

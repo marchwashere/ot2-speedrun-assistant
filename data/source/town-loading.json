@@ -1,5 +1,5 @@
 {
-  "scope": "Sewer, Diamante mansion, New Delsta zones and Harbor, New Delsta Flats, Abandoned Village, Eastern New Delsta Highroad, Southern Cape Cold Snows, Cape Cold, ocean liner cutscene map and Crackridge Harbor; unfiltered placements, native flag lotteries, event commands, and available streamed packages. No fixed draw totals.",
+  "scope": "Sewer, Diamante mansion, New Delsta zones and Harbor, New Delsta Flats, Abandoned Village, Eastern New Delsta Highroad, Cape Cold Snows/Cape Cold, Western Winterbloom Snows/Winterbloom, ocean liner/Crackridge Harbor, Cropdale trails/Cropdale, Southern Oresrush Wilds/Oresrush, Northern Ryu Sands/Ryu, Canalbrine Bridge, and supported recruitment/story events; unfiltered placements, native flag lotteries, event commands, and available streamed packages. No fixed draw totals.",
   "flag_override_dependencies": [],
   "sources": [
     {
@@ -17,6 +17,10 @@
     {
       "source": "/Game/Character/Database/NPCData",
       "sha256": "ad0dfb8416c6235f60529a73ae07acda68d76d4f930acaa478c7cd8d9f6b101b"
+    },
+    {
+      "source": "/Game/Character/Database/PlayableCharacterDB",
+      "sha256": "d624b29cafae9397ea9e6557930820c1bc22fcbaea37617fb07f76c9ca80b650"
     },
     {
       "source": "/Game/Event/Database/EventList",
@@ -45,6 +49,30 @@
     {
       "source": "/Game/Environment/Resource/Object/EnvObj_Canoe/BP/BP_EnvObjMD_Canoe_A",
       "sha256": "a3dc70f3fb3d476c107624fceb5e9f3fcee9b5e6cbb6721d8ef3e6df4febe790"
+    },
+    {
+      "source": "/Game/Environment/Resource/Object/EnvObj_Flag/BP/BP_EnvObjMD_Flag_A",
+      "sha256": "fd680eb522bcc5fef05ced68556e7acc64e1efa856bbcf35485979749431a4cd"
+    },
+    {
+      "source": "/Game/Environment/Resource/Object/EnvObj_Batlefield/BP/BP_EnvObjMD_Batlefield_A_Flag_A",
+      "sha256": "bfe4d27b98727a195f0ae3454ee1f4d380d92ec57f27e1577a6113f39a9a6baa"
+    },
+    {
+      "source": "/Game/Environment/Resource/Object/EnvObj_Batlefield/BP/BP_EnvObjMD_Batlefield_A_Flag_A_TwoTone_B",
+      "sha256": "ac631a9c62ea0f996435bac730d21cc1648344bac4499bc5e0832f1c3f6083f7"
+    },
+    {
+      "source": "/Game/Environment/Resource/Object/EnvObj_Lamp/BP/BP_Lamp_I_Sea",
+      "sha256": "0a4adf4ed63d44a29c7b008e865637b5f86ac8411686530a3a37cac705e6e443"
+    },
+    {
+      "source": "/Game/Environment/Resource/Object/EnvObj_Gondola/BP/BP_EnvObjMD_Gondola_A_NoPaddle",
+      "sha256": "6c6232a982697d646076dda3a87b0e886be29daf66753718e15b4b04773d654b"
+    },
+    {
+      "source": "/Game/Environment/Resource/Object/EnvObj_Gondola/BP/BP_EnvObjMD_Gondola_A_Paddle",
+      "sha256": "bbcb520017363996f11aef9f993ab627abd3cf747f9ce818d81c166e7bbee14c"
     },
     {
       "source": "/Game/Event/json/MS_TOU_10_0100",
@@ -131,16 +159,192 @@
       "sha256": "201256ecf04662284ea8160545dcbc4a466c106e64d05dd5340ac22ee0ada437"
     },
     {
+      "source": "/Game/Event/json/MS_KEN_00_0100",
+      "sha256": "c7776e43231276ecba5918ba0a0a263ebac546da2291f7e3722988ea2cd81fe8"
+    },
+    {
+      "source": "/Game/Event/json/MS_KEN_00_0200",
+      "sha256": "6351311a9b6c2718f9c5733d2d869d2f187b3d748d51dc0888b76149125bd857"
+    },
+    {
+      "source": "/Game/Event/json/MS_KEN_00_0300",
+      "sha256": "fd06aca32f8ff2faa3b00d7bc09f540842b53ae89e227e3efbf876a5b6b0795f"
+    },
+    {
+      "source": "/Game/Event/json/MS_KEN_00_0310",
+      "sha256": "99a71e0b4021b0e7ec21ac47fcfa00ce7286a0547ec70ba587383485d41f8365"
+    },
+    {
+      "source": "/Game/Event/json/MS_KEN_00_0400",
+      "sha256": "dd53483fe70430e55d6291d1f63fe1f4169b39176c4372521cf680ac3e85b42c"
+    },
+    {
       "source": "/Game/Event/json/SC_FC13_Tutorial_0100",
       "sha256": "395de9e878dd48a9630b84ba3ed9b998c873aa9c60de22331d9443c770901ecf"
+    },
+    {
+      "source": "/Game/Event/json/MS_KUS_00_0100",
+      "sha256": "fcd064953bdb7e809f2d9f856fcaa0b38a2786d96095fb0a19d374aa9437177f"
     },
     {
       "source": "/Game/Event/json/MS_GAK_00_0100",
       "sha256": "ac24006f45ccd08ba0e20f71987698d8e43c8cc82b1ce692db75c4c5860211c6"
     },
     {
+      "source": "/Game/Event/json/MS_ODO_00_0200",
+      "sha256": "475fb967f601a02c35a238be7aa07b7b8b7a925d3df9d3fda4ee0ee39bc13beb"
+    },
+    {
+      "source": "/Game/Event/json/MS_SHO_00_0100",
+      "sha256": "2c346378c08df1d0bb54517f41fe803a0575f8c8fe49df0148c2b0256bd1d7b2"
+    },
+    {
+      "source": "/Game/Event/json/MS_SHO_00_0200",
+      "sha256": "ed3904235af454db5ea39e7b9ff9f8687b0de30dd2f25bdedeeee778fb9686a4"
+    },
+    {
+      "source": "/Game/Event/json/MS_TOU_2A_0100",
+      "sha256": "8d1cffe49ad5500c54fb65dcd0b74ca634d1ea27310b203d00ca4a94d8aff811"
+    },
+    {
+      "source": "/Game/Event/json/MS_ODO_20_0100",
+      "sha256": "2b23bf00c7761551f6c7a013b9eddf5044da3ff952ff6bcf245884b8baeec8bd"
+    },
+    {
+      "source": "/Game/Event/json/MS_SHO_20_0050",
+      "sha256": "c4bae721ce7379ef883c28ea43e4c49c986c3a15ac28b0659e606ddbb715b7f3"
+    },
+    {
+      "source": "/Game/Event/json/MS_SHO_20_0100",
+      "sha256": "6840da2b78b8cc0f84af7f1702aed96a448416d231cefa0b0b286edb4d8f7087"
+    },
+    {
+      "source": "/Game/Event/json/MS_SHO_20_0110",
+      "sha256": "56d4eb92972db7c5cbbf2e40f24bf965862056c43b243495be3b07689388f220"
+    },
+    {
+      "source": "/Game/Event/json/MS_SHO_20_0200",
+      "sha256": "eb31424b4322aff0891f0ba7c827bba6e603c8f4fd0cbdafc3c734cb452672ab"
+    },
+    {
+      "source": "/Game/Event/json/MS_SHO_20_0300",
+      "sha256": "f523405eb106f352da5eb1ff2baebaba115a9fcec726fd40049e75bd25f9c310"
+    },
+    {
+      "source": "/Game/Event/json/MS_SHO_20_0400",
+      "sha256": "c93034da2b7bb42540e8909966387685dcf98119da5dcd85525d0299752d0708"
+    },
+    {
+      "source": "/Game/Event/json/MS_SHO_20_0410",
+      "sha256": "0b2a73f8eff155afc7a628405b44c61e75367a9e267d485c53b893377e25e065"
+    },
+    {
+      "source": "/Game/Event/json/MS_SHO_20_0500",
+      "sha256": "c7402d4b53ed93ffa14255b9a527318f5a5c98d3bde07e088cd0b660fd06a6ff"
+    },
+    {
+      "source": "/Game/Event/json/MS_SHO_20_0600",
+      "sha256": "e36eca13f2622f7c3c81606d9477d2ed4ccaa5a89ab1b0938feeb0a53ceb330b"
+    },
+    {
+      "source": "/Game/Event/json/MS_SHO_20_0610",
+      "sha256": "cafc6ff3ae2c195e230b54a3727114ad144e74ff93272d5ee7b174ae5fb71054"
+    },
+    {
+      "source": "/Game/Event/json/MS_SHO_20_0615",
+      "sha256": "8057858749a52128d87c0cd98e91ed40d58d6673a0b2519ac862b130bb7047d3"
+    },
+    {
+      "source": "/Game/Event/json/MS_SHO_20_0620",
+      "sha256": "b74cf9dbff94bfe968b8fab1c1145291c1eb5bd0a050f63fbaab622b0b853d23"
+    },
+    {
       "source": "/Game/Event/json/SC_LinerShip_Cty_to_Wld",
       "sha256": "77c9d3c066c859cdd7366fe75f2b46c302087ae4a587e0d766922d2dc0cc2494"
+    },
+    {
+      "source": "/Game/Event/json/SC_LinerShip_Cty_to_Isd",
+      "sha256": "df8f182d02277a99afb5c53e2f4f9d5b1de3d5e86a3298a4a82539a5b78d4e3f"
+    },
+    {
+      "source": "/Game/Event/json/SC_LinerShip_Isd_to_Sea",
+      "sha256": "5e359d87321f04750a4ad9b23d31235cc625d5cc83bd69559bc80fd4662afdb7"
+    },
+    {
+      "source": "/Game/Event/json/SYS_INV_GUILD_0010",
+      "sha256": "cb0a122aa59a3dc7dcb3597af9dad50077d6812324922de62d86ca2ea408dd7f"
+    },
+    {
+      "source": "/Game/Event/json/SYS_INV_GUILD_0C10",
+      "sha256": "baa9a361b1efb55466ea7bb0f141515473d5317adaedba9151a308cbf058c526"
+    },
+    {
+      "source": "/Game/Event/json/SYS_INV_GUILD_0D10",
+      "sha256": "d64915c4641f2d93d701a4f038067cbf854db9d4da79d895c6da5c51a3864c23"
+    },
+    {
+      "source": "/Game/Event/json/SYS_SCH_GUILD_0010",
+      "sha256": "9f8ddb1c86a599ecd65fc3c7651a4c116d3bd3f63ac1331fb89a585e1c9fe420"
+    },
+    {
+      "source": "/Game/Event/json/SYS_SCH_GUILD_0030",
+      "sha256": "3790e3655e4ee6336ca239f0d141d6c7a3f9fd18d285faa99d9a23ce1d63f304"
+    },
+    {
+      "source": "/Game/Event/json/SYS_MER_GUILD_0010",
+      "sha256": "8a1831b9c282de3d60b07be09b78f55f62ff31087d205b7ca4dcdd3485c0ba24"
+    },
+    {
+      "source": "/Game/Event/json/SYS_MER_GUILD_0030",
+      "sha256": "98fc19ba1f9559a46fff91c49216c5db65dd51dc5ae640416ce9a57a61fd6701"
+    },
+    {
+      "source": "/Game/Event/json/MapInStorySelect",
+      "sha256": "e434039b004b97e0666e6652c597a21d8358abcecd3a279d25f2a0f7431093e6"
+    },
+    {
+      "source": "/Game/Level/Level/Desert/Fld_Dst_1_1.umap",
+      "sha256": "e726e5579505301d8a108855296de5c0af00e1d62814d14507801b0ed4ffd654"
+    },
+    {
+      "source": "/Game/Level/Level/Desert/Fld_Dst_1_1_Art.umap",
+      "sha256": "30c1dc0e86c0679a94dc8c1021a9543e04f3e1eb3906b4b79408a75d9854e6c1"
+    },
+    {
+      "source": "/Game/Level/Level/Desert/Fld_Dst_1_1_Coll.umap",
+      "sha256": "d18c76845f91875c0fb4d52f1a5abf675667743a33f88a1b63c4c85ddabb4294"
+    },
+    {
+      "source": "/Game/Level/Level/Desert/Fld_Dst_1_1_Sound.umap",
+      "sha256": "a2d145251f699d34fcdeb814688224c154ddbb644d9127434f4e7a3b1bef2a21"
+    },
+    {
+      "source": "/Game/Level/Level/Desert/Btl_Fld_Dst_Land_B.umap",
+      "sha256": "aa68f534f9cadf50a34c9e6de9004983af8271c7f42060ab764c58149906ed72"
+    },
+    {
+      "source": "/Game/Level/Level/Desert/Btl_Fld_Dst_River_B.umap",
+      "sha256": "8c72b7c87badca500a470bbe2418e767d1cccfea374c8cd7d3325f71e316ff62"
+    },
+    {
+      "source": "/Game/Level/Level/Desert/Twn_Dst_1_1_A.umap",
+      "sha256": "f2c79f732e4aa0dad0101dd89e434c4739e7b62a5c9fbca561d642a194b77938"
+    },
+    {
+      "source": "/Game/Level/Level/Desert/Twn_Dst_1_1_A_Art.umap",
+      "sha256": "fa864babb13417812e426f1ba1704b92a92ed575e8f6a7a51a0bbe06a6d6dad5"
+    },
+    {
+      "source": "/Game/Level/Level/Desert/Twn_Dst_1_1_A_Coll.umap",
+      "sha256": "b393e247db5a002788309de16eea6e9ba81f2d8a67c40ed6188fd317c162c450"
+    },
+    {
+      "source": "/Game/Level/Level/Desert/Twn_Dst_1_1_A_sound.umap",
+      "sha256": "98e3bd981a31751c656851aca8f817198cddc6167d4e77234c4e228106a5a621"
+    },
+    {
+      "source": "/Game/Level/Level/Desert/Btl_Twn_Dst_1_1_A.umap",
+      "sha256": "305cb51f9acc632a0462c36e46a86f51b0c9d3d0277cbd6ea4cf79700f35855d"
     },
     {
       "source": "/Game/Level/Level/City/Fld_Cty_1_1.umap",
@@ -223,6 +427,54 @@
       "sha256": "8bb7632049bb70acc6fe22fea4e5bffb223c1b57a1d1da090925b09bb00a42c5"
     },
     {
+      "source": "/Game/Level/Level/City/Fld_Cty_1_4.umap",
+      "sha256": "bdb0de56a6648e68b64c17d5bb6c26b2d6170dca9267d8ec624d7018ae4dabf6"
+    },
+    {
+      "source": "/Game/Level/Level/City/Fld_Cty_1_4_Art.umap",
+      "sha256": "e05bf4dd55c58bf7a6ed4fc2c92a79690809569fce6e76cd07f2812a7e9d0ce6"
+    },
+    {
+      "source": "/Game/Level/Level/City/Fld_Cty_1_4_Coll.umap",
+      "sha256": "bfd9d04ec5bff33fd97b8e439c47d26a5d7063f00f00fa464566da52de5f65a2"
+    },
+    {
+      "source": "/Game/Level/Level/City/Fld_Cty_1_4_Sound.umap",
+      "sha256": "f1408962b82541a71829faacd9f8f52ee31e9f7604168c67a62d6b7d0496cab2"
+    },
+    {
+      "source": "/Game/Level/Level/City/Btl_Fld_Cty_Land_A.umap",
+      "sha256": "43e1d4197f9435438ce34f92a4516e3f1edc763b42762b6d4dea02c4ab4e88ae"
+    },
+    {
+      "source": "/Game/Level/Level/City/Btl_Fld_Cty_River_A.umap",
+      "sha256": "1af03ffd68e03f6d27b97463d441e222e09a0a0f3830284203a1a0d1b8148116"
+    },
+    {
+      "source": "/Game/Level/Level/City/Fld_Cty_2_1.umap",
+      "sha256": "6364db29dae66a55e991c152092caabab0ac8768314643573ca4bdf897759b20"
+    },
+    {
+      "source": "/Game/Level/Level/City/Fld_Cty_2_1_Art.umap",
+      "sha256": "f80c4e2873f2b5752335f828bc2162287842c94196d513e3175983428aaff204"
+    },
+    {
+      "source": "/Game/Level/Level/City/Fld_Cty_2_1_Coll.umap",
+      "sha256": "0ed980e3dc9febc7e041f44a823a64f3fa5138dea48b77a9687e6ad68db73037"
+    },
+    {
+      "source": "/Game/Level/Level/City/Fld_Cty_2_1_Sound.umap",
+      "sha256": "57f90dbb5f0435104b096361b76174b85dcfea290bf08ca8414dc70ef8ea8fcf"
+    },
+    {
+      "source": "/Game/Level/Level/City/Btl_Fld_Cty_Land_A.umap",
+      "sha256": "43e1d4197f9435438ce34f92a4516e3f1edc763b42762b6d4dea02c4ab4e88ae"
+    },
+    {
+      "source": "/Game/Level/Level/City/Btl_Fld_Cty_River_A.umap",
+      "sha256": "1af03ffd68e03f6d27b97463d441e222e09a0a0f3830284203a1a0d1b8148116"
+    },
+    {
       "source": "/Game/Level/Level/City/Dng_Cty_1_1.umap",
       "sha256": "f5106f21f6b513d21eb52b483e13c9c0bf3069e176fb6623efb3ff708eb056d3"
     },
@@ -249,6 +501,26 @@
     {
       "source": "/Game/Level/Level/Other/Btl_Dng_Mansion_C_Boss.umap",
       "sha256": "9580f716e7b44760bd040ab8684c1b742b1aab24af9812a8d3e4e73642b6f67d"
+    },
+    {
+      "source": "/Game/Level/Level/City/Dng_Cty_2_1.umap",
+      "sha256": "761c73d371871984a097c8098a85770904c9f0b3ec638a73ef6a15be5b04a05f"
+    },
+    {
+      "source": "/Game/Level/Level/City/Dng_Cty_2_1_Art.umap",
+      "sha256": "6f8315adc12772b4fb6b9426197d3738d13ee0c0eb06101a20474c39d7b332a8"
+    },
+    {
+      "source": "/Game/Level/Level/City/Dng_Cty_2_1_Coll.umap",
+      "sha256": "0d02b23ee3d5ac11d5bd482768a6330ead4026fa1423aa404a1533565b3e5475"
+    },
+    {
+      "source": "/Game/Level/Level/City/Dng_Cty_2_1_Sound.umap",
+      "sha256": "c791f428e7021215ae28f52c5bddb8fb06362d28c25a7ab3d9fde7305b5c7ab7"
+    },
+    {
+      "source": "/Game/Level/Level/Other/Btl_Dng_Factory_Land_A.umap",
+      "sha256": "e0a6fd5fbae82a53fc9181d79d75fa84038d614884362d814816f7a35b033706"
     },
     {
       "source": "/Game/Level/Level/City/Dng_Cty_3_1.umap",
@@ -403,6 +675,82 @@
       "sha256": "43e1d4197f9435438ce34f92a4516e3f1edc763b42762b6d4dea02c4ab4e88ae"
     },
     {
+      "source": "/Game/Level/Level/City/Twn_Cty_2_1_A.umap",
+      "sha256": "abd6b5b0319fab0320238e2cfd804bacb720f6e10ce6c7d4268451fe5e675702"
+    },
+    {
+      "source": "/Game/Level/Level/City/Twn_Cty_2_1_A_Art.umap",
+      "sha256": "cc7a6463606378a5862bee384a04763de75f12497f7156ec3086e88cdaa650d6"
+    },
+    {
+      "source": "/Game/Level/Level/City/Twn_Cty_2_1_A_Coll.umap",
+      "sha256": "aaf5d6221a164a2035793777cd2fd7cfa7f64f2d62ed172d0907d98dd3438937"
+    },
+    {
+      "source": "/Game/Level/Level/City/Twn_Cty_2_1_A_GD.umap",
+      "sha256": "553422639ed026d0a5e1f2dba2a6ae2735e90f99da7fd7765c4fa7f0ebdddbf4"
+    },
+    {
+      "source": "/Game/Level/Level/City/Twn_Cty_2_1_A_Sound.umap",
+      "sha256": "edd0322ba9ba8b74a31b8ec643d9e47d1cce28258a7e9639dd86b7a9346530aa"
+    },
+    {
+      "source": "/Game/Level/Level/City/Btl_Twn_Cty_C.umap",
+      "sha256": "a24b6794f5c9964f35b5fab610cc99e2bd6223942d8369bac39383598469cee2"
+    },
+    {
+      "source": "/Game/Level/Level/City/Twn_Cty_2_1_B.umap",
+      "sha256": "124726a518513051a393bc71031340bead24500d0bf9a8cfe0cb0126085f85c0"
+    },
+    {
+      "source": "/Game/Level/Level/City/Twn_Cty_2_1_B_Art.umap",
+      "sha256": "be5edcf5ce900480aa7484f4f5d58d6faae7b018837fc0701c54ec39ace3e27d"
+    },
+    {
+      "source": "/Game/Level/Level/City/Twn_Cty_2_1_B_Coll.umap",
+      "sha256": "2ccf5f12af75e9a3cfe0f84f94e80bf098174d9195f21d203de9049dc2075364"
+    },
+    {
+      "source": "/Game/Level/Level/City/Twn_Cty_2_1_B_GD.umap",
+      "sha256": "15772327bcc4774c4446433d096bf655d15ad33b904c8413908488bc54c70531"
+    },
+    {
+      "source": "/Game/Level/Level/City/Twn_Cty_2_1_B_Sound.umap",
+      "sha256": "0180650511c078c751ad0c773e523e2682a3dad70c0ecd59a877369c41ded839"
+    },
+    {
+      "source": "/Game/Level/Level/City/Btl_Twn_Cty_C.umap",
+      "sha256": "a24b6794f5c9964f35b5fab610cc99e2bd6223942d8369bac39383598469cee2"
+    },
+    {
+      "source": "/Game/Level/Level/Island/Fld_Isd_1_3.umap",
+      "sha256": "cccd0d18d855a8cc13ebb2113158bbc7fba21555ff536bc2a42e6d6176cc3ce9"
+    },
+    {
+      "source": "/Game/Level/Level/Island/Fld_Isd_1_3_Art.umap",
+      "sha256": "cb55a44ba330ddef5158f6ec7f1e518ae94692b538f690acfaa4f568c5854fdc"
+    },
+    {
+      "source": "/Game/Level/Level/Island/Fld_Isd_1_3_coll.umap",
+      "sha256": "fa65935ec6a36a9d8754708f116ef4ba4ac2310dc4ead9948fe0aa465961a653"
+    },
+    {
+      "source": "/Game/Level/Level/Island/Fld_Isd_1_3_GD.umap",
+      "sha256": "6ac4e06ec51cd2f47b88e211d45062e6398520d02cec6e69f4a50bde0f64fd8f"
+    },
+    {
+      "source": "/Game/Level/Level/Island/Fld_Isd_1_3_Sound.umap",
+      "sha256": "770b11568c45fa2bfb5a9d36b96495b1598683064ea14942c2d1753c724659f9"
+    },
+    {
+      "source": "/Game/Level/Level/Island/Btl_Fld_Isd_Land_B.umap",
+      "sha256": "4879a307c9e9965a1df89b7da2bbfa08c9c58f0f9c395523422258ec7803dc7b"
+    },
+    {
+      "source": "/Game/Level/Level/Island/Btl_Fld_Isd_River_B.umap",
+      "sha256": "534e265218eb9d7bccbb2d398847fcdf5cdc2178ad17ef4a0586ca50a5e4e347"
+    },
+    {
       "source": "/Game/Level/Level/Wilderness/Fld_Wld_1_2.umap",
       "sha256": "bcc31608cc16773d96f739f2d88e96cda85ad147e2912b7291c32872e7e68233"
     },
@@ -421,6 +769,434 @@
     {
       "source": "/Game/Level/Level/Wilderness/Btl_Fld_Wld_Land_A.umap",
       "sha256": "4368b4dd54b674d6913ace1664c93a92cbb0bfadc7a22910ca2489f1b1c2ca8f"
+    },
+    {
+      "source": "/Game/Level/Level/Wilderness/Fld_Wld_1_3.umap",
+      "sha256": "0aaf60f3cda7123e8eeaeac52d0e506da708a0dcf0e940539e64d35854e57111"
+    },
+    {
+      "source": "/Game/Level/Level/Wilderness/Fld_Wld_1_3_Art.umap",
+      "sha256": "c0b39152fda31dd90a33080e2a68aabdbc67904be07acdd78a5f2a230335bfbc"
+    },
+    {
+      "source": "/Game/Level/Level/Wilderness/Fld_Wld_1_3_Coll.umap",
+      "sha256": "073c9a1006ae625bc0e52af36d61672d537004b66d665132d9a6c12490e7ab48"
+    },
+    {
+      "source": "/Game/Level/Level/Wilderness/Fld_Wld_1_3_GD.umap",
+      "sha256": "819e0ce207dc906298f3c9d83d677fdaaacbe55185edd278c0936911361b7e10"
+    },
+    {
+      "source": "/Game/Level/Level/Wilderness/Fld_Wld_1_3_Sound.umap",
+      "sha256": "17657c472c12a24765e06f5c5092ccd8c1a5a8d885cd77079f6769a6c92c5799"
+    },
+    {
+      "source": "/Game/Level/Level/Wilderness/Btl_Fld_Wld_Land_A.umap",
+      "sha256": "4368b4dd54b674d6913ace1664c93a92cbb0bfadc7a22910ca2489f1b1c2ca8f"
+    },
+    {
+      "source": "/Game/Level/Level/Wilderness/Fld_Wld_2_1.umap",
+      "sha256": "5f23c2eb3b025b5a5c36c6d2c3f7e5e67d956bb920f6b87017498d3197019768"
+    },
+    {
+      "source": "/Game/Level/Level/Wilderness/Fld_Wld_2_1_Art.umap",
+      "sha256": "162de11659ade0343bf350ea44456be048ea45d3e7287f9ed667a0168ed80a4f"
+    },
+    {
+      "source": "/Game/Level/Level/Wilderness/Fld_Wld_2_1_Coll.umap",
+      "sha256": "762cd3178977689cb58ca4591bc700cbc5a63e6329235849e0b99fb567e0b3de"
+    },
+    {
+      "source": "/Game/Level/Level/Wilderness/Fld_Wld_2_1_Sound.umap",
+      "sha256": "686fe177c10a052f5e457356fd56327fb136b735db458dc7aca52c32c21b0ecb"
+    },
+    {
+      "source": "/Game/Level/Level/Wilderness/Btl_Fld_Wld_Land_A.umap",
+      "sha256": "4368b4dd54b674d6913ace1664c93a92cbb0bfadc7a22910ca2489f1b1c2ca8f"
+    },
+    {
+      "source": "/Game/Level/Level/Wilderness/Fld_Wld_2_2.umap",
+      "sha256": "0d9a4fc12f914d8948504650edf22b81b958948fb39bcf5724f4c4ad5a8c2d36"
+    },
+    {
+      "source": "/Game/Level/Level/Wilderness/Fld_Wld_2_2_Art.umap",
+      "sha256": "59b2ba787d7b02300908193ea633a72a7ad47ee8592404e8b07998447c4328c0"
+    },
+    {
+      "source": "/Game/Level/Level/Wilderness/Fld_Wld_2_2_Coll.umap",
+      "sha256": "a4ced59d0faca593dce86d925e9ad62e9e4b88a6eac4434ed51ffa8ea9079acd"
+    },
+    {
+      "source": "/Game/Level/Level/Wilderness/Fld_Wld_2_2_GD.umap",
+      "sha256": "fbd94b876a0baf20650f85c147e3b216e0dc92b16843463032cd36eec3a7ae95"
+    },
+    {
+      "source": "/Game/Level/Level/Wilderness/Fld_Wld_2_2_Sound.umap",
+      "sha256": "13d6e02d23c18689bedef92116d16c0c45da2361a277785f4f2e03a805a2334a"
+    },
+    {
+      "source": "/Game/Level/Level/Wilderness/Btl_Fld_Wld_Land_A.umap",
+      "sha256": "4368b4dd54b674d6913ace1664c93a92cbb0bfadc7a22910ca2489f1b1c2ca8f"
+    },
+    {
+      "source": "/Game/Level/Level/Wilderness/Fld_Wld_3_2.umap",
+      "sha256": "a53ebe3fd378a8130137c9a3d119f239950ab31f106ce0beb86abca9cc151b9d"
+    },
+    {
+      "source": "/Game/Level/Level/Wilderness/Fld_Wld_3_2_Art.umap",
+      "sha256": "30847a6ab819b9cd9d721ad62e6d27d39296d8f2a032c73f3a9f160ed6165cb9"
+    },
+    {
+      "source": "/Game/Level/Level/Wilderness/Fld_Wld_3_2_Coll.umap",
+      "sha256": "0fc2411fd647eb4d4e726a1f1ca75e787ccb246bbea2e90649dd4b9f57645437"
+    },
+    {
+      "source": "/Game/Level/Level/Wilderness/Fld_Wld_3_2_GD.umap",
+      "sha256": "1b2bab50fc5892c4102fd85d7f7a673acc1e6bb722d0be493202ad161901309d"
+    },
+    {
+      "source": "/Game/Level/Level/Wilderness/Fld_Wld_3_2_Sound.umap",
+      "sha256": "6001d00bf64793c68320dad6639a881431aff8b75f67a7b7bec010b1ade5086c"
+    },
+    {
+      "source": "/Game/Level/Level/Wilderness/Btl_Fld_Wld_Land_A.umap",
+      "sha256": "4368b4dd54b674d6913ace1664c93a92cbb0bfadc7a22910ca2489f1b1c2ca8f"
+    },
+    {
+      "source": "/Game/Level/Level/Wilderness/Twn_Wld_1_1_C.umap",
+      "sha256": "8447aed76ca6f71934b53b0df79514379db8ed6202a716bdcbeac6de6ed1c266"
+    },
+    {
+      "source": "/Game/Level/Level/Wilderness/Twn_Wld_1_1_C_Art.umap",
+      "sha256": "6847acca47b159cfa5a6dc5c8ea57888b46eee28b93a9ea6d126b258debe64b2"
+    },
+    {
+      "source": "/Game/Level/Level/Wilderness/Twn_Wld_1_1_C_Coll.umap",
+      "sha256": "63635a1c8c9e5e71a42b36fc18b05b7e2a092e198f7300136a151cd33a6b4e7f"
+    },
+    {
+      "source": "/Game/Level/Level/Wilderness/Twn_Wld_1_1_C_GD.umap",
+      "sha256": "e14d76fca4c3a45c30a9af977e3851c19677c8d0f8c775a70640a5f46e724819"
+    },
+    {
+      "source": "/Game/Level/Level/Wilderness/Twn_Wld_1_1_C_Sound.umap",
+      "sha256": "628bbde39b6c28a491454b2b5d478f7ea6defb4345547065170f01b2428cc8f7"
+    },
+    {
+      "source": "/Game/Level/Level/Wilderness/Btl_Twn_Wld_A.umap",
+      "sha256": "2c1bb51f0ef483e8206f21d67099e6690b783c48f76819f450bb984c517bbab1"
+    },
+    {
+      "source": "/Game/Level/Level/Wilderness/Twn_Wld_2_1_A.umap",
+      "sha256": "a374cc37742e33c083dbc64b9c1eafc49de1d171052a22dcf98530ac1c5d24b5"
+    },
+    {
+      "source": "/Game/Level/Level/Wilderness/Twn_Wld_2_1_A_Art.umap",
+      "sha256": "2fafd00a7e0f2dcf18495b7ef6591b2214b24e28617a296f8274141756f09395"
+    },
+    {
+      "source": "/Game/Level/Level/Wilderness/Twn_Wld_2_1_A_Coll.umap",
+      "sha256": "92687426e7f1cdac54c1fc47c41f83fdd64e6b1c58ab7ceee02345dbe8cb5c50"
+    },
+    {
+      "source": "/Game/Level/Level/Wilderness/Twn_Wld_2_1_A_GD.umap",
+      "sha256": "c27b5a364493aaef1c147feac8b294504054350869c074a3fbaa40ecd72a8ed0"
+    },
+    {
+      "source": "/Game/Level/Level/Wilderness/Twn_Wld_2_1_A_Sound.umap",
+      "sha256": "a7b194609a78a2c6b45da3f60948677789738c9df7c7aa5f6bc084ed9e59aaed"
+    },
+    {
+      "source": "/Game/Level/Level/Wilderness/Btl_Twn_Wld_B.umap",
+      "sha256": "42d66c0ae1dbe136c95e0e17b2efadaf0a9312a41b0322184d9a0409234346af"
+    },
+    {
+      "source": "/Game/Level/Level/Wilderness/Twn_Wld_2_1_A.uexp",
+      "sha256": "8f647147167b3579ca87e9cf3067964981dddb828ee361dcaa7f370e5cb0c0c0"
+    },
+    {
+      "source": "/Game/Level/Level/Sea/Fld_Sea_1_2.umap",
+      "sha256": "8b6b5fe0787decd0d8fd8113b0df22a86e29b9e1f2effcb3904626688f557a5f"
+    },
+    {
+      "source": "/Game/Level/Level/Sea/Fld_Sea_1_2_Art.umap",
+      "sha256": "746ff78b350d43b244466d4dd5c3dad888230dee8ab8a3e41b2b58d0adb00dbb"
+    },
+    {
+      "source": "/Game/Level/Level/Sea/Fld_Sea_1_2_Coll.umap",
+      "sha256": "c16f38cecb4344c64315d8681bd42cac2bec6a21649a6eba7856cde986db50b5"
+    },
+    {
+      "source": "/Game/Level/Level/Sea/Fld_Sea_1_2_GD.umap",
+      "sha256": "f10440ef9bad18a2aac7d6ca077b2ca3f645c09ad471ea8017712a160105cb0b"
+    },
+    {
+      "source": "/Game/Level/Level/Sea/Fld_Sea_1_2_Sound.umap",
+      "sha256": "7dc6d6cce2d7fb1a4d70657d73f4e569697a2ff035ea4d384fd06518f8a7e7ae"
+    },
+    {
+      "source": "/Game/Level/Level/Sea/Btl_Fld_Sea_Land_A.umap",
+      "sha256": "331ead605ef56e1bd736e7fe4c06517a28f4582d240b8e220e5d2128c91e1be1"
+    },
+    {
+      "source": "/Game/Level/Level/Sea/Btl_Fld_Sea_River_A.umap",
+      "sha256": "a5afba18e87516f87036da880ca41e07f4bd8684acb723f91b322c8116f0817b"
+    },
+    {
+      "source": "/Game/Level/Level/Sea/Fld_Sea_2_2.umap",
+      "sha256": "0ec5fde3728891b3b81ed7eb366904014880b6e48a7900567f160e6b0b81b368"
+    },
+    {
+      "source": "/Game/Level/Level/Sea/Fld_Sea_2_2_Art.umap",
+      "sha256": "5762e4cd9f5631134ebf73e72fd95c721854df8c5bf5c74b3e8891acd2842574"
+    },
+    {
+      "source": "/Game/Level/Level/Sea/Fld_Sea_2_2_Coll.umap",
+      "sha256": "6a6cefb77c0293103495cc01ad89da966b34f4c6c4c561cb60e94c84c9dd0527"
+    },
+    {
+      "source": "/Game/Level/Level/Sea/Fld_Sea_2_2_GD.umap",
+      "sha256": "317742a02d66922ee1615ef457839cd994acdeb9f5aebe590a9718d526ffc505"
+    },
+    {
+      "source": "/Game/Level/Level/Sea/Fld_Sea_2_2_Sound.umap",
+      "sha256": "608e9df87ca69cd72c54c3ab09afe330209c146f8551afd17d941bdd9dfea94f"
+    },
+    {
+      "source": "/Game/Level/Level/Sea/Btl_Fld_Sea_Land_A.umap",
+      "sha256": "331ead605ef56e1bd736e7fe4c06517a28f4582d240b8e220e5d2128c91e1be1"
+    },
+    {
+      "source": "/Game/Level/Level/Sea/Fld_Sea_2_3.umap",
+      "sha256": "b1ddc66a2bc7524b62162b8a67ffb05d0fd604f0272364698b3928bb277877d2"
+    },
+    {
+      "source": "/Game/Level/Level/Sea/Fld_Sea_2_3_Art.umap",
+      "sha256": "d065d6d16084394148e7682ae45e4f10fe160b3430f7993bf28f039fa7586bcb"
+    },
+    {
+      "source": "/Game/Level/Level/Sea/Fld_Sea_2_3_Coll.umap",
+      "sha256": "f2bf109894aaff5d069b98d36bb3798c3c82af28d95b43f9b4e8b8aee97c14b0"
+    },
+    {
+      "source": "/Game/Level/Level/Sea/Fld_Sea_2_3_Sound.umap",
+      "sha256": "ba6cff21d17065ca63102ce9597312e83fe0fa388710e31d5d64c9e39b432ee6"
+    },
+    {
+      "source": "/Game/Level/Level/Sea/Btl_Fld_Sea_Land_A.umap",
+      "sha256": "331ead605ef56e1bd736e7fe4c06517a28f4582d240b8e220e5d2128c91e1be1"
+    },
+    {
+      "source": "/Game/Level/Level/Sea/Btl_Fld_Sea_River_A.umap",
+      "sha256": "a5afba18e87516f87036da880ca41e07f4bd8684acb723f91b322c8116f0817b"
+    },
+    {
+      "source": "/Game/Level/Level/Sea/Twn_Sea_1_1_A.umap",
+      "sha256": "dee98823afcfc907d0344ec0a3cfb333aa2aa7ad20943cbd81d79837562c806b"
+    },
+    {
+      "source": "/Game/Level/Level/Sea/Twn_Sea_1_1_A_Art.umap",
+      "sha256": "d547d8c70b140b5143f198168946673aba5791cc1bf92f1075d2519981ec6bbc"
+    },
+    {
+      "source": "/Game/Level/Level/Sea/Twn_Sea_1_1_A_Coll.umap",
+      "sha256": "3e518c848436b57f25ee4177b03b018744c70ea116cc1120f41f5b924b1f74ac"
+    },
+    {
+      "source": "/Game/Level/Level/Sea/Twn_Sea_1_1_A_GD.umap",
+      "sha256": "f3be94ebcaf31c1bfd5a7c832cc91df64003d59b87326e22175262feb5fe62d7"
+    },
+    {
+      "source": "/Game/Level/Level/Sea/Twn_Sea_1_1_A_Sound.umap",
+      "sha256": "d55ff554d302df9a5df2774ef434ea4b92ddb7f7f2513d57ac30b7bd3f74e076"
+    },
+    {
+      "source": "/Game/Level/Level/Sea/Btl_Twn_Sea_A.umap",
+      "sha256": "a04489680d4de18c798e3720b07c4bbe51ff28afe9b9a3001dad88b2c9b9f042"
+    },
+    {
+      "source": "/Game/Level/Level/Sea/Twn_Sea_1_1_A.uexp",
+      "sha256": "5b3201943f82d5b273858b6a9ae2ccb2063f6c8c3011d1ce6cf7855c08e5df6a"
+    },
+    {
+      "source": "/Game/Level/Level/Sea/Twn_Sea_1_1_A_Art.uexp",
+      "sha256": "77d8e688bdbc6add64c1f6213bfc6d7f0732a7530eb7fe1ebaddbae7945d90aa"
+    },
+    {
+      "source": "/Game/Level/Level/Sea/Btl_Twn_Sea_A.uexp",
+      "sha256": "b67f286535c1963fca3f3e6421df70cb86c0aa4d9d0640bf6e8fbde96e0c3e20"
+    },
+    {
+      "source": "/Game/Level/Level/Sea/Twn_Sea_2_1_A.umap",
+      "sha256": "1afead221259ab257f9a152e8f13a2be366f1630dd1d4d4b89173ae4533e76de"
+    },
+    {
+      "source": "/Game/Level/Level/Sea/Twn_Sea_2_1_A_Art.umap",
+      "sha256": "76b61a44d08721f5350fb5b9802d5f28829415dda79b5157bb2391236640388f"
+    },
+    {
+      "source": "/Game/Level/Level/Sea/Twn_Sea_2_1_A_Coll.umap",
+      "sha256": "1ad487a06e48f9726f9183a6c8e9bc017de49290ee16c4b3f4b9933e5caa895c"
+    },
+    {
+      "source": "/Game/Level/Level/Sea/Twn_Sea_2_1_A_GD.umap",
+      "sha256": "d40d0632e648211f3ec686dcb62ab720c8f8bf58aed8c95443cc75fb008ec352"
+    },
+    {
+      "source": "/Game/Level/Level/Sea/Twn_Sea_2_1_A_Sound.umap",
+      "sha256": "6ca62ef32b7298cd99a47c4b9c6d068d41cad9763363b45808ba38defd1de40f"
+    },
+    {
+      "source": "/Game/Level/Level/Sea/Btl_Twn_Sea_B.umap",
+      "sha256": "6884e603cd78f11d5d2b76a73b79aa7f3003f54528fe628162517b1b942ef68a"
+    },
+    {
+      "source": "/Game/Level/Level/Sea/Twn_Sea_2_1_A.uexp",
+      "sha256": "e2b131c7bf76a29cc06a51e5edef18fbc2996bbd2f952508f4da216fab57ba44"
+    },
+    {
+      "source": "/Game/Level/Level/Sea/Btl_Twn_Sea_B.uexp",
+      "sha256": "e6cfe177d4f9500b859b0ccb1f50481dbe6f6607b10e88b62e5ec82b444967cc"
+    },
+    {
+      "source": "/Game/Level/Level/Sea/Twn_Sea_2_1_B.umap",
+      "sha256": "c17b5edfc45bffdb7fd6cbbb511033d3173644c89e460748c68d9bffc9639e3e"
+    },
+    {
+      "source": "/Game/Level/Level/Sea/Twn_Sea_2_1_B_Art.umap",
+      "sha256": "607cd84f2280f179ce21a7d368a0079c7add2a4c55190c6e2387d01bf227d80e"
+    },
+    {
+      "source": "/Game/Level/Level/Sea/Twn_Sea_2_1_B_Coll.umap",
+      "sha256": "6974ef404f6d677ea4e3bbd4e5c42ca5041582a501a40628eb45b021b4844ef1"
+    },
+    {
+      "source": "/Game/Level/Level/Sea/Twn_Sea_2_1_B_GD.umap",
+      "sha256": "8456417db2644ccdcd75584bf369955000686878a66e6bfa10a444bd8686b977"
+    },
+    {
+      "source": "/Game/Level/Level/Sea/Twn_Sea_2_1_B_Sound.umap",
+      "sha256": "e011379997403d7724f5773d0334a567861d1c7ecb704e0e96ec56e77e0b5e01"
+    },
+    {
+      "source": "/Game/Level/Level/Sea/Btl_Twn_Sea_B.umap",
+      "sha256": "6884e603cd78f11d5d2b76a73b79aa7f3003f54528fe628162517b1b942ef68a"
+    },
+    {
+      "source": "/Game/Level/Level/Sea/Btl_Twn_Sea_B.uexp",
+      "sha256": "e6cfe177d4f9500b859b0ccb1f50481dbe6f6607b10e88b62e5ec82b444967cc"
+    },
+    {
+      "source": "/Game/Level/Level/Forest/Fld_Fst_1_1.umap",
+      "sha256": "d179a1ae21f97eec90cfeeb33454ac902a4861d1f6f255d7617a8dadcb98d27b"
+    },
+    {
+      "source": "/Game/Level/Level/Forest/Fld_Fst_1_1_Art.umap",
+      "sha256": "dc75ef1a5d04849b59c4a9723c98e30945ca031ebe3dadcfb0be586260488ce0"
+    },
+    {
+      "source": "/Game/Level/Level/Forest/Fld_Fst_1_1_Coll.umap",
+      "sha256": "0246201e3aa4cb9290f351045f00348ff7a9d658d9660437835664a6eb3f3dff"
+    },
+    {
+      "source": "/Game/Level/Level/Forest/Fld_Fst_1_1_GD.umap",
+      "sha256": "0c4ec4b1b46926b42c6361391d7e32bfac37707ee7722988aac12386018c89d0"
+    },
+    {
+      "source": "/Game/Level/Level/Forest/Fld_Fst_1_1_Sound.umap",
+      "sha256": "b591dcd24bf333266029516deb84fb4ab11b64c74d4795c148158b7445a3e8a4"
+    },
+    {
+      "source": "/Game/Level/Level/Forest/Btl_Fld_Fst_Land_A.umap",
+      "sha256": "ee865f162194158b12da9f28c9f14a81a177adde127a12c5e69cc537718b9427"
+    },
+    {
+      "source": "/Game/Level/Level/Forest/Btl_Fld_Fst_River_A.umap",
+      "sha256": "674d4c3bdaaeb73c953207c205801a56b569d59f85366e88b1311b727c8720eb"
+    },
+    {
+      "source": "/Game/Level/Level/Forest/Fld_Fst_1_1.uexp",
+      "sha256": "660185f3356fba954059c0475c986c5b63bc42fb58c47fb70b1ce836778ffa5e"
+    },
+    {
+      "source": "/Game/Level/Level/Forest/Fld_Fst_1_3.umap",
+      "sha256": "3881d73539065101cfa93e07e45769c9dd437e8c6aa02b793ab8f826d546843f"
+    },
+    {
+      "source": "/Game/Level/Level/Forest/Fld_Fst_1_3_Art.umap",
+      "sha256": "12cd566ab88b05753c36a9a9f6c72ace35a617a7ededb8d9a3730e86591ba4b8"
+    },
+    {
+      "source": "/Game/Level/Level/Forest/Fld_Fst_1_3_Coll.umap",
+      "sha256": "0527a6af4bc35681f27aadb5a2908bdffd760c37d4c6575ed073a855a9482c10"
+    },
+    {
+      "source": "/Game/Level/Level/Forest/Fld_Fst_1_3_GD.umap",
+      "sha256": "875f6b3de0d0a1eb091adf75d46836777a2eb033864faa5be14a6c0af2483c41"
+    },
+    {
+      "source": "/Game/Level/Level/Forest/Fld_Fst_1_3_Sound.umap",
+      "sha256": "e52e341bf4a455e760646060041064c8aa60ff80c4444145a86150906e552030"
+    },
+    {
+      "source": "/Game/Level/Level/Forest/Btl_Fld_Fst_Land_A.umap",
+      "sha256": "ee865f162194158b12da9f28c9f14a81a177adde127a12c5e69cc537718b9427"
+    },
+    {
+      "source": "/Game/Level/Level/Forest/Btl_Fld_Fst_River_A.umap",
+      "sha256": "674d4c3bdaaeb73c953207c205801a56b569d59f85366e88b1311b727c8720eb"
+    },
+    {
+      "source": "/Game/Level/Level/Forest/Fld_Fst_1_4.umap",
+      "sha256": "7b4baf2266cc1fa2259c4fe56f5ff4220acfccdf9bd4fee89a2badc942b17404"
+    },
+    {
+      "source": "/Game/Level/Level/Forest/Fld_Fst_1_4_Art.umap",
+      "sha256": "e10dea5a200e7c9885ca7e2a61ba6a6a6a274a3635018a1c06317adff61118aa"
+    },
+    {
+      "source": "/Game/Level/Level/Forest/Fld_Fst_1_4_Coll.umap",
+      "sha256": "a1b8c27d3c979767be3ac6e5672d82369ca6761bdb92306fcc9ce1d1b9937972"
+    },
+    {
+      "source": "/Game/Level/Level/Forest/Fld_Fst_1_4_Sound.umap",
+      "sha256": "867b56c090a999518b501f229a20c54fe67f3699f2b8917cdbc0786a6a12b175"
+    },
+    {
+      "source": "/Game/Level/Level/Forest/Btl_Fld_Fst_Land_A.umap",
+      "sha256": "ee865f162194158b12da9f28c9f14a81a177adde127a12c5e69cc537718b9427"
+    },
+    {
+      "source": "/Game/Level/Level/Forest/Btl_Fld_Fst_River_A.umap",
+      "sha256": "674d4c3bdaaeb73c953207c205801a56b569d59f85366e88b1311b727c8720eb"
+    },
+    {
+      "source": "/Game/Level/Level/Forest/Twn_Fst_1_1_A.umap",
+      "sha256": "7aa2120db43dc2db94f4e289d86b73623ac306c9a8edc6e1257fad9766e86cee"
+    },
+    {
+      "source": "/Game/Level/Level/Forest/Twn_Fst_1_1_A_Art.umap",
+      "sha256": "d1f5f18264aeeba7271e302f17d2ad2b1a44624b4750b472e1f8abe3ff2f475b"
+    },
+    {
+      "source": "/Game/Level/Level/Forest/Twn_Fst_1_1_A_Coll.umap",
+      "sha256": "fefca3f45362260a724578f3fc9218649b09ef9e44d21dcb96cce4e1c0d5f546"
+    },
+    {
+      "source": "/Game/Level/Level/Forest/Twn_Fst_1_1_A_GD.umap",
+      "sha256": "aae951f4dc7e065ecf01d37d144b0f933e046e60c7a18f8f7a25ac4858359dd3"
+    },
+    {
+      "source": "/Game/Level/Level/Forest/Twn_Fst_1_1_A_Sound.umap",
+      "sha256": "cf01a177113ed963e725afccd57e4015b6d5d6b8fc1bc42bcbd0423d989d8fda"
+    },
+    {
+      "source": "/Game/Level/Level/Forest/Btl_Twn_Fst_A.umap",
+      "sha256": "4101eb06bc913356a879d9353d8b2168c1bcafb509e33f22b2183f2ee96eccf6"
+    },
+    {
+      "source": "/Game/Level/Level/Forest/Twn_Fst_1_1_A.uexp",
+      "sha256": "1e24feda61ac7a844ae96f946d547167c11fdb9b2366aacebf24c937a4bc8e9d"
     },
     {
       "source": "/Game/Level/Level/Snow/Fld_Snw_1_2.umap",
@@ -451,6 +1227,54 @@
       "sha256": "cabb260116b10b913a02c20f4a7796b69be7d3d3ef7bebb59fbc684dec315619"
     },
     {
+      "source": "/Game/Level/Level/Snow/Fld_Snw_1_3.umap",
+      "sha256": "fd7a1449fb0901a0aec00617e387b746cbaffebf7fe647aa3f6b9e6d787c1f76"
+    },
+    {
+      "source": "/Game/Level/Level/Snow/Fld_Snw_1_3_Art.umap",
+      "sha256": "5396c2893a722b71065cfc135429c4022f421b54d80603b0ae992d5e98b1548c"
+    },
+    {
+      "source": "/Game/Level/Level/Snow/Fld_Snw_1_3_Coll.umap",
+      "sha256": "59723b941c12729f85b20641d725697339a830de2347e798716b75147bfbc32d"
+    },
+    {
+      "source": "/Game/Level/Level/Snow/Fld_Snw_1_3_sound.umap",
+      "sha256": "6f60274c837edbf21b2cd69c96ad5396b535d581ae5eb809f38fc6176e627ff0"
+    },
+    {
+      "source": "/Game/Level/Level/Snow/Btl_Fld_Snw_Land_A.umap",
+      "sha256": "701f9c08ebf34f9edefd9e8307764b7dd9c846d9b25a07d86850cfe61646fa86"
+    },
+    {
+      "source": "/Game/Level/Level/Snow/Btl_Fld_Snw_River_A.umap",
+      "sha256": "cabb260116b10b913a02c20f4a7796b69be7d3d3ef7bebb59fbc684dec315619"
+    },
+    {
+      "source": "/Game/Level/Level/Snow/Fld_Snw_2_2.umap",
+      "sha256": "f29a09393e02b8c7b3c802b58b3868fb64e9e1446f311d1b588e2d197c94d290"
+    },
+    {
+      "source": "/Game/Level/Level/Snow/Fld_Snw_2_2_Art.umap",
+      "sha256": "c12560b014b78a2123bcb4f8db9bbe8b1b9b31db7fe45c17db1013b359dfacb8"
+    },
+    {
+      "source": "/Game/Level/Level/Snow/Fld_Snw_2_2_Coll.umap",
+      "sha256": "954e50620ed0dba0ed82db6c8b83a76de2d32855bf43e197b56dad77b15a3ef1"
+    },
+    {
+      "source": "/Game/Level/Level/Snow/Fld_Snw_2_2_GD.umap",
+      "sha256": "327657baa789ade8a9cd20b74047b71f1da79d7d14893ca64ed9d66af5b4ae19"
+    },
+    {
+      "source": "/Game/Level/Level/Snow/Fld_Snw_2_2_Sound.umap",
+      "sha256": "5f609651aa5d033dedd1276adb6a3769c522fa251e7d03f120a9dd235c5d62e6"
+    },
+    {
+      "source": "/Game/Level/Level/Snow/Btl_Fld_Snw_Land_A.umap",
+      "sha256": "701f9c08ebf34f9edefd9e8307764b7dd9c846d9b25a07d86850cfe61646fa86"
+    },
+    {
       "source": "/Game/Level/Level/Snow/Twn_Snw_1_2_A.umap",
       "sha256": "5062bc1106fae52ec803dae1809a25293ae78530ddc1270b88fa6bd7d4d3b5f2"
     },
@@ -469,6 +1293,30 @@
     {
       "source": "/Game/Level/Level/Snow/Btl_Twn_Snw_D.umap",
       "sha256": "724a2cd774ea6217866dac328a9c5053594c5230022911cfb6417708fdd8c098"
+    },
+    {
+      "source": "/Game/Level/Level/Snow/Twn_Snw_2_1_A.umap",
+      "sha256": "03ce057634c2bed578fffe0a4bdaa10b45e9ddc47cc6db6ef17e1add0a10be86"
+    },
+    {
+      "source": "/Game/Level/Level/Snow/Twn_Snw_2_1_A_Art.umap",
+      "sha256": "820a35e5890ec3824b60359fc1bf79ee677e28f0c63ba5bab37b6ecbcdd17c47"
+    },
+    {
+      "source": "/Game/Level/Level/Snow/Twn_Snw_2_1_A_Coll.umap",
+      "sha256": "32f23f9652481b4438cc01159a0445a4e95b1486ea4b4c7040f1d2570b83d018"
+    },
+    {
+      "source": "/Game/Level/Level/Snow/Twn_Snw_2_1_A_GD.umap",
+      "sha256": "c4a84df581e775e633260004d2ecbc0011eed2f5d42928c4b67e4c12e477b52d"
+    },
+    {
+      "source": "/Game/Level/Level/Snow/Twn_Snw_2_1_A_Sound.umap",
+      "sha256": "b333e41d3a35574adf569037fd264c8026a4408d39e0476f5643d64ef5ee15c7"
+    },
+    {
+      "source": "/Game/Level/Level/Snow/Btl_Twn_Snw_E.umap",
+      "sha256": "87c3dbddbb51a83b13539b58fb29e401cf50b12dc39cf458cd129d33c78b8544"
     },
     {
       "source": "/Game/Level/Level/Ocean/Fld_Ocn_1_1.umap",
@@ -496,6 +1344,10 @@
     "lottery": "ea0270 -> ea7520; eaec70/eaecb0",
     "time": "f6aa40 -> f6eb70",
     "level": "ed98a0 -> ec60c0 -> 11c0100"
+  },
+  "prologue_skip": {
+    "native": "f15190 -> f54e00 -> f4ec50 -> f537f0",
+    "effect": "SkipPrologueReminiscence completes every CHARAPROLOGUE row for the selected character. Besides one-time ClearDifficultyPoint, f537f0(scenario,1) sets every inclusive EventFlagRange and clears every inclusive OffEventFlagRange. Zero/zero range slots are unused. Apply only on the actual story-skip completion, not generic point-accounting calls."
   },
   "blueprint": {
     "branch": "EventManagerBP.BitFlagJump selects opt[0] for true / opt[1] for false; EventIndex increments before the next command.",

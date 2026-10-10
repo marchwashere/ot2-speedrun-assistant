@@ -13,6 +13,39 @@ pub const RUN_UPDATES: u32 = 64;
 pub const EVENT: &str = "MS_GAK_00_0100";
 
 #[derive(Debug, Serialize)]
+pub struct Recruitment {
+    pub arrival: CrtRng,
+    pub after: CrtRng,
+    pub world_after: WorldState,
+    pub trace: Vec<Trace>,
+    pub decisions: Vec<Decision>,
+}
+
+/// Continue from the resident field, including a real prior battle's CRT and
+/// FirstEncount state. Recruitment never reloads Southern Cape Cold Snows.
+pub fn recruit_from_field(arrival:CrtRng,state:WorldState) -> Result<Recruitment> {
+    ensure(state.map==MAP && state.party==[7] && !state.flag(7020),"Invalid Osvald recruitment boundary")?;
+    let mut loader=Loader::new(world::catalog(),state,arrival)?;
+    recruit(&mut loader)?;
+    Ok(Recruitment {arrival,after:loader.rng,world_after:loader.state,trace:loader.trace,decisions:loader.decisions})
+}
+
+fn recruit(loader:&mut Loader<'_>) -> Result<()> {
+    let choices = EventChoices::from([
+        ((EVENT.into(), 15), "eDIALOG_YES".into()),
+        ((EVENT.into(), 61), "eDIALOG_YES".into()),
+        ((EVENT.into(), 70), "eDIALOG_NO".into()),
+    ]);
+    loader.skipped_event_with_choices(EVENT, &choices)?;
+    ensure(loader.state.party == [7, 6] && loader.state.flag(7020) && loader.state.flag(1370),
+        "Osvald recruitment did not reach its final tutorial")?;
+    if loader.state.party_experience.len()==1 {loader.state.party_experience.push(0);}
+    loader.state.sync_progression()?;
+    loader.boundary("Osvald recruited: cutscene skipped and tutorials dismissed");
+    Ok(())
+}
+
+#[derive(Debug, Serialize)]
 pub struct Prediction {
     pub arrival: CrtRng,
     pub after_loading: CrtRng,
@@ -78,17 +111,7 @@ pub fn with_approach(arrival:CrtRng,state:WorldState,updates:u32,dash:bool,assum
     if reached {
         loader.state.encounter_counter = walking.counter_before_reset.unwrap_or(1);
         loader.boundary(if dash {"Osvald: running approach; no prior encounter branch"} else {"Osvald: reached after 70 walking counter updates"});
-        let choices = EventChoices::from([
-            ((EVENT.into(), 15), "eDIALOG_YES".into()),
-            ((EVENT.into(), 61), "eDIALOG_YES".into()),
-            ((EVENT.into(), 70), "eDIALOG_NO".into()),
-        ]);
-        loader.skipped_event_with_choices(EVENT, &choices)?;
-        ensure(
-            loader.state.party == [7, 6] && loader.state.flag(7020) && loader.state.flag(1370),
-            "Osvald recruitment did not reach its final tutorial",
-        )?;
-        loader.boundary("Osvald recruited: cutscene skipped and tutorials dismissed");
+        recruit(&mut loader)?;
         after_recruitment = Some(loader.rng);
         world_after = Some(loader.state.clone());
     }
