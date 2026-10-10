@@ -169,30 +169,36 @@ pub fn predict(
     level: u32,
     settings: Settings,
 ) -> Result<Prediction> {
-    predict_to_boundary(arrival, world, level, settings, false, None, None)
+    predict_to_boundary(arrival, world, level, settings, false, None, None, false)
 }
 
 pub fn until_first_village(arrival:CrtRng, world:&WorldState, level:u32, settings:Settings) -> Result<Prediction> {
-    predict_to_boundary(arrival, world, level, settings, true, None, None)
+    predict_to_boundary(arrival, world, level, settings, true, None, None, false)
 }
 
 pub fn until_osvald_cait(arrival:CrtRng, world:&WorldState, level:u32, settings:Settings,
     early:crate::early_cait::Settings) -> Result<Prediction> {
     ensure(early.clerics_max_boost_repeats.is_none_or(|n|n<=256)
         && early.cait_max_boost_repeats.is_none_or(|n|n<=256), "Early route caps must be 0..256 or Required")?;
-    predict_to_boundary(arrival, world, level, settings, false, Some(early), None)
+    predict_to_boundary(arrival, world, level, settings, false, Some(early), None, false)
 }
 
 /// The ceiling is derived from an already valid complete route, never a retry
 /// limit on a Required outcome. An exhausted candidate cannot improve that route.
 pub(crate) fn within_route_cost(arrival:CrtRng, world:&WorldState, level:u32, settings:Settings,
     early:crate::early_cait::Settings, ceiling:u32) -> Result<Option<Prediction>> {
-    let p=predict_to_boundary(arrival,world,level,settings,false,Some(early),Some(ceiling))?;
+    let p=predict_to_boundary(arrival,world,level,settings,false,Some(early),Some(ceiling),false)?;
     Ok(p.escape.is_some().then_some(p))
 }
 
+/// Application routes require the manipulated Throné break; standalone
+/// legacy prediction helpers retain their configurable escape policy.
+pub fn mandatory_break_route(arrival:CrtRng,world:&WorldState,level:u32,settings:Settings,stop_at_village:bool)->Result<Prediction> {
+    predict_to_boundary(arrival,world,level,settings,stop_at_village,None,None,true)
+}
+
 fn predict_to_boundary(arrival:CrtRng, world:&WorldState, level:u32, settings:Settings, stop_at_village:bool,
-    early:Option<crate::early_cait::Settings>, ceiling:Option<u32>) -> Result<Prediction> {
+    early:Option<crate::early_cait::Settings>, ceiling:Option<u32>, mandatory_break:bool) -> Result<Prediction> {
     let _profile=crate::profile::span("Flats continuation");
     ensure(
         settings.max_boost_repeats.is_none_or(|n| n <= 256)
@@ -378,6 +384,7 @@ fn predict_to_boundary(arrival:CrtRng, world:&WorldState, level:u32, settings:Se
         result.verification="Forward search over mandatory Throné break with R1/R2 boosts and the fixed night/day cleric shop pair. No time switch after Osvald recruitment. Minimize boost inputs +6 per break +3 per Defend +8 per elapsed round, with a constant 14 for the mandatory shop pair. Required outcomes gate every candidate jointly; numeric optional budgets add two weighted cost units per input-pair allowance and preserve achieved outcomes. Each candidate replays loader/time/NPC/movement/recruitment and actual final-phase encounter selection. No Cape Cold continuation.";
         return Ok(result);
     }
+    if mandatory_break {ensure(opening_break(entry,&result.encounter,level)?,"Flats route requires a safe Throné-breakable opening")?;}
     let project = |attempt: &ot2_battle_engine::field_escape::FieldEscapeAttempt| -> Result<Option<village_return::Prediction>> {
         let field = restore(attempt)?;
         if field.world_after.encounter_counter < required_counter { return Ok(None); }
@@ -386,7 +393,7 @@ fn predict_to_boundary(arrival:CrtRng, world:&WorldState, level:u32, settings:Se
         village_return::with_world_state(field.after, at_exit).map(Some)
     };
     let choose = |total_limit, require_snow, require_osvald| {
-        highroad::escape_plan_with_limit(
+        highroad::escape_plan_with_break_policy(
             entry,
             situation,
             level,
@@ -394,6 +401,7 @@ fn predict_to_boundary(arrival:CrtRng, world:&WorldState, level:u32, settings:Se
             danger,
             settings.max_boost_repeats,
             total_limit,
+            mandatory_break,
             |a| {
                 if require_snow || require_osvald {
                     let Some(p) = project(a)? else {

@@ -194,13 +194,21 @@ pub(crate) fn escape_plan_with_limit(
     total_limit: Option<u32>,
     accepts: impl Fn(&FieldEscapeAttempt) -> Result<bool>,
 ) -> Result<Escape> {
+    escape_plan_with_break_policy(entry,situation,level,enemies,danger,cap,total_limit,false,accepts)
+}
+pub(crate) fn escape_plan_with_break_policy(
+    entry:CrtRng, situation:Situation, level:u32, enemies:&[&str], danger:u32,
+    cap:Option<u32>, total_limit:Option<u32>, require_break:bool,
+    accepts:impl Fn(&FieldEscapeAttempt)->Result<bool>,
+)->Result<Escape> {
     let mut search=crate::escape_search::FieldSearch::new(entry,situation,level,enemies,danger)?;
+    if require_break {search.require_break();}
     let mut tested=0;
     let maximum=total_limit.map(|n|n.saturating_mul(2).saturating_add(crate::escape_search::BREAK_INPUT_COST+crate::escape_search::ROUND_INPUT_COST+1));
     let mut cost=0u32;
     loop {
         if maximum.is_some_and(|m|cost>m) {let mut p=search.unavailable()?;p.tested_candidates=tested;return Ok(p);}
-        for mut plan in search.candidates(cost,cap.is_some(),total_limit)? {
+        for mut plan in search.candidates(cost,require_break || cap.is_some(),total_limit)? {
             tested+=1;
             if accepts(plan.attempt.as_ref().unwrap())? {
                 plan.tested_candidates=tested;

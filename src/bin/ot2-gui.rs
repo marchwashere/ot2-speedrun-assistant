@@ -209,11 +209,11 @@ fn simulate_route(
                                                             harbor_return = match ot2_speedrun_assistant::harbor::after_flats(&p) {
                                                                 Ok(p) => p.map(|p| {
                                                                     let selected = if route_end == RouteEnd::FirstVillage {
-                                                                        ot2_speedrun_assistant::flats_escape::until_first_village(p.after,&p.world_after,prediction.level,flats_escape_settings)
+                                                                        ot2_speedrun_assistant::flats_escape::mandatory_break_route(p.after,&p.world_after,prediction.level,flats_escape_settings,true)
                                                                     } else if route_end == RouteEnd::OsvaldCait {
                                                                         ot2_speedrun_assistant::flats_escape::until_osvald_cait(p.after,&p.world_after,prediction.level,flats_escape_settings,early_settings)
                                                                     } else {
-                                                                        ot2_speedrun_assistant::flats_escape::after_harbor(&p,prediction.level,flats_escape_settings)
+                                                                        ot2_speedrun_assistant::flats_escape::mandatory_break_route(p.after,&p.world_after,prediction.level,flats_escape_settings,false)
                                                                     };
                                                                     flats_escape = Some(match selected {
                                                                         Ok(e) => {
@@ -1973,7 +1973,7 @@ mod tests {
         let setup = &selected["crt_setup"];
         let boss = &selected["post_battle_field"]["pirro_battle"];
         assert_eq!(boss["state"]["outcome"], "victory");
-        assert_eq!(boss["r8_plan"], json!([1, 0, 1, 2, 3]));
+        assert_eq!(boss["r8_plan"], json!([1, 2, 1, 2, 3]));
         assert_eq!(boss["r8_manipulation"]["inputs"]["extra_input_count"], 2);
         assert_eq!(
             selected["post_battle_field"]["highroad"]["approach_search"]["target_met"],
@@ -2176,25 +2176,13 @@ mod tests {
         assert_eq!(boss["state"]["outcome"], "victory");
         assert!(boss["routine_error"].is_null());
         assert_eq!(boss["after_victory"], boss["after"]);
-        // The four stolen stones enter inventory and are each used once.
-        assert_eq!(
-            &boss["initial_state"]["inventory"].as_array().unwrap()[10..14],
-            &[
-                serde_json::json!(1),
-                serde_json::json!(1),
-                serde_json::json!(1),
-                serde_json::json!(1)
-            ]
-        );
-        assert_eq!(
-            &boss["state"]["inventory"].as_array().unwrap()[10..14],
-            &[
-                serde_json::json!(0),
-                serde_json::json!(0),
-                serde_json::json!(0),
-                serde_json::json!(0)
-            ]
-        );
+        // Resolve catalog IDs: adding catalog items must not change this check.
+        let catalog=ot2_battle_engine::ItemCatalog::builtin().unwrap();
+        for id in ["shadow_soulstone","ice_soulstone","wind_soulstone","light_soulstone"] {
+            let index=catalog.items.iter().position(|item|item.id==id).unwrap();
+            assert_eq!(boss["initial_state"]["inventory"][index],1,"{id}");
+            assert_eq!(boss["state"]["inventory"][index],0,"{id}");
+        }
         println!(
             "mansion prediction: {}",
             serde_json::json!({"entry":m["before_battle_initialization"],"menu":m["at_command_menu"],"after":m["solution"]["after_field_return"],"inputs":m["solution"]["inputs"]["levels"],"counter":m["solution"]["counter"],"remaining":m["remaining_updates"],"status":m["status"]})
@@ -2315,12 +2303,12 @@ mod tests {
         assert_eq!(
             setup.check_requirements(&result)["unmet"],
             json!({
-                "met":false, "unmet":[{"id":"flats_approach","label":"Avoid surprise after Harbor return"},{"id":"village_visit","label":"First Abandoned Village visit"}]
+                "met":false, "unmet":[{"id":"flats_approach","label":"Avoid surprise after Harbor return"},{"id":"flats_break","label":"Throné turn-one break after Harbor (BP allowed)"},{"id":"village_visit","label":"First Abandoned Village visit"}]
             })["unmet"]
         );
         let missing = setup.check_requirements(&json!({}));
         assert_eq!(missing["met"], false);
-        assert_eq!(missing["unmet"].as_array().unwrap().len(), 9);
+        assert_eq!(missing["unmet"].as_array().unwrap().len(), 11);
         let strategy = CrtSetup::parse("seed=0&highroad_escape_max_boost_repeats=boost_only&flats_escape_max_boost_repeats=boost_only").unwrap();
         assert_eq!(strategy.highroad_settings.escape_max_boost_repeats, None);
         assert_eq!(strategy.flats_escape_settings.max_boost_repeats, None);
@@ -2549,19 +2537,20 @@ mod tests {
             second["mansion"]["arrival"],
             second["parlor_revisit"]["after_popup"]
         );
-        rng.advance(101);
+        // Gold Ring retained; the removed Antique Coin steal no longer adds three calls.
+        rng.advance(98);
         assert_eq!(
             second["mansion"]["after_entry"],
             serde_json::to_value(rng).unwrap()
         );
         assert_eq!(second["mansion"]["after_entry"]["state"], rng.state);
-        assert_eq!(rng.draws + 4954, 5568);
+        assert_eq!(rng.draws + 4954, 5565);
         assert_eq!(second["mansion"]["world_after"]["map"], "Dng_Cty_1_1");
         let ambush = &second["mansion"]["lookout_ambush"];
         assert_eq!(ambush["before_menu"], second["mansion"]["after_entry"]);
         rng.advance(2);
         assert_eq!(ambush["after"], serde_json::to_value(rng).unwrap());
-        assert_eq!(rng.draws + 4954, 5570);
+        assert_eq!(rng.draws + 4954, 5567);
         assert_eq!(ambush["after"]["state"], serde_json::to_value(rng.state).unwrap());
         assert_eq!(ambush["counter_reset"], false);
         assert_eq!(
