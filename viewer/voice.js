@@ -2,8 +2,8 @@
 let voiceStage='order', voiceFirst=null, voiceHp=null;
 let voiceTranscript='', voiceBusy=false, voiceCandidate=null, voiceRevision=0, voiceAudio=null;
 function voiceControls() {
-  for(const id of ['voice-normal','voice-special']) $(id).disabled=voiceStage!=='lines' || running || !!voiceCandidate;
-  $('voice-undo').disabled=running || !voiceTranscript.length;
+  for(const id of ['voice-normal','voice-special']) $(id).disabled=voiceStage!=='lines' || stopped;
+  $('voice-undo').disabled=stopped || !voiceTranscript.length;
   $('voice-reset').disabled=running;
   $('voice-order-step').hidden=voiceStage!=='order';
   $('voice-hp-step').hidden=voiceStage!=='hp';
@@ -13,9 +13,12 @@ function voiceControls() {
   $('voice-transcript').textContent=voiceTranscript ? `${voiceTranscript.length} observations · ${voiceTranscript}` : '';
 }
 function recordVoice(symbol) {
-  if(voiceStage!=='lines' || running || voiceCandidate || stopped) return;
+  if(voiceStage!=='lines' || stopped) return;
   try {voiceAudio ??= new (window.AudioContext || window.webkitAudioContext)();voiceAudio.resume();} catch {}
-  voiceTranscript+=symbol;voiceRevision++;clearVoiceResult();voiceControls();filterVoices();
+  voiceTranscript+=symbol;voiceRevision++;voiceCandidate=null;
+  clearVoiceResult();voiceControls();
+  if(voiceBusy || running) $('voice-status').textContent='Extra input recorded · updating prediction…';
+  filterVoices();
 }
 function clearVoiceResult() {
   $('results').hidden=true;$('detail-results').hidden=true;$('detail-empty').hidden=false;
@@ -53,26 +56,31 @@ async function filterVoices() {
 async function simulateIdentified() {
   if(voiceStage!=='lines' || !voiceFirst || voiceHp===null || !voiceCandidate || running) return;
   const query=new URLSearchParams({voices:voiceTranscript,r3_first:voiceFirst,hp:String(voiceHp)});
+  const revision=voiceRevision, candidate=voiceCandidate;
   running=true;voiceControls();$('quit').disabled=true;clearVoiceResult();
   $('status').textContent='Simulating from identified RNG…';
   try {
     const response=await fetch('/api/identified-route?'+query);
     const data=await response.json();
+    // Inputs remain live while the server works. Never display a plan for an
+    // older transcript; filterVoices queues the newest revision after this run.
+    if(revision!==voiceRevision) return;
     if(!response.ok) throw new Error(data.error || 'Simulation failed');
     result=data;snowsEncounterTiming=null;westernSecondOverride=null;
-    $('seed').value=hex(voiceCandidate.current_state);$('advances').value='0';
+    $('seed').value=hex(candidate.current_state);$('advances').value='0';
     render();window.dispatchEvent(new Event('battle-simulated'));
-    $('voice-status').textContent=`Identified seed ${hex(voiceCandidate.current_state)} · 0 advances immediately after the last recorded boost`;
+    $('voice-status').textContent=`Identified seed ${hex(candidate.current_state)} · 0 advances immediately after the last recorded boost · Extra boosts can still be recorded`;
     $('status').textContent='';
   } catch(e) {
-    $('voice-status').textContent=`RNG identified: ${hex(voiceCandidate.current_state)}. ${e.message}`;
+    if(revision!==voiceRevision) return;
+    $('voice-status').textContent=`RNG identified: ${hex(candidate.current_state)}. ${e.message}`;
     $('status').textContent='Route prediction not available yet.';
   } finally {running=false;$('quit').disabled=false;voiceControls();}
 }
 $('voice-normal').addEventListener('click',()=>recordVoice('N'));
 $('voice-special').addEventListener('click',()=>recordVoice('S'));
 function undoVoice() {
-  if(voiceStage!=='lines' || running || !voiceTranscript.length)return;
+  if(voiceStage!=='lines' || stopped || !voiceTranscript.length)return;
   voiceTranscript=voiceTranscript.slice(0,-1);voiceRevision++;voiceCandidate=null;
   clearVoiceResult();voiceControls();filterVoices();
 }
