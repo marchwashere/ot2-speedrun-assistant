@@ -21,6 +21,36 @@ pub struct Prediction {
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[test]
+    fn retail_hikari_to_canalbrine_20261010() {
+        let f:serde_json::Value=serde_json::from_str(include_str!("../data/source/live-hikari-canalbrine-20261010.json")).unwrap();
+        let rng:CrtRng=serde_json::from_value(f["before"].clone()).unwrap();
+        let entry=Entry {arrival:rng,after:rng,world_after:serde_json::from_value(f["world_before"].clone()).unwrap(),trace:vec![],decisions:vec![]};
+        let p=predict(&entry).unwrap();
+        assert_eq!(p.battle.after.draws,1235);
+        assert_eq!(p.battle.after.state,0xA8534BD8);
+        assert_eq!(p.recruitment.after.draws,1244);
+        assert_eq!(p.recruitment.trace.iter().filter(|t|t.kind==world::DrawKind::NpcFrame).count(),5);
+        let scholar=crate::scholar::predict(&p.recruitment).unwrap();
+        let bridge=crate::canalbrine::predict(&scholar.after).unwrap();
+        assert_eq!(bridge.bridge_entry.after.draws,1274);
+        for stage in [&p.field_return,&p.recruitment,&bridge.northern_return,&bridge.bridge_entry] {
+            let offset=(stage.after.draws-rng.draws) as usize;
+            assert_eq!(stage.after.state,f["records"][offset]["before"].as_u64().unwrap() as u32);
+        }
+        let (_,encounter,battle_entry)=crate::canalbrine::water_arrival(&bridge.bridge_entry).unwrap();
+        assert_eq!(encounter.group.as_deref(),Some("ENG_FLD_SEA_1_3_WTR_DAY_310"));
+        assert_eq!(encounter.enemies.len(),3);
+        assert!(encounter.enemies.iter().all(|e|e.enemy.name=="Blue Betta"));
+        let w=&bridge.bridge_entry.world_after;
+        let players:Vec<_>=w.party.iter().map(|id|w.character_progression[id].character.clone()).collect();
+        let levels:Vec<_>=w.party.iter().map(|id|w.character_progression[id].level).collect();
+        let enemies:Vec<_>=encounter.enemies.iter().map(|e|e.enemy.id.as_str()).collect();
+        let menu=ot2_battle_engine::field_escape::FieldEscapeMenu::with_players(battle_entry,
+            ot2_battle_engine::escape::Situation::Normal,&players,&levels,&enemies,&w.enemy_knowledge).unwrap();
+        assert_eq!(menu.rng.state,f["final_state"].as_u64().unwrap() as u32);
+        assert_eq!(menu.rng.draws,rng.draws+f["records"].as_array().unwrap().len() as u64);
+    }
     fn entry()->Entry {
         let mut w=world::throne_after_second_state().unwrap();
         w.map=crate::ryu::TOWN.into();w.time=2;w.party=vec![7,6,8,4];w.bench.clear();

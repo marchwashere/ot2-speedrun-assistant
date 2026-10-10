@@ -101,6 +101,14 @@ pub struct Placement {
     not_final: bool,
     excludes: Vec<String>,
 }
+#[derive(Deserialize)]
+struct StoryPlacementScope { character:i32, maps:Vec<String>, switches:Vec<StoryMapSwitch> }
+#[derive(Deserialize)]
+struct StoryMapSwitch { begin:u32, end:u32, maps:Vec<String> }
+fn story_placement_scopes()-> &'static BTreeMap<u32,StoryPlacementScope> {
+    static DATA:OnceLock<BTreeMap<u32,StoryPlacementScope>>=OnceLock::new();
+    DATA.get_or_init(||serde_json::from_str(include_str!("../data/story-placement-scopes.json")).expect("Imported story placement scopes"))
+}
 #[derive(Debug, Deserialize)]
 pub struct FlagRule {
     pub id: String,
@@ -651,12 +659,23 @@ impl<'a> Loader<'a> {
         if !time_matches {
             return Ok(false);
         }
-        if p.story_type < 0 {
-            if !self.state.story_types.is_empty() {
-                return Ok(false);
+        if p.story_type != 0 {
+            // ec4900 -> f4c660 -> f49fa0 queries the current map's active
+            // stories. f2b480 selects the first flag-enabled map override;
+            // an empty override falls back to the base RelationLevel list.
+            let mut any=false;
+            let mut matching=false;
+            for scenario in &self.state.active_scenarios {
+                let scope=story_placement_scopes().get(scenario)
+                    .ok_or_else(||SimError(format!("Missing placement scope for story {scenario}")))?;
+                let selected=scope.switches.iter().find(|s|(s.begin>0||s.end>0)
+                    && (s.begin==0||self.state.flag(s.begin)) && (s.end==0||!self.state.flag(s.end)));
+                let maps=selected.filter(|s|!s.maps.is_empty()).map_or(&scope.maps,|s|&s.maps);
+                if maps.contains(&self.state.map) {
+                    any=true;matching|=scope.character==p.story_type;
+                }
             }
-        } else if p.story_type != 0 && !self.state.story_types.contains(&p.story_type) {
-            return Ok(false);
+            if (p.story_type<0 && any)||(p.story_type>0 && !matching) {return Ok(false);}
         }
         if p.scenario != 0 && !self.state.active_scenarios.contains(&p.scenario) {
             return Ok(false);
@@ -1453,6 +1472,19 @@ pub fn throne_after_second_state() -> Result<WorldState> {
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[test]
+    fn placement_story_filter_is_local_to_the_map() {
+        let f:serde_json::Value=serde_json::from_str(include_str!("../data/source/live-hikari-canalbrine-20261010.json")).unwrap();
+        let mut w:WorldState=serde_json::from_value(f["world_before"].clone()).unwrap();
+        w.active_scenarios=BTreeSet::from([701]);w.story_types=BTreeSet::from([7]);
+        // No excluded soldier labels: isolate the native story gate itself.
+        let labels=BTreeSet::new();
+        let label="NPC_Twn_Dst_1_1_A_TALK_0300_D000";
+        let mut l=Loader::new(catalog(),w,CrtRng::new(0)).unwrap();
+        assert!(l.placement_enabled(label,&labels,&mut Vec::new()).unwrap(),"Mother chapter in Oresrush is unrelated to Ryu");
+        l.state.active_scenarios.insert(100);l.state.story_types.insert(1);
+        assert!(!l.placement_enabled(label,&labels,&mut Vec::new()).unwrap(),"Active Hikari prologue is related to Ryu");
+    }
     #[test]
     fn retail_conning_load_20261009() {
         let fixture:serde_json::Value=serde_json::from_str(include_str!("../data/source/live-conning-load-20261009.json")).unwrap();
