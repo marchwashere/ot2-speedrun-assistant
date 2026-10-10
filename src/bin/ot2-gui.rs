@@ -1183,6 +1183,7 @@ fn route_with_origin(request: &str, address: &str, public_origin: Option<&str>) 
     match (method, path) {
         ("GET", "/") => Response::new(200, "text/html; charset=utf-8", HTML),
         ("GET", "/viewer.css") => Response::new(200, "text/css; charset=utf-8", if public_origin.is_some() {format!("{CSS}\n#quit {{ display:none !important; }}")} else {CSS.to_owned()}),
+        ("GET", "/voice.js") => Response::new(200,"text/javascript; charset=utf-8",include_str!("../../viewer/voice.js")),
         ("GET", "/viewer.js") => Response::new(200, "text/javascript; charset=utf-8", JS),
         ("GET", "/encounters.js") => Response::new(
             200,
@@ -1197,6 +1198,26 @@ fn route_with_origin(request: &str, address: &str, public_origin: Option<&str>) 
                 Ok(value) => Response::json(200, value),
                 Err(e) => Response::error(422, &e.to_string()),
             }
+        }
+        ("GET", path) if path.starts_with("/api/identify?voices=") => {
+            match ot2_speedrun_assistant::voice_identification::identify(&path["/api/identify?voices=".len()..]) {
+                Ok(v)=>Response::json(200,v),Err(e)=>Response::error(422,&e.to_string())
+            }
+        }
+        ("GET", path) if path.starts_with("/api/identified-route?") => {
+            let mut voices=None;let mut pirro_first=None;let mut hp=None;let mut valid=true;
+            for pair in path["/api/identified-route?".len()..].split('&') {
+                match pair.split_once('=') {
+                    Some(("voices",v)) if voices.is_none()=>voices=Some(v),
+                    Some(("hp",v)) if hp.is_none()=>match v.parse::<u32>() {Ok(n) if (1..=261).contains(&n)=>hp=Some(n),_=>valid=false},
+                    Some(("r3_first",v)) if pirro_first.is_none()=>match v {"throne"=>pirro_first=Some(false),"pirro"=>pirro_first=Some(true),_=>valid=false},
+                    _=>valid=false,
+                }
+            }
+            if !valid || voices.is_none() || pirro_first.is_none() || hp.is_none() {Response::error(400,"Round-3 first actor, current HP (1–261), and voice transcript are required")}
+            else {match ot2_speedrun_assistant::identified_route::simulate(voices.unwrap(),pirro_first.unwrap(),hp.unwrap()) {
+                Ok(v)=>Response::json(200,v),Err(e)=>Response::error(422,&e.to_string())
+            }}
         }
         ("GET", "/api/health") => Response::json(200, json!({"app":"OT2 Battle Viewer"})),
         ("GET", path) if path.starts_with("/api/crt?") => {
@@ -1385,6 +1406,15 @@ fn main() {
 
 #[cfg(test)]
 mod tests {
+    #[test]
+    fn identified_route_requires_both_order_and_hp() {
+        let address="127.0.0.1:54345";
+        for query in ["voices=N","voices=N&r3_first=throne","voices=N&hp=155", "voices=N&r3_first=pirro&hp=0","voices=N&r3_first=pirro&hp=262"] {
+            let request=format!("GET /api/identified-route?{query} HTTP/1.1\r\nHost: {address}\r\n\r\n");
+            assert_eq!(super::route(&request,address).status,400);
+        }
+    }
+
     #[test]
     fn hosted_origin_and_shutdown_policy() {
         let call = |request| super::route_with_origin(request, "127.0.0.1:54345", Some("https://ot2.example.com"));

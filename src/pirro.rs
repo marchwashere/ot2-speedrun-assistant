@@ -56,6 +56,8 @@ pub struct Manipulation {
 
 #[derive(Debug, Serialize)]
 pub struct Prediction {
+    #[serde(skip)]
+    pub identified_checkpoint: Option<Battle>,
     pub group: &'static str,
     pub arrival: CrtRng,
     pub entry: CrtRng,
@@ -143,14 +145,21 @@ pub fn predict_with_plan(
 pub fn predict_with_plans(
     arrival: CrtRng,
     world: &WorldState,
-    mut resources: Resources,
+    resources: Resources,
     inventory: BTreeMap<String, u32>,
     levels: &[u8],
     r8_levels: &[u8],
 ) -> Result<Prediction> {
+    predict_from_checkpoint(arrival,world,resources,inventory,levels,r8_levels,None)
+}
+
+pub(crate) fn predict_from_checkpoint(
+    arrival:CrtRng, world:&WorldState, mut resources:Resources,
+    inventory:BTreeMap<String,u32>, levels:&[u8], r8_levels:&[u8], checkpoint:Option<&Battle>,
+)->Result<Prediction> {
     let _profile=crate::profile::span("Pirro replay");
     ensure(
-        levels.last() == Some(&3),
+        levels.last() == Some(&3) || (checkpoint.is_some() && levels.is_empty()),
         "Pirro R3 boost path must end at 3 BP",
     )?;
     ensure(
@@ -199,7 +208,7 @@ pub fn predict_with_plans(
             max_sp: e.stats.max_sp,
         }))
         .collect();
-    let mut battle = Battle::new_pirro(config, catalog, true)?;
+    let mut battle = if let Some(b)=checkpoint {b.clone()} else {Battle::new_pirro(config, catalog, true)?};
     let initial_state = battle.state().clone();
     let mut routine = PirroRoutine::default();
     let mut steps = Vec::new();
@@ -210,7 +219,23 @@ pub fn predict_with_plans(
         ensure(steps.len() < 48, "Pirro action budget exhausted")?;
         let round = battle.state().round;
         let report =
-            if round == 3 && battle.current_actor() == Some(ActorId(0)) && levels != [1, 2, 3] {
+            if round == 3 && battle.current_actor() == Some(ActorId(0)) && checkpoint.is_some() {
+                let before=battle.state().rng;
+                let mut selected=3;
+                for &next in levels {battle.advance_boost_input(selected,next)?;selected=next;}
+                ensure(selected==3,"Identification adjustment must finish at 3 BP")?;
+                let after_inputs=battle.state().rng;
+                let mut report=battle.pirro_identified_darkest_night()?;
+                report.rng_before=before;
+                if !levels.is_empty() {
+                    manipulation=Some(Manipulation {inputs:BoostInputs {
+                        levels:levels.to_vec(),normal_bp:3,input_count:levels.len(),extra_input_count:levels.len(),
+                        extra_repeats:(levels.len()/2) as u32,setup:vec![],extras:vec![],resume:vec![],
+                    },extra_advances:after_inputs.draws-before.draws,actor:ActorId(0),round,round_menu:1,
+                        rng_before:before,rng_after_inputs:after_inputs});
+                }
+                Ok(report)
+            } else if round == 3 && battle.current_actor() == Some(ActorId(0)) && levels != [1, 2, 3] {
                 let rng_before = battle.state().rng;
                 let rng_after_inputs = battle.preview_boost_inputs(levels)?.rng;
                 let normal_after_inputs = battle.preview_boost_inputs(&[1, 2, 3])?.rng;
@@ -278,7 +303,7 @@ pub fn predict_with_plans(
         }
     }
     ensure(
-        levels == [1, 2, 3] || manipulation.is_some(),
+        checkpoint.is_some() || levels == [1, 2, 3] || manipulation.is_some(),
         "Pirro R3 boost menu was not reached",
     )?;
     ensure(
@@ -292,6 +317,7 @@ pub fn predict_with_plans(
         "Pirro CRT continuity failed",
     )?;
     Ok(Prediction {
+        identified_checkpoint:checkpoint.cloned(),
         group: "ENG_BOS_THI_C01_010",
         arrival,
         entry,
@@ -309,13 +335,13 @@ pub fn predict_with_plans(
         r8_plan: r8_levels.to_vec(),
         boost_search: None,
         transition_trace: vec![RngSpan {
-            reason: "pirro_cutscene_battle_handoff",
+            reason: if checkpoint.is_some() {"pirro_r3_identified_checkpoint"} else {"pirro_cutscene_battle_handoff"},
             actor: None,
             before: arrival,
             after: entry,
         }],
         world_at_entry,
-        verification: "The seed-0 +5678 loss matches all 203 captured CRT calls through 5881. The 2026-09-29 entry5595 victory matches all 305 captured calls through 5900, including the death-slow timer. Other seeds remain source-derived. Skipped 1800 enters battle directly (+0 pre-initialization draws). Carries Escape HP/SP and the route's stolen soulstones. R7 chooses the healing branch from the R8 preview. Latent unlock grants 55/80; when unavailable on no-grape R8, swords stay on R8 and R9 latent pairs Wind with Ice. Victory boundary includes drops, before 1900 and field return. The supplied routine is simulated as written and can lose on some damage/critical/order rolls.",
+        verification: if checkpoint.is_some() {"Begins immediately after the last recorded identification boost, with 3 BP selected. R1/R2 battle state is reconstructed from the voice transcript and R3 turn order, starting at full HP/SP with the standard equipment. CRT draw count restarts at zero; no early manipulation or battle initialization is replayed after this boundary. Retail validation of this entry mode is pending."} else {"The seed-0 +5678 loss matches all 203 captured CRT calls through 5881. The 2026-09-29 entry5595 victory matches all 305 captured calls through 5900, including the death-slow timer. Other seeds remain source-derived. Skipped 1800 enters battle directly (+0 pre-initialization draws). Carries Escape HP/SP and the route's stolen soulstones. R7 chooses the healing branch from the R8 preview. Latent unlock grants 55/80; when unavailable on no-grape R8, swords stay on R8 and R9 latent pairs Wind with Ice. Victory boundary includes drops, before 1900 and field return. The supplied routine is simulated as written and can lose on some damage/critical/order rolls."},
     })
 }
 
@@ -336,7 +362,7 @@ pub(crate) fn r8_menu(p: &Prediction, r3: &[u8]) -> Result<Battle> {
     let mut config = BattleConfig::throne_pirro(p.entry.state)?;
     config.players[0].resources = Some(p.initial_state.actors[0].resources.clone());
     config.inventory = replay_inventory(p)?;
-    let mut battle = Battle::new_pirro(config, ItemCatalog::builtin()?, false)?;
+    let mut battle = if let Some(b)=&p.identified_checkpoint {b.clone()} else {Battle::new_pirro(config, ItemCatalog::builtin()?, false)?};
     let mut routine = PirroRoutine::default();
     while battle.state().outcome == Outcome::Ongoing {
         if battle.state().round == 8 && battle.current_actor() == Some(ActorId(0)) {
@@ -347,7 +373,10 @@ pub(crate) fn r8_menu(p: &Prediction, r3: &[u8]) -> Result<Battle> {
             return Ok(battle);
         }
         if battle.state().round == 3 && battle.current_actor() == Some(ActorId(0)) {
-            routine.step_with_boost_inputs(&mut battle, r3)?;
+            if p.identified_checkpoint.is_some() {
+                let mut bp=3;for &next in r3 {battle.advance_boost_input(bp,next)?;bp=next;}
+                ensure(bp==3,"R3 replay must finish at 3 BP")?;battle.pirro_identified_darkest_night()?;
+            } else {routine.step_with_boost_inputs(&mut battle, r3)?;}
         } else {
             routine.step(&mut battle)?;
         }

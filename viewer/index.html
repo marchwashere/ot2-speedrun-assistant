@@ -8,6 +8,7 @@
   <link rel="stylesheet" href="/viewer.css">
   <script src="/viewer.js" defer></script>
   <script src="/encounters.js" defer></script>
+  <script src="/voice.js" defer></script>
 </head>
 <body>
   <div class="shell">
@@ -18,8 +19,31 @@
     <main>
       <nav class="mode-switch" aria-label="Predictor"><button id="manipulation-mode" type="button" aria-pressed="true">Manipulation</button><button id="detail-mode" type="button" aria-pressed="false">Detailed log</button><button id="field-mode" type="button" hidden disabled aria-pressed="false">Field encounters</button><button id="settings-mode" type="button" hidden disabled aria-pressed="false">Settings</button></nav>
       <section id="manipulation-panel" aria-labelledby="manipulation-title">
-        <div class="intro run-intro"><h1 id="manipulation-title">Manipulation</h1><p class="muted small">Village strategy fork · early clerics → Osvald → first encounter</p></div>
-        <section class="panel setup run-setup" aria-labelledby="seed-label">
+        <div class="intro run-intro"><h1 id="manipulation-title">Manipulation</h1><p class="muted small">Pirro R3 · voice identification → route prediction</p></div>
+        <section class="panel" id="voice-identification" aria-labelledby="voice-title">
+          <h2 id="voice-title">Identify RNG · Pirro R3</h2>
+          <div id="voice-order-step">
+            <h3>1 · Who moves first on turn 3?</h3>
+            <div class="voice-buttons"><button id="voice-throne-first" type="button">← Throné first</button><button id="voice-pirro-first" type="button">Pirro first →</button></div>
+          </div>
+          <form id="voice-hp-step" hidden>
+            <h3>2 · Enter Throné’s current HP</h3>
+            <label for="voice-hp">HP at her turn-3 command menu</label>
+            <input id="voice-hp" type="number" min="1" max="261" step="1" required inputmode="numeric" autocomplete="off">
+            <button id="voice-hp-confirm" type="submit">Continue to voicelines ↵</button>
+          </form>
+          <div id="voice-lines-step" hidden>
+            <h3>3 · Record boost voicelines</h3>
+            <p>Boost 0 → 1 → 2 once. Then boost to 3, record the line, and return to 2 before the next observation. Stop at 3 BP when identified.</p>
+            <div class="voice-buttons"><button id="voice-normal" type="button">← Normal line</button><button id="voice-special" type="button">Pirro! →</button><button id="voice-undo" type="button">Undo · Backspace</button></div>
+          </div>
+          <p id="voice-setup-summary" class="muted small"></p>
+          <button id="voice-reset" type="button">Start over</button>
+          <p class="muted small">Arrow keys work while this page is focused.</p>
+          <p id="voice-status" role="status" aria-live="polite">Choose turn-3 order: Left = Throné · Right = Pirro</p>
+          <p id="voice-transcript" class="muted small"></p>
+        </section>
+        <section class="panel setup run-setup" hidden aria-labelledby="seed-label">
           <form id="seed-form" novalidate>
             <div class="seed-field"><label id="seed-label" for="seed">Initial seed</label><input id="seed" name="seed" type="text" value="0x00000000" placeholder="0x00000000" spellcheck="false" autocomplete="off" aria-describedby="error"></div>
             <div class="advance-field"><label for="advances">RNG advances at title screen</label><input id="advances" name="advances" type="text" inputmode="numeric" value="4916" maxlength="20" spellcheck="false" autocomplete="off" aria-describedby="error"></div>
@@ -28,7 +52,7 @@
           </form>
           <div id="error" class="error" role="alert" hidden></div>
         </section>
-        <p id="status" class="status" role="status" aria-live="polite">Ready to simulate.</p>
+        <p id="status" class="status" role="status" aria-live="polite">Identify RNG to start prediction.</p>
         <div id="results" class="manipulation-results" hidden>
           <p id="required-outcomes-error" class="error" role="alert" hidden></p>
           <section id="first-battle-result" class="panel route-card first-battle" aria-labelledby="first-battle-title">
@@ -204,11 +228,11 @@
         </div>
       </section>
       <section id="detail-panel" hidden aria-labelledby="detail-title">
-        <div class="intro"><div><p class="eyebrow">LATEST SIMULATION</p><h1 id="detail-title">Detailed log</h1><p class="muted">Throné · skip both cutscenes · English · 1× → 2× before the first attack</p></div></div>
+        <div class="intro"><div><p class="eyebrow">LATEST SIMULATION</p><h1 id="detail-title">Detailed log</h1><p class="muted">Pirro R3 identification · advances measured from the identified seed</p></div></div>
         <p id="detail-empty" class="status">Run a simulation from Manipulation to populate this log.</p>
         <div id="detail-results" hidden>
           <section class="result-heading"><div><span id="outcome" class="pill success"></span><span id="result-context" class="muted"></span></div><button type="button" id="export" class="quiet">Export JSON ↓</button></section>
-          <section class="panel overview">
+          <section class="panel overview" id="opening-overview" hidden>
             <div class="prepared-state"><span>Battle-entry CRT</span><output id="prepared-state" for="seed advances recreate-shared-level">—</output><small id="prepared-help"></small></div>
             <p class="route-help"><b id="draws"></b> battle CRT draws · <span id="draws-help" class="muted small"></span></p><p id="drops" class="muted small"></p>
             <p id="boost-detail" class="route-help" hidden></p>

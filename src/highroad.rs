@@ -557,11 +557,34 @@ pub fn from_battle(
     settings: Settings,
     replay: Option<Vec<u8>>,
 ) -> Result<Option<(pirro_aftermath::Prediction, Prediction)>> {
+    from_battle_context(boss,Some(second),settings,replay)
+}
+pub fn from_identified_battle(boss:&mut pirro::Prediction,settings:Settings)
+    ->Result<Option<(pirro_aftermath::Prediction,Prediction)>> {
+    from_battle_context(boss,None,settings,None)
+}
+fn from_battle_context(boss:&mut pirro::Prediction,second:Option<&second::Prediction>,settings:Settings,replay:Option<Vec<u8>>)
+    ->Result<Option<(pirro_aftermath::Prediction,Prediction)>> {
+    let level=|p:&pirro::Prediction| ->Result<u32> {
+        if let Some(second)=second {return route_level(second,p);}
+        Ok(level_for_experience(p.world_at_entry.party_experience[0]+reward(route_battle_base_exp(p.group)?,1,&p.steps)))
+    };
+    let carry=|world:&mut WorldState,p:&pirro::Prediction| ->Result<()> {
+        if let Some(second)=second {return carry_progression(world,second,p);}
+        world.party_experience=vec![p.world_at_entry.party_experience[0]+reward(route_battle_base_exp(p.group)?,1,&p.steps)];
+        world.sync_progression()?;
+        let row=world.character_progression.get_mut(&7).ok_or_else(||SimError("Missing Throné progression".into()))?;
+        row.jp_earned=["ENG_EVE_THI_C01_010","ENG_EVE_THI_C01_020",p.group].iter()
+            .map(|g|ot2_battle_engine::progression::formation_reward(g).map(|r|r.jp)).collect::<Result<Vec<_>>>()?.iter().sum();
+        row.character=ot2_battle_engine::field_escape::route_player(7,world.party_experience[0])?;
+        row.character.resources.as_mut().unwrap().latent=p.state.actors[0].resources.latent;
+        Ok(())
+    };
     let Some(mut ending) = pirro_aftermath::after_battle(boss)? else {
         return Ok(None);
     };
-    carry_progression(&mut ending.world_after,second,boss)?;
-    let mut prediction=predict_internal(&ending,route_level(second,boss)?,settings,false)?;
+    carry(&mut ending.world_after,boss)?;
+    let mut prediction=predict_internal(&ending,level(boss)?,settings,false)?;
     let mut ending=ending;
     let facts=|p:&Prediction| -> Result<[bool;2]> {
         Ok([p.encounter.situation.as_deref()!=Some("Surprise"),
@@ -577,16 +600,16 @@ pub fn from_battle(
         || facts(&prediction)?.iter().zip(caps).any(|(met,cap)|!met && cap.is_some_and(|n|n>0));
     if (need_search || replay.is_some()) && no_grape {
         let r3=boss.boost_search.as_ref().map(|s|s.plan.clone())
-            .or_else(||boss.manipulation.as_ref().map(|m|m.inputs.levels.clone())).unwrap_or(vec![1,2,3]);
+            .or_else(||boss.manipulation.as_ref().map(|m|m.inputs.levels.clone())).unwrap_or_else(||if boss.identified_checkpoint.is_some(){vec![]}else{vec![1,2,3]});
         let menu=pirro::r8_menu(boss,&r3)?;
         let mut world=boss.world_at_entry.clone();world.set_flag(8017,false);
         let inventory=pirro::replay_inventory(boss)?;
-        let run=|path:&[u8]| pirro::predict_with_plans(boss.arrival,&world,
-            boss.initial_state.actors[0].resources.clone(),inventory.clone(),&r3,path);
+        let run=|path:&[u8]| pirro::predict_from_checkpoint(boss.arrival,&world,
+            boss.initial_state.actors[0].resources.clone(),inventory.clone(),&r3,path,boss.identified_checkpoint.as_ref());
         let check=|p:&pirro::Prediction,needed:[bool;2]| -> Result<bool> {
             if p.state.outcome!=Outcome::Victory || p.routine_error.is_some() || p.routine.heal_before_round_eight!=Some(false) {return Ok(false);}
             let after=pirro_aftermath::after_battle(p)?.unwrap();
-            let projected=predict_internal(&after,route_level(second,p)?,settings,false)?;
+            let projected=predict_internal(&after,level(p)?,settings,false)?;
             Ok(facts(&projected)?.iter().zip(needed).all(|(met,need)|!need || *met))
         };
         let mut selected=None;
@@ -606,7 +629,7 @@ pub fn from_battle(
             for i in 0..2 {
                 let met=if let Some((p,_))=&selected {
                     let after=pirro_aftermath::after_battle(p)?.unwrap();
-                    facts(&predict_internal(&after,route_level(second,p)?,settings,false)?)?
+                    facts(&predict_internal(&after,level(p)?,settings,false)?)?
                 } else {facts(&prediction)?};
                 for j in 0..2 {goals[j]|=met[j];}
                 if !met[i] && let Some(extra)=caps[i] && extra>0 {
@@ -620,15 +643,15 @@ pub fn from_battle(
         }
         if let Some((mut p,path))=selected {
             ending=pirro_aftermath::after_battle(&p)?.unwrap();
-            prediction=predict_internal(&ending,route_level(second,&p)?,settings,false)?;
+            prediction=predict_internal(&ending,level(&p)?,settings,false)?;
             p.boost_search=boss.boost_search.take();*boss=p;info.plan=path;
         }
     } else if let Some(path)=replay {ensure(path==[1,2,3],"R8 replay unavailable in healing branch")?;}
     let met=facts(&prediction)?;info.target_met=met[0];info.unboosted_break_met=met[1];
     if !met[0] || (caps[1].is_none() && !met[1]) {info.status="R8 opening target not met";}
-    carry_progression(&mut ending.world_after,second,boss)?;
+    carry(&mut ending.world_after,boss)?;
     ensure(met[0] && (caps[1].is_some() || met[1]),"Pirro R8 did not secure a safe Throné-breakable Highroad encounter")?;
-    prediction=predict(&ending,route_level(second,boss)?,settings)?;
+    prediction=predict(&ending,level(boss)?,settings)?;
     prediction.approach_search=Some(info);
     Ok(Some((ending,prediction)))
 }

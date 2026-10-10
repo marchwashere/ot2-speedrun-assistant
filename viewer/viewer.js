@@ -190,6 +190,7 @@ async function simulate(event) {
 }
 
 function render() {
+  if(result.identified_entry) {renderIdentified();return;}
   const state = result.state;
   const after = state.opening_crt.after_battle;
   $('results').hidden = false;
@@ -307,7 +308,7 @@ function renderActionVisibility() {
     const key=node.dataset.diagnosticEvent;
     node.hidden=!(key==='village_return'?field?.flats_escape?.village_return:field?.[key]);
   }
-  $('first-battle-result').hidden=false;
+  $('first-battle-result').hidden=!!result.identified_entry;
   $('checkpoint-run-result').hidden=!field?.reset_reach;
   const second=field?.second_battle;
   $('second-battle-result').hidden=!second;
@@ -1235,7 +1236,7 @@ function renderPirro() {
   const search=p.boost_search, m=p.manipulation;
   if(won) {
     const instruction=[m,p.r8_manipulation].filter(adjustment=>adjustment?.inputs.extra_input_count>0).map(adjustment=>{
-      const parts=groupBoostRoutine(adjustment.inputs.levels).map(c=>`${c.from} → ${c.to}${c.count>1?' ×'+c.count:''}`);
+      const parts=(result.identified_entry && adjustment.round===3 ? identifiedBoostGroups(adjustment.inputs.levels) : groupBoostRoutine(adjustment.inputs.levels)).map(c=>`${c.from} → ${c.to}${c.count>1?' ×'+c.count:''}`);
       const step=p.steps.find(s=>s.round===adjustment.round && p.actors[s.report.actor].side==='player');
       return `<p><strong>R${adjustment.round} · Throné · 1st command menu</strong></p>`+instructionBoxHtml(parts);
     }).join('');
@@ -1257,7 +1258,7 @@ function renderPirro() {
   $('pirro-verification').textContent=p.verification;
   $('pirro-actions').innerHTML=p.steps.map((s,i)=>renderAction(s,i,p)).join('');
   const checkpoint=(label,rng)=>`<tr><td>${escapeHtml(label)}</td><td>${totalAdvances(rng)}</td><td>${hex(rng.state)}</td><td>${rng.draws}</td></tr>`;
-  $('checkpoints').innerHTML+=checkpoint('Pirro · cutscene skipped, before initialization',p.entry);
+  $('checkpoints').innerHTML+=checkpoint(result.identified_entry?'Pirro R3 · RNG identified (3 BP selected)':'Pirro · cutscene skipped, before initialization',p.entry);
   let round=0,menu=0;
   for(const s of p.steps.filter(s=>p.actors[s.report.actor].side==='player')) {
     if(s.round!==round){round=s.round;menu=0;}menu++;
@@ -1506,6 +1507,11 @@ $('copy').addEventListener('click',async () => {
 $('export').addEventListener('click',() => {
   if (!result) return;
   const link = document.createElement('a');
+  if(result.identified_entry) {
+    const url=URL.createObjectURL(new Blob([JSON.stringify(result,null,2)],{type:'application/json'}));
+    link.href=url;link.download=`ot2-pirro-identified-${hex(result.initial_seed)}.json`;
+    document.body.append(link);link.click();link.remove();setTimeout(()=>URL.revokeObjectURL(url),1000);return;
+  }
   const setup = result.crt_setup;
   link.href = `/api/export?${setupQuery({...setup,seed:setup.initial_seed})}`;
   const suffix = setup.recreate_shared_level ? '-recreated' : '';
@@ -1577,7 +1583,7 @@ $('settings-form').addEventListener('submit',event => {
   markSetupChanged();
   $('settings-status').textContent = persisted ? 'Saved. Run simulation to apply.' : 'Saved for this session. Browser storage is unavailable.';
 });
-simulate();
+// This branch waits for voice identification; never replay early manipulation on load.
 
 function lateRouteInstructions(r) {
   const names=['Throné','Hikari','Agnea','Partitio'];

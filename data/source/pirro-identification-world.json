@@ -1,0 +1,187 @@
+{
+  "active_scenarios": [
+    700
+  ],
+  "bench": [],
+  "character_progression": {
+    "7": {
+      "character": {
+        "combat": {
+          "accuracy": 89,
+          "attack": 89,
+          "critical": 81,
+          "defense": 79,
+          "element_weaknesses": [],
+          "enemy_bp_base": 0,
+          "enemy_initialization": null,
+          "evasion": 97,
+          "growth_attack": 81,
+          "growth_magic": 81,
+          "magic": 81,
+          "magic_defense": 73,
+          "main_weapon": "dagger",
+          "shields": 0,
+          "statuses": [],
+          "steal_item": null,
+          "use_cat_damage_type": false,
+          "weapon_weaknesses": [],
+          "weapons": [
+            {
+              "attack": 4,
+              "magic": 0,
+              "weapon": "sword"
+            },
+            {
+              "attack": 6,
+              "magic": 0,
+              "weapon": "dagger"
+            }
+          ]
+        },
+        "id": "throne",
+        "name": "Thron\u00e9",
+        "resources": {
+          "bp": 0,
+          "hp": 213,
+          "latent": 0,
+          "sp": 26
+        },
+        "skills": [
+          "attack_sword",
+          "attack_dagger",
+          "ABI_SET_THI_010",
+          "ABI_SET_THI_020"
+        ],
+        "stats": {
+          "max_hp": 261,
+          "max_sp": 40,
+          "speed": 97
+        }
+      },
+      "experience": 14,
+      "growth": {
+        "growth_attack": 81,
+        "growth_magic": 81,
+        "level": 2,
+        "parameters": {
+          "ACC": 89,
+          "AGI": 97,
+          "ATK": 89,
+          "BP": 5,
+          "CON": 81,
+          "DEF": 64,
+          "EVA": 97,
+          "HP": 261,
+          "MATK": 81,
+          "MDEF": 64,
+          "MP": 40,
+          "POT": 3,
+          "SP": 0
+        },
+        "total_exp": 6
+      },
+      "jp_earned": 10,
+      "jp_spent": 0,
+      "level": 2
+    }
+  },
+  "completed_scenarios": [],
+  "confirmed_scenarios": [],
+  "encounter_counter": 400,
+  "enemy_knowledge": {},
+  "evasive_maneuvers": false,
+  "event_variables": {},
+  "existing_npcs": [
+    "NACT_TOU_10_0300_0000",
+    "NACT_TOU_10_0400_0000",
+    "NPC_Dng_Cty_1_1_0100_N010",
+    "NPC_Dng_Cty_1_1_0400_D000",
+    "NPC_Dng_Cty_1_1_0500_D000",
+    "NPC_Dng_Cty_1_1_0600_D000",
+    "NPC_Dng_Cty_1_1_0700_D000",
+    "NPC_SYS_SAVE_Dng_Cty_1_1_0000",
+    "NPC_SYS_SAVE_Dng_Cty_1_1_0001",
+    "NPC_TOU_PrologueSHOP"
+  ],
+  "first_encounter": false,
+  "flags": [
+    406,
+    415,
+    550,
+    551,
+    570,
+    1000,
+    1006,
+    1015,
+    1029,
+    1030,
+    1300,
+    1306,
+    1315,
+    1329,
+    1330,
+    2206,
+    2208,
+    4009,
+    8000,
+    8001,
+    8002,
+    8003,
+    8004,
+    8005,
+    8006,
+    8007,
+    8008,
+    8009,
+    8010,
+    8011,
+    8012,
+    8013,
+    8014,
+    8015,
+    8016,
+    8017,
+    25502,
+    34041,
+    34067,
+    34076,
+    34077,
+    34092
+  ],
+  "inventor_abilities": [],
+  "main_progress_points": 0,
+  "map": "Dng_Cty_1_1",
+  "npc_end_delays": {},
+  "npc_start_delays": {},
+  "osvald_extra_skills": 0,
+  "party": [
+    7
+  ],
+  "party_experience": [
+    14
+  ],
+  "prologues": [
+    "EPlayableCharacterID::eTHIEF"
+  ],
+  "resident_levels": [
+    "Btl_Dng_Mansion_C_Boss",
+    "Btl_Dng_Mansion_C_IN",
+    "Btl_SinExpose",
+    "Dng_Cty_1_1",
+    "Dng_Cty_1_1_Art",
+    "Dng_Cty_1_1_Coll",
+    "Dng_Cty_1_1_GD",
+    "Dng_Cty_1_1_Sound"
+  ],
+  "shared_levels": [
+    "Btl_SinExpose"
+  ],
+  "story_types": [
+    7
+  ],
+  "suppress_flag_callbacks": false,
+  "suppress_level_lottery": false,
+  "suppress_time_callbacks": false,
+  "time": 4,
+  "visited_maps": []
+}

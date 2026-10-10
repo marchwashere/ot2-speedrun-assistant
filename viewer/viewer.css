@@ -214,3 +214,16 @@ footer span { margin:0 10px; }
 @media(max-width:680px) { .mode-switch { gap:6px; } .mode-switch button { font-size:12px; padding:9px 10px; } .run-setup form { grid-template-columns:1fr 1fr; gap:10px; } .run-setup .level-setting button { width:100%; } .route-outcomes { grid-template-columns:1fr; } .route-card { padding:14px; } .first-diagnostics { grid-template-columns:1fr; } }
 @media(max-width:1000px) { .overview-grid { grid-template-columns:1fr; } .intro { align-items:flex-start; flex-direction:column; gap:12px; } .seed-value,.metric strong { font-size:29px; } .prediction,.metric { padding:18px; } }
 @media(max-width:680px) { .shell { padding:0 16px; } .topbar { padding:16px 0; } h1 { font-size:25px; } .setup { padding:16px 16px 0; } form { flex-direction:column; align-items:stretch; gap:12px; } .metrics { grid-template-columns:1fr 1fr; gap:10px; } .prediction { grid-column:1/-1; } .seed-value { font-size:35px; } .result-heading { align-items:flex-start; } .result-heading>div { align-items:flex-start; flex-direction:column; gap:6px; } .overview { padding:16px; } .action summary { padding:14px; grid-template-columns:50px 1fr 16px; gap:8px; } .action .rolls { grid-column:2; } .action .action-rng { grid-column:2; text-align:left; } .action summary:after { grid-column:3; grid-row:1; } .action-body { padding:0 14px 18px; } .order-strip { flex-direction:column; gap:5px; } footer { font-size:10px; } .log-toolbar { padding:0 14px; } }
+
+#voice-identification {padding:20px;margin-bottom:18px;}
+.voice-buttons {display:flex;gap:10px;flex-wrap:wrap;margin:16px 0;}
+#voice-normal,#voice-special {font-size:18px;padding:12px 18px;}
+#voice-status {color:var(--gold);font-weight:600;overflow-wrap:anywhere;}
+#voice-transcript {overflow-wrap:anywhere;}
+#voice-order {display:block;width:200px;margin-top:8px;}
+/* Earlier-route diagnostics do not exist in this branch. */
+#detail-results>.setup, .diagnostic-list>section:nth-child(-n+4) {display:none;}
+
+#voice-hp-step {display:block;}
+#voice-hp-step[hidden] {display:none;}
+#voice-hp {display:block;width:120px;margin:10px 0;}
