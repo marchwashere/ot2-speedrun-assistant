@@ -7,28 +7,26 @@ The import/audit tools are development tools and do require the local source ass
 they are NOT run during deployment. This server processes one request at a time.
 Keep Caddy authentication enabled; it is not yet a public multi-user job server.
 
-## 1. Prerequisites and authentication
+## 1. Prerequisites
 
 As your normal SSH account (not root), install build dependencies:
 
 ```sh
 sudo apt update
-sudo apt install -y git gh build-essential curl ca-certificates pkg-config
+sudo apt install -y git build-essential curl ca-certificates pkg-config
 ```
 
 Install current stable Rust using https://rustup.rs/ if it is not already installed.
 Then `source "$HOME/.cargo/env"` (or reconnect SSH) and check `rustc --version`.
-Authenticate with `gh auth login --hostname github.com`, choosing the marchwashere
-account and HTTPS, then `gh auth setup-git`. Both repositories are private.
-Never put tokens in source files, clone URLs, or the Caddyfile.
+Both repositories are public; no GitHub login or token is needed to clone them.
 
 ## 2. Clone and build the pinned pair
 
 ```sh
 mkdir -p ~/ot2-src
 cd ~/ot2-src
-gh repo clone marchwashere/ot2-speedrun-assistant OT2SpeedrunAssistant
-gh repo clone marchwashere/ot2-battle-engine OT2BattleEngineRust
+git clone https://github.com/marchwashere/ot2-speedrun-assistant.git OT2SpeedrunAssistant
+git clone https://github.com/marchwashere/ot2-battle-engine.git OT2BattleEngineRust
 cd OT2BattleEngineRust
 git checkout --detach "$(cat ../OT2SpeedrunAssistant/deploy/battle-core-revision)"
 cd ../OT2SpeedrunAssistant
