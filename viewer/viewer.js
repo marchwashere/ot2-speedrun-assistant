@@ -1072,13 +1072,13 @@ function renderCrackridgeVoyage() {
           if(i.crackridge_return) {
             const r=i.crackridge_return;
             for(const [label,e] of [[i.scope.world_after.galdera_route?'Crackridge Harbor · fast travel after Inventor':'Crackridge Harbor · fast travel after Clockite',r.arrival],['Crackridge Harbor return · escaped',r.field_return]]) {conningStages.push([label,e]);conningSpans.push(...e.trace);}
-            conningPoints.push(['Crackridge Harbor return · first command menu',r.menu.rng]);
+            conningPoints.push(...lateRouteMenuCheckpoints('Crackridge Harbor return',r));
             if(r.southern) {
               const a=r.southern,actor=routeNames()[a.menu.first_actor];
               $('southern-crackridge-result').hidden=false;
               $('southern-crackridge-routine').innerHTML=lateRouteInstructions(a);
               for(const [label,e] of [['Southern Crackridge Wilds · loaded',a.arrival],['Southern Crackridge Wilds · escaped',a.field_return]]) {conningStages.push([label,e]);conningSpans.push(...e.trace);}
-              conningPoints.push(['Southern Crackridge Wilds · first command menu',a.menu.rng]);
+              conningPoints.push(...lateRouteMenuCheckpoints('Southern Crackridge Wilds',a));
               conningSpans.push(...a.escape.trace);
               for(const [key,label,b] of [['western-crackridge','Western Crackridge Wilds · before town',a.southern],['western-crackridge-return','Western Crackridge Wilds · after town',a.southern?.southern]]) {
                 if(!b) continue;
@@ -1094,7 +1094,7 @@ function renderCrackridgeVoyage() {
                 $(key+'-result').hidden=false;
                 $(key+'-routine').innerHTML=lateRouteInstructions(b);
                 for(const [name,e] of [...(b.approach_stages||[]),[label+' · loaded',b.arrival],[label+(b.victory?' · Wind Soulstone (L) victory':' · escaped'),b.field_return]]) {conningStages.push([name,e]);conningSpans.push(...e.trace);}
-                conningPoints.push([label+' · first command menu',b.menu.rng]);conningSpans.push(...(b.victory||b.escape).trace);
+                conningPoints.push(...lateRouteMenuCheckpoints(label,b));conningSpans.push(...(b.victory||b.escape).trace);
                 if(b.gravell) {
                   const g=b.gravell;
                   $('gravell-result').hidden=false;
@@ -1639,6 +1639,18 @@ $('settings-form').addEventListener('submit',event => {
   $('settings-status').textContent = persisted ? 'Saved. Run simulation to apply.' : 'Saved for this session. Browser storage is unavailable.';
 });
 // This branch waits for voice identification; never replay early manipulation on load.
+
+function lateRouteMenuCheckpoints(label,r) {
+  const names=routeNames(),ordinals={},points=[];
+  (r.defends||[]).forEach((d,i)=>{
+    const round=r.defend_rounds?.[i]??1;
+    const ordinal=ordinals[round]=(ordinals[round]||0)+1;
+    points.push([`${label} · T${round} · ${names[d.actor]} · ${menuOrdinal(ordinal)} command menu · Defend`,d.rng_before]);
+  });
+  const round=r.escape_round??1;
+  points.push([`${label} · T${round} · ${names[r.menu.first_actor]} · ${menuOrdinal((ordinals[round]||0)+1)} command menu · ${r.victory?'Wind Soulstone (L)':'Escape'}`,r.menu.rng]);
+  return points;
+}
 
 function lateRouteInstructions(r) {
   const names=routeNames();
