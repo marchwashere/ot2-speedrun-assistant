@@ -24,3 +24,13 @@ assert.match($('galdera-coast-routine').innerHTML,/switch to day immediately aft
 assert(context.conningStages.some(([label])=>label==='Conning Creek · switched to night'));
 assert(context.conningStages.some(([label])=>label==='Western Conning Creek Coast · switched to day'));
 console.log('PASS: both coast timing branches, running percentage, and detailed checkpoints');
+coast.southern_sai={arrival:entry,field_return:entry,battle_entry:entry.after,
+  menu:{first_actor:2,rng:entry.after},escape:{chance_percent:100,trace:[]},
+  encounter:{checkpoints:[{label:'entry',draws:0,state:0}]}};
+context.names=['Throné','Osvald','Agnea','Partitio'];context.encounterLabel=()=> 'Encounter: Southern Sai formation';context.escapeHtml=String;context.conningPoints=[];
+vm.runInNewContext(source.slice(start,end),context);
+assert.equal($('southern-sai-result').hidden,false);
+assert.match($('southern-sai-routine').innerHTML,/T1 · Agnea · 1st command menu/);
+assert.match($('southern-sai-routine').innerHTML,/Escape \(100%\)/);
+assert(context.conningStages.some(([label])=>label==='Southern Sai Sands · escaped, field restored'));
+console.log('PASS: Southern Sai actual actor, guaranteed Escape and field-return checkpoints');

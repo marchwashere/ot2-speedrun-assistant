@@ -1,5 +1,19 @@
 # Galdera: Chubby victory to Eastern Sai Sands
 
+The continuation now also loads Southern Sai Sands (`Fld_Dst_2_3`) and predicts
+its planned first encounter. The same finisher/Conning timing candidates must
+satisfy both coast traversal safety and a Normal or Preemptive Southern opening.
+The source encounter catalog supplies the actual formation and danger level;
+the battle adapter retains carried levels/stats/supports and enemy knowledge.
+At the actual first player menu, execute Escape with no extra boost inputs.
+Native `success_percent` must report 100% with the current party, and the real
+escape check must succeed. Restore field control, enemy knowledge and both
+post-Escape counter-reset callbacks through the shared loader.
+
+Eastern -> Southern traversal has no supplied movement measurement. The route
+models the Southern entry and first encounter without inventing an Eastern
+encounterless movement guarantee or a second Southern encounter budget.
+
 The Galdera continuation freezes the chosen EXP ×100 routine and all earlier
 controls. It searches the last player's actual Thunder Soulstone (L) command
 menu using the battle engine's boost frontier. Inputs end at zero BP, and the

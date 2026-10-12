@@ -1,5 +1,13 @@
 # Active project
 
+- Extend the same Galdera coast search to require a Normal/Preemptive first
+  encounter in Southern Sai Sands (Fld_Dst_2_3), after loading Eastern Sai.
+  Initialize the actual carried party, A Step Ahead and weakness history;
+  verify the native level/danger escape calculation is100%, execute immediate
+  first-menu Escape and restore field/history/counter with shared callbacks.
+  Show formation/actual first actor/Escape100%; no unnecessary boost adjustment.
+  Do not invent Eastern -> Southern movement or a second-encounter guarantee.
+
 - Galdera now continues after EXP100: freeze the selected Guards/BG and earlier
   route controls, search only the last Thunder L menu boost adjustment and the
   optional Conning Creek landing-night/coast-entry-day pair (user cost zero).

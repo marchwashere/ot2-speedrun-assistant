@@ -842,7 +842,7 @@ function renderCrackridgeVoyage() {
   $('canalbrine-route-log').hidden=true;
   $('canalbrine-water-result').hidden=true;
   $('canalbrine-water-log').hidden=true;
-  for(const id of ['new-delsta-bg-result','crackridge-bg-result','clockbank-bg-result','oresrush-time-result','cropdale-time-result','conning-north-result','conning-west-result','conning-steal-result','inventor-escape-result','clockbank-movement-result','crackridge-return-result','southern-crackridge-result','western-crackridge-result','western-crackridge-return-result','gravell-result','galdera-coast-result','conning-log']) $(id).hidden=true;
+  for(const id of ['new-delsta-bg-result','crackridge-bg-result','clockbank-bg-result','oresrush-time-result','cropdale-time-result','conning-north-result','conning-west-result','conning-steal-result','inventor-escape-result','clockbank-movement-result','crackridge-return-result','southern-crackridge-result','western-crackridge-result','western-crackridge-return-result','gravell-result','galdera-coast-result','southern-sai-result','conning-log']) $(id).hidden=true;
   const early=result.post_battle_field?.flats_escape?.early_cait;
   const timing=early?.southern_rare_target?'after':early?.snows_approach?.predicted_before_osvald?'before':snowsEncounterTiming ?? 'after';
   const exit=result.post_battle_field?.flats_escape?.snows_escape?.[timing+'_osvald'];
@@ -1121,6 +1121,24 @@ function renderCrackridgeVoyage() {
                       +instructionBoxHtml([`Run first ${m.run_percent.toFixed(1)}% · walk remaining ${(100-m.run_percent).toFixed(1)}%`]);
                     for(const [label,e] of [['Western Gravell · switched to day before Gravell tag',c.day_before_gravell],['Conning Creek · fast travel',c.conning],['Conning Creek · switched to night',c.conning_night],['Western Conning Creek Coast · loaded',c.coast_entry],['Western Conning Creek Coast · switched to day',c.coast_day],['Western Conning Creek Coast · reached Eastern Sai exit without encounter',c.coast_exit],['Eastern Sai Sands · loaded',c.eastern_sai]]) {
                       if(e){conningStages.push([label,e]);conningSpans.push(...e.trace);}
+                    }
+                    if(c.southern_sai) {
+                      const s=c.southern_sai;
+                      $('southern-sai-result').hidden=false;
+                      $('southern-sai-routine').innerHTML='<p><strong>'+escapeHtml(encounterLabel(s.encounter))+'</strong></p>'
+                        +`<p><strong>T1 · ${names[s.menu.first_actor]} · 1st command menu</strong></p>`
+                        +instructionBoxHtml([`Escape (${s.escape.chance_percent}%)`]);
+                      for(const [label,e] of [['Southern Sai Sands · loaded',s.arrival],['Southern Sai Sands · escaped, field restored',s.field_return]]) {
+                        conningStages.push([label,e]);conningSpans.push(...e.trace);
+                      }
+                      conningPoints.push(['Southern Sai Sands · before battle initialization',s.battle_entry],['Southern Sai Sands · first command menu',s.menu.rng]);
+                      let previous=s.arrival.after;
+                      const origin=BigInt(previous.draws)-BigInt(s.encounter.checkpoints[0].draws);
+                      for(const checkpoint of s.encounter.checkpoints) {
+                        const after={state:checkpoint.state,draws:origin+BigInt(checkpoint.draws)};
+                        conningSpans.push({reason:'Southern Sai Sands · '+checkpoint.label,before:previous,after});previous=after;
+                      }
+                      conningSpans.push(...s.escape.trace);
                     }
                   }
                 }

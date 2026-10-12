@@ -139,6 +139,9 @@ pub fn simulate_route(voices:&str,pirro_first:bool,hp:u32,galdera_route:bool)->R
         assert_eq!(g["coast"]["eastern_sai"]["world_after"]["map"],"Fld_Dst_2_4");
         assert_eq!(g["town"]["world_after"]["time"],2);
         assert!(g["coast"]["movement"]["estimated_counter_at_exit"].as_u64().unwrap()>0);
+        assert_eq!(g["coast"]["southern_sai"]["escape"]["chance_percent"],100);
+        assert_eq!(g["coast"]["southern_sai"]["escape"]["success"],true);
+        assert_ne!(g["coast"]["southern_sai"]["encounter"]["situation"],"Surprise");
         assert_eq!(g["fight"]["state"]["outcome"],"victory");
         assert_eq!(g["fight"]["evaluation"]["result"],"accepted");
         assert_eq!(g["field_return"]["world_after"]["party"],serde_json::json!([7,6,8,4]));

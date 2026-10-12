@@ -625,6 +625,13 @@ mod gravell_integration_tests {
   assert_eq!(g.town.world_after.time,2);
   assert!(g.town.world_after.visited_maps.contains("Twn_Wld_3_1_A"));
   assert_eq!(c.eastern_sai.world_after.map,"Fld_Dst_2_4");
+  let s=&c.southern_sai;
+  assert!(matches!(s.encounter.situation.as_deref(),Some("Normal"|"Preemptive")));
+  assert_eq!(s.escape.chance_percent,100);assert!(s.escape.success);
+  assert_eq!(s.menu.party_levels,s.arrival.world_after.party.iter().map(|id|s.arrival.world_after.character_progression[id].level).collect::<Vec<_>>());
+  assert_eq!(s.field_return.world_after.map,"Fld_Dst_2_3");
+  assert_eq!(s.field_return.after.draws,s.escape.after.draws+2);
+  assert_eq!(serde_json::to_value(&s.arrival.world_after.character_progression).unwrap(),serde_json::to_value(&s.field_return.world_after.character_progression).unwrap());
   assert_eq!(c.coast_exit.after,c.coast_day.as_ref().unwrap_or(&c.coast_entry).after);
   assert!(c.movement.estimated_counter_at_exit>0);
   assert_eq!(c.movement.initial_counter-c.movement.counter_cost,c.coast_exit.world_after.encounter_counter);
