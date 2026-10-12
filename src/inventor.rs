@@ -636,7 +636,9 @@ mod gravell_integration_tests {
   assert_eq!(supplies.warrior.after,c.sai.after);
   assert_eq!(supplies.warrior.world_after.job_licenses.get(&2),Some(&1));
   assert_eq!(supplies.hire.after.draws,supplies.night.after.draws+2);
-  assert_eq!(supplies.pickaxe.after.draws,supplies.day.after.draws+3);
+  assert_eq!(supplies.pickaxe.after.draws,supplies.day.after.draws+2);
+  assert!(supplies.steal_event.is_none());
+  assert!(!supplies.pickaxe.trace.iter().any(|t|matches!(t.kind,world::DrawKind::DialogueLottery)));
   assert_eq!(supplies.steal_chance,100);
   assert_eq!(supplies.pickaxe.world_after.route_items.get("ITM_TRE_SS_TSn21_0200_0010"),Some(&1));
   let hired=supplies.pickaxe.world_after.hired_merchant.as_ref().unwrap();

@@ -26,12 +26,13 @@ Hire draws its common field-command action timer, then the success dialogue
 lottery in BP_FCv2_FieldCommandFlowBase.DrawEventLabel. Two equal-weight events
 are selected with the native15-bit float and <= cumulative comparison. The
 selected FC_SHO_HIRE_Success_1/2 event has fixed command42 and no counter reset.
-Steal draws its action timer, item success roll, then its ordinary closing
-dialogue lottery FC_TOU_STEAL_Success_1/2. No Conning Creek voice-suppression
-exception is assumed here. Source Peddler HireSuccesTalkID and Miner
+Steal draws its action timer and item success roll. The user then changes the
+selected path action before closing, just as in Conning Creek. This skips
+DrawEventLabel and the FC_TOU_STEAL_Success_1/2 closing event entirely. Source
+Peddler HireSuccesTalkID and Miner
 StealSuccessTalkID are both None; there is no extra NPC-specific reaction draw.
 
-Thus Hire adds two CRT draws and normal one-item Steal adds three; map/time
+Thus Hire adds two CRT draws and this one-item Steal adds two; map/time
 callbacks are evaluated separately using the carried state. These new action
 endpoints await retail validation. Fixed steps appear only in Detailed log.
 

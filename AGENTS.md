@@ -3,11 +3,14 @@
 - After Sai: Warrior first license (JobID2, SYS_WAR_GUILD_0010/0030; source
   current route zero CRT), fast travel Oresrush C, decline chapter prompt,
   night -> Hire Peddler NPC_SS_TW11_0100_0100 (1600 leaves, Smooth Talker
-  SPACT_MERCHANT_014) -> day -> normal-close Steal Pickaxe from Retired Miner
+  SPACT_MERCHANT_014) -> day -> Steal Pickaxe from Retired Miner, change path
+  action then close to suppress the Steal dialogue (same as Conning Creek)
   NPC_SS_TSn21_0200_0200. ProperSteal22 + over-level11 guarantees level33+.
-  Hire action timer + dialogue lottery2; Steal timer + roll + closing lottery3.
+  Hire action timer + dialogue lottery2; Pickaxe Steal timer + roll2, no closing
+  dialogue lottery. Paying/registering the hired follower adds no CRT draw.
   Retain hired identity/talent and quest item in state/cache; suppress original
-  hired NPC placement on refresh. No Conning voice-suppression exception here.
+  hired NPC placement on refresh. Apply this closing exception to both the
+  Conning Creek two-item session and the Oresrush Pickaxe session only.
   Fixed steps belong in Detailed log. Regenerate event data with import-galdera-
   oresrush.cjs after town and bag imports. See docs/galdera-oresrush.md; endpoints
   await retail validation.

@@ -47,5 +47,5 @@ context.conningStages=[];
 vm.runInNewContext(source.slice(start,end),context);
 assert.deepEqual(context.conningStages.slice(-6).map(([label])=>label),[
  'Sai · Warrior License acquired','Oresrush · fast travel, chapter start discarded','Oresrush · switched to night',
- 'Oresrush · Smooth Talker Peddler hired · 1,600 leaves','Oresrush · switched to day','Oresrush · Sturdy Pickaxe stolen from Retired Miner · 100%']);
+ 'Oresrush · Smooth Talker Peddler hired · 1,600 leaves','Oresrush · switched to day','Oresrush · Sturdy Pickaxe stolen · 100% · change path action, then close without dialogue']);
 console.log('PASS: Warrior License, night Hire, day Pickaxe Steal in Detailed log');
