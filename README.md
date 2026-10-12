@@ -9,7 +9,8 @@ and Evasive Maneuvers, and receives A Step Ahead with the active party. The Chub
 Cait battle uses Osvald and Partitio as the two Merchants.
 Hikari's recruitment fight supplies two guaranteed regular Fire Soulstones;
 one is retained for Elemental Bomb Bottle. No Fire Soulstone purchase is needed.
-Galdera also leaves Agnea Chapter 2 inactive during the New Delsta visit.
+Galdera leaves Agnea Chapter 2 inactive during the New Delsta visit and declines
+Throné Chapter 2 Mother's route on arrival in Oresrush.
 During chapter 1, steal the Antique Coin and sell it to fund one extra Shadow
 Soulstone (M) at the clerics; reserve that stone for the Traveler's Bag thief.
 The Pirro R3 identification starts after the steal, so no pre-identification

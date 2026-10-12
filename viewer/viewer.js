@@ -885,7 +885,7 @@ function renderCrackridgeVoyage() {
     const oresrushStages=oresrushRoute?[
       ['Southern Oresrush Wilds · loaded',oresrushRoute.southern_entry],
       ['Oresrush · loaded',oresrushRoute.town_entry],
-      ['Oresrush · Mother route accepted',oresrushRoute.mother_route],
+      [oresrushRoute.mother_route.world_after.galdera_route?'Oresrush · Mother route inactive':'Oresrush · Mother route accepted',oresrushRoute.mother_route],
       ...(oresrushRoute.switches_before_partitio||[]).map((e,i)=>['Oresrush · before Partitio switch '+(i+1),e]),
       ['Partitio · recruited, Chapter 1 skipped',oresrushRoute.recruitment],
       ...(oresrushRoute.switches_after_partitio||[]).map((e,i)=>['Oresrush · after Partitio switch '+(i+1),e]),

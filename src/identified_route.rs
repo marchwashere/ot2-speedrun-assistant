@@ -127,6 +127,10 @@ pub fn simulate_route(voices:&str,pirro_first:bool,hp:u32,galdera_route:bool)->R
         assert_eq!(r["hikari"]["recruitment"]["world_after"]["party"],serde_json::json!([7,6,8,4]));
         assert_eq!(r["hikari"]["recruitment"]["world_after"]["bench"],serde_json::json!([1]));
         assert!(r["throne_scholar"].is_null());
+        let recruited:WorldState=serde_json::from_value(r["hikari"]["recruitment"]["world_after"].clone()).unwrap();
+        assert!(!recruited.flag(8050));
+        assert!(!recruited.active_scenarios.contains(&701));
+        assert!(!recruited.confirmed_scenarios.contains(&701));
         let inventor=&r["canalbrine"]["conning"]["pomegranate"]["inventor"];
         let mut leg=&inventor["crackridge_return"];
         while leg["southern"].is_object(){leg=&leg["southern"];}

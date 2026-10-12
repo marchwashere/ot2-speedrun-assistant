@@ -83,6 +83,18 @@ mod tests {
         assert!(cache.predict(1,1).unwrap().southern_day_switch.is_none());
     }
     #[test]
+    fn galdera_declines_mother_without_advancing_rng() {
+        let mut entry=start();entry.world_after.galdera_route=true;
+        let reach=crate::winter_voyage::oresrush_reach(&entry.world_after).unwrap().unwrap();
+        let p=predict(&entry,&reach).unwrap();
+        assert_eq!(p.mother_route.after,p.town_entry.after);
+        for stage in [&p.mother_route,&p.recruitment,&p.southern_return] {
+            assert!(!stage.world_after.flag(8050));
+            assert!(!stage.world_after.active_scenarios.contains(&701));
+            assert!(!stage.world_after.confirmed_scenarios.contains(&701));
+        }
+    }
+    #[test]
     fn switches_bracket_partitio_after_mother_start_and_finish_daytime() {
         let entry=start();let reach=crate::winter_voyage::oresrush_reach(&entry.world_after).unwrap().unwrap();
         let mut cache=PrefixCache::new(&entry,&reach).unwrap();
@@ -200,11 +212,16 @@ pub fn new(entry:&Entry,reach:&CropdaleReach)->Result<Self> {
     l.state.encounter_counter=town_reach.estimated_counter_at_exit;
     l.visit_map(TOWN)?;
     let town_entry=checkpoint(&mut l,southern_entry.after,"Oresrush: loaded before arrival story selection");
-    l.skipped_event_with_choices("MapInStorySelect",&world::EventChoices::from([
-        (("MapInStorySelect".into(),1),"MS_TOU_01".into()),
-    ]))?;
-    ensure(l.state.active_scenarios.contains(&701) && l.state.flag(8050),"Mother's chapter opening did not finish")?;
-    let mother_route=checkpoint(&mut l,town_entry.after,"Throné Chapter 2 Mother's route accepted; opening cutscene skipped");
+    let mother_route=if l.state.galdera_route {
+        l.skipped_event_with_choices("MapInStorySelect",&world::EventChoices::new())?;
+        checkpoint(&mut l,town_entry.after,"Throné Chapter 2 Mother's route left inactive")
+    } else {
+        l.skipped_event_with_choices("MapInStorySelect",&world::EventChoices::from([
+            (("MapInStorySelect".into(),1),"MS_TOU_01".into()),
+        ]))?;
+        ensure(l.state.active_scenarios.contains(&701) && l.state.flag(8050),"Mother's chapter opening did not finish")?;
+        checkpoint(&mut l,town_entry.after,"Throné Chapter 2 Mother's route accepted; opening cutscene skipped")
+    };
     Ok(Self {southern_entry,town_reach,town_entry,mother_route,recruited:Default::default()})
 }
 pub fn predict(&mut self,before:u32,after:u32)->Result<Prediction> {
@@ -238,8 +255,13 @@ pub fn predict(&mut self,before:u32,after:u32)->Result<Prediction> {
     let field=southern_day_switch.as_ref().unwrap_or(&southern_return);
     let ryu_reach=ryu_reach(&field.world_after)?;
     let ryu=ryu_reach.as_ref().map(|reach|crate::ryu::predict(field,reach).map(Box::new)).transpose()?;
+    let galdera_route=field.world_after.galdera_route;
     Ok(Prediction {southern_day_switch,southern_entry,town_reach,town_entry,mother_route,switches_before_partitio,switches_after_partitio,recruitment,southern_return,ryu_reach,ryu,
-        verification:"Source-derived shared map loading, Mother Chapter 2 acceptance and Partitio skip-Chapter-1 recruitment. Southern Wilds -> Oresrush uses the measured 75 running updates; no walking measurement assumed. Mother arrival acceptance matches the seven-draw retail capture of 2026-10-09; remaining route callbacks are source-derived."})
+        verification:if galdera_route {
+            "Source-derived shared map loading and Partitio skip-Chapter-1 recruitment; Mother Chapter 2 remains inactive. Southern Wilds -> Oresrush uses the measured 75 running updates. Declining the arrival story selection consumes no RNG."
+        } else {
+            "Source-derived shared map loading, Mother Chapter 2 acceptance and Partitio skip-Chapter-1 recruitment. Southern Wilds -> Oresrush uses the measured 75 running updates; no walking measurement assumed. Mother arrival acceptance matches the seven-draw retail capture of 2026-10-09; remaining route callbacks are source-derived."
+        }})
 }
 
 }
