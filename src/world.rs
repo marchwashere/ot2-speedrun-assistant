@@ -1124,10 +1124,16 @@ impl<'a> Loader<'a> {
                 3005 if name=="MS_KEN_00_0300" && c.target==1 => {
                     ensure(!self.state.flag(2900) && self.state.party==[7,6,8,4]
                         && self.state.bench.contains(&1),"Hikari replacement requires the carried four-member party")?;
-                    ensure(choices.get(&(name.into(),c.index)).map(String::as_str)==Some("6"),
-                        "Hikari recruitment requires the explicit Osvald replacement choice")?;
+                    let selection=choices.get(&(name.into(),c.index)).map(String::as_str);
+                    ensure(selection==Some(if self.state.galdera_route {"bench"}else{"6"}),
+                        "Hikari recruitment requires the selected route's explicit party choice")?;
                     self.state.sync_progression()?;
                     ensure(self.state.character_progression.contains_key(&1),"Hikari starting progression was not initialized")?;
+                    if self.state.galdera_route {
+                        // Dismiss the same full-party selector used for Castti;
+                        // no main-member swap or support rebuild occurs.
+                        self.boundary("Hikari retained on bench; party selection dismissed; Osvald remains active");
+                    } else {
                     let bench_index=self.state.bench.iter().position(|&id|id==1).unwrap();
                     self.state.party[1]=1;self.state.bench[bench_index]=6;
                     self.state.party_experience=self.state.party.iter().map(|id|self.state.character_progression[id].experience).collect();
@@ -1135,6 +1141,7 @@ impl<'a> Loader<'a> {
                     // equipped support skills from active battle members only.
                     self.state.refresh_support_skills();
                     self.boundary("Party replacement: Hikari replaces Osvald; Osvald's ledger retained on bench; Evasive Maneuvers inactive");
+                    }
                     // Add-friend mode refreshes tavern placement rather than
                     // respawning ordinary field NPCs. Ryu has BarEvent=None.
                     self.refresh_bar()?;

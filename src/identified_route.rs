@@ -114,6 +114,31 @@ pub fn simulate_route(voices:&str,pirro_first:bool,hp:u32,galdera_route:bool)->R
 
 #[cfg(test)] mod tests {
     use super::*;
+    #[test]
+    #[ignore = "Full live-transcript Galdera route replay"]
+    fn galdera_recruited_hikari_bench_survives_full_route() {
+        let result=simulate_route("SNNNNSSSSSNSNSSSSNNNSNSSNNSNS",true,154,true).unwrap();
+        fn find_ryu(v:&serde_json::Value)->Option<&serde_json::Value> {
+            if v["town_entry"].is_object() && v["hikari"]["battle"].is_object() {return Some(v);}
+            v.as_object()?.values().find_map(find_ryu)
+        }
+        let r=find_ryu(&result).expect("Ryu recruitment");
+        assert_eq!(r["hikari"]["battle"]["drops"]["ITM_CSM_0290"],2);
+        assert_eq!(r["hikari"]["recruitment"]["world_after"]["party"],serde_json::json!([7,6,8,4]));
+        assert_eq!(r["hikari"]["recruitment"]["world_after"]["bench"],serde_json::json!([1]));
+        assert!(r["throne_scholar"].is_null());
+        let inventor=&r["canalbrine"]["conning"]["pomegranate"]["inventor"];
+        let mut leg=&inventor["crackridge_return"];
+        while leg["southern"].is_object(){leg=&leg["southern"];}
+        let g=&leg["gravell"];
+        assert_eq!(g["fight"]["state"]["outcome"],"victory");
+        assert_eq!(g["fight"]["evaluation"]["result"],"accepted");
+        assert_eq!(g["field_return"]["world_after"]["party"],serde_json::json!([7,6,8,4]));
+        let bench=g["field_return"]["world_after"]["bench"].as_array().unwrap();
+        assert!(bench.contains(&serde_json::json!(1))&&bench.contains(&serde_json::json!(3)));
+        println!("{}",serde_json::json!({"fire_drops":r["hikari"]["battle"]["drops"],"bench":bench,"exp100_evaluation":g["fight"]["evaluation"],"new_delsta_switches":inventor["new_delsta_adjustment"]["switches"]}));
+        if let Ok(path)=std::env::var("OT2_GALDERA_REPLAY_OUTPUT") {std::fs::write(path,serde_json::to_string_pretty(&result).unwrap()).unwrap();}
+    }
     #[test] fn round_three_order_distinguishes_sampled_prefixes_without_hp() {
         for seed in (0u32..128).map(|n|n.wrapping_mul(1775700753)) {
             let mut b=round_three(seed).unwrap();

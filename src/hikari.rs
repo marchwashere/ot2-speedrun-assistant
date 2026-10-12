@@ -166,12 +166,14 @@ pub fn predict_with_boost_inputs(entry:&Entry,inputs:&[u8])->Result<Prediction> 
     l.skipped_event_with_choices(VICTORY,&world::EventChoices::from([
         ((VICTORY.into(),127),"eDIALOG_YES".into()),
         ((VICTORY.into(),138),"eDIALOG_NO".into()),
-        ((VICTORY.into(),148),"6".into()),
+        ((VICTORY.into(),148),if entry.world_after.galdera_route {"bench"}else{"6"}.into()),
     ]))?;
-    ensure(l.state.party==[7,1,8,4] && l.state.bench==[6]
-        && l.state.completed_scenarios.contains(&100) && !l.state.evasive_maneuvers,
-        "Hikari chapter skip or Osvald replacement did not finish")?;
-    let recruitment=checkpoint(&mut l,field_return.after,"Hikari recruited: Chapter 1 skipped; Osvald replaced; tutorials dismissed");
+    ensure(l.state.completed_scenarios.contains(&100) &&
+        if entry.world_after.galdera_route {l.state.party==[7,6,8,4] && l.state.bench==[1] && l.state.evasive_maneuvers}
+        else {l.state.party==[7,1,8,4] && l.state.bench==[6] && !l.state.evasive_maneuvers},
+        "Hikari chapter skip or route party choice did not finish")?;
+    if entry.world_after.galdera_route {ensure(battle.drops.get("ITM_CSM_0290")==Some(&2),"Hikari fight must supply two Fire Soulstones")?;}
+    let recruitment=checkpoint(&mut l,field_return.after,if entry.world_after.galdera_route {"Hikari recruited: Chapter 1 skipped; retained on bench; two Fire Soulstones obtained; Osvald active"}else{"Hikari recruited: Chapter 1 skipped; Osvald replaced; tutorials dismissed"});
     Ok(Prediction {introduction,request,battle,reward,field_return,recruitment,
-        verification:"Source-derived Hikari scripted battle with carried original equipment, resources, enemy knowledge and EXP/JP. The supplied two-command routine uses a regular Ice Soulstone followed by the next actor's unboosted default weapon. Victory field-return reset precedes the recruitment event's separate FinishPre reset. Chapter 1 is skipped; Hikari joins at level 1 and replaces Osvald, whose ledger stays on the bench. Evasive Maneuvers becomes inactive. Awaiting retail validation."})
+        verification:if entry.world_after.galdera_route {"Galdera: replay Hikari recruitment battle and its two guaranteed Fire Soulstone drops; skip Chapter 1 and dismiss party selection. Hikari starts at level 1 on the bench; Osvald and his native Evasive Maneuvers remain active. Battle/recruitment RNG, rewards and progression are carried forward. Awaiting retail validation."}else{"Source-derived Hikari scripted battle with carried original equipment, resources, enemy knowledge and EXP/JP. The supplied two-command routine uses a regular Ice Soulstone followed by the next actor's unboosted default weapon. Victory field-return reset precedes the recruitment event's separate FinishPre reset. Chapter 1 is skipped; Hikari joins at level 1 and replaces Osvald, whose ledger stays on the bench. Evasive Maneuvers becomes inactive. Awaiting retail validation."}})
 }

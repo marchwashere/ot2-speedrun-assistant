@@ -40,7 +40,6 @@ pub fn nearest_coasts_bounded(town:&Entry,limit:Option<u32>)->Result<Option<Cont
     let mut c=loop {
         if limit.is_some_and(|l|2*h>l) {return Ok(None);}
         if let Some(c)=project(town,h)? {break c;}
-        if town.world_after.galdera_route {return Ok(None);}
         h=h.checked_add(1).ok_or_else(||SimError("Hikari boost search exhausted".into()))?;
     };
     let mut tested=0;
@@ -72,7 +71,7 @@ pub fn nearest_coasts_bounded(town:&Entry,limit:Option<u32>)->Result<Option<Cont
         c.canalbrine.conning=Some(Box::new(conning));
         c.canalbrine.verification="Strict nearest-menu propagation for the selected Oresrush switch allocation. Safe openings, Cultured Cait clear and first Escapes preserved. Awaiting retail validation.";
         return Ok(Some(Continuation {hikari:c.hikari,scholar:c.scholar,canalbrine:c.canalbrine,
-            search:Search {inputs:describe_inputs(h,0,path(h))?,tested_hikari_candidates:if town.world_after.galdera_route {0} else {u64::from(h)+1},
+            search:Search {inputs:describe_inputs(h,0,path(h))?,tested_hikari_candidates:u64::from(h)+1,
                 tested_escape_attempts:tested,total_input_cost:total,status:"Compare northern Cait via Canalbrine boosts against the propagated western fallback; choose lower complete boost cost, preferring Northern on ties"}}));
     }
     Ok(None)
@@ -85,7 +84,7 @@ impl CoastSearch {
     pub fn new()->Self {Self {candidates:vec![],tested:0}}
     pub fn at_cost(&mut self,town:&Entry,cost:u32,cache:&mut crate::conning::Cache)->Result<Option<Continuation>> {
         if cost%2!=0 {return Ok(None);}
-        for h in 0..=if town.world_after.galdera_route {0} else {cost/2} {
+        for h in 0..=cost/2 {
             if self.candidates.len()==h as usize {self.candidates.push(project(town,h)?);}
             let Some(c)=self.candidates[h as usize].as_mut() else {continue;};
             for water_cost in (0..=cost-2*h).step_by(2) {
@@ -98,7 +97,7 @@ impl CoastSearch {
                 c.canalbrine.conning=Some(Box::new(conning));
                 c.canalbrine.verification="Complete source-derived coast continuation; minimum total boost inputs within this prefix, one Cultured Cait clear and safe first Escapes. Awaiting retail validation.";
                 return Ok(Some(Continuation {hikari:c.hikari,scholar:c.scholar,canalbrine:c.canalbrine,
-                    search:Search {inputs:describe_inputs(h,0,path(h))?,tested_hikari_candidates:if town.world_after.galdera_route {0} else {self.candidates.len() as u64},
+                    search:Search {inputs:describe_inputs(h,0,path(h))?,tested_hikari_candidates:self.candidates.len() as u64,
                         tested_escape_attempts:self.tested,total_input_cost:cost,status:if town.world_after.galdera_route {"Galdera Canalbrine / Conning coast search: Osvald retained, Cultured Cait, no surprise, successful first Escapes"} else {"Joint Hikari / Canalbrine / Conning coast search: Cultured Cait, no surprise, successful first Escapes"}}}));
             }
         }
@@ -107,15 +106,10 @@ impl CoastSearch {
 }
 
 fn project(town:&Entry,repeats:u32)->Result<Option<Candidate>> {
-    let (hikari,scholar)=if town.world_after.galdera_route {
-        if repeats!=0 {return Ok(None);}
-        (None,None)
-    } else {
-        let hikari=Box::new(hikari::predict_with_boost_inputs(town,&path(repeats))?);
-        let scholar=Box::new(scholar::predict(&hikari.recruitment)?);
-        (Some(hikari),Some(scholar))
-    };
-    let canalbrine=Box::new(canalbrine::predict(scholar.as_ref().map_or(town,|s|&s.after))?);
+    let hikari=Box::new(hikari::predict_with_boost_inputs(town,&path(repeats))?);
+    let scholar=if town.world_after.galdera_route {None}else{Some(Box::new(scholar::predict(&hikari.recruitment)?))};
+    let canalbrine=Box::new(canalbrine::predict(scholar.as_ref().map_or(&hikari.recruitment,|s|&s.after))?);
+    let hikari=Some(hikari);
     let (boarding,encounter,battle_entry)=canalbrine::water_arrival(&canalbrine.bridge_entry)?;
     let situation=match encounter.situation.as_deref() {
         Some("Normal")=>Situation::Normal,
@@ -136,13 +130,10 @@ fn project(town:&Entry,repeats:u32)->Result<Option<Candidate>> {
 /// RNG-changing path ending at zero BP: two inputs and one CRT draw. Search the
 /// sum of both menus' cycles; ties prefer fewer Hikari cycles. No retry cap.
 pub fn predict(town:&Entry)->Result<Continuation> {
-    if town.world_after.galdera_route && project(town,0)?.is_none() {
-        return Err(SimError("Galdera Canalbrine opening is surprised; adjust an earlier route menu".into()));
-    }
     let mut candidates:Vec<Option<Candidate>>=vec![];
     let mut tested_escape_attempts=0u64;
     for total in 0..=u32::MAX/2 {
-        for h in 0..=if town.world_after.galdera_route {0} else {total} {
+        for h in 0..=total {
             if candidates.len()==h as usize {candidates.push(project(town,h)?);}
             let Some(candidate)=candidates[h as usize].as_mut() else {continue;};
             let cost=2*(total-h);
@@ -159,13 +150,13 @@ pub fn predict(town:&Entry)->Result<Continuation> {
             }));
             chosen.canalbrine.verification="Source-derived shared map loads and daytime Canalbrine Bridge water encounter with the carried four-character party, actual levels, gear, Scholar jobs, active Evasive Maneuvers and enemy knowledge. First canoe tutorial and boarding add no CRT draws or counter reset. Hikari's second command and the first water Escape menu are searched jointly by total input cost; every selected opening is Normal or Preemptive and the first Escape succeeds. Unmeasured water movement is not inferred. Awaiting retail validation.";
             if town.world_after.galdera_route {
-                chosen.canalbrine.verification="Galdera retains Osvald and his native Scholar setup; no Hikari battle or Throné Scholar menu. Water Escape manipulation uses actual carried stats, resources and Study Foe knowledge. No surprise and first Escape succeeds. Awaiting retail validation.";
+                chosen.canalbrine.verification="Galdera retains Osvald and his native Scholar setup; Hikari recruited on bench, no Throné Scholar menu. Water Escape manipulation uses actual carried stats, resources and Study Foe knowledge. No surprise and first Escape succeeds. Awaiting retail validation.";
             }
             return Ok(Continuation {hikari:chosen.hikari,scholar:chosen.scholar,canalbrine:chosen.canalbrine,
                 search:Search {inputs:describe_inputs(h,0,path(h))?,
-                    tested_hikari_candidates:if town.world_after.galdera_route {0} else {candidates.len() as u64},tested_escape_attempts,
+                    tested_hikari_candidates:candidates.len() as u64,tested_escape_attempts,
                     total_input_cost:2*total,
-                    status:if town.world_after.galdera_route {"Minimum boost inputs at the first water Escape menu; Osvald retained, no surprise and first Escape succeeds"} else {"Minimum total boost inputs at Hikari's second menu and the first water Escape menu; no surprise and first Escape succeeds"}}});
+                    status:if town.world_after.galdera_route {"Minimum total boost inputs at Hikari and water menus; Hikari benched, Osvald retained, no surprise and first Escape succeeds"} else {"Minimum total boost inputs at Hikari's second menu and the first water Escape menu; no surprise and first Escape succeeds"}}});
         }
     }
     Err(SimError("Canalbrine input cost exceeds the representable u32 range".into()))
@@ -194,7 +185,7 @@ mod tests {
         Entry {arrival:rng,after:rng,world_after:w,trace:vec![],decisions:vec![]}
     }
     #[test]
-    fn galdera_skips_recruitment_and_throne_scholar_without_synthetic_inputs() {
+    fn galdera_recruits_hikari_on_bench_and_skips_throne_scholar() {
         let mut town=town();
         let hikari_key=crate::state_key::WorldKey::new(&town.world_after);
         town.world_after.galdera_route=true;
@@ -205,16 +196,25 @@ mod tests {
         for seed in 0..64 {
             town.after=crate::CrtRng::new(seed);
             town.arrival=town.after;
-            assert!(project(&town,1).unwrap().is_none());
+            let replay=hikari::predict(&town).unwrap();
+            assert_eq!(replay.battle.drops.get("ITM_CSM_0290"),Some(&2));
+            assert_eq!(replay.recruitment.world_after.party,[7,6,8,4]);
+            assert_eq!(replay.recruitment.world_after.bench,[1]);
+            assert!(replay.recruitment.world_after.evasive_maneuvers);
+            let _=project(&town,1).unwrap();
             match project(&town,0).unwrap() {
                 Some(c)=>{
                     safe=true;
-                    assert!(c.hikari.is_none() && c.scholar.is_none());
-                    assert_eq!(c.canalbrine.northern_return.arrival,town.after);
+                    assert!(c.hikari.is_some() && c.scholar.is_none());
+                    assert_eq!(c.canalbrine.northern_return.arrival,c.hikari.as_ref().unwrap().recruitment.after);
                     let w=&c.boarding.world_after;
                     assert_eq!(w.party,[7,6,8,4]);
-                    assert!(w.bench.is_empty());
-                    assert!(!w.character_progression.contains_key(&1));
+                    assert_eq!(w.bench,[1]);
+                    assert_eq!(w.character_progression[&1].level,1);
+                    assert_eq!(w.character_progression[&1].experience,0);
+                    assert_eq!(w.character_progression[&1].jp_earned,0);
+                    assert!(w.completed_scenarios.contains(&100));
+                    assert_eq!(w.main_progress_points,town.world_after.main_progress_points+1);
                     assert_eq!(w.character_progression[&7].jp_spent,town.world_after.character_progression[&7].jp_spent);
                     assert_eq!(w.character_progression[&7].jobs.secondary_job,None);
                     assert!(!w.character_progression[&7].jobs.equipped_support.contains(crate::scholar::EVASIVE));

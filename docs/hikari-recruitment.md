@@ -1,6 +1,13 @@
 # Hikari recruitment in Ryu
 
-The active route now continues from the selected safe Ryu arrival through the
+Galdera also completes this fight, obtaining the two guaranteed Fire Soulstone
+drops from Ruffian Soldier I. It accepts Hikari, skips Chapter 1, and dismisses
+the full-party replacement dialog with Hikari still on the bench. The active
+party remains Throné / Osvald / Agnea / Partitio, Osvald retains Evasive
+Maneuvers, and Throné receives no Scholar setup. Subsequent map/tavern loads use
+the real bench and completed Hikari prologue; the fight is not replayed later.
+
+Any% Hikari continues from the selected safe Ryu arrival through the
 first Hikari introduction, its mandatory fight, invitation, Chapter1 skip,
 Osvald replacement and tutorial dismissal. Battle simulation is implemented
 in the independent `ot2-battle-engine` crate; `src/hikari.rs` executes the field

@@ -930,7 +930,7 @@ function renderCrackridgeVoyage() {
       const final=hikariRoute.recruitment;
       $('hikari-recruit-advances').textContent=totalAdvances(final.after);
       $('hikari-recruit-hex').textContent=hex(final.after.state);
-      $('hikari-recruit-counter').textContent=`Counter ${final.world_after.encounter_counter} · Evasive Maneuvers inactive while Osvald is benched`;
+      $('hikari-recruit-counter').textContent=`Counter ${final.world_after.encounter_counter} · ${final.world_after.galdera_route?'Hikari benched; Osvald active with Evasive Maneuvers':'Evasive Maneuvers inactive while Osvald is benched'}`;
       $('hikari-recruit-verification').textContent=hikariRoute.verification;
       const menuNames=['Throné','Osvald','Agnea','Partitio'];
       const lastMenu=hikariRoute.battle.menus[1];
@@ -980,7 +980,7 @@ function renderCrackridgeVoyage() {
       $('canalbrine-water-routine').innerHTML=`<p><strong>R1 · ${actor} · 1st command menu</strong></p>${boostStepsHtml(water.escape.inputs?.levels,'Escape')}`;
       $('canalbrine-water-detail').textContent=`${encounterLabel(water.encounter)} · ${water.encounter.situation} · ${water.escape.attempt.chance_percent}% Escape chance before the check · ${water.escape.weighted_input_cost} boost inputs. First Escape succeeds.`;
       $('canalbrine-water-checkpoints').innerHTML=waterPoints.map(([label,rng])=>`<tr><td>${escapeHtml(label)}</td><td>${totalAdvances(rng)}</td><td>${hex(rng.state)}</td></tr>`).join('');
-      $('canalbrine-water-return').textContent=`Field control restored · counter ${water.field_return.world_after.encounter_counter} · Evasive Maneuvers active on Throné.`;
+      $('canalbrine-water-return').textContent=`Field control restored · counter ${water.field_return.world_after.encounter_counter} · Evasive Maneuvers active on ${water.field_return.world_after.galdera_route?'Osvald':'Throné'}.`;
       $('canalbrine-water-decisions').innerHTML=water.boarding.decisions.map(d=>`<tr><td>${escapeHtml(d.callback)}</td><td>${escapeHtml(d.subject)}</td><td>${escapeHtml(d.result)}</td><td>${totalAdvances(d.rng)}</td><td>${hex(d.rng.state)}</td></tr>`).join('');
     }
     const conning=canalbrine?.conning;
