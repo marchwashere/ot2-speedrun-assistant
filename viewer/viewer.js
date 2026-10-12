@@ -1141,6 +1141,12 @@ function renderCrackridgeVoyage() {
                       conningSpans.push(...s.escape.trace);
                     }
                     if(c.sai){conningStages.push(['Sai · loaded, chapter start discarded',c.sai]);conningSpans.push(...c.sai.trace);}
+                    if(c.oresrush_supplies) {
+                      const o=c.oresrush_supplies;
+                      for(const [label,e] of [['Sai · Warrior License acquired',o.warrior],['Oresrush · fast travel, chapter start discarded',o.oresrush],['Oresrush · switched to night',o.night],['Oresrush · Smooth Talker Peddler hired · 1,600 leaves',o.hire],['Oresrush · switched to day',o.day],['Oresrush · Sturdy Pickaxe stolen from Retired Miner · '+o.steal_chance+'%',o.pickaxe]]) {
+                        conningStages.push([label,e]);conningSpans.push(...e.trace);
+                      }
+                    }
                   }
                 }
               }

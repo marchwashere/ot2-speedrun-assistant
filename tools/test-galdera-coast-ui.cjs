@@ -42,3 +42,10 @@ assert.match($('eastern-sai-routine').innerHTML,/T1 · Throné · 1st command me
 assert.match($('eastern-sai-routine').innerHTML,/Escape \(100%\)/);
 assert(context.conningStages.some(([label])=>label==='Sai · loaded, chapter start discarded'));
 console.log('PASS: separate Eastern and Southern encounter cards, followed by Sai');
+coast.oresrush_supplies={warrior:entry,oresrush:entry,night:entry,hire:entry,day:entry,pickaxe:entry,steal_chance:100};
+context.conningStages=[];
+vm.runInNewContext(source.slice(start,end),context);
+assert.deepEqual(context.conningStages.slice(-6).map(([label])=>label),[
+ 'Sai · Warrior License acquired','Oresrush · fast travel, chapter start discarded','Oresrush · switched to night',
+ 'Oresrush · Smooth Talker Peddler hired · 1,600 leaves','Oresrush · switched to day','Oresrush · Sturdy Pickaxe stolen from Retired Miner · 100%']);
+console.log('PASS: Warrior License, night Hire, day Pickaxe Steal in Detailed log');

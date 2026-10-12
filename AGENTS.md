@@ -1,5 +1,17 @@
 # Active project
 
+- After Sai: Warrior first license (JobID2, SYS_WAR_GUILD_0010/0030; source
+  current route zero CRT), fast travel Oresrush C, decline chapter prompt,
+  night -> Hire Peddler NPC_SS_TW11_0100_0100 (1600 leaves, Smooth Talker
+  SPACT_MERCHANT_014) -> day -> normal-close Steal Pickaxe from Retired Miner
+  NPC_SS_TSn21_0200_0200. ProperSteal22 + over-level11 guarantees level33+.
+  Hire action timer + dialogue lottery2; Steal timer + roll + closing lottery3.
+  Retain hired identity/talent and quest item in state/cache; suppress original
+  hired NPC placement on refresh. No Conning voice-suppression exception here.
+  Fixed steps belong in Detailed log. Regenerate event data with import-galdera-
+  oresrush.cjs after town and bag imports. See docs/galdera-oresrush.md; endpoints
+  await retail validation.
+
 - Corrected Sai leg: ONE Eastern Sai Sands encounter, Escape; load Southern Sai,
   ONE encounter, Escape; enter Sai main town. Both openings must be Normal or
   Preemptive, with native Escape100% at carried levels. Eastern escape/history

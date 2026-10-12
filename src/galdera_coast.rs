@@ -17,7 +17,7 @@ pub struct Continuation {
     #[serde(skip_serializing_if="Option::is_none")] pub conning_night:Option<Entry>,
     pub coast_entry:Entry,
     #[serde(skip_serializing_if="Option::is_none")] pub coast_day:Option<Entry>,
-    pub movement:Movement,pub coast_exit:Entry,pub eastern_sai:Entry,pub eastern_sai_encounter:SouthernSai,pub southern_sai:SouthernSai,pub sai:Entry,
+    pub movement:Movement,pub coast_exit:Entry,pub eastern_sai:Entry,pub eastern_sai_encounter:SouthernSai,pub southern_sai:SouthernSai,pub sai:Entry,#[serde(skip_serializing_if="Option::is_none")]pub oresrush_supplies:Option<crate::galdera_oresrush::Supplies>,
 }
 #[derive(Debug,Serialize)]
 pub struct SouthernSai {
@@ -104,7 +104,7 @@ fn travel(field_return:&Entry,night_pair:bool)->Result<Option<(Entry,Continuatio
     l.visit_map("Twn_Dst_2_1_A")?;
     l.skipped_event("MapInStorySelect")?;
     let sai=point(&mut l,southern_sai.field_return.after);
-    Ok(Some((town,Continuation {day_before_gravell,conning,conning_night,coast_entry,coast_day,movement,coast_exit,eastern_sai,eastern_sai_encounter,southern_sai,sai})))
+    Ok(Some((town,Continuation {day_before_gravell,conning,conning_night,coast_entry,coast_day,movement,coast_exit,eastern_sai,eastern_sai_encounter,southern_sai,sai,oresrush_supplies:None})))
 }
 pub(crate) fn extend(g:&mut GravellArrival)->Result<()> {
     let w=&g.night.world_after;
@@ -131,6 +131,7 @@ pub(crate) fn extend(g:&mut GravellArrival)->Result<()> {
             }
         }
         if let Some((fight,rewards,field_return,town,coast))=best {
+            let mut coast=coast;coast.oresrush_supplies=Some(crate::galdera_oresrush::finish(&coast.sai)?);
             g.fight=fight;g.rewards=rewards;g.field_return=field_return;g.town=town;g.coast=Some(coast);
             return Ok(());
         }

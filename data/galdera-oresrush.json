@@ -1,0 +1,25 @@
+{
+  "warrior_job": 2,
+  "guild_flag": 411,
+  "peddler": {
+    "npc": "NPC_SS_TW11_0100_0100",
+    "unique_id": 11320,
+    "supporter": "SUP_SS_TW11_0100_0100",
+    "talent": "SPACT_MERCHANT_014",
+    "price": 1600,
+    "events": [
+      "FC_SHO_HIRE_Success_1",
+      "FC_SHO_HIRE_Success_2"
+    ]
+  },
+  "pickaxe": {
+    "npc": "NPC_SS_TSn21_0200_0200",
+    "item": "ITM_TRE_SS_TSn21_0200_0010",
+    "proper_steal": 22,
+    "guaranteed_level": 33,
+    "events": [
+      "FC_TOU_STEAL_Success_1",
+      "FC_TOU_STEAL_Success_2"
+    ]
+  }
+}

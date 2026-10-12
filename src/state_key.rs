@@ -17,6 +17,8 @@ impl EnemyHistoryKey {
 
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub(crate) struct WorldKey {
+    hired_merchant:Option<crate::world::HiredMerchant>,
+    route_items:BTreeMap<String,u32>,
     galdera_route: bool,
     map: String,
     visited_maps: BTreeSet<String>,
@@ -51,13 +53,14 @@ pub(crate) struct WorldKey {
 }
 impl WorldKey {
     pub(crate) fn new(world: &WorldState) -> Self {
-        let WorldState { galdera_route, map, visited_maps, time, flags, event_variables, party, bench,
+        let WorldState { hired_merchant,route_items,galdera_route, map, visited_maps, time, flags, event_variables, party, bench,
             story_types, active_scenarios, main_progress_points, completed_scenarios, confirmed_scenarios,
             prologues, resident_levels, shared_levels, existing_npcs, npc_start_delays,
             npc_end_delays, first_encounter, encounter_counter, evasive_maneuvers,
             osvald_extra_skills, party_experience, character_progression, job_licenses, inventor_abilities, enemy_knowledge,
             suppress_flag_callbacks, suppress_level_lottery, suppress_time_callbacks } = world;
         Self {
+            hired_merchant:hired_merchant.clone(),route_items:route_items.clone(),
             galdera_route: *galdera_route,
             map: map.clone(), visited_maps: visited_maps.clone(), time: *time, flags: flags.clone(),
             event_variables: event_variables.clone(), party: party.clone(), bench: bench.clone(),

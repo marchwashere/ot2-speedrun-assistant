@@ -87,7 +87,7 @@ enum EnvironmentDrawKind {
 #[derive(Debug, Deserialize)]
 pub struct Placement {
     kind: u8,
-    resource: String,
+    pub(crate) resource: String,
     action: Option<String>,
     begin: u32,
     end: u32,
@@ -192,6 +192,10 @@ pub fn catalog() -> &'static Catalog {
 /// execution; callers extending the route retain the resulting state.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct WorldState {
+    #[serde(default,skip_serializing_if="Option::is_none")]
+    pub hired_merchant:Option<HiredMerchant>,
+    #[serde(default,skip_serializing_if="BTreeMap::is_empty")]
+    pub route_items:BTreeMap<String,u32>,
     #[serde(default)]
     pub galdera_route: bool,
     pub map: String,
@@ -246,6 +250,8 @@ pub struct WorldState {
     pub suppress_level_lottery: bool,
     pub suppress_time_callbacks: bool,
 }
+#[derive(Debug,Clone,Serialize,Deserialize,PartialEq,Eq,PartialOrd,Ord,Hash)]
+pub struct HiredMerchant {pub npc:String,pub unique_id:u32,pub supporter:String,pub talent:String,pub price:u32}
 #[derive(Debug,Clone,Serialize,Deserialize)]
 pub struct CharacterProgression {
     pub experience:u32,
@@ -700,6 +706,11 @@ impl<'a> Loader<'a> {
         for label in &map.placements {
             let p = &self.data.placements[label];
             if p.kind != 1 {
+                continue;
+            }
+            if self.state.hired_merchant.as_ref().is_some_and(|h|h.npc==p.resource) {
+                self.state.existing_npcs.remove(label);
+                self.note(callback,label,"hired NPC follows Partitio; original placement suppressed");
                 continue;
             }
             if !self.placement_enabled(label, &labels, &mut Vec::new())? {
@@ -1234,6 +1245,7 @@ impl<'a> Loader<'a> {
                     }
                 }
                 40 if ((matches!(name,"SYS_SCH_GUILD_0010"|"SYS_SCH_GUILD_0030") && c.target==5105 && c.text.starts_with("TX_SYS_GUILD_SCH_"))
+                    || (matches!(name,"SYS_WAR_GUILD_0010"|"SYS_WAR_GUILD_0030") && c.target==5107 && c.text.starts_with("TX_SYS_GUILD_WAR_"))
                     || (matches!(name,"SYS_MER_GUILD_0010"|"SYS_MER_GUILD_0030") && c.target==5104 && (c.text.starts_with("TX_SYS_GUILD_MER_")||c.text.starts_with("TX_SYS_GUILD_MAR_")))
                     || (name=="MapInStorySelect" && c.target==0 && c.text=="TX_SYS_MapInStorySelect_0010"))
                     && c.opt == ["1","0","0","0"] => {
@@ -1429,6 +1441,7 @@ pub fn throne_after_second_state() -> Result<WorldState> {
     let data = catalog();
     let p = &data.fresh_throne;
     let state = WorldState {
+        hired_merchant:None,route_items:BTreeMap::new(),
         galdera_route: false,
         map: p.map.clone(),
         visited_maps: BTreeSet::new(),

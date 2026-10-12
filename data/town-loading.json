@@ -65515,6 +65515,224 @@
           ]
         }
       ]
+    },
+    "SYS_WAR_GUILD_0010": {
+      "map_id": 0,
+      "reset_counter": false,
+      "completion": null,
+      "commands": [
+        {
+          "index": 0,
+          "cmd": 40,
+          "target": 5107,
+          "text": "TX_SYS_GUILD_WAR_0010",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 1,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        }
+      ]
+    },
+    "SYS_WAR_GUILD_0030": {
+      "map_id": 0,
+      "reset_counter": false,
+      "completion": null,
+      "commands": [
+        {
+          "index": 0,
+          "cmd": 40,
+          "target": 5107,
+          "text": "TX_SYS_GUILD_WAR_0100",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 1,
+          "cmd": 40,
+          "target": 5107,
+          "text": "TX_SYS_GUILD_WAR_0110",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 2,
+          "cmd": 40,
+          "target": 5107,
+          "text": "TX_SYS_GUILD_WAR_0120",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 3,
+          "cmd": 40,
+          "target": 5107,
+          "text": "TX_SYS_GUILD_WAR_0130",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 4,
+          "cmd": 70,
+          "target": 406,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 5,
+          "cmd": 70,
+          "target": 411,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 6,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        }
+      ]
+    },
+    "FC_SHO_HIRE_Success_1": {
+      "map_id": 0,
+      "reset_counter": false,
+      "completion": null,
+      "commands": [
+        {
+          "index": 0,
+          "cmd": 42,
+          "target": 4,
+          "text": "eFC_HIRE_PC_TALK_01_A",
+          "opt": [
+            "1",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 1,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        }
+      ]
+    },
+    "FC_SHO_HIRE_Success_2": {
+      "map_id": 0,
+      "reset_counter": false,
+      "completion": null,
+      "commands": [
+        {
+          "index": 0,
+          "cmd": 42,
+          "target": 4,
+          "text": "eFC_HIRE_PC_TALK_01_B",
+          "opt": [
+            "1",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 1,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        }
+      ]
+    },
+    "FC_TOU_STEAL_Success_1": {
+      "map_id": 0,
+      "reset_counter": false,
+      "completion": null,
+      "commands": [
+        {
+          "index": 0,
+          "cmd": 42,
+          "target": 7,
+          "text": "eFC_STEAL_PC_TALK_01_A",
+          "opt": [
+            "1",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 1,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        }
+      ]
+    },
+    "FC_TOU_STEAL_Success_2": {
+      "map_id": 0,
+      "reset_counter": false,
+      "completion": null,
+      "commands": [
+        {
+          "index": 0,
+          "cmd": 42,
+          "target": 7,
+          "text": "eFC_STEAL_PC_TALK_01_B",
+          "opt": [
+            "1",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 1,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        }
+      ]
     }
   },
   "tutorials": {
