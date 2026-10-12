@@ -79,6 +79,9 @@ pub fn plan(menu:&Battle)->Result<pirro::Prediction> {
 /// Continue the existing route from the observed checkpoint, preserving its
 /// nearest-control search policy and all downstream state propagation.
 pub fn simulate(voices:&str,pirro_first:bool,hp:u32)->Result<serde_json::Value> {
+    simulate_route(voices,pirro_first,hp,false)
+}
+pub fn simulate_route(voices:&str,pirro_first:bool,hp:u32,galdera_route:bool)->Result<serde_json::Value> {
     ensure((1..=261).contains(&hp),"Enter Throné’s current R3 HP (1–261)")?;
     let identified=crate::voice_identification::identify_observed(voices,Some((pirro_first,hp)))?;
     let candidate=&identified["candidate"];
@@ -93,13 +96,14 @@ pub fn simulate(voices:&str,pirro_first:bool,hp:u32)->Result<serde_json::Value> 
         .ok_or_else(||SimError("Pirro did not reach the Highroad".into()))?;
     let field=highroad.field_return.as_ref().ok_or_else(||SimError("Highroad Escape unavailable".into()))?;
     let flats=crate::flats::after_highroad(field)?;
-    let harbor=crate::harbor::after_flats(&flats)?.ok_or_else(||SimError("Harbor not reached".into()))?;
+    let mut harbor=crate::harbor::after_flats(&flats)?.ok_or_else(||SimError("Harbor not reached".into()))?;
+    harbor.world_after.galdera_route=galdera_route;
     let escape=crate::flats_escape::until_osvald_cait(harbor.after,&harbor.world_after,highroad.level,
         Default::default(),Default::default())?;
     let mut result=serde_json::json!({
-        "identified_entry":identified,"r3_observation":{"pirro_first":pirro_first,"hp":hp},"initial_seed":seed,"actors":boss.actors,"action_names":boss.action_names,
+        "route":if galdera_route {"galdera"} else {"any_hikari"},"identified_entry":identified,"r3_observation":{"pirro_first":pirro_first,"hp":hp},"initial_seed":seed,"actors":boss.actors,"action_names":boss.action_names,
         "initial_state":boss.initial_state,"state":boss.state,"steps":boss.steps,
-        "crt_setup":{"initial_seed":seed,"battle_seed":seed,"advances":0,"battle_entry_advances":0,
+        "crt_setup":{"route":if galdera_route {"galdera"} else {"any_hikari"},"initial_seed":seed,"battle_seed":seed,"advances":0,"battle_entry_advances":0,
             "recreate_shared_level":false,"transition_checkpoints":[]},
         "post_battle_field":{"pirro_battle":boss,"pirro_aftermath":ending,"highroad":highroad,
             "flats":flats,"harbor_return":harbor,"flats_escape":escape}

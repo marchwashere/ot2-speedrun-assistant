@@ -1,0 +1,1696 @@
+{
+  "enemy": {
+    "id": "ENE_EVE_SUB_OTR_100",
+    "EnemyID": 26440,
+    "DisplayNameID": "ENN_EVE_SUB_OTR_100",
+    "ResourceLabel": "ENE_BOS_THI_C02_020",
+    "DisplayRank": 0,
+    "EnemyLevel": 18,
+    "DamageRatio": 2.6875,
+    "Size": "ECHARACTER_SIZE::eMEDIUM",
+    "NPCFlag": false,
+    "WeaponStance": "EWEAPON_STANCE::NONE",
+    "WeaponItemLabel": "None",
+    "DeadEffectSlow": false,
+    "MainEnemy": false,
+    "NonPartBattle": false,
+    "UseCatDamageType": false,
+    "DisableDeadKnockBack": false,
+    "Param": {
+      "HP": 280,
+      "MP": 50,
+      "BP": 2,
+      "SP": 3,
+      "POT": 0,
+      "ATK": 97,
+      "DEF": 85,
+      "MATK": 100,
+      "MDEF": 72,
+      "ACC": 100,
+      "EVA": 98,
+      "CON": 110,
+      "AGI": 60
+    },
+    "Exp": 20,
+    "JobPoint": 20,
+    "Money": 300,
+    "StealMoney": 600,
+    "TameEnable": false,
+    "DefaultTameRate": 2000,
+    "InvadeMonsterID": "None",
+    "FirstBP": 0,
+    "DeadType": "EENEMY_DEAD_TYPE::eNORMAL_M",
+    "AttributeResist": [
+      "EATTRIBUTE_RESIST::eNONE",
+      "EATTRIBUTE_RESIST::eNONE",
+      "EATTRIBUTE_RESIST::eNONE",
+      "EATTRIBUTE_RESIST::eNONE",
+      "EATTRIBUTE_RESIST::eNONE",
+      "EATTRIBUTE_RESIST::eWEAK",
+      "EATTRIBUTE_RESIST::eNONE"
+    ],
+    "WeaponResist": [
+      "EATTRIBUTE_RESIST::eNONE",
+      "EATTRIBUTE_RESIST::eWEAK",
+      "EATTRIBUTE_RESIST::eWEAK",
+      "EATTRIBUTE_RESIST::eWEAK",
+      "EATTRIBUTE_RESIST::eNONE",
+      "EATTRIBUTE_RESIST::eWEAK",
+      "EATTRIBUTE_RESIST::eNONE"
+    ],
+    "DiseaseResist": [
+      "EATTRIBUTE_RESIST::eNONE",
+      "EATTRIBUTE_RESIST::eNONE",
+      "EATTRIBUTE_RESIST::eNONE",
+      "EATTRIBUTE_RESIST::eNONE",
+      "EATTRIBUTE_RESIST::eNONE",
+      "EATTRIBUTE_RESIST::eNONE",
+      "EATTRIBUTE_RESIST::eNONE",
+      "EATTRIBUTE_RESIST::eNONE",
+      "EATTRIBUTE_RESIST::eINVALID",
+      "EATTRIBUTE_RESIST::eNONE",
+      "EATTRIBUTE_RESIST::eNONE",
+      "EATTRIBUTE_RESIST::eNONE"
+    ],
+    "StealGuard": true,
+    "HaveItemID": "ITM_CSM_0040",
+    "DropProbability": 100,
+    "EnemyAI": {
+      "kind": "soft-object",
+      "asset": {
+        "base": "/Game/Character/BP/BattleAI/GeneralEnemy/AI_Pettern/NewAIPattern/BattleAI_NormalEnemy.BattleAI_NormalEnemy_C",
+        "number": 0,
+        "text": "/Game/Character/BP/BattleAI/GeneralEnemy/AI_Pettern/NewAIPattern/BattleAI_NormalEnemy.BattleAI_NormalEnemy_C"
+      },
+      "subPath": ""
+    },
+    "EnemyAbility": [
+      "ABI_BOS_THI_C02_020_001",
+      "ABI_BOS_THI_C02_020_000",
+      "None",
+      "None",
+      "ABI_BOS_THI_C02_020_001",
+      "None",
+      "None",
+      "ABI_BOS_THI_C02_020_002",
+      "None",
+      "None",
+      "None",
+      "None",
+      "None",
+      "None",
+      "None",
+      "None",
+      "None",
+      "None",
+      "None",
+      "None",
+      "None",
+      "None",
+      "None",
+      "None",
+      "None",
+      "None",
+      "None",
+      "None",
+      "None",
+      "None",
+      "None"
+    ],
+    "DiseaseEffectOffset": {
+      "kind": "native-struct",
+      "type": "Vector",
+      "components": [
+        {
+          "kind": "float32",
+          "bits": 1114636288,
+          "value": 60
+        },
+        {
+          "kind": "float32",
+          "bits": 1101004800,
+          "value": 20
+        },
+        {
+          "kind": "float32",
+          "bits": 1130758144,
+          "value": 230
+        }
+      ]
+    },
+    "EnemyEffectOffset": {
+      "kind": "native-struct",
+      "type": "Vector",
+      "components": [
+        {
+          "kind": "float32",
+          "bits": 3256877056,
+          "value": -40
+        },
+        {
+          "kind": "float32",
+          "bits": 1084227584,
+          "value": 5
+        },
+        {
+          "kind": "float32",
+          "bits": 1120403456,
+          "value": 100
+        }
+      ]
+    },
+    "StatusUIOffset": {
+      "kind": "native-struct",
+      "type": "Vector",
+      "components": [
+        {
+          "kind": "float32",
+          "bits": 0,
+          "value": 0
+        },
+        {
+          "kind": "float32",
+          "bits": 3240099840,
+          "value": -10
+        },
+        {
+          "kind": "float32",
+          "bits": 1097859072,
+          "value": 15
+        }
+      ]
+    },
+    "DamageUIOffset": {
+      "kind": "native-struct",
+      "type": "Vector",
+      "components": [
+        {
+          "kind": "float32",
+          "bits": 3248488448,
+          "value": -20
+        },
+        {
+          "kind": "float32",
+          "bits": 0,
+          "value": 0
+        },
+        {
+          "kind": "float32",
+          "bits": 1101004800,
+          "value": 20
+        }
+      ]
+    },
+    "IconL_UV": {
+      "kind": "native-struct",
+      "type": "Vector2D",
+      "components": [
+        {
+          "kind": "float32",
+          "bits": 1048911544,
+          "value": 0.25999999046325684
+        },
+        {
+          "kind": "float32",
+          "bits": 1059145646,
+          "value": 0.6299999952316284
+        }
+      ]
+    },
+    "PixelScaleL": {
+      "kind": "native-struct",
+      "type": "Vector2D",
+      "components": [
+        {
+          "kind": "float32",
+          "bits": 1043878380,
+          "value": 0.18000000715255737
+        },
+        {
+          "kind": "float32",
+          "bits": 1052266988,
+          "value": 0.36000001430511475
+        }
+      ]
+    },
+    "IconS_UV": {
+      "kind": "native-struct",
+      "type": "Vector2D",
+      "components": [
+        {
+          "kind": "float32",
+          "bits": 1065520988,
+          "value": 1.0199999809265137
+        },
+        {
+          "kind": "float32",
+          "bits": 1069379748,
+          "value": 1.4800000190734863
+        }
+      ]
+    },
+    "PixelScaleS": {
+      "kind": "native-struct",
+      "type": "Vector2D",
+      "components": [
+        {
+          "kind": "float32",
+          "bits": 1036831949,
+          "value": 0.10000000149011612
+        },
+        {
+          "kind": "float32",
+          "bits": 1045220557,
+          "value": 0.20000000298023224
+        }
+      ]
+    },
+    "SPDiseaseEffectOffset": {
+      "kind": "native-struct",
+      "type": "Vector",
+      "components": [
+        {
+          "kind": "float32",
+          "bits": 1128792064,
+          "value": 200
+        },
+        {
+          "kind": "float32",
+          "bits": 1116471296,
+          "value": 70
+        },
+        {
+          "kind": "float32",
+          "bits": 1126170624,
+          "value": 160
+        }
+      ]
+    },
+    "SPEnemyEffectOffset": {
+      "kind": "native-struct",
+      "type": "Vector",
+      "components": [
+        {
+          "kind": "float32",
+          "bits": 3256877056,
+          "value": -40
+        },
+        {
+          "kind": "float32",
+          "bits": 1084227584,
+          "value": 5
+        },
+        {
+          "kind": "float32",
+          "bits": 1120403456,
+          "value": 100
+        }
+      ]
+    },
+    "SPStatusUIOffset": {
+      "kind": "native-struct",
+      "type": "Vector",
+      "components": [
+        {
+          "kind": "float32",
+          "bits": 0,
+          "value": 0
+        },
+        {
+          "kind": "float32",
+          "bits": 3240099840,
+          "value": -10
+        },
+        {
+          "kind": "float32",
+          "bits": 1097859072,
+          "value": 15
+        }
+      ]
+    },
+    "SPDamageUIOffset": {
+      "kind": "native-struct",
+      "type": "Vector",
+      "components": [
+        {
+          "kind": "float32",
+          "bits": 3248488448,
+          "value": -20
+        },
+        {
+          "kind": "float32",
+          "bits": 0,
+          "value": 0
+        },
+        {
+          "kind": "float32",
+          "bits": 1101004800,
+          "value": 20
+        }
+      ]
+    },
+    "StealMoneyGuard": false,
+    "StealItemID": "None",
+    "AbilitySEDelay": 0,
+    "TextInfoLabel": "NPC_000",
+    "BribeGuard": false,
+    "BribeMoney": 400,
+    "RevealShieldPoint": 3,
+    "RevealEnemyAI": {
+      "kind": "soft-object",
+      "asset": {
+        "base": "/Game/Character/BP/BattleAI/GeneralEnemy/AI_Pettern/NewAIPattern/BattleAI_NormalEnemy.BattleAI_NormalEnemy_C",
+        "number": 0,
+        "text": "/Game/Character/BP/BattleAI/GeneralEnemy/AI_Pettern/NewAIPattern/BattleAI_NormalEnemy.BattleAI_NormalEnemy_C"
+      },
+      "subPath": ""
+    },
+    "DismantlingLabel": "ENE_EVE_SUB_OTR_100_DISMANTLING",
+    "WarpOffset": {
+      "kind": "native-struct",
+      "type": "Vector",
+      "components": [
+        {
+          "kind": "float32",
+          "bits": 0,
+          "value": 0
+        },
+        {
+          "kind": "float32",
+          "bits": 3267887104,
+          "value": -100
+        },
+        {
+          "kind": "float32",
+          "bits": 0,
+          "value": 0
+        }
+      ]
+    },
+    "LegendTameMonster": false,
+    "ActionModeResourceList": [
+      "None",
+      "None"
+    ],
+    "WaitEnemyActionFrame": 0,
+    "DisableBreakSlow": false,
+    "ID": 1765,
+    "NotInsertOrderWithCallEnemy": false,
+    "BreakCameraType": "EBREAK_CAMERA_TYPE::eNORMAL"
+  },
+  "events": {
+    "SC_SP_Tutorial_0200": {
+      "map_id": 0,
+      "reset_counter": false,
+      "completion": null,
+      "commands": [
+        {
+          "index": 0,
+          "cmd": 40,
+          "target": -1,
+          "text": "TX_SS_SP_Tutorial_0200_0010",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 1,
+          "cmd": 40,
+          "target": -1,
+          "text": "TX_SS_SP_Tutorial_0200_0020",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 2,
+          "cmd": 40,
+          "target": -1,
+          "text": "TX_SS_SP_Tutorial_0200_0030",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 3,
+          "cmd": 70,
+          "target": 20512,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 4,
+          "cmd": 5010,
+          "target": 0,
+          "text": "ED_SS_Tdesert11_0100_0100",
+          "opt": [
+            "eDIALOG_YES",
+            "4",
+            "eDIALOG_NO",
+            "8",
+            "-1",
+            "-1",
+            "-1",
+            "-1"
+          ]
+        },
+        {
+          "index": 5,
+          "cmd": 40,
+          "target": -1,
+          "text": "TX_SS_SP_Tutorial_0200_0050",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 6,
+          "cmd": 40,
+          "target": -1,
+          "text": "TX_SS_SP_Tutorial_0200_0060",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 7,
+          "cmd": 600,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "EVM_EVE_SUB_OTR_100",
+            "SC_SP_Tutorial_0300",
+            "0",
+            "1",
+            "0"
+          ]
+        },
+        {
+          "index": 8,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 9,
+          "cmd": 40,
+          "target": -1,
+          "text": "TX_SS_SP_Tutorial_0200_0040",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 10,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        }
+      ]
+    },
+    "SC_SP_Tutorial_0300": {
+      "map_id": 0,
+      "reset_counter": false,
+      "completion": null,
+      "commands": [
+        {
+          "index": 0,
+          "cmd": 4000,
+          "target": 20500,
+          "text": "",
+          "opt": [
+            "0",
+            "2"
+          ]
+        },
+        {
+          "index": 1,
+          "cmd": 1000,
+          "target": -1,
+          "text": "",
+          "opt": [
+            "SC_FD11_Tutorial_0310"
+          ]
+        },
+        {
+          "index": 2,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 3,
+          "cmd": 4000,
+          "target": 20501,
+          "text": "",
+          "opt": [
+            "3",
+            "5"
+          ]
+        },
+        {
+          "index": 4,
+          "cmd": 1000,
+          "target": -1,
+          "text": "",
+          "opt": [
+            "SC_FF13_Tutorial_0310"
+          ]
+        },
+        {
+          "index": 5,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 6,
+          "cmd": 4000,
+          "target": 20502,
+          "text": "",
+          "opt": [
+            "6",
+            "8"
+          ]
+        },
+        {
+          "index": 7,
+          "cmd": 1000,
+          "target": -1,
+          "text": "",
+          "opt": [
+            "SC_FSe13_Tutorial_0310"
+          ]
+        },
+        {
+          "index": 8,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 9,
+          "cmd": 4000,
+          "target": 20503,
+          "text": "",
+          "opt": [
+            "9",
+            "11"
+          ]
+        },
+        {
+          "index": 10,
+          "cmd": 1000,
+          "target": -1,
+          "text": "",
+          "opt": [
+            "SC_FW13_Tutorial_0310"
+          ]
+        },
+        {
+          "index": 11,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 12,
+          "cmd": 4000,
+          "target": 20504,
+          "text": "",
+          "opt": [
+            "12",
+            "14"
+          ]
+        },
+        {
+          "index": 13,
+          "cmd": 1000,
+          "target": -1,
+          "text": "",
+          "opt": [
+            "SC_FI12_Tutorial_0310"
+          ]
+        },
+        {
+          "index": 14,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 15,
+          "cmd": 4000,
+          "target": 20505,
+          "text": "",
+          "opt": [
+            "15",
+            "17"
+          ]
+        },
+        {
+          "index": 16,
+          "cmd": 1000,
+          "target": -1,
+          "text": "",
+          "opt": [
+            "SC_FC13_Tutorial_0310"
+          ]
+        },
+        {
+          "index": 17,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 18,
+          "cmd": 4000,
+          "target": 20506,
+          "text": "",
+          "opt": [
+            "18",
+            "20"
+          ]
+        },
+        {
+          "index": 19,
+          "cmd": 1000,
+          "target": -1,
+          "text": "",
+          "opt": [
+            "SC_FM12_Tutorial_0310"
+          ]
+        },
+        {
+          "index": 20,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 21,
+          "cmd": 4000,
+          "target": 20507,
+          "text": "",
+          "opt": [
+            "21",
+            "23"
+          ]
+        },
+        {
+          "index": 22,
+          "cmd": 1000,
+          "target": -1,
+          "text": "",
+          "opt": [
+            "SC_FSn12_Tutorial_0310"
+          ]
+        },
+        {
+          "index": 23,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 24,
+          "cmd": 4000,
+          "target": 20508,
+          "text": "",
+          "opt": [
+            "24",
+            "26"
+          ]
+        },
+        {
+          "index": 25,
+          "cmd": 1000,
+          "target": -1,
+          "text": "",
+          "opt": [
+            "SC_FI13_Tutorial_0310"
+          ]
+        },
+        {
+          "index": 26,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 27,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        }
+      ]
+    },
+    "SC_FC13_Tutorial_0310": {
+      "map_id": 46,
+      "reset_counter": true,
+      "completion": null,
+      "commands": [
+        {
+          "index": 0,
+          "cmd": 2,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 1,
+          "cmd": 106,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "NPC_SS_TCity13_Tutorial_0200",
+            "0"
+          ]
+        },
+        {
+          "index": 2,
+          "cmd": 70,
+          "target": 20510,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 3,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 4,
+          "cmd": 203,
+          "target": -1,
+          "text": "",
+          "opt": [
+            "10",
+            "1",
+            "0",
+            "NPC_SS_TCity13_Tutorial_0200"
+          ]
+        },
+        {
+          "index": 5,
+          "cmd": 230,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 6,
+          "cmd": 300,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "index": 7,
+          "cmd": 8010,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 8,
+          "cmd": 240,
+          "target": 10,
+          "text": "",
+          "opt": [
+            "23",
+            "0"
+          ]
+        },
+        {
+          "index": 9,
+          "cmd": 52,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "2"
+          ]
+        },
+        {
+          "index": 10,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1000"
+          ]
+        },
+        {
+          "index": 11,
+          "cmd": 40,
+          "target": 10,
+          "text": "TX_SS_SP_Tutorial_0300_0010",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 12,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 13,
+          "cmd": 910,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "se_event_whoosh_041"
+          ]
+        },
+        {
+          "index": 14,
+          "cmd": 240,
+          "target": 10,
+          "text": "",
+          "opt": [
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 15,
+          "cmd": 40,
+          "target": 10,
+          "text": "TX_SS_SP_Tutorial_0300_0020",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 16,
+          "cmd": 20,
+          "target": 10,
+          "text": "",
+          "opt": [
+            "800",
+            "1",
+            "-1",
+            "-1"
+          ]
+        },
+        {
+          "index": 17,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 18,
+          "cmd": 30,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 19,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 20,
+          "cmd": 20,
+          "target": 10,
+          "text": "",
+          "opt": [
+            "1000",
+            "1",
+            "-1",
+            "-1"
+          ]
+        },
+        {
+          "index": 21,
+          "cmd": 62,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "2"
+          ]
+        },
+        {
+          "index": 22,
+          "cmd": 310,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 23,
+          "cmd": 220,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 24,
+          "cmd": 100,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 25,
+          "cmd": 8010,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 26,
+          "cmd": 9990,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 27,
+          "cmd": 52,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "2"
+          ]
+        },
+        {
+          "index": 28,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1000"
+          ]
+        },
+        {
+          "index": 29,
+          "cmd": 2000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "ITM_TRE_SS_TD11_0100_0010",
+            "1"
+          ]
+        },
+        {
+          "index": 30,
+          "cmd": 5005,
+          "target": 0,
+          "text": "eGET_TREASUREBOX",
+          "opt": [
+            "ITM_TRE_SS_TD11_0100_0010",
+            "1"
+          ]
+        },
+        {
+          "index": 31,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        }
+      ]
+    },
+    "SC_FC13_Tutorial_0400": {
+      "map_id": 46,
+      "reset_counter": true,
+      "completion": null,
+      "commands": [
+        {
+          "index": 0,
+          "cmd": 9100,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 1,
+          "cmd": 40,
+          "target": -1,
+          "text": "TX_SS_SP_Tutorial_0110_0010",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 2,
+          "cmd": 40,
+          "target": -1,
+          "text": "TX_SS_SP_Tutorial_0110_0020",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 3,
+          "cmd": 40,
+          "target": -1,
+          "text": "TX_SS_SP_Tutorial_0110_0030",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 4,
+          "cmd": 5500,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "4",
+            "57"
+          ]
+        },
+        {
+          "index": 5,
+          "cmd": 62,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "2"
+          ]
+        },
+        {
+          "index": 6,
+          "cmd": 2,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 7,
+          "cmd": 106,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "NPC_SS_TCity13_Tutorial_0100",
+            "0"
+          ]
+        },
+        {
+          "index": 8,
+          "cmd": 203,
+          "target": -1,
+          "text": "",
+          "opt": [
+            "10",
+            "1",
+            "0",
+            "NPC_SS_TCity13_Tutorial_0100"
+          ]
+        },
+        {
+          "index": 9,
+          "cmd": 230,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 10,
+          "cmd": 300,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "2",
+            "2"
+          ]
+        },
+        {
+          "index": 11,
+          "cmd": 8010,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 12,
+          "cmd": 4,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 13,
+          "cmd": 9100,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 14,
+          "cmd": 52,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "2"
+          ]
+        },
+        {
+          "index": 15,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "800"
+          ]
+        },
+        {
+          "index": 16,
+          "cmd": 710,
+          "target": 10,
+          "text": "",
+          "opt": [
+            "0",
+            "ONESHOT"
+          ]
+        },
+        {
+          "index": 17,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1000"
+          ]
+        },
+        {
+          "index": 18,
+          "cmd": 711,
+          "target": 10,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 19,
+          "cmd": 40,
+          "target": 10,
+          "text": "TX_SS_SP_Tutorial_0400_0010",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 20,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 21,
+          "cmd": 40,
+          "target": 10,
+          "text": "TX_SS_SP_Tutorial_0400_0020",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 22,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1000"
+          ]
+        },
+        {
+          "index": 23,
+          "cmd": 910,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "se_event_whoosh_041"
+          ]
+        },
+        {
+          "index": 24,
+          "cmd": 240,
+          "target": 10,
+          "text": "",
+          "opt": [
+            "9",
+            "0"
+          ]
+        },
+        {
+          "index": 25,
+          "cmd": 40,
+          "target": 10,
+          "text": "TX_SS_SP_Tutorial_0400_0030",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 26,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 27,
+          "cmd": 40,
+          "target": 10,
+          "text": "TX_SS_SP_Tutorial_0400_0040",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 28,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1000"
+          ]
+        },
+        {
+          "index": 29,
+          "cmd": 910,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "se_event_whoosh_041"
+          ]
+        },
+        {
+          "index": 30,
+          "cmd": 240,
+          "target": 10,
+          "text": "",
+          "opt": [
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 31,
+          "cmd": 40,
+          "target": 10,
+          "text": "TX_SS_SP_Tutorial_0400_0050",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 32,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 33,
+          "cmd": 20,
+          "target": 10,
+          "text": "",
+          "opt": [
+            "600"
+          ]
+        },
+        {
+          "index": 34,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1500"
+          ]
+        },
+        {
+          "index": 35,
+          "cmd": 20,
+          "target": 10,
+          "text": "",
+          "opt": [
+            "2000"
+          ]
+        },
+        {
+          "index": 36,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "800"
+          ]
+        },
+        {
+          "index": 37,
+          "cmd": 30,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 38,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1000"
+          ]
+        },
+        {
+          "index": 39,
+          "cmd": 62,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "2"
+          ]
+        },
+        {
+          "index": 40,
+          "cmd": 310,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 41,
+          "cmd": 220,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 42,
+          "cmd": 4000,
+          "target": 20123,
+          "text": "",
+          "opt": [
+            "42",
+            "50"
+          ]
+        },
+        {
+          "index": 43,
+          "cmd": 70,
+          "target": 20135,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 44,
+          "cmd": 8010,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 45,
+          "cmd": 70,
+          "target": 34151,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 46,
+          "cmd": 70,
+          "target": 20511,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 47,
+          "cmd": 9990,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 48,
+          "cmd": 52,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "2"
+          ]
+        },
+        {
+          "index": 49,
+          "cmd": 1310,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "SS_TUT_003",
+            "1"
+          ]
+        },
+        {
+          "index": 50,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 51,
+          "cmd": 8010,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 52,
+          "cmd": 70,
+          "target": 34151,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 53,
+          "cmd": 70,
+          "target": 20511,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 54,
+          "cmd": 9990,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 55,
+          "cmd": 52,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "2"
+          ]
+        },
+        {
+          "index": 56,
+          "cmd": 1310,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "SS_TUT_003",
+            "1"
+          ]
+        },
+        {
+          "index": 57,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 58,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        }
+      ]
+    }
+  }
+}

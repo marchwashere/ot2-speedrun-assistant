@@ -1,5 +1,53 @@
 # OT2SpeedrunAssistant
 
+The manipulation tabs share the same controls and prediction flow. **Any% Hikari**
+preserves the original route. **Galdera** retains Osvald, skips the Hikari recruit
+battle and Throné's Scholar skills/support setup, and gives Osvald Hikari's later
+Merchant setup (Donate BP and Hired Help). Osvald keeps his native Scholar skills
+and Evasive Maneuvers, and receives A Step Ahead with the active party. The Chubby
+Cait battle uses Osvald and Partitio as the two Merchants.
+Galdera also leaves Agnea Chapter 2 inactive during the New Delsta visit.
+During chapter 1, steal the Antique Coin and sell it to fund one extra Shadow
+Soulstone (M) at the clerics; reserve that stone for the Traveler's Bag thief.
+The Pirro R3 identification starts after the steal, so no pre-identification
+RNG adjustment is applied. On the Inventor approach, use the exact Highroad
+entry counter to run first and walk the remainder without an encounter.
+The measured approach is 117 running updates or 124 walking updates, without
+added leeway. Instructions show whole running/walking update counts and the
+exact counter where the player switches to walking; remaining walking updates
+round up from the measured endpoint ratio. Stay daytime until the thief, switch to night,
+accept his fight, and let the
+first player kill him with the reserved stone. Replay party initialization,
+item/victory/drop RNG, rewards, field return and the bag-recovery scene; switch
+back to day before Arkar. Al's bag turn-in remains a later route step.
+The thief-to-Inventor-house leg uses its exact post-bag counter and measured
+86 running / 90 walking updates, without added leeway. It shows the running
+percentage as well as exact update counts and the switch-to-walking counter.
+Run `node tools/import-travelers-bag.cjs` after regenerating town/core imports
+to retain the quest scripts and Brigand profile. This new segment awaits retail
+validation.
+After Inventor crafting and A Step Ahead, it returns directly to Crackridge
+Harbor, skipping Clockbank and all Partitio Chapter 2/Clockite steps. Coarse
+EXP100 manipulation uses real night/day switches in New Delsta main town,
+before leaving for Inventor; the complete route is replayed from that control.
+Galdera can leave New Delsta or Oresrush at night. If so, switch to day
+immediately after loading Eastern New Delsta Highroad or Southern Oresrush
+Wilds, respectively, before movement or encounter selection. Odd and even
+town-switch counts are searched; the required field switch has its actual
+callbacks, RNG draws and input cost included.
+Each of the four later encounters permits up to seven safe Defends: all four
+players on the bonus turn, then three on the first regular turn, leaving the
+last player to Escape or use Wind Soulstone. The first turn transition is
+charged once; actual enemy-free queues and RNG are replayed. Battle inputs
+provide fine adjustment. The original Hikari route
+keeps its Clockbank control. Sampled source-model advances per night/day pair
+are 40 in Crackridge, 93 in New Delsta, 10 at Crackridge Harbor and 3 on the
+Inventor Highroad; these are state-specific predictions awaiting retail checks.
+
+API requests and exports select `route=any_hikari` (default) or `route=galdera`,
+independently of `route_end`, for both title-screen simulation and the identified
+Pirro R3 continuation. Results and voice inputs are retained separately per tab.
+
 This branch, `strategy/abandoned-village-fork`, is the starting point for a new
 strategy. After the first Abandoned Village tag/return, it switches to night
 near the Flats clerics, buys soulstones and switches back to day. It then

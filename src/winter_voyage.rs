@@ -143,6 +143,7 @@ fn escape_to_southern(trail:Entry,encounter:encounter::Prediction,battle_entry:C
     escape_to_southern_range(trail,encounter,battle_entry,0,u32::MAX-1,true)?.ok_or_else(||crate::SimError("Eastern Escape exhausted".into()))
 }
 fn escape_to_southern_range(trail:Entry,encounter:encounter::Prediction,battle_entry:CrtRng,min:u32,max:u32,finish:bool)->Result<Option<CropdaleExit>> {
+    let galdera_route=trail.world_after.galdera_route;
     ensure(matches!(encounter.situation.as_deref(),Some("Normal"|"Preemptive")),"Eastern Cropdale return is surprised; adjust Crackridge escape")?;
     let w=&trail.world_after;
     let ids:Vec<_>=encounter.enemies.iter().map(|e|e.enemy.id.as_str()).collect();
@@ -165,10 +166,13 @@ fn escape_to_southern_range(trail:Entry,encounter:encounter::Prediction,battle_e
             // recruitment and return load before testing its newly rolled counter;
             // movement never consumes synthetic CRT draws.
             if !oresrush.ryu.as_ref().is_some_and(|ryu|ryu.town_reach.is_some()) {continue;}
-            if finish {crate::ryu::recruit(oresrush.ryu.as_mut().unwrap())?;}
+            // Galdera has no recruit-fight menu to fix a surprised water
+            // opening. Finalization searches the earlier Oresrush switches
+            // before appending Canalbrine, rather than rejecting this prefix.
+            if finish && !galdera_route {crate::ryu::recruit(oresrush.ryu.as_mut().unwrap())?;}
             return Ok(Some(CropdaleExit {trail,encounter,battle_entry,escape,field_return,southern,
                 oresrush_reach:Some(oresrush_reach),oresrush:Some(oresrush),
-                verification:"Source-derived three-character first-menu Escape and shared subsequent loads/events. Search secures walking-safe Southern Cropdale -> Southern Oresrush, Southern Oresrush return -> Northern Ryu Sands and Northern Ryu Sands -> Ryu legs. User assumes exactly one encounter on the unmeasured Eastern return leg. Appends Hikari's supplied recruit battle and skip-Chapter-1 Osvald replacement after selecting the movement candidate. Awaiting retail validation"}));
+                verification:if galdera_route {"Source-derived Galdera continuation through Cropdale, Oresrush and Ryu; retains Osvald and skips the Hikari battle and Throné Scholar setup. Carried party progression, movement safety and encounter outcomes are replayed. Awaiting retail validation."} else {"Source-derived three-character first-menu Escape and shared subsequent loads/events. Search secures walking-safe Southern Cropdale -> Southern Oresrush, Southern Oresrush return -> Northern Ryu Sands and Northern Ryu Sands -> Ryu legs. User assumes exactly one encounter on the unmeasured Eastern return leg. Appends Hikari's supplied recruit battle and skip-Chapter-1 Osvald replacement after selecting the movement candidate. Awaiting retail validation"}}));
         }
     }
     Ok(None)
@@ -184,15 +188,18 @@ pub fn search_oresrush(destination:&Entry,reach:&CropdaleReach)->Result<(Box<Cro
         let mut prefixes=crate::oresrush::PrefixCache::new(&exit.southern,exit.oresrush_reach.as_ref().unwrap())?;
         let mut budget=32u32;
         loop {
-        for total in (0..u32::MAX-1).step_by(2) {
+        for total in (0..u32::MAX-1).step_by(if exit.southern.world_after.galdera_route {1}else{2}) {
             let bound=best.as_ref().map_or(u64::from(budget),|b|b.2);
             if u64::from(total.saturating_sub(crate::oresrush::FREE_SWITCHES_BEFORE_PARTITIO+crate::oresrush::FREE_SWITCHES_AFTER_PARTITIO))*7>bound {break;}
             for before in 0..=total {
                 let after=total-before;
-                let time_cost=crate::oresrush::switch_cost(before,after)*7;
+                let base_time_cost=crate::oresrush::switch_cost(before,after)*7;
                 let bound=best.as_ref().map_or(u64::from(budget),|b|b.2);
+                if base_time_cost>bound {continue;}
+                let prefix=prefixes.predict(before,after)?;
+                let time_cost=base_time_cost+if prefix.southern_day_switch.is_some() {7}else{0};
                 if time_cost>bound {continue;}
-                let Some(o)=finish_oresrush(prefixes.predict(before,after)?,Some((bound-time_cost) as u32))? else {continue;};
+                let Some(o)=finish_oresrush(prefix,Some((bound-time_cost) as u32))? else {continue;};
                 let r=o.ryu.as_ref().unwrap();
                 let cost=time_cost+u64::from(r.hikari_search.as_ref().unwrap().total_input_cost);
                 let coast=r.canalbrine.as_ref().unwrap().conning.as_ref().unwrap();
@@ -210,7 +217,7 @@ pub fn search_oresrush(destination:&Entry,reach:&CropdaleReach)->Result<(Box<Cro
     let o=propagate_oresrush(&exit,before,after)?.expect("Selected Oresrush plan replays");
     let r=o.ryu.as_ref().unwrap();
     ensure(r.canalbrine.as_ref().unwrap().conning.as_ref().unwrap().town.after==expected_rng,"Oresrush replay changed RNG")?;
-    ensure(crate::oresrush::switch_cost(before,after)*7+u64::from(r.hikari_search.as_ref().unwrap().total_input_cost)==expected_cost,"Oresrush replay changed cost")?;
+    ensure(crate::oresrush::switch_cost(before,after)*7+if o.southern_day_switch.is_some() {7}else{0}+u64::from(r.hikari_search.as_ref().unwrap().total_input_cost)==expected_cost,"Oresrush replay changed cost")?;
     exit.oresrush=Some(Box::new(o));
     Ok((crop,exit))
 }
@@ -222,7 +229,7 @@ fn finish_oresrush(mut o:crate::oresrush::Prediction,limit:Option<u32>)->Result<
     let Some(r)=o.ryu.as_mut() else {return Ok(None)};
     let Some(town)=r.town_entry.as_ref() else {return Ok(None)};
     let Some(selected)=crate::hikari_manipulation::nearest_coasts_bounded(town,limit)? else {return Ok(None)};
-    r.hikari=Some(selected.hikari);r.throne_scholar=Some(selected.scholar);
+    r.hikari=selected.hikari;r.throne_scholar=selected.scholar;
     r.canalbrine=Some(selected.canalbrine);r.hikari_search=Some(selected.search);
     Ok(Some(o))
 }
@@ -364,6 +371,42 @@ mod tests {
         }
         assert!(enter_cropdale_with_switches(&entry,&reach,1).is_err());
         assert_eq!(crate::state_key::WorldKey::new(&entry.world_after),unchanged);
+    }
+    #[test]
+    fn galdera_defers_water_opening_to_oresrush_controls_and_keeps_osvald() {
+        let mut w=world::throne_after_second_state().unwrap();
+        w.galdera_route=true;w.map=DESTINATION.into();w.time=2;
+        w.party=vec![7,6,8];w.party_experience=vec![60,0,0];
+        w.story_types.clear();w.active_scenarios.clear();w.prologues.clear();
+        for flag in [8019,6525,7062,36,35,37] {w.set_flag(flag,true);}
+        w.main_progress_points=3;w.completed_scenarios.extend([700,600,601,800]);
+        w.resident_levels=world::catalog().maps[DESTINATION].streams.iter().chain(w.shared_levels.iter()).cloned().collect();
+        w.encounter_counter=700;w.sync_progression().unwrap();
+        let osvald=w.character_progression.get_mut(&6).unwrap();
+        osvald.jobs.unlocked_support.insert(crate::scholar::EVASIVE.into());
+        osvald.jobs.equipped_support.insert(crate::scholar::EVASIVE.into());
+        w.refresh_support_skills();
+        for seed in 0..32 {
+            let start=CrtRng::new(seed);let mut rng=start;
+            let encounter=encounter::catalog().predict(&mut rng,&PredictionOptions {
+                map:DESTINATION.into(),zone:"ENT_FLD_FST_1_3_LND".into(),period:"DayTime".into(),
+                progress:3,first_encounter:true,boundary:Boundary::CurrentCounter,current_counter:Some(700),
+                party_levels:vec![2,1,1],dash:true,ability_percent:50,..Default::default()
+            }).unwrap();
+            if !matches!(encounter.situation.as_deref(),Some("Normal"|"Preemptive")) {continue;}
+            let trail=Entry {arrival:start,after:start,world_after:w.clone(),trace:vec![],decisions:vec![]};
+            let Some(exit)=escape_to_southern_range(trail,encounter,rng,0,64,true).unwrap() else {continue;};
+            let o=*exit.oresrush.unwrap();let r=o.ryu.as_ref().unwrap();
+            assert!(r.hikari.is_none() && r.throne_scholar.is_none() && r.canalbrine.is_none());
+            assert_eq!(r.town_entry.as_ref().unwrap().world_after.party,[7,6,8,4]);
+            let Some(o)=finish_oresrush(o,Some(64)).unwrap() else {continue;};
+            let r=o.ryu.unwrap();assert!(r.hikari.is_none() && r.throne_scholar.is_none());
+            let water=r.canalbrine.unwrap().water.unwrap();
+            assert!(matches!(water.encounter.situation.as_deref(),Some("Normal"|"Preemptive")));
+            assert_eq!(water.field_return.world_after.party,[7,6,8,4]);
+            return;
+        }
+        panic!("No safe Galdera continuation in fixture range");
     }
     #[test]
     fn successful_escape_is_retried_when_the_later_ryu_counter_is_unsafe() {

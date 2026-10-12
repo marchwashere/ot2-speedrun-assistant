@@ -192,6 +192,8 @@ pub fn catalog() -> &'static Catalog {
 /// execution; callers extending the route retain the resulting state.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct WorldState {
+    #[serde(default)]
+    pub galdera_route: bool,
     pub map: String,
     /// Ordinary field transitions observed by this route (save visit/icon bits).
     /// Older exports did not track these; no complete prior visit history is inferred.
@@ -362,6 +364,7 @@ pub enum DrawKind {
     StealCheck,
     DialogueLottery,
     TavernLottery,
+    BattleTiming,
     Boundary,
 }
 
@@ -991,6 +994,16 @@ impl<'a> Loader<'a> {
             ensure(c.index == pc, "Invalid event command index")?;
             pc += 1;
             match c.cmd {
+                600 if name=="SC_SP_Tutorial_0200" && c.index==7 => {
+                    ensure(matches!(stop_before,Some(EventStop::Battle)),"Traveler's Bag requires an explicit battle boundary")?;
+                    return Ok(EventExit::Battle(ScriptedBattle {event:name.into(),command_index:c.index,volume:c.opt[0].clone(),victory_event:c.opt[1].clone()}));
+                }
+                5500 if name=="SC_FC13_Tutorial_0400" && c.index==4 => {
+                    ensure(self.state.flag(20510),"Al's bag must be recovered before delivery")?;
+                    pc=5;
+                }
+                1310 if name=="SC_FC13_Tutorial_0400" && c.opt==["SS_TUT_003","1"] => {self.boundary("The Traveler's Bag completed: 1,500 leaves, Slippery Nut, Healing Grape x3");}
+                4|10|20|30|40|55|60|62|65|100|106|200|203|210|220|240|300|310|710|711|8010|9100|2000|5005 if matches!(name,"SC_SP_Tutorial_0200"|"SC_FC13_Tutorial_0310"|"SC_FC13_Tutorial_0400") => {}
                 70 | 71 => {
                     let v = c.opt.first().map(String::as_str);
                     ensure(matches!(v, Some("0" | "1")), "Unsupported flag assignment")?;
@@ -1409,6 +1422,7 @@ pub fn throne_after_second_state() -> Result<WorldState> {
     let data = catalog();
     let p = &data.fresh_throne;
     let state = WorldState {
+        galdera_route: false,
         map: p.map.clone(),
         visited_maps: BTreeSet::new(),
         time: p.time,

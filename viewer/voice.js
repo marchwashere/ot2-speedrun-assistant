@@ -2,6 +2,15 @@
 let voiceStage='order', voiceFirst=null, voiceHp=null;
 let voiceLocked=false;
 let voiceTranscript='', voiceBusy=false, voiceCandidate=null, voiceRevision=0, voiceAudio=null;
+const voiceRouteStates=new Map();
+window.addEventListener('route-changed',({detail:{route,previous}})=>{
+  voiceRouteStates.set(previous,{voiceStage,voiceFirst,voiceHp,voiceLocked,voiceTranscript,voiceCandidate,status:$('voice-status').textContent});
+  ({voiceStage='order',voiceFirst=null,voiceHp=null,voiceLocked=false,voiceTranscript='',voiceCandidate=null}=voiceRouteStates.get(route)||{});
+  voiceRevision++;
+  $('voice-hp').value=voiceHp??'';
+  $('voice-status').textContent=voiceRouteStates.get(route)?.status??'Choose turn-3 order: Left = Throné · Right = Pirro';
+  voiceControls();
+});
 function voiceControls() {
   for(const id of ['voice-normal','voice-special']) $(id).disabled=voiceStage!=='lines' || stopped || voiceLocked;
   $('voice-undo').disabled=stopped || voiceLocked || !voiceTranscript.length;
@@ -41,12 +50,12 @@ function voiceNotification(seed) {
 async function filterVoices() {
   if(voiceStage!=='lines' || voiceBusy || running) return;
   voiceBusy=true;
-  const revision=voiceRevision, transcript=voiceTranscript;
+  const revision=voiceRevision, transcript=voiceTranscript, route=activeRoute;
   $('voice-status').textContent=transcript?'Filtering RNG candidates…':'Ready · Left = normal · Right = special';
   try {
     const response=await fetch('/api/identify-observed?'+new URLSearchParams({voices:transcript,r3_first:voiceFirst,hp:String(voiceHp)}));
     const data=await response.json();
-    if(revision!==voiceRevision) return;
+    if(revision!==voiceRevision || route!==activeRoute) return;
     if(!response.ok) throw new Error(data.error || 'Identification failed');
     $('voice-status').textContent=data.count ? `${data.count.toLocaleString()} candidates · ${data.observations} observations` : 'No matching RNG. Check the voicelines, turn-3 order and HP.';
     voiceCandidate=data.candidate;
@@ -60,8 +69,8 @@ async function filterVoices() {
 }
 async function simulateIdentified() {
   if(voiceStage!=='lines' || !voiceFirst || voiceHp===null || !voiceCandidate || running) return;
-  const query=new URLSearchParams({voices:voiceTranscript,r3_first:voiceFirst,hp:String(voiceHp)});
-  const revision=voiceRevision, candidate=voiceCandidate;
+  const query=new URLSearchParams({route:activeRoute,voices:voiceTranscript,r3_first:voiceFirst,hp:String(voiceHp)});
+  const revision=voiceRevision, candidate=voiceCandidate, route=activeRoute;
   running=true;voiceControls();$('quit').disabled=true;clearVoiceResult();
   $('status').textContent='Simulating from identified RNG…';
   try {

@@ -145,6 +145,7 @@ fn project_with_cleric_requirement(arrival:CrtRng,state:WorldState,throne_level:
         p.clerics_present = black_market::clerics_present(&l.state);
         if require_clerics && !p.clerics_present {return Ok(None);}
         l.boundary("Early cleric purchases: ordinary shop transactions, no CRT draws");
+        if l.state.galdera_route {l.boundary("Galdera: sell Antique Coin and buy one EXTRA Shadow Soulstone (M); reserve it for the Traveler's Bag thief");}
         l.set_time(2, "After cleric purchases: fixed switch to day")?;
         l.refresh_npcs("After cleric purchases: daytime placements")?;
         p.after_day = Some(l.rng);

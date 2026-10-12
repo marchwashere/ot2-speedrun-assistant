@@ -86,6 +86,9 @@ function validateSeed(text) {
   return seed;
 }
 
+let activeRoute = 'any_hikari';
+const routeResults = new Map();
+const routeNames = () => ['Throné',activeRoute === 'galdera' ? 'Osvald' : 'Hikari','Agnea','Partitio'];
 function readSetup() {
   const seed = validateSeed($('seed').value.trim());
   const text = $('advances').value.trim();
@@ -93,10 +96,10 @@ function readSetup() {
   const advances = BigInt(text);
   const recreate = $('recreate-shared-level').getAttribute('aria-pressed') === 'true';
   if (advances + 12n + BigInt(recreate) > 18446744073709551615n) throw new Error('Title advances plus opening transition exceed 18446744073709551615.');
-  return {seed,advances:advances.toString(),recreate_shared_level:recreate,route_end:'osvald_encounter',...eventRepeatCaps};
+  return {route:activeRoute,seed,advances:advances.toString(),recreate_shared_level:recreate,route_end:'osvald_encounter',...eventRepeatCaps};
 }
 const setupQuery = setup => {
-  const query = new URLSearchParams({seed:setup.seed,advances:setup.advances,recreate_shared_level:setup.recreate_shared_level,route_end:setup.route_end ?? 'osvald_encounter',boost_menu:setup.boost_menu ?? 0,boost_advances:setup.boost_advances ?? 0});
+  const query = new URLSearchParams({route:setup.route ?? activeRoute,seed:setup.seed,advances:setup.advances,recreate_shared_level:setup.recreate_shared_level,route_end:setup.route_end ?? 'osvald_encounter',boost_menu:setup.boost_menu ?? 0,boost_advances:setup.boost_advances ?? 0});
   for (const {key} of repeatSettings) query.set(key,repeatCapQuery(setup[key],key));
   for (const key of ['boost_repeat_cap','second_boost_menu','second_boost_advances','second_boost_repeat_cap']) {
     if(setup[key]!=null) query.set(key,setup[key]);
@@ -126,15 +129,37 @@ function showScreen(screen) {
   activeScreen = screen;
   for (const name of ['manipulation','detail','field','settings']) {
     $(`${name}-panel`).hidden = name !== screen;
-    $(`${name}-mode`).setAttribute('aria-pressed', String(name === screen));
+    $(`${name}-mode`).setAttribute('aria-pressed', String(name === screen && (name !== 'manipulation' || activeRoute === 'any_hikari')));
   }
+  $('galdera-mode').setAttribute('aria-pressed',String(screen === 'manipulation' && activeRoute === 'galdera'));
   window.dispatchEvent(new CustomEvent('screen-changed', {detail:screen}));
   window.scrollTo({...position, behavior:'instant'});
   requestAnimationFrame(() => {
     if (activeScreen === screen) window.scrollTo({...position, behavior:'instant'});
   });
 }
-for (const name of ['manipulation','detail','field','settings']) $(`${name}-mode`).addEventListener('click',()=>showScreen(name));
+function selectRoute(route) {
+  if (running || stopped || (typeof voiceBusy !== 'undefined' && voiceBusy)) return;
+  const previous=activeRoute;
+  routeResults.set(activeRoute,{result,snowsEncounterTiming,westernSecondOverride});
+  activeRoute=route;
+  ({result=null,snowsEncounterTiming=null,westernSecondOverride=null}=routeResults.get(route)||{});
+  $('manipulation-title').textContent=route==='galdera'?'Galdera':'Any% Hikari';
+  showScreen('manipulation');
+  $('manipulation-mode').setAttribute('aria-pressed',String(route==='any_hikari'));
+  $('galdera-mode').setAttribute('aria-pressed',String(route==='galdera'));
+  $('error').hidden=true;
+  window.dispatchEvent(new CustomEvent('route-changed',{detail:{route,previous}}));
+  if(result){if(result.crt_setup)renderSetup(result.crt_setup);render();}else{
+    $('results').hidden=true;
+    $('detail-empty').hidden=false;
+    $('detail-results').hidden=true;
+    $('status').textContent='Run simulation for this route.';
+  }
+}
+$('manipulation-mode').addEventListener('click',()=>selectRoute('any_hikari'));
+$('galdera-mode').addEventListener('click',()=>selectRoute('galdera'));
+for (const name of ['detail','field','settings']) $(`${name}-mode`).addEventListener('click',()=>showScreen(name));
 
 async function simulate(event) {
   event?.preventDefault();
@@ -817,7 +842,7 @@ function renderCrackridgeVoyage() {
   $('canalbrine-route-log').hidden=true;
   $('canalbrine-water-result').hidden=true;
   $('canalbrine-water-log').hidden=true;
-  for(const id of ['clockbank-bg-result','oresrush-time-result','cropdale-time-result','conning-north-result','conning-west-result','conning-steal-result','inventor-escape-result','clockbank-movement-result','crackridge-return-result','southern-crackridge-result','western-crackridge-result','western-crackridge-return-result','gravell-result','conning-log']) $(id).hidden=true;
+  for(const id of ['new-delsta-bg-result','crackridge-bg-result','clockbank-bg-result','oresrush-time-result','cropdale-time-result','conning-north-result','conning-west-result','conning-steal-result','inventor-escape-result','clockbank-movement-result','crackridge-return-result','southern-crackridge-result','western-crackridge-result','western-crackridge-return-result','gravell-result','conning-log']) $(id).hidden=true;
   const early=result.post_battle_field?.flats_escape?.early_cait;
   const timing=early?.southern_rare_target?'after':early?.snows_approach?.predicted_before_osvald?'before':snowsEncounterTiming ?? 'after';
   const exit=result.post_battle_field?.flats_escape?.snows_escape?.[timing+'_osvald'];
@@ -855,7 +880,8 @@ function renderCrackridgeVoyage() {
     $('oresrush-time-result').hidden=!oresrushRoute;
     if(oresrushRoute) $('oresrush-time-routine').innerHTML=instructionBoxHtml([
       'Before Partitio: '+((oresrushRoute.switches_before_partitio||[]).length?'time switch ×'+oresrushRoute.switches_before_partitio.length:'No time switch needed'),
-      'After Partitio: '+((oresrushRoute.switches_after_partitio||[]).length?'time switch ×'+oresrushRoute.switches_after_partitio.length:'No time switch needed')]);
+      'After Partitio: '+((oresrushRoute.switches_after_partitio||[]).length?'time switch ×'+oresrushRoute.switches_after_partitio.length:'No time switch needed'),
+      ...(oresrushRoute.southern_day_switch?['Immediately upon entering Southern Oresrush Wilds: switch to day']:[])]);
     const oresrushStages=oresrushRoute?[
       ['Southern Oresrush Wilds · loaded',oresrushRoute.southern_entry],
       ['Oresrush · loaded',oresrushRoute.town_entry],
@@ -864,6 +890,7 @@ function renderCrackridgeVoyage() {
       ['Partitio · recruited, Chapter 1 skipped',oresrushRoute.recruitment],
       ...(oresrushRoute.switches_after_partitio||[]).map((e,i)=>['Oresrush · after Partitio switch '+(i+1),e]),
       ['Southern Oresrush Wilds · returned from Oresrush',oresrushRoute.southern_return],
+      ...(oresrushRoute.southern_day_switch?[['Southern Oresrush Wilds · switched to day before movement',oresrushRoute.southern_day_switch]]:[]),
     ]:[];
     const ryuRoute=oresrushRoute?.ryu;
     const ryuStages=ryuRoute?[
@@ -948,7 +975,7 @@ function renderCrackridgeVoyage() {
     if(water) {
       $('canalbrine-water-result').hidden=false;
       $('canalbrine-water-log').hidden=false;
-      const actor=['Throné','Hikari','Agnea','Partitio'][water.escape.menu.first_actor];
+      const actor=routeNames()[water.escape.menu.first_actor];
       $('canalbrine-water-encounter').textContent=encounterLabel(water.encounter);
       $('canalbrine-water-routine').innerHTML=`<p><strong>R1 · ${actor} · 1st command menu</strong></p>${boostStepsHtml(water.escape.inputs?.levels,'Escape')}`;
       $('canalbrine-water-detail').textContent=`${encounterLabel(water.encounter)} · ${water.encounter.situation} · ${water.escape.attempt.chance_percent}% Escape chance before the check · ${water.escape.weighted_input_cost} boost inputs. First Escape succeeds.`;
@@ -965,7 +992,7 @@ function renderCrackridgeVoyage() {
       for(const [key,label,fight] of [['north','Northern Conning Creek Coast',conning.northern],['west','Western Conning Creek Coast',conning.western]]) {
         $('conning-'+key+'-result').hidden=false;
         $('conning-'+key+'-encounter').textContent=encounterLabel(fight.arrival.encounter);
-        const actor=['Throné','Hikari','Agnea','Partitio'][fight.menu.first_actor];
+        const actor=routeNames()[fight.menu.first_actor];
         $('conning-'+key+'-routine').innerHTML='<p><strong>R1 · '+actor+' · 1st command menu</strong></p>'+boostStepsHtml(fight.inputs.levels,fight.victory?'Shadow Soulstone (M)':'Escape');
         for(const [name,entry] of [['loaded',fight.arrival.entry],['night switch',fight.arrival.night],['field returned',fight.field_return],['day switch',fight.day]]) conningStages.push([label+' · '+name,entry]);
         conningPoints.push([label+' · first command menu',fight.menu.rng],[label+' · battle completed',(fight.victory||fight.escape).after]);
@@ -1001,19 +1028,42 @@ function renderCrackridgeVoyage() {
           if(p.voyage.castti) {conningStages.push(['Castti recruited · Chapter 1 skipped · benched',p.voyage.castti]);conningSpans.push(...p.voyage.castti.trace);}
         }
         if(p.inventor) {
-          const i=p.inventor,actor=['Throné','Hikari','Agnea','Partitio'][i.menu.first_actor];
+          const i=p.inventor,actor=i.menu ? routeNames()[i.menu.first_actor] : null;
+          if(i.new_delsta_adjustment) {
+            const c=i.new_delsta_adjustment;
+            $('new-delsta-bg-result').hidden=false;
+            $('new-delsta-bg-routine').innerHTML=instructionBoxHtml(['New Delsta main town time switches: '+c.switches+' (finish in '+(c.departure.world_after.time===4?'nighttime':'daytime')+')',...(i.approach.highroad_day_switch?['Immediately upon entering Eastern New Delsta Highroad: switch to day']:[])]);
+            conningStages.push(['New Delsta · BG adjustment complete ('+(c.departure.world_after.time===4?'night':'day')+')',c.departure]);
+            conningSpans.push(...c.departure.trace);
+            conningPoints.push(['Gravell · targeted executed EXP ×100 lottery',c.target]);
+          }
           $('inventor-escape-result').hidden=false;
-          $('clockbank-movement-result').hidden=false;
+          $('clockbank-movement-result').hidden=!i.clockbank;
           const reach=i.clockbank_reach;
           $('clockbank-movement-routine').innerHTML=instructionBoxHtml(reach ? [
             'Start fast: first ≈'+reach.run_percent.toFixed(1)+'% of total route',
             'Then slow: remaining ≈'+(100-reach.run_percent).toFixed(1)+'%'
           ] : ['Encounter unavoidable even at slow speed']);
-          $('inventor-escape-routine').innerHTML='<p>'+escapeHtml(encounterLabel(i.approach.encounter))+'</p><p><strong>R1 · '+actor+' · 1st command menu</strong></p>'+boostStepsHtml(i.inputs.levels,'Escape');
-          for(const [label,e] of [['New Delsta · fast travel',i.approach.town],['Agnea Chapter 2 · story accepted, opening skipped',i.approach.agnea_story],['Eastern New Delsta Highroad · loaded',i.approach.highroad],['Inventor Highroad · escaped',i.field_return],['Arkar · Proof of the Inventor',i.license],['Elemental Bomb Bottle crafted',i.bomb],['Critical Scope crafted',i.scope],['Western Clockbank Highroad · loaded',i.western_clockbank],['Southern Clockbank Highroad · loaded (no intervening encounter)',i.southern_clockbank],['Clockbank · loaded',i.clockbank],['Partitio Chapter 2 · story accepted, opening skipped',i.partitio_story]]) {conningStages.push([label,e]);conningSpans.push(...e.trace);}
+          const movement=i.approach.thief_reach;
+          $('inventor-escape-routine').innerHTML=movement ? instructionBoxHtml([
+            'Stay daytime until reaching the thief',
+            'Run '+movement.running_updates+' counter updates: '+movement.initial_counter+' → '+movement.switch_to_walking_counter,
+            'Then walk '+movement.walking_updates+' counter updates: '+movement.switch_to_walking_counter+' → '+movement.estimated_counter_at_thief,
+            'At the thief: switch to night; after recovering the bag, switch back to day'
+          ]) : '<p>'+escapeHtml(encounterLabel(i.approach.encounter))+'</p><p><strong>R1 · '+actor+' · 1st command menu</strong></p>'+boostStepsHtml(i.inputs.levels,'Escape');
+          const thiefStages=i.thief ? [['Thief · switched to night',i.thief.night],['Thief · scripted battle initialization',i.thief.introduction],['Thief · victory and field return',i.thief.field_return],["Al’s Bag recovered · return to Al later",i.thief.bag],['Highroad · returned to day before Arkar',i.thief.day]] : [];
+          if(i.thief) { $('inventor-escape-routine').innerHTML+='<p><strong>Thief · T1 · '+routeNames()[i.thief.battle.actor]+' · Shadow Soulstone (M)</strong></p>'; conningSpans.push(...(i.thief.battle.trace||[])); }
+          if(i.inventor_reach) { const r=i.inventor_reach; $('inventor-escape-routine').innerHTML+='<p><strong>Thief → Inventor house</strong></p>'+instructionBoxHtml([
+            'After recovering the bag, switch back to day',
+            'Run first '+r.run_percent.toFixed(1)+'% · walk remaining '+(100-r.run_percent).toFixed(1)+'%',
+            'Run '+r.running_updates+' counter updates: '+r.initial_counter+' → '+r.switch_to_walking_counter,
+            'Then walk '+r.walking_updates+' counter updates: '+r.switch_to_walking_counter+' → '+r.estimated_counter_at_thief
+          ]); }
+          for(const [label,e] of [['New Delsta · fast travel',i.approach.town],[i.approach.agnea_story.world_after.galdera_route?'New Delsta · Agnea Chapter 2 left inactive':'Agnea Chapter 2 · story accepted, opening skipped',i.approach.agnea_story],['Eastern New Delsta Highroad · loaded',i.approach.highroad],['Eastern New Delsta Highroad · switched to day before encounter',i.approach.highroad_day_switch],[i.approach.thief_reach?'Highroad · reached thief without an encounter':'Inventor Highroad · escaped',i.field_return],...thiefStages,...(i.inventor_arrival?[['Inventor house · reached without an encounter',i.inventor_arrival]]:[]),['Arkar · Proof of the Inventor',i.license],['Elemental Bomb Bottle crafted',i.bomb],['Critical Scope crafted',i.scope],['Western Clockbank Highroad · loaded',i.western_clockbank],['Southern Clockbank Highroad · loaded (no intervening encounter)',i.southern_clockbank],['Clockbank · loaded',i.clockbank],['Partitio Chapter 2 · story accepted, opening skipped',i.partitio_story]]) {if(e){conningStages.push([label,e]);conningSpans.push(...e.trace);}}
           if(i.crackridge_return) {
-            const r=i.crackridge_return,actor=['Throné','Hikari','Agnea','Partitio'][r.menu.first_actor];
+            const r=i.crackridge_return,actor=routeNames()[r.menu.first_actor];
             $('crackridge-return-result').hidden=false;
+            $('crackridge-return-title').textContent=i.scope.world_after.galdera_route?'Crackridge Harbor · after Inventor crafting':'Crackridge Harbor · after Clockite delivery';
             $('crackridge-return-routine').innerHTML=lateRouteInstructions(r);
           }
           for(const [label,e] of i.clockite_stages || []) {conningStages.push([label,e]);conningSpans.push(...e.trace);}
@@ -1027,10 +1077,10 @@ function renderCrackridgeVoyage() {
           }
           if(i.crackridge_return) {
             const r=i.crackridge_return;
-            for(const [label,e] of [['Crackridge Harbor · fast travel after Clockite',r.arrival],['Crackridge Harbor return · escaped',r.field_return]]) {conningStages.push([label,e]);conningSpans.push(...e.trace);}
+            for(const [label,e] of [[i.scope.world_after.galdera_route?'Crackridge Harbor · fast travel after Inventor':'Crackridge Harbor · fast travel after Clockite',r.arrival],['Crackridge Harbor return · escaped',r.field_return]]) {conningStages.push([label,e]);conningSpans.push(...e.trace);}
             conningPoints.push(['Crackridge Harbor return · first command menu',r.menu.rng]);
             if(r.southern) {
-              const a=r.southern,actor=['Throné','Hikari','Agnea','Partitio'][a.menu.first_actor];
+              const a=r.southern,actor=routeNames()[a.menu.first_actor];
               $('southern-crackridge-result').hidden=false;
               $('southern-crackridge-routine').innerHTML=lateRouteInstructions(a);
               for(const [label,e] of [['Southern Crackridge Wilds · loaded',a.arrival],['Southern Crackridge Wilds · escaped',a.field_return]]) {conningStages.push([label,e]);conningSpans.push(...e.trace);}
@@ -1038,7 +1088,15 @@ function renderCrackridgeVoyage() {
               conningSpans.push(...a.escape.trace);
               for(const [key,label,b] of [['western-crackridge','Western Crackridge Wilds · before town',a.southern],['western-crackridge-return','Western Crackridge Wilds · after town',a.southern?.southern]]) {
                 if(!b) continue;
-                const actor=['Throné','Hikari','Agnea','Partitio'][b.menu.first_actor];
+                if(b.bg_adjustment) {
+                  const c=b.bg_adjustment;
+                  $('crackridge-bg-result').hidden=false;
+                  $('crackridge-bg-routine').innerHTML=instructionBoxHtml(['Crackridge time switches: '+c.switches+' (finish in daytime)']);
+                  conningStages.push(['Crackridge · BG adjustment complete (day)',c.departure]);
+                  conningSpans.push(...c.departure.trace);
+                  conningPoints.push(['Gravell · targeted executed EXP ×100 lottery',c.target]);
+                }
+                const actor=routeNames()[b.menu.first_actor];
                 $(key+'-result').hidden=false;
                 $(key+'-routine').innerHTML=lateRouteInstructions(b);
                 for(const [name,e] of [...(b.approach_stages||[]),[label+' · loaded',b.arrival],[label+(b.victory?' · Wind Soulstone (L) victory':' · escaped'),b.field_return]]) {conningStages.push([name,e]);conningSpans.push(...e.trace);}
@@ -1046,7 +1104,7 @@ function renderCrackridgeVoyage() {
                 if(b.gravell) {
                   const g=b.gravell;
                   $('gravell-result').hidden=false;
-                  const names=['Throné','Hikari','Agnea','Partitio'];
+                  const names=routeNames();
                   const ordinals={};
                   $('gravell-routine').innerHTML='<p><strong>'+escapeHtml(encounterLabel(g.encounter))+'</strong></p>'+g.fight.actions.map(a=>{
                     const ordinal=ordinals[a.round]=(ordinals[a.round]||0)+1;
@@ -1058,15 +1116,18 @@ function renderCrackridgeVoyage() {
                   for(const [name,e] of [['Merchant License acquired',g.license],['Gravell jobs, skills and supports equipped',g.setup],['Western Gravell Wilds · loaded',g.arrival],['Western Gravell Wilds · switched to night',g.night]]) {conningStages.push([name,e]);conningSpans.push(...e.trace);}
                   conningPoints.push(['Western Gravell Wilds · before battle initialization',g.battle_entry]);
                   conningStages.push(['Western Gravell Wilds · EXP ×100 victory · field return',g.field_return]);conningSpans.push(...g.field_return.trace);
+                  if(g.town){conningStages.push(['Gravell · loaded (night)',g.town]);conningSpans.push(...g.town.trace);}
                 }
               }
             }
           }
+          if(i.menu && i.approach.encounter) {
           conningPoints.push(['Inventor Highroad · first command menu · ambush chance '+i.approach.surprise_percent+'%',i.menu.rng]);
-          let previous=i.approach.highroad.after;
+          let previous=(i.approach.highroad_day_switch||i.approach.highroad).after;
           const origin=BigInt(previous.draws)-BigInt(i.approach.encounter.checkpoints[0].draws);
           for(const c of i.approach.encounter.checkpoints) {const after={state:c.state,draws:origin+BigInt(c.draws)};conningSpans.push({reason:'Inventor Highroad · '+c.label,before:previous,after});previous=after;}
           conningSpans.push(...i.escape.trace);
+          }
         }
       }
       $('conning-checkpoints').innerHTML=[...conningStages.map(([label,e])=>[label,e.after,e.world_after.encounter_counter]),...conningPoints.map(([label,r])=>[label,r,'—'])].sort((a,b)=>Number(BigInt(a[1].draws)-BigInt(b[1].draws))).map(([label,r,c])=>'<tr><td>'+escapeHtml(label)+'</td><td><strong>'+totalAdvances(r)+'</strong></td><td>'+hex(r.state)+'</td><td>'+c+'</td></tr>').join('');
@@ -1586,9 +1647,15 @@ $('settings-form').addEventListener('submit',event => {
 // This branch waits for voice identification; never replay early manipulation on load.
 
 function lateRouteInstructions(r) {
-  const names=['Throné','Hikari','Agnea','Partitio'];
+  const names=routeNames();
   const defends=r.defends||[];
   let html='<p>'+escapeHtml(encounterLabel(r.encounter))+'</p>';
-  defends.forEach((d,i)=>{html+='<p><strong>T1 · '+names[d.actor]+' · '+menuOrdinal(i+1)+' command menu</strong></p>'+instructionBoxHtml(['Defend']);});
-  return html+'<p><strong>T1 · '+names[r.menu.first_actor]+' · '+menuOrdinal(defends.length+1)+' command menu</strong></p>'+boostStepsHtml(r.inputs.levels,r.victory?'Wind Soulstone (L)':'Escape');
+  const ordinals={};
+  defends.forEach((d,i)=>{
+    const round=r.defend_rounds?.[i]??1;
+    const ordinal=ordinals[round]=(ordinals[round]||0)+1;
+    html+='<p><strong>T'+round+' · '+names[d.actor]+' · '+menuOrdinal(ordinal)+' command menu</strong></p>'+instructionBoxHtml(['Defend']);
+  });
+  const round=r.escape_round??1;
+  return html+'<p><strong>T'+round+' · '+names[r.menu.first_actor]+' · '+menuOrdinal((ordinals[round]||0)+1)+' command menu</strong></p>'+boostStepsHtml(r.inputs.levels,r.victory?'Wind Soulstone (L)':'Escape');
 }

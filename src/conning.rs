@@ -126,7 +126,10 @@ fn search_pomegranate(p:&mut Prediction)->Result<()> {
                 if let Some((town,harbor,mut tail))=pomegranate_tail(&western.day.world_after,western.day.after,town_count,harbor_count)? {
                     tail.voyage=Some(canalbrine_voyage(&tail.steal)?);
                     let approach=crate::inventor::approach(&tail.voyage.as_ref().unwrap().castti)?;
-                    if !crate::inventor::safe(&approach) {continue;}
+                    // Galdera's New Delsta controls can also select a safe
+                    // entry counter; do not reopen earlier coast controls for
+                    // an unsafe zero-switch walking candidate.
+                    if !approach.highroad.world_after.galdera_route && !crate::inventor::safe(&approach) {continue;}
                     tail.inventor=Some(crate::inventor::finish(approach)?);
                     tail.input_cost=cost;p.input_cost=p.input_cost-2*p.western.inputs.extra_repeats+cost;
                     p.western=western;p.town=town;p.harbor=harbor;p.pomegranate=Some(tail);return Ok(());
@@ -324,7 +327,7 @@ mod tests {
         assert!(voyage.castti.world_after.main_progress_points>voyage.canalbrine.world_after.main_progress_points);
         let inventor=tail.inventor.as_ref().unwrap();
         assert!(crate::inventor::safe(&inventor.approach));
-        assert!(inventor.escape.success);
+        assert!(inventor.escape.as_ref().unwrap().success);
         for id in &inventor.scope.world_after.party {
             assert!(inventor.scope.world_after.character_progression[id].jobs.equipped_support.contains(crate::gravell_setup::STEP_AHEAD));
             assert_eq!(inventor.scope.world_after.character_progression[id].jobs.secondary_job,inventor.bomb.world_after.character_progression[id].jobs.secondary_job);
@@ -383,17 +386,17 @@ mod tests {
         assert!(inventor.scope.world_after.inventor_abilities.contains("ABI_SET_INV_030"));
         assert!(inventor.scope.world_after.inventor_abilities.contains("ABI_SET_INV_040"));
         assert!(inventor.scope.world_after.flag(2410)&&inventor.scope.world_after.flag(2411));
-        assert_eq!(inventor.clockbank.arrival,inventor.southern_clockbank.after);
-        assert_eq!(inventor.partitio_story.arrival,inventor.clockbank.after);
-        assert_eq!(inventor.partitio_story.world_after.map,"Twn_Cty_2_1_A");
-        assert!(inventor.partitio_story.world_after.active_scenarios.contains(&401));
-        assert!(inventor.partitio_story.world_after.flag(6076));
-        assert_eq!(inventor.partitio_story.world_after.main_progress_points,inventor.scope.world_after.main_progress_points);
-        assert_eq!(inventor.western_clockbank.arrival,inventor.scope.after);
-        assert_eq!(inventor.southern_clockbank.arrival,inventor.western_clockbank.after);
-        assert_eq!(inventor.western_clockbank.world_after.map,"Fld_Cty_1_4");
-        assert_eq!(inventor.southern_clockbank.world_after.map,"Fld_Cty_2_1");
-        assert_eq!(serde_json::to_value(&inventor.southern_clockbank.world_after.character_progression).unwrap(),serde_json::to_value(&inventor.scope.world_after.character_progression).unwrap());
+        assert_eq!(inventor.clockbank.as_ref().unwrap().arrival,inventor.southern_clockbank.as_ref().unwrap().after);
+        assert_eq!(inventor.partitio_story.as_ref().unwrap().arrival,inventor.clockbank.as_ref().unwrap().after);
+        assert_eq!(inventor.partitio_story.as_ref().unwrap().world_after.map,"Twn_Cty_2_1_A");
+        assert!(inventor.partitio_story.as_ref().unwrap().world_after.active_scenarios.contains(&401));
+        assert!(inventor.partitio_story.as_ref().unwrap().world_after.flag(6076));
+        assert_eq!(inventor.partitio_story.as_ref().unwrap().world_after.main_progress_points,inventor.scope.world_after.main_progress_points);
+        assert_eq!(inventor.western_clockbank.as_ref().unwrap().arrival,inventor.scope.after);
+        assert_eq!(inventor.southern_clockbank.as_ref().unwrap().arrival,inventor.western_clockbank.as_ref().unwrap().after);
+        assert_eq!(inventor.western_clockbank.as_ref().unwrap().world_after.map,"Fld_Cty_1_4");
+        assert_eq!(inventor.southern_clockbank.as_ref().unwrap().world_after.map,"Fld_Cty_2_1");
+        assert_eq!(serde_json::to_value(&inventor.southern_clockbank.as_ref().unwrap().world_after.character_progression).unwrap(),serde_json::to_value(&inventor.scope.world_after.character_progression).unwrap());
         let gondolas:Vec<_>=voyage.canalbrine.trace.iter().filter(|r|r.reason=="Gondola initial bobbing time").collect();
         assert_eq!(gondolas.len(),6);
         assert_eq!(gondolas.iter().filter(|r|r.subject.contains("NoPaddle")).count(),3);

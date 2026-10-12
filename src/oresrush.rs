@@ -64,6 +64,25 @@ mod tests {
         Entry {arrival:crate::CrtRng::new(7),after:crate::CrtRng::new(7),world_after:w,trace:vec![],decisions:vec![]}
     }
     #[test]
+    fn galdera_night_departures_switch_to_day_after_the_wilds_load() {
+        let mut entry=start();entry.world_after.galdera_route=true;
+        let reach=crate::winter_voyage::oresrush_reach(&entry.world_after).unwrap().unwrap();
+        let mut cache=PrefixCache::new(&entry,&reach).unwrap();
+        for (before,after) in [(1,0),(0,1),(2,1),(0,3)] {
+            let p=cache.predict(before,after).unwrap();
+            assert_eq!(p.southern_return.world_after.time,4);
+            let day=p.southern_day_switch.as_ref().unwrap();
+            assert_eq!(day.world_after.time,2);assert_eq!(day.arrival,p.southern_return.after);
+            assert_eq!(day.world_after.encounter_counter,p.southern_return.world_after.encounter_counter);
+            let mut replay=Loader::new(world::catalog(),p.southern_return.world_after.clone(),p.southern_return.after).unwrap();
+            replay.manual_time_switch(2,"test required field day switch").unwrap();
+            assert_eq!(replay.rng,day.after);
+            if let Some(ryu)=&p.ryu {assert_eq!(ryu.northern_entry.arrival,day.after);}
+            assert_eq!(serde_json::to_value(&p).unwrap(),serde_json::to_value(predict_with_switches(&entry,&reach,before,after).unwrap()).unwrap());
+        }
+        assert!(cache.predict(1,1).unwrap().southern_day_switch.is_none());
+    }
+    #[test]
     fn switches_bracket_partitio_after_mother_start_and_finish_daytime() {
         let entry=start();let reach=crate::winter_voyage::oresrush_reach(&entry.world_after).unwrap().unwrap();
         let mut cache=PrefixCache::new(&entry,&reach).unwrap();
@@ -122,6 +141,8 @@ mod tests {
 }
 #[derive(Debug,Serialize)]
 pub struct Prediction {
+    #[serde(skip_serializing_if="Option::is_none")]
+    pub southern_day_switch:Option<Entry>,
     pub southern_entry:Entry,
     pub town_reach:RunningReach,
     pub town_entry:Entry,
@@ -187,7 +208,7 @@ pub fn new(entry:&Entry,reach:&CropdaleReach)->Result<Self> {
     Ok(Self {southern_entry,town_reach,town_entry,mother_route,recruited:Default::default()})
 }
 pub fn predict(&mut self,before:u32,after:u32)->Result<Prediction> {
-    ensure(before%2==after%2,"Oresrush time switches must finish by day")?;
+    ensure(self.mother_route.world_after.galdera_route || before%2==after%2,"Oresrush time switches must finish by day")?;
     if !self.recruited.contains_key(&before) {
         let mut l=Loader::new(world::catalog(),self.mother_route.world_after.clone(),self.mother_route.after)?;
     let switches_before_partitio=switches(&mut l,before,"Oresrush: time switch before Partitio")?;
@@ -210,9 +231,14 @@ pub fn predict(&mut self,before:u32,after:u32)->Result<Prediction> {
     let departure=l.rng;
     l.visit_map(SOUTHERN)?;
     let southern_return=checkpoint(&mut l,departure,"Southern Oresrush Wilds: returned from Oresrush with Partitio");
-    let ryu_reach=ryu_reach(&southern_return.world_after)?;
-    let ryu=ryu_reach.as_ref().map(|reach|crate::ryu::predict(&southern_return,reach).map(Box::new)).transpose()?;
-    Ok(Prediction {southern_entry,town_reach,town_entry,mother_route,switches_before_partitio,switches_after_partitio,recruitment,southern_return,ryu_reach,ryu,
+    let southern_day_switch=if l.state.galdera_route && l.state.time==4 {
+        l.manual_time_switch(2,"Southern Oresrush Wilds: switch to day immediately after loading")?;
+        Some(checkpoint(&mut l,southern_return.after,"Southern Oresrush Wilds: daytime restored before movement"))
+    } else {None};
+    let field=southern_day_switch.as_ref().unwrap_or(&southern_return);
+    let ryu_reach=ryu_reach(&field.world_after)?;
+    let ryu=ryu_reach.as_ref().map(|reach|crate::ryu::predict(field,reach).map(Box::new)).transpose()?;
+    Ok(Prediction {southern_day_switch,southern_entry,town_reach,town_entry,mother_route,switches_before_partitio,switches_after_partitio,recruitment,southern_return,ryu_reach,ryu,
         verification:"Source-derived shared map loading, Mother Chapter 2 acceptance and Partitio skip-Chapter-1 recruitment. Southern Wilds -> Oresrush uses the measured 75 running updates; no walking measurement assumed. Mother arrival acceptance matches the seven-draw retail capture of 2026-10-09; remaining route callbacks are source-derived."})
 }
 

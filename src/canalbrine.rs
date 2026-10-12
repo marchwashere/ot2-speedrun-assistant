@@ -133,11 +133,12 @@ fn checkpoint(l:&mut Loader<'_>,arrival:crate::CrtRng,reason:&str)->Entry {
 }
 pub fn predict(entry:&Entry)->Result<Prediction> {
     ensure(entry.world_after.map==crate::ryu::TOWN && entry.world_after.time==2
-        && entry.world_after.party==[7,1,8,4] && entry.world_after.bench==[6],
-        "Canalbrine Bridge continuation requires daytime Ryu after Hikari's party replacement")?;
+        && ((entry.world_after.galdera_route && entry.world_after.party==[7,6,8,4] && entry.world_after.bench.is_empty())
+            || (!entry.world_after.galdera_route && entry.world_after.party==[7,1,8,4] && entry.world_after.bench==[6])),
+        "Canalbrine Bridge continuation requires daytime Ryu with the selected route party")?;
     ensure(entry.world_after.evasive_maneuvers &&
-        entry.world_after.character_progression[&7].jobs.secondary_job==Some(crate::scholar::JOB),
-        "Canalbrine Bridge continuation follows Throné's Scholar/Evasive setup")?;
+        (entry.world_after.galdera_route || entry.world_after.character_progression[&7].jobs.secondary_job==Some(crate::scholar::JOB)),
+        "Canalbrine Bridge continuation requires the selected route's Evasive Maneuvers setup")?;
     let mut l=Loader::new(world::catalog(),entry.world_after.clone(),entry.after)?;
     // User specifies these legs are encounterless. Movement therefore adds no
     // CRT calls. No distance, safe running share or pre-exit counter is inferred.

@@ -85,6 +85,7 @@ fn simulate_with_plan(seed: u32, plan: BoostPlan) -> Result<Value, SimError> {
         Default::default(),
         None,
         Default::default(),
+        false,
         RouteEnd::Full,
         Default::default(),
     )
@@ -100,6 +101,7 @@ fn simulate_route(
     highroad_settings: ot2_speedrun_assistant::highroad::Settings,
     pirro_r8_plan: Option<Vec<u8>>,
     flats_escape_settings: ot2_speedrun_assistant::flats_escape::Settings,
+    galdera_route: bool,
     route_end: RouteEnd,
     early_settings: ot2_speedrun_assistant::early_cait::Settings,
 ) -> Result<Value, SimError> {
@@ -207,7 +209,8 @@ fn simulate_route(
                                                     match ot2_speedrun_assistant::flats::after_highroad(field) {
                                                         Ok(p) => {
                                                             harbor_return = match ot2_speedrun_assistant::harbor::after_flats(&p) {
-                                                                Ok(p) => p.map(|p| {
+                                                                Ok(p) => p.map(|mut p| {
+                                                                    p.world_after.galdera_route=galdera_route;
                                                                     let selected = if route_end == RouteEnd::FirstVillage {
                                                                         ot2_speedrun_assistant::flats_escape::mandatory_break_route(p.after,&p.world_after,prediction.level,flats_escape_settings,true)
                                                                     } else if route_end == RouteEnd::OsvaldCait {
@@ -292,6 +295,7 @@ fn simulate_route(
 
 #[derive(Clone)]
 struct CrtSetup {
+    galdera_route: bool,
     route_end: RouteEnd,
     early_settings: ot2_speedrun_assistant::early_cait::Settings,
     crackridge_approach_max_boost_repeats: Option<u32>,
@@ -368,6 +372,7 @@ impl CrtSetup {
         let mut flats_osvald_max_boost_repeats = None;
         let mut mug_clerics_max_boost_repeats = None;
         let mut crackridge_approach_max_boost_repeats = None;
+        let mut galdera_route = None;
         let mut route_end = None;
         let mut early_clerics = None;
         let mut early_cait = None;
@@ -377,6 +382,10 @@ impl CrtSetup {
                 .split_once('=')
                 .ok_or_else(|| SimError("Invalid CRT setup.".into()))?;
             match key {
+                "route" if galdera_route.is_none() => galdera_route=Some(match value {
+                    "any_hikari"=>false, "galdera"=>true,
+                    _=>return Err(SimError("Unknown manipulation route".into())),
+                }),
                 "route_end" if route_end.is_none() => {
                     route_end = Some(match value {
                         "full"=>RouteEnd::Full, "first_village"=>RouteEnd::FirstVillage,
@@ -587,6 +596,7 @@ impl CrtSetup {
             },
             pirro_r8_plan: pirro_r8_boost_inputs,
             mug_clerics_max_boost_repeats: mug_clerics_max_boost_repeats.unwrap_or(None),
+            galdera_route: galdera_route.unwrap_or(false),
             route_end: route_end.unwrap_or(RouteEnd::Full),
             early_settings: ot2_speedrun_assistant::early_cait::Settings {
                 clerics_max_boost_repeats: early_clerics.unwrap_or(None),
@@ -663,6 +673,7 @@ impl CrtSetup {
             "flats_snow_max_boost_repeats":self.flats_escape_settings.snow_max_boost_repeats,
             "flats_osvald_max_boost_repeats":self.flats_escape_settings.osvald_max_boost_repeats,
             "mug_clerics_max_boost_repeats":self.mug_clerics_max_boost_repeats,
+            "route":if self.galdera_route {"galdera"} else {"any_hikari"},
             "route_end":self.route_end,
             "early_clerics_max_boost_repeats":self.early_settings.clerics_max_boost_repeats,
             "early_cait_max_boost_repeats":self.early_settings.cait_max_boost_repeats,
@@ -791,7 +802,7 @@ impl CrtSetup {
             .filter_map(|(id, label, _)| {
                 let met = match id.as_str() {
                     "canalbrine_approach"=>!canalbrine_routes.is_empty() && canalbrine_routes.iter().all(|r|
-                        r["hikari"]["battle"]["outcome"]=="victory"
+                        (self.galdera_route || r["hikari"]["battle"]["outcome"]=="victory")
                             && safe(&r["canalbrine"]["water"]["encounter"]["situation"])),
                     "canalbrine_escape"=>!canalbrine_routes.is_empty() && canalbrine_routes.iter().all(|r|
                         r["canalbrine"]["water"]["escape"]["attempt"]["success"]==true
@@ -930,6 +941,7 @@ impl CrtSetup {
             execution.highroad_settings,
             self.pirro_r8_plan.clone(),
             execution.flats_escape_settings,
+            self.galdera_route,
             self.route_end,
             execution.early_settings,
         )?;
@@ -1205,10 +1217,11 @@ fn route_with_origin(request: &str, address: &str, public_origin: Option<&str>) 
             }
         }
         ("GET", path) if (path.starts_with("/api/identified-route?") || path.starts_with("/api/identify-observed?")) => {
-            let mut voices=None;let mut pirro_first=None;let mut hp=None;let mut valid=true;
+            let mut voices=None;let mut pirro_first=None;let mut hp=None;let mut route=None;let mut valid=true;
             for pair in path.split_once('?').unwrap().1.split('&') {
                 match pair.split_once('=') {
                     Some(("voices",v)) if voices.is_none()=>voices=Some(v),
+                    Some(("route",v)) if route.is_none()=>match v {"any_hikari"=>route=Some(false),"galdera"=>route=Some(true),_=>valid=false},
                     Some(("hp",v)) if hp.is_none()=>match v.parse::<u32>() {Ok(n) if (1..=261).contains(&n)=>hp=Some(n),_=>valid=false},
                     Some(("r3_first",v)) if pirro_first.is_none()=>match v {"throne"=>pirro_first=Some(false),"pirro"=>pirro_first=Some(true),_=>valid=false},
                     _=>valid=false,
@@ -1217,7 +1230,7 @@ fn route_with_origin(request: &str, address: &str, public_origin: Option<&str>) 
             if !valid || voices.is_none() || pirro_first.is_none() || hp.is_none() {Response::error(400,"Round-3 first actor, current HP (1–261), and voice transcript are required")}
             else {match if path.starts_with("/api/identify-observed?") {
                 ot2_speedrun_assistant::voice_identification::identify_observed(voices.unwrap(),Some((pirro_first.unwrap(),hp.unwrap())))
-            } else {ot2_speedrun_assistant::identified_route::simulate(voices.unwrap(),pirro_first.unwrap(),hp.unwrap())} {
+            } else {ot2_speedrun_assistant::identified_route::simulate_route(voices.unwrap(),pirro_first.unwrap(),hp.unwrap(),route.unwrap_or(false))} {
                 Ok(v)=>Response::json(200,v),Err(e)=>Response::error(422,&e.to_string())
             }}
         }
@@ -1408,6 +1421,18 @@ fn main() {
 
 #[cfg(test)]
 mod tests {
+    #[test]
+    fn manipulation_route_selection_round_trips_and_rejects_unknown_routes() {
+        let query="seed=123&advances=0&recreate_shared_level=false&route_end=osvald_encounter";
+        let hikari=super::CrtSetup::parse(query).unwrap();
+        assert!(!hikari.galdera_route);
+        assert_eq!(hikari.json()["route"],"any_hikari");
+        let galdera=super::CrtSetup::parse(&format!("{query}&route=galdera")).unwrap();
+        assert!(galdera.galdera_route);
+        assert_eq!(galdera.json()["route"],"galdera");
+        assert!(super::CrtSetup::parse(&format!("{query}&route=invalid")).is_err());
+        assert!(super::CrtSetup::parse(&format!("{query}&route=galdera&route=any_hikari")).is_err());
+    }
     #[test]
     fn identified_route_requires_both_order_and_hp() {
         let address="127.0.0.1:54345";

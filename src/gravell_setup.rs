@@ -53,14 +53,15 @@ fn learn(w:&mut WorldState,id:u32,job:u32,abilities:&[&str])->Result<()> {
 }
 pub fn apply(l:&mut Loader<'_>)->Result<()> {
  let before=l.rng;let counter=l.state.encounter_counter;
- ensure(l.state.party==[7,1,8,4],"Unexpected Gravell party")?;
+ let merchant=if l.state.galdera_route {6} else {1};
+ ensure(l.state.party==[7,merchant,8,4],"Unexpected Gravell party")?;
  assign(&mut l.state,7,Some(11))?;
- assign(&mut l.state,1,Some(0))?;
- learn(&mut l.state,1,0,&["ABI_SET_MER_050","ABI_SET_MER_070"])?;
+ assign(&mut l.state,merchant,Some(0))?;
+ learn(&mut l.state,merchant,0,&["ABI_SET_MER_050","ABI_SET_MER_070"])?;
  learn(&mut l.state,8,5,&["ABI_SET_DAN_060","ABI_SET_DAN_070"])?;
  learn(&mut l.state,4,0,&["ABI_SET_MER_070","ABI_SET_MER_050"])?;
  l.state.refresh_support_skills();
- l.boundary(format!("Gravell setup: Throné -> Inventor; Hikari Merchant; learned Donate BP/Hired Help, Stimulate/Bewildering Grace, Partitio Hired Help/Donate BP"));
+ l.boundary(format!("Gravell setup: Throné -> Inventor; {} Merchant; learned Donate BP/Hired Help, Stimulate/Bewildering Grace, Partitio Hired Help/Donate BP",if merchant==6 {"Osvald"} else {"Hikari"}));
  ensure(l.rng==before&&l.state.encounter_counter==counter,"Job menu setup changed field RNG/counter")
 }
 
@@ -85,4 +86,42 @@ pub fn equip_step_ahead(l:&mut Loader<'_>)->Result<()> {
  l.state.refresh_support_skills();
  l.boundary("Inventor crafting complete: equip A Step Ahead on every active character");
  ensure(l.rng==before&&l.state.encounter_counter==counter,"Support setup changed RNG/counter")
+}
+
+#[cfg(test)]
+mod tests {
+ use super::*;
+ #[test]
+ fn galdera_gives_osvald_merchant_and_step_ahead_preserving_native_scholar() {
+  let fixture:serde_json::Value=serde_json::from_str(include_str!("../data/source/gravell-complete-route-fixture.json")).unwrap();
+  let mut w:WorldState=serde_json::from_value(fixture["before"]["world_after"].clone()).unwrap();
+  // The original fixture benches Osvald: supply the active Merchant's later
+  // JP for this setup test, rather than treating the benched ledger as active.
+  let later_jp=w.character_progression[&1].jp_earned;
+  let osvald=w.character_progression.get_mut(&6).unwrap();
+  osvald.jp_earned+=later_jp;
+  osvald.jobs.learned_abilities.insert(6,["ABI_SET_SCH_010","ABI_SET_SCH_020","ABI_SET_SCH_030","ABI_SET_SCH_060"].into_iter().map(str::to_owned).collect());
+  w.galdera_route=true;
+  w.party=vec![7,6,8,4];w.bench.retain(|&id|id!=6);
+  w.character_progression.remove(&1);
+  w.character_progression.get_mut(&7).unwrap().jobs.secondary_job=None;
+  w.job_licenses.insert(0,1);
+  let scholar=w.character_progression[&6].jobs.learned_abilities.clone();
+  let osvald_spent=w.character_progression[&6].jp_spent;
+  let rng=crate::CrtRng::new(9876);let counter=w.encounter_counter;
+  let mut l=Loader::new(crate::world::catalog(),w,rng).unwrap();
+  equip_step_ahead(&mut l).unwrap();
+  apply(&mut l).unwrap();
+  let p=&l.state.character_progression[&6];
+  assert_eq!(p.jobs.secondary_job,Some(0));
+  assert!(p.jobs.learned_abilities[&0].contains("ABI_SET_MER_050"));
+  assert!(p.jobs.learned_abilities[&0].contains("ABI_SET_MER_070"));
+  assert_eq!(p.jobs.learned_abilities.get(&6),scholar.get(&6));
+  assert_eq!(p.jp_spent,osvald_spent+130);
+  assert!(p.jobs.equipped_support.contains(STEP_AHEAD));
+  assert!(p.jobs.equipped_support.contains(crate::scholar::EVASIVE));
+  assert!(!p.jobs.equipped_support.contains(MONEY_UP));
+  assert_eq!(l.state.party,[7,6,8,4]);
+  assert_eq!(l.rng,rng);assert_eq!(l.state.encounter_counter,counter);
+ }
 }

@@ -45,7 +45,7 @@ pub fn predict(southern:&Entry,reach:&CropdaleReach)->Result<Prediction> {
     let town_entry=if let Some(reach)=&town_reach {
         l.state.encounter_counter=reach.estimated_counter_at_exit;
         l.visit_map(TOWN)?;
-        l.boundary("Ryu: field control after loading; before Hikari recruitment");
+        l.boundary(if l.state.galdera_route {"Ryu: field control after loading; Osvald retained"} else {"Ryu: field control after loading; before Hikari recruitment"});
         Some(Entry {arrival:northern_entry.after,after:l.rng,world_after:l.state,
             trace:l.trace,decisions:l.decisions})
     } else {None};
@@ -58,13 +58,16 @@ pub fn predict(southern:&Entry,reach:&CropdaleReach)->Result<Prediction> {
 /// never on rejected movement trials. Earlier inputs and states are unchanged.
 pub fn recruit(prediction:&mut Prediction)->Result<()> {
     let town=prediction.town_entry.as_ref().ok_or_else(||crate::SimError("Hikari recruit needs a safe Ryu arrival".into()))?;
-    ensure(prediction.hikari.is_none(),"Hikari recruitment was already appended")?;
+    ensure(prediction.canalbrine.is_none(),"Hikari recruitment was already appended")?;
     let selected=crate::hikari_manipulation::predict(town)?;
-    prediction.hikari=Some(selected.hikari);
-    prediction.throne_scholar=Some(selected.scholar);
+    prediction.hikari=selected.hikari;
+    prediction.throne_scholar=selected.scholar;
     prediction.canalbrine=Some(selected.canalbrine);
     prediction.hikari_search=Some(selected.search);
     prediction.verification="Source-derived shared map loads, Hikari recruitment, Throné's Scholar assignment and Canalbrine Bridge water Escape with carried party, EXP/JP, skills, supports and gear. Northern Ryu Sands -> Ryu uses measured143 walking /137 running updates plus3 leeway, reserving1 counter point and rounding the mixed run share down to0.1%. Lightning Bolt and Elemental Barrage cost130 JP; equipping Evasive restores the party effect without CRT draws or counter reset. Hikari's second menu and the first water Escape menu minimize combined boost inputs while requiring no surprise and first Escape success. Recruit fight and final endpoint await retail validation.";
+    if town.world_after.galdera_route {
+        prediction.verification="Galdera route keeps Osvald in the party; no Hikari battle, Throné Scholar assignment, skill purchases or support equip. Canalbrine water manipulation uses the carried party and actual progression.";
+    }
     Ok(())
 }
 

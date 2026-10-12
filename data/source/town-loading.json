@@ -915,6 +915,34 @@
       "sha256": "8f647147167b3579ca87e9cf3067964981dddb828ee361dcaa7f370e5cb0c0c0"
     },
     {
+      "source": "/Game/Level/Level/Wilderness/Twn_Wld_3_1_A.umap",
+      "sha256": "24fd682b161fd3dcd3940b9238c14d7503d01baf563fccab77368315f966163b"
+    },
+    {
+      "source": "/Game/Level/Level/Wilderness/Twn_Wld_3_1_A_Art.umap",
+      "sha256": "3fa02f591df9db3e704b1ca325458df4aa71312c373992ddd318e21a28fc6edc"
+    },
+    {
+      "source": "/Game/Level/Level/Wilderness/Twn_Wld_3_1_A_Coll.umap",
+      "sha256": "35a9d762400307502412c2c6f3ef9ac39ad7d5ce6d2f73b638efe8f6f97e4ddf"
+    },
+    {
+      "source": "/Game/Level/Level/Wilderness/Twn_Wld_3_1_A_GD.umap",
+      "sha256": "9e180639f12618062fa4d0d0e94692d5474b51c239dda525fa2cf36dcc974ce3"
+    },
+    {
+      "source": "/Game/Level/Level/Wilderness/Twn_Wld_3_1_A_Sound.umap",
+      "sha256": "c435bed39a25747531b6bdab29a9e4ba6c8f231b7f616d43247780f72dfa7388"
+    },
+    {
+      "source": "/Game/Level/Level/Wilderness/Btl_Twn_Wld_C.umap",
+      "sha256": "9e43ba902242d254e2cff37859f18a4d338956582ef8626b07ed9d890684b1f6"
+    },
+    {
+      "source": "/Game/Level/Level/Wilderness/Twn_Wld_3_1_A.uexp",
+      "sha256": "3c449e038bec97fa958e525bd2a37c6c27972a632c2f11ddb97780341891ae69"
+    },
+    {
       "source": "/Game/Level/Level/Sea/Fld_Sea_1_2.umap",
       "sha256": "8b6b5fe0787decd0d8fd8113b0df22a86e29b9e1f2effcb3904626688f557a5f"
     },
