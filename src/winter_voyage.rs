@@ -172,7 +172,7 @@ fn escape_to_southern_range(trail:Entry,encounter:encounter::Prediction,battle_e
             if finish && !galdera_route {crate::ryu::recruit(oresrush.ryu.as_mut().unwrap())?;}
             return Ok(Some(CropdaleExit {trail,encounter,battle_entry,escape,field_return,southern,
                 oresrush_reach:Some(oresrush_reach),oresrush:Some(oresrush),
-                verification:if galdera_route {"Source-derived Galdera continuation through Cropdale, Oresrush and Ryu; recruits Hikari onto the bench, retains Osvald and skips Throné Scholar setup. Carried party progression, movement safety and encounter outcomes are replayed. Awaiting retail validation."} else {"Source-derived three-character first-menu Escape and shared subsequent loads/events. Search secures walking-safe Southern Cropdale -> Southern Oresrush, Southern Oresrush return -> Northern Ryu Sands and Northern Ryu Sands -> Ryu legs. User assumes exactly one encounter on the unmeasured Eastern return leg. Appends Hikari's supplied recruit battle and skip-Chapter-1 Osvald replacement after selecting the movement candidate. Awaiting retail validation"}}));
+                verification:if galdera_route {"Source-derived Galdera continuation through Cropdale, Oresrush and Ryu; skips Hikari recruitment, retains Osvald and skips Throné Scholar setup. Carried party progression, movement safety and encounter outcomes are replayed. Awaiting retail validation."} else {"Source-derived three-character first-menu Escape and shared subsequent loads/events. Search secures walking-safe Southern Cropdale -> Southern Oresrush, Southern Oresrush return -> Northern Ryu Sands and Northern Ryu Sands -> Ryu legs. User assumes exactly one encounter on the unmeasured Eastern return leg. Appends Hikari's supplied recruit battle and skip-Chapter-1 Osvald replacement after selecting the movement candidate. Awaiting retail validation"}}));
         }
     }
     Ok(None)
@@ -400,11 +400,11 @@ mod tests {
             assert!(r.hikari.is_none() && r.throne_scholar.is_none() && r.canalbrine.is_none());
             assert_eq!(r.town_entry.as_ref().unwrap().world_after.party,[7,6,8,4]);
             let Some(o)=finish_oresrush(o,Some(64)).unwrap() else {continue;};
-            let r=o.ryu.unwrap();assert!(r.hikari.is_some() && r.throne_scholar.is_none());
+            let r=o.ryu.unwrap();assert!(r.hikari.is_none() && r.throne_scholar.is_none());
             let water=r.canalbrine.unwrap().water.unwrap();
             assert!(matches!(water.encounter.situation.as_deref(),Some("Normal"|"Preemptive")));
             assert_eq!(water.field_return.world_after.party,[7,6,8,4]);
-            assert_eq!(water.field_return.world_after.bench,[1]);
+            assert!(water.field_return.world_after.bench.is_empty());
             return;
         }
         panic!("No safe Galdera continuation in fixture range");

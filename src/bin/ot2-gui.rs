@@ -802,7 +802,7 @@ impl CrtSetup {
             .filter_map(|(id, label, _)| {
                 let met = match id.as_str() {
                     "canalbrine_approach"=>!canalbrine_routes.is_empty() && canalbrine_routes.iter().all(|r|
-                        r["hikari"]["battle"]["outcome"]=="victory"
+                        (self.galdera_route || r["hikari"]["battle"]["outcome"]=="victory")
                             && safe(&r["canalbrine"]["water"]["encounter"]["situation"])),
                     "canalbrine_escape"=>!canalbrine_routes.is_empty() && canalbrine_routes.iter().all(|r|
                         r["canalbrine"]["water"]["escape"]["attempt"]["success"]==true

@@ -1,14 +1,13 @@
 # OT2SpeedrunAssistant
 
 The manipulation tabs share the same controls and prediction flow. **Any% Hikari**
-preserves the original route. **Galdera** fights and recruits Hikari, retaining
-him on the bench and Osvald in the party. It skips Throné's Scholar skills/support
+preserves the original route. **Galdera** skips Hikari's recruitment fight and
+retains Osvald in the party. It skips Throné's Scholar skills/support
 setup and gives Osvald Hikari's later
 Merchant setup (Donate BP and Hired Help). Osvald keeps his native Scholar skills
 and Evasive Maneuvers, and receives A Step Ahead with the active party. The Chubby
 Cait battle uses Osvald and Partitio as the two Merchants.
-Hikari's recruitment fight supplies two guaranteed regular Fire Soulstones;
-one is retained for Elemental Bomb Bottle. No Fire Soulstone purchase is needed.
+Purchase a regular Fire Soulstone before crafting Elemental Bomb Bottle.
 Galdera leaves Agnea Chapter 2 inactive during the New Delsta visit and declines
 Throné Chapter 2 Mother's route on arrival in Oresrush.
 During chapter 1, steal the Antique Coin and sell it to fund one extra Shadow

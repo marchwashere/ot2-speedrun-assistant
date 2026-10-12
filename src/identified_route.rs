@@ -116,18 +116,19 @@ pub fn simulate_route(voices:&str,pirro_first:bool,hp:u32,galdera_route:bool)->R
     use super::*;
     #[test]
     #[ignore = "Full live-transcript Galdera route replay"]
-    fn galdera_recruited_hikari_bench_survives_full_route() {
+    fn galdera_skips_hikari_and_replays_full_route() {
         let result=simulate_route("SNNNNSSSSSNSNSSSSNNNSNSSNNSNS",true,154,true).unwrap();
         fn find_ryu(v:&serde_json::Value)->Option<&serde_json::Value> {
-            if v["town_entry"].is_object() && v["hikari"]["battle"].is_object() {return Some(v);}
+            if v["town_entry"].is_object() && v["canalbrine"]["water"].is_object() {return Some(v);}
             v.as_object()?.values().find_map(find_ryu)
         }
-        let r=find_ryu(&result).expect("Ryu recruitment");
-        assert_eq!(r["hikari"]["battle"]["drops"]["ITM_CSM_0290"],2);
-        assert_eq!(r["hikari"]["recruitment"]["world_after"]["party"],serde_json::json!([7,6,8,4]));
-        assert_eq!(r["hikari"]["recruitment"]["world_after"]["bench"],serde_json::json!([1]));
+        let r=find_ryu(&result).expect("Ryu continuation");
+        assert!(r["hikari"].is_null());
+        assert_eq!(r["canalbrine"]["water"]["field_return"]["world_after"]["party"],serde_json::json!([7,6,8,4]));
+        assert_eq!(r["canalbrine"]["water"]["field_return"]["world_after"]["bench"],serde_json::json!([]));
         assert!(r["throne_scholar"].is_null());
-        let recruited:WorldState=serde_json::from_value(r["hikari"]["recruitment"]["world_after"].clone()).unwrap();
+        let recruited:WorldState=serde_json::from_value(r["town_entry"]["world_after"].clone()).unwrap();
+        assert!(!recruited.completed_scenarios.contains(&100));
         assert!(!recruited.flag(8050));
         assert!(!recruited.active_scenarios.contains(&701));
         assert!(!recruited.confirmed_scenarios.contains(&701));
@@ -139,8 +140,8 @@ pub fn simulate_route(voices:&str,pirro_first:bool,hp:u32,galdera_route:bool)->R
         assert_eq!(g["fight"]["evaluation"]["result"],"accepted");
         assert_eq!(g["field_return"]["world_after"]["party"],serde_json::json!([7,6,8,4]));
         let bench=g["field_return"]["world_after"]["bench"].as_array().unwrap();
-        assert!(bench.contains(&serde_json::json!(1))&&bench.contains(&serde_json::json!(3)));
-        println!("{}",serde_json::json!({"fire_drops":r["hikari"]["battle"]["drops"],"bench":bench,"exp100_evaluation":g["fight"]["evaluation"],"new_delsta_switches":inventor["new_delsta_adjustment"]["switches"]}));
+        assert!(!bench.contains(&serde_json::json!(1))&&bench.contains(&serde_json::json!(3)));
+        println!("{}",serde_json::json!({"bench":bench,"exp100_evaluation":g["fight"]["evaluation"],"new_delsta_switches":inventor["new_delsta_adjustment"]["switches"]}));
         if let Ok(path)=std::env::var("OT2_GALDERA_REPLAY_OUTPUT") {std::fs::write(path,serde_json::to_string_pretty(&result).unwrap()).unwrap();}
     }
     #[test] fn round_three_order_distinguishes_sampled_prefixes_without_hp() {

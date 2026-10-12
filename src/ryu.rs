@@ -66,7 +66,7 @@ pub fn recruit(prediction:&mut Prediction)->Result<()> {
     prediction.hikari_search=Some(selected.search);
     prediction.verification="Source-derived shared map loads, Hikari recruitment, Throné's Scholar assignment and Canalbrine Bridge water Escape with carried party, EXP/JP, skills, supports and gear. Northern Ryu Sands -> Ryu uses measured143 walking /137 running updates plus3 leeway, reserving1 counter point and rounding the mixed run share down to0.1%. Lightning Bolt and Elemental Barrage cost130 JP; equipping Evasive restores the party effect without CRT draws or counter reset. Hikari's second menu and the first water Escape menu minimize combined boost inputs while requiring no surprise and first Escape success. Recruit fight and final endpoint await retail validation.";
     if town.world_after.galdera_route {
-        prediction.verification="Galdera recruits Hikari onto the bench, retains Osvald in the party, and skips Throné Scholar assignment, skill purchases and support equip. Canalbrine water manipulation uses the carried party and actual progression.";
+        prediction.verification="Galdera skips Hikari recruitment and retains Osvald in the party, and skips Throné Scholar assignment, skill purchases and support equip. Canalbrine water manipulation uses the carried party and actual progression.";
     }
     Ok(())
 }
