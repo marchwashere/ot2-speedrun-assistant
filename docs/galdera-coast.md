@@ -1,5 +1,13 @@
 # Galdera: Chubby victory to Eastern Sai Sands
 
+Corrected active sequence: Eastern Sai Sands entry -> one Eastern encounter and
+100% Escape -> Southern Sai Sands entry -> one Southern encounter and 100%
+Escape -> Sai main town. Both openings must be Normal or Preemptive. The Eastern
+battle's weakness reveals, Escape draw and field-reset callbacks feed the actual
+Southern map load. Both fights appear as separate manipulation cards. Galdera
+always discards MapInStorySelect prompts, including Sai, even if a caller passes
+an explicit chapter choice; Any% retains its original chapter selections.
+
 The continuation now also loads Southern Sai Sands (`Fld_Dst_2_3`) and predicts
 its planned first encounter. The same finisher/Conning timing candidates must
 satisfy both coast traversal safety and a Normal or Preemptive Southern opening.

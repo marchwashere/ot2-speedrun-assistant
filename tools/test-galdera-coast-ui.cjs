@@ -34,3 +34,11 @@ assert.match($('southern-sai-routine').innerHTML,/T1 · Agnea · 1st command men
 assert.match($('southern-sai-routine').innerHTML,/Escape \(100%\)/);
 assert(context.conningStages.some(([label])=>label==='Southern Sai Sands · escaped, field restored'));
 console.log('PASS: Southern Sai actual actor, guaranteed Escape and field-return checkpoints');
+coast.eastern_sai_encounter={...coast.southern_sai,menu:{first_actor:0,rng:entry.after}};
+coast.sai=entry;context.conningStages=[];
+vm.runInNewContext(source.slice(start,end),context);
+assert.equal($('eastern-sai-result').hidden,false);
+assert.match($('eastern-sai-routine').innerHTML,/T1 · Throné · 1st command menu/);
+assert.match($('eastern-sai-routine').innerHTML,/Escape \(100%\)/);
+assert(context.conningStages.some(([label])=>label==='Sai · loaded, chapter start discarded'));
+console.log('PASS: separate Eastern and Southern encounter cards, followed by Sai');

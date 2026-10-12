@@ -1,5 +1,12 @@
 # Active project
 
+- Corrected Sai leg: ONE Eastern Sai Sands encounter, Escape; load Southern Sai,
+  ONE encounter, Escape; enter Sai main town. Both openings must be Normal or
+  Preemptive, with native Escape100% at carried levels. Eastern escape/history
+  and field-reset RNG feed Southern loading (never skip this battle). Reject
+  all arrival chapter selections throughout Galdera via MapInStorySelect policy;
+  discard consumes no CRT and starts no chapter. Any% retains its old choices.
+
 - Extend the same Galdera coast search to require a Normal/Preemptive first
   encounter in Southern Sai Sands (Fld_Dst_2_3), after loading Eastern Sai.
   Initialize the actual carried party, A Step Ahead and weakness history;

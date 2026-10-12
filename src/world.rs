@@ -1241,7 +1241,7 @@ impl<'a> Loader<'a> {
                 }
                 7110 if name=="MapInStorySelect" => {
                     if !bootstrap {
-                        if let Some(selected)=choices.get(&(name.into(),c.index)) {
+                        if let Some(selected)=choices.get(&(name.into(),c.index)).filter(|_|!self.state.galdera_route) {
                             let story=self.data.story_starts.get(selected).ok_or_else(||SimError(format!("Unaudited arrival story {selected}")))?;
                             ensure(story.release_flags.iter().all(|&flag|flag==0||self.state.flag(flag)),"Arrival chapter is not released")?;
                             ensure(!self.state.completed_scenarios.contains(&story.scenario),"Arrival chapter is already complete")?;
@@ -1655,6 +1655,13 @@ mod tests {
             CrtRng::new(0),
         )
         .unwrap()
+    }
+    #[test]
+    fn galdera_discards_arrival_chapter_choices_without_changing_rng_or_story() {
+        let mut l=loader();l.state.galdera_route=true;
+        let before=l.rng;let active=l.state.active_scenarios.clone();let confirmed=l.state.confirmed_scenarios.clone();
+        l.skipped_event_with_choices("MapInStorySelect",&EventChoices::from([(("MapInStorySelect".into(),1),"MS_ODO_01".into())])).unwrap();
+        assert_eq!(l.rng,before);assert_eq!(l.state.active_scenarios,active);assert_eq!(l.state.confirmed_scenarios,confirmed);
     }
 
     #[test]

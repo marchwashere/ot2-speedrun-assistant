@@ -626,6 +626,12 @@ mod gravell_integration_tests {
   assert!(g.town.world_after.visited_maps.contains("Twn_Wld_3_1_A"));
   assert_eq!(c.eastern_sai.world_after.map,"Fld_Dst_2_4");
   let s=&c.southern_sai;
+  assert_eq!(s.arrival.arrival,c.eastern_sai_encounter.field_return.after);
+  assert!(c.eastern_sai_encounter.escape.success);
+  assert_eq!(c.eastern_sai_encounter.escape.chance_percent,100);
+  assert_ne!(c.eastern_sai_encounter.encounter.situation.as_deref(),Some("Surprise"));
+  assert_eq!(c.sai.world_after.map,"Twn_Dst_2_1_A");
+  assert_eq!(c.sai.world_after.active_scenarios,s.field_return.world_after.active_scenarios);
   assert!(matches!(s.encounter.situation.as_deref(),Some("Normal"|"Preemptive")));
   assert_eq!(s.escape.chance_percent,100);assert!(s.escape.success);
   assert_eq!(s.menu.party_levels,s.arrival.world_after.party.iter().map(|id|s.arrival.world_after.character_progression[id].level).collect::<Vec<_>>());

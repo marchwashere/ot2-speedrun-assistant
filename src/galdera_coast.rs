@@ -17,7 +17,7 @@ pub struct Continuation {
     #[serde(skip_serializing_if="Option::is_none")] pub conning_night:Option<Entry>,
     pub coast_entry:Entry,
     #[serde(skip_serializing_if="Option::is_none")] pub coast_day:Option<Entry>,
-    pub movement:Movement,pub coast_exit:Entry,pub eastern_sai:Entry,pub southern_sai:SouthernSai,
+    pub movement:Movement,pub coast_exit:Entry,pub eastern_sai:Entry,pub eastern_sai_encounter:SouthernSai,pub southern_sai:SouthernSai,pub sai:Entry,
 }
 #[derive(Debug,Serialize)]
 pub struct SouthernSai {
@@ -26,15 +26,15 @@ pub struct SouthernSai {
 }
 fn southern_sai(eastern:&Entry)->Result<Option<SouthernSai>> {
     let mut l=Loader::new(world::catalog(),eastern.world_after.clone(),eastern.after)?;
-    // No measured Eastern -> Southern movement budget has been supplied.
-    // This models the planned first Southern encounter, not an invented
-    // encounterless guarantee for the intervening Eastern field traversal.
     l.visit_map("Fld_Dst_2_3")?;let arrival=point(&mut l,eastern.after);
+    sai_encounter(arrival,"ENT_FLD_DST_2_3_LND")
+}
+fn sai_encounter(arrival:Entry,zone:&str)->Result<Option<SouthernSai>> {
     let w=&arrival.world_after;
     let levels:Vec<_>=w.party.iter().map(|id|w.character_progression[id].level).collect();
     let mut rng=arrival.after;
     let encounter=encounter::catalog().predict(&mut rng,&PredictionOptions {
-        map:w.map.clone(),zone:"ENT_FLD_DST_2_3_LND".into(),period:"DayTime".into(),
+        map:w.map.clone(),zone:zone.into(),period:"DayTime".into(),
         progress:w.main_progress_points,first_encounter:w.first_encounter,
         boundary:Boundary::CurrentCounter,current_counter:Some(w.encounter_counter),
         party_levels:levels.clone(),ability_percent:if w.evasive_maneuvers {50}else{100},dash:true,
@@ -50,7 +50,7 @@ fn southern_sai(eastern:&Entry)->Result<Option<SouthernSai>> {
         else {FieldEscapeMenu::with_players(rng,situation,&players,&levels,&ids,&w.enemy_knowledge)?};
     let escape=menu.clone().attempt(&[],encounter.encounter_level.ok_or_else(||SimError("Missing Southern Sai encounter danger level".into()))?)?;
     ensure(escape.chance_percent==100&&escape.success,"Southern Sai first-menu Escape is not guaranteed with the carried levels")?;
-    let ret=crate::highroad::restore_field(w,&escape,"Fld_Dst_2_3","Southern Sai Sands first-menu Escape")?;
+    let ret=crate::highroad::restore_field(w,&escape,&w.map,&format!("{} first-menu Escape",w.map))?;
     let field_return=Entry {arrival:ret.arrival,after:ret.after,world_after:ret.world_after,trace:ret.trace,decisions:vec![]};
     Ok(Some(SouthernSai {arrival,encounter,battle_entry:rng,menu,escape,field_return}))
 }
@@ -96,8 +96,15 @@ fn travel(field_return:&Entry,night_pair:bool)->Result<Option<(Entry,Continuatio
     l.boundary(format!("Western Conning Creek Coast -> Eastern Sai Sands: run {:.1}%, then walk; {} running updates x {}, {} walking updates x {}; measured 107/113 +3 leeway, counter {} -> {}",movement.run_percent,movement.running_updates,movement.run_decrement,movement.walking_updates,movement.walk_decrement,movement.initial_counter,movement.estimated_counter_at_exit));
     let coast_exit=point(&mut l,before);
     l.visit_map("Fld_Dst_2_4")?;let eastern_sai=point(&mut l,coast_exit.after);
-    let Some(southern_sai)=southern_sai(&eastern_sai)? else {return Ok(None);};
-    Ok(Some((town,Continuation {day_before_gravell,conning,conning_night,coast_entry,coast_day,movement,coast_exit,eastern_sai,southern_sai})))
+    let Some(eastern_sai_encounter)=sai_encounter(eastern_sai.clone(),"ENT_FLD_DST_2_4_LND")? else {return Ok(None);};
+    let Some(southern_sai)=southern_sai(&eastern_sai_encounter.field_return)? else {return Ok(None);};
+    let mut l=Loader::new(world::catalog(),southern_sai.field_return.world_after.clone(),southern_sai.field_return.after)?;
+    // User specifies exactly one encounter in each Sai field. No unmeasured
+    // post-escape traversal budget or extra encounter is fabricated.
+    l.visit_map("Twn_Dst_2_1_A")?;
+    l.skipped_event("MapInStorySelect")?;
+    let sai=point(&mut l,southern_sai.field_return.after);
+    Ok(Some((town,Continuation {day_before_gravell,conning,conning_night,coast_entry,coast_day,movement,coast_exit,eastern_sai,eastern_sai_encounter,southern_sai,sai})))
 }
 pub(crate) fn extend(g:&mut GravellArrival)->Result<()> {
     let w=&g.night.world_after;
