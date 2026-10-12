@@ -13,8 +13,8 @@ The Pirro R3 identification starts after the steal, so no pre-identification
 RNG adjustment is applied. On the Inventor approach, use the exact Highroad
 entry counter to run first and walk the remainder without an encounter.
 The measured approach is 117 running updates or 124 walking updates, without
-added leeway. Instructions show whole running/walking update counts and the
-exact counter where the player switches to walking; remaining walking updates
+added leeway. Player instructions show run/walk percentages; Detailed log retains
+whole update counts and the exact switch-to-walking counter. Remaining walking updates
 round up from the measured endpoint ratio. Stay daytime until the thief, switch to night,
 accept his fight, and let the
 first player kill him with the reserved stone. Replay party initialization,
@@ -22,7 +22,7 @@ item/victory/drop RNG, rewards, field return and the bag-recovery scene; switch
 back to day before Arkar. Al's bag turn-in remains a later route step.
 The thief-to-Inventor-house leg uses its exact post-bag counter and measured
 86 running / 90 walking updates, without added leeway. It shows the running
-percentage as well as exact update counts and the switch-to-walking counter.
+percentage; Detailed log retains exact update counts and the switch-to-walking counter.
 Run `node tools/import-travelers-bag.cjs` after regenerating town/core imports
 to retain the quest scripts and Brigand profile. This new segment awaits retail
 validation.

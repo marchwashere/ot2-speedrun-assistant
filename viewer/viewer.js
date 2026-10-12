@@ -1046,18 +1046,12 @@ function renderCrackridgeVoyage() {
           ] : ['Encounter unavoidable even at slow speed']);
           const movement=i.approach.thief_reach;
           $('inventor-escape-routine').innerHTML=movement ? instructionBoxHtml([
-            'Stay daytime until reaching the thief',
-            'Run '+movement.running_updates+' counter updates: '+movement.initial_counter+' → '+movement.switch_to_walking_counter,
-            'Then walk '+movement.walking_updates+' counter updates: '+movement.switch_to_walking_counter+' → '+movement.estimated_counter_at_thief,
-            'At the thief: switch to night; after recovering the bag, switch back to day'
+            'Run first '+movement.run_percent.toFixed(1)+'% · walk remaining '+(100-movement.run_percent).toFixed(1)+'%'
           ]) : '<p>'+escapeHtml(encounterLabel(i.approach.encounter))+'</p><p><strong>R1 · '+actor+' · 1st command menu</strong></p>'+boostStepsHtml(i.inputs.levels,'Escape');
           const thiefStages=i.thief ? [['Thief · switched to night',i.thief.night],['Thief · scripted battle initialization',i.thief.introduction],['Thief · victory and field return',i.thief.field_return],["Al’s Bag recovered · return to Al later",i.thief.bag],['Highroad · returned to day before Arkar',i.thief.day]] : [];
           if(i.thief) { $('inventor-escape-routine').innerHTML+='<p><strong>Thief · T1 · '+routeNames()[i.thief.battle.actor]+' · Shadow Soulstone (M)</strong></p>'; conningSpans.push(...(i.thief.battle.trace||[])); }
           if(i.inventor_reach) { const r=i.inventor_reach; $('inventor-escape-routine').innerHTML+='<p><strong>Thief → Inventor house</strong></p>'+instructionBoxHtml([
-            'After recovering the bag, switch back to day',
-            'Run first '+r.run_percent.toFixed(1)+'% · walk remaining '+(100-r.run_percent).toFixed(1)+'%',
-            'Run '+r.running_updates+' counter updates: '+r.initial_counter+' → '+r.switch_to_walking_counter,
-            'Then walk '+r.walking_updates+' counter updates: '+r.switch_to_walking_counter+' → '+r.estimated_counter_at_thief
+            'Run first '+r.run_percent.toFixed(1)+'% · walk remaining '+(100-r.run_percent).toFixed(1)+'%'
           ]); }
           for(const [label,e] of [['New Delsta · fast travel',i.approach.town],[i.approach.agnea_story.world_after.galdera_route?'New Delsta · Agnea Chapter 2 left inactive':'Agnea Chapter 2 · story accepted, opening skipped',i.approach.agnea_story],['Eastern New Delsta Highroad · loaded',i.approach.highroad],['Eastern New Delsta Highroad · switched to day before encounter',i.approach.highroad_day_switch],[i.approach.thief_reach?'Highroad · reached thief without an encounter':'Inventor Highroad · escaped',i.field_return],...thiefStages,...(i.inventor_arrival?[['Inventor house · reached without an encounter',i.inventor_arrival]]:[]),['Arkar · Proof of the Inventor',i.license],['Elemental Bomb Bottle crafted',i.bomb],['Critical Scope crafted',i.scope],['Western Clockbank Highroad · loaded',i.western_clockbank],['Southern Clockbank Highroad · loaded (no intervening encounter)',i.southern_clockbank],['Clockbank · loaded',i.clockbank],['Partitio Chapter 2 · story accepted, opening skipped',i.partitio_story]]) {if(e){conningStages.push([label,e]);conningSpans.push(...e.trace);}}
           if(i.crackridge_return) {
