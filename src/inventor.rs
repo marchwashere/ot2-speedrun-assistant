@@ -52,7 +52,7 @@ pub struct Prediction {#[serde(skip_serializing_if="Option::is_none")] pub inven
 #[derive(Debug,Serialize)]
 pub struct HarborReturn {#[serde(skip_serializing_if="Vec::is_empty")] pub defend_rounds:Vec<u32>,#[serde(skip_serializing_if="is_first_round")] pub escape_round:u32,#[serde(skip_serializing_if="Option::is_none")] pub bg_adjustment:Option<ClockbankAdjustment>,pub defends:Vec<ot2_battle_engine::StepReport>,pub arrival:Entry,pub encounter:encounter::Prediction,pub battle_entry:CrtRng,pub menu:FieldEscapeMenu,pub inputs:BoostInputs,pub escape:Option<FieldEscapeAttempt>,pub victory:Option<ot2_battle_engine::field_escape::FieldRareVictory>,pub field_return:Entry,pub southern:Option<Box<HarborReturn>>,pub approach_stages:Vec<(String,Entry)>,pub gravell:Option<GravellArrival>}
 #[derive(Debug,Serialize)]
-pub struct GravellArrival {pub license:Entry,pub setup:Entry,pub arrival:Entry,pub night:Entry,pub encounter:encounter::Prediction,pub battle_entry:CrtRng,pub fight:ot2_battle_engine::gravell_routine::Fight,pub rewards:ot2_battle_engine::gravell_routine::Rewards,pub field_return:Entry,pub town:Entry}
+pub struct GravellArrival {pub license:Entry,pub setup:Entry,pub arrival:Entry,pub night:Entry,pub encounter:encounter::Prediction,pub battle_entry:CrtRng,pub fight:ot2_battle_engine::gravell_routine::Fight,pub rewards:ot2_battle_engine::gravell_routine::Rewards,pub field_return:Entry,pub town:Entry,#[serde(skip_serializing_if="Option::is_none")] pub coast:Option<crate::galdera_coast::Continuation>}
 fn field_encounter(entry:&Entry,zone:&str)->Result<(encounter::Prediction,CrtRng)> {
  let w=&entry.world_after;let mut rng=entry.after;
  let encounter=encounter::catalog().predict(&mut rng,&PredictionOptions {map:w.map.clone(),zone:zone.into(),period:if w.time==2 {"DayTime"}else{"Night"}.into(),progress:w.main_progress_points,first_encounter:w.first_encounter,boundary:Boundary::CurrentCounter,current_counter:Some(w.encounter_counter),party_levels:w.party.iter().map(|id|w.character_progression[id].level).collect(),ability_percent:if w.evasive_maneuvers {50}else{100},dash:true,..Default::default()})?;
@@ -93,7 +93,14 @@ fn gravell_target(entry:&Entry,target:Option<BgTarget>)->Result<Option<GravellAr
   if let Some(t)=target {if !t.work.is_some_and(|w|w.get()==0) {t.cache.borrow_mut().insert(key,(t.budget,fight.clone()));}}
   fight
  };
- let Some(mut fight)=fight else {return Ok(None);};
+ let Some(fight)=fight else {return Ok(None);};
+ let (fight,rewards,field_return)=settle_gravell(&night,rng,fight)?;
+ let mut l=Loader::new(world::catalog(),field_return.world_after.clone(),field_return.after)?;
+ l.visit_map("Twn_Wld_3_1_A")?;
+ let town=point(&mut l,field_return.after);
+ Ok(Some(GravellArrival {license,setup,arrival,night,encounter,battle_entry:rng,fight,rewards,field_return,town,coast:None}))
+}
+pub(crate) fn settle_gravell(night:&Entry,rng:CrtRng,mut fight:ot2_battle_engine::gravell_routine::Fight)->Result<(ot2_battle_engine::gravell_routine::Fight,ot2_battle_engine::gravell_routine::Rewards,Entry)> {
  let mut rewards=ot2_battle_engine::gravell_routine::rewards(&fight,night.world_after.party.iter().any(|id|night.world_after.character_progression[id].jobs.equipped_support.contains(crate::gravell_setup::MONEY_UP)))?;
  // The battle core starts a relative draw ledger; the route retains its absolute origin.
  for action in &mut fight.actions {action.before.draws+=rng.draws;action.report.rng_before.draws+=rng.draws;action.report.rng_after.draws+=rng.draws;}
@@ -106,9 +113,7 @@ fn gravell_target(entry:&Entry,target:Option<BgTarget>)->Result<Option<GravellAr
  let mut l=Loader::new(world::catalog(),state,rewards.after)?;
  l.restore_field_after_battle("Western Gravell EXP ×100 victory")?;
  let field_return=point(&mut l,rewards.after);
- l.visit_map("Twn_Wld_3_1_A")?;
- let town=point(&mut l,field_return.after);
- Ok(Some(GravellArrival {license,setup,arrival,night,encounter,battle_entry:rng,fight,rewards,field_return,town}))
+ Ok((fight,rewards,field_return))
 }
 fn field_continuation(entry:&Entry,stage:usize,target:Option<BgTarget>)->Result<Option<HarborReturn>> {
  if target.is_some_and(|t|entry.after.draws>=t.rng.draws||t.budget<6||t.work.is_some_and(|w|w.get()==0)){return Ok(None);}
@@ -269,6 +274,10 @@ pub fn finish(a:Approach)->Result<Prediction> {
   },|p:&Prediction|14+p.inputs.levels.len() as u32+route_cost(&p.crackridge_return)+if p.approach.highroad_day_switch.is_some() {7}else{0})?;
   prediction.approach.town=town;
   prediction.new_delsta_adjustment=Some(adjustment);
+  // Freeze the completed EXP100 search before optimizing the new coast leg.
+  let mut end=&mut prediction.crackridge_return;
+  while let Some(ref mut next)=end.southern {end=next;}
+  crate::galdera_coast::extend(end.gravell.as_mut().ok_or_else(||SimError("Galdera route did not reach the Chubby victory".into()))?)?;
   return Ok(prediction);
  }
  finish_target(a,None)?.ok_or_else(||SimError("Inventor route exhausted".into()))
@@ -599,6 +608,36 @@ mod gravell_integration_tests {
   let mut replay=Loader::new(world::catalog(),g.field_return.world_after.clone(),g.field_return.after).unwrap();
   replay.visit_map("Twn_Wld_3_1_A").unwrap();
   assert_eq!(replay.rng,g.town.after);
+ }
+ #[test]
+ fn coast_extension_freezes_exp100_and_replays_the_adjusted_finisher() {
+  let fixture:serde_json::Value=serde_json::from_str(include_str!("../data/source/gravell-complete-route-fixture.json")).unwrap();
+  let b=&fixture["before"];
+  let entry=Entry {arrival:serde_json::from_value(b["arrival"].clone()).unwrap(),after:serde_json::from_value(b["after"].clone()).unwrap(),world_after:serde_json::from_value(b["world_after"].clone()).unwrap(),trace:vec![],decisions:vec![]};
+  let mut g=gravell_arrival(&entry).unwrap().unwrap();
+  let prefix=serde_json::to_value(&g.fight.actions[..g.fight.actions.len()-1]).unwrap();
+  let reward=g.rewards.awarded;
+  crate::galdera_coast::extend(&mut g).unwrap();
+  assert_eq!(serde_json::to_value(&g.fight.actions[..g.fight.actions.len()-1]).unwrap(),prefix);
+  assert_eq!(g.rewards.awarded,reward);
+  let c=g.coast.as_ref().unwrap();
+  assert_eq!(c.day_before_gravell.world_after.time,2);
+  assert_eq!(g.town.world_after.time,2);
+  assert!(g.town.world_after.visited_maps.contains("Twn_Wld_3_1_A"));
+  assert_eq!(c.eastern_sai.world_after.map,"Fld_Dst_2_4");
+  assert_eq!(c.coast_exit.after,c.coast_day.as_ref().unwrap_or(&c.coast_entry).after);
+  assert!(c.movement.estimated_counter_at_exit>0);
+  assert_eq!(c.movement.initial_counter-c.movement.counter_cost,c.coast_exit.world_after.encounter_counter);
+  let w=&g.night.world_after;
+  let players:Vec<_>=w.party.iter().map(|id|w.character_progression[id].character.clone()).collect();
+  let ids:Vec<_>=g.encounter.enemies.iter().map(|e|e.enemy.id.as_str()).collect();
+  let situation=if g.encounter.situation.as_deref()==Some("Preemptive") {Situation::Preemptive}else{Situation::Normal};
+  let battle=ot2_battle_engine::field_escape::carried_step_ahead(g.battle_entry,situation,&players,&ids,true,&w.enemy_knowledge).unwrap();
+  let fight=ot2_battle_engine::gravell_routine::replay_finisher(battle,&g.fight,&g.fight.actions.last().unwrap().inputs).unwrap();
+  let (fight,rewards,ret)=settle_gravell(&g.night,g.battle_entry,fight).unwrap();
+  assert_eq!(fight.after,g.fight.after);
+  assert_eq!(rewards.after,g.rewards.after);
+  assert_eq!(ret.after,g.field_return.after);
  }
 }
 

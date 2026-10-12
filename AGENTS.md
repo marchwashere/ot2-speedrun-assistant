@@ -1,5 +1,17 @@
 # Active project
 
+- Galdera now continues after EXP100: freeze the selected Guards/BG and earlier
+  route controls, search only the last Thunder L menu boost adjustment and the
+  optional Conning Creek landing-night/coast-entry-day pair (user cost zero).
+  Switch day before tagging Gravell; fight -> Gravell is user-confirmed
+  encounterless. Fast travel Conning Creek, cross Western Coast to Eastern Sai.
+  Exact measured endpoints 113 walk/107 run +3 each; enumerate integral run
+  updates, round remaining walk updates up, retain positive counter, show run
+  percentage. Real BP availability matters: a zero-BP finisher cannot cycle.
+  Detailed log carries mandatory travel/day change and exact counter budgets.
+  Shared Loader imports Eastern Sai Fld_Dst_2_4. See docs/galdera-coast.md;
+  these new endpoints await retail validation.
+
 - Cat fixed elemental damage must use EnemyDB.UseCatDamageType: integer divide
   post-resistance damage by100, minimum1. SSM deals11 to Cultured Cait8HP,
   so the coast pack does NOT grant Overkill EXP. Missing this awarded129 extra

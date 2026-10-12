@@ -51,6 +51,7 @@ pub mod escape_search;
 pub mod conning;
 
 pub mod gravell_setup;
+pub mod galdera_coast;
 
 pub mod voice_identification;
 pub mod identified_route;

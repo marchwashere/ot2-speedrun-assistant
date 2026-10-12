@@ -842,7 +842,7 @@ function renderCrackridgeVoyage() {
   $('canalbrine-route-log').hidden=true;
   $('canalbrine-water-result').hidden=true;
   $('canalbrine-water-log').hidden=true;
-  for(const id of ['new-delsta-bg-result','crackridge-bg-result','clockbank-bg-result','oresrush-time-result','cropdale-time-result','conning-north-result','conning-west-result','conning-steal-result','inventor-escape-result','clockbank-movement-result','crackridge-return-result','southern-crackridge-result','western-crackridge-result','western-crackridge-return-result','gravell-result','conning-log']) $(id).hidden=true;
+  for(const id of ['new-delsta-bg-result','crackridge-bg-result','clockbank-bg-result','oresrush-time-result','cropdale-time-result','conning-north-result','conning-west-result','conning-steal-result','inventor-escape-result','clockbank-movement-result','crackridge-return-result','southern-crackridge-result','western-crackridge-result','western-crackridge-return-result','gravell-result','galdera-coast-result','conning-log']) $(id).hidden=true;
   const early=result.post_battle_field?.flats_escape?.early_cait;
   const timing=early?.southern_rare_target?'after':early?.snows_approach?.predicted_before_osvald?'before':snowsEncounterTiming ?? 'after';
   const exit=result.post_battle_field?.flats_escape?.snows_escape?.[timing+'_osvald'];
@@ -1103,14 +1103,26 @@ function renderCrackridgeVoyage() {
                   $('gravell-routine').innerHTML='<p><strong>'+escapeHtml(encounterLabel(g.encounter))+'</strong></p>'+g.fight.actions.map(a=>{
                     const ordinal=ordinals[a.round]=(ordinals[a.round]||0)+1;
                     conningPoints.push([`Gravell · T${a.round} · ${names[a.actor]} · command menu`,a.before]);
-                    if(!['bewildering_grace','guards'].includes(a.action)) return '';
-                    return `<p><strong>T${a.round} · ${names[a.actor]} · ${menuOrdinal(ordinal)} command menu</strong></p>`+boostStepsHtml(a.inputs,a.action==='guards'?'+3 Hired Help: Guards':'+3 Bewildering Grace');
+                    if(!['bewildering_grace','guards'].includes(a.action) && !(g.coast && a.action==='thunder_soulstone')) return '';
+                    const command=a.action==='guards'?'+3 Hired Help: Guards':a.action==='bewildering_grace'?'+3 Bewildering Grace':'Thunder Soulstone (L)';
+                    return `<p><strong>T${a.round} · ${names[a.actor]} · ${menuOrdinal(ordinal)} command menu</strong></p>`+boostStepsHtml(a.inputs,command);
                   }).join('');
                   conningSpans.push(...g.fight.trace,...g.rewards.trace);
                   for(const [name,e] of [['Merchant License acquired',g.license],['Gravell jobs, skills and supports equipped',g.setup],['Western Gravell Wilds · loaded',g.arrival],['Western Gravell Wilds · switched to night',g.night]]) {conningStages.push([name,e]);conningSpans.push(...e.trace);}
                   conningPoints.push(['Western Gravell Wilds · before battle initialization',g.battle_entry]);
                   conningStages.push(['Western Gravell Wilds · EXP ×100 victory · field return',g.field_return]);conningSpans.push(...g.field_return.trace);
-                  if(g.town){conningStages.push(['Gravell · loaded (night)',g.town]);conningSpans.push(...g.town.trace);}
+                  if(g.town){conningStages.push(['Gravell · tagged ('+(g.coast?'day':'night')+')',g.town]);conningSpans.push(...g.town.trace);}
+                  if(g.coast) {
+                    const c=g.coast,m=c.movement;
+                    $('galdera-coast-result').hidden=false;
+                    $('galdera-coast-routine').innerHTML=instructionBoxHtml([c.conning_night
+                      ? 'Conning Creek: switch to night immediately after landing. Western Conning Creek Coast: switch to day immediately after entering.'
+                      : 'No night/day adjustment in Conning Creek or Western Conning Creek Coast.'])
+                      +instructionBoxHtml([`Run first ${m.run_percent.toFixed(1)}% · walk remaining ${(100-m.run_percent).toFixed(1)}%`]);
+                    for(const [label,e] of [['Western Gravell · switched to day before Gravell tag',c.day_before_gravell],['Conning Creek · fast travel',c.conning],['Conning Creek · switched to night',c.conning_night],['Western Conning Creek Coast · loaded',c.coast_entry],['Western Conning Creek Coast · switched to day',c.coast_day],['Western Conning Creek Coast · reached Eastern Sai exit without encounter',c.coast_exit],['Eastern Sai Sands · loaded',c.eastern_sai]]) {
+                      if(e){conningStages.push([label,e]);conningSpans.push(...e.trace);}
+                    }
+                  }
                 }
               }
             }

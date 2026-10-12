@@ -327,6 +327,26 @@
       "sha256": "8c72b7c87badca500a470bbe2418e767d1cccfea374c8cd7d3325f71e316ff62"
     },
     {
+      "source": "/Game/Level/Level/Desert/Fld_Dst_2_4.umap",
+      "sha256": "5202bcf177892c49f433e2c6533a5b740582fead2d2e515e3514a057364ed465"
+    },
+    {
+      "source": "/Game/Level/Level/Desert/Fld_Dst_2_4_Art.umap",
+      "sha256": "7e6301a1cd65dfcfe365c615d9a71e9bae28c44a073252a3d9076af482604bd4"
+    },
+    {
+      "source": "/Game/Level/Level/Desert/Fld_Dst_2_4_Coll.umap",
+      "sha256": "e49cafcf355e7a05d3e621b6df05b7d82df69641c936dcc74b493f040fce7fb5"
+    },
+    {
+      "source": "/Game/Level/Level/Desert/Fld_Dst_2_4_Sound.umap",
+      "sha256": "ba7fe5da3c2f0d70d19d6009ab1446c278cd1fa2fa69c9892bf29494d056cdbe"
+    },
+    {
+      "source": "/Game/Level/Level/Desert/Btl_Fld_Dst_Land_B.umap",
+      "sha256": "aa68f534f9cadf50a34c9e6de9004983af8271c7f42060ab764c58149906ed72"
+    },
+    {
       "source": "/Game/Level/Level/Desert/Twn_Dst_1_1_A.umap",
       "sha256": "f2c79f732e4aa0dad0101dd89e434c4739e7b62a5c9fbca561d642a194b77938"
     },

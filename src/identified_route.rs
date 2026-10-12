@@ -136,6 +136,9 @@ pub fn simulate_route(voices:&str,pirro_first:bool,hp:u32,galdera_route:bool)->R
         let mut leg=&inventor["crackridge_return"];
         while leg["southern"].is_object(){leg=&leg["southern"];}
         let g=&leg["gravell"];
+        assert_eq!(g["coast"]["eastern_sai"]["world_after"]["map"],"Fld_Dst_2_4");
+        assert_eq!(g["town"]["world_after"]["time"],2);
+        assert!(g["coast"]["movement"]["estimated_counter_at_exit"].as_u64().unwrap()>0);
         assert_eq!(g["fight"]["state"]["outcome"],"victory");
         assert_eq!(g["fight"]["evaluation"]["result"],"accepted");
         assert_eq!(g["field_return"]["world_after"]["party"],serde_json::json!([7,6,8,4]));
