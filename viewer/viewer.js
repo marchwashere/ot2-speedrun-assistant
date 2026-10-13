@@ -1271,7 +1271,7 @@ function renderCrackridgeVoyage() {
                                       if(q.flex) {
                                         const x=q.flex,lines=['Order: '+x.order.map(n=>({1:'Boat → Roque JP ×100',2:'Crackridge book',3:'Sai → Firestarter'})[n]).join(' → ')];
                                         for(const segment of [...x.segments,x.boat]) {
-                                          if(segment.extra_switches)lines.push(segment.name+': '+segment.extra_switches+' extra time switches');
+                                          if(segment.extra_switches)lines.push((segment===x.boat?'Tropu’hopu · before entering the Shipyard':segment.name==='Sai / Firestarter'?'Sai · before leaving town':'Before teleporting to Beasting Bay')+': '+segment.extra_switches+' extra time switches');
                                           for(const [label,e] of segment.stages){conningStages.push([label,e]);conningSpans.push(...e.trace);}
                                           segment.encounters.forEach((f,j)=>{
                                             const label=segment.name+' · encounter '+(j+1);lines.push(label+': '+encounterLabel(f.encounter));
