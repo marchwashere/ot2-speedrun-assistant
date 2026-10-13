@@ -1126,7 +1126,7 @@ function renderCrackridgeVoyage() {
                     const ordinal=ordinals[a.round]=(ordinals[a.round]||0)+1;
                     conningPoints.push([`Gravell · T${a.round} · ${names[a.actor]} · command menu`,a.before]);
                     if(!['bewildering_grace','guards'].includes(a.action) && !(g.coast && a.action==='thunder_soulstone')) return '';
-                    const command=a==='guards'?'+3 Hired Help: Guards':a==='bewildering_grace'?'+3 Bewildering Grace':'Thunder Soulstone (L)';
+                    const command=a.action==='guards'?'+3 Hired Help: Guards':a.action==='bewildering_grace'?'+3 Bewildering Grace':'Thunder Soulstone (L)';
                     return `<p><strong>T${a.round} · ${names[a.actor]} · ${menuOrdinal(ordinal)} command menu</strong></p>`+boostStepsHtml(a.inputs,command);
                   }).join('');
                   conningSpans.push(...g.fight.trace,...g.rewards.trace);
