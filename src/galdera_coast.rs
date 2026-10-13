@@ -45,8 +45,8 @@ pub(crate) fn sai_encounter(arrival:Entry,zone:&str)->Result<Option<SouthernSai>
     };
     let players:Vec<_>=w.party.iter().map(|id|w.character_progression[id].character.clone()).collect();
     let ids:Vec<_>=encounter.enemies.iter().map(|e|e.enemy.id.as_str()).collect();
-    let step_ahead=w.party.iter().all(|id|w.character_progression[id].jobs.equipped_support.contains(crate::gravell_setup::STEP_AHEAD));
-    let menu=if step_ahead {FieldEscapeMenu::with_step_ahead(rng,situation,&players,&levels,&ids,&w.enemy_knowledge)?}
+    let step_members:Vec<_>=w.party.iter().enumerate().filter(|(_,id)|w.character_progression[id].jobs.equipped_support.contains(crate::gravell_setup::STEP_AHEAD)).map(|(i,_)|i).collect();
+    let menu=if !step_members.is_empty() {FieldEscapeMenu::with_step_ahead_members(rng,situation,&players,&levels,&ids,&w.enemy_knowledge,if step_members.len()==players.len(){None}else{Some(step_members)})?}
         else {FieldEscapeMenu::with_players(rng,situation,&players,&levels,&ids,&w.enemy_knowledge)?};
     let escape=menu.clone().attempt(&[],encounter.encounter_level.ok_or_else(||SimError(format!("Missing {} encounter danger level",w.map)))?)?;
     ensure(escape.chance_percent==100&&escape.success,format!("{} first-menu Escape is not guaranteed with the carried levels",w.map))?;

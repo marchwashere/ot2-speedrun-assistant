@@ -59,7 +59,7 @@ pub(crate) fn finish(entry:&Entry)->Result<Trip> {
     fn nearest_sai_switches_preserve_prior_state_and_avoid_ambush() {
         let f:serde_json::Value=serde_json::from_str(include_str!("../data/source/gravell-complete-route-fixture.json")).unwrap();
         let mut state:world::WorldState=serde_json::from_value(f["before"]["world_after"].clone()).unwrap();
-        state.party=vec![7,6,8,4];state.bench=vec![1,3];state.party_experience=state.party.iter().map(|id|state.character_progression[id].experience).collect();
+        state.job_licenses.insert(2,1);state.job_licenses.insert(5,1);state.party=vec![7,6,8,4];state.bench=vec![1,3];state.party_experience=state.party.iter().map(|id|state.character_progression[id].experience).collect();
         state.character_progression.get_mut(&6).unwrap().jobs.equipped_support.insert("ABI_SCH_SUP_01".into());
         state.award_victory(ot2_battle_engine::progression::Reward {exp:300_000,jp:0,money:0}).unwrap();
         state.time=4;state.galdera_route=true;

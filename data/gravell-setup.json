@@ -1,113 +1,6 @@
 {
   "jobs": [
     {
-      "id": "eINVENTOR",
-      "ID": 11,
-      "JobID": 11,
-      "DisplayName": "eCLASS_NAME_24",
-      "Detail": "None",
-      "DisplayOrder": 8,
-      "MenuJobIcon": "MENU_JOB_ICON_11",
-      "AbilityJobIcon": "ABILITY_JOB_ICON_11",
-      "PermissionFlag": 12,
-      "EquipJobItem": "ITM_EQP_JOB_0011",
-      "ProperEquipment": [
-        true,
-        false,
-        false,
-        true,
-        false,
-        false,
-        true,
-        true,
-        true,
-        true,
-        true,
-        true,
-        true,
-        true
-      ],
-      "ParameterRevision": {
-        "HP": 100,
-        "MP": 100,
-        "BP": 100,
-        "SP": 100,
-        "POT": 100,
-        "ATK": 107,
-        "DEF": 106,
-        "MATK": 107,
-        "MDEF": 106,
-        "ACC": 106,
-        "EVA": 100,
-        "CON": 108,
-        "AGI": 100
-      },
-      "JobCommandName": "BASIC_COMMAND_020",
-      "JobCommandDetail": "BASIC_COMMAND_020_DETAIL",
-      "JobCommandAbility": [
-        {
-          "AbilityName": "ABI_SET_INV_010",
-          "GetParam": 1
-        },
-        {
-          "AbilityName": "ABI_SET_INV_020",
-          "GetParam": 1
-        },
-        {
-          "AbilityName": "ABI_SET_INV_030",
-          "GetParam": 0
-        },
-        {
-          "AbilityName": "ABI_SET_INV_040",
-          "GetParam": 0
-        },
-        {
-          "AbilityName": "ABI_SET_INV_050",
-          "GetParam": 0
-        },
-        {
-          "AbilityName": "ABI_SET_INV_060",
-          "GetParam": 0
-        },
-        {
-          "AbilityName": "ABI_SET_INV_070",
-          "GetParam": 0
-        },
-        {
-          "AbilityName": "ABI_SET_INV_080",
-          "GetParam": 2
-        }
-      ],
-      "JobSupportAbility": [
-        {
-          "AbilityName": "ABI_INV_SUP_01",
-          "GetParam": 4
-        },
-        {
-          "AbilityName": "ABI_INV_SUP_02",
-          "GetParam": 5
-        },
-        {
-          "AbilityName": "ABI_INV_SUP_03",
-          "GetParam": 6
-        },
-        {
-          "AbilityName": "ABI_INV_SUP_04",
-          "GetParam": 7
-        }
-      ],
-      "JPCost": [
-        0,
-        2000,
-        2000,
-        2000,
-        2000,
-        2000,
-        2000,
-        5000
-      ]
-    },
-    {
       "id": "eMERCHANT",
       "ID": 0,
       "JobID": 0,
@@ -200,6 +93,113 @@
         },
         {
           "AbilityName": "ABI_MER_SUP_04",
+          "GetParam": 7
+        }
+      ],
+      "JPCost": [
+        0,
+        0,
+        30,
+        100,
+        500,
+        1000,
+        3000,
+        5000
+      ]
+    },
+    {
+      "id": "eFENCER",
+      "ID": 2,
+      "JobID": 2,
+      "DisplayName": "eCLASS_NAME_15",
+      "Detail": "None",
+      "DisplayOrder": 7,
+      "MenuJobIcon": "MENU_JOB_ICON_01",
+      "AbilityJobIcon": "ABILITY_JOB_ICON_01",
+      "PermissionFlag": 3,
+      "EquipJobItem": "ITM_EQP_JOB_0002",
+      "ProperEquipment": [
+        true,
+        true,
+        false,
+        false,
+        false,
+        false,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "ParameterRevision": {
+        "HP": 118,
+        "MP": 100,
+        "BP": 100,
+        "SP": 100,
+        "POT": 100,
+        "ATK": 105,
+        "DEF": 105,
+        "MATK": 100,
+        "MDEF": 100,
+        "ACC": 100,
+        "EVA": 100,
+        "CON": 100,
+        "AGI": 100
+      },
+      "JobCommandName": "BASIC_COMMAND_011",
+      "JobCommandDetail": "BASIC_COMMAND_011_DETAIL",
+      "JobCommandAbility": [
+        {
+          "AbilityName": "ABI_SET_WAR_010",
+          "GetParam": 1
+        },
+        {
+          "AbilityName": "ABI_SET_WAR_050",
+          "GetParam": 1
+        },
+        {
+          "AbilityName": "ABI_SET_WAR_020",
+          "GetParam": 0
+        },
+        {
+          "AbilityName": "ABI_SET_WAR_060",
+          "GetParam": 0
+        },
+        {
+          "AbilityName": "ABI_SET_WAR_030",
+          "GetParam": 0
+        },
+        {
+          "AbilityName": "ABI_SET_WAR_040",
+          "GetParam": 0
+        },
+        {
+          "AbilityName": "ABI_SET_WAR_070",
+          "GetParam": 0
+        },
+        {
+          "AbilityName": "ABI_SET_WAR_100",
+          "GetParam": 2
+        }
+      ],
+      "JobSupportAbility": [
+        {
+          "AbilityName": "ABI_WAR_SUP_01",
+          "GetParam": 4
+        },
+        {
+          "AbilityName": "ABI_WAR_SUP_02",
+          "GetParam": 5
+        },
+        {
+          "AbilityName": "ABI_WAR_SUP_03",
+          "GetParam": 6
+        },
+        {
+          "AbilityName": "ABI_WAR_SUP_04",
           "GetParam": 7
         }
       ],
@@ -320,9 +320,460 @@
         3000,
         5000
       ]
+    },
+    {
+      "id": "eINVENTOR",
+      "ID": 11,
+      "JobID": 11,
+      "DisplayName": "eCLASS_NAME_24",
+      "Detail": "None",
+      "DisplayOrder": 8,
+      "MenuJobIcon": "MENU_JOB_ICON_11",
+      "AbilityJobIcon": "ABILITY_JOB_ICON_11",
+      "PermissionFlag": 12,
+      "EquipJobItem": "ITM_EQP_JOB_0011",
+      "ProperEquipment": [
+        true,
+        false,
+        false,
+        true,
+        false,
+        false,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "ParameterRevision": {
+        "HP": 100,
+        "MP": 100,
+        "BP": 100,
+        "SP": 100,
+        "POT": 100,
+        "ATK": 107,
+        "DEF": 106,
+        "MATK": 107,
+        "MDEF": 106,
+        "ACC": 106,
+        "EVA": 100,
+        "CON": 108,
+        "AGI": 100
+      },
+      "JobCommandName": "BASIC_COMMAND_020",
+      "JobCommandDetail": "BASIC_COMMAND_020_DETAIL",
+      "JobCommandAbility": [
+        {
+          "AbilityName": "ABI_SET_INV_010",
+          "GetParam": 1
+        },
+        {
+          "AbilityName": "ABI_SET_INV_020",
+          "GetParam": 1
+        },
+        {
+          "AbilityName": "ABI_SET_INV_030",
+          "GetParam": 0
+        },
+        {
+          "AbilityName": "ABI_SET_INV_040",
+          "GetParam": 0
+        },
+        {
+          "AbilityName": "ABI_SET_INV_050",
+          "GetParam": 0
+        },
+        {
+          "AbilityName": "ABI_SET_INV_060",
+          "GetParam": 0
+        },
+        {
+          "AbilityName": "ABI_SET_INV_070",
+          "GetParam": 0
+        },
+        {
+          "AbilityName": "ABI_SET_INV_080",
+          "GetParam": 2
+        }
+      ],
+      "JobSupportAbility": [
+        {
+          "AbilityName": "ABI_INV_SUP_01",
+          "GetParam": 4
+        },
+        {
+          "AbilityName": "ABI_INV_SUP_02",
+          "GetParam": 5
+        },
+        {
+          "AbilityName": "ABI_INV_SUP_03",
+          "GetParam": 6
+        },
+        {
+          "AbilityName": "ABI_INV_SUP_04",
+          "GetParam": 7
+        }
+      ],
+      "JPCost": [
+        0,
+        2000,
+        2000,
+        2000,
+        2000,
+        2000,
+        2000,
+        5000
+      ]
     }
   ],
   "sets": [
+    {
+      "id": "ABI_SET_WAR_010",
+      "ID": 101,
+      "AbilitySetID": 101,
+      "NoBoost": "ABI_WAR_010_01",
+      "BoostLv1": "ABI_WAR_010_02",
+      "BoostLv2": "ABI_WAR_010_03",
+      "BoostLv3": "ABI_WAR_010_04",
+      "MenuType": "ECOMMAND_MENU_TYPE::eCOMMAND",
+      "SubMenuType": "ECOMMAND_SUB_MENU_TYPE::eNONE",
+      "MenuIconType": "EABILITY_ICON_TYPE::ePHYSICS",
+      "MenuInfoLv": 0,
+      "SuperMagicLabel": "None",
+      "HyperMagicLabel": "None",
+      "RestrictWeaponLabel": "None",
+      "IsDivineAbility": false,
+      "InventorTurn": 0,
+      "CommandSealingSwitch": [
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ]
+    },
+    {
+      "id": "ABI_SET_WAR_020",
+      "ID": 102,
+      "AbilitySetID": 102,
+      "NoBoost": "ABI_WAR_020_01",
+      "BoostLv1": "ABI_WAR_020_02",
+      "BoostLv2": "ABI_WAR_020_03",
+      "BoostLv3": "ABI_WAR_020_04",
+      "MenuType": "ECOMMAND_MENU_TYPE::eCOMMAND",
+      "SubMenuType": "ECOMMAND_SUB_MENU_TYPE::eNONE",
+      "MenuIconType": "EABILITY_ICON_TYPE::eBUFF",
+      "MenuInfoLv": 0,
+      "SuperMagicLabel": "None",
+      "HyperMagicLabel": "None",
+      "RestrictWeaponLabel": "None",
+      "IsDivineAbility": false,
+      "InventorTurn": 0,
+      "CommandSealingSwitch": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ]
+    },
+    {
+      "id": "ABI_SET_WAR_030",
+      "ID": 103,
+      "AbilitySetID": 103,
+      "NoBoost": "ABI_WAR_030_01",
+      "BoostLv1": "ABI_WAR_030_02",
+      "BoostLv2": "ABI_WAR_030_03",
+      "BoostLv3": "ABI_WAR_030_04",
+      "MenuType": "ECOMMAND_MENU_TYPE::eCOMMAND",
+      "SubMenuType": "ECOMMAND_SUB_MENU_TYPE::eNONE",
+      "MenuIconType": "EABILITY_ICON_TYPE::eBUFF",
+      "MenuInfoLv": 0,
+      "SuperMagicLabel": "None",
+      "HyperMagicLabel": "None",
+      "RestrictWeaponLabel": "None",
+      "IsDivineAbility": false,
+      "InventorTurn": 0,
+      "CommandSealingSwitch": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ]
+    },
+    {
+      "id": "ABI_SET_WAR_040",
+      "ID": 104,
+      "AbilitySetID": 104,
+      "NoBoost": "ABI_WAR_040_01",
+      "BoostLv1": "ABI_WAR_040_02",
+      "BoostLv2": "ABI_WAR_040_03",
+      "BoostLv3": "ABI_WAR_040_04",
+      "MenuType": "ECOMMAND_MENU_TYPE::eCOMMAND",
+      "SubMenuType": "ECOMMAND_SUB_MENU_TYPE::eNONE",
+      "MenuIconType": "EABILITY_ICON_TYPE::eBUFF",
+      "MenuInfoLv": 0,
+      "SuperMagicLabel": "None",
+      "HyperMagicLabel": "None",
+      "RestrictWeaponLabel": "None",
+      "IsDivineAbility": false,
+      "InventorTurn": 0,
+      "CommandSealingSwitch": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ]
+    },
+    {
+      "id": "ABI_SET_WAR_050",
+      "ID": 105,
+      "AbilitySetID": 105,
+      "NoBoost": "ABI_WAR_050_01",
+      "BoostLv1": "ABI_WAR_050_02",
+      "BoostLv2": "ABI_WAR_050_03",
+      "BoostLv3": "ABI_WAR_050_04",
+      "MenuType": "ECOMMAND_MENU_TYPE::eCOMMAND",
+      "SubMenuType": "ECOMMAND_SUB_MENU_TYPE::eNONE",
+      "MenuIconType": "EABILITY_ICON_TYPE::ePHYSICS",
+      "MenuInfoLv": 0,
+      "SuperMagicLabel": "None",
+      "HyperMagicLabel": "None",
+      "RestrictWeaponLabel": "None",
+      "IsDivineAbility": false,
+      "InventorTurn": 0,
+      "CommandSealingSwitch": [
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ]
+    },
+    {
+      "id": "ABI_SET_WAR_060",
+      "ID": 106,
+      "AbilitySetID": 106,
+      "NoBoost": "ABI_WAR_060_01",
+      "BoostLv1": "ABI_WAR_060_02",
+      "BoostLv2": "ABI_WAR_060_03",
+      "BoostLv3": "ABI_WAR_060_04",
+      "MenuType": "ECOMMAND_MENU_TYPE::eCOMMAND",
+      "SubMenuType": "ECOMMAND_SUB_MENU_TYPE::eNONE",
+      "MenuIconType": "EABILITY_ICON_TYPE::ePHYSICS",
+      "MenuInfoLv": 0,
+      "SuperMagicLabel": "None",
+      "HyperMagicLabel": "None",
+      "RestrictWeaponLabel": "None",
+      "IsDivineAbility": false,
+      "InventorTurn": 0,
+      "CommandSealingSwitch": [
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ]
+    },
+    {
+      "id": "ABI_SET_WAR_070",
+      "ID": 107,
+      "AbilitySetID": 107,
+      "NoBoost": "ABI_WAR_070_01",
+      "BoostLv1": "ABI_WAR_070_02",
+      "BoostLv2": "ABI_WAR_070_03",
+      "BoostLv3": "ABI_WAR_070_04",
+      "MenuType": "ECOMMAND_MENU_TYPE::eCOMMAND",
+      "SubMenuType": "ECOMMAND_SUB_MENU_TYPE::eNONE",
+      "MenuIconType": "EABILITY_ICON_TYPE::eBUFF",
+      "MenuInfoLv": 0,
+      "SuperMagicLabel": "None",
+      "HyperMagicLabel": "None",
+      "RestrictWeaponLabel": "None",
+      "IsDivineAbility": false,
+      "InventorTurn": 0,
+      "CommandSealingSwitch": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ]
+    },
+    {
+      "id": "ABI_SET_WAR_100",
+      "ID": 110,
+      "AbilitySetID": 110,
+      "NoBoost": "ABI_WAR_100_01",
+      "BoostLv1": "ABI_WAR_100_02",
+      "BoostLv2": "ABI_WAR_100_03",
+      "BoostLv3": "ABI_WAR_100_04",
+      "MenuType": "ECOMMAND_MENU_TYPE::eCOMMAND",
+      "SubMenuType": "ECOMMAND_SUB_MENU_TYPE::eNONE",
+      "MenuIconType": "EABILITY_ICON_TYPE::ePHYSICS",
+      "MenuInfoLv": 3,
+      "SuperMagicLabel": "None",
+      "HyperMagicLabel": "None",
+      "RestrictWeaponLabel": "None",
+      "IsDivineAbility": true,
+      "InventorTurn": 0,
+      "CommandSealingSwitch": [
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        true,
+        false,
+        false,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ]
+    },
     {
       "id": "ABI_SET_MER_010",
       "ID": 111,
@@ -1403,6 +1854,58 @@
       "DisplayName": "ABN_MER_SAP_004",
       "Detail": "ABD_MER_SAP_004",
       "SupportAilmentType": "ESUPPORT_AILMENT_TYPE::ePOTENTIALITY_POINT_MAX_ON_BATTLE_START",
+      "InvocationValue": 0,
+      "AddtionalInVocationValue00": 0,
+      "AddtionalInVocationValue01": 0,
+      "AddtionalInVocationValue02": 0,
+      "ExecAbilityLabel": "None"
+    },
+    {
+      "id": "ABI_WAR_SUP_01",
+      "ID": 9,
+      "SupportAbilityID": 21,
+      "DisplayName": "ABN_WAR_SAP_001",
+      "Detail": "ABD_WAR_SAP_001",
+      "SupportAilmentType": "ESUPPORT_AILMENT_TYPE::eATK_BUFF_ON_BREAK",
+      "InvocationValue": 2,
+      "AddtionalInVocationValue00": 0,
+      "AddtionalInVocationValue01": 0,
+      "AddtionalInVocationValue02": 0,
+      "ExecAbilityLabel": "None"
+    },
+    {
+      "id": "ABI_WAR_SUP_02",
+      "ID": 10,
+      "SupportAbilityID": 22,
+      "DisplayName": "ABN_WAR_SAP_002",
+      "Detail": "ABD_WAR_SAP_002",
+      "SupportAilmentType": "ESUPPORT_AILMENT_TYPE::ePARAMETER_UP_ATK",
+      "InvocationValue": 50,
+      "AddtionalInVocationValue00": 0,
+      "AddtionalInVocationValue01": 0,
+      "AddtionalInVocationValue02": 0,
+      "ExecAbilityLabel": "None"
+    },
+    {
+      "id": "ABI_WAR_SUP_03",
+      "ID": 11,
+      "SupportAbilityID": 23,
+      "DisplayName": "ABN_WAR_SAP_003",
+      "Detail": "ABD_WAR_SAP_003",
+      "SupportAilmentType": "ESUPPORT_AILMENT_TYPE::eGET_POTENTIALITY_POINT_UP",
+      "InvocationValue": 20,
+      "AddtionalInVocationValue00": 0,
+      "AddtionalInVocationValue01": 0,
+      "AddtionalInVocationValue02": 0,
+      "ExecAbilityLabel": "None"
+    },
+    {
+      "id": "ABI_WAR_SUP_04",
+      "ID": 12,
+      "SupportAbilityID": 24,
+      "DisplayName": "ABN_WAR_SAP_004",
+      "Detail": "ABD_WAR_SAP_004",
+      "SupportAilmentType": "ESUPPORT_AILMENT_TYPE::eDAMAGE_LIMIT_OVER",
       "InvocationValue": 0,
       "AddtionalInVocationValue00": 0,
       "AddtionalInVocationValue01": 0,

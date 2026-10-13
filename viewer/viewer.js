@@ -842,7 +842,7 @@ function renderCrackridgeVoyage() {
   $('canalbrine-route-log').hidden=true;
   $('canalbrine-water-result').hidden=true;
   $('canalbrine-water-log').hidden=true;
-  for(const id of ['new-delsta-bg-result','crackridge-bg-result','clockbank-bg-result','oresrush-time-result','cropdale-time-result','conning-north-result','conning-west-result','conning-steal-result','inventor-escape-result','clockbank-movement-result','crackridge-return-result','southern-crackridge-result','western-crackridge-result','western-crackridge-return-result','gravell-result','galdera-coast-result','southern-sai-result','eastern-sai-result','western-sai-result','eastern-wellgrove-result','galdera-clockbank-result','galdera-temenos-result','conning-log']) $(id).hidden=true;
+  for(const id of ['new-delsta-bg-result','crackridge-bg-result','clockbank-bg-result','oresrush-time-result','cropdale-time-result','conning-north-result','conning-west-result','conning-steal-result','inventor-escape-result','clockbank-movement-result','crackridge-return-result','southern-crackridge-result','western-crackridge-result','western-crackridge-return-result','gravell-result','galdera-coast-result','southern-sai-result','eastern-sai-result','western-sai-result','eastern-wellgrove-result','galdera-clockbank-result','galdera-temenos-result','galdera-quicksand-result','conning-log']) $(id).hidden=true;
   const early=result.post_battle_field?.flats_escape?.early_cait;
   const timing=early?.southern_rare_target?'after':early?.snows_approach?.predicted_before_osvald?'before':snowsEncounterTiming ?? 'after';
   const exit=result.post_battle_field?.flats_escape?.snows_escape?.[timing+'_osvald'];
@@ -1226,6 +1226,16 @@ function renderCrackridgeVoyage() {
                                   conningStages.push(['Temenos · introduction before battle',r.introduction],['Temenos · victory field return',r.field_return],['Temenos · recruited, Chapter 1 skipped, Agnea replaced',r.recruitment]);
                                   conningPoints.push(['Temenos · first command menu',b.at_command_menu],['Temenos · battle victory',b.after]);
                                   conningSpans.push(...r.introduction.trace,...b.trace,...r.field_return.trace,...r.recruitment.trace);
+                                  if(r.quicksand) {
+                                    const q=r.quicksand,f=q.western_sai,label='Western Sai Sands · before Quicksand Gaol';
+                                    $('galdera-quicksand-result').hidden=false;
+                                    $('galdera-quicksand-routine').innerHTML='<p><strong>'+escapeHtml(encounterLabel(f.encounter))+'</strong></p>'+'<p><strong>T1 · '+(f.menu.first_actor===2?'Temenos':names[f.menu.first_actor])+' · 1st command menu</strong></p>'+instructionBoxHtml(['Osvald → Warrior · Temenos → Dancer','Teleport to Sai',...(q.additional_time_switches?['In Sai: switch night → day '+q.additional_time_switches/2+' time(s)']:[]),'Southern Sai Sands → Western Sai Sands · no encounter in Southern Sai','Western Sai Sands: Escape ('+f.escape.chance_percent+'%)','Enter Quicksand Gaol']);
+                                    for(const [stage,e]of [['Party setup · Osvald Warrior, Temenos Dancer',q.setup],['Sai · returned after Temenos recruitment',q.sai],['Sai · time adjustment before Quicksand',q.adjustment],['Southern Sai Sands · encounterless crossing',q.southern_sai],['Western Sai Sands · entered before Quicksand',f.arrival],[label+' · escaped, field restored',f.field_return],['Quicksand Gaol · entered',q.quicksand]]) {if(e){conningStages.push([stage,e]);conningSpans.push(...e.trace);}}
+                                    conningPoints.push([label+' · before battle initialization',f.battle_entry],[label+' · first command menu',f.menu.rng]);
+                                    let previous=f.arrival.after;const origin=BigInt(previous.draws)-BigInt(f.encounter.checkpoints[0].draws);
+                                    for(const checkpoint of f.encounter.checkpoints){const after={state:checkpoint.state,draws:origin+BigInt(checkpoint.draws)};conningSpans.push({reason:label+' · '+checkpoint.label,before:previous,after});previous=after;}
+                                    conningSpans.push(...f.escape.trace);
+                                  }
                                 }
                               }
                             }

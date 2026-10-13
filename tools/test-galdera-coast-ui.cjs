@@ -142,3 +142,11 @@ assert.match($('galdera-temenos-routine').innerHTML,/Osvald/);
 assert.match($('galdera-temenos-routine').innerHTML,/Boost 0 → 1 → 0 × 2/);
 assert.match($('galdera-temenos-routine').innerHTML,/Boost to \+1 BP → regular attack/);
 assert.match($('galdera-temenos-routine').innerHTML,/replace Agnea/);
+
+fc.temenos.quicksand={setup:entry,sai:entry,southern_sai:entry,western_sai:{...coast.southern_sai,menu:{first_actor:2,rng:entry.after}},quicksand:entry,additional_time_switches:2};
+vm.runInNewContext(source.slice(start,end),context);
+assert.equal($('galdera-quicksand-result').hidden,false);
+assert.match($('galdera-quicksand-routine').innerHTML,/T1 · Temenos/);
+assert.match($('galdera-quicksand-routine').innerHTML,/Osvald → Warrior · Temenos → Dancer/);
+assert.match($('galdera-quicksand-routine').innerHTML,/Escape \(100%\)/);
+assert.equal(context.conningStages.at(-1)[0],'Quicksand Gaol · entered');

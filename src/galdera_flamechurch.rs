@@ -90,7 +90,7 @@ pub(crate) fn finish(entry:&Entry)->Result<Trip> {
     fn full_run_has_one_safe_encounter_and_adjustment_replays_native_callbacks() {
         let f:serde_json::Value=serde_json::from_str(include_str!("../data/source/gravell-complete-route-fixture.json")).unwrap();
         let mut w:world::WorldState=serde_json::from_value(f["before"]["world_after"].clone()).unwrap();
-        w.party=vec![7,6,8,4];w.bench=vec![1,3];w.party_experience=w.party.iter().map(|id|w.character_progression[id].experience).collect();
+        w.job_licenses.insert(2,1);w.job_licenses.insert(5,1);w.party=vec![7,6,8,4];w.bench=vec![1,3];w.party_experience=w.party.iter().map(|id|w.character_progression[id].experience).collect();
         w.character_progression.get_mut(&6).unwrap().jobs.equipped_support.insert("ABI_SCH_SUP_01".into());
         w.award_victory(ot2_battle_engine::progression::Reward {exp:300_000,jp:0,money:0}).unwrap();
         w.encounter_counter=560;assert!(movement(&w).unwrap().is_none());

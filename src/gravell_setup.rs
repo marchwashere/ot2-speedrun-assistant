@@ -23,7 +23,7 @@ fn unlock(w:&mut WorldState,id:u32,job:u32)->Result<()> {
  for a in &d.supports {if learned.len()>=a.count {p.jobs.unlocked_support.insert(a.id.clone());}}
  Ok(())
 }
-fn assign(w:&mut WorldState,id:u32,job:Option<u32>)->Result<()> {
+pub(crate) fn assign(w:&mut WorldState,id:u32,job:Option<u32>)->Result<()> {
  if let Some(j)=job {
   ensure(w.job_licenses.get(&j).copied().unwrap_or(0)>0,"Missing subjob license")?;
   let used=w.party.iter().chain(&w.bench).filter(|&&i|i!=id&&w.character_progression[&i].jobs.secondary_job==Some(j)).count();

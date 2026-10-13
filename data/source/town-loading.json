@@ -459,6 +459,26 @@
       "sha256": "aa68f534f9cadf50a34c9e6de9004983af8271c7f42060ab764c58149906ed72"
     },
     {
+      "source": "/Game/Level/Level/Desert/Dng_Dst_2_2.umap",
+      "sha256": "3dc56f6965f8df3fe42a98fa536d5b3c81ee494579387a68351044b2afc2fd3f"
+    },
+    {
+      "source": "/Game/Level/Level/Desert/Dng_Dst_2_2_Art.umap",
+      "sha256": "0522d5e67ef13d7a0c2e06dc70329832ac859b6c7d36117f2d46607c4ee1b79d"
+    },
+    {
+      "source": "/Game/Level/Level/Desert/Dng_Dst_2_2_Coll.umap",
+      "sha256": "985c418e12b8f99b54a9f15856ae5ecff1163688164645d6043f8243362b05a8"
+    },
+    {
+      "source": "/Game/Level/Level/Desert/Dng_Dst_2_2_Sound.umap",
+      "sha256": "bb5ea22d746a5c284996a102ec85543719199d2234e99b85f4b3c30a9724b008"
+    },
+    {
+      "source": "/Game/Level/Level/Other/Btl_Dng_CaveDesert_Land_A.umap",
+      "sha256": "29f242aceef2c1d136b20f54d73d90110cd62294631a0db3824983db2b0a6ec4"
+    },
+    {
       "source": "/Game/Level/Level/Desert/Twn_Dst_1_1_A.umap",
       "sha256": "f2c79f732e4aa0dad0101dd89e434c4739e7b62a5c9fbca561d642a194b77938"
     },

@@ -1,5 +1,13 @@
 # Active project
 
+- After Temenos recruitment, assign Osvald Warrior2 and Temenos Dancer5 using
+  existing licenses/native job stats; retain existing supports, no Temenos Step Ahead.
+  Teleport Sai daytime, discard chapters, Southern Sai no encounter, Western Sai
+  one Normal/Preemptive encounter with guaranteed Escape, load Quicksand Gaol
+  Dng_Dst_2_2 map40. Only extra Sai night/day pairs repair ambushes. Three-support
+  opening uses actual [0,1,3] bonus-turn membership; Temenos joins regular turn.
+  Distances unmeasured: do not invent counter budgets. See docs/galdera-quicksand.md.
+
 - After Flamechurch entry: recruit Temenos via MS_SIN_00_0100 Yes59/battle82,
   first actor +1 BP regular attack with actual boost/cancel kill search. Normal
   attacks use80% AbilityRatio; Osvald/Partitio may require crit manipulation.
