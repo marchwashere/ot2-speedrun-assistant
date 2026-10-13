@@ -1,5 +1,20 @@
 # Active project
 
+- Eastern Wellgrove continuation: run43 updates to Man with Horses, Steal
+  Champion Seeker ITM_EQP_DGR_120 from NPC_SS_TD31_0300_0300 (ProperSteal38,
+  level49+ gives100%, Throné70), switch path action before close: two draws,
+  opening timer + success check, no dialogue. User measures125 running updates
+  total to Wellgrove. Require exactly one Normal/Preemptive land encounter AFTER
+  Steal, immediate Escape100, remaining traversal without a second encounter,
+  Wellgrove main entry and discarded chapters. Run100% throughout; retain item.
+  Freeze Sai/Western opening and earlier decisions, search the Western first
+  Escape menu's complete boost0->1->0 cycles only as needed. Replay field return,
+  Eastern load, actual counter43*7 reduction, Steal and encounter; reject entry
+  counter<=301 or>875. Counter after Escape pays remaining measured updates.
+  Detailed log includes Steal/movement/town; both encounters have separate cards.
+  Source import tools/import-galdera-champion.cjs audits NPC/item/threshold; core
+  import-highroad-return adds Eastern Wellgrove land enemies. Retail check pending.
+
 - After Winterbloom Soldier Entreat: fast travel Sai, discard chapters,
   immediately switch day, cross Southern Sai (Fld_Dst_2_3) without encounter,
   load Western Sai (Fld_Dst_2_2), exactly one land encounter, first-menu Escape,

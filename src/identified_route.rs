@@ -153,6 +153,13 @@ pub fn simulate_route(voices:&str,pirro_first:bool,hp:u32,galdera_route:bool)->R
         assert_eq!(wg["western_sai"]["escape"]["success"],true);
         assert_ne!(wg["western_sai"]["encounter"]["situation"],"Surprise");
         assert_eq!(wg["eastern_wellgrove"]["world_after"]["map"],"Fld_Fst_2_2");
+        let champion=&wg["champion"];
+        assert_eq!(champion["steal_chance"],100);
+        assert_eq!(champion["steal"]["world_after"]["route_items"]["ITM_EQP_DGR_120"],1);
+        assert_ne!(champion["encounter"]["encounter"]["situation"],"Surprise");
+        assert_eq!(champion["encounter"]["escape"]["chance_percent"],100);
+        assert_eq!(champion["encounter"]["escape"]["success"],true);
+        assert_eq!(champion["wellgrove"]["world_after"]["map"],"Twn_Fst_2_1_A");
         assert_eq!(g["coast"]["oresrush_supplies"]["pickaxe"]["world_after"]["hired_merchant"]["talent"],"SPACT_MERCHANT_014");
         assert_ne!(g["coast"]["southern_sai"]["encounter"]["situation"],"Surprise");
         assert_eq!(g["fight"]["state"]["outcome"],"victory");

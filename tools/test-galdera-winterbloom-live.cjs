@@ -33,6 +33,18 @@ function find(v){if(v&&typeof v==='object'){if(v.coast&&v.fight)return v;for(con
   assert.deepEqual(wg.eastern_wellgrove.world_after.character_progression,state.character_progression);
   assert.deepEqual(wg.eastern_wellgrove.world_after.route_items,state.route_items);
   console.log(JSON.stringify({fixture:label,extra_sai_switches:wg.additional_time_switches,western_sai_entry:wg.western_sai.arrival.after.draws,western_sai_menu:wg.western_sai.menu.rng.draws,wellgrove_entry:wg.eastern_wellgrove.after.draws}));
+  const t=wg.champion;assert(t);
+  assert.equal(t.steal.after.draws-t.approach.after.draws,2);
+  assert.equal(t.steal_chance,100);assert.equal(t.steal.world_after.route_items.ITM_EQP_DGR_120,1);
+  assert.equal(t.encounter.arrival.after.draws,t.steal.after.draws,'Fight must follow Steal');
+  assert(['Normal','Preemptive'].includes(t.encounter.encounter.situation));
+  assert.equal(t.encounter.escape.chance_percent,100);assert.equal(t.encounter.escape.success,true);
+  assert.equal(t.running_updates_after_escape+43+t.encounter.encounter.counter_updates,125);
+  assert(t.exit.world_after.encounter_counter>0);
+  assert.equal(t.wellgrove.world_after.map,'Twn_Fst_2_1_A');assert.equal(t.wellgrove.world_after.time,2);
+  assert.deepEqual(t.wellgrove.world_after.active_scenarios,state.active_scenarios);
+  assert.deepEqual(t.wellgrove.world_after.character_progression,state.character_progression);
+  console.log(JSON.stringify({fixture:label,western_boost_cycles:wg.western_escape_boost_cycles,steal:t.steal.after.draws,encounter_menu:t.encounter.menu.rng.draws,wellgrove:t.wellgrove.after.draws,remaining_counter:t.exit.world_after.encounter_counter}));
   fs.writeFileSync(path.join(__dirname,'../outputs/galdera-winterbloom-'+label+'.json'),JSON.stringify(json));
   console.log(JSON.stringify({fixture:label,arrival:w.arrival.after.draws,quest:w.sword_quest.after.draws,entreat:w.soldier_entreat.after.draws,quest_draws:Number(w.sword_quest.after.draws)-Number(w.arrival.after.draws),counter:w.sword_quest.world_after.encounter_counter}));
  }

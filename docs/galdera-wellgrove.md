@@ -4,8 +4,8 @@ After Winterbloom's nighttime Soldier Entreat, fast travel to Sai and discard
 any chapter start. Immediately switch to day. Cross Southern Sai Sands without
 an encounter, enter Western Sai Sands and take one land encounter before
 entering Eastern Wellgrove Trail. The Southern crossing is user-confirmed;
-no unmeasured walking budget or battle is fabricated. The route ends on Eastern
-Wellgrove entry, without a fight there.
+no unmeasured walking budget or battle is fabricated. Then continue through the
+Champion Seeker steal and Eastern Wellgrove encounter described below.
 
 Shared Loader evaluates every map load and time callback. Western Sai's land
 volume EVM_FLD_DST_2_2_LND_DAY actually references Southern Sai encounter tables
@@ -27,3 +27,26 @@ Regression exercises direct departure and a seed needing extra Sai time cycles,
 replays those controls and checks no ambush, guaranteed escape and retained
 state. Full transcript replay and served UI checks cover the new endpoint.
 Retail validation remains pending.
+
+The route now continues through Champion Seeker and Wellgrove town. Run43
+updates (100% running) to Man with Horses NPC_SS_TD31_0300_0300; minimum entry
+counter500 and day/Evasive running decrement7 guarantee the approach. Steal
+ITM_EQP_DGR_120, then change selected path action before closing. ProperSteal38
+and the native over-level threshold11 make Throné level49+ guaranteed. The menu
+timer and success roll consume two CRT draws; success dialogue is suppressed.
+The dagger remains in inventory without affecting battle stats.
+
+Measured total travel to Wellgrove is125 running updates. Require a counter
+above301 but at most875 so the one intended encounter occurs after the steal,
+before town. Predict the actual formation/opening, reject Surprise, and execute
+first-menu Escape100. Pay the remaining125-43-trigger_updates movement from the
+real field-return counter, keeping it positive before loading Wellgrove main
+Twn_Fst_2_1_A and discarding chapter starts.
+
+To protect this next opening, preserve the already selected Sai switches and
+Western Sai formation. Search only complete boost0->1->0 cycles at the Western
+Sai first Escape menu; replay its Escape, field restoration, Eastern loading,
+measured movement, Steal and next battle. The UI shows these cycles when needed
+and provides a separate Eastern Wellgrove encounter card after Steal. New
+runtime and source NPC/item data come from import-galdera-champion.cjs; core
+import-highroad-return covers all Eastern Wellgrove land formations.

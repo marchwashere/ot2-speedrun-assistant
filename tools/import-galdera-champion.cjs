@@ -1,0 +1,19 @@
+'use strict';
+const fs=require('node:fs'),path=require('node:path'),assert=require('node:assert/strict'),s=require('./source.cjs');
+const sources=[];function table(n){const t=s.table(n);sources.push({source:t.source,sha256:t.sha256});return t.rows;}
+const npc=table('Character/Database/NPCData').find(r=>r.id==='NPC_SS_TD31_0300_0300');assert(npc);
+const purchase=table('Character/Database/NPCPurchaseData').find(r=>r.id===npc.FCmd_Purchase_ID);
+assert.equal(purchase.StealSuccessTalkID,'None');
+const item=table('Shop/Database/PurchaseItemTable').find(r=>r.id===purchase.ShopID+'_01');
+assert.equal(item.ItemLabel,'ITM_EQP_DGR_120');assert.equal(item.ProperSteal,38);
+const weapon=table('Item/Database/ItemDB').find(r=>r.id===item.ItemLabel);
+assert.equal(weapon.EquipmentRevision.ACC,58);
+const placement=table('Placement/Database/PlacementData').find(r=>r.ResourceLabel===npc.id);
+assert(placement);
+const params=table('GameParam/GameParamDefineTable');
+const over=params.find(r=>r.id==='STEAL_PROBABILITY_LEVEL_OVER');assert.equal(Number(over.Init),11);
+assert.equal(Number(params.find(r=>r.id==='STEAL_PROBABILITY_OVER').Init),100);
+const runtime={npc:npc.id,item:item.ItemLabel,proper_steal:item.ProperSteal,guaranteed_level:item.ProperSteal+Number(over.Init)};
+fs.writeFileSync(path.join(__dirname,'../data/galdera-champion.json'),JSON.stringify(runtime,null,2)+'\n');
+fs.writeFileSync(path.join(__dirname,'../data/source/galdera-champion.json'),JSON.stringify({sources,npc,purchase,item,weapon,placement},null,2)+'\n');
+console.log(JSON.stringify(runtime));

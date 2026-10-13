@@ -79,3 +79,19 @@ coast.oresrush_supplies.wellgrove.additional_time_switches=4;
 vm.runInNewContext(source.slice(start,end),context);
 assert.match($('western-sai-routine').innerHTML,/switch night → day 2 more time\(s\)/);
 console.log('PASS: additional Sai time cycles are shown only when needed to avoid ambush');
+coast.oresrush_supplies.wellgrove.western_escape_boost_cycles=3;
+coast.oresrush_supplies.wellgrove.champion={approach:entry,steal:entry,exit:entry,wellgrove:entry,
+ encounter:{...coast.southern_sai,menu:{first_actor:0,rng:entry.after}}};
+context.conningStages=[];
+vm.runInNewContext(source.slice(start,end),context);
+assert.match($('western-sai-routine').innerHTML,/Boost 0 → 1 → 0 × 3/);
+assert.equal($('eastern-wellgrove-result').hidden,false);
+assert.match($('eastern-wellgrove-routine').innerHTML,/T1 · Throné · 1st command menu/);
+assert.match($('eastern-wellgrove-routine').innerHTML,/Escape \(100%\)/);
+assert.deepEqual(context.conningStages.slice(-5).map(([label])=>label),[
+ 'Eastern Wellgrove Trail · run 100% to Man with Horses without encounter',
+ 'Eastern Wellgrove Trail · Champion Seeker stolen · 100% · change path action, then close without dialogue',
+ 'Eastern Wellgrove Trail · after Champion Seeker steal · escaped, field restored',
+ 'Eastern Wellgrove Trail · run 100% to Wellgrove without a second encounter',
+ 'Wellgrove · entered, chapter start discarded']);
+console.log('PASS: Western boosts, steal dialogue skip, later encounter and Wellgrove entry');
