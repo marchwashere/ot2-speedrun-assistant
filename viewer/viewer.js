@@ -842,7 +842,7 @@ function renderCrackridgeVoyage() {
   $('canalbrine-route-log').hidden=true;
   $('canalbrine-water-result').hidden=true;
   $('canalbrine-water-log').hidden=true;
-  for(const id of ['new-delsta-bg-result','crackridge-bg-result','clockbank-bg-result','oresrush-time-result','cropdale-time-result','conning-north-result','conning-west-result','conning-steal-result','inventor-escape-result','clockbank-movement-result','crackridge-return-result','southern-crackridge-result','western-crackridge-result','western-crackridge-return-result','gravell-result','galdera-coast-result','southern-sai-result','eastern-sai-result','western-sai-result','eastern-wellgrove-result','galdera-clockbank-result','galdera-temenos-result','galdera-quicksand-result','galdera-lord-sands-result','conning-log']) $(id).hidden=true;
+  for(const id of ['new-delsta-bg-result','crackridge-bg-result','clockbank-bg-result','oresrush-time-result','cropdale-time-result','conning-north-result','conning-west-result','conning-steal-result','inventor-escape-result','clockbank-movement-result','crackridge-return-result','southern-crackridge-result','western-crackridge-result','western-crackridge-return-result','gravell-result','galdera-coast-result','southern-sai-result','eastern-sai-result','western-sai-result','eastern-wellgrove-result','galdera-clockbank-result','galdera-temenos-result','galdera-quicksand-result','galdera-lord-sands-result','galdera-quicksand-loot-result','conning-log']) $(id).hidden=true;
   const early=result.post_battle_field?.flats_escape?.early_cait;
   const timing=early?.southern_rare_target?'after':early?.snows_approach?.predicted_before_osvald?'before':snowsEncounterTiming ?? 'after';
   const exit=result.post_battle_field?.flats_escape?.snows_escape?.[timing+'_osvald'];
@@ -1238,11 +1238,20 @@ function renderCrackridgeVoyage() {
                                     if(q.lord_sands) {
                                       const r=q.lord_sands,b=r.battle,party=['Throné','Osvald','Temenos','Partitio'];
                                       $('galdera-lord-sands-result').hidden=false;
-                                      $('galdera-lord-sands-routine').innerHTML=instructionBoxHtml(['Go directly to the boss · no random encounters','Switch to night before the fight',...b.actions.map(a=>'T'+a.turn+' · '+party[a.actor]+' · '+(a.bp?'+'+a.bp+' BP → ':'')+a.name)])+'<p class="muted">Beastlings: '+b.money_spent.toLocaleString()+' leaves · Rewards: '+b.rewards.exp+' EXP · '+b.rewards.jp+' JP · '+b.rewards.money+' leaves</p>';
+                                      $('galdera-lord-sands-routine').innerHTML=instructionBoxHtml(['Go directly to the boss · no random encounters','Switch to night before the fight',...b.actions.map(a=>'T'+a.turn+' · '+party[a.actor]+' · '+(a.turn===3&&r.finisher_boost_cycles?'Boost 0 → 1 → 0 × '+r.finisher_boost_cycles+' → ':'')+(a.bp?'+'+a.bp+' BP → ':'')+a.name)])+'<p class="muted">Beastlings: '+b.money_spent.toLocaleString()+' leaves · Rewards: '+b.rewards.exp+' EXP · '+b.rewards.jp+' JP · '+b.rewards.money+' leaves</p>';
                                       for(const [stage,e]of [['Lord of the Sands · night switch',r.night],['Lord of the Sands · accepted boss prompt',r.prompt],['Lord of the Sands · victory field return',r.field_return],['Lord of the Sands · defeat event complete',r.victory]]){conningStages.push([stage,e]);conningSpans.push(...e.trace);}
                                       conningPoints.push(['Lord of the Sands · first command menu',b.at_command_menu],['Lord of the Sands · victory and drops',b.after]);
                                       for(const a of b.actions)conningPoints.push(['Lord of the Sands · T'+a.turn+' '+party[a.actor]+' · before '+a.name,a.report.rng_before],['Lord of the Sands · T'+a.turn+' '+party[a.actor]+' · after '+a.name,a.report.rng_after]);
                                       conningSpans.push(...b.trace);
+                                      if(q.loot) {
+                                        const t=q.loot,f=t.encounter,label='Quicksand Gaol · post-boss land encounter';
+                                        $('galdera-quicksand-loot-result').hidden=false;
+                                        $('galdera-quicksand-loot-routine').innerHTML=instructionBoxHtml(['Switch to day','Open the Rusty Axe chest','Outside the boss arena: '+encounterLabel(f.encounter),'T1 · '+party[f.menu.first_actor]+' · Escape ('+f.escape.chance_percent+'%)','Open the Scorched Bone Spear chest']);
+                                        for(const [stage,e]of [['Quicksand Gaol · day after boss',t.day],['Quicksand Gaol · Rusty Axe obtained',t.rusty_axe],[label+' · escaped, field restored',f.field_return],['Quicksand Gaol · Scorched Bone Spear obtained',t.scorched_bone_spear]]){conningStages.push([stage,e]);conningSpans.push(...e.trace);}
+                                        const origin=BigInt(f.arrival.after.draws)-BigInt(f.encounter.checkpoints[0].draws);
+                                        for(const c of f.encounter.checkpoints)conningPoints.push([label+' · '+c.label,{draws:Number(origin+BigInt(c.draws)),state:c.state}]);
+                                        conningPoints.push([label+' · first command menu',f.menu.rng]);conningSpans.push(...f.escape.trace);
+                                      }
                                     }
                                   }
                                 }

@@ -1,5 +1,13 @@
 # Active project
 
+- After Lord of the Sands: switch day, open Rusty Axe chest, one ordinary-land
+  encounter outside the arena, guaranteed Escape, open Scorched Bone Spear chest.
+  Defeat flag40010 replaces ENT_DNG_DST_2_2_LND with ENT_DNG_DST_2_2_L_LND,
+  including the repeat-boss group. Use that post-boss table. Reject ambush via
+  complete boost/cancel cycles before Partitio's final Beastlings; freeze all
+  earlier actions and route controls. Fixed chests consume no RNG; record opened
+  chest IDs and inventory. No measured movement budget exists for this leg.
+
 - Lord of the Sands routine agreed: night before boss; T1 ASA Throne dagger x2,
   Osvald/Partitio Defend; T2 Throne Critical Scope, Osvald +2 Aggressive Slash,
   Partitio Defend, Temenos staff; T3 Partitio +3 Beastlings. Preserve these actions.

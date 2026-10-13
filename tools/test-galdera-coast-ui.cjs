@@ -159,3 +159,13 @@ assert.equal($('galdera-lord-sands-result').hidden,false);
 assert.match($('galdera-lord-sands-routine').innerHTML,/T2 · Temenos · Staff attack/);
 assert.match($('galdera-lord-sands-routine').innerHTML,/T3 · Partitio · \+3 BP/);
 assert.equal(context.conningStages.at(-1)[0],'Lord of the Sands · defeat event complete');
+
+fc.temenos.quicksand.lord_sands.finisher_boost_cycles=2;
+fc.temenos.quicksand.loot={day:entry,rusty_axe:entry,scorched_bone_spear:entry,encounter:{...coast.southern_sai,menu:{first_actor:2,rng:entry.after}}};
+vm.runInNewContext(source.slice(start,end),context);
+assert.match($('galdera-lord-sands-routine').innerHTML,/Boost 0 → 1 → 0 × 2/);
+assert.equal($('galdera-quicksand-loot-result').hidden,false);
+assert.match($('galdera-quicksand-loot-routine').innerHTML,/Rusty Axe/);
+assert.match($('galdera-quicksand-loot-routine').innerHTML,/Temenos · Escape/);
+assert.match($('galdera-quicksand-loot-routine').innerHTML,/Scorched Bone Spear/);
+assert.equal(context.conningStages.at(-1)[0],'Quicksand Gaol · Scorched Bone Spear obtained');

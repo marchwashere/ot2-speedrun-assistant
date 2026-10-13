@@ -44,3 +44,25 @@ Regenerate core tools/import-lord-sands.cjs after import-bg-effects; regenerate
 assistant tools/import-galdera-lord-sands.cjs after town/event imports. Core tests
 cover128 RNG seeds and source trace continuity; the full route and browser fixture
 tests cover integration. New boss checkpoints still await retail trace validation.
+
+## Post-boss weapon pickups
+
+Switch to day, open Treasure_Dng_Dst_2_2_01 (Rusty Axe, ITM_TRE_WPM_04),
+take one encounter on ordinary land outside the arena, Escape, then open
+Treasure_Dng_Dst_2_2_05 (Scorched Bone Spear, ITM_EQP_LNS_220). Retain both
+items unequipped and persist opened chest IDs. Neither chest has random contents
+or placement events; TreasureBoxBP uses a literal OpenTimer, fixed PickItem and
+ordinary reward dialogue, with no CRT draws or encounter counter reset.
+
+The placed land trigger replaces its table when defeat flag40010 is set:
+ENT_DNG_DST_2_2_L_LND, not the pre-boss ENT_DNG_DST_2_2_LND. Its table includes
+ENG_DNG_DST_2_2_L_120 (repeat Lord of the Sands, Escape enabled). Import this
+enemy along with all ordinary/rare possibilities. Require Normal/Preemptive and
+100% Escape with the carried party. If ambushed, search minimum complete 0→1→0
+cycles before Partitio's final +3 Beastlings, replaying actual voices, damage,
+rewards, return, day switch and chest. Earlier battle actions stay frozen.
+
+User specified the encounter count/order, not distances. Do not infer a running
+percentage or guarantee the physical crossing from an invented movement budget.
+The post-Escape counter remains the reset counter until further distances are
+provided. Source audit: tools/import-galdera-quicksand-loot.cjs. Retail pending.

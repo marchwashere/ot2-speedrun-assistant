@@ -100,6 +100,17 @@ function find(v){if(v&&typeof v==='object'){if(v.coast&&v.fight)return v;for(con
   console.log(JSON.stringify({fixture:label,temenos_boost_cycles:tm.battle.boost_cycles,western_menu:q.western_sai.menu.rng.draws,quicksand:q.quicksand.after.draws,order:q.western_sai.menu.current_order}));
   const lord=q.lord_sands;assert(lord);assert.deepEqual(lord.night.arrival,q.quicksand.after);assert.equal(lord.night.world_after.time,4);
   assert.deepEqual(lord.prompt.after,lord.battle.before);assert.deepEqual(lord.field_return.arrival,lord.battle.after);assert.deepEqual(lord.victory.arrival,lord.field_return.after);
+
+  const loot=q.loot;assert(loot);assert.deepEqual(loot.day.arrival,lord.victory.after);assert.equal(loot.day.world_after.time,2);
+  assert.deepEqual(loot.rusty_axe.arrival,loot.day.after);assert.deepEqual(loot.rusty_axe.after,loot.day.after);
+  assert.equal(loot.rusty_axe.world_after.route_items.ITM_TRE_WPM_04,1);
+  assert.deepEqual(loot.encounter.arrival.after,loot.rusty_axe.after);
+  assert(['Normal','Preemptive'].includes(loot.encounter.encounter.situation));
+  assert.equal(loot.encounter.escape.chance_percent,100);assert(loot.encounter.escape.success);
+  assert.deepEqual(loot.scorched_bone_spear.arrival,loot.encounter.field_return.after);assert.deepEqual(loot.scorched_bone_spear.after,loot.encounter.field_return.after);
+  assert.equal(loot.scorched_bone_spear.world_after.route_items.ITM_EQP_LNS_220,1);
+  assert.equal(loot.scorched_bone_spear.world_after.opened_route_chests.length,2);
+  console.log(JSON.stringify({fixture:label,finisher_cycles:lord.finisher_boost_cycles,loot_menu:loot.encounter.menu.rng.draws,spear:loot.scorched_bone_spear.after.draws}));
   assert.equal(lord.battle.actions.length,8);assert.equal(lord.battle.actions.at(-1).report.outcome,'victory');
   assert(lord.battle.actions.some(a=>a.turn===2&&a.actor===2&&a.name==='Staff attack'));
   assert.equal(lord.battle.rewards.jp,37);assert.equal(lord.battle.money_spent,15000);

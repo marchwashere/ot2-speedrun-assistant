@@ -192,6 +192,8 @@ pub fn catalog() -> &'static Catalog {
 /// execution; callers extending the route retain the resulting state.
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct WorldState {
+    #[serde(default,skip_serializing_if="BTreeSet::is_empty")]
+    pub opened_route_chests:BTreeSet<String>,
     #[serde(default,skip_serializing_if="Option::is_none")]
     pub hired_merchant:Option<HiredMerchant>,
     #[serde(default,skip_serializing_if="BTreeMap::is_empty")]
@@ -1497,7 +1499,7 @@ pub fn throne_after_second_state() -> Result<WorldState> {
     let data = catalog();
     let p = &data.fresh_throne;
     let state = WorldState {
-        hired_merchant:None,route_items:BTreeMap::new(),
+        hired_merchant:None,route_items:BTreeMap::new(),opened_route_chests:BTreeSet::new(),
         galdera_route: false,
         map: p.map.clone(),
         visited_maps: BTreeSet::new(),
