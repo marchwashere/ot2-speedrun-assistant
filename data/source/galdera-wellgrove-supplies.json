@@ -13,6 +13,10 @@
       "sha256": "93a6ebef110fdd3857ef48b24780304a20f7ff386fc7471a7926eea1dc6a8c8e"
     },
     {
+      "source": "/Game/GameParam/GameParamDefineTable",
+      "sha256": "10cd9a80a908332702c3fcf75d8935f68889bbec618f01292894bfb63df99d1e"
+    },
+    {
       "source": "/Game/Shop/Database/GuildData",
       "sha256": "ec86ddce780025453431be946972781b8388aee46699f8402297a35704caf982"
     },
@@ -31,6 +35,90 @@
     {
       "source": "/Game/Event/json/SYS_DAN_GUILD_0030",
       "sha256": "b5b6c667f7f43b49b291f926d60ef5881ec6cefedd3bdacd080ba1e4ca5a88b9"
+    }
+  ],
+  "merchant": {
+    "id": "NPC_Twn_Fst_2_1_A_TALK_0300",
+    "ID": 6,
+    "TextLabel": "CN_NPC_Twn_Fst_2_1_A_TALK_0300",
+    "NPC_UnqIndex": 13103,
+    "ActionID": "MntYf001_Fml",
+    "FaintAction": 36,
+    "UsePathLabel": "",
+    "IgnoreRelation": false,
+    "WorseRelationTextLabel": "eNPC_TALK_00",
+    "FCmd_Purchase_ID": "FC_P_NPC_Twn_Fst_2_1_A_TALK_0300",
+    "FCmd_Lure_ID": "FC_L_NPC_Twn_Fst_2_1_A_TALK_0300",
+    "FCmd_Battle_ID": "FC_B_NPC_Twn_Fst_2_1_A_TALK_0300",
+    "FCmd_Search_ID": "FC_INFO_NPC_Twn_Fst_2_1_A_TALK_0300",
+    "FCmd_RecoverArea": 5,
+    "FCmd_EnemyGroup": "ENG_NPC_Twn_Fst_2_1_A_0300",
+    "FCmd_UseBattleMapIndex": 0,
+    "TextInfoLabel": "None",
+    "IsNotWorsenRelation": false,
+    "FcSpecialPopupType": "EFieldCommandSpecialPopupType::eNone"
+  },
+  "merchantPurchase": {
+    "id": "FC_P_NPC_Twn_Fst_2_1_A_TALK_0300",
+    "ID": 15,
+    "CommandEnable": 15,
+    "ShopID": "NPC_Twn_Fst_2_1_A_TALK_0300_NPCBUY",
+    "PurchaseBuyTalkID": "None",
+    "StealSuccessTalkID": "None",
+    "StealFailedTalkID": "None",
+    "BegSuccessTalkID": "None",
+    "RobEnemyGroupID": "None",
+    "RobBeforeTalkID": "None",
+    "RobBeforeEventID": "None"
+  },
+  "poms": [
+    {
+      "id": "NPC_Twn_Fst_2_1_A_TALK_0300_NPCBUY_01",
+      "ID": 1969,
+      "ItemLabel": "ITM_CSM_0080",
+      "FCPrice": 722,
+      "PossibleItemLabel": "None",
+      "ObtainFlag": 15,
+      "ProperSteal": 10,
+      "ProperBeg": 18,
+      "LineupTime": "ELineupTime::eAlways",
+      "VisibleFlags": [
+        0
+      ],
+      "HiddenFlags": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "MillionaireModeLavel": "None",
+      "IsUnlimited": false,
+      "BeSoldOut": false
+    },
+    {
+      "id": "NPC_Twn_Fst_2_1_A_TALK_0300_NPCBUY_02",
+      "ID": 1970,
+      "ItemLabel": "ITM_CSM_0080",
+      "FCPrice": 800,
+      "PossibleItemLabel": "None",
+      "ObtainFlag": 15,
+      "ProperSteal": 10,
+      "ProperBeg": 18,
+      "LineupTime": "ELineupTime::eAlways",
+      "VisibleFlags": [
+        0
+      ],
+      "HiddenFlags": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "MillionaireModeLavel": "None",
+      "IsUnlimited": false,
+      "BeSoldOut": false
     }
   ],
   "shopkeeper": {

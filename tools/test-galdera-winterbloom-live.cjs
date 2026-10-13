@@ -52,7 +52,13 @@ function find(v){if(v&&typeof v==='object'){if(v.coast&&v.fight)return v;for(con
   assert.deepEqual(t.wellgrove.world_after.character_progression,state.character_progression);
   console.log(JSON.stringify({fixture:label,western_boost_cycles:wg.western_escape_boost_cycles,steal:t.steal.after.draws,encounter_menu:t.encounter.menu.rng.draws,wellgrove:t.wellgrove.after.draws,remaining_counter:t.exit.world_after.encounter_counter}));
   const supplies=t.supplies;assert(supplies);
-  assert.deepEqual(supplies.night.arrival,t.wellgrove.after);
+  assert.deepEqual(supplies.pom_steal.arrival,t.wellgrove.after);
+  assert.equal(supplies.pom_steal.after.draws-supplies.pom_steal.arrival.draws,3);
+  assert.equal(supplies.pom_steal.world_after.time,2);
+  assert.equal(supplies.pom_steal.world_after.route_items.ITM_CSM_0080,(t.wellgrove.world_after.route_items.ITM_CSM_0080||0)+2);
+  assert.equal(supplies.pom_steal_chance,100);assert.equal(supplies.pom_steal_rolls.length,2);
+  assert(!supplies.pom_steal.trace.some(r=>r.kind==='dialogue_lottery'));
+  assert.deepEqual(supplies.night.arrival,supplies.pom_steal.after);
   assert.equal(supplies.tavern_entreat.after.draws-supplies.night.after.draws,1);
   assert.deepEqual(supplies.tavern_required_levels,[26,26]);
   assert(!supplies.tavern_entreat.trace.some(r=>['steal_check','dialogue_lottery'].includes(r.kind)));
@@ -79,7 +85,7 @@ function find(v){if(v&&typeof v==='object'){if(v.coast&&v.fight)return v;for(con
   assert.deepEqual(ar.delivery.world_after.character_progression,end.character_progression);
   assert.deepEqual(ar.delivery.world_after.active_scenarios,end.active_scenarios);
   console.log(JSON.stringify({fixture:label,new_delsta:ar.new_delsta.after.draws,day:ar.day.after.draws,highroad:ar.highroad.after.draws,delivery:ar.delivery.after.draws,delivery_draws:ar.delivery.after.draws-ar.highroad.after.draws}));
-  assert.equal(ar.delivery.after.draws,label==='32'?5075:4164,'Earlier Al delivery endpoint remains unchanged');
+  assert.equal(ar.delivery.after.draws,(label==='32'?5075:4164)+3,'Pom menu opening and two steals add three draws before Al delivery');
   const fc=ar.flamechurch;assert(fc);
   const tm=fc.temenos;assert(tm);assert.deepEqual(tm.introduction.arrival,fc.flamechurch.after);
   assert.deepEqual(tm.recruitment.world_after.party,[7,6,5,4]);assert(tm.recruitment.world_after.bench.includes(8));

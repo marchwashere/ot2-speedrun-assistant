@@ -96,15 +96,16 @@ assert.deepEqual(context.conningStages.slice(-5).map(([label])=>label),[
  'Eastern Wellgrove Trail · run 100% to Wellgrove without a second encounter',
  'Wellgrove · entered, chapter start discarded']);
 console.log('PASS: Western boosts, steal dialogue skip, later encounter and Wellgrove entry');
-coast.oresrush_supplies.wellgrove.champion.supplies={night:entry,tavern_entreat:entry,mother_entreat:entry,dancer_license:entry};
+coast.oresrush_supplies.wellgrove.champion.supplies={pom_steal:entry,night:entry,tavern_entreat:entry,mother_entreat:entry,dancer_license:entry};
 context.conningStages=[];
 vm.runInNewContext(source.slice(start,end),context);
-assert.deepEqual(context.conningStages.slice(-4).map(([label])=>label),[
- 'Wellgrove · switched to night immediately after entry',
+assert.deepEqual(context.conningStages.slice(-5).map(([label])=>label),[
+ 'Wellgrove · Merchant: steal 2 Energizing Pomegranates (M) · change path action, then close without dialogue',
+ 'Wellgrove · switched to night after stealing both Pom M',
  'Wellgrove tavern · Sharp Nut (L) and Diffusing Serum entreated · change path action, then close without dialogue',
  "Wellgrove · Girl's Mother Empowering Lychee (M) entreated · change path action, then close without dialogue",
  'Wellgrove · Dancer License acquired']);
-console.log('PASS: immediate Wellgrove night, two-item Entreat, Lychee and Dancer License in Detailed log');
+console.log('PASS: daytime Pom M x2 Steal, night switch, Entreats and Dancer License in Detailed log');
 coast.oresrush_supplies.wellgrove.champion.supplies.al_return={new_delsta:entry,day:entry,highroad:entry,delivery:entry};
 context.conningStages=[];
 vm.runInNewContext(source.slice(start,end),context);

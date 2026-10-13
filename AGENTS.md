@@ -67,7 +67,9 @@
   no draw. All stages in Detailed log. Source audit import-galdera-al-return.cjs
   reuses existing Bag events and confirms SubDeliveryItem. Retail pending.
 
-- After Wellgrove entry: immediately switch night, then one tavern Shopkeeper
+- After Wellgrove entry: steal both Pom M from Merchant NPC_Twn_Fst_2_1_A_TALK_0300
+  in one menu (opening + two success draws; guaranteed level21), switch path
+  action before closing, then switch night. Then one tavern Shopkeeper
   Entreat menu obtains Sharp Nut L and Diffusing Serum; change path action before
   close (one opening draw, no item probability checks). Both require Agnea26;
   NPC_Twn_Fst_2_1_A_TALK_0400. Then Entreat Empowering Lychee M from Girl's Mother,

@@ -711,7 +711,13 @@ mod gravell_integration_tests {
   assert_eq!(t.wellgrove.world_after.time,2);
   assert_eq!(t.wellgrove.world_after.active_scenarios,winter.soldier_entreat.world_after.active_scenarios);
   let ws=&t.supplies;
-  assert_eq!(ws.night.arrival,t.wellgrove.after);
+  assert_eq!(ws.pom_steal.arrival,t.wellgrove.after);
+  assert_eq!(ws.pom_steal.after.draws,ws.pom_steal.arrival.draws+3);
+  assert_eq!(ws.pom_steal.world_after.time,2);
+  assert_eq!(ws.pom_steal.world_after.route_items.get("ITM_CSM_0080").copied().unwrap_or(0),t.wellgrove.world_after.route_items.get("ITM_CSM_0080").copied().unwrap_or(0)+2);
+  assert_eq!(ws.pom_steal_rolls.len(),2);assert_eq!(ws.pom_steal_chance,100);
+  assert!(!ws.pom_steal.trace.iter().any(|r|matches!(r.kind,world::DrawKind::DialogueLottery)));
+  assert_eq!(ws.night.arrival,ws.pom_steal.after);
   assert_eq!(ws.tavern_entreat.arrival,ws.night.after);
   assert_eq!(ws.tavern_entreat.after.draws,ws.night.after.draws+1);
   assert_eq!(ws.tavern_required_levels,vec![26,26]);

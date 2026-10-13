@@ -22,5 +22,12 @@
   "guild_events": [
     "SYS_DAN_GUILD_0010",
     "SYS_DAN_GUILD_0030"
-  ]
+  ],
+  "merchant": {
+    "npc": "NPC_Twn_Fst_2_1_A_TALK_0300",
+    "item": "ITM_CSM_0080",
+    "quantity": 2,
+    "proper_steal": 10,
+    "guaranteed_level": 21
+  }
 }
