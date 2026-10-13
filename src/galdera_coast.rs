@@ -29,7 +29,7 @@ fn southern_sai(eastern:&Entry)->Result<Option<SouthernSai>> {
     l.visit_map("Fld_Dst_2_3")?;let arrival=point(&mut l,eastern.after);
     sai_encounter(arrival,"ENT_FLD_DST_2_3_LND")
 }
-fn sai_encounter(arrival:Entry,zone:&str)->Result<Option<SouthernSai>> {
+pub(crate) fn sai_encounter(arrival:Entry,zone:&str)->Result<Option<SouthernSai>> {
     let w=&arrival.world_after;
     let levels:Vec<_>=w.party.iter().map(|id|w.character_progression[id].level).collect();
     let mut rng=arrival.after;
@@ -48,8 +48,8 @@ fn sai_encounter(arrival:Entry,zone:&str)->Result<Option<SouthernSai>> {
     let step_ahead=w.party.iter().all(|id|w.character_progression[id].jobs.equipped_support.contains(crate::gravell_setup::STEP_AHEAD));
     let menu=if step_ahead {FieldEscapeMenu::with_step_ahead(rng,situation,&players,&levels,&ids,&w.enemy_knowledge)?}
         else {FieldEscapeMenu::with_players(rng,situation,&players,&levels,&ids,&w.enemy_knowledge)?};
-    let escape=menu.clone().attempt(&[],encounter.encounter_level.ok_or_else(||SimError("Missing Southern Sai encounter danger level".into()))?)?;
-    ensure(escape.chance_percent==100&&escape.success,"Southern Sai first-menu Escape is not guaranteed with the carried levels")?;
+    let escape=menu.clone().attempt(&[],encounter.encounter_level.ok_or_else(||SimError(format!("Missing {} encounter danger level",w.map)))?)?;
+    ensure(escape.chance_percent==100&&escape.success,format!("{} first-menu Escape is not guaranteed with the carried levels",w.map))?;
     let ret=crate::highroad::restore_field(w,&escape,&w.map,&format!("{} first-menu Escape",w.map))?;
     let field_return=Entry {arrival:ret.arrival,after:ret.after,world_after:ret.world_after,trace:ret.trace,decisions:vec![]};
     Ok(Some(SouthernSai {arrival,encounter,battle_entry:rng,menu,escape,field_return}))

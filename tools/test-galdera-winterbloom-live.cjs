@@ -19,6 +19,20 @@ function find(v){if(v&&typeof v==='object'){if(v.coast&&v.fight)return v;for(con
   assert.deepEqual(state.active_scenarios,o.augmentor.entreat.world_after.active_scenarios);
   assert.equal(Number(w.soldier_entreat.after.draws)-Number(w.sword_quest.after.draws),1);
   assert.equal(w.required_level,26);assert(w.agnea_level>=26);assert.equal(w.reward_money,7000);
+  const wg=o.wellgrove;assert(wg);
+  assert.equal(w.soldier_entreat.after.draws,label==='32'?4658:3763,'Winterbloom endpoint is frozen');
+  assert.deepEqual(wg.sai.arrival,w.soldier_entreat.after);
+  assert.equal(wg.day.world_after.time,2);
+  assert.equal(wg.southern_sai.world_after.map,'Fld_Dst_2_3');
+  assert.deepEqual(wg.western_sai.arrival.arrival,wg.southern_sai.after,'No Southern Sai battle');
+  assert.equal(wg.western_sai.arrival.world_after.map,'Fld_Dst_2_2');
+  assert(['Normal','Preemptive'].includes(wg.western_sai.encounter.situation));
+  assert.equal(wg.western_sai.escape.chance_percent,100);assert.equal(wg.western_sai.escape.success,true);
+  assert.deepEqual(wg.eastern_wellgrove.arrival,wg.western_sai.field_return.after);
+  assert.equal(wg.eastern_wellgrove.world_after.map,'Fld_Fst_2_2');assert.equal(wg.eastern_wellgrove.world_after.time,2);
+  assert.deepEqual(wg.eastern_wellgrove.world_after.character_progression,state.character_progression);
+  assert.deepEqual(wg.eastern_wellgrove.world_after.route_items,state.route_items);
+  console.log(JSON.stringify({fixture:label,extra_sai_switches:wg.additional_time_switches,western_sai_entry:wg.western_sai.arrival.after.draws,western_sai_menu:wg.western_sai.menu.rng.draws,wellgrove_entry:wg.eastern_wellgrove.after.draws}));
   fs.writeFileSync(path.join(__dirname,'../outputs/galdera-winterbloom-'+label+'.json'),JSON.stringify(json));
   console.log(JSON.stringify({fixture:label,arrival:w.arrival.after.draws,quest:w.sword_quest.after.draws,entreat:w.soldier_entreat.after.draws,quest_draws:Number(w.sword_quest.after.draws)-Number(w.arrival.after.draws),counter:w.sword_quest.world_after.encounter_counter}));
  }

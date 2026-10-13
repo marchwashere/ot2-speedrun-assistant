@@ -327,6 +327,30 @@
       "sha256": "8c72b7c87badca500a470bbe2418e767d1cccfea374c8cd7d3325f71e316ff62"
     },
     {
+      "source": "/Game/Level/Level/Desert/Fld_Dst_2_2.umap",
+      "sha256": "1f6663df0af373159c5b69b8d1628e06302c0bf0128f4c22f8a9b12444947285"
+    },
+    {
+      "source": "/Game/Level/Level/Desert/Fld_Dst_2_2_Art.umap",
+      "sha256": "073339251d92f371d1980d75a8ee17a108fa4242a90c747eec06c6965cc8adbe"
+    },
+    {
+      "source": "/Game/Level/Level/Desert/Fld_Dst_2_2_Coll.umap",
+      "sha256": "59520087a4f492aa7f08f7803ba5f96485b21b202ff7fc5031b0004dde2828a5"
+    },
+    {
+      "source": "/Game/Level/Level/Desert/Fld_Dst_2_2_Sound.umap",
+      "sha256": "55e0c152197a53b64dbc283d2450ec3141df7a2fbc785923e0c55ee0548bfefa"
+    },
+    {
+      "source": "/Game/Level/Level/Desert/Btl_Fld_Dst_Land_B.umap",
+      "sha256": "aa68f534f9cadf50a34c9e6de9004983af8271c7f42060ab764c58149906ed72"
+    },
+    {
+      "source": "/Game/Level/Level/Desert/Btl_Fld_Dst_River_B.umap",
+      "sha256": "8c72b7c87badca500a470bbe2418e767d1cccfea374c8cd7d3325f71e316ff62"
+    },
+    {
       "source": "/Game/Level/Level/Desert/Fld_Dst_2_3.umap",
       "sha256": "6cb2ca0f0809e25ca870bee52190c1caecbd4315361ea09752ae07722b3bb0be"
     },
@@ -1285,6 +1309,26 @@
     {
       "source": "/Game/Level/Level/Forest/Btl_Fld_Fst_River_A.umap",
       "sha256": "674d4c3bdaaeb73c953207c205801a56b569d59f85366e88b1311b727c8720eb"
+    },
+    {
+      "source": "/Game/Level/Level/Forest/Fld_Fst_2_2.umap",
+      "sha256": "bcf9581b6262b86c7f9a081811987565ad7f33546a8625333d9bf1e669629ce9"
+    },
+    {
+      "source": "/Game/Level/Level/Forest/Fld_Fst_2_2_Art.umap",
+      "sha256": "af581081376974cf0ad98b003c2e889fceb6f74047442c3f2fefdd695382c71e"
+    },
+    {
+      "source": "/Game/Level/Level/Forest/Fld_Fst_2_2_Coll.umap",
+      "sha256": "248ba3c14b1b56a37d8941e7c9f41fcd136f2ca157ecc4bf3199bdccfcc6e7ed"
+    },
+    {
+      "source": "/Game/Level/Level/Forest/Fld_Fst_2_2_Sound.umap",
+      "sha256": "01fc81a4efb6b09d61a270b2868c2eacfd8958dcead44a44a562917576091a16"
+    },
+    {
+      "source": "/Game/Level/Level/Forest/Btl_Fld_Fst_Land_A.umap",
+      "sha256": "ee865f162194158b12da9f28c9f14a81a177adde127a12c5e69cc537718b9427"
     },
     {
       "source": "/Game/Level/Level/Forest/Twn_Fst_1_1_A.umap",

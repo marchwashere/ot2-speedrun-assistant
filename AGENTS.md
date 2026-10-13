@@ -1,5 +1,17 @@
 # Active project
 
+- After Winterbloom Soldier Entreat: fast travel Sai, discard chapters,
+  immediately switch day, cross Southern Sai (Fld_Dst_2_3) without encounter,
+  load Western Sai (Fld_Dst_2_2), exactly one land encounter, first-menu Escape,
+  then load Eastern Wellgrove Trail (Fld_Fst_2_2). No invented movement budget
+  for the user-confirmed encounterless crossing. Native Western volume aliases
+  Southern Sai land tables; core already supports every referenced enemy.
+  Preserve carried party/history/levels/inventory. Avoid ambush via the nearest
+  Sai time control: only if required, extra complete night/day pairs after the
+  immediate day switch, then re-evaluate native loads. Show extra switches and
+  actual actor/Escape100 in the Western Sai card; fixed loads in Detailed log.
+  Source-loaded maps and regressions are included; retail validation pending.
+
 - After Sai East District Entreat: fast travel Winterbloom at night, discard any
   chapter start, deliver Sturdy Pickaxe via SC_SS_TSnow21_0200_02A0 Yes. Consume
   Pickaxe; reward Rusty Sword, Revitalizing Jam, 7000 leaves. Native 9990 refresh

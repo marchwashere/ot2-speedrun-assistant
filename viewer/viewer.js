@@ -842,7 +842,7 @@ function renderCrackridgeVoyage() {
   $('canalbrine-route-log').hidden=true;
   $('canalbrine-water-result').hidden=true;
   $('canalbrine-water-log').hidden=true;
-  for(const id of ['new-delsta-bg-result','crackridge-bg-result','clockbank-bg-result','oresrush-time-result','cropdale-time-result','conning-north-result','conning-west-result','conning-steal-result','inventor-escape-result','clockbank-movement-result','crackridge-return-result','southern-crackridge-result','western-crackridge-result','western-crackridge-return-result','gravell-result','galdera-coast-result','southern-sai-result','eastern-sai-result','conning-log']) $(id).hidden=true;
+  for(const id of ['new-delsta-bg-result','crackridge-bg-result','clockbank-bg-result','oresrush-time-result','cropdale-time-result','conning-north-result','conning-west-result','conning-steal-result','inventor-escape-result','clockbank-movement-result','crackridge-return-result','southern-crackridge-result','western-crackridge-result','western-crackridge-return-result','gravell-result','galdera-coast-result','southern-sai-result','eastern-sai-result','western-sai-result','conning-log']) $(id).hidden=true;
   const early=result.post_battle_field?.flats_escape?.early_cait;
   const timing=early?.southern_rare_target?'after':early?.snows_approach?.predicted_before_osvald?'before':snowsEncounterTiming ?? 'after';
   const exit=result.post_battle_field?.flats_escape?.snows_escape?.[timing+'_osvald'];
@@ -1157,6 +1157,24 @@ function renderCrackridgeVoyage() {
                         for(const [label,e] of [['Winterbloom · fast travel, chapter start discarded',w.arrival],['Winterbloom · deliver Sturdy Pickaxe · Rusty Sword, Revitalizing Jam, 7,000 leaves',w.sword_quest],['Winterbloom · Fortifying Nut (L) entreated from Soldier · change path action, then close without dialogue',w.soldier_entreat]]) {
                           conningStages.push([label,e]);conningSpans.push(...e.trace);
                         }
+                      }
+                      if(o.wellgrove) {
+                        const w=o.wellgrove,s=w.western_sai;
+                        for(const [label,e] of [['Sai · fast travel from Winterbloom, chapter start discarded',w.sai],['Sai · switched to day immediately',w.day],['Southern Sai Sands · crossed without encounter',w.southern_sai],['Western Sai Sands · loaded',s.arrival],['Western Sai Sands · escaped, field restored',s.field_return],['Eastern Wellgrove Trail · loaded',w.eastern_wellgrove]]) {
+                          conningStages.push([label,e]);conningSpans.push(...e.trace);
+                        }
+                        $('western-sai-result').hidden=false;
+                        $('western-sai-routine').innerHTML='<p><strong>'+escapeHtml(encounterLabel(s.encounter))+'</strong></p>'
+                          +`<p><strong>T1 · ${names[s.menu.first_actor]} · 1st command menu</strong></p>`
+                          +instructionBoxHtml([...(w.additional_time_switches?[`Before leaving Sai: after the immediate day switch, switch night → day ${w.additional_time_switches/2} more time(s)`]:[]),`Escape (${s.escape.chance_percent}%)`]);
+                        conningPoints.push(['Western Sai Sands · before battle initialization',s.battle_entry],['Western Sai Sands · first command menu',s.menu.rng]);
+                        let previous=s.arrival.after;
+                        const origin=BigInt(previous.draws)-BigInt(s.encounter.checkpoints[0].draws);
+                        for(const checkpoint of s.encounter.checkpoints) {
+                          const after={state:checkpoint.state,draws:origin+BigInt(checkpoint.draws)};
+                          conningSpans.push({reason:'Western Sai Sands · '+checkpoint.label,before:previous,after});previous=after;
+                        }
+                        conningSpans.push(...s.escape.trace);
                       }
                     }
                   }

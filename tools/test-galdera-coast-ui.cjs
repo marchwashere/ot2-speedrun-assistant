@@ -63,3 +63,19 @@ assert.deepEqual(context.conningStages.slice(-3).map(([label])=>label),[
  'Winterbloom · deliver Sturdy Pickaxe · Rusty Sword, Revitalizing Jam, 7,000 leaves',
  'Winterbloom · Fortifying Nut (L) entreated from Soldier · change path action, then close without dialogue']);
 console.log('PASS: Winterbloom quest and Soldier Entreat with dialogue skip');
+coast.oresrush_supplies.wellgrove={sai:entry,day:entry,southern_sai:entry,
+ western_sai:{...coast.southern_sai,menu:{first_actor:1,rng:entry.after}},eastern_wellgrove:entry};
+context.conningStages=[];
+vm.runInNewContext(source.slice(start,end),context);
+assert.equal($('western-sai-result').hidden,false);
+assert.match($('western-sai-routine').innerHTML,/T1 · Osvald · 1st command menu/);
+assert.match($('western-sai-routine').innerHTML,/Escape \(100%\)/);
+assert.deepEqual(context.conningStages.slice(-6).map(([label])=>label),[
+ 'Sai · fast travel from Winterbloom, chapter start discarded','Sai · switched to day immediately',
+ 'Southern Sai Sands · crossed without encounter','Western Sai Sands · loaded',
+ 'Western Sai Sands · escaped, field restored','Eastern Wellgrove Trail · loaded']);
+console.log('PASS: return to Sai daytime, no Southern fight, one Western fight before Wellgrove');
+coast.oresrush_supplies.wellgrove.additional_time_switches=4;
+vm.runInNewContext(source.slice(start,end),context);
+assert.match($('western-sai-routine').innerHTML,/switch night → day 2 more time\(s\)/);
+console.log('PASS: additional Sai time cycles are shown only when needed to avoid ambush');

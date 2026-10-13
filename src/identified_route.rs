@@ -145,6 +145,14 @@ pub fn simulate_route(voices:&str,pirro_first:bool,hp:u32,galdera_route:bool)->R
         assert_eq!(g["coast"]["sai"]["world_after"]["map"],"Twn_Dst_2_1_A");
         assert_eq!(g["coast"]["oresrush_supplies"]["steal_chance"],100);
         assert_eq!(g["coast"]["oresrush_supplies"]["augmentor"]["entreat"]["world_after"]["route_items"]["ITM_EQP_ACS_250"],1);
+        let wg=&g["coast"]["oresrush_supplies"]["wellgrove"];
+        assert_eq!(wg["day"]["world_after"]["time"],2);
+        assert_eq!(wg["southern_sai"]["world_after"]["map"],"Fld_Dst_2_3");
+        assert_eq!(wg["western_sai"]["arrival"]["world_after"]["map"],"Fld_Dst_2_2");
+        assert_eq!(wg["western_sai"]["escape"]["chance_percent"],100);
+        assert_eq!(wg["western_sai"]["escape"]["success"],true);
+        assert_ne!(wg["western_sai"]["encounter"]["situation"],"Surprise");
+        assert_eq!(wg["eastern_wellgrove"]["world_after"]["map"],"Fld_Fst_2_2");
         assert_eq!(g["coast"]["oresrush_supplies"]["pickaxe"]["world_after"]["hired_merchant"]["talent"],"SPACT_MERCHANT_014");
         assert_ne!(g["coast"]["southern_sai"]["encounter"]["situation"],"Surprise");
         assert_eq!(g["fight"]["state"]["outcome"],"victory");
