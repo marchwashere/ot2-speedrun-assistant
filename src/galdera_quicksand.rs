@@ -1,7 +1,7 @@
 //! Warrior Osvald / Dancer Temenos, Sai return and one Western Sai Escape.
 use crate::{Result,ensure,CrtRng,world::{self,Loader},snows_escape::Entry,galdera_coast::{self,SouthernSai}};
 use serde::Serialize;
-#[derive(Debug,Serialize)]pub struct Trip {pub setup:Entry,pub sai:Entry,pub southern_sai:Entry,pub western_sai:SouthernSai,pub quicksand:Entry,pub lord_sands:LordSands,pub loot:Loot,pub gravell:crate::galdera_gravell::Trip}
+#[derive(Debug,Serialize)]pub struct Trip {pub setup:Entry,pub sai:Entry,pub southern_sai:Entry,pub western_sai:SouthernSai,pub quicksand:Entry,pub lord_sands:LordSands,pub loot:Loot,pub gravell:crate::galdera_gravell::Trip,pub flex:crate::galdera_flex::Trip}
 #[derive(Debug,Serialize)]pub struct Loot {pub day:Entry,pub rusty_axe:Entry,pub encounter:SouthernSai,pub scorched_bone_spear:Entry}
 #[derive(Debug,Serialize)]pub struct LordSands {pub night:Entry,pub prompt:Entry,pub battle:ot2_battle_engine::lord_sands::Prediction,pub finisher_boost_cycles:u32,pub field_return:Entry,pub victory:Entry}
 fn point(l:&mut Loader<'_>,arrival:CrtRng)->Entry {Entry {arrival,after:l.rng,world_after:l.state.clone(),trace:std::mem::take(&mut l.trace),decisions:std::mem::take(&mut l.decisions)}}
@@ -25,7 +25,8 @@ pub(crate) fn finish(entry:&Entry)->Result<Option<Trip>> {
   let lord_sands=finish_boss(&quicksand,cycles)?;
   let Some(loot)=finish_loot(&lord_sands.victory)? else {continue;};
   let gravell=crate::galdera_gravell::finish(&loot.scorched_bone_spear)?;
-  return Ok(Some(Trip {setup,sai,southern_sai,western_sai,quicksand,lord_sands,loot,gravell}));
+  let flex=crate::galdera_flex::finish(&gravell.jam_steal)?;
+  return Ok(Some(Trip {setup,sai,southern_sai,western_sai,quicksand,lord_sands,loot,gravell,flex}));
  }
  Err(crate::SimError("No safe Quicksand loot encounter within 10,000 finisher boost candidates".into()))
 }

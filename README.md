@@ -1,5 +1,10 @@
 # OT2SpeedrunAssistant
 
+Galdera now continues through the flexible boat/book/Firestarter section and a
+fully simulated Roque Harbor JP ×100 fight. See [the route notes](docs/galdera-flex.md).
+Deploy with battle-engine commit `ef56232` or later on
+`strategy/pirro-r3-identification`; this adds the Roque routine and Boost-Start state.
+
 The manipulation tabs share the same controls and prediction flow. **Any% Hikari**
 preserves the original route. **Galdera** skips Hikari's recruitment fight and
 retains Osvald in the party. It skips Throné's Scholar skills/support

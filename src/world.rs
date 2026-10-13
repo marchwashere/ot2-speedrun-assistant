@@ -306,6 +306,7 @@ impl WorldState {
         Ok(())
     }
     pub fn refresh_support_skills(&mut self) {
+        for p in self.character_progression.values_mut() {p.character.boost_start=p.jobs.equipped_support.contains("ABI_MER_SUP_02");}
         self.evasive_maneuvers=self.party.iter().any(|id|self.character_progression.get(id)
             .is_some_and(|p|p.jobs.equipped_support.contains("ABI_SCH_SUP_01")));
     }
@@ -1015,6 +1016,21 @@ impl<'a> Loader<'a> {
             ensure(c.index == pc, "Invalid event command index")?;
             pc += 1;
             match c.cmd {
+                5100 if name=="MS_SHO_EX1_0110" => {
+                    // The two restored weapons sold for250000 before this visit.
+                    ensure(c.opt[0]=="100000","Unexpected shipbuilder money threshold")?;
+                    // Sufficient money falls through to the next command;
+                    // opt1 is the comparison, opt2 the failure jump label.
+                }
+                1300 | 1310 | 7260 | 7261 if name.starts_with("MS_SHO_EX1_") => {},
+                8031 if name.starts_with("MS_SHO_EX1_") && c.target==34037 => {},
+                // Fixed ship visuals/UI; default hull/sail are retained. Native
+                // placement refreshes, flags, map loads and resets run below.
+                4 | 10 | 40 | 55 | 65 | 100 | 106 | 200 | 203 | 210 | 220 | 240 | 300 | 710 | 711 | 8010 | 9100 | 1550 | 1510 | 1511 | 8200 | 8210 | 8220 | 8250 | 8251 if name.starts_with("MS_SHO_EX1_") => {},
+                2000 if name=="MS_SHO_EX1_0700" => {
+                    let amount=c.opt[1].parse::<i32>().map_err(|_|SimError("Invalid boat item count".into()))?;
+                    if amount<0 {self.state.route_items.remove(&c.opt[0]);}else{*self.state.route_items.entry(c.opt[0].clone()).or_default()+=amount as u32;}
+                }
                 8910 if name=="SHRINE_SHO_0100" && c.target==4 && c.opt==["1"] => {
                     ensure(self.state.party.contains(&4),"Negotiate Schedule requires Partitio in the party")?;
                     self.state.character_progression.get_mut(&4).ok_or_else(||SimError("Missing Partitio progression".into()))?.jobs.ex_abilities.insert("ABI_SET_MER_090".into());

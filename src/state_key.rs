@@ -88,6 +88,7 @@ impl WorldKey {
 
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
 struct CharacterKey {
+    boost_start: bool,
     experience: u32,
     jp_earned: u32,
     jp_spent: u32,
@@ -105,7 +106,7 @@ impl CharacterKey {
     fn new(p: &CharacterProgression) -> Self {
         let CharacterProgression { experience, jp_earned, jp_spent, level, growth, character,jobs } = p;
         let Growth { level: growth_level, total_exp, parameters, growth_attack, growth_magic } = growth;
-        let PlayerCharacter { id, name, stats, resources, skills, combat } = character;
+        let PlayerCharacter { id, name, stats, resources, skills, combat, boost_start } = character;
         let Stats { max_hp, max_sp, speed } = stats;
         Self {
             experience: *experience, jp_earned: *jp_earned, jp_spent: *jp_spent, level: *level,
@@ -113,7 +114,7 @@ impl CharacterKey {
             id: id.clone(), name: name.clone(), stats: (*max_hp, *max_sp, *speed),
             resources: resources.as_ref().map(|Resources { hp, sp, bp, latent }| (*hp, *sp, *bp, *latent)),
             skills: skills.clone(), combat: combat.as_ref().map(CombatKey::new),
-            jobs:jobs.clone(),
+            jobs:jobs.clone(),boost_start:*boost_start,
         }
     }
 }

@@ -1,5 +1,18 @@
 # Active project
 
+- Gravell now steals small Pom and Strengthening Serum BEFORE night (3 draws,
+  path-action switch/close). Temenos BG + A Step Ahead; Partitio Collect +
+  Boost-Start; true JP costs, no menu RNG. Then existing blacksmith/sales/Jam.
+- After Gravell: flexible book/Firestarter errands before boat/Roque JP100.
+  Required errands score zero for reordering per user; only extra switches and
+  boosts count. Five orderings, measured Beasting203/217 +3 crossing, one
+  Western Tropu encounter, boat scripts/default decoration, zero sea fights.
+  Roque night Winged Landwalker x2: Partitio before Temenos, both Defend;
+  Throne small Pom to Temenos, Osvald staff rightmost; T2 Temenos+3BG then
+  Partitio+3Guards. Full victory/all-alive/JP100 acceptance,12760 JP each.
+  See docs/galdera-flex.md; retail trace validation pending. Reimport flex
+  events after town/event importers. Preserve the unchanged Any% route.
+
 - Galdera Western Conning Coast: after encounter and existing day switch, before
   town entry, steal Whimsical Leaf then Pomegranate Leaf from Merchant
   NPC_SS_TSe21_0100_0300 in one menu. Guaranteed at Throné15/17 respectively.

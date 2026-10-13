@@ -1,0 +1,5871 @@
+{
+  "sources": [
+    {
+      "source": "/Game/Character/Database/NPCData",
+      "sha256": "ad0dfb8416c6235f60529a73ae07acda68d76d4f930acaa478c7cd8d9f6b101b"
+    },
+    {
+      "source": "/Game/Character/Database/NPCPurchaseData",
+      "sha256": "e8b32ed58e30d77842e73daab29d4ec184a05143fffb8cf171c46ab9cdb1066f"
+    },
+    {
+      "source": "/Game/Shop/Database/PurchaseItemTable",
+      "sha256": "93a6ebef110fdd3857ef48b24780304a20f7ff386fc7471a7926eea1dc6a8c8e"
+    },
+    {
+      "source": "/Game/Placement/Database/PlacementData",
+      "sha256": "0d5f12698b8e1f97740d5cc527b040b8bc8f10e343919c4fcac03b8fa6d5e793"
+    },
+    {
+      "source": "/Game/Character/Database/NPCBattleData",
+      "sha256": "971ea631372d5218ac05aa6c668263941d48c072a9cc155597156974c5e1ce63"
+    },
+    {
+      "source": "/Game/FieldCommand/Database/FieldCommandData",
+      "sha256": "bbfe6e7266905298685398c4c5a7940c97ae5e5f38bb61585d3bcfce6dab271e"
+    },
+    {
+      "source": "/Game/Environment/Database/ObjectData",
+      "sha256": "3820395bd5885e0cc7eb4cd3da39e944af210795f4421d203020a7222cd5bff1"
+    },
+    {
+      "source": "/Game/Environment/Database/ObjectData",
+      "sha256": "3820395bd5885e0cc7eb4cd3da39e944af210795f4421d203020a7222cd5bff1"
+    },
+    {
+      "source": "/Game/Environment/Database/ObjectData",
+      "sha256": "3820395bd5885e0cc7eb4cd3da39e944af210795f4421d203020a7222cd5bff1"
+    },
+    {
+      "source": "/Game/Event/Database/EventList",
+      "sha256": "acbbb094b2b071271fde8e4adf26b0df3661594556b3835b96e93a97300089a3"
+    },
+    {
+      "source": "/Game/Event/json/MS_SHO_EX1_0100",
+      "sha256": "af523c19d7b2846d7ef63f0f7cfd2173267f5bebc0e082b6b3f42b567eabbd67"
+    },
+    {
+      "source": "/Game/Event/json/MS_SHO_EX1_0110",
+      "sha256": "81a7137429ab1d3a41a4ef325b76a6e811a39a449e077105db7666dbffc15e03"
+    },
+    {
+      "source": "/Game/Event/json/MS_SHO_EX1_0200",
+      "sha256": "be8d3435da82764eb8675d1a03dd762c8bcf271f3a293b4d634a92fbf7499d68"
+    },
+    {
+      "source": "/Game/Event/json/MS_SHO_EX1_0400",
+      "sha256": "06230851ea4a8ef959bb85a8cf3f3cfbd277edd5464371bc0563776605aa4228"
+    },
+    {
+      "source": "/Game/Event/json/MS_SHO_EX1_0410",
+      "sha256": "d5f183abf0a15663ee3086f8fb2f0fa68729ac3de3c3f5de66368722acb4a16b"
+    },
+    {
+      "source": "/Game/Event/json/MS_SHO_EX1_0500",
+      "sha256": "13e4a9d66aabba0ff996c7219cb3dd59c98e4143095d624cb566aad7290d11d7"
+    },
+    {
+      "source": "/Game/Event/json/MS_SHO_EX1_0600",
+      "sha256": "ffd3eb453266a9e3e3ef0b2be2d14e404a233e6eb89bb7c5f670fc5afe5f40eb"
+    },
+    {
+      "source": "/Game/Event/json/MS_SHO_EX1_0700",
+      "sha256": "e37f6d578a792cd32d8570ecf224c41b39a1d33bf8062c168917dbf380477514"
+    }
+  ],
+  "steals": {
+    "gravell": {
+      "npc": "NPC_Twn_Wld_3_1_A_TALK_0100",
+      "items": [
+        {
+          "id": "ITM_CSM_0070",
+          "level": 18
+        },
+        {
+          "id": "ITM_MRL_COM_0020",
+          "level": 32
+        }
+      ]
+    },
+    "mason": {
+      "npc": "NPC_Twn_Wld_2_1_A_TALK_1100",
+      "items": [
+        {
+          "id": "ITM_MRL_REV_0040",
+          "level": 18
+        }
+      ]
+    }
+  },
+  "scholar": {
+    "id": "NPC_Twn_Wld_2_1_A_TALK_1900",
+    "ID": 23,
+    "TextLabel": "CN_NPC_Twn_Wld_2_1_A_TALK_1900",
+    "NPC_UnqIndex": 12724,
+    "ActionID": "NonScholar001_Mle",
+    "FaintAction": 36,
+    "UsePathLabel": "",
+    "IgnoreRelation": false,
+    "WorseRelationTextLabel": "eNPC_TALK_00",
+    "FCmd_Purchase_ID": "FC_P_NPC_Twn_Wld_2_1_A_TALK_1900",
+    "FCmd_Lure_ID": "FC_L_NPC_Twn_Wld_2_1_A_TALK_1900",
+    "FCmd_Battle_ID": "FC_B_NPC_Twn_Wld_2_1_A_TALK_1900",
+    "FCmd_Search_ID": "FC_INFO_NPC_Twn_Wld_2_1_A_TALK_1900",
+    "FCmd_RecoverArea": 5,
+    "FCmd_EnemyGroup": "ENG_NPC_Twn_Wld_2_1_A_1900",
+    "FCmd_UseBattleMapIndex": 0,
+    "TextInfoLabel": "None",
+    "IsNotWorsenRelation": false,
+    "FcSpecialPopupType": "EFieldCommandSpecialPopupType::eNone"
+  },
+  "battle": {
+    "id": "FC_B_NPC_Twn_Wld_2_1_A_TALK_1900",
+    "ID": 22,
+    "CommandEnable": 15,
+    "EnemyGroupID": "None",
+    "WinEventFlag": [
+      0,
+      0,
+      0
+    ],
+    "LoseEventFlag": [
+      0,
+      0,
+      0
+    ],
+    "CanSwoon": true,
+    "SwoonTalkID": "None",
+    "SleepTalkID": "None",
+    "SwoonRecLevel": [
+      "Fld_Wld_2_1",
+      "Fld_Wld_2_3",
+      "None",
+      "None",
+      "None"
+    ],
+    "SwoonRecTimeZoneChange": false,
+    "SwooningFlags": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "BattleNeedLevel": 15,
+    "BattlePCTalk": 0,
+    "PreBattleTalkID": "None",
+    "PreBattleEventID": "None",
+    "LoseBattleTalkID": "None",
+    "LearnAbility": "ABI_SET_LRN_2610",
+    "IsDeathMatch": false,
+    "IsGameOverWhenLoose": false,
+    "AdditionalTargetNpc": [
+      "None",
+      "None"
+    ],
+    "IsIgnoreLeanAbility": false,
+    "BeforeMonsterEventID": "None",
+    "PreMonsterTalkID": "None",
+    "LooseMonsterTalkID": "None",
+    "AssassinateNeedLevel": 30,
+    "DoseItemID": "ITM_SLP_0020",
+    "DoseItemNum": 1
+  },
+  "chests": [
+    {
+      "id": "Treasure_SS_TMnt21_0200_010",
+      "ID": 2331,
+      "ObjectType": 1,
+      "ObjResLabel": "None",
+      "IsCollision": true,
+      "IsPutOnGround": true,
+      "IsMoney": false,
+      "HaveItemLabel": "ITM_TRE_SS_TM21_0200_0030",
+      "HaveItemCnt": 1,
+      "HideDialog": false,
+      "IsRevivalByLevelChange": false,
+      "RandomItemCandidates": [
+        {
+          "ItemLabel": "None",
+          "ItemNum": 0,
+          "Rate": 0
+        },
+        {
+          "ItemLabel": "None",
+          "ItemNum": 0,
+          "Rate": 0
+        },
+        {
+          "ItemLabel": "None",
+          "ItemNum": 0,
+          "Rate": 0
+        }
+      ]
+    },
+    {
+      "id": "Treasure_Fld_Dst_2_2_02",
+      "ID": 1757,
+      "ObjectType": 1,
+      "ObjResLabel": "None",
+      "IsCollision": true,
+      "IsPutOnGround": true,
+      "IsMoney": false,
+      "HaveItemLabel": "ITM_CSM_0101",
+      "HaveItemCnt": 1,
+      "HideDialog": false,
+      "IsRevivalByLevelChange": false,
+      "RandomItemCandidates": [
+        {
+          "ItemLabel": "None",
+          "ItemNum": 0,
+          "Rate": 0
+        },
+        {
+          "ItemLabel": "None",
+          "ItemNum": 0,
+          "Rate": 0
+        },
+        {
+          "ItemLabel": "None",
+          "ItemNum": 0,
+          "Rate": 0
+        }
+      ]
+    },
+    {
+      "id": "Treasure_Fld_Dst_3_2_04",
+      "ID": 1093,
+      "ObjectType": 2,
+      "ObjResLabel": "None",
+      "IsCollision": true,
+      "IsPutOnGround": true,
+      "IsMoney": false,
+      "HaveItemLabel": "ITM_EQP_SWD_380",
+      "HaveItemCnt": 1,
+      "HideDialog": false,
+      "IsRevivalByLevelChange": false,
+      "RandomItemCandidates": [
+        {
+          "ItemLabel": "None",
+          "ItemNum": 0,
+          "Rate": 0
+        },
+        {
+          "ItemLabel": "None",
+          "ItemNum": 0,
+          "Rate": 0
+        },
+        {
+          "ItemLabel": "None",
+          "ItemNum": 0,
+          "Rate": 0
+        }
+      ]
+    }
+  ],
+  "boat": {
+    "id": "NPC_SHO_EX1_0120",
+    "ID": 116,
+    "TextLabel": "CHARA_NAME_SHO_EX_0001",
+    "NPC_UnqIndex": 328,
+    "ActionID": "ShoTerry_Fml",
+    "FaintAction": 36,
+    "UsePathLabel": "",
+    "IgnoreRelation": false,
+    "WorseRelationTextLabel": "eNPC_TALK_00",
+    "FCmd_Purchase_ID": "FC_P_NPC_SHO_EX1_0120",
+    "FCmd_Lure_ID": "None",
+    "FCmd_Battle_ID": "None",
+    "FCmd_Search_ID": "FC_INFO_JNP_SHO_110",
+    "FCmd_RecoverArea": 5,
+    "FCmd_EnemyGroup": "ENG_F_JNP_SHO_110",
+    "FCmd_UseBattleMapIndex": 0,
+    "TextInfoLabel": "NPC_000",
+    "IsNotWorsenRelation": false,
+    "FcSpecialPopupType": "EFieldCommandSpecialPopupType::eNone"
+  },
+  "boat_purchase": {
+    "id": "FC_P_NPC_SHO_EX1_0120",
+    "ID": 2,
+    "CommandEnable": 1,
+    "ShopID": "NPC_SHO_EX1_0120_NPCBUY",
+    "PurchaseBuyTalkID": "None",
+    "StealSuccessTalkID": "None",
+    "StealFailedTalkID": "None",
+    "BegSuccessTalkID": "None",
+    "RobEnemyGroupID": "None",
+    "RobBeforeTalkID": "None",
+    "RobBeforeEventID": "None"
+  },
+  "scripts": {
+    "MS_SHO_EX1_0100": [
+      {
+        "index": 0,
+        "cmd": 62,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "2"
+        ]
+      },
+      {
+        "index": 1,
+        "cmd": 1300,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "MARCHANT_EX01_0100"
+        ]
+      },
+      {
+        "index": 2,
+        "cmd": 8031,
+        "target": 34037,
+        "text": "",
+        "opt": [
+          "0"
+        ]
+      },
+      {
+        "index": 3,
+        "cmd": 1,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "0"
+        ]
+      },
+      {
+        "index": 4,
+        "cmd": 2,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "0"
+        ]
+      },
+      {
+        "index": 5,
+        "cmd": 1500,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "RI_MS_SHO_EX1_0100"
+        ]
+      },
+      {
+        "index": 6,
+        "cmd": 1501,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 7,
+        "cmd": 1,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "1"
+        ]
+      },
+      {
+        "index": 8,
+        "cmd": 2,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "1"
+        ]
+      },
+      {
+        "index": 9,
+        "cmd": 310,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 10,
+        "cmd": 9980,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 11,
+        "cmd": 71,
+        "target": 6200,
+        "text": "",
+        "opt": [
+          "1"
+        ]
+      },
+      {
+        "index": 12,
+        "cmd": 230,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 13,
+        "cmd": 9990,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 14,
+        "cmd": 52,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "2"
+        ]
+      },
+      {
+        "index": 15,
+        "cmd": 1310,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "MARCHANT_EX01_0100",
+          "0"
+        ]
+      },
+      {
+        "index": 16,
+        "cmd": 7100,
+        "target": 53,
+        "text": "",
+        "opt": [
+          "0"
+        ]
+      },
+      {
+        "index": 17,
+        "cmd": 7260,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "MS_SHO_10",
+          "MSC_SHO_EX1_000_10"
+        ]
+      },
+      {
+        "index": 18,
+        "cmd": 10000,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      }
+    ],
+    "MS_SHO_EX1_0110": [
+      {
+        "index": 0,
+        "cmd": 62,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "2"
+        ]
+      },
+      {
+        "index": 1,
+        "cmd": 1300,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "MARCHANT_EX01_0110"
+        ]
+      },
+      {
+        "index": 2,
+        "cmd": 5100,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "100000",
+          "1",
+          "5"
+        ]
+      },
+      {
+        "index": 3,
+        "cmd": 9990,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 4,
+        "cmd": 1000,
+        "target": -1,
+        "text": "",
+        "opt": [
+          "MS_SHO_EX1_0200"
+        ]
+      },
+      {
+        "index": 5,
+        "cmd": 10000,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 6,
+        "cmd": 70,
+        "target": 25354,
+        "text": "",
+        "opt": [
+          "1"
+        ]
+      },
+      {
+        "index": 7,
+        "cmd": 9990,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 8,
+        "cmd": 1310,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "MARCHANT_EX01_0110",
+          "0"
+        ]
+      },
+      {
+        "index": 9,
+        "cmd": 1000,
+        "target": -1,
+        "text": "",
+        "opt": [
+          "MS_SHO_EX1_0200"
+        ]
+      },
+      {
+        "index": 10,
+        "cmd": 10000,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      }
+    ],
+    "MS_SHO_EX1_0200": [
+      {
+        "index": 0,
+        "cmd": 62,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "2"
+        ]
+      },
+      {
+        "index": 1,
+        "cmd": 1300,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "MARCHANT_EX01_0200"
+        ]
+      },
+      {
+        "index": 2,
+        "cmd": 8031,
+        "target": 34037,
+        "text": "",
+        "opt": [
+          "0"
+        ]
+      },
+      {
+        "index": 3,
+        "cmd": 1,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "0"
+        ]
+      },
+      {
+        "index": 4,
+        "cmd": 2,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "0"
+        ]
+      },
+      {
+        "index": 5,
+        "cmd": 1500,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "RI_MS_SHO_EX1_0200"
+        ]
+      },
+      {
+        "index": 6,
+        "cmd": 1501,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 7,
+        "cmd": 1,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "1"
+        ]
+      },
+      {
+        "index": 8,
+        "cmd": 2,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "1"
+        ]
+      },
+      {
+        "index": 9,
+        "cmd": 310,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 10,
+        "cmd": 9980,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 11,
+        "cmd": 71,
+        "target": 6201,
+        "text": "",
+        "opt": [
+          "1"
+        ]
+      },
+      {
+        "index": 12,
+        "cmd": 71,
+        "target": 6202,
+        "text": "",
+        "opt": [
+          "1"
+        ]
+      },
+      {
+        "index": 13,
+        "cmd": 230,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 14,
+        "cmd": 9990,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 15,
+        "cmd": 52,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "2"
+        ]
+      },
+      {
+        "index": 16,
+        "cmd": 1310,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "MARCHANT_EX01_0200",
+          "0"
+        ]
+      },
+      {
+        "index": 17,
+        "cmd": 10000,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      }
+    ],
+    "MS_SHO_EX1_0400": [
+      {
+        "index": 0,
+        "cmd": 62,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "2"
+        ]
+      },
+      {
+        "index": 1,
+        "cmd": 1300,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "MARCHANT_EX01_0400"
+        ]
+      },
+      {
+        "index": 2,
+        "cmd": 1,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "0"
+        ]
+      },
+      {
+        "index": 3,
+        "cmd": 2,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "0"
+        ]
+      },
+      {
+        "index": 4,
+        "cmd": 1500,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "RI_MS_SHO_EX1_0400"
+        ]
+      },
+      {
+        "index": 5,
+        "cmd": 1501,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 6,
+        "cmd": 1,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "1"
+        ]
+      },
+      {
+        "index": 7,
+        "cmd": 2,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "1"
+        ]
+      },
+      {
+        "index": 8,
+        "cmd": 310,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 9,
+        "cmd": 9980,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 10,
+        "cmd": 71,
+        "target": 6203,
+        "text": "",
+        "opt": [
+          "1"
+        ]
+      },
+      {
+        "index": 11,
+        "cmd": 9990,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 12,
+        "cmd": 1310,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "MARCHANT_EX01_0400",
+          "0"
+        ]
+      },
+      {
+        "index": 13,
+        "cmd": 1000,
+        "target": -1,
+        "text": "",
+        "opt": [
+          "MS_SHO_EX1_0410"
+        ]
+      },
+      {
+        "index": 14,
+        "cmd": 10000,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      }
+    ],
+    "MS_SHO_EX1_0410": [
+      {
+        "index": 0,
+        "cmd": 1300,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "MARCHANT_EX01_0410"
+        ]
+      },
+      {
+        "index": 1,
+        "cmd": 8031,
+        "target": 34037,
+        "text": "",
+        "opt": [
+          "0"
+        ]
+      },
+      {
+        "index": 2,
+        "cmd": 1,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "0"
+        ]
+      },
+      {
+        "index": 3,
+        "cmd": 2,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "0"
+        ]
+      },
+      {
+        "index": 4,
+        "cmd": 1500,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "RI_MS_SHO_EX1_0410"
+        ]
+      },
+      {
+        "index": 5,
+        "cmd": 1501,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 6,
+        "cmd": 1,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "1"
+        ]
+      },
+      {
+        "index": 7,
+        "cmd": 2,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "1"
+        ]
+      },
+      {
+        "index": 8,
+        "cmd": 310,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 9,
+        "cmd": 9980,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 10,
+        "cmd": 71,
+        "target": 6204,
+        "text": "",
+        "opt": [
+          "1"
+        ]
+      },
+      {
+        "index": 11,
+        "cmd": 70,
+        "target": 200,
+        "text": "",
+        "opt": [
+          "1"
+        ]
+      },
+      {
+        "index": 12,
+        "cmd": 70,
+        "target": 204,
+        "text": "",
+        "opt": [
+          "1"
+        ]
+      },
+      {
+        "index": 13,
+        "cmd": 70,
+        "target": 2601,
+        "text": "",
+        "opt": [
+          "1"
+        ]
+      },
+      {
+        "index": 14,
+        "cmd": 8200,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "0",
+          "1"
+        ]
+      },
+      {
+        "index": 15,
+        "cmd": 8200,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "1",
+          "1"
+        ]
+      },
+      {
+        "index": 16,
+        "cmd": 8220,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "1"
+        ]
+      },
+      {
+        "index": 17,
+        "cmd": 8210,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 18,
+        "cmd": 8030,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 19,
+        "cmd": 9990,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 20,
+        "cmd": 1310,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "MARCHANT_EX01_0410",
+          "0"
+        ]
+      },
+      {
+        "index": 21,
+        "cmd": 1000,
+        "target": -1,
+        "text": "",
+        "opt": [
+          "MS_SHO_EX1_0500"
+        ]
+      },
+      {
+        "index": 22,
+        "cmd": 10000,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      }
+    ],
+    "MS_SHO_EX1_0500": [
+      {
+        "index": 0,
+        "cmd": 1550,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "1"
+        ]
+      },
+      {
+        "index": 1,
+        "cmd": 1300,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "MARCHANT_EX01_0500"
+        ]
+      },
+      {
+        "index": 2,
+        "cmd": 8031,
+        "target": 34037,
+        "text": "",
+        "opt": [
+          "0"
+        ]
+      },
+      {
+        "index": 3,
+        "cmd": 1,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "0"
+        ]
+      },
+      {
+        "index": 4,
+        "cmd": 2,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "0"
+        ]
+      },
+      {
+        "index": 5,
+        "cmd": 1500,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "RI_MS_SHO_EX1_0500"
+        ]
+      },
+      {
+        "index": 6,
+        "cmd": 1501,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 7,
+        "cmd": 1,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "1"
+        ]
+      },
+      {
+        "index": 8,
+        "cmd": 2,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "1"
+        ]
+      },
+      {
+        "index": 9,
+        "cmd": 310,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 10,
+        "cmd": 9980,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 11,
+        "cmd": 71,
+        "target": 6205,
+        "text": "",
+        "opt": [
+          "1"
+        ]
+      },
+      {
+        "index": 12,
+        "cmd": 9990,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 13,
+        "cmd": 1310,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "MARCHANT_EX01_0500",
+          "0"
+        ]
+      },
+      {
+        "index": 14,
+        "cmd": 1000,
+        "target": -1,
+        "text": "",
+        "opt": [
+          "MS_SHO_EX1_0600"
+        ]
+      },
+      {
+        "index": 15,
+        "cmd": 10000,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      }
+    ],
+    "MS_SHO_EX1_0600": [
+      {
+        "index": 0,
+        "cmd": 1300,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "MARCHANT_EX01_0600"
+        ]
+      },
+      {
+        "index": 1,
+        "cmd": 8031,
+        "target": 34037,
+        "text": "",
+        "opt": [
+          "0"
+        ]
+      },
+      {
+        "index": 2,
+        "cmd": 62,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "2"
+        ]
+      },
+      {
+        "index": 3,
+        "cmd": 200,
+        "target": -1,
+        "text": "",
+        "opt": [
+          "10",
+          "1",
+          "0",
+          "ShoTerry_Fml"
+        ]
+      },
+      {
+        "index": 4,
+        "cmd": 200,
+        "target": -1,
+        "text": "",
+        "opt": [
+          "1",
+          "1",
+          "0",
+          "ShoJ000_Mle"
+        ]
+      },
+      {
+        "index": 5,
+        "cmd": 1,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "0"
+        ]
+      },
+      {
+        "index": 6,
+        "cmd": 2,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "0"
+        ]
+      },
+      {
+        "index": 7,
+        "cmd": 70,
+        "target": 25346,
+        "text": "",
+        "opt": [
+          "1"
+        ]
+      },
+      {
+        "index": 8,
+        "cmd": 70,
+        "target": 25350,
+        "text": "",
+        "opt": [
+          "1"
+        ]
+      },
+      {
+        "index": 9,
+        "cmd": 1510,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "RI_MS_SHO_EX1_0800",
+          "-1"
+        ]
+      },
+      {
+        "index": 10,
+        "cmd": 52,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "2"
+        ]
+      },
+      {
+        "index": 11,
+        "cmd": 40,
+        "target": 10,
+        "text": "TX_MS_SHO_EX1_0500_0160",
+        "opt": [
+          "1",
+          "0",
+          "0",
+          "0"
+        ]
+      },
+      {
+        "index": 12,
+        "cmd": 5010,
+        "target": 0,
+        "text": "ED_SHO_EX1_0600_0010",
+        "opt": [
+          "ED_SHO_EX1_0600_0020",
+          "12",
+          "ED_SHO_EX1_0600_0030",
+          "51",
+          "ED_SHO_EX1_0600_0040",
+          "90",
+          "-1",
+          "-1"
+        ]
+      },
+      {
+        "index": 13,
+        "cmd": 70,
+        "target": 25346,
+        "text": "",
+        "opt": [
+          "0"
+        ]
+      },
+      {
+        "index": 14,
+        "cmd": 70,
+        "target": 25347,
+        "text": "",
+        "opt": [
+          "0"
+        ]
+      },
+      {
+        "index": 15,
+        "cmd": 70,
+        "target": 25348,
+        "text": "",
+        "opt": [
+          "0"
+        ]
+      },
+      {
+        "index": 16,
+        "cmd": 70,
+        "target": 25349,
+        "text": "",
+        "opt": [
+          "0"
+        ]
+      },
+      {
+        "index": 17,
+        "cmd": 5010,
+        "target": 0,
+        "text": "ED_SHO_EX1_0600_0020_0000",
+        "opt": [
+          "ED_SHO_EX1_0600_0020_0010",
+          "17",
+          "ED_SHO_EX1_0600_0020_0020",
+          "27",
+          "ED_SHO_EX1_0600_0020_0030",
+          "35",
+          "ED_SHO_EX1_0600_0020_0040",
+          "43"
+        ]
+      },
+      {
+        "index": 18,
+        "cmd": 63,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "2"
+        ]
+      },
+      {
+        "index": 19,
+        "cmd": 8200,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "0",
+          "1"
+        ]
+      },
+      {
+        "index": 20,
+        "cmd": 8210,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 21,
+        "cmd": 53,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "2"
+        ]
+      },
+      {
+        "index": 22,
+        "cmd": 70,
+        "target": 25343,
+        "text": "",
+        "opt": [
+          "1"
+        ]
+      },
+      {
+        "index": 23,
+        "cmd": 70,
+        "target": 25346,
+        "text": "",
+        "opt": [
+          "1"
+        ]
+      },
+      {
+        "index": 24,
+        "cmd": 5,
+        "target": 11,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 25,
+        "cmd": 10000,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 26,
+        "cmd": 5,
+        "target": 11,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 27,
+        "cmd": 10000,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 28,
+        "cmd": 63,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "2"
+        ]
+      },
+      {
+        "index": 29,
+        "cmd": 8200,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "0",
+          "2"
+        ]
+      },
+      {
+        "index": 30,
+        "cmd": 8210,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 31,
+        "cmd": 53,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "2"
+        ]
+      },
+      {
+        "index": 32,
+        "cmd": 70,
+        "target": 25343,
+        "text": "",
+        "opt": [
+          "1"
+        ]
+      },
+      {
+        "index": 33,
+        "cmd": 70,
+        "target": 25347,
+        "text": "",
+        "opt": [
+          "1"
+        ]
+      },
+      {
+        "index": 34,
+        "cmd": 5,
+        "target": 11,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 35,
+        "cmd": 10000,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 36,
+        "cmd": 63,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "2"
+        ]
+      },
+      {
+        "index": 37,
+        "cmd": 8200,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "0",
+          "3"
+        ]
+      },
+      {
+        "index": 38,
+        "cmd": 8210,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 39,
+        "cmd": 53,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "2"
+        ]
+      },
+      {
+        "index": 40,
+        "cmd": 70,
+        "target": 25343,
+        "text": "",
+        "opt": [
+          "1"
+        ]
+      },
+      {
+        "index": 41,
+        "cmd": 70,
+        "target": 25348,
+        "text": "",
+        "opt": [
+          "1"
+        ]
+      },
+      {
+        "index": 42,
+        "cmd": 5,
+        "target": 11,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 43,
+        "cmd": 10000,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 44,
+        "cmd": 63,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "2"
+        ]
+      },
+      {
+        "index": 45,
+        "cmd": 8200,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "0",
+          "4"
+        ]
+      },
+      {
+        "index": 46,
+        "cmd": 8210,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 47,
+        "cmd": 53,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "2"
+        ]
+      },
+      {
+        "index": 48,
+        "cmd": 70,
+        "target": 25343,
+        "text": "",
+        "opt": [
+          "1"
+        ]
+      },
+      {
+        "index": 49,
+        "cmd": 70,
+        "target": 25349,
+        "text": "",
+        "opt": [
+          "1"
+        ]
+      },
+      {
+        "index": 50,
+        "cmd": 5,
+        "target": 11,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 51,
+        "cmd": 10000,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 52,
+        "cmd": 70,
+        "target": 25350,
+        "text": "",
+        "opt": [
+          "0"
+        ]
+      },
+      {
+        "index": 53,
+        "cmd": 70,
+        "target": 25351,
+        "text": "",
+        "opt": [
+          "0"
+        ]
+      },
+      {
+        "index": 54,
+        "cmd": 70,
+        "target": 25352,
+        "text": "",
+        "opt": [
+          "0"
+        ]
+      },
+      {
+        "index": 55,
+        "cmd": 70,
+        "target": 25353,
+        "text": "",
+        "opt": [
+          "0"
+        ]
+      },
+      {
+        "index": 56,
+        "cmd": 5010,
+        "target": 0,
+        "text": "ED_SHO_EX1_0600_0030_0000",
+        "opt": [
+          "ED_SHO_EX1_0600_0030_0010",
+          "56",
+          "ED_SHO_EX1_0600_0030_0020",
+          "66",
+          "ED_SHO_EX1_0600_0030_0030",
+          "82",
+          "ED_SHO_EX1_0600_0030_0040",
+          "74"
+        ]
+      },
+      {
+        "index": 57,
+        "cmd": 63,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "2"
+        ]
+      },
+      {
+        "index": 58,
+        "cmd": 8200,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "1",
+          "1"
+        ]
+      },
+      {
+        "index": 59,
+        "cmd": 8210,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 60,
+        "cmd": 53,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "2"
+        ]
+      },
+      {
+        "index": 61,
+        "cmd": 70,
+        "target": 25344,
+        "text": "",
+        "opt": [
+          "1"
+        ]
+      },
+      {
+        "index": 62,
+        "cmd": 70,
+        "target": 25350,
+        "text": "",
+        "opt": [
+          "1"
+        ]
+      },
+      {
+        "index": 63,
+        "cmd": 5,
+        "target": 11,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 64,
+        "cmd": 10000,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 65,
+        "cmd": 5,
+        "target": 11,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 66,
+        "cmd": 10000,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 67,
+        "cmd": 63,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "2"
+        ]
+      },
+      {
+        "index": 68,
+        "cmd": 8200,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "1",
+          "2"
+        ]
+      },
+      {
+        "index": 69,
+        "cmd": 8210,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 70,
+        "cmd": 53,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "2"
+        ]
+      },
+      {
+        "index": 71,
+        "cmd": 70,
+        "target": 25344,
+        "text": "",
+        "opt": [
+          "1"
+        ]
+      },
+      {
+        "index": 72,
+        "cmd": 70,
+        "target": 25351,
+        "text": "",
+        "opt": [
+          "1"
+        ]
+      },
+      {
+        "index": 73,
+        "cmd": 5,
+        "target": 11,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 74,
+        "cmd": 10000,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 75,
+        "cmd": 63,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "2"
+        ]
+      },
+      {
+        "index": 76,
+        "cmd": 8200,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "1",
+          "3"
+        ]
+      },
+      {
+        "index": 77,
+        "cmd": 8210,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 78,
+        "cmd": 53,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "2"
+        ]
+      },
+      {
+        "index": 79,
+        "cmd": 70,
+        "target": 25344,
+        "text": "",
+        "opt": [
+          "1"
+        ]
+      },
+      {
+        "index": 80,
+        "cmd": 70,
+        "target": 25353,
+        "text": "",
+        "opt": [
+          "1"
+        ]
+      },
+      {
+        "index": 81,
+        "cmd": 5,
+        "target": 11,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 82,
+        "cmd": 10000,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 83,
+        "cmd": 63,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "2"
+        ]
+      },
+      {
+        "index": 84,
+        "cmd": 8200,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "1",
+          "4"
+        ]
+      },
+      {
+        "index": 85,
+        "cmd": 8210,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 86,
+        "cmd": 53,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "2"
+        ]
+      },
+      {
+        "index": 87,
+        "cmd": 70,
+        "target": 25344,
+        "text": "",
+        "opt": [
+          "1"
+        ]
+      },
+      {
+        "index": 88,
+        "cmd": 70,
+        "target": 25352,
+        "text": "",
+        "opt": [
+          "1"
+        ]
+      },
+      {
+        "index": 89,
+        "cmd": 5,
+        "target": 11,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 90,
+        "cmd": 10000,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 91,
+        "cmd": 40,
+        "target": 10,
+        "text": "TX_MS_SHO_EX1_0500_0160_EX1",
+        "opt": [
+          "1",
+          "0",
+          "0",
+          "0"
+        ]
+      },
+      {
+        "index": 92,
+        "cmd": 4000,
+        "target": 25346,
+        "text": "",
+        "opt": [
+          "92",
+          "103"
+        ]
+      },
+      {
+        "index": 93,
+        "cmd": 4000,
+        "target": 25350,
+        "text": "",
+        "opt": [
+          "93",
+          "95"
+        ]
+      },
+      {
+        "index": 94,
+        "cmd": 5010,
+        "target": 0,
+        "text": "ED_SHO_EX1_0600_0050",
+        "opt": [
+          "eDIALOG_YES",
+          "138",
+          "eDIALOG_NO",
+          "150",
+          "-1",
+          "-1",
+          "-1",
+          "-1"
+        ]
+      },
+      {
+        "index": 95,
+        "cmd": 10000,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 96,
+        "cmd": 4000,
+        "target": 25351,
+        "text": "",
+        "opt": [
+          "96",
+          "98"
+        ]
+      },
+      {
+        "index": 97,
+        "cmd": 5010,
+        "target": 0,
+        "text": "ED_SHO_EX1_0600_0060",
+        "opt": [
+          "eDIALOG_YES",
+          "138",
+          "eDIALOG_NO",
+          "150",
+          "-1",
+          "-1",
+          "-1",
+          "-1"
+        ]
+      },
+      {
+        "index": 98,
+        "cmd": 10000,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 99,
+        "cmd": 4000,
+        "target": 25352,
+        "text": "",
+        "opt": [
+          "99",
+          "101"
+        ]
+      },
+      {
+        "index": 100,
+        "cmd": 5010,
+        "target": 0,
+        "text": "ED_SHO_EX1_0600_0070",
+        "opt": [
+          "eDIALOG_YES",
+          "138",
+          "eDIALOG_NO",
+          "150",
+          "-1",
+          "-1",
+          "-1",
+          "-1"
+        ]
+      },
+      {
+        "index": 101,
+        "cmd": 10000,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 102,
+        "cmd": 5010,
+        "target": 0,
+        "text": "ED_SHO_EX1_0600_0080",
+        "opt": [
+          "eDIALOG_YES",
+          "138",
+          "eDIALOG_NO",
+          "150",
+          "-1",
+          "-1",
+          "-1",
+          "-1"
+        ]
+      },
+      {
+        "index": 103,
+        "cmd": 10000,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 104,
+        "cmd": 4000,
+        "target": 25347,
+        "text": "",
+        "opt": [
+          "104",
+          "115"
+        ]
+      },
+      {
+        "index": 105,
+        "cmd": 4000,
+        "target": 25350,
+        "text": "",
+        "opt": [
+          "105",
+          "107"
+        ]
+      },
+      {
+        "index": 106,
+        "cmd": 5010,
+        "target": 0,
+        "text": "ED_SHO_EX1_0600_0090",
+        "opt": [
+          "eDIALOG_YES",
+          "138",
+          "eDIALOG_NO",
+          "150",
+          "-1",
+          "-1",
+          "-1",
+          "-1"
+        ]
+      },
+      {
+        "index": 107,
+        "cmd": 10000,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 108,
+        "cmd": 4000,
+        "target": 25351,
+        "text": "",
+        "opt": [
+          "108",
+          "110"
+        ]
+      },
+      {
+        "index": 109,
+        "cmd": 5010,
+        "target": 0,
+        "text": "ED_SHO_EX1_0600_0100",
+        "opt": [
+          "eDIALOG_YES",
+          "138",
+          "eDIALOG_NO",
+          "150",
+          "-1",
+          "-1",
+          "-1",
+          "-1"
+        ]
+      },
+      {
+        "index": 110,
+        "cmd": 10000,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 111,
+        "cmd": 4000,
+        "target": 25352,
+        "text": "",
+        "opt": [
+          "111",
+          "113"
+        ]
+      },
+      {
+        "index": 112,
+        "cmd": 5010,
+        "target": 0,
+        "text": "ED_SHO_EX1_0600_0110",
+        "opt": [
+          "eDIALOG_YES",
+          "138",
+          "eDIALOG_NO",
+          "150",
+          "-1",
+          "-1",
+          "-1",
+          "-1"
+        ]
+      },
+      {
+        "index": 113,
+        "cmd": 10000,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 114,
+        "cmd": 5010,
+        "target": 0,
+        "text": "ED_SHO_EX1_0600_0120",
+        "opt": [
+          "eDIALOG_YES",
+          "138",
+          "eDIALOG_NO",
+          "150",
+          "-1",
+          "-1",
+          "-1",
+          "-1"
+        ]
+      },
+      {
+        "index": 115,
+        "cmd": 10000,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 116,
+        "cmd": 4000,
+        "target": 25348,
+        "text": "",
+        "opt": [
+          "116",
+          "127"
+        ]
+      },
+      {
+        "index": 117,
+        "cmd": 4000,
+        "target": 25350,
+        "text": "",
+        "opt": [
+          "117",
+          "119"
+        ]
+      },
+      {
+        "index": 118,
+        "cmd": 5010,
+        "target": 0,
+        "text": "ED_SHO_EX1_0600_0130",
+        "opt": [
+          "eDIALOG_YES",
+          "138",
+          "eDIALOG_NO",
+          "150",
+          "-1",
+          "-1",
+          "-1",
+          "-1"
+        ]
+      },
+      {
+        "index": 119,
+        "cmd": 10000,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 120,
+        "cmd": 4000,
+        "target": 25351,
+        "text": "",
+        "opt": [
+          "120",
+          "122"
+        ]
+      },
+      {
+        "index": 121,
+        "cmd": 5010,
+        "target": 0,
+        "text": "ED_SHO_EX1_0600_0140",
+        "opt": [
+          "eDIALOG_YES",
+          "138",
+          "eDIALOG_NO",
+          "150",
+          "-1",
+          "-1",
+          "-1",
+          "-1"
+        ]
+      },
+      {
+        "index": 122,
+        "cmd": 10000,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 123,
+        "cmd": 4000,
+        "target": 25352,
+        "text": "",
+        "opt": [
+          "123",
+          "125"
+        ]
+      },
+      {
+        "index": 124,
+        "cmd": 5010,
+        "target": 0,
+        "text": "ED_SHO_EX1_0600_0150",
+        "opt": [
+          "eDIALOG_YES",
+          "138",
+          "eDIALOG_NO",
+          "150",
+          "-1",
+          "-1",
+          "-1",
+          "-1"
+        ]
+      },
+      {
+        "index": 125,
+        "cmd": 10000,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 126,
+        "cmd": 5010,
+        "target": 0,
+        "text": "ED_SHO_EX1_0600_0160",
+        "opt": [
+          "eDIALOG_YES",
+          "138",
+          "eDIALOG_NO",
+          "150",
+          "-1",
+          "-1",
+          "-1",
+          "-1"
+        ]
+      },
+      {
+        "index": 127,
+        "cmd": 10000,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 128,
+        "cmd": 4000,
+        "target": 25350,
+        "text": "",
+        "opt": [
+          "128",
+          "130"
+        ]
+      },
+      {
+        "index": 129,
+        "cmd": 5010,
+        "target": 0,
+        "text": "ED_SHO_EX1_0600_0170",
+        "opt": [
+          "eDIALOG_YES",
+          "138",
+          "eDIALOG_NO",
+          "150",
+          "-1",
+          "-1",
+          "-1",
+          "-1"
+        ]
+      },
+      {
+        "index": 130,
+        "cmd": 10000,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 131,
+        "cmd": 4000,
+        "target": 25351,
+        "text": "",
+        "opt": [
+          "131",
+          "133"
+        ]
+      },
+      {
+        "index": 132,
+        "cmd": 5010,
+        "target": 0,
+        "text": "ED_SHO_EX1_0600_0180",
+        "opt": [
+          "eDIALOG_YES",
+          "138",
+          "eDIALOG_NO",
+          "150",
+          "-1",
+          "-1",
+          "-1",
+          "-1"
+        ]
+      },
+      {
+        "index": 133,
+        "cmd": 10000,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 134,
+        "cmd": 4000,
+        "target": 25352,
+        "text": "",
+        "opt": [
+          "134",
+          "136"
+        ]
+      },
+      {
+        "index": 135,
+        "cmd": 5010,
+        "target": 0,
+        "text": "ED_SHO_EX1_0600_0190",
+        "opt": [
+          "eDIALOG_YES",
+          "138",
+          "eDIALOG_NO",
+          "150",
+          "-1",
+          "-1",
+          "-1",
+          "-1"
+        ]
+      },
+      {
+        "index": 136,
+        "cmd": 10000,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 137,
+        "cmd": 5010,
+        "target": 0,
+        "text": "ED_SHO_EX1_0600_0200",
+        "opt": [
+          "eDIALOG_YES",
+          "138",
+          "eDIALOG_NO",
+          "150",
+          "-1",
+          "-1",
+          "-1",
+          "-1"
+        ]
+      },
+      {
+        "index": 138,
+        "cmd": 10000,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 139,
+        "cmd": 40,
+        "target": 1,
+        "text": "TX_MS_SHO_EX1_0500_0160_EX2",
+        "opt": [
+          "1",
+          "0",
+          "0",
+          "0"
+        ]
+      },
+      {
+        "index": 140,
+        "cmd": 62,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "2"
+        ]
+      },
+      {
+        "index": 141,
+        "cmd": 1511,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 142,
+        "cmd": 220,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 143,
+        "cmd": 71,
+        "target": 6206,
+        "text": "",
+        "opt": [
+          "1"
+        ]
+      },
+      {
+        "index": 144,
+        "cmd": 8220,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "0"
+        ]
+      },
+      {
+        "index": 145,
+        "cmd": 8210,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 146,
+        "cmd": 9990,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 147,
+        "cmd": 8250,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 148,
+        "cmd": 1310,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "MARCHANT_EX01_0600",
+          "0"
+        ]
+      },
+      {
+        "index": 149,
+        "cmd": 1000,
+        "target": -1,
+        "text": "",
+        "opt": [
+          "MS_SHO_EX1_0700"
+        ]
+      },
+      {
+        "index": 150,
+        "cmd": 10000,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 151,
+        "cmd": 5,
+        "target": 11,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 152,
+        "cmd": 10000,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      }
+    ],
+    "MS_SHO_EX1_0700": [
+      {
+        "index": 0,
+        "cmd": 1300,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "MARCHANT_EX01_0700"
+        ]
+      },
+      {
+        "index": 1,
+        "cmd": 8031,
+        "target": 34037,
+        "text": "",
+        "opt": [
+          "0"
+        ]
+      },
+      {
+        "index": 2,
+        "cmd": 8251,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 3,
+        "cmd": 1,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "0"
+        ]
+      },
+      {
+        "index": 4,
+        "cmd": 2,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "0"
+        ]
+      },
+      {
+        "index": 5,
+        "cmd": 1500,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "RI_MS_SHO_EX1_0700"
+        ]
+      },
+      {
+        "index": 6,
+        "cmd": 1501,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 7,
+        "cmd": 1,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "1"
+        ]
+      },
+      {
+        "index": 8,
+        "cmd": 2,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "1"
+        ]
+      },
+      {
+        "index": 9,
+        "cmd": 8210,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 10,
+        "cmd": 310,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 11,
+        "cmd": 9980,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 12,
+        "cmd": 71,
+        "target": 6207,
+        "text": "",
+        "opt": [
+          "1"
+        ]
+      },
+      {
+        "index": 13,
+        "cmd": 71,
+        "target": 6208,
+        "text": "",
+        "opt": [
+          "1"
+        ]
+      },
+      {
+        "index": 14,
+        "cmd": 70,
+        "target": 203,
+        "text": "",
+        "opt": [
+          "1"
+        ]
+      },
+      {
+        "index": 15,
+        "cmd": 70,
+        "target": 34037,
+        "text": "",
+        "opt": [
+          "1"
+        ]
+      },
+      {
+        "index": 16,
+        "cmd": 70,
+        "target": 2601,
+        "text": "",
+        "opt": [
+          "0"
+        ]
+      },
+      {
+        "index": 17,
+        "cmd": 1310,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "MARCHANT_EX01_0700",
+          "0"
+        ]
+      },
+      {
+        "index": 18,
+        "cmd": 4000,
+        "target": 25358,
+        "text": "",
+        "opt": [
+          "18",
+          "20"
+        ]
+      },
+      {
+        "index": 19,
+        "cmd": 5,
+        "target": 23,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 20,
+        "cmd": 10000,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 21,
+        "cmd": 70,
+        "target": 25359,
+        "text": "",
+        "opt": [
+          "1"
+        ]
+      },
+      {
+        "index": 22,
+        "cmd": 5,
+        "target": 23,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 23,
+        "cmd": 10000,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 24,
+        "cmd": 500,
+        "target": 189,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 25,
+        "cmd": 230,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 26,
+        "cmd": 2000,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "ITM_TRE_SHO_EX1_0030",
+          "-1"
+        ]
+      },
+      {
+        "index": 27,
+        "cmd": 2000,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "ITM_TRE_SHO_EX1_0010",
+          "1"
+        ]
+      },
+      {
+        "index": 28,
+        "cmd": 9990,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 29,
+        "cmd": 52,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "2"
+        ]
+      },
+      {
+        "index": 30,
+        "cmd": 7100,
+        "target": 77,
+        "text": "",
+        "opt": [
+          "0"
+        ]
+      },
+      {
+        "index": 31,
+        "cmd": 4000,
+        "target": 6116,
+        "text": "",
+        "opt": [
+          "31",
+          "36"
+        ]
+      },
+      {
+        "index": 32,
+        "cmd": 40,
+        "target": 0,
+        "text": "TX_MS_SHO_30_1600_0010",
+        "opt": [
+          "1",
+          "0",
+          "0",
+          "0"
+        ]
+      },
+      {
+        "index": 33,
+        "cmd": 40,
+        "target": 0,
+        "text": "TX_MS_SHO_30_1600_0020",
+        "opt": [
+          "1",
+          "0",
+          "0",
+          "0"
+        ]
+      },
+      {
+        "index": 34,
+        "cmd": 40,
+        "target": 0,
+        "text": "TX_MS_SHO_30_1600_0030",
+        "opt": [
+          "1",
+          "0",
+          "0",
+          "0"
+        ]
+      },
+      {
+        "index": 35,
+        "cmd": 5,
+        "target": 36,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 36,
+        "cmd": 10000,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      },
+      {
+        "index": 37,
+        "cmd": 7261,
+        "target": 0,
+        "text": "",
+        "opt": [
+          "MS_SHO_10",
+          "MSC_SHO_EX1_000_10"
+        ]
+      },
+      {
+        "index": 38,
+        "cmd": 10000,
+        "target": 0,
+        "text": "",
+        "opt": [
+          ""
+        ]
+      }
+    ]
+  },
+  "placements": [
+    {
+      "id": "Treasure_Fld_Dst_2_2_02",
+      "ID": 4,
+      "PlacementType": 2,
+      "MainScenarioType": 0,
+      "MainScenarioID": 0,
+      "ResourceLabel": "Treasure_Fld_Dst_2_2_02",
+      "InvalidRadarIcon": false,
+      "IgnoreGravity": false,
+      "IndoorFlag": false,
+      "HouseInFloor": 0,
+      "TriggerScaleX": 0,
+      "TriggerScaleY": 0,
+      "TriggerScaleZ": 0,
+      "SpawnStartFlag": 0,
+      "SpawnEndFlag": 0,
+      "TimeZoneSpawnType": "ETIMEZONE_TRIGGER_TYPE::eALL",
+      "SpawnStartDelayCount": 0,
+      "SpawnEndDelayCount": 0,
+      "CompProloguePlayerID": "EPlayableCharacterID::eNONE",
+      "NorSpawnPrologue": false,
+      "NotSpawnFinal": false,
+      "NotCoexistencePlacementLabel": [
+        "None",
+        "None",
+        "None",
+        "None",
+        "None"
+      ],
+      "SpawnDir": "FRONT",
+      "SpawnPosX": -3350,
+      "SpawnPosY": 3150,
+      "SpawnPosZ": 800,
+      "FaintSpawnPosX": 0,
+      "FaintSpawnPosY": 0,
+      "FaintSpawnPosZ": 0,
+      "EmotionOffsetX": 0,
+      "EmotionOffsetY": 0,
+      "EmotionOffsetZ": 0,
+      "CaptionTextLabel": "None",
+      "SinglePlayMotion": 0,
+      "Emotion": "-1",
+      "Permission_FCmd": 0,
+      "AllowBanFlag_FCmd": 0,
+      "FixDirInFieldCommand": false,
+      "EventType_A": "",
+      "EventStartFlag_A": 0,
+      "EventEndFlag_A": 0,
+      "TimeZoneTriggerType_A": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_A_1_ID": "None",
+      "EventParam_A_1": "None",
+      "EventParam_A_2_ID": "None",
+      "EventParam_A_2": "None",
+      "EventParam_A_3_ID": "None",
+      "EventParam_A_3": "None",
+      "EventParam_A_4_ID": "None",
+      "EventParam_A_4": "None",
+      "EventParam_A_5_ID": "None",
+      "EventParam_A_5": "None",
+      "EventParam_A_6_ID": "None",
+      "EventParam_A_6": "None",
+      "EventParam_A_7_ID": "None",
+      "EventParam_A_7": "None",
+      "EventParam_A_8_ID": "None",
+      "EventParam_A_8": "None",
+      "EventParam_A_9_ID": "None",
+      "EventParam_A_9": "None",
+      "EventParam_A_10_ID": "None",
+      "EventParam_A_10": "None",
+      "EventLabel_A": "None",
+      "EventType_B": "",
+      "EventStartFlag_B": 0,
+      "EventEndFlag_B": 0,
+      "TimeZoneTriggerType_B": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_B_1_ID": "None",
+      "EventParam_B_1": "None",
+      "EventParam_B_2_ID": "None",
+      "EventParam_B_2": "None",
+      "EventParam_B_3_ID": "None",
+      "EventParam_B_3": "None",
+      "EventParam_B_4_ID": "None",
+      "EventParam_B_4": "None",
+      "EventParam_B_5_ID": "None",
+      "EventParam_B_5": "None",
+      "EventParam_B_6_ID": "None",
+      "EventParam_B_6": "None",
+      "EventParam_B_7_ID": "None",
+      "EventParam_B_7": "None",
+      "EventParam_B_8_ID": "None",
+      "EventParam_B_8": "None",
+      "EventParam_B_9_ID": "None",
+      "EventParam_B_9": "None",
+      "EventParam_B_10_ID": "None",
+      "EventParam_B_10": "None",
+      "EventLabel_B": "None",
+      "EventType_C": "",
+      "EventStartFlag_C": 0,
+      "EventEndFlag_C": 0,
+      "TimeZoneTriggerType_C": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_C_1_ID": "None",
+      "EventParam_C_1": "None",
+      "EventParam_C_2_ID": "None",
+      "EventParam_C_2": "None",
+      "EventParam_C_3_ID": "None",
+      "EventParam_C_3": "None",
+      "EventParam_C_4_ID": "None",
+      "EventParam_C_4": "None",
+      "EventParam_C_5_ID": "None",
+      "EventParam_C_5": "None",
+      "EventParam_C_6_ID": "None",
+      "EventParam_C_6": "None",
+      "EventParam_C_7_ID": "None",
+      "EventParam_C_7": "None",
+      "EventParam_C_8_ID": "None",
+      "EventParam_C_8": "None",
+      "EventParam_C_9_ID": "None",
+      "EventParam_C_9": "None",
+      "EventParam_C_10_ID": "None",
+      "EventParam_C_10": "None",
+      "EventLabel_C": "None",
+      "EventType_D": "",
+      "EventStartFlag_D": 0,
+      "EventEndFlag_D": 0,
+      "TimeZoneTriggerType_D": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_D_1_ID": "None",
+      "EventParam_D_1": "None",
+      "EventParam_D_2_ID": "None",
+      "EventParam_D_2": "None",
+      "EventParam_D_3_ID": "None",
+      "EventParam_D_3": "None",
+      "EventParam_D_4_ID": "None",
+      "EventParam_D_4": "None",
+      "EventParam_D_5_ID": "None",
+      "EventParam_D_5": "None",
+      "EventParam_D_6_ID": "None",
+      "EventParam_D_6": "None",
+      "EventParam_D_7_ID": "None",
+      "EventParam_D_7": "None",
+      "EventParam_D_8_ID": "None",
+      "EventParam_D_8": "None",
+      "EventParam_D_9_ID": "None",
+      "EventParam_D_9": "None",
+      "EventParam_D_10_ID": "None",
+      "EventParam_D_10": "None",
+      "EventLabel_D": "None",
+      "EventType_E": "",
+      "EventStartFlag_E": 0,
+      "EventEndFlag_E": 0,
+      "TimeZoneTriggerType_E": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_E_1_ID": "None",
+      "EventParam_E_1": "None",
+      "EventParam_E_2_ID": "None",
+      "EventParam_E_2": "None",
+      "EventParam_E_3_ID": "None",
+      "EventParam_E_3": "None",
+      "EventParam_E_4_ID": "None",
+      "EventParam_E_4": "None",
+      "EventParam_E_5_ID": "None",
+      "EventParam_E_5": "None",
+      "EventParam_E_6_ID": "None",
+      "EventParam_E_6": "None",
+      "EventParam_E_7_ID": "None",
+      "EventParam_E_7": "None",
+      "EventParam_E_8_ID": "None",
+      "EventParam_E_8": "None",
+      "EventParam_E_9_ID": "None",
+      "EventParam_E_9": "None",
+      "EventParam_E_10_ID": "None",
+      "EventParam_E_10": "None",
+      "EventLabel_E": "None",
+      "EventType_F": "",
+      "EventStartFlag_F": 0,
+      "EventEndFlag_F": 0,
+      "TimeZoneTriggerType_F": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_F_1": "None",
+      "EventParam_F_2": "None",
+      "EventParam_F_3": "None",
+      "EventParam_F_4": "None",
+      "EventParam_F_5": "None",
+      "EventParam_F_6": "None",
+      "EventParam_F_7": "None",
+      "EventParam_F_8": "None",
+      "EventParam_F_9": "None",
+      "EventParam_F_10": "None",
+      "EventLabel_F": "None",
+      "EventType_G": "",
+      "EventStartFlag_G": 0,
+      "EventEndFlag_G": 0,
+      "TimeZoneTriggerType_G": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_G_1": "None",
+      "EventParam_G_2": "None",
+      "EventParam_G_3": "None",
+      "EventParam_G_4": "None",
+      "EventParam_G_5": "None",
+      "EventParam_G_6": "None",
+      "EventParam_G_7": "None",
+      "EventParam_G_8": "None",
+      "EventParam_G_9": "None",
+      "EventParam_G_10": "None",
+      "EventLabel_G": "None",
+      "EventType_H": "",
+      "EventStartFlag_H": 0,
+      "EventEndFlag_H": 0,
+      "TimeZoneTriggerType_H": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_H_1": "None",
+      "EventParam_H_2": "None",
+      "EventParam_H_3": "None",
+      "EventParam_H_4": "None",
+      "EventParam_H_5": "None",
+      "EventParam_H_6": "None",
+      "EventParam_H_7": "None",
+      "EventParam_H_8": "None",
+      "EventParam_H_9": "None",
+      "EventParam_H_10": "None",
+      "EventLabel_H": "None",
+      "EventType_I": "",
+      "EventStartFlag_I": 0,
+      "EventEndFlag_I": 0,
+      "TimeZoneTriggerType_I": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_I_1": "None",
+      "EventParam_I_2": "None",
+      "EventParam_I_3": "None",
+      "EventParam_I_4": "None",
+      "EventParam_I_5": "None",
+      "EventParam_I_6": "None",
+      "EventParam_I_7": "None",
+      "EventParam_I_8": "None",
+      "EventParam_I_9": "None",
+      "EventParam_I_10": "None",
+      "EventLabel_I": "None",
+      "EventType_J": "",
+      "EventStartFlag_J": 0,
+      "EventEndFlag_J": 0,
+      "TimeZoneTriggerType_J": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_J_1": "None",
+      "EventParam_J_2": "None",
+      "EventParam_J_3": "None",
+      "EventParam_J_4": "None",
+      "EventParam_J_5": "None",
+      "EventParam_J_6": "None",
+      "EventParam_J_7": "None",
+      "EventParam_J_8": "None",
+      "EventParam_J_9": "None",
+      "EventParam_J_10": "None",
+      "EventLabel_J": "None"
+    },
+    {
+      "id": "Treasure_Fld_Dst_3_2_04",
+      "ID": 4,
+      "PlacementType": 2,
+      "MainScenarioType": 0,
+      "MainScenarioID": 0,
+      "ResourceLabel": "Treasure_Fld_Dst_3_2_04",
+      "InvalidRadarIcon": false,
+      "IgnoreGravity": false,
+      "IndoorFlag": false,
+      "HouseInFloor": 0,
+      "TriggerScaleX": 0,
+      "TriggerScaleY": 0,
+      "TriggerScaleZ": 0,
+      "SpawnStartFlag": 0,
+      "SpawnEndFlag": 0,
+      "TimeZoneSpawnType": "ETIMEZONE_TRIGGER_TYPE::eALL",
+      "SpawnStartDelayCount": 0,
+      "SpawnEndDelayCount": 0,
+      "CompProloguePlayerID": "EPlayableCharacterID::eNONE",
+      "NorSpawnPrologue": false,
+      "NotSpawnFinal": false,
+      "NotCoexistencePlacementLabel": [
+        "None",
+        "None",
+        "None",
+        "None",
+        "None"
+      ],
+      "SpawnDir": "FRONT",
+      "SpawnPosX": 3236,
+      "SpawnPosY": -755,
+      "SpawnPosZ": -118.62999725341797,
+      "FaintSpawnPosX": 0,
+      "FaintSpawnPosY": 0,
+      "FaintSpawnPosZ": 0,
+      "EmotionOffsetX": 0,
+      "EmotionOffsetY": 0,
+      "EmotionOffsetZ": 0,
+      "CaptionTextLabel": "None",
+      "SinglePlayMotion": 0,
+      "Emotion": "-1",
+      "Permission_FCmd": 0,
+      "AllowBanFlag_FCmd": 0,
+      "FixDirInFieldCommand": false,
+      "EventType_A": "",
+      "EventStartFlag_A": 0,
+      "EventEndFlag_A": 0,
+      "TimeZoneTriggerType_A": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_A_1_ID": "None",
+      "EventParam_A_1": "None",
+      "EventParam_A_2_ID": "None",
+      "EventParam_A_2": "None",
+      "EventParam_A_3_ID": "None",
+      "EventParam_A_3": "None",
+      "EventParam_A_4_ID": "None",
+      "EventParam_A_4": "None",
+      "EventParam_A_5_ID": "None",
+      "EventParam_A_5": "None",
+      "EventParam_A_6_ID": "None",
+      "EventParam_A_6": "None",
+      "EventParam_A_7_ID": "None",
+      "EventParam_A_7": "None",
+      "EventParam_A_8_ID": "None",
+      "EventParam_A_8": "None",
+      "EventParam_A_9_ID": "None",
+      "EventParam_A_9": "None",
+      "EventParam_A_10_ID": "None",
+      "EventParam_A_10": "None",
+      "EventLabel_A": "None",
+      "EventType_B": "",
+      "EventStartFlag_B": 0,
+      "EventEndFlag_B": 0,
+      "TimeZoneTriggerType_B": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_B_1_ID": "None",
+      "EventParam_B_1": "None",
+      "EventParam_B_2_ID": "None",
+      "EventParam_B_2": "None",
+      "EventParam_B_3_ID": "None",
+      "EventParam_B_3": "None",
+      "EventParam_B_4_ID": "None",
+      "EventParam_B_4": "None",
+      "EventParam_B_5_ID": "None",
+      "EventParam_B_5": "None",
+      "EventParam_B_6_ID": "None",
+      "EventParam_B_6": "None",
+      "EventParam_B_7_ID": "None",
+      "EventParam_B_7": "None",
+      "EventParam_B_8_ID": "None",
+      "EventParam_B_8": "None",
+      "EventParam_B_9_ID": "None",
+      "EventParam_B_9": "None",
+      "EventParam_B_10_ID": "None",
+      "EventParam_B_10": "None",
+      "EventLabel_B": "None",
+      "EventType_C": "",
+      "EventStartFlag_C": 0,
+      "EventEndFlag_C": 0,
+      "TimeZoneTriggerType_C": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_C_1_ID": "None",
+      "EventParam_C_1": "None",
+      "EventParam_C_2_ID": "None",
+      "EventParam_C_2": "None",
+      "EventParam_C_3_ID": "None",
+      "EventParam_C_3": "None",
+      "EventParam_C_4_ID": "None",
+      "EventParam_C_4": "None",
+      "EventParam_C_5_ID": "None",
+      "EventParam_C_5": "None",
+      "EventParam_C_6_ID": "None",
+      "EventParam_C_6": "None",
+      "EventParam_C_7_ID": "None",
+      "EventParam_C_7": "None",
+      "EventParam_C_8_ID": "None",
+      "EventParam_C_8": "None",
+      "EventParam_C_9_ID": "None",
+      "EventParam_C_9": "None",
+      "EventParam_C_10_ID": "None",
+      "EventParam_C_10": "None",
+      "EventLabel_C": "None",
+      "EventType_D": "",
+      "EventStartFlag_D": 0,
+      "EventEndFlag_D": 0,
+      "TimeZoneTriggerType_D": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_D_1_ID": "None",
+      "EventParam_D_1": "None",
+      "EventParam_D_2_ID": "None",
+      "EventParam_D_2": "None",
+      "EventParam_D_3_ID": "None",
+      "EventParam_D_3": "None",
+      "EventParam_D_4_ID": "None",
+      "EventParam_D_4": "None",
+      "EventParam_D_5_ID": "None",
+      "EventParam_D_5": "None",
+      "EventParam_D_6_ID": "None",
+      "EventParam_D_6": "None",
+      "EventParam_D_7_ID": "None",
+      "EventParam_D_7": "None",
+      "EventParam_D_8_ID": "None",
+      "EventParam_D_8": "None",
+      "EventParam_D_9_ID": "None",
+      "EventParam_D_9": "None",
+      "EventParam_D_10_ID": "None",
+      "EventParam_D_10": "None",
+      "EventLabel_D": "None",
+      "EventType_E": "",
+      "EventStartFlag_E": 0,
+      "EventEndFlag_E": 0,
+      "TimeZoneTriggerType_E": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_E_1_ID": "None",
+      "EventParam_E_1": "None",
+      "EventParam_E_2_ID": "None",
+      "EventParam_E_2": "None",
+      "EventParam_E_3_ID": "None",
+      "EventParam_E_3": "None",
+      "EventParam_E_4_ID": "None",
+      "EventParam_E_4": "None",
+      "EventParam_E_5_ID": "None",
+      "EventParam_E_5": "None",
+      "EventParam_E_6_ID": "None",
+      "EventParam_E_6": "None",
+      "EventParam_E_7_ID": "None",
+      "EventParam_E_7": "None",
+      "EventParam_E_8_ID": "None",
+      "EventParam_E_8": "None",
+      "EventParam_E_9_ID": "None",
+      "EventParam_E_9": "None",
+      "EventParam_E_10_ID": "None",
+      "EventParam_E_10": "None",
+      "EventLabel_E": "None",
+      "EventType_F": "",
+      "EventStartFlag_F": 0,
+      "EventEndFlag_F": 0,
+      "TimeZoneTriggerType_F": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_F_1": "None",
+      "EventParam_F_2": "None",
+      "EventParam_F_3": "None",
+      "EventParam_F_4": "None",
+      "EventParam_F_5": "None",
+      "EventParam_F_6": "None",
+      "EventParam_F_7": "None",
+      "EventParam_F_8": "None",
+      "EventParam_F_9": "None",
+      "EventParam_F_10": "None",
+      "EventLabel_F": "None",
+      "EventType_G": "",
+      "EventStartFlag_G": 0,
+      "EventEndFlag_G": 0,
+      "TimeZoneTriggerType_G": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_G_1": "None",
+      "EventParam_G_2": "None",
+      "EventParam_G_3": "None",
+      "EventParam_G_4": "None",
+      "EventParam_G_5": "None",
+      "EventParam_G_6": "None",
+      "EventParam_G_7": "None",
+      "EventParam_G_8": "None",
+      "EventParam_G_9": "None",
+      "EventParam_G_10": "None",
+      "EventLabel_G": "None",
+      "EventType_H": "",
+      "EventStartFlag_H": 0,
+      "EventEndFlag_H": 0,
+      "TimeZoneTriggerType_H": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_H_1": "None",
+      "EventParam_H_2": "None",
+      "EventParam_H_3": "None",
+      "EventParam_H_4": "None",
+      "EventParam_H_5": "None",
+      "EventParam_H_6": "None",
+      "EventParam_H_7": "None",
+      "EventParam_H_8": "None",
+      "EventParam_H_9": "None",
+      "EventParam_H_10": "None",
+      "EventLabel_H": "None",
+      "EventType_I": "",
+      "EventStartFlag_I": 0,
+      "EventEndFlag_I": 0,
+      "TimeZoneTriggerType_I": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_I_1": "None",
+      "EventParam_I_2": "None",
+      "EventParam_I_3": "None",
+      "EventParam_I_4": "None",
+      "EventParam_I_5": "None",
+      "EventParam_I_6": "None",
+      "EventParam_I_7": "None",
+      "EventParam_I_8": "None",
+      "EventParam_I_9": "None",
+      "EventParam_I_10": "None",
+      "EventLabel_I": "None",
+      "EventType_J": "",
+      "EventStartFlag_J": 0,
+      "EventEndFlag_J": 0,
+      "TimeZoneTriggerType_J": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_J_1": "None",
+      "EventParam_J_2": "None",
+      "EventParam_J_3": "None",
+      "EventParam_J_4": "None",
+      "EventParam_J_5": "None",
+      "EventParam_J_6": "None",
+      "EventParam_J_7": "None",
+      "EventParam_J_8": "None",
+      "EventParam_J_9": "None",
+      "EventParam_J_10": "None",
+      "EventLabel_J": "None"
+    },
+    {
+      "id": "NPC_SHO_EX1_0120_0000",
+      "ID": 10,
+      "PlacementType": 1,
+      "MainScenarioType": 0,
+      "MainScenarioID": 0,
+      "ResourceLabel": "NPC_SHO_EX1_0120",
+      "InvalidRadarIcon": false,
+      "IgnoreGravity": false,
+      "IndoorFlag": false,
+      "HouseInFloor": 0,
+      "TriggerScaleX": 0,
+      "TriggerScaleY": 0,
+      "TriggerScaleZ": 0,
+      "SpawnStartFlag": 6200,
+      "SpawnEndFlag": 6208,
+      "TimeZoneSpawnType": "ETIMEZONE_TRIGGER_TYPE::eALL",
+      "SpawnStartDelayCount": 0,
+      "SpawnEndDelayCount": 0,
+      "CompProloguePlayerID": "EPlayableCharacterID::eNONE",
+      "NorSpawnPrologue": false,
+      "NotSpawnFinal": true,
+      "NotCoexistencePlacementLabel": [
+        "None",
+        "None",
+        "None",
+        "None",
+        "None"
+      ],
+      "SpawnDir": "LEFT",
+      "SpawnPosX": -5056.169921875,
+      "SpawnPosY": -1867.4100341796875,
+      "SpawnPosZ": 381.1499938964844,
+      "FaintSpawnPosX": 0,
+      "FaintSpawnPosY": 0,
+      "FaintSpawnPosZ": 0,
+      "EmotionOffsetX": 0,
+      "EmotionOffsetY": 0,
+      "EmotionOffsetZ": 0,
+      "CaptionTextLabel": "None",
+      "SinglePlayMotion": 0,
+      "Emotion": "8",
+      "Permission_FCmd": 0,
+      "AllowBanFlag_FCmd": 0,
+      "FixDirInFieldCommand": false,
+      "EventType_A": "eFC_PURCHASE_ITEM",
+      "EventStartFlag_A": 6202,
+      "EventEndFlag_A": 0,
+      "TimeZoneTriggerType_A": "ETIMEZONE_TRIGGER_TYPE::eALL",
+      "EventParam_A_1_ID": "None",
+      "EventParam_A_1": "ITM_TRE_SHO_EX1_0030",
+      "EventParam_A_2_ID": "None",
+      "EventParam_A_2": "1",
+      "EventParam_A_3_ID": "None",
+      "EventParam_A_3": "None",
+      "EventParam_A_4_ID": "None",
+      "EventParam_A_4": "None",
+      "EventParam_A_5_ID": "None",
+      "EventParam_A_5": "None",
+      "EventParam_A_6_ID": "None",
+      "EventParam_A_6": "None",
+      "EventParam_A_7_ID": "None",
+      "EventParam_A_7": "None",
+      "EventParam_A_8_ID": "None",
+      "EventParam_A_8": "None",
+      "EventParam_A_9_ID": "None",
+      "EventParam_A_9": "None",
+      "EventParam_A_10_ID": "None",
+      "EventParam_A_10": "None",
+      "EventLabel_A": "MS_SHO_EX1_0400",
+      "EventType_B": "eNOT_JOIN_TARGET_PC",
+      "EventStartFlag_B": 0,
+      "EventEndFlag_B": 25457,
+      "TimeZoneTriggerType_B": "ETIMEZONE_TRIGGER_TYPE::eALL",
+      "EventParam_B_1_ID": "None",
+      "EventParam_B_1": "eMERCHANT",
+      "EventParam_B_2_ID": "None",
+      "EventParam_B_2": "None",
+      "EventParam_B_3_ID": "None",
+      "EventParam_B_3": "None",
+      "EventParam_B_4_ID": "None",
+      "EventParam_B_4": "None",
+      "EventParam_B_5_ID": "None",
+      "EventParam_B_5": "None",
+      "EventParam_B_6_ID": "None",
+      "EventParam_B_6": "None",
+      "EventParam_B_7_ID": "None",
+      "EventParam_B_7": "None",
+      "EventParam_B_8_ID": "None",
+      "EventParam_B_8": "None",
+      "EventParam_B_9_ID": "None",
+      "EventParam_B_9": "None",
+      "EventParam_B_10_ID": "None",
+      "EventParam_B_10": "None",
+      "EventLabel_B": "MS_SHO_EX1_TALK_0010",
+      "EventType_C": "eNORMAL_TALK",
+      "EventStartFlag_C": 0,
+      "EventEndFlag_C": 0,
+      "TimeZoneTriggerType_C": "ETIMEZONE_TRIGGER_TYPE::eALL",
+      "EventParam_C_1_ID": "None",
+      "EventParam_C_1": "None",
+      "EventParam_C_2_ID": "None",
+      "EventParam_C_2": "None",
+      "EventParam_C_3_ID": "None",
+      "EventParam_C_3": "None",
+      "EventParam_C_4_ID": "None",
+      "EventParam_C_4": "None",
+      "EventParam_C_5_ID": "None",
+      "EventParam_C_5": "None",
+      "EventParam_C_6_ID": "None",
+      "EventParam_C_6": "None",
+      "EventParam_C_7_ID": "None",
+      "EventParam_C_7": "None",
+      "EventParam_C_8_ID": "None",
+      "EventParam_C_8": "None",
+      "EventParam_C_9_ID": "None",
+      "EventParam_C_9": "None",
+      "EventParam_C_10_ID": "None",
+      "EventParam_C_10": "None",
+      "EventLabel_C": "TALK_NPC_GENERAL_001",
+      "EventType_D": "",
+      "EventStartFlag_D": 0,
+      "EventEndFlag_D": 0,
+      "TimeZoneTriggerType_D": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_D_1_ID": "None",
+      "EventParam_D_1": "None",
+      "EventParam_D_2_ID": "None",
+      "EventParam_D_2": "None",
+      "EventParam_D_3_ID": "None",
+      "EventParam_D_3": "None",
+      "EventParam_D_4_ID": "None",
+      "EventParam_D_4": "None",
+      "EventParam_D_5_ID": "None",
+      "EventParam_D_5": "None",
+      "EventParam_D_6_ID": "None",
+      "EventParam_D_6": "None",
+      "EventParam_D_7_ID": "None",
+      "EventParam_D_7": "None",
+      "EventParam_D_8_ID": "None",
+      "EventParam_D_8": "None",
+      "EventParam_D_9_ID": "None",
+      "EventParam_D_9": "None",
+      "EventParam_D_10_ID": "None",
+      "EventParam_D_10": "None",
+      "EventLabel_D": "None",
+      "EventType_E": "",
+      "EventStartFlag_E": 0,
+      "EventEndFlag_E": 0,
+      "TimeZoneTriggerType_E": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_E_1_ID": "None",
+      "EventParam_E_1": "None",
+      "EventParam_E_2_ID": "None",
+      "EventParam_E_2": "None",
+      "EventParam_E_3_ID": "None",
+      "EventParam_E_3": "None",
+      "EventParam_E_4_ID": "None",
+      "EventParam_E_4": "None",
+      "EventParam_E_5_ID": "None",
+      "EventParam_E_5": "None",
+      "EventParam_E_6_ID": "None",
+      "EventParam_E_6": "None",
+      "EventParam_E_7_ID": "None",
+      "EventParam_E_7": "None",
+      "EventParam_E_8_ID": "None",
+      "EventParam_E_8": "None",
+      "EventParam_E_9_ID": "None",
+      "EventParam_E_9": "None",
+      "EventParam_E_10_ID": "None",
+      "EventParam_E_10": "None",
+      "EventLabel_E": "None",
+      "EventType_F": "",
+      "EventStartFlag_F": 0,
+      "EventEndFlag_F": 0,
+      "TimeZoneTriggerType_F": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_F_1": "None",
+      "EventParam_F_2": "None",
+      "EventParam_F_3": "None",
+      "EventParam_F_4": "None",
+      "EventParam_F_5": "None",
+      "EventParam_F_6": "None",
+      "EventParam_F_7": "None",
+      "EventParam_F_8": "None",
+      "EventParam_F_9": "None",
+      "EventParam_F_10": "None",
+      "EventLabel_F": "None",
+      "EventType_G": "",
+      "EventStartFlag_G": 0,
+      "EventEndFlag_G": 0,
+      "TimeZoneTriggerType_G": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_G_1": "None",
+      "EventParam_G_2": "None",
+      "EventParam_G_3": "None",
+      "EventParam_G_4": "None",
+      "EventParam_G_5": "None",
+      "EventParam_G_6": "None",
+      "EventParam_G_7": "None",
+      "EventParam_G_8": "None",
+      "EventParam_G_9": "None",
+      "EventParam_G_10": "None",
+      "EventLabel_G": "None",
+      "EventType_H": "",
+      "EventStartFlag_H": 0,
+      "EventEndFlag_H": 0,
+      "TimeZoneTriggerType_H": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_H_1": "None",
+      "EventParam_H_2": "None",
+      "EventParam_H_3": "None",
+      "EventParam_H_4": "None",
+      "EventParam_H_5": "None",
+      "EventParam_H_6": "None",
+      "EventParam_H_7": "None",
+      "EventParam_H_8": "None",
+      "EventParam_H_9": "None",
+      "EventParam_H_10": "None",
+      "EventLabel_H": "None",
+      "EventType_I": "",
+      "EventStartFlag_I": 0,
+      "EventEndFlag_I": 0,
+      "TimeZoneTriggerType_I": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_I_1": "None",
+      "EventParam_I_2": "None",
+      "EventParam_I_3": "None",
+      "EventParam_I_4": "None",
+      "EventParam_I_5": "None",
+      "EventParam_I_6": "None",
+      "EventParam_I_7": "None",
+      "EventParam_I_8": "None",
+      "EventParam_I_9": "None",
+      "EventParam_I_10": "None",
+      "EventLabel_I": "None",
+      "EventType_J": "",
+      "EventStartFlag_J": 0,
+      "EventEndFlag_J": 0,
+      "TimeZoneTriggerType_J": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_J_1": "None",
+      "EventParam_J_2": "None",
+      "EventParam_J_3": "None",
+      "EventParam_J_4": "None",
+      "EventParam_J_5": "None",
+      "EventParam_J_6": "None",
+      "EventParam_J_7": "None",
+      "EventParam_J_8": "None",
+      "EventParam_J_9": "None",
+      "EventParam_J_10": "None",
+      "EventLabel_J": "None"
+    },
+    {
+      "id": "NPC_Twn_Wld_2_1_A_TALK_1100_D000",
+      "ID": 28,
+      "PlacementType": 1,
+      "MainScenarioType": 0,
+      "MainScenarioID": 0,
+      "ResourceLabel": "NPC_Twn_Wld_2_1_A_TALK_1100",
+      "InvalidRadarIcon": false,
+      "IgnoreGravity": false,
+      "IndoorFlag": false,
+      "HouseInFloor": 0,
+      "TriggerScaleX": 0,
+      "TriggerScaleY": 0,
+      "TriggerScaleZ": 0,
+      "SpawnStartFlag": 0,
+      "SpawnEndFlag": 0,
+      "TimeZoneSpawnType": "ETIMEZONE_TRIGGER_TYPE::eDAYTIME",
+      "SpawnStartDelayCount": 0,
+      "SpawnEndDelayCount": 0,
+      "CompProloguePlayerID": "EPlayableCharacterID::eNONE",
+      "NorSpawnPrologue": false,
+      "NotSpawnFinal": false,
+      "NotCoexistencePlacementLabel": [
+        "SIN_30_Twn_Wld_2_1_A_START",
+        "KAR_2B_Twn_Wld_2_1_A_START",
+        "None",
+        "None",
+        "None"
+      ],
+      "SpawnDir": "RIGHT",
+      "SpawnPosX": -138.91700744628906,
+      "SpawnPosY": 1831.0140380859375,
+      "SpawnPosZ": 737.4625854492188,
+      "FaintSpawnPosX": 0,
+      "FaintSpawnPosY": 0,
+      "FaintSpawnPosZ": 0,
+      "EmotionOffsetX": 0,
+      "EmotionOffsetY": 0,
+      "EmotionOffsetZ": 0,
+      "CaptionTextLabel": "None",
+      "SinglePlayMotion": 0,
+      "Emotion": "8",
+      "Permission_FCmd": 0,
+      "AllowBanFlag_FCmd": 0,
+      "FixDirInFieldCommand": false,
+      "EventType_A": "eNORMAL_TALK",
+      "EventStartFlag_A": 0,
+      "EventEndFlag_A": 0,
+      "TimeZoneTriggerType_A": "ETIMEZONE_TRIGGER_TYPE::eALL",
+      "EventParam_A_1_ID": "None",
+      "EventParam_A_1": "None",
+      "EventParam_A_2_ID": "None",
+      "EventParam_A_2": "None",
+      "EventParam_A_3_ID": "None",
+      "EventParam_A_3": "None",
+      "EventParam_A_4_ID": "None",
+      "EventParam_A_4": "None",
+      "EventParam_A_5_ID": "None",
+      "EventParam_A_5": "None",
+      "EventParam_A_6_ID": "None",
+      "EventParam_A_6": "None",
+      "EventParam_A_7_ID": "None",
+      "EventParam_A_7": "None",
+      "EventParam_A_8_ID": "None",
+      "EventParam_A_8": "None",
+      "EventParam_A_9_ID": "None",
+      "EventParam_A_9": "None",
+      "EventParam_A_10_ID": "None",
+      "EventParam_A_10": "None",
+      "EventLabel_A": "TALK_NPC_GENERAL_001",
+      "EventType_B": "",
+      "EventStartFlag_B": 0,
+      "EventEndFlag_B": 0,
+      "TimeZoneTriggerType_B": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_B_1_ID": "None",
+      "EventParam_B_1": "None",
+      "EventParam_B_2_ID": "None",
+      "EventParam_B_2": "None",
+      "EventParam_B_3_ID": "None",
+      "EventParam_B_3": "None",
+      "EventParam_B_4_ID": "None",
+      "EventParam_B_4": "None",
+      "EventParam_B_5_ID": "None",
+      "EventParam_B_5": "None",
+      "EventParam_B_6_ID": "None",
+      "EventParam_B_6": "None",
+      "EventParam_B_7_ID": "None",
+      "EventParam_B_7": "None",
+      "EventParam_B_8_ID": "None",
+      "EventParam_B_8": "None",
+      "EventParam_B_9_ID": "None",
+      "EventParam_B_9": "None",
+      "EventParam_B_10_ID": "None",
+      "EventParam_B_10": "None",
+      "EventLabel_B": "None",
+      "EventType_C": "",
+      "EventStartFlag_C": 0,
+      "EventEndFlag_C": 0,
+      "TimeZoneTriggerType_C": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_C_1_ID": "None",
+      "EventParam_C_1": "None",
+      "EventParam_C_2_ID": "None",
+      "EventParam_C_2": "None",
+      "EventParam_C_3_ID": "None",
+      "EventParam_C_3": "None",
+      "EventParam_C_4_ID": "None",
+      "EventParam_C_4": "None",
+      "EventParam_C_5_ID": "None",
+      "EventParam_C_5": "None",
+      "EventParam_C_6_ID": "None",
+      "EventParam_C_6": "None",
+      "EventParam_C_7_ID": "None",
+      "EventParam_C_7": "None",
+      "EventParam_C_8_ID": "None",
+      "EventParam_C_8": "None",
+      "EventParam_C_9_ID": "None",
+      "EventParam_C_9": "None",
+      "EventParam_C_10_ID": "None",
+      "EventParam_C_10": "None",
+      "EventLabel_C": "None",
+      "EventType_D": "",
+      "EventStartFlag_D": 0,
+      "EventEndFlag_D": 0,
+      "TimeZoneTriggerType_D": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_D_1_ID": "None",
+      "EventParam_D_1": "None",
+      "EventParam_D_2_ID": "None",
+      "EventParam_D_2": "None",
+      "EventParam_D_3_ID": "None",
+      "EventParam_D_3": "None",
+      "EventParam_D_4_ID": "None",
+      "EventParam_D_4": "None",
+      "EventParam_D_5_ID": "None",
+      "EventParam_D_5": "None",
+      "EventParam_D_6_ID": "None",
+      "EventParam_D_6": "None",
+      "EventParam_D_7_ID": "None",
+      "EventParam_D_7": "None",
+      "EventParam_D_8_ID": "None",
+      "EventParam_D_8": "None",
+      "EventParam_D_9_ID": "None",
+      "EventParam_D_9": "None",
+      "EventParam_D_10_ID": "None",
+      "EventParam_D_10": "None",
+      "EventLabel_D": "None",
+      "EventType_E": "",
+      "EventStartFlag_E": 0,
+      "EventEndFlag_E": 0,
+      "TimeZoneTriggerType_E": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_E_1_ID": "None",
+      "EventParam_E_1": "None",
+      "EventParam_E_2_ID": "None",
+      "EventParam_E_2": "None",
+      "EventParam_E_3_ID": "None",
+      "EventParam_E_3": "None",
+      "EventParam_E_4_ID": "None",
+      "EventParam_E_4": "None",
+      "EventParam_E_5_ID": "None",
+      "EventParam_E_5": "None",
+      "EventParam_E_6_ID": "None",
+      "EventParam_E_6": "None",
+      "EventParam_E_7_ID": "None",
+      "EventParam_E_7": "None",
+      "EventParam_E_8_ID": "None",
+      "EventParam_E_8": "None",
+      "EventParam_E_9_ID": "None",
+      "EventParam_E_9": "None",
+      "EventParam_E_10_ID": "None",
+      "EventParam_E_10": "None",
+      "EventLabel_E": "None",
+      "EventType_F": "",
+      "EventStartFlag_F": 0,
+      "EventEndFlag_F": 0,
+      "TimeZoneTriggerType_F": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_F_1": "None",
+      "EventParam_F_2": "None",
+      "EventParam_F_3": "None",
+      "EventParam_F_4": "None",
+      "EventParam_F_5": "None",
+      "EventParam_F_6": "None",
+      "EventParam_F_7": "None",
+      "EventParam_F_8": "None",
+      "EventParam_F_9": "None",
+      "EventParam_F_10": "None",
+      "EventLabel_F": "None",
+      "EventType_G": "",
+      "EventStartFlag_G": 0,
+      "EventEndFlag_G": 0,
+      "TimeZoneTriggerType_G": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_G_1": "None",
+      "EventParam_G_2": "None",
+      "EventParam_G_3": "None",
+      "EventParam_G_4": "None",
+      "EventParam_G_5": "None",
+      "EventParam_G_6": "None",
+      "EventParam_G_7": "None",
+      "EventParam_G_8": "None",
+      "EventParam_G_9": "None",
+      "EventParam_G_10": "None",
+      "EventLabel_G": "None",
+      "EventType_H": "",
+      "EventStartFlag_H": 0,
+      "EventEndFlag_H": 0,
+      "TimeZoneTriggerType_H": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_H_1": "None",
+      "EventParam_H_2": "None",
+      "EventParam_H_3": "None",
+      "EventParam_H_4": "None",
+      "EventParam_H_5": "None",
+      "EventParam_H_6": "None",
+      "EventParam_H_7": "None",
+      "EventParam_H_8": "None",
+      "EventParam_H_9": "None",
+      "EventParam_H_10": "None",
+      "EventLabel_H": "None",
+      "EventType_I": "",
+      "EventStartFlag_I": 0,
+      "EventEndFlag_I": 0,
+      "TimeZoneTriggerType_I": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_I_1": "None",
+      "EventParam_I_2": "None",
+      "EventParam_I_3": "None",
+      "EventParam_I_4": "None",
+      "EventParam_I_5": "None",
+      "EventParam_I_6": "None",
+      "EventParam_I_7": "None",
+      "EventParam_I_8": "None",
+      "EventParam_I_9": "None",
+      "EventParam_I_10": "None",
+      "EventLabel_I": "None",
+      "EventType_J": "",
+      "EventStartFlag_J": 0,
+      "EventEndFlag_J": 0,
+      "TimeZoneTriggerType_J": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_J_1": "None",
+      "EventParam_J_2": "None",
+      "EventParam_J_3": "None",
+      "EventParam_J_4": "None",
+      "EventParam_J_5": "None",
+      "EventParam_J_6": "None",
+      "EventParam_J_7": "None",
+      "EventParam_J_8": "None",
+      "EventParam_J_9": "None",
+      "EventParam_J_10": "None",
+      "EventLabel_J": "None"
+    },
+    {
+      "id": "NPC_Twn_Wld_2_1_A_TALK_1900_D000",
+      "ID": 35,
+      "PlacementType": 1,
+      "MainScenarioType": 0,
+      "MainScenarioID": 0,
+      "ResourceLabel": "NPC_Twn_Wld_2_1_A_TALK_1900",
+      "InvalidRadarIcon": false,
+      "IgnoreGravity": false,
+      "IndoorFlag": false,
+      "HouseInFloor": 0,
+      "TriggerScaleX": 0,
+      "TriggerScaleY": 0,
+      "TriggerScaleZ": 0,
+      "SpawnStartFlag": 0,
+      "SpawnEndFlag": 0,
+      "TimeZoneSpawnType": "ETIMEZONE_TRIGGER_TYPE::eALL",
+      "SpawnStartDelayCount": 0,
+      "SpawnEndDelayCount": 0,
+      "CompProloguePlayerID": "EPlayableCharacterID::eNONE",
+      "NorSpawnPrologue": false,
+      "NotSpawnFinal": false,
+      "NotCoexistencePlacementLabel": [
+        "None",
+        "None",
+        "None",
+        "None",
+        "None"
+      ],
+      "SpawnDir": "FRONT",
+      "SpawnPosX": -3634.47998046875,
+      "SpawnPosY": 2071.02001953125,
+      "SpawnPosZ": -702.7000122070312,
+      "FaintSpawnPosX": -50,
+      "FaintSpawnPosY": 150,
+      "FaintSpawnPosZ": 0,
+      "EmotionOffsetX": 0,
+      "EmotionOffsetY": 0,
+      "EmotionOffsetZ": 0,
+      "CaptionTextLabel": "None",
+      "SinglePlayMotion": 0,
+      "Emotion": "8",
+      "Permission_FCmd": 0,
+      "AllowBanFlag_FCmd": 0,
+      "FixDirInFieldCommand": false,
+      "EventType_A": "eNORMAL_TALK",
+      "EventStartFlag_A": 0,
+      "EventEndFlag_A": 0,
+      "TimeZoneTriggerType_A": "ETIMEZONE_TRIGGER_TYPE::eALL",
+      "EventParam_A_1_ID": "None",
+      "EventParam_A_1": "None",
+      "EventParam_A_2_ID": "None",
+      "EventParam_A_2": "None",
+      "EventParam_A_3_ID": "None",
+      "EventParam_A_3": "None",
+      "EventParam_A_4_ID": "None",
+      "EventParam_A_4": "None",
+      "EventParam_A_5_ID": "None",
+      "EventParam_A_5": "None",
+      "EventParam_A_6_ID": "None",
+      "EventParam_A_6": "None",
+      "EventParam_A_7_ID": "None",
+      "EventParam_A_7": "None",
+      "EventParam_A_8_ID": "None",
+      "EventParam_A_8": "None",
+      "EventParam_A_9_ID": "None",
+      "EventParam_A_9": "None",
+      "EventParam_A_10_ID": "None",
+      "EventParam_A_10": "None",
+      "EventLabel_A": "TALK_NPC_GENERAL_001",
+      "EventType_B": "",
+      "EventStartFlag_B": 0,
+      "EventEndFlag_B": 0,
+      "TimeZoneTriggerType_B": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_B_1_ID": "None",
+      "EventParam_B_1": "None",
+      "EventParam_B_2_ID": "None",
+      "EventParam_B_2": "None",
+      "EventParam_B_3_ID": "None",
+      "EventParam_B_3": "None",
+      "EventParam_B_4_ID": "None",
+      "EventParam_B_4": "None",
+      "EventParam_B_5_ID": "None",
+      "EventParam_B_5": "None",
+      "EventParam_B_6_ID": "None",
+      "EventParam_B_6": "None",
+      "EventParam_B_7_ID": "None",
+      "EventParam_B_7": "None",
+      "EventParam_B_8_ID": "None",
+      "EventParam_B_8": "None",
+      "EventParam_B_9_ID": "None",
+      "EventParam_B_9": "None",
+      "EventParam_B_10_ID": "None",
+      "EventParam_B_10": "None",
+      "EventLabel_B": "None",
+      "EventType_C": "",
+      "EventStartFlag_C": 0,
+      "EventEndFlag_C": 0,
+      "TimeZoneTriggerType_C": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_C_1_ID": "None",
+      "EventParam_C_1": "None",
+      "EventParam_C_2_ID": "None",
+      "EventParam_C_2": "None",
+      "EventParam_C_3_ID": "None",
+      "EventParam_C_3": "None",
+      "EventParam_C_4_ID": "None",
+      "EventParam_C_4": "None",
+      "EventParam_C_5_ID": "None",
+      "EventParam_C_5": "None",
+      "EventParam_C_6_ID": "None",
+      "EventParam_C_6": "None",
+      "EventParam_C_7_ID": "None",
+      "EventParam_C_7": "None",
+      "EventParam_C_8_ID": "None",
+      "EventParam_C_8": "None",
+      "EventParam_C_9_ID": "None",
+      "EventParam_C_9": "None",
+      "EventParam_C_10_ID": "None",
+      "EventParam_C_10": "None",
+      "EventLabel_C": "None",
+      "EventType_D": "",
+      "EventStartFlag_D": 0,
+      "EventEndFlag_D": 0,
+      "TimeZoneTriggerType_D": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_D_1_ID": "None",
+      "EventParam_D_1": "None",
+      "EventParam_D_2_ID": "None",
+      "EventParam_D_2": "None",
+      "EventParam_D_3_ID": "None",
+      "EventParam_D_3": "None",
+      "EventParam_D_4_ID": "None",
+      "EventParam_D_4": "None",
+      "EventParam_D_5_ID": "None",
+      "EventParam_D_5": "None",
+      "EventParam_D_6_ID": "None",
+      "EventParam_D_6": "None",
+      "EventParam_D_7_ID": "None",
+      "EventParam_D_7": "None",
+      "EventParam_D_8_ID": "None",
+      "EventParam_D_8": "None",
+      "EventParam_D_9_ID": "None",
+      "EventParam_D_9": "None",
+      "EventParam_D_10_ID": "None",
+      "EventParam_D_10": "None",
+      "EventLabel_D": "None",
+      "EventType_E": "",
+      "EventStartFlag_E": 0,
+      "EventEndFlag_E": 0,
+      "TimeZoneTriggerType_E": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_E_1_ID": "None",
+      "EventParam_E_1": "None",
+      "EventParam_E_2_ID": "None",
+      "EventParam_E_2": "None",
+      "EventParam_E_3_ID": "None",
+      "EventParam_E_3": "None",
+      "EventParam_E_4_ID": "None",
+      "EventParam_E_4": "None",
+      "EventParam_E_5_ID": "None",
+      "EventParam_E_5": "None",
+      "EventParam_E_6_ID": "None",
+      "EventParam_E_6": "None",
+      "EventParam_E_7_ID": "None",
+      "EventParam_E_7": "None",
+      "EventParam_E_8_ID": "None",
+      "EventParam_E_8": "None",
+      "EventParam_E_9_ID": "None",
+      "EventParam_E_9": "None",
+      "EventParam_E_10_ID": "None",
+      "EventParam_E_10": "None",
+      "EventLabel_E": "None",
+      "EventType_F": "",
+      "EventStartFlag_F": 0,
+      "EventEndFlag_F": 0,
+      "TimeZoneTriggerType_F": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_F_1": "None",
+      "EventParam_F_2": "None",
+      "EventParam_F_3": "None",
+      "EventParam_F_4": "None",
+      "EventParam_F_5": "None",
+      "EventParam_F_6": "None",
+      "EventParam_F_7": "None",
+      "EventParam_F_8": "None",
+      "EventParam_F_9": "None",
+      "EventParam_F_10": "None",
+      "EventLabel_F": "None",
+      "EventType_G": "",
+      "EventStartFlag_G": 0,
+      "EventEndFlag_G": 0,
+      "TimeZoneTriggerType_G": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_G_1": "None",
+      "EventParam_G_2": "None",
+      "EventParam_G_3": "None",
+      "EventParam_G_4": "None",
+      "EventParam_G_5": "None",
+      "EventParam_G_6": "None",
+      "EventParam_G_7": "None",
+      "EventParam_G_8": "None",
+      "EventParam_G_9": "None",
+      "EventParam_G_10": "None",
+      "EventLabel_G": "None",
+      "EventType_H": "",
+      "EventStartFlag_H": 0,
+      "EventEndFlag_H": 0,
+      "TimeZoneTriggerType_H": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_H_1": "None",
+      "EventParam_H_2": "None",
+      "EventParam_H_3": "None",
+      "EventParam_H_4": "None",
+      "EventParam_H_5": "None",
+      "EventParam_H_6": "None",
+      "EventParam_H_7": "None",
+      "EventParam_H_8": "None",
+      "EventParam_H_9": "None",
+      "EventParam_H_10": "None",
+      "EventLabel_H": "None",
+      "EventType_I": "",
+      "EventStartFlag_I": 0,
+      "EventEndFlag_I": 0,
+      "TimeZoneTriggerType_I": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_I_1": "None",
+      "EventParam_I_2": "None",
+      "EventParam_I_3": "None",
+      "EventParam_I_4": "None",
+      "EventParam_I_5": "None",
+      "EventParam_I_6": "None",
+      "EventParam_I_7": "None",
+      "EventParam_I_8": "None",
+      "EventParam_I_9": "None",
+      "EventParam_I_10": "None",
+      "EventLabel_I": "None",
+      "EventType_J": "",
+      "EventStartFlag_J": 0,
+      "EventEndFlag_J": 0,
+      "TimeZoneTriggerType_J": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_J_1": "None",
+      "EventParam_J_2": "None",
+      "EventParam_J_3": "None",
+      "EventParam_J_4": "None",
+      "EventParam_J_5": "None",
+      "EventParam_J_6": "None",
+      "EventParam_J_7": "None",
+      "EventParam_J_8": "None",
+      "EventParam_J_9": "None",
+      "EventParam_J_10": "None",
+      "EventLabel_J": "None"
+    },
+    {
+      "id": "NPC_Twn_Wld_2_1_A_TALK_1100_N000",
+      "ID": 43,
+      "PlacementType": 1,
+      "MainScenarioType": 0,
+      "MainScenarioID": 0,
+      "ResourceLabel": "NPC_Twn_Wld_2_1_A_TALK_1100",
+      "InvalidRadarIcon": false,
+      "IgnoreGravity": false,
+      "IndoorFlag": true,
+      "HouseInFloor": 1,
+      "TriggerScaleX": 0,
+      "TriggerScaleY": 0,
+      "TriggerScaleZ": 0,
+      "SpawnStartFlag": 0,
+      "SpawnEndFlag": 0,
+      "TimeZoneSpawnType": "ETIMEZONE_TRIGGER_TYPE::eNIGHT",
+      "SpawnStartDelayCount": 0,
+      "SpawnEndDelayCount": 0,
+      "CompProloguePlayerID": "EPlayableCharacterID::eNONE",
+      "NorSpawnPrologue": false,
+      "NotSpawnFinal": false,
+      "NotCoexistencePlacementLabel": [
+        "SIN_30_Twn_Wld_2_1_A_START",
+        "None",
+        "None",
+        "None",
+        "None"
+      ],
+      "SpawnDir": "LEFT",
+      "SpawnPosX": -275,
+      "SpawnPosY": 436,
+      "SpawnPosZ": 1054,
+      "FaintSpawnPosX": 0,
+      "FaintSpawnPosY": 0,
+      "FaintSpawnPosZ": 0,
+      "EmotionOffsetX": 0,
+      "EmotionOffsetY": 0,
+      "EmotionOffsetZ": 0,
+      "CaptionTextLabel": "None",
+      "SinglePlayMotion": 0,
+      "Emotion": "8",
+      "Permission_FCmd": 0,
+      "AllowBanFlag_FCmd": 0,
+      "FixDirInFieldCommand": false,
+      "EventType_A": "eNORMAL_TALK",
+      "EventStartFlag_A": 0,
+      "EventEndFlag_A": 0,
+      "TimeZoneTriggerType_A": "ETIMEZONE_TRIGGER_TYPE::eALL",
+      "EventParam_A_1_ID": "None",
+      "EventParam_A_1": "None",
+      "EventParam_A_2_ID": "None",
+      "EventParam_A_2": "None",
+      "EventParam_A_3_ID": "None",
+      "EventParam_A_3": "None",
+      "EventParam_A_4_ID": "None",
+      "EventParam_A_4": "None",
+      "EventParam_A_5_ID": "None",
+      "EventParam_A_5": "None",
+      "EventParam_A_6_ID": "None",
+      "EventParam_A_6": "None",
+      "EventParam_A_7_ID": "None",
+      "EventParam_A_7": "None",
+      "EventParam_A_8_ID": "None",
+      "EventParam_A_8": "None",
+      "EventParam_A_9_ID": "None",
+      "EventParam_A_9": "None",
+      "EventParam_A_10_ID": "None",
+      "EventParam_A_10": "None",
+      "EventLabel_A": "TALK_NPC_GENERAL_001",
+      "EventType_B": "",
+      "EventStartFlag_B": 0,
+      "EventEndFlag_B": 0,
+      "TimeZoneTriggerType_B": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_B_1_ID": "None",
+      "EventParam_B_1": "None",
+      "EventParam_B_2_ID": "None",
+      "EventParam_B_2": "None",
+      "EventParam_B_3_ID": "None",
+      "EventParam_B_3": "None",
+      "EventParam_B_4_ID": "None",
+      "EventParam_B_4": "None",
+      "EventParam_B_5_ID": "None",
+      "EventParam_B_5": "None",
+      "EventParam_B_6_ID": "None",
+      "EventParam_B_6": "None",
+      "EventParam_B_7_ID": "None",
+      "EventParam_B_7": "None",
+      "EventParam_B_8_ID": "None",
+      "EventParam_B_8": "None",
+      "EventParam_B_9_ID": "None",
+      "EventParam_B_9": "None",
+      "EventParam_B_10_ID": "None",
+      "EventParam_B_10": "None",
+      "EventLabel_B": "None",
+      "EventType_C": "",
+      "EventStartFlag_C": 0,
+      "EventEndFlag_C": 0,
+      "TimeZoneTriggerType_C": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_C_1_ID": "None",
+      "EventParam_C_1": "None",
+      "EventParam_C_2_ID": "None",
+      "EventParam_C_2": "None",
+      "EventParam_C_3_ID": "None",
+      "EventParam_C_3": "None",
+      "EventParam_C_4_ID": "None",
+      "EventParam_C_4": "None",
+      "EventParam_C_5_ID": "None",
+      "EventParam_C_5": "None",
+      "EventParam_C_6_ID": "None",
+      "EventParam_C_6": "None",
+      "EventParam_C_7_ID": "None",
+      "EventParam_C_7": "None",
+      "EventParam_C_8_ID": "None",
+      "EventParam_C_8": "None",
+      "EventParam_C_9_ID": "None",
+      "EventParam_C_9": "None",
+      "EventParam_C_10_ID": "None",
+      "EventParam_C_10": "None",
+      "EventLabel_C": "None",
+      "EventType_D": "",
+      "EventStartFlag_D": 0,
+      "EventEndFlag_D": 0,
+      "TimeZoneTriggerType_D": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_D_1_ID": "None",
+      "EventParam_D_1": "None",
+      "EventParam_D_2_ID": "None",
+      "EventParam_D_2": "None",
+      "EventParam_D_3_ID": "None",
+      "EventParam_D_3": "None",
+      "EventParam_D_4_ID": "None",
+      "EventParam_D_4": "None",
+      "EventParam_D_5_ID": "None",
+      "EventParam_D_5": "None",
+      "EventParam_D_6_ID": "None",
+      "EventParam_D_6": "None",
+      "EventParam_D_7_ID": "None",
+      "EventParam_D_7": "None",
+      "EventParam_D_8_ID": "None",
+      "EventParam_D_8": "None",
+      "EventParam_D_9_ID": "None",
+      "EventParam_D_9": "None",
+      "EventParam_D_10_ID": "None",
+      "EventParam_D_10": "None",
+      "EventLabel_D": "None",
+      "EventType_E": "",
+      "EventStartFlag_E": 0,
+      "EventEndFlag_E": 0,
+      "TimeZoneTriggerType_E": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_E_1_ID": "None",
+      "EventParam_E_1": "None",
+      "EventParam_E_2_ID": "None",
+      "EventParam_E_2": "None",
+      "EventParam_E_3_ID": "None",
+      "EventParam_E_3": "None",
+      "EventParam_E_4_ID": "None",
+      "EventParam_E_4": "None",
+      "EventParam_E_5_ID": "None",
+      "EventParam_E_5": "None",
+      "EventParam_E_6_ID": "None",
+      "EventParam_E_6": "None",
+      "EventParam_E_7_ID": "None",
+      "EventParam_E_7": "None",
+      "EventParam_E_8_ID": "None",
+      "EventParam_E_8": "None",
+      "EventParam_E_9_ID": "None",
+      "EventParam_E_9": "None",
+      "EventParam_E_10_ID": "None",
+      "EventParam_E_10": "None",
+      "EventLabel_E": "None",
+      "EventType_F": "",
+      "EventStartFlag_F": 0,
+      "EventEndFlag_F": 0,
+      "TimeZoneTriggerType_F": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_F_1": "None",
+      "EventParam_F_2": "None",
+      "EventParam_F_3": "None",
+      "EventParam_F_4": "None",
+      "EventParam_F_5": "None",
+      "EventParam_F_6": "None",
+      "EventParam_F_7": "None",
+      "EventParam_F_8": "None",
+      "EventParam_F_9": "None",
+      "EventParam_F_10": "None",
+      "EventLabel_F": "None",
+      "EventType_G": "",
+      "EventStartFlag_G": 0,
+      "EventEndFlag_G": 0,
+      "TimeZoneTriggerType_G": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_G_1": "None",
+      "EventParam_G_2": "None",
+      "EventParam_G_3": "None",
+      "EventParam_G_4": "None",
+      "EventParam_G_5": "None",
+      "EventParam_G_6": "None",
+      "EventParam_G_7": "None",
+      "EventParam_G_8": "None",
+      "EventParam_G_9": "None",
+      "EventParam_G_10": "None",
+      "EventLabel_G": "None",
+      "EventType_H": "",
+      "EventStartFlag_H": 0,
+      "EventEndFlag_H": 0,
+      "TimeZoneTriggerType_H": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_H_1": "None",
+      "EventParam_H_2": "None",
+      "EventParam_H_3": "None",
+      "EventParam_H_4": "None",
+      "EventParam_H_5": "None",
+      "EventParam_H_6": "None",
+      "EventParam_H_7": "None",
+      "EventParam_H_8": "None",
+      "EventParam_H_9": "None",
+      "EventParam_H_10": "None",
+      "EventLabel_H": "None",
+      "EventType_I": "",
+      "EventStartFlag_I": 0,
+      "EventEndFlag_I": 0,
+      "TimeZoneTriggerType_I": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_I_1": "None",
+      "EventParam_I_2": "None",
+      "EventParam_I_3": "None",
+      "EventParam_I_4": "None",
+      "EventParam_I_5": "None",
+      "EventParam_I_6": "None",
+      "EventParam_I_7": "None",
+      "EventParam_I_8": "None",
+      "EventParam_I_9": "None",
+      "EventParam_I_10": "None",
+      "EventLabel_I": "None",
+      "EventType_J": "",
+      "EventStartFlag_J": 0,
+      "EventEndFlag_J": 0,
+      "TimeZoneTriggerType_J": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_J_1": "None",
+      "EventParam_J_2": "None",
+      "EventParam_J_3": "None",
+      "EventParam_J_4": "None",
+      "EventParam_J_5": "None",
+      "EventParam_J_6": "None",
+      "EventParam_J_7": "None",
+      "EventParam_J_8": "None",
+      "EventParam_J_9": "None",
+      "EventParam_J_10": "None",
+      "EventLabel_J": "None"
+    },
+    {
+      "id": "Treasure_SS_TMnt21_0200_010",
+      "ID": 125,
+      "PlacementType": 2,
+      "MainScenarioType": 0,
+      "MainScenarioID": 0,
+      "ResourceLabel": "Treasure_SS_TMnt21_0200_010",
+      "InvalidRadarIcon": false,
+      "IgnoreGravity": false,
+      "IndoorFlag": true,
+      "HouseInFloor": 1,
+      "TriggerScaleX": 0,
+      "TriggerScaleY": 0,
+      "TriggerScaleZ": 0,
+      "SpawnStartFlag": 0,
+      "SpawnEndFlag": 0,
+      "TimeZoneSpawnType": "ETIMEZONE_TRIGGER_TYPE::eALL",
+      "SpawnStartDelayCount": 0,
+      "SpawnEndDelayCount": 0,
+      "CompProloguePlayerID": "EPlayableCharacterID::eNONE",
+      "NorSpawnPrologue": false,
+      "NotSpawnFinal": false,
+      "NotCoexistencePlacementLabel": [
+        "None",
+        "None",
+        "None",
+        "None",
+        "None"
+      ],
+      "SpawnDir": "FRONT",
+      "SpawnPosX": -3120,
+      "SpawnPosY": 1990,
+      "SpawnPosZ": -745,
+      "FaintSpawnPosX": 0,
+      "FaintSpawnPosY": 0,
+      "FaintSpawnPosZ": 0,
+      "EmotionOffsetX": 0,
+      "EmotionOffsetY": 0,
+      "EmotionOffsetZ": 0,
+      "CaptionTextLabel": "None",
+      "SinglePlayMotion": 0,
+      "Emotion": "-1",
+      "Permission_FCmd": 0,
+      "AllowBanFlag_FCmd": 0,
+      "FixDirInFieldCommand": false,
+      "EventType_A": "",
+      "EventStartFlag_A": 0,
+      "EventEndFlag_A": 0,
+      "TimeZoneTriggerType_A": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_A_1_ID": "None",
+      "EventParam_A_1": "None",
+      "EventParam_A_2_ID": "None",
+      "EventParam_A_2": "None",
+      "EventParam_A_3_ID": "None",
+      "EventParam_A_3": "None",
+      "EventParam_A_4_ID": "None",
+      "EventParam_A_4": "None",
+      "EventParam_A_5_ID": "None",
+      "EventParam_A_5": "None",
+      "EventParam_A_6_ID": "None",
+      "EventParam_A_6": "None",
+      "EventParam_A_7_ID": "None",
+      "EventParam_A_7": "None",
+      "EventParam_A_8_ID": "None",
+      "EventParam_A_8": "None",
+      "EventParam_A_9_ID": "None",
+      "EventParam_A_9": "None",
+      "EventParam_A_10_ID": "None",
+      "EventParam_A_10": "None",
+      "EventLabel_A": "None",
+      "EventType_B": "",
+      "EventStartFlag_B": 0,
+      "EventEndFlag_B": 0,
+      "TimeZoneTriggerType_B": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_B_1_ID": "None",
+      "EventParam_B_1": "None",
+      "EventParam_B_2_ID": "None",
+      "EventParam_B_2": "None",
+      "EventParam_B_3_ID": "None",
+      "EventParam_B_3": "None",
+      "EventParam_B_4_ID": "None",
+      "EventParam_B_4": "None",
+      "EventParam_B_5_ID": "None",
+      "EventParam_B_5": "None",
+      "EventParam_B_6_ID": "None",
+      "EventParam_B_6": "None",
+      "EventParam_B_7_ID": "None",
+      "EventParam_B_7": "None",
+      "EventParam_B_8_ID": "None",
+      "EventParam_B_8": "None",
+      "EventParam_B_9_ID": "None",
+      "EventParam_B_9": "None",
+      "EventParam_B_10_ID": "None",
+      "EventParam_B_10": "None",
+      "EventLabel_B": "None",
+      "EventType_C": "",
+      "EventStartFlag_C": 0,
+      "EventEndFlag_C": 0,
+      "TimeZoneTriggerType_C": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_C_1_ID": "None",
+      "EventParam_C_1": "None",
+      "EventParam_C_2_ID": "None",
+      "EventParam_C_2": "None",
+      "EventParam_C_3_ID": "None",
+      "EventParam_C_3": "None",
+      "EventParam_C_4_ID": "None",
+      "EventParam_C_4": "None",
+      "EventParam_C_5_ID": "None",
+      "EventParam_C_5": "None",
+      "EventParam_C_6_ID": "None",
+      "EventParam_C_6": "None",
+      "EventParam_C_7_ID": "None",
+      "EventParam_C_7": "None",
+      "EventParam_C_8_ID": "None",
+      "EventParam_C_8": "None",
+      "EventParam_C_9_ID": "None",
+      "EventParam_C_9": "None",
+      "EventParam_C_10_ID": "None",
+      "EventParam_C_10": "None",
+      "EventLabel_C": "None",
+      "EventType_D": "",
+      "EventStartFlag_D": 0,
+      "EventEndFlag_D": 0,
+      "TimeZoneTriggerType_D": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_D_1_ID": "None",
+      "EventParam_D_1": "None",
+      "EventParam_D_2_ID": "None",
+      "EventParam_D_2": "None",
+      "EventParam_D_3_ID": "None",
+      "EventParam_D_3": "None",
+      "EventParam_D_4_ID": "None",
+      "EventParam_D_4": "None",
+      "EventParam_D_5_ID": "None",
+      "EventParam_D_5": "None",
+      "EventParam_D_6_ID": "None",
+      "EventParam_D_6": "None",
+      "EventParam_D_7_ID": "None",
+      "EventParam_D_7": "None",
+      "EventParam_D_8_ID": "None",
+      "EventParam_D_8": "None",
+      "EventParam_D_9_ID": "None",
+      "EventParam_D_9": "None",
+      "EventParam_D_10_ID": "None",
+      "EventParam_D_10": "None",
+      "EventLabel_D": "None",
+      "EventType_E": "",
+      "EventStartFlag_E": 0,
+      "EventEndFlag_E": 0,
+      "TimeZoneTriggerType_E": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_E_1_ID": "None",
+      "EventParam_E_1": "None",
+      "EventParam_E_2_ID": "None",
+      "EventParam_E_2": "None",
+      "EventParam_E_3_ID": "None",
+      "EventParam_E_3": "None",
+      "EventParam_E_4_ID": "None",
+      "EventParam_E_4": "None",
+      "EventParam_E_5_ID": "None",
+      "EventParam_E_5": "None",
+      "EventParam_E_6_ID": "None",
+      "EventParam_E_6": "None",
+      "EventParam_E_7_ID": "None",
+      "EventParam_E_7": "None",
+      "EventParam_E_8_ID": "None",
+      "EventParam_E_8": "None",
+      "EventParam_E_9_ID": "None",
+      "EventParam_E_9": "None",
+      "EventParam_E_10_ID": "None",
+      "EventParam_E_10": "None",
+      "EventLabel_E": "None",
+      "EventType_F": "",
+      "EventStartFlag_F": 0,
+      "EventEndFlag_F": 0,
+      "TimeZoneTriggerType_F": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_F_1": "None",
+      "EventParam_F_2": "None",
+      "EventParam_F_3": "None",
+      "EventParam_F_4": "None",
+      "EventParam_F_5": "None",
+      "EventParam_F_6": "None",
+      "EventParam_F_7": "None",
+      "EventParam_F_8": "None",
+      "EventParam_F_9": "None",
+      "EventParam_F_10": "None",
+      "EventLabel_F": "None",
+      "EventType_G": "",
+      "EventStartFlag_G": 0,
+      "EventEndFlag_G": 0,
+      "TimeZoneTriggerType_G": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_G_1": "None",
+      "EventParam_G_2": "None",
+      "EventParam_G_3": "None",
+      "EventParam_G_4": "None",
+      "EventParam_G_5": "None",
+      "EventParam_G_6": "None",
+      "EventParam_G_7": "None",
+      "EventParam_G_8": "None",
+      "EventParam_G_9": "None",
+      "EventParam_G_10": "None",
+      "EventLabel_G": "None",
+      "EventType_H": "",
+      "EventStartFlag_H": 0,
+      "EventEndFlag_H": 0,
+      "TimeZoneTriggerType_H": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_H_1": "None",
+      "EventParam_H_2": "None",
+      "EventParam_H_3": "None",
+      "EventParam_H_4": "None",
+      "EventParam_H_5": "None",
+      "EventParam_H_6": "None",
+      "EventParam_H_7": "None",
+      "EventParam_H_8": "None",
+      "EventParam_H_9": "None",
+      "EventParam_H_10": "None",
+      "EventLabel_H": "None",
+      "EventType_I": "",
+      "EventStartFlag_I": 0,
+      "EventEndFlag_I": 0,
+      "TimeZoneTriggerType_I": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_I_1": "None",
+      "EventParam_I_2": "None",
+      "EventParam_I_3": "None",
+      "EventParam_I_4": "None",
+      "EventParam_I_5": "None",
+      "EventParam_I_6": "None",
+      "EventParam_I_7": "None",
+      "EventParam_I_8": "None",
+      "EventParam_I_9": "None",
+      "EventParam_I_10": "None",
+      "EventLabel_I": "None",
+      "EventType_J": "",
+      "EventStartFlag_J": 0,
+      "EventEndFlag_J": 0,
+      "TimeZoneTriggerType_J": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_J_1": "None",
+      "EventParam_J_2": "None",
+      "EventParam_J_3": "None",
+      "EventParam_J_4": "None",
+      "EventParam_J_5": "None",
+      "EventParam_J_6": "None",
+      "EventParam_J_7": "None",
+      "EventParam_J_8": "None",
+      "EventParam_J_9": "None",
+      "EventParam_J_10": "None",
+      "EventLabel_J": "None"
+    },
+    {
+      "id": "NPC_Twn_Wld_3_1_A_TALK_0100_D000",
+      "ID": 16,
+      "PlacementType": 1,
+      "MainScenarioType": -1,
+      "MainScenarioID": 0,
+      "ResourceLabel": "NPC_Twn_Wld_3_1_A_TALK_0100",
+      "InvalidRadarIcon": false,
+      "IgnoreGravity": false,
+      "IndoorFlag": false,
+      "HouseInFloor": 0,
+      "TriggerScaleX": 0,
+      "TriggerScaleY": 0,
+      "TriggerScaleZ": 0,
+      "SpawnStartFlag": 0,
+      "SpawnEndFlag": 0,
+      "TimeZoneSpawnType": "ETIMEZONE_TRIGGER_TYPE::eDAYTIME",
+      "SpawnStartDelayCount": 0,
+      "SpawnEndDelayCount": 0,
+      "CompProloguePlayerID": "EPlayableCharacterID::eNONE",
+      "NorSpawnPrologue": false,
+      "NotSpawnFinal": false,
+      "NotCoexistencePlacementLabel": [
+        "None",
+        "None",
+        "None",
+        "None",
+        "None"
+      ],
+      "SpawnDir": "RIGHT",
+      "SpawnPosX": -7108.533203125,
+      "SpawnPosY": -1754.239013671875,
+      "SpawnPosZ": 681.3687744140625,
+      "FaintSpawnPosX": 0,
+      "FaintSpawnPosY": 0,
+      "FaintSpawnPosZ": 0,
+      "EmotionOffsetX": 0,
+      "EmotionOffsetY": 0,
+      "EmotionOffsetZ": 0,
+      "CaptionTextLabel": "None",
+      "SinglePlayMotion": 0,
+      "Emotion": "8",
+      "Permission_FCmd": 0,
+      "AllowBanFlag_FCmd": 0,
+      "FixDirInFieldCommand": false,
+      "EventType_A": "eNORMAL_TALK",
+      "EventStartFlag_A": 0,
+      "EventEndFlag_A": 0,
+      "TimeZoneTriggerType_A": "ETIMEZONE_TRIGGER_TYPE::eALL",
+      "EventParam_A_1_ID": "None",
+      "EventParam_A_1": "None",
+      "EventParam_A_2_ID": "None",
+      "EventParam_A_2": "None",
+      "EventParam_A_3_ID": "None",
+      "EventParam_A_3": "None",
+      "EventParam_A_4_ID": "None",
+      "EventParam_A_4": "None",
+      "EventParam_A_5_ID": "None",
+      "EventParam_A_5": "None",
+      "EventParam_A_6_ID": "None",
+      "EventParam_A_6": "None",
+      "EventParam_A_7_ID": "None",
+      "EventParam_A_7": "None",
+      "EventParam_A_8_ID": "None",
+      "EventParam_A_8": "None",
+      "EventParam_A_9_ID": "None",
+      "EventParam_A_9": "None",
+      "EventParam_A_10_ID": "None",
+      "EventParam_A_10": "None",
+      "EventLabel_A": "TALK_NPC_GENERAL_001",
+      "EventType_B": "eFC_STUN_SUCCESS",
+      "EventStartFlag_B": 0,
+      "EventEndFlag_B": 20448,
+      "TimeZoneTriggerType_B": "ETIMEZONE_TRIGGER_TYPE::eDAYTIME",
+      "EventParam_B_1_ID": "None",
+      "EventParam_B_1": "FC_FADE_SE_ON",
+      "EventParam_B_2_ID": "None",
+      "EventParam_B_2": "None",
+      "EventParam_B_3_ID": "None",
+      "EventParam_B_3": "None",
+      "EventParam_B_4_ID": "None",
+      "EventParam_B_4": "None",
+      "EventParam_B_5_ID": "None",
+      "EventParam_B_5": "None",
+      "EventParam_B_6_ID": "None",
+      "EventParam_B_6": "None",
+      "EventParam_B_7_ID": "None",
+      "EventParam_B_7": "None",
+      "EventParam_B_8_ID": "None",
+      "EventParam_B_8": "None",
+      "EventParam_B_9_ID": "None",
+      "EventParam_B_9": "None",
+      "EventParam_B_10_ID": "None",
+      "EventParam_B_10": "None",
+      "EventLabel_B": "SC_SS_TWilderness31_0400_011D1",
+      "EventType_C": "",
+      "EventStartFlag_C": 0,
+      "EventEndFlag_C": 0,
+      "TimeZoneTriggerType_C": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_C_1_ID": "None",
+      "EventParam_C_1": "None",
+      "EventParam_C_2_ID": "None",
+      "EventParam_C_2": "None",
+      "EventParam_C_3_ID": "None",
+      "EventParam_C_3": "None",
+      "EventParam_C_4_ID": "None",
+      "EventParam_C_4": "None",
+      "EventParam_C_5_ID": "None",
+      "EventParam_C_5": "None",
+      "EventParam_C_6_ID": "None",
+      "EventParam_C_6": "None",
+      "EventParam_C_7_ID": "None",
+      "EventParam_C_7": "None",
+      "EventParam_C_8_ID": "None",
+      "EventParam_C_8": "None",
+      "EventParam_C_9_ID": "None",
+      "EventParam_C_9": "None",
+      "EventParam_C_10_ID": "None",
+      "EventParam_C_10": "None",
+      "EventLabel_C": "None",
+      "EventType_D": "",
+      "EventStartFlag_D": 0,
+      "EventEndFlag_D": 0,
+      "TimeZoneTriggerType_D": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_D_1_ID": "None",
+      "EventParam_D_1": "None",
+      "EventParam_D_2_ID": "None",
+      "EventParam_D_2": "None",
+      "EventParam_D_3_ID": "None",
+      "EventParam_D_3": "None",
+      "EventParam_D_4_ID": "None",
+      "EventParam_D_4": "None",
+      "EventParam_D_5_ID": "None",
+      "EventParam_D_5": "None",
+      "EventParam_D_6_ID": "None",
+      "EventParam_D_6": "None",
+      "EventParam_D_7_ID": "None",
+      "EventParam_D_7": "None",
+      "EventParam_D_8_ID": "None",
+      "EventParam_D_8": "None",
+      "EventParam_D_9_ID": "None",
+      "EventParam_D_9": "None",
+      "EventParam_D_10_ID": "None",
+      "EventParam_D_10": "None",
+      "EventLabel_D": "None",
+      "EventType_E": "",
+      "EventStartFlag_E": 0,
+      "EventEndFlag_E": 0,
+      "TimeZoneTriggerType_E": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_E_1_ID": "None",
+      "EventParam_E_1": "None",
+      "EventParam_E_2_ID": "None",
+      "EventParam_E_2": "None",
+      "EventParam_E_3_ID": "None",
+      "EventParam_E_3": "None",
+      "EventParam_E_4_ID": "None",
+      "EventParam_E_4": "None",
+      "EventParam_E_5_ID": "None",
+      "EventParam_E_5": "None",
+      "EventParam_E_6_ID": "None",
+      "EventParam_E_6": "None",
+      "EventParam_E_7_ID": "None",
+      "EventParam_E_7": "None",
+      "EventParam_E_8_ID": "None",
+      "EventParam_E_8": "None",
+      "EventParam_E_9_ID": "None",
+      "EventParam_E_9": "None",
+      "EventParam_E_10_ID": "None",
+      "EventParam_E_10": "None",
+      "EventLabel_E": "None",
+      "EventType_F": "",
+      "EventStartFlag_F": 0,
+      "EventEndFlag_F": 0,
+      "TimeZoneTriggerType_F": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_F_1": "None",
+      "EventParam_F_2": "None",
+      "EventParam_F_3": "None",
+      "EventParam_F_4": "None",
+      "EventParam_F_5": "None",
+      "EventParam_F_6": "None",
+      "EventParam_F_7": "None",
+      "EventParam_F_8": "None",
+      "EventParam_F_9": "None",
+      "EventParam_F_10": "None",
+      "EventLabel_F": "None",
+      "EventType_G": "",
+      "EventStartFlag_G": 0,
+      "EventEndFlag_G": 0,
+      "TimeZoneTriggerType_G": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_G_1": "None",
+      "EventParam_G_2": "None",
+      "EventParam_G_3": "None",
+      "EventParam_G_4": "None",
+      "EventParam_G_5": "None",
+      "EventParam_G_6": "None",
+      "EventParam_G_7": "None",
+      "EventParam_G_8": "None",
+      "EventParam_G_9": "None",
+      "EventParam_G_10": "None",
+      "EventLabel_G": "None",
+      "EventType_H": "",
+      "EventStartFlag_H": 0,
+      "EventEndFlag_H": 0,
+      "TimeZoneTriggerType_H": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_H_1": "None",
+      "EventParam_H_2": "None",
+      "EventParam_H_3": "None",
+      "EventParam_H_4": "None",
+      "EventParam_H_5": "None",
+      "EventParam_H_6": "None",
+      "EventParam_H_7": "None",
+      "EventParam_H_8": "None",
+      "EventParam_H_9": "None",
+      "EventParam_H_10": "None",
+      "EventLabel_H": "None",
+      "EventType_I": "",
+      "EventStartFlag_I": 0,
+      "EventEndFlag_I": 0,
+      "TimeZoneTriggerType_I": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_I_1": "None",
+      "EventParam_I_2": "None",
+      "EventParam_I_3": "None",
+      "EventParam_I_4": "None",
+      "EventParam_I_5": "None",
+      "EventParam_I_6": "None",
+      "EventParam_I_7": "None",
+      "EventParam_I_8": "None",
+      "EventParam_I_9": "None",
+      "EventParam_I_10": "None",
+      "EventLabel_I": "None",
+      "EventType_J": "",
+      "EventStartFlag_J": 0,
+      "EventEndFlag_J": 0,
+      "TimeZoneTriggerType_J": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_J_1": "None",
+      "EventParam_J_2": "None",
+      "EventParam_J_3": "None",
+      "EventParam_J_4": "None",
+      "EventParam_J_5": "None",
+      "EventParam_J_6": "None",
+      "EventParam_J_7": "None",
+      "EventParam_J_8": "None",
+      "EventParam_J_9": "None",
+      "EventParam_J_10": "None",
+      "EventLabel_J": "None"
+    },
+    {
+      "id": "NPC_Twn_Wld_3_1_A_TALK_0100_N000",
+      "ID": 34,
+      "PlacementType": 1,
+      "MainScenarioType": -1,
+      "MainScenarioID": 0,
+      "ResourceLabel": "NPC_Twn_Wld_3_1_A_TALK_0100",
+      "InvalidRadarIcon": false,
+      "IgnoreGravity": false,
+      "IndoorFlag": true,
+      "HouseInFloor": 1,
+      "TriggerScaleX": 0,
+      "TriggerScaleY": 0,
+      "TriggerScaleZ": 0,
+      "SpawnStartFlag": 0,
+      "SpawnEndFlag": 0,
+      "TimeZoneSpawnType": "ETIMEZONE_TRIGGER_TYPE::eNIGHT",
+      "SpawnStartDelayCount": 0,
+      "SpawnEndDelayCount": 0,
+      "CompProloguePlayerID": "EPlayableCharacterID::eNONE",
+      "NorSpawnPrologue": false,
+      "NotSpawnFinal": false,
+      "NotCoexistencePlacementLabel": [
+        "None",
+        "None",
+        "None",
+        "None",
+        "None"
+      ],
+      "SpawnDir": "RIGHT",
+      "SpawnPosX": -8116.14794921875,
+      "SpawnPosY": 69.50269317626953,
+      "SpawnPosZ": 204.64999389648438,
+      "FaintSpawnPosX": 0,
+      "FaintSpawnPosY": 0,
+      "FaintSpawnPosZ": 0,
+      "EmotionOffsetX": 0,
+      "EmotionOffsetY": 0,
+      "EmotionOffsetZ": 0,
+      "CaptionTextLabel": "None",
+      "SinglePlayMotion": 0,
+      "Emotion": "8",
+      "Permission_FCmd": 0,
+      "AllowBanFlag_FCmd": 0,
+      "FixDirInFieldCommand": false,
+      "EventType_A": "eNORMAL_TALK",
+      "EventStartFlag_A": 0,
+      "EventEndFlag_A": 0,
+      "TimeZoneTriggerType_A": "ETIMEZONE_TRIGGER_TYPE::eALL",
+      "EventParam_A_1_ID": "None",
+      "EventParam_A_1": "None",
+      "EventParam_A_2_ID": "None",
+      "EventParam_A_2": "None",
+      "EventParam_A_3_ID": "None",
+      "EventParam_A_3": "None",
+      "EventParam_A_4_ID": "None",
+      "EventParam_A_4": "None",
+      "EventParam_A_5_ID": "None",
+      "EventParam_A_5": "None",
+      "EventParam_A_6_ID": "None",
+      "EventParam_A_6": "None",
+      "EventParam_A_7_ID": "None",
+      "EventParam_A_7": "None",
+      "EventParam_A_8_ID": "None",
+      "EventParam_A_8": "None",
+      "EventParam_A_9_ID": "None",
+      "EventParam_A_9": "None",
+      "EventParam_A_10_ID": "None",
+      "EventParam_A_10": "None",
+      "EventLabel_A": "TALK_NPC_GENERAL_001",
+      "EventType_B": "",
+      "EventStartFlag_B": 0,
+      "EventEndFlag_B": 0,
+      "TimeZoneTriggerType_B": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_B_1_ID": "None",
+      "EventParam_B_1": "None",
+      "EventParam_B_2_ID": "None",
+      "EventParam_B_2": "None",
+      "EventParam_B_3_ID": "None",
+      "EventParam_B_3": "None",
+      "EventParam_B_4_ID": "None",
+      "EventParam_B_4": "None",
+      "EventParam_B_5_ID": "None",
+      "EventParam_B_5": "None",
+      "EventParam_B_6_ID": "None",
+      "EventParam_B_6": "None",
+      "EventParam_B_7_ID": "None",
+      "EventParam_B_7": "None",
+      "EventParam_B_8_ID": "None",
+      "EventParam_B_8": "None",
+      "EventParam_B_9_ID": "None",
+      "EventParam_B_9": "None",
+      "EventParam_B_10_ID": "None",
+      "EventParam_B_10": "None",
+      "EventLabel_B": "None",
+      "EventType_C": "",
+      "EventStartFlag_C": 0,
+      "EventEndFlag_C": 0,
+      "TimeZoneTriggerType_C": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_C_1_ID": "None",
+      "EventParam_C_1": "None",
+      "EventParam_C_2_ID": "None",
+      "EventParam_C_2": "None",
+      "EventParam_C_3_ID": "None",
+      "EventParam_C_3": "None",
+      "EventParam_C_4_ID": "None",
+      "EventParam_C_4": "None",
+      "EventParam_C_5_ID": "None",
+      "EventParam_C_5": "None",
+      "EventParam_C_6_ID": "None",
+      "EventParam_C_6": "None",
+      "EventParam_C_7_ID": "None",
+      "EventParam_C_7": "None",
+      "EventParam_C_8_ID": "None",
+      "EventParam_C_8": "None",
+      "EventParam_C_9_ID": "None",
+      "EventParam_C_9": "None",
+      "EventParam_C_10_ID": "None",
+      "EventParam_C_10": "None",
+      "EventLabel_C": "None",
+      "EventType_D": "",
+      "EventStartFlag_D": 0,
+      "EventEndFlag_D": 0,
+      "TimeZoneTriggerType_D": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_D_1_ID": "None",
+      "EventParam_D_1": "None",
+      "EventParam_D_2_ID": "None",
+      "EventParam_D_2": "None",
+      "EventParam_D_3_ID": "None",
+      "EventParam_D_3": "None",
+      "EventParam_D_4_ID": "None",
+      "EventParam_D_4": "None",
+      "EventParam_D_5_ID": "None",
+      "EventParam_D_5": "None",
+      "EventParam_D_6_ID": "None",
+      "EventParam_D_6": "None",
+      "EventParam_D_7_ID": "None",
+      "EventParam_D_7": "None",
+      "EventParam_D_8_ID": "None",
+      "EventParam_D_8": "None",
+      "EventParam_D_9_ID": "None",
+      "EventParam_D_9": "None",
+      "EventParam_D_10_ID": "None",
+      "EventParam_D_10": "None",
+      "EventLabel_D": "None",
+      "EventType_E": "",
+      "EventStartFlag_E": 0,
+      "EventEndFlag_E": 0,
+      "TimeZoneTriggerType_E": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_E_1_ID": "None",
+      "EventParam_E_1": "None",
+      "EventParam_E_2_ID": "None",
+      "EventParam_E_2": "None",
+      "EventParam_E_3_ID": "None",
+      "EventParam_E_3": "None",
+      "EventParam_E_4_ID": "None",
+      "EventParam_E_4": "None",
+      "EventParam_E_5_ID": "None",
+      "EventParam_E_5": "None",
+      "EventParam_E_6_ID": "None",
+      "EventParam_E_6": "None",
+      "EventParam_E_7_ID": "None",
+      "EventParam_E_7": "None",
+      "EventParam_E_8_ID": "None",
+      "EventParam_E_8": "None",
+      "EventParam_E_9_ID": "None",
+      "EventParam_E_9": "None",
+      "EventParam_E_10_ID": "None",
+      "EventParam_E_10": "None",
+      "EventLabel_E": "None",
+      "EventType_F": "",
+      "EventStartFlag_F": 0,
+      "EventEndFlag_F": 0,
+      "TimeZoneTriggerType_F": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_F_1": "None",
+      "EventParam_F_2": "None",
+      "EventParam_F_3": "None",
+      "EventParam_F_4": "None",
+      "EventParam_F_5": "None",
+      "EventParam_F_6": "None",
+      "EventParam_F_7": "None",
+      "EventParam_F_8": "None",
+      "EventParam_F_9": "None",
+      "EventParam_F_10": "None",
+      "EventLabel_F": "None",
+      "EventType_G": "",
+      "EventStartFlag_G": 0,
+      "EventEndFlag_G": 0,
+      "TimeZoneTriggerType_G": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_G_1": "None",
+      "EventParam_G_2": "None",
+      "EventParam_G_3": "None",
+      "EventParam_G_4": "None",
+      "EventParam_G_5": "None",
+      "EventParam_G_6": "None",
+      "EventParam_G_7": "None",
+      "EventParam_G_8": "None",
+      "EventParam_G_9": "None",
+      "EventParam_G_10": "None",
+      "EventLabel_G": "None",
+      "EventType_H": "",
+      "EventStartFlag_H": 0,
+      "EventEndFlag_H": 0,
+      "TimeZoneTriggerType_H": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_H_1": "None",
+      "EventParam_H_2": "None",
+      "EventParam_H_3": "None",
+      "EventParam_H_4": "None",
+      "EventParam_H_5": "None",
+      "EventParam_H_6": "None",
+      "EventParam_H_7": "None",
+      "EventParam_H_8": "None",
+      "EventParam_H_9": "None",
+      "EventParam_H_10": "None",
+      "EventLabel_H": "None",
+      "EventType_I": "",
+      "EventStartFlag_I": 0,
+      "EventEndFlag_I": 0,
+      "TimeZoneTriggerType_I": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_I_1": "None",
+      "EventParam_I_2": "None",
+      "EventParam_I_3": "None",
+      "EventParam_I_4": "None",
+      "EventParam_I_5": "None",
+      "EventParam_I_6": "None",
+      "EventParam_I_7": "None",
+      "EventParam_I_8": "None",
+      "EventParam_I_9": "None",
+      "EventParam_I_10": "None",
+      "EventLabel_I": "None",
+      "EventType_J": "",
+      "EventStartFlag_J": 0,
+      "EventEndFlag_J": 0,
+      "TimeZoneTriggerType_J": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_J_1": "None",
+      "EventParam_J_2": "None",
+      "EventParam_J_3": "None",
+      "EventParam_J_4": "None",
+      "EventParam_J_5": "None",
+      "EventParam_J_6": "None",
+      "EventParam_J_7": "None",
+      "EventParam_J_8": "None",
+      "EventParam_J_9": "None",
+      "EventParam_J_10": "None",
+      "EventLabel_J": "None"
+    },
+    {
+      "id": "GAK_50_Twn_Wld_3_1_A_0100_D000",
+      "ID": 67,
+      "PlacementType": 1,
+      "MainScenarioType": 6,
+      "MainScenarioID": 604,
+      "ResourceLabel": "NPC_Twn_Wld_3_1_A_TALK_0100",
+      "InvalidRadarIcon": false,
+      "IgnoreGravity": false,
+      "IndoorFlag": false,
+      "HouseInFloor": 0,
+      "TriggerScaleX": 0,
+      "TriggerScaleY": 0,
+      "TriggerScaleZ": 0,
+      "SpawnStartFlag": 0,
+      "SpawnEndFlag": 0,
+      "TimeZoneSpawnType": "ETIMEZONE_TRIGGER_TYPE::eDAYTIME",
+      "SpawnStartDelayCount": 0,
+      "SpawnEndDelayCount": 0,
+      "CompProloguePlayerID": "EPlayableCharacterID::eNONE",
+      "NorSpawnPrologue": false,
+      "NotSpawnFinal": false,
+      "NotCoexistencePlacementLabel": [
+        "None",
+        "None",
+        "None",
+        "None",
+        "None"
+      ],
+      "SpawnDir": "RIGHT",
+      "SpawnPosX": -7108.533203125,
+      "SpawnPosY": -1754.239013671875,
+      "SpawnPosZ": 681.3687744140625,
+      "FaintSpawnPosX": 0,
+      "FaintSpawnPosY": 0,
+      "FaintSpawnPosZ": 0,
+      "EmotionOffsetX": 0,
+      "EmotionOffsetY": 0,
+      "EmotionOffsetZ": 0,
+      "CaptionTextLabel": "None",
+      "SinglePlayMotion": 0,
+      "Emotion": "8",
+      "Permission_FCmd": 0,
+      "AllowBanFlag_FCmd": 0,
+      "FixDirInFieldCommand": false,
+      "EventType_A": "eNORMAL_TALK",
+      "EventStartFlag_A": 0,
+      "EventEndFlag_A": 0,
+      "TimeZoneTriggerType_A": "ETIMEZONE_TRIGGER_TYPE::eALL",
+      "EventParam_A_1_ID": "None",
+      "EventParam_A_1": "None",
+      "EventParam_A_2_ID": "None",
+      "EventParam_A_2": "None",
+      "EventParam_A_3_ID": "None",
+      "EventParam_A_3": "None",
+      "EventParam_A_4_ID": "None",
+      "EventParam_A_4": "None",
+      "EventParam_A_5_ID": "None",
+      "EventParam_A_5": "None",
+      "EventParam_A_6_ID": "None",
+      "EventParam_A_6": "None",
+      "EventParam_A_7_ID": "None",
+      "EventParam_A_7": "None",
+      "EventParam_A_8_ID": "None",
+      "EventParam_A_8": "None",
+      "EventParam_A_9_ID": "None",
+      "EventParam_A_9": "None",
+      "EventParam_A_10_ID": "None",
+      "EventParam_A_10": "None",
+      "EventLabel_A": "TALK_NPC_GENERAL_001",
+      "EventType_B": "",
+      "EventStartFlag_B": 0,
+      "EventEndFlag_B": 0,
+      "TimeZoneTriggerType_B": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_B_1_ID": "None",
+      "EventParam_B_1": "None",
+      "EventParam_B_2_ID": "None",
+      "EventParam_B_2": "None",
+      "EventParam_B_3_ID": "None",
+      "EventParam_B_3": "None",
+      "EventParam_B_4_ID": "None",
+      "EventParam_B_4": "None",
+      "EventParam_B_5_ID": "None",
+      "EventParam_B_5": "None",
+      "EventParam_B_6_ID": "None",
+      "EventParam_B_6": "None",
+      "EventParam_B_7_ID": "None",
+      "EventParam_B_7": "None",
+      "EventParam_B_8_ID": "None",
+      "EventParam_B_8": "None",
+      "EventParam_B_9_ID": "None",
+      "EventParam_B_9": "None",
+      "EventParam_B_10_ID": "None",
+      "EventParam_B_10": "None",
+      "EventLabel_B": "None",
+      "EventType_C": "",
+      "EventStartFlag_C": 0,
+      "EventEndFlag_C": 0,
+      "TimeZoneTriggerType_C": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_C_1_ID": "None",
+      "EventParam_C_1": "None",
+      "EventParam_C_2_ID": "None",
+      "EventParam_C_2": "None",
+      "EventParam_C_3_ID": "None",
+      "EventParam_C_3": "None",
+      "EventParam_C_4_ID": "None",
+      "EventParam_C_4": "None",
+      "EventParam_C_5_ID": "None",
+      "EventParam_C_5": "None",
+      "EventParam_C_6_ID": "None",
+      "EventParam_C_6": "None",
+      "EventParam_C_7_ID": "None",
+      "EventParam_C_7": "None",
+      "EventParam_C_8_ID": "None",
+      "EventParam_C_8": "None",
+      "EventParam_C_9_ID": "None",
+      "EventParam_C_9": "None",
+      "EventParam_C_10_ID": "None",
+      "EventParam_C_10": "None",
+      "EventLabel_C": "None",
+      "EventType_D": "",
+      "EventStartFlag_D": 0,
+      "EventEndFlag_D": 0,
+      "TimeZoneTriggerType_D": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_D_1_ID": "None",
+      "EventParam_D_1": "None",
+      "EventParam_D_2_ID": "None",
+      "EventParam_D_2": "None",
+      "EventParam_D_3_ID": "None",
+      "EventParam_D_3": "None",
+      "EventParam_D_4_ID": "None",
+      "EventParam_D_4": "None",
+      "EventParam_D_5_ID": "None",
+      "EventParam_D_5": "None",
+      "EventParam_D_6_ID": "None",
+      "EventParam_D_6": "None",
+      "EventParam_D_7_ID": "None",
+      "EventParam_D_7": "None",
+      "EventParam_D_8_ID": "None",
+      "EventParam_D_8": "None",
+      "EventParam_D_9_ID": "None",
+      "EventParam_D_9": "None",
+      "EventParam_D_10_ID": "None",
+      "EventParam_D_10": "None",
+      "EventLabel_D": "None",
+      "EventType_E": "",
+      "EventStartFlag_E": 0,
+      "EventEndFlag_E": 0,
+      "TimeZoneTriggerType_E": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_E_1_ID": "None",
+      "EventParam_E_1": "None",
+      "EventParam_E_2_ID": "None",
+      "EventParam_E_2": "None",
+      "EventParam_E_3_ID": "None",
+      "EventParam_E_3": "None",
+      "EventParam_E_4_ID": "None",
+      "EventParam_E_4": "None",
+      "EventParam_E_5_ID": "None",
+      "EventParam_E_5": "None",
+      "EventParam_E_6_ID": "None",
+      "EventParam_E_6": "None",
+      "EventParam_E_7_ID": "None",
+      "EventParam_E_7": "None",
+      "EventParam_E_8_ID": "None",
+      "EventParam_E_8": "None",
+      "EventParam_E_9_ID": "None",
+      "EventParam_E_9": "None",
+      "EventParam_E_10_ID": "None",
+      "EventParam_E_10": "None",
+      "EventLabel_E": "None",
+      "EventType_F": "",
+      "EventStartFlag_F": 0,
+      "EventEndFlag_F": 0,
+      "TimeZoneTriggerType_F": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_F_1": "None",
+      "EventParam_F_2": "None",
+      "EventParam_F_3": "None",
+      "EventParam_F_4": "None",
+      "EventParam_F_5": "None",
+      "EventParam_F_6": "None",
+      "EventParam_F_7": "None",
+      "EventParam_F_8": "None",
+      "EventParam_F_9": "None",
+      "EventParam_F_10": "None",
+      "EventLabel_F": "None",
+      "EventType_G": "",
+      "EventStartFlag_G": 0,
+      "EventEndFlag_G": 0,
+      "TimeZoneTriggerType_G": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_G_1": "None",
+      "EventParam_G_2": "None",
+      "EventParam_G_3": "None",
+      "EventParam_G_4": "None",
+      "EventParam_G_5": "None",
+      "EventParam_G_6": "None",
+      "EventParam_G_7": "None",
+      "EventParam_G_8": "None",
+      "EventParam_G_9": "None",
+      "EventParam_G_10": "None",
+      "EventLabel_G": "None",
+      "EventType_H": "",
+      "EventStartFlag_H": 0,
+      "EventEndFlag_H": 0,
+      "TimeZoneTriggerType_H": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_H_1": "None",
+      "EventParam_H_2": "None",
+      "EventParam_H_3": "None",
+      "EventParam_H_4": "None",
+      "EventParam_H_5": "None",
+      "EventParam_H_6": "None",
+      "EventParam_H_7": "None",
+      "EventParam_H_8": "None",
+      "EventParam_H_9": "None",
+      "EventParam_H_10": "None",
+      "EventLabel_H": "None",
+      "EventType_I": "",
+      "EventStartFlag_I": 0,
+      "EventEndFlag_I": 0,
+      "TimeZoneTriggerType_I": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_I_1": "None",
+      "EventParam_I_2": "None",
+      "EventParam_I_3": "None",
+      "EventParam_I_4": "None",
+      "EventParam_I_5": "None",
+      "EventParam_I_6": "None",
+      "EventParam_I_7": "None",
+      "EventParam_I_8": "None",
+      "EventParam_I_9": "None",
+      "EventParam_I_10": "None",
+      "EventLabel_I": "None",
+      "EventType_J": "",
+      "EventStartFlag_J": 0,
+      "EventEndFlag_J": 0,
+      "TimeZoneTriggerType_J": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_J_1": "None",
+      "EventParam_J_2": "None",
+      "EventParam_J_3": "None",
+      "EventParam_J_4": "None",
+      "EventParam_J_5": "None",
+      "EventParam_J_6": "None",
+      "EventParam_J_7": "None",
+      "EventParam_J_8": "None",
+      "EventParam_J_9": "None",
+      "EventParam_J_10": "None",
+      "EventLabel_J": "None"
+    },
+    {
+      "id": "GAK_50_Twn_Wld_3_1_A_0100_N000",
+      "ID": 80,
+      "PlacementType": 1,
+      "MainScenarioType": 6,
+      "MainScenarioID": 604,
+      "ResourceLabel": "NPC_Twn_Wld_3_1_A_TALK_0100",
+      "InvalidRadarIcon": false,
+      "IgnoreGravity": false,
+      "IndoorFlag": true,
+      "HouseInFloor": 1,
+      "TriggerScaleX": 0,
+      "TriggerScaleY": 0,
+      "TriggerScaleZ": 0,
+      "SpawnStartFlag": 0,
+      "SpawnEndFlag": 0,
+      "TimeZoneSpawnType": "ETIMEZONE_TRIGGER_TYPE::eNIGHT",
+      "SpawnStartDelayCount": 0,
+      "SpawnEndDelayCount": 0,
+      "CompProloguePlayerID": "EPlayableCharacterID::eNONE",
+      "NorSpawnPrologue": false,
+      "NotSpawnFinal": false,
+      "NotCoexistencePlacementLabel": [
+        "None",
+        "None",
+        "None",
+        "None",
+        "None"
+      ],
+      "SpawnDir": "RIGHT",
+      "SpawnPosX": -8116.14794921875,
+      "SpawnPosY": 69.50269317626953,
+      "SpawnPosZ": 204.64999389648438,
+      "FaintSpawnPosX": 0,
+      "FaintSpawnPosY": 0,
+      "FaintSpawnPosZ": 0,
+      "EmotionOffsetX": 0,
+      "EmotionOffsetY": 0,
+      "EmotionOffsetZ": 0,
+      "CaptionTextLabel": "None",
+      "SinglePlayMotion": 0,
+      "Emotion": "8",
+      "Permission_FCmd": 0,
+      "AllowBanFlag_FCmd": 0,
+      "FixDirInFieldCommand": false,
+      "EventType_A": "eNORMAL_TALK",
+      "EventStartFlag_A": 0,
+      "EventEndFlag_A": 0,
+      "TimeZoneTriggerType_A": "ETIMEZONE_TRIGGER_TYPE::eALL",
+      "EventParam_A_1_ID": "None",
+      "EventParam_A_1": "None",
+      "EventParam_A_2_ID": "None",
+      "EventParam_A_2": "None",
+      "EventParam_A_3_ID": "None",
+      "EventParam_A_3": "None",
+      "EventParam_A_4_ID": "None",
+      "EventParam_A_4": "None",
+      "EventParam_A_5_ID": "None",
+      "EventParam_A_5": "None",
+      "EventParam_A_6_ID": "None",
+      "EventParam_A_6": "None",
+      "EventParam_A_7_ID": "None",
+      "EventParam_A_7": "None",
+      "EventParam_A_8_ID": "None",
+      "EventParam_A_8": "None",
+      "EventParam_A_9_ID": "None",
+      "EventParam_A_9": "None",
+      "EventParam_A_10_ID": "None",
+      "EventParam_A_10": "None",
+      "EventLabel_A": "TALK_NPC_GENERAL_001",
+      "EventType_B": "",
+      "EventStartFlag_B": 0,
+      "EventEndFlag_B": 0,
+      "TimeZoneTriggerType_B": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_B_1_ID": "None",
+      "EventParam_B_1": "None",
+      "EventParam_B_2_ID": "None",
+      "EventParam_B_2": "None",
+      "EventParam_B_3_ID": "None",
+      "EventParam_B_3": "None",
+      "EventParam_B_4_ID": "None",
+      "EventParam_B_4": "None",
+      "EventParam_B_5_ID": "None",
+      "EventParam_B_5": "None",
+      "EventParam_B_6_ID": "None",
+      "EventParam_B_6": "None",
+      "EventParam_B_7_ID": "None",
+      "EventParam_B_7": "None",
+      "EventParam_B_8_ID": "None",
+      "EventParam_B_8": "None",
+      "EventParam_B_9_ID": "None",
+      "EventParam_B_9": "None",
+      "EventParam_B_10_ID": "None",
+      "EventParam_B_10": "None",
+      "EventLabel_B": "None",
+      "EventType_C": "",
+      "EventStartFlag_C": 0,
+      "EventEndFlag_C": 0,
+      "TimeZoneTriggerType_C": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_C_1_ID": "None",
+      "EventParam_C_1": "None",
+      "EventParam_C_2_ID": "None",
+      "EventParam_C_2": "None",
+      "EventParam_C_3_ID": "None",
+      "EventParam_C_3": "None",
+      "EventParam_C_4_ID": "None",
+      "EventParam_C_4": "None",
+      "EventParam_C_5_ID": "None",
+      "EventParam_C_5": "None",
+      "EventParam_C_6_ID": "None",
+      "EventParam_C_6": "None",
+      "EventParam_C_7_ID": "None",
+      "EventParam_C_7": "None",
+      "EventParam_C_8_ID": "None",
+      "EventParam_C_8": "None",
+      "EventParam_C_9_ID": "None",
+      "EventParam_C_9": "None",
+      "EventParam_C_10_ID": "None",
+      "EventParam_C_10": "None",
+      "EventLabel_C": "None",
+      "EventType_D": "",
+      "EventStartFlag_D": 0,
+      "EventEndFlag_D": 0,
+      "TimeZoneTriggerType_D": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_D_1_ID": "None",
+      "EventParam_D_1": "None",
+      "EventParam_D_2_ID": "None",
+      "EventParam_D_2": "None",
+      "EventParam_D_3_ID": "None",
+      "EventParam_D_3": "None",
+      "EventParam_D_4_ID": "None",
+      "EventParam_D_4": "None",
+      "EventParam_D_5_ID": "None",
+      "EventParam_D_5": "None",
+      "EventParam_D_6_ID": "None",
+      "EventParam_D_6": "None",
+      "EventParam_D_7_ID": "None",
+      "EventParam_D_7": "None",
+      "EventParam_D_8_ID": "None",
+      "EventParam_D_8": "None",
+      "EventParam_D_9_ID": "None",
+      "EventParam_D_9": "None",
+      "EventParam_D_10_ID": "None",
+      "EventParam_D_10": "None",
+      "EventLabel_D": "None",
+      "EventType_E": "",
+      "EventStartFlag_E": 0,
+      "EventEndFlag_E": 0,
+      "TimeZoneTriggerType_E": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_E_1_ID": "None",
+      "EventParam_E_1": "None",
+      "EventParam_E_2_ID": "None",
+      "EventParam_E_2": "None",
+      "EventParam_E_3_ID": "None",
+      "EventParam_E_3": "None",
+      "EventParam_E_4_ID": "None",
+      "EventParam_E_4": "None",
+      "EventParam_E_5_ID": "None",
+      "EventParam_E_5": "None",
+      "EventParam_E_6_ID": "None",
+      "EventParam_E_6": "None",
+      "EventParam_E_7_ID": "None",
+      "EventParam_E_7": "None",
+      "EventParam_E_8_ID": "None",
+      "EventParam_E_8": "None",
+      "EventParam_E_9_ID": "None",
+      "EventParam_E_9": "None",
+      "EventParam_E_10_ID": "None",
+      "EventParam_E_10": "None",
+      "EventLabel_E": "None",
+      "EventType_F": "",
+      "EventStartFlag_F": 0,
+      "EventEndFlag_F": 0,
+      "TimeZoneTriggerType_F": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_F_1": "None",
+      "EventParam_F_2": "None",
+      "EventParam_F_3": "None",
+      "EventParam_F_4": "None",
+      "EventParam_F_5": "None",
+      "EventParam_F_6": "None",
+      "EventParam_F_7": "None",
+      "EventParam_F_8": "None",
+      "EventParam_F_9": "None",
+      "EventParam_F_10": "None",
+      "EventLabel_F": "None",
+      "EventType_G": "",
+      "EventStartFlag_G": 0,
+      "EventEndFlag_G": 0,
+      "TimeZoneTriggerType_G": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_G_1": "None",
+      "EventParam_G_2": "None",
+      "EventParam_G_3": "None",
+      "EventParam_G_4": "None",
+      "EventParam_G_5": "None",
+      "EventParam_G_6": "None",
+      "EventParam_G_7": "None",
+      "EventParam_G_8": "None",
+      "EventParam_G_9": "None",
+      "EventParam_G_10": "None",
+      "EventLabel_G": "None",
+      "EventType_H": "",
+      "EventStartFlag_H": 0,
+      "EventEndFlag_H": 0,
+      "TimeZoneTriggerType_H": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_H_1": "None",
+      "EventParam_H_2": "None",
+      "EventParam_H_3": "None",
+      "EventParam_H_4": "None",
+      "EventParam_H_5": "None",
+      "EventParam_H_6": "None",
+      "EventParam_H_7": "None",
+      "EventParam_H_8": "None",
+      "EventParam_H_9": "None",
+      "EventParam_H_10": "None",
+      "EventLabel_H": "None",
+      "EventType_I": "",
+      "EventStartFlag_I": 0,
+      "EventEndFlag_I": 0,
+      "TimeZoneTriggerType_I": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_I_1": "None",
+      "EventParam_I_2": "None",
+      "EventParam_I_3": "None",
+      "EventParam_I_4": "None",
+      "EventParam_I_5": "None",
+      "EventParam_I_6": "None",
+      "EventParam_I_7": "None",
+      "EventParam_I_8": "None",
+      "EventParam_I_9": "None",
+      "EventParam_I_10": "None",
+      "EventLabel_I": "None",
+      "EventType_J": "",
+      "EventStartFlag_J": 0,
+      "EventEndFlag_J": 0,
+      "TimeZoneTriggerType_J": "ETIMEZONE_TRIGGER_TYPE::None",
+      "EventParam_J_1": "None",
+      "EventParam_J_2": "None",
+      "EventParam_J_3": "None",
+      "EventParam_J_4": "None",
+      "EventParam_J_5": "None",
+      "EventParam_J_6": "None",
+      "EventParam_J_7": "None",
+      "EventParam_J_8": "None",
+      "EventParam_J_9": "None",
+      "EventParam_J_10": "None",
+      "EventLabel_J": "None"
+    }
+  ]
+}

@@ -1,0 +1,28 @@
+{
+  "asset": "Environment/BP/BP_MapShipObjBase",
+  "sha256": "cda5d50525c75dd980930dc774eef06a56a3540edf14124338326f7a91d9166a",
+  "functions": {
+    "ExecuteUbergraph_BP_MapShipObjBase": "011a7 ComputedJump\n  011a8 LocalVariable EntryPoint\n011b9 FinalFunction import:-17:SetActorTickEnabled\n  011be False\n011c0 Jump target=45\n011c5 LocalVirtualFunction SetupShipTransform\n011cf Jump target=10\n011d4 Return\n  011d5 Nothing\n011d6 EndOfScript",
+    "ReceiveTick": "01232 LetValueOnPersistentFrame K2Node_Event_DeltaSeconds\n  01243 LocalVariable DeltaSeconds\n01254 FinalFunction export:1:ExecuteUbergraph_BP_MapShipObjBase\n  01259 IntConst 45\n0125f Return\n  01260 Nothing\n01261 EndOfScript",
+    "ReceiveBeginPlay": "0128e FinalFunction export:1:ExecuteUbergraph_BP_MapShipObjBase\n  01293 IntConst 26\n01299 Return\n  0129a Nothing\n0129b EndOfScript",
+    "SetupShipTransform": "01332 LetBool\n  01333 LocalVariable CallFunc_IsPrevLevelSea_ReturnValue\n  01344 CallMath import:-19:IsPrevLevelSea\n0134a LetBool\n  0134b LocalVariable CallFunc_Not_PreBool_ReturnValue\n  0135c CallMath import:-18:Not_PreBool\n    01361 LocalVariable CallFunc_IsPrevLevelSea_ReturnValue\n01373 FinalFunction import:-20:ApplyRelativeTransform\n  01378 LocalVariable CallFunc_Not_PreBool_ReturnValue\n0138a Return\n  0138b Nothing\n0138c EndOfScript"
+  },
+  "defaults": [
+    {
+      "UberGraphFrame": {},
+      "ShipMesh": {
+        "kind": "object",
+        "index": 12,
+        "path": "Default__BP_MapShipObjBase_C.ShipMesh"
+      },
+      "PrimaryActorTick": {
+        "bCanEverTick": true
+      },
+      "RootComponent": {
+        "kind": "object",
+        "index": 9,
+        "path": "Default__BP_MapShipObjBase_C.Root"
+      }
+    }
+  ]
+}

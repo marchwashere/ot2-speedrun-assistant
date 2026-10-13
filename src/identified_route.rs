@@ -176,6 +176,13 @@ pub fn simulate_route(voices:&str,pirro_first:bool,hp:u32,galdera_route:bool)->R
         assert!(delivered["route_items"]["ITM_TRE_SS_TD11_0100_0010"].is_null());
         assert_eq!(delivered["route_items"]["ITM_CSM_0680"],1);assert_eq!(delivered["route_items"]["ITM_CSM_0010"],3);
         let fc=&supplies["al_return"]["flamechurch"];
+        let q=&fc["temenos"]["quicksand"];
+        let gv=&q["gravell"];
+        assert_eq!(gv["supplies"]["after"]["draws"].as_u64().unwrap()-gv["arrival"]["after"]["draws"].as_u64().unwrap(),3);
+        assert_eq!(gv["supplies"]["after"],gv["setup"]["after"]);
+        assert_eq!(gv["supplies"]["world_after"]["time"],2);
+        assert_eq!(q["flex"]["rewards"]["awarded"]["jp"],12760);
+        assert_eq!(q["flex"]["fight"]["state"]["outcome"],"victory");
         assert_eq!(fc["highroad_running_updates"],56);assert_eq!(fc["clockbank_running_updates"],193);
         assert_ne!(fc["encounter"]["encounter"]["situation"],"Surprise");
         assert_eq!(fc["encounter"]["escape"]["chance_percent"],100);assert_eq!(fc["encounter"]["escape"]["success"],true);

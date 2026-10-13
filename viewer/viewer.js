@@ -842,7 +842,7 @@ function renderCrackridgeVoyage() {
   $('canalbrine-route-log').hidden=true;
   $('canalbrine-water-result').hidden=true;
   $('canalbrine-water-log').hidden=true;
-  for(const id of ['new-delsta-bg-result','crackridge-bg-result','clockbank-bg-result','oresrush-time-result','cropdale-time-result','conning-north-result','conning-west-result','conning-steal-result','inventor-escape-result','clockbank-movement-result','crackridge-return-result','southern-crackridge-result','southern-crackridge-altar-return-result','western-crackridge-result','western-crackridge-return-result','gravell-result','galdera-coast-result','southern-sai-result','eastern-sai-result','western-sai-result','eastern-wellgrove-result','galdera-clockbank-result','galdera-temenos-result','galdera-quicksand-result','galdera-lord-sands-result','galdera-quicksand-loot-result','conning-log']) $(id).hidden=true;
+  for(const id of ['new-delsta-bg-result','crackridge-bg-result','clockbank-bg-result','oresrush-time-result','cropdale-time-result','conning-north-result','conning-west-result','conning-steal-result','inventor-escape-result','clockbank-movement-result','crackridge-return-result','southern-crackridge-result','southern-crackridge-altar-return-result','western-crackridge-result','western-crackridge-return-result','gravell-result','galdera-coast-result','southern-sai-result','eastern-sai-result','western-sai-result','eastern-wellgrove-result','galdera-clockbank-result','galdera-temenos-result','galdera-quicksand-result','galdera-lord-sands-result','galdera-quicksand-loot-result','galdera-flex-result','conning-log']) $(id).hidden=true;
   const early=result.post_battle_field?.flats_escape?.early_cait;
   const timing=early?.southern_rare_target?'after':early?.snows_approach?.predicted_before_osvald?'before':snowsEncounterTiming ?? 'after';
   const exit=result.post_battle_field?.flats_escape?.snows_escape?.[timing+'_osvald'];
@@ -1120,7 +1120,7 @@ function renderCrackridgeVoyage() {
                     const ordinal=ordinals[a.round]=(ordinals[a.round]||0)+1;
                     conningPoints.push([`Gravell · T${a.round} · ${names[a.actor]} · command menu`,a.before]);
                     if(!['bewildering_grace','guards'].includes(a.action) && !(g.coast && a.action==='thunder_soulstone')) return '';
-                    const command=a.action==='guards'?'+3 Hired Help: Guards':a.action==='bewildering_grace'?'+3 Bewildering Grace':'Thunder Soulstone (L)';
+                    const command=a==='guards'?'+3 Hired Help: Guards':a==='bewildering_grace'?'+3 Bewildering Grace':'Thunder Soulstone (L)';
                     return `<p><strong>T${a.round} · ${names[a.actor]} · ${menuOrdinal(ordinal)} command menu</strong></p>`+boostStepsHtml(a.inputs,command);
                   }).join('');
                   conningSpans.push(...g.fight.trace,...g.rewards.trace);
@@ -1268,9 +1268,32 @@ function renderCrackridgeVoyage() {
                                         for(const c of f.encounter.checkpoints)conningPoints.push([label+' · '+c.label,{draws:Number(origin+BigInt(c.draws)),state:c.state}]);
                                         conningPoints.push([label+' · first command menu',f.menu.rng]);conningSpans.push(...f.escape.trace);
                                       }
+                                      if(q.flex) {
+                                        const x=q.flex,lines=['Order: '+x.order.map(n=>({1:'Boat → Roque JP ×100',2:'Crackridge book',3:'Sai → Firestarter'})[n]).join(' → ')];
+                                        for(const segment of [...x.segments,x.boat]) {
+                                          if(segment.extra_switches)lines.push(segment.name+': '+segment.extra_switches+' extra time switches');
+                                          for(const [label,e] of segment.stages){conningStages.push([label,e]);conningSpans.push(...e.trace);}
+                                          segment.encounters.forEach((f,j)=>{
+                                            const label=segment.name+' · encounter '+(j+1);lines.push(label+': '+encounterLabel(f.encounter));
+                                            let previous=f.arrival.after;const origin=BigInt(previous.draws)-BigInt(f.encounter.checkpoints[0].draws);
+                                            for(const c of f.encounter.checkpoints){const after={state:c.state,draws:Number(origin+BigInt(c.draws))};conningSpans.push({reason:label+' · '+c.label,before:previous,after});previous=after;}
+                                            lines.push('T1 · '+party[f.menu.first_actor]+' · '+(j===0&&segment.escape_boost_inputs.length?'Boost 0 → '+segment.escape_boost_inputs.join(' → ')+' → ':'')+'Escape (100%)');
+                                            conningStages.push([label+' · field return',f.field_return]);conningSpans.push(...f.escape.trace,...f.field_return.trace);conningPoints.push([label+' · first command menu',f.menu.rng]);
+                                          });
+                                          if(segment.movement)lines.push('After Beasting encounter: run first '+segment.movement.run_percent.toFixed(1)+'% · walk remaining '+(100-segment.movement.run_percent).toFixed(1)+'% (includes 3-update leeway)');
+                                        }
+                                        lines.push('Roque: '+encounterLabel(x.encounter));
+                                        let previous=x.boat.stages.at(-1)[1].after;const origin=BigInt(previous.draws)-BigInt(x.encounter.checkpoints[0].draws);
+                                        for(const c of x.encounter.checkpoints){const after={state:c.state,draws:Number(origin+BigInt(c.draws))};conningSpans.push({reason:'Roque · '+c.label,before:previous,after});previous=after;}
+                                        $('galdera-flex-result').hidden=false;
+                                        const actionName=value=>{const a=typeof value==='string'?value:Object.keys(value)[0];return a==='small_pomegranate'?'Small Pom → Temenos':a==='staff'?'Staff attack → rightmost Winged Landwalker':a==='bewildering_grace'?'Bewildering Grace':a==='guards'?'Hired Help: Guards':'Defend';};
+                                        $('galdera-flex-routine').innerHTML=instructionBoxHtml(lines)+x.fight.actions.map(a=>'<p><strong>T'+a.round+' · '+party[a.actor]+'</strong></p>'+boostStepsHtml(a.inputs,actionName(a.action))).join('')+'<p>JP per character: '+x.rewards.awarded.jp.toLocaleString()+' · All four survive.</p>'+(x.remaining_errands.length?'<p>After manipulation: '+x.remaining_errands.map(n=>n===2?'Crackridge book':'Sai → Firestarter').join(', ')+'</p>':'');
+                                        conningSpans.push(...x.fight.trace,...x.rewards.trace,...x.field_return.trace);conningStages.push(['Roque · JP ×100 victory and field return',x.field_return]);
+                                        for(const a of x.fight.actions)conningPoints.push(['Roque · T'+a.round+' '+party[a.actor]+' · '+actionName(a.action),a.before]);
+                                      }
                                       if(q.gravell) {
                                         const g=q.gravell;
-                                        for(const [stage,e]of [['Gravell · teleported, chapters discarded',g.arrival],['Gravell · night for Ambush',g.night],['Gravell · Debt Collector ambushed',g.ambush],['Gravell · Rusty Sword and Rusty Axe restored; Armsmaster unlocked',g.restoration],['Gravell · day for shop and Steal',g.day],["Gravell · Lionheart’s Axe and Conqueror’s Sword sold · "+g.sale_proceeds.toLocaleString()+' leaves',g.sales],['Gravell · Reinforcing Jam stolen (100%); switch path action before closing',g.jam_steal]]){conningStages.push([stage,e]);conningSpans.push(...e.trace);}
+                                        for(const [stage,e]of [['Gravell · teleported, chapters discarded',g.arrival],['Gravell · daytime Villager Pom and Strengthening Serum stolen; switch path action and close',g.supplies],['Gravell · Temenos BG / A Step Ahead; Partitio Collect / Boost-Start',g.setup],['Gravell · night for Ambush',g.night],['Gravell · Debt Collector ambushed',g.ambush],['Gravell · Rusty Sword and Rusty Axe restored; Armsmaster unlocked',g.restoration],['Gravell · day for shop and Steal',g.day],["Gravell · Lionheart’s Axe and Conqueror’s Sword sold · "+g.sale_proceeds.toLocaleString()+' leaves',g.sales],['Gravell · Reinforcing Jam stolen (100%); switch path action before closing',g.jam_steal]]){conningStages.push([stage,e]);conningSpans.push(...e.trace);}
                                       }
                                     }
                                   }

@@ -7,7 +7,7 @@ use std::sync::OnceLock;
 #[derive(Deserialize)]struct Ability {#[serde(rename="AbilityName")]id:String,#[serde(rename="GetParam")]count:usize}
 #[derive(Deserialize)]struct Job {#[serde(rename="JobCommandAbility")]commands:Vec<Ability>,#[serde(rename="JobSupportAbility")]supports:Vec<Ability>}
 fn data()->&'static Data {static D:OnceLock<Data>=OnceLock::new();D.get_or_init(||serde_json::from_str(include_str!("../data/galdera-gravell.json")).unwrap())}
-#[derive(Debug,Serialize)]pub struct Trip {pub arrival:Entry,pub night:Entry,pub ambush:Entry,pub restoration:Entry,pub day:Entry,pub sales:Entry,pub jam_steal:Entry,pub throne_level:u32,pub ambush_required_level:u32,pub jam_guaranteed_level:u32,pub jam_steal_chance:u32,pub jam_steal_roll:u32,pub sale_proceeds:u32}
+#[derive(Debug,Serialize)]pub struct Trip {pub arrival:Entry,pub supplies:Entry,pub setup:Entry,pub night:Entry,pub ambush:Entry,pub restoration:Entry,pub day:Entry,pub sales:Entry,pub jam_steal:Entry,pub throne_level:u32,pub ambush_required_level:u32,pub jam_guaranteed_level:u32,pub jam_steal_chance:u32,pub jam_steal_roll:u32,pub sale_proceeds:u32}
 fn point(l:&mut Loader<'_>,before:CrtRng)->Entry {Entry {arrival:before,after:l.rng,world_after:l.state.clone(),trace:std::mem::take(&mut l.trace),decisions:std::mem::take(&mut l.decisions)}}
 fn present(l:&Loader<'_>,npc:&str)->bool {l.state.existing_npcs.iter().any(|id|l.data.placements[id].resource==npc)}
 pub(crate) fn finish(entry:&Entry)->Result<Trip> {
@@ -15,7 +15,9 @@ pub(crate) fn finish(entry:&Entry)->Result<Trip> {
  ensure(l.state.time==2,"Gravell restoration starts after daytime Gaol loot")?;
  l.visit_map("Twn_Wld_3_1_A")?;l.skipped_event("MapInStorySelect")?;
  let arrival=point(&mut l,entry.after);
- l.manual_time_switch(4,"Gravell: night for Debt Collector Ambush")?;let night=point(&mut l,arrival.after);
+ crate::galdera_flex::steal(&mut l,"gravell")?;let supplies=point(&mut l,arrival.after);
+ crate::gravell_setup::jp_setup(&mut l)?;let setup=point(&mut l,supplies.after);
+ l.manual_time_switch(4,"Gravell: night for Debt Collector Ambush")?;let night=point(&mut l,setup.after);
  let throne_level=l.state.character_progression[&7].level;
  ensure(l.state.party.contains(&7)&&present(&l,&d.guard)&&throne_level>=d.ambush_level,"Debt Collector Ambush unavailable")?;
  l.draw(world::DrawKind::PathActionMenu,&d.guard,"Ambush preview: opening action timer",None);
@@ -47,7 +49,7 @@ pub(crate) fn finish(entry:&Entry)->Result<Trip> {
  *l.state.route_items.entry(d.jam.clone()).or_default()+=1;
  l.boundary("Reinforcing Jam stolen; change selected path action, then close without dialogue or closing lottery");
  let jam_steal=point(&mut l,sales.after);
- Ok(Trip {arrival,night,ambush,restoration,day,sales,jam_steal,throne_level,ambush_required_level:d.ambush_level,jam_guaranteed_level:d.steal_level,jam_steal_chance:100,jam_steal_roll,sale_proceeds})
+ Ok(Trip {arrival,supplies,setup,night,ambush,restoration,day,sales,jam_steal,throne_level,ambush_required_level:d.ambush_level,jam_guaranteed_level:d.steal_level,jam_steal_chance:100,jam_steal_roll,sale_proceeds})
 }
 
 /// Native BP_WeaponMasterEventFlowV2 states for the fresh two-weapon route.

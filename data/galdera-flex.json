@@ -1,0 +1,65 @@
+{
+  "steals": {
+    "gravell": {
+      "npc": "NPC_Twn_Wld_3_1_A_TALK_0100",
+      "items": [
+        {
+          "id": "ITM_CSM_0070",
+          "level": 18
+        },
+        {
+          "id": "ITM_MRL_COM_0020",
+          "level": 32
+        }
+      ]
+    },
+    "mason": {
+      "npc": "NPC_Twn_Wld_2_1_A_TALK_1100",
+      "items": [
+        {
+          "id": "ITM_MRL_REV_0040",
+          "level": 18
+        }
+      ]
+    }
+  },
+  "scholar": "NPC_Twn_Wld_2_1_A_TALK_1900",
+  "scholar_placement": "NPC_Twn_Wld_2_1_A_TALK_1900_D000",
+  "ambush_level": 30,
+  "ambush_before": [
+    "FC_TOU_ASSASSINATE_Before_1",
+    "FC_TOU_ASSASSINATE_Before_2"
+  ],
+  "ambush_success": "FC_TOU_ASSASSINATE_Success",
+  "chests": [
+    {
+      "id": "Treasure_SS_TMnt21_0200_010",
+      "item": "ITM_TRE_SS_TM21_0200_0030",
+      "count": 1
+    },
+    {
+      "id": "Treasure_Fld_Dst_2_2_02",
+      "item": "ITM_CSM_0101",
+      "count": 1
+    },
+    {
+      "id": "Treasure_Fld_Dst_3_2_04",
+      "item": "ITM_EQP_SWD_380",
+      "count": 1
+    }
+  ],
+  "boat_npc": "NPC_SHO_EX1_0120",
+  "boat_purchase": {
+    "id": "FC_P_NPC_SHO_EX1_0120",
+    "ID": 2,
+    "CommandEnable": 1,
+    "ShopID": "NPC_SHO_EX1_0120_NPCBUY",
+    "PurchaseBuyTalkID": "None",
+    "StealSuccessTalkID": "None",
+    "StealFailedTalkID": "None",
+    "BegSuccessTalkID": "None",
+    "RobEnemyGroupID": "None",
+    "RobBeforeTalkID": "None",
+    "RobBeforeEventID": "None"
+  }
+}

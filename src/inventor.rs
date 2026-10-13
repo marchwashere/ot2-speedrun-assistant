@@ -111,7 +111,7 @@ pub(crate) fn settle_gravell(night:&Entry,rng:CrtRng,mut fight:ot2_battle_engine
  for (&id,actor) in state.party.iter().zip(&fight.state.actors) {state.character_progression.get_mut(&id).unwrap().character.resources=Some(actor.resources.clone());}
  state.award_victory(rewards.awarded)?;state.first_encounter=false;
  let mut l=Loader::new(world::catalog(),state,rewards.after)?;
- l.restore_field_after_battle("Western Gravell EXP ×100 victory")?;
+ l.restore_field_after_battle(if night.world_after.party.contains(&5) {"Roque Harbor JP ×100 victory"}else{"Western Gravell EXP ×100 victory"})?;
  let field_return=point(&mut l,rewards.after);
  Ok((fight,rewards,field_return))
 }

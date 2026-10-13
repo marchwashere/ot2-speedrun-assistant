@@ -29,7 +29,7 @@ const taskRows = table('Story/Database/MainStoryTask');
 const tutorials = table('Tutorial/Database/TutorialFlagPart');
 const rules = table('Flag/Database/FlagRandomControlDB');
 const overrides = table('Flag/Database/FlagOverrideDB');
-const maps = levels.filter(r => [6,19,20,28,40,44,45,46,47,48,50,54,57,64,65,69,85,86,87,88,90,95,100,101,107,110,111,123,124,125,129,132,145,146,152,153,155,169,170,189].includes(r.ID) || r.id === 'Fld_Fst_1_3' || r.id === 'Twn_Wld_3_1_A' || ['Fld_Dst_2_2','Fld_Dst_2_3','Fld_Dst_2_4','Fld_Fst_2_2','Twn_Dst_2_1_A','Twn_Dst_2_1_B'].includes(r.id) || r.id.startsWith('Twn_Cty_1_'));
+const maps = levels.filter(r => ['Fld_Isd_1_3','Fld_Isd_2_1','Twn_Isd_2_1_A','Twn_Isd_2_1_C','Fld_Sea_3_1','Fld_Dst_3_2'].includes(r.id) || [6,19,20,28,40,44,45,46,47,48,50,54,57,64,65,69,85,86,87,88,90,95,100,101,107,110,111,123,124,125,129,132,145,146,152,153,155,169,170,189].includes(r.ID) || r.id === 'Fld_Fst_1_3' || r.id === 'Twn_Wld_3_1_A' || ['Fld_Dst_2_2','Fld_Dst_2_3','Fld_Dst_2_4','Fld_Fst_2_2','Twn_Dst_2_1_A','Twn_Dst_2_1_B'].includes(r.id) || r.id.startsWith('Twn_Cty_1_'));
 const allMaps = new Map();
 function walk(dir) { for(const e of fs.readdirSync(dir,{withFileTypes:true})) {
   const f = path.join(dir,e.name);
