@@ -29,3 +29,5 @@ Regression exercises direct and adjusted seeds, replays time callbacks, checks
 movement consumes no RNG, one encounter, successful native Escape and positive
 exit counter. Full transcript/live API checks verify earlier Al endpoint stays
 unchanged and party/items/EXP survive the extension. Retail validation pending.
+
+Continue through Eastern Flamechurch Pass to Flamechurch town (map20), discarding chapter starts. Measured endpoints:133 running /137 walking, plus3 leeway each (136/140); day/Evasive costs6/4. Freeze the Clockbank opening and earlier route. Search complete boost0->1->0 cycles at its first Escape menu only when the carried next-map counter cannot cover full walking (561 minimum). Replay native Escape, field return, remaining Clockbank movement and Eastern load for each candidate. Choose the most whole running updates within the accepted counter, round remaining walking updates upward, require a strictly positive exit counter, and display run-first/walk-rest percentages. No additional battle in the pass.

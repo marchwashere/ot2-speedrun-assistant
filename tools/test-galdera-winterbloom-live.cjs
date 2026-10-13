@@ -81,6 +81,9 @@ function find(v){if(v&&typeof v==='object'){if(v.coast&&v.fight)return v;for(con
   console.log(JSON.stringify({fixture:label,new_delsta:ar.new_delsta.after.draws,day:ar.day.after.draws,highroad:ar.highroad.after.draws,delivery:ar.delivery.after.draws,delivery_draws:ar.delivery.after.draws-ar.highroad.after.draws}));
   assert.equal(ar.delivery.after.draws,label==='32'?5075:4164,'Earlier Al delivery endpoint remains unchanged');
   const fc=ar.flamechurch;assert(fc);
+  assert(fc.pass_exit.world_after.encounter_counter>0);assert.deepEqual(fc.pass_exit.after,fc.eastern_flamechurch.after);
+  assert.equal(fc.flamechurch.world_after.map,"Twn_Mnt_1_1_A");
+  console.log(JSON.stringify({fixture:label,escape_boost_cycles:fc.escape_boost_cycles,movement:fc.movement}));
   assert.deepEqual(fc.highroad_exit.arrival,ar.delivery.after);
   assert.equal(ar.delivery.world_after.encounter_counter-fc.highroad_exit.world_after.encounter_counter,336);
   assert.equal(fc.highroad_running_updates,56);assert.equal(fc.clockbank_running_updates,193);assert.equal(fc.run_decrement,6);

@@ -327,6 +327,30 @@
       "sha256": "c7272b7e1b81a6c47d14784ae658d25b1ab357342f62a3b3fe6c5d8b26a27143"
     },
     {
+      "source": "/Game/Level/Level/Mount/Twn_Mnt_1_1_A.umap",
+      "sha256": "aea80e9373ed16aa31faed8dd139411268d22f31df0b19231e3773c203a35301"
+    },
+    {
+      "source": "/Game/Level/Level/Mount/Twn_Mnt_1_1_A_Art.umap",
+      "sha256": "b85935d782c620c5acee878666fa8c231aab042112f4214d8ae1ce722407232d"
+    },
+    {
+      "source": "/Game/Level/Level/Mount/Twn_Mnt_1_1_A_Coll.umap",
+      "sha256": "408562003b088625d029ecc512d58ee01b620711b18ab1c893e23a4cb132b287"
+    },
+    {
+      "source": "/Game/Level/Level/Mount/Twn_Mnt_1_1_A_GD.umap",
+      "sha256": "0c3ceaca5ccffbcf0dd7c23c172948487e99400460c07625616fe362e4b028ae"
+    },
+    {
+      "source": "/Game/Level/Level/Mount/Twn_Mnt_1_1_A_Sound.umap",
+      "sha256": "92d98b73e5ff4f448ca9d4245c538a7ab6796f8999b963a7f2c15d4b8ccb3c9b"
+    },
+    {
+      "source": "/Game/Level/Level/Mount/Btl_Twn_Mnt_A.umap",
+      "sha256": "70c2dda24c680a38f77712e430fb094fe3c96ce3b8c43b276b44714d1c72de19"
+    },
+    {
       "source": "/Game/Level/Level/Desert/Fld_Dst_1_1.umap",
       "sha256": "e726e5579505301d8a108855296de5c0af00e1d62814d14507801b0ed4ffd654"
     },

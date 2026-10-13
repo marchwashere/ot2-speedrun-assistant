@@ -128,3 +128,9 @@ coast.oresrush_supplies.wellgrove.champion.supplies.al_return.flamechurch.adjust
 vm.runInNewContext(source.slice(start,end),context);
 assert.match($('galdera-clockbank-routine').innerHTML,/switch night → day 1 time\(s\)/);
 console.log('PASS: Western Clockbank full-run encounter and optional ambush adjustment before Flamechurch');
+
+const fc=coast.oresrush_supplies.wellgrove.champion.supplies.al_return.flamechurch;fc.escape_boost_cycles=2;fc.movement={run_percent:45.8};fc.pass_exit=entry;fc.flamechurch=entry;
+vm.runInNewContext(source.slice(start,end),context);
+assert.match($("galdera-clockbank-routine").innerHTML,/Boost 0 → 1 → 0 × 2 before Escape/);
+assert.match($("galdera-clockbank-routine").innerHTML,/run first 45.8% · walk remaining 54.2%/);
+assert.equal(context.conningStages.at(-1)[0],"Flamechurch · entered, chapter start discarded");

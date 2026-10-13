@@ -1204,13 +1204,13 @@ function renderCrackridgeVoyage() {
                               }
                               if(a.flamechurch) {
                                 const t=a.flamechurch,f=t.encounter,label='Western Clockbank Highroad · before Flamechurch';
-                                for(const [stage,e] of [['New Delsta Highroad · run 100% to Western Clockbank without encounter',t.highroad_exit],['Western Clockbank Highroad · entered',t.clockbank_entry],['Western Clockbank Highroad · night/day adjustment',t.adjustment],[label+' · escaped, field restored',f.field_return],['Western Clockbank Highroad · run 100% to exit without a second encounter',t.clockbank_exit],['Eastern Flamechurch Pass · entered',t.eastern_flamechurch]]) {
+                                for(const [stage,e] of [['New Delsta Highroad · run 100% to Western Clockbank without encounter',t.highroad_exit],['Western Clockbank Highroad · entered',t.clockbank_entry],['Western Clockbank Highroad · night/day adjustment',t.adjustment],[label+' · escaped, field restored',f.field_return],['Western Clockbank Highroad · run 100% to exit without a second encounter',t.clockbank_exit],['Eastern Flamechurch Pass · entered',t.eastern_flamechurch],['Eastern Flamechurch Pass · encounterless passage to Flamechurch',t.pass_exit],['Flamechurch · entered, chapter start discarded',t.flamechurch]]) {
                                   if(e){conningStages.push([stage,e]);conningSpans.push(...e.trace);}
                                 }
                                 $('galdera-clockbank-result').hidden=false;
                                 $('galdera-clockbank-routine').innerHTML='<p><strong>'+escapeHtml(encounterLabel(f.encounter))+'</strong></p>'
                                   +`<p><strong>T1 · ${names[f.menu.first_actor]} · 1st command menu</strong></p>`
-                                  +instructionBoxHtml(['Al → Western Clockbank: run 100%',...(t.additional_time_switches?[`On entering Western Clockbank: switch night → day ${t.additional_time_switches/2} time(s)`]:[]),'Western Clockbank → Eastern Flamechurch Pass: run 100%',`Escape (${f.escape.chance_percent}%)`,'Continue running 100% to Eastern Flamechurch Pass']);
+                                  +instructionBoxHtml(['Al → Western Clockbank: run 100%',...(t.additional_time_switches?[`On entering Western Clockbank: switch night → day ${t.additional_time_switches/2} time(s)`]:[]),'Western Clockbank → Eastern Flamechurch Pass: run 100%',...(t.escape_boost_cycles?[`Boost 0 → 1 → 0 × ${t.escape_boost_cycles} before Escape`]:[]),`Escape (${f.escape.chance_percent}%)`,'Continue running 100% to Eastern Flamechurch Pass',...(t.movement?[`Eastern Flamechurch Pass → Flamechurch: run first ${t.movement.run_percent.toFixed(1)}% · walk remaining ${(100-t.movement.run_percent).toFixed(1)}%`]:[])]);
                                 conningPoints.push([label+' · before battle initialization',f.battle_entry],[label+' · first command menu',f.menu.rng]);
                                 let previous=f.arrival.after;
                                 const origin=BigInt(previous.draws)-BigInt(f.encounter.checkpoints[0].draws);

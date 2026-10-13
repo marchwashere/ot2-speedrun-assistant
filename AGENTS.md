@@ -1,5 +1,11 @@
 # Active project
 
+- Flamechurch continuation now uses the preceding Clockbank Escape boost/cancel cycles
+  to ensure an encounterless Eastern Flamechurch Pass crossing. Measured133 run/137 walk +3 each (136/140);
+  require counter561+, maximize safe running within first accepted counter,
+  display run/walk percentages. Carry real Escape/reset/map-load RNG; freeze opening
+  and earlier controls. Load Flamechurch map20 and discard chapters. See docs/galdera-flamechurch.md.
+
 - After Al delivery: run100% for56 land updates on New Delsta Highroad, cost336
   with day/Evasive (6/update), then load Western Clockbank Fld_Cty_1_4. Run100%
   for193 land updates toward Eastern Flamechurch; exactly one encounter, native
