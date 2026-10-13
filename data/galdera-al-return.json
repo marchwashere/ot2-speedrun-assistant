@@ -1,0 +1,16 @@
+{
+  "event": "SC_FC13_Tutorial_0400",
+  "npc": "NPC_SS_TD11_0100_0100",
+  "bag": "ITM_TRE_SS_TD11_0100_0010",
+  "reward_money": 1500,
+  "rewards": [
+    {
+      "item": "ITM_CSM_0680",
+      "quantity": 1
+    },
+    {
+      "item": "ITM_CSM_0010",
+      "quantity": 3
+    }
+  ]
+}

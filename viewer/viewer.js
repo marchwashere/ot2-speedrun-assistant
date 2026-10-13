@@ -1197,6 +1197,12 @@ function renderCrackridgeVoyage() {
                             for(const [stage,e] of [['Wellgrove · switched to night immediately after entry',v.night],['Wellgrove tavern · Sharp Nut (L) and Diffusing Serum entreated · change path action, then close without dialogue',v.tavern_entreat],["Wellgrove · Girl's Mother Empowering Lychee (M) entreated · change path action, then close without dialogue",v.mother_entreat],['Wellgrove · Dancer License acquired',v.dancer_license]]) {
                               conningStages.push([stage,e]);conningSpans.push(...e.trace);
                             }
+                            if(v.al_return) {
+                              const a=v.al_return;
+                              for(const [stage,e] of [['New Delsta · fast travel after Dancer License, chapter start discarded',a.new_delsta],['New Delsta · switched to day immediately after landing',a.day],['New Delsta Highroad · entered for Al',a.highroad],["Al · recovered bag delivered · 1,500 leaves, Slippery Nut, Healing Grape ×3",a.delivery]]) {
+                                conningStages.push([stage,e]);conningSpans.push(...e.trace);
+                              }
+                            }
                           }
                         }
                       }

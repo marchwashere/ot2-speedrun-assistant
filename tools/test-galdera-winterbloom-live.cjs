@@ -66,6 +66,19 @@ function find(v){if(v&&typeof v==='object'){if(v.coast&&v.fight)return v;for(con
   assert.deepEqual(end.character_progression,state.character_progression);
   assert.deepEqual(end.active_scenarios,state.active_scenarios);
   console.log(JSON.stringify({fixture:label,night:supplies.night.after.draws,tavern_entreat:supplies.tavern_entreat.after.draws,mother_entreat:supplies.mother_entreat.after.draws,dancer_license:supplies.dancer_license.after.draws}));
+  const ar=supplies.al_return;assert(ar);
+  assert.deepEqual(ar.new_delsta.arrival,supplies.dancer_license.after);
+  assert.equal(ar.new_delsta.world_after.time,4);
+  assert.deepEqual(ar.day.arrival,ar.new_delsta.after);assert.equal(ar.day.world_after.time,2);
+  assert.deepEqual(ar.highroad.arrival,ar.day.after);assert.equal(ar.highroad.world_after.map,'Fld_Cty_1_3');
+  assert.equal(ar.highroad.world_after.route_items.ITM_TRE_SS_TD11_0100_0010,1);
+  assert.equal(ar.delivery.world_after.route_items.ITM_TRE_SS_TD11_0100_0010,undefined);
+  assert.equal(ar.delivery.world_after.route_items.ITM_CSM_0680,1);assert.equal(ar.delivery.world_after.route_items.ITM_CSM_0010,3);
+  assert.equal(ar.reward_money,1500);
+  assert.equal(ar.delivery.trace.filter(r=>r.kind==='counter').length,2);
+  assert.deepEqual(ar.delivery.world_after.character_progression,end.character_progression);
+  assert.deepEqual(ar.delivery.world_after.active_scenarios,end.active_scenarios);
+  console.log(JSON.stringify({fixture:label,new_delsta:ar.new_delsta.after.draws,day:ar.day.after.draws,highroad:ar.highroad.after.draws,delivery:ar.delivery.after.draws,delivery_draws:ar.delivery.after.draws-ar.highroad.after.draws}));
   fs.writeFileSync(path.join(__dirname,'../outputs/galdera-winterbloom-'+label+'.json'),JSON.stringify(json));
   console.log(JSON.stringify({fixture:label,arrival:w.arrival.after.draws,quest:w.sword_quest.after.draws,entreat:w.soldier_entreat.after.draws,quest_draws:Number(w.sword_quest.after.draws)-Number(w.arrival.after.draws),counter:w.sword_quest.world_after.encounter_counter}));
  }

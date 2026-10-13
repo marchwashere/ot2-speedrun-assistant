@@ -1,5 +1,16 @@
 # Active project
 
+- After Dancer License: teleport New Delsta main, discard chapters, immediately
+  switch day in town, enter Highroad Fld_Cty_1_3 and deliver recovered bag to Al
+  via SC_FC13_Tutorial_0400 command4 Yes. No unmeasured movement/battle invented
+  on the direct entry-to-Al leg. SC_FC13_Tutorial_0310 command29 now records
+  the actual earlier bag grant (ITM_TRE_SS_TD11_0100_0010), with zero RNG change.
+  Delivery consumes bag, sets20511, removes Al via native9990 refresh, resets
+  counter B/A and rewards Slippery Nut1, Healing Grapes3,1500 leaves metadata.
+  Same-map event avoids another load; fixed dialogues/temp scene actors have
+  no draw. All stages in Detailed log. Source audit import-galdera-al-return.cjs
+  reuses existing Bag events and confirms SubDeliveryItem. Retail pending.
+
 - After Wellgrove entry: immediately switch night, then one tavern Shopkeeper
   Entreat menu obtains Sharp Nut L and Diffusing Serum; change path action before
   close (one opening draw, no item probability checks). Both require Agnea26;

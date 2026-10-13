@@ -1,0 +1,810 @@
+{
+  "sources": [
+    {
+      "source": "/Game/Story/Database/SubStoryTask",
+      "sha256": "1520c7ea664613392219bb6b1bd9a01f9ae2ebe7fd6eb1416d66ca8db01fed83"
+    },
+    {
+      "source": "/Game/Placement/Database/PlacementData",
+      "sha256": "0d5f12698b8e1f97740d5cc527b040b8bc8f10e343919c4fcac03b8fa6d5e793"
+    },
+    {
+      "source": "/Game/Event/Database/EventList",
+      "sha256": "acbbb094b2b071271fde8e4adf26b0df3661594556b3835b96e93a97300089a3"
+    },
+    {
+      "source": "/Game/Event/BP/EventManagerBP",
+      "sha256": "053e599edcedaf453820b17a7a71fbfa9ca33c63807080ea2dedc0c1f5a3c4cb"
+    }
+  ],
+  "quest": {
+    "id": "SS_TUT_003",
+    "ID": 11,
+    "AreaIndex": 1,
+    "StoryCategory": "ESUB_STORY_CATEGORY::COMMON",
+    "MissionIndex": 51,
+    "WorldMapIcon": "eMap_Fld_Cty_1_3",
+    "StartConditionParty": [
+      "EPlayableCharacterID::eNONE",
+      "EPlayableCharacterID::eNONE",
+      "EPlayableCharacterID::eNONE",
+      "EPlayableCharacterID::eNONE"
+    ],
+    "TitleTextLabel": "SMR_TD11_0100_TITLE",
+    "DetailTextLabel": "SMR_TD11_0100_DETAIL",
+    "ClearTextLabel": [
+      "SMR_TD11_0100_RESULT",
+      "None",
+      "None"
+    ],
+    "NPCName": "CN_NPC_SS_TD11_0100_0100",
+    "NPCLabel": "SubAlfred_Mle",
+    "RewardMoney": 1500,
+    "RewardParam": [
+      "ITM_CSM_0680",
+      "1",
+      "ITM_CSM_0010",
+      "3",
+      "None",
+      "None"
+    ],
+    "RelatedMainStoryTask": "None",
+    "RelatedFlagSections": [
+      {
+        "Begin": 20147,
+        "End": 20151
+      },
+      {
+        "Begin": 0,
+        "End": 0
+      },
+      {
+        "Begin": 0,
+        "End": 0
+      }
+    ]
+  },
+  "al": {
+    "id": "NPC_SS_TCity13_Tutorial_0100",
+    "ID": 21,
+    "PlacementType": 1,
+    "MainScenarioType": 0,
+    "MainScenarioID": 0,
+    "ResourceLabel": "NPC_SS_TD11_0100_0100",
+    "InvalidRadarIcon": false,
+    "IgnoreGravity": false,
+    "IndoorFlag": false,
+    "HouseInFloor": 0,
+    "TriggerScaleX": 0,
+    "TriggerScaleY": 0,
+    "TriggerScaleZ": 0,
+    "SpawnStartFlag": 0,
+    "SpawnEndFlag": 20511,
+    "TimeZoneSpawnType": "ETIMEZONE_TRIGGER_TYPE::eALL",
+    "SpawnStartDelayCount": 0,
+    "SpawnEndDelayCount": 0,
+    "CompProloguePlayerID": "EPlayableCharacterID::eNONE",
+    "NorSpawnPrologue": false,
+    "NotSpawnFinal": true,
+    "NotCoexistencePlacementLabel": [
+      "Trigger_SS_TCity13_Tutorial_Enable",
+      "None",
+      "None",
+      "None",
+      "None"
+    ],
+    "SpawnDir": "RIGHT",
+    "SpawnPosX": -6607,
+    "SpawnPosY": -3095,
+    "SpawnPosZ": 318.8999938964844,
+    "FaintSpawnPosX": 0,
+    "FaintSpawnPosY": 0,
+    "FaintSpawnPosZ": 0,
+    "EmotionOffsetX": 0,
+    "EmotionOffsetY": 0,
+    "EmotionOffsetZ": 0,
+    "CaptionTextLabel": "None",
+    "SinglePlayMotion": 0,
+    "Emotion": "8",
+    "Permission_FCmd": 0,
+    "AllowBanFlag_FCmd": 0,
+    "FixDirInFieldCommand": false,
+    "EventType_A": "eDELIVERY_ITEM",
+    "EventStartFlag_A": 20510,
+    "EventEndFlag_A": 0,
+    "TimeZoneTriggerType_A": "ETIMEZONE_TRIGGER_TYPE::eALL",
+    "EventParam_A_1_ID": "None",
+    "EventParam_A_1": "ITM_TRE_SS_TD11_0100_0010",
+    "EventParam_A_2_ID": "1",
+    "EventParam_A_2": "1",
+    "EventParam_A_3_ID": "None",
+    "EventParam_A_3": "None",
+    "EventParam_A_4_ID": "None",
+    "EventParam_A_4": "None",
+    "EventParam_A_5_ID": "None",
+    "EventParam_A_5": "None",
+    "EventParam_A_6_ID": "None",
+    "EventParam_A_6": "None",
+    "EventParam_A_7_ID": "None",
+    "EventParam_A_7": "None",
+    "EventParam_A_8_ID": "None",
+    "EventParam_A_8": "None",
+    "EventParam_A_9_ID": "None",
+    "EventParam_A_9": "None",
+    "EventParam_A_10_ID": "None",
+    "EventParam_A_10": "None",
+    "EventLabel_A": "SC_FC13_Tutorial_0400",
+    "EventType_B": "eNORMAL",
+    "EventStartFlag_B": 0,
+    "EventEndFlag_B": 0,
+    "TimeZoneTriggerType_B": "ETIMEZONE_TRIGGER_TYPE::eALL",
+    "EventParam_B_1_ID": "None",
+    "EventParam_B_1": "None",
+    "EventParam_B_2_ID": "None",
+    "EventParam_B_2": "None",
+    "EventParam_B_3_ID": "None",
+    "EventParam_B_3": "None",
+    "EventParam_B_4_ID": "None",
+    "EventParam_B_4": "None",
+    "EventParam_B_5_ID": "None",
+    "EventParam_B_5": "None",
+    "EventParam_B_6_ID": "None",
+    "EventParam_B_6": "None",
+    "EventParam_B_7_ID": "None",
+    "EventParam_B_7": "None",
+    "EventParam_B_8_ID": "None",
+    "EventParam_B_8": "None",
+    "EventParam_B_9_ID": "None",
+    "EventParam_B_9": "None",
+    "EventParam_B_10_ID": "None",
+    "EventParam_B_10": "None",
+    "EventLabel_B": "SC_SP_Tutorial_0110",
+    "EventType_C": "",
+    "EventStartFlag_C": 0,
+    "EventEndFlag_C": 0,
+    "TimeZoneTriggerType_C": "ETIMEZONE_TRIGGER_TYPE::None",
+    "EventParam_C_1_ID": "None",
+    "EventParam_C_1": "None",
+    "EventParam_C_2_ID": "None",
+    "EventParam_C_2": "None",
+    "EventParam_C_3_ID": "None",
+    "EventParam_C_3": "None",
+    "EventParam_C_4_ID": "None",
+    "EventParam_C_4": "None",
+    "EventParam_C_5_ID": "None",
+    "EventParam_C_5": "None",
+    "EventParam_C_6_ID": "None",
+    "EventParam_C_6": "None",
+    "EventParam_C_7_ID": "None",
+    "EventParam_C_7": "None",
+    "EventParam_C_8_ID": "None",
+    "EventParam_C_8": "None",
+    "EventParam_C_9_ID": "None",
+    "EventParam_C_9": "None",
+    "EventParam_C_10_ID": "None",
+    "EventParam_C_10": "None",
+    "EventLabel_C": "None",
+    "EventType_D": "",
+    "EventStartFlag_D": 0,
+    "EventEndFlag_D": 0,
+    "TimeZoneTriggerType_D": "ETIMEZONE_TRIGGER_TYPE::None",
+    "EventParam_D_1_ID": "None",
+    "EventParam_D_1": "None",
+    "EventParam_D_2_ID": "None",
+    "EventParam_D_2": "None",
+    "EventParam_D_3_ID": "None",
+    "EventParam_D_3": "None",
+    "EventParam_D_4_ID": "None",
+    "EventParam_D_4": "None",
+    "EventParam_D_5_ID": "None",
+    "EventParam_D_5": "None",
+    "EventParam_D_6_ID": "None",
+    "EventParam_D_6": "None",
+    "EventParam_D_7_ID": "None",
+    "EventParam_D_7": "None",
+    "EventParam_D_8_ID": "None",
+    "EventParam_D_8": "None",
+    "EventParam_D_9_ID": "None",
+    "EventParam_D_9": "None",
+    "EventParam_D_10_ID": "None",
+    "EventParam_D_10": "None",
+    "EventLabel_D": "None",
+    "EventType_E": "",
+    "EventStartFlag_E": 0,
+    "EventEndFlag_E": 0,
+    "TimeZoneTriggerType_E": "ETIMEZONE_TRIGGER_TYPE::None",
+    "EventParam_E_1_ID": "None",
+    "EventParam_E_1": "None",
+    "EventParam_E_2_ID": "None",
+    "EventParam_E_2": "None",
+    "EventParam_E_3_ID": "None",
+    "EventParam_E_3": "None",
+    "EventParam_E_4_ID": "None",
+    "EventParam_E_4": "None",
+    "EventParam_E_5_ID": "None",
+    "EventParam_E_5": "None",
+    "EventParam_E_6_ID": "None",
+    "EventParam_E_6": "None",
+    "EventParam_E_7_ID": "None",
+    "EventParam_E_7": "None",
+    "EventParam_E_8_ID": "None",
+    "EventParam_E_8": "None",
+    "EventParam_E_9_ID": "None",
+    "EventParam_E_9": "None",
+    "EventParam_E_10_ID": "None",
+    "EventParam_E_10": "None",
+    "EventLabel_E": "None",
+    "EventType_F": "",
+    "EventStartFlag_F": 0,
+    "EventEndFlag_F": 0,
+    "TimeZoneTriggerType_F": "ETIMEZONE_TRIGGER_TYPE::None",
+    "EventParam_F_1": "None",
+    "EventParam_F_2": "None",
+    "EventParam_F_3": "None",
+    "EventParam_F_4": "None",
+    "EventParam_F_5": "None",
+    "EventParam_F_6": "None",
+    "EventParam_F_7": "None",
+    "EventParam_F_8": "None",
+    "EventParam_F_9": "None",
+    "EventParam_F_10": "None",
+    "EventLabel_F": "None",
+    "EventType_G": "",
+    "EventStartFlag_G": 0,
+    "EventEndFlag_G": 0,
+    "TimeZoneTriggerType_G": "ETIMEZONE_TRIGGER_TYPE::None",
+    "EventParam_G_1": "None",
+    "EventParam_G_2": "None",
+    "EventParam_G_3": "None",
+    "EventParam_G_4": "None",
+    "EventParam_G_5": "None",
+    "EventParam_G_6": "None",
+    "EventParam_G_7": "None",
+    "EventParam_G_8": "None",
+    "EventParam_G_9": "None",
+    "EventParam_G_10": "None",
+    "EventLabel_G": "None",
+    "EventType_H": "",
+    "EventStartFlag_H": 0,
+    "EventEndFlag_H": 0,
+    "TimeZoneTriggerType_H": "ETIMEZONE_TRIGGER_TYPE::None",
+    "EventParam_H_1": "None",
+    "EventParam_H_2": "None",
+    "EventParam_H_3": "None",
+    "EventParam_H_4": "None",
+    "EventParam_H_5": "None",
+    "EventParam_H_6": "None",
+    "EventParam_H_7": "None",
+    "EventParam_H_8": "None",
+    "EventParam_H_9": "None",
+    "EventParam_H_10": "None",
+    "EventLabel_H": "None",
+    "EventType_I": "",
+    "EventStartFlag_I": 0,
+    "EventEndFlag_I": 0,
+    "TimeZoneTriggerType_I": "ETIMEZONE_TRIGGER_TYPE::None",
+    "EventParam_I_1": "None",
+    "EventParam_I_2": "None",
+    "EventParam_I_3": "None",
+    "EventParam_I_4": "None",
+    "EventParam_I_5": "None",
+    "EventParam_I_6": "None",
+    "EventParam_I_7": "None",
+    "EventParam_I_8": "None",
+    "EventParam_I_9": "None",
+    "EventParam_I_10": "None",
+    "EventLabel_I": "None",
+    "EventType_J": "",
+    "EventStartFlag_J": 0,
+    "EventEndFlag_J": 0,
+    "TimeZoneTriggerType_J": "ETIMEZONE_TRIGGER_TYPE::None",
+    "EventParam_J_1": "None",
+    "EventParam_J_2": "None",
+    "EventParam_J_3": "None",
+    "EventParam_J_4": "None",
+    "EventParam_J_5": "None",
+    "EventParam_J_6": "None",
+    "EventParam_J_7": "None",
+    "EventParam_J_8": "None",
+    "EventParam_J_9": "None",
+    "EventParam_J_10": "None",
+    "EventLabel_J": "None"
+  },
+  "event": {
+    "id": "SC_FC13_Tutorial_0400",
+    "EventIndex": 0,
+    "ExecCode": "SC_FC13_Tutorial_0400",
+    "CueSheetName": "None",
+    "RadarMapExitCode": "None",
+    "MapID": "46",
+    "Kind": "EEventKind::EVENT_SUB",
+    "EventSoundLabel": "None",
+    "MissionLabel": "None",
+    "EventSkip": 1,
+    "LevelTriggerID": "ELevelTriggerID::Trigger_01",
+    "LanthanumFlag": 0,
+    "EncountTrigger": "None",
+    "CameraLockTrigger1": "None",
+    "CameraLockTrigger2": "None",
+    "CameraLockTrigger3": "None",
+    "StartFadeOutFlag": 0,
+    "ChengeTimeSequencer": "None",
+    "ChengeFinishTimeSequencer": "None",
+    "TargetChara": 0,
+    "EncountReset": true,
+    "Args": [
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  "grant": {
+    "index": 29,
+    "cmd": 2000,
+    "target": 0,
+    "text": "",
+    "opt": [
+      "ITM_TRE_SS_TD11_0100_0010",
+      "1"
+    ]
+  },
+  "delivery": {
+    "index": 4,
+    "cmd": 5500,
+    "target": 0,
+    "text": "",
+    "opt": [
+      "4",
+      "57"
+    ]
+  },
+  "blueprint": {
+    "asset": "Event/BP/EventManagerBP",
+    "sha256": "053e599edcedaf453820b17a7a71fbfa9ca33c63807080ea2dedc0c1f5a3c4cb",
+    "functions": {
+      "UpdateSubDeliveryDialog": "34b76 PushExecutionFlow target=538\n34b7b LetBool\n  34b7c LocalVariable CallFunc_UpdateSubDeliveryDialog_ReturnValue\n  34b8d FinalFunction import:-593:UpdateSubDeliveryDialog\n    34b92 LocalVariable DeltaTime\n34ba4 LetObj\n  34ba5 LocalVariable CallFunc_GetManagerInstance_ReturnValue\n  34bb6 CallMath import:-355:GetManagerInstance\n    34bbb ObjectConst import:-85:DialogManager\n34bc1 LetBool\n  34bc2 LocalVariable CallFunc_IsDialogRunning_ReturnValue\n  34bd3 Context skip=10 rvalue=CallFunc_IsDialogRunning_ReturnValue\n    34bd4 LocalVariable CallFunc_GetManagerInstance_ReturnValue\n    34bf9 FinalFunction import:-368:IsDialogRunning\n34bff JumpIfNot target=135\n  34c04 LocalVariable CallFunc_IsDialogRunning_ReturnValue\n34c15 LetBool\n  34c16 LocalOutVariable ReturnValue\n  34c27 False\n34c28 Jump target=538\n34c2d PushExecutionFlow target=527\n34c32 PushExecutionFlow target=506\n34c37 PushExecutionFlow target=311\n34c3c Let property=CallFunc_GetNowEventData_ReturnValue\n  34c4d LocalVariable CallFunc_GetNowEventData_ReturnValue\n  34c5e FinalFunction import:-407:GetNowEventData\n34c64 Context skip=46 rvalue=<null-field>\n  34c65 ObjectConst import:-826:Default__KismetArrayLibrary\n  34c76 FinalFunction import:-262:Array_Get\n    34c7b StructMemberContext OptAry\n      34c8c LocalVariable CallFunc_GetNowEventData_ReturnValue\n    34c9d InstanceVariable DialogSelectIndex\n    34cae LocalVariable CallFunc_Array_Get_Item\n34cc0 Let property=CallFunc_Conv_StringToInt_ReturnValue\n  34cd1 LocalVariable CallFunc_Conv_StringToInt_ReturnValue\n  34ce2 CallMath import:-327:Conv_StringToInt\n    34ce7 LocalVariable CallFunc_Array_Get_Item\n34cf9 Let property=EventIndex\n  34d0a InstanceVariable EventIndex\n  34d1b LocalVariable CallFunc_Conv_StringToInt_ReturnValue\n34d2c PopExecutionFlow\n34d2d LetBool\n  34d2e LocalVariable CallFunc_EqualEqual_IntInt_ReturnValue\n  34d3f CallMath import:-287:EqualEqual_IntInt\n    34d44 InstanceVariable DialogSelectIndex\n    34d55 IntConst 0\n34d5b PopExecutionFlowIfNot\n  34d5c LocalVariable CallFunc_EqualEqual_IntInt_ReturnValue\n34d6d LetBool\n  34d6e LocalVariable CallFunc_IsValid_ReturnValue\n  34d7f CallMath import:-338:IsValid\n    34d84 InstanceVariable EventTargetCharacter\n34d96 PopExecutionFlowIfNot\n  34d97 LocalVariable CallFunc_IsValid_ReturnValue\n34da8 Let property=<null-field>\n  34db1 LocalVariable K2Node_DynamicCast_AsKSField_NPCCharacter\n  34dc2 DynamicCast import:-6:KSFieldNPCCharacter_C\n    34dc7 InstanceVariable EventTargetCharacter\n34dd8 Let property=<null-field>\n  34de1 LocalVariable K2Node_DynamicCast_bSuccess\n  34df2 Cast cast=71\n    34df4 LocalVariable K2Node_DynamicCast_AsKSField_NPCCharacter\n34e05 PopExecutionFlowIfNot\n  34e06 LocalVariable K2Node_DynamicCast_bSuccess\n34e17 Context skip=14 rvalue=<null-field>\n  34e18 LocalVariable K2Node_DynamicCast_AsKSField_NPCCharacter\n  34e35 LocalVirtualFunction SubDeliveryItem\n34e3f PopExecutionFlow\n34e40 LetBool\n  34e41 LocalVariable CallFunc_FinishDialog_ReturnValue\n  34e52 FinalFunction import:-394:FinishDialog\n34e58 PopExecutionFlow\n34e59 LetBool\n  34e5a LocalOutVariable ReturnValue\n  34e6b True\n34e6c Return\n  34e6d LocalOutVariable ReturnValue\n34e7e EndOfScript",
+      "CreateEventCharacter": "3eb27 Context skip=42 rvalue=<null-field>\n  3eb28 ObjectConst import:-826:Default__KismetArrayLibrary\n  3eb39 FinalFunction import:-262:Array_Get\n    3eb3e StructMemberContext OptAry\n      3eb4f LocalOutVariable inEventData\n    3eb60 IntConst 3\n    3eb65 LocalVariable CallFunc_Array_Get_Item_2\n3eb77 LocalVirtualFunction GetSpawnNPCAnimationLabel\n  3eb80 LocalVariable eType\n  3eb91 LocalVariable CallFunc_Array_Get_Item_2\n  3eba2 LocalVariable CallFunc_GetSpawnNPCAnimationLabel_Found\n  3ebb3 LocalVariable CallFunc_GetSpawnNPCAnimationLabel_AnimationLabel\n3ebc5 JumpIfNot target=703\n  3ebca LocalVariable CallFunc_GetSpawnNPCAnimationLabel_Found\n3ebdb Let property=AnimationLabel\n  3ebec LocalVariable AnimationLabel\n  3ebfd LocalVariable CallFunc_GetSpawnNPCAnimationLabel_AnimationLabel\n3ec0e LetBool\n  3ec0f LocalVariable CallFunc_CreateEventCharacter_ReturnValue\n  3ec20 FinalFunction import:-388:CreateEventCharacter\n    3ec25 LocalVariable eType\n    3ec36 LocalOutVariable inEventData\n3ec48 JumpIfNot target=795\n  3ec4d LocalVariable CallFunc_CreateEventCharacter_ReturnValue\n3ec5e Let property=CallFunc_GetEventDir_ReturnValue\n  3ec6f LocalVariable CallFunc_GetEventDir_ReturnValue\n  3ec80 CallMath import:-376:GetEventDir\n    3ec85 StructMemberContext Dir\n      3ec96 LocalOutVariable inEventData\n3eca8 LetObj\n  3eca9 LocalVariable CallFunc_SpawnEventCharacter_ReturnValue\n  3ecba CallMath import:-642:SpawnEventCharacter\n    3ecbf LocalVariable AnimationLabel\n    3ecd0 StructMemberContext Pos\n      3ece1 LocalOutVariable inEventData\n    3ecf2 LocalVariable CallFunc_GetEventDir_ReturnValue\n3ed04 Context skip=42 rvalue=<null-field>\n  3ed05 ObjectConst import:-826:Default__KismetArrayLibrary\n  3ed16 FinalFunction import:-262:Array_Get\n    3ed1b StructMemberContext OptAry\n      3ed2c LocalOutVariable inEventData\n    3ed3d IntConst 0\n    3ed42 LocalVariable CallFunc_Array_Get_Item_1\n3ed54 Let property=CallFunc_Conv_StringToInt_ReturnValue_1\n  3ed65 LocalVariable CallFunc_Conv_StringToInt_ReturnValue_1\n  3ed76 CallMath import:-327:Conv_StringToInt\n    3ed7b LocalVariable CallFunc_Array_Get_Item_1\n3ed8d FinalFunction import:-380:AddEventCharacter\n  3ed92 LocalVariable CallFunc_Conv_StringToInt_ReturnValue_1\n  3eda3 LocalVariable CallFunc_SpawnEventCharacter_ReturnValue\n3edb5 Context skip=15 rvalue=<null-field>\n  3edb6 LocalVariable CallFunc_SpawnEventCharacter_ReturnValue\n  3edd3 VirtualFunction SetCharacterEnable\n    3eddc False\n3edde Context skip=10 rvalue=<null-field>\n  3eddf LocalVariable CallFunc_SpawnEventCharacter_ReturnValue\n  3edfc FinalFunction import:-625:LoadedCharacterEnableCancelRequest\n3ee02 Context skip=42 rvalue=<null-field>\n  3ee03 ObjectConst import:-826:Default__KismetArrayLibrary\n  3ee14 FinalFunction import:-262:Array_Get\n    3ee19 StructMemberContext OptAry\n      3ee2a LocalOutVariable inEventData\n    3ee3b IntConst 1\n    3ee40 LocalVariable CallFunc_Array_Get_Item\n3ee52 Let property=CallFunc_Conv_StringToInt_ReturnValue\n  3ee63 LocalVariable CallFunc_Conv_StringToInt_ReturnValue\n  3ee74 CallMath import:-327:Conv_StringToInt\n    3ee79 LocalVariable CallFunc_Array_Get_Item\n3ee8b LetBool\n  3ee8c LocalVariable CallFunc_Greater_IntInt_ReturnValue\n  3ee9d CallMath import:-291:Greater_IntInt\n    3eea2 LocalVariable CallFunc_Conv_StringToInt_ReturnValue\n    3eeb3 IntConst 0\n3eeb9 Context skip=23 rvalue=<null-field>\n  3eeba LocalVariable CallFunc_SpawnEventCharacter_ReturnValue\n  3eed7 VirtualFunction SetPlayFootStep\n    3eee0 LocalVariable CallFunc_Greater_IntInt_ReturnValue\n3eef2 LetBool\n  3eef3 LocalOutVariable ReturnValue\n  3ef04 True\n3ef05 Jump target=1617\n3ef0a CallMath import:-340:PrintString\n  3ef0f Self\n  3ef10 StringConst \"NotFoundAnimationLabel\"\n  3ef28 True\n  3ef29 True\n  3ef2a StructConst import:-933:LinearColor size=16\n    3ef33 FloatConst 0\n    3ef38 FloatConst 0.6600000262260437\n    3ef3d FloatConst 1\n    3ef42 FloatConst 1\n  3ef48 FloatConst 2\n3ef4e LetBool\n  3ef4f LocalOutVariable ReturnValue\n  3ef60 False\n3ef61 Jump target=1617\n3ef66 Context skip=42 rvalue=<null-field>\n  3ef67 ObjectConst import:-826:Default__KismetArrayLibrary\n  3ef78 FinalFunction import:-262:Array_Get\n    3ef7d StructMemberContext OptAry\n      3ef8e LocalOutVariable inEventData\n    3ef9f IntConst 0\n    3efa4 LocalVariable CallFunc_Array_Get_Item_1\n3efb6 Let property=CallFunc_Conv_StringToInt_ReturnValue_1\n  3efc7 LocalVariable CallFunc_Conv_StringToInt_ReturnValue_1\n  3efd8 CallMath import:-327:Conv_StringToInt\n    3efdd LocalVariable CallFunc_Array_Get_Item_1\n3efef LetObj\n  3eff0 LocalVariable CallFunc_GetEventCharacter_ReturnValue\n  3f001 FinalFunction import:-400:GetEventCharacter\n    3f006 LocalVariable CallFunc_Conv_StringToInt_ReturnValue_1\n3f018 Context skip=20 rvalue=<null-field>\n  3f019 LocalVariable CallFunc_GetEventCharacter_ReturnValue\n  3f036 FinalFunction import:-621:InitAction\n    3f03b LocalVariable AnimationLabel\n    3f04c False\n3f04e Context skip=42 rvalue=<null-field>\n  3f04f ObjectConst import:-826:Default__KismetArrayLibrary\n  3f060 FinalFunction import:-262:Array_Get\n    3f065 StructMemberContext OptAry\n      3f076 LocalOutVariable inEventData\n    3f087 IntConst 0\n    3f08c LocalVariable CallFunc_Array_Get_Item_1\n3f09e Let property=CallFunc_Conv_StringToInt_ReturnValue_1\n  3f0af LocalVariable CallFunc_Conv_StringToInt_ReturnValue_1\n  3f0c0 CallMath import:-327:Conv_StringToInt\n    3f0c5 LocalVariable CallFunc_Array_Get_Item_1\n3f0d7 LetObj\n  3f0d8 LocalVariable CallFunc_GetEventCharacter_ReturnValue\n  3f0e9 FinalFunction import:-400:GetEventCharacter\n    3f0ee LocalVariable CallFunc_Conv_StringToInt_ReturnValue_1\n3f100 Context skip=15 rvalue=<null-field>\n  3f101 LocalVariable CallFunc_GetEventCharacter_ReturnValue\n  3f11e VirtualFunction SetCharacterEnable\n    3f127 False\n3f129 Context skip=42 rvalue=<null-field>\n  3f12a ObjectConst import:-826:Default__KismetArrayLibrary\n  3f13b FinalFunction import:-262:Array_Get\n    3f140 StructMemberContext OptAry\n      3f151 LocalOutVariable inEventData\n    3f162 IntConst 0\n    3f167 LocalVariable CallFunc_Array_Get_Item_1\n3f179 Let property=CallFunc_Conv_StringToInt_ReturnValue_1\n  3f18a LocalVariable CallFunc_Conv_StringToInt_ReturnValue_1\n  3f19b CallMath import:-327:Conv_StringToInt\n    3f1a0 LocalVariable CallFunc_Array_Get_Item_1\n3f1b2 LetObj\n  3f1b3 LocalVariable CallFunc_GetEventCharacter_ReturnValue\n  3f1c4 FinalFunction import:-400:GetEventCharacter\n    3f1c9 LocalVariable CallFunc_Conv_StringToInt_ReturnValue_1\n3f1db Context skip=10 rvalue=<null-field>\n  3f1dc LocalVariable CallFunc_GetEventCharacter_ReturnValue\n  3f1f9 FinalFunction import:-625:LoadedCharacterEnableCancelRequest\n3f1ff Context skip=42 rvalue=<null-field>\n  3f200 ObjectConst import:-826:Default__KismetArrayLibrary\n  3f211 FinalFunction import:-262:Array_Get\n    3f216 StructMemberContext OptAry\n      3f227 LocalOutVariable inEventData\n    3f238 IntConst 1\n    3f23d LocalVariable CallFunc_Array_Get_Item\n3f24f Let property=CallFunc_Conv_StringToInt_ReturnValue\n  3f260 LocalVariable CallFunc_Conv_StringToInt_ReturnValue\n  3f271 CallMath import:-327:Conv_StringToInt\n    3f276 LocalVariable CallFunc_Array_Get_Item\n3f288 Context skip=42 rvalue=<null-field>\n  3f289 ObjectConst import:-826:Default__KismetArrayLibrary\n  3f29a FinalFunction import:-262:Array_Get\n    3f29f StructMemberContext OptAry\n      3f2b0 LocalOutVariable inEventData\n    3f2c1 IntConst 0\n    3f2c6 LocalVariable CallFunc_Array_Get_Item_1\n3f2d8 LetBool\n  3f2d9 LocalVariable CallFunc_Greater_IntInt_ReturnValue\n  3f2ea CallMath import:-291:Greater_IntInt\n    3f2ef LocalVariable CallFunc_Conv_StringToInt_ReturnValue\n    3f300 IntConst 0\n3f306 Let property=CallFunc_Conv_StringToInt_ReturnValue_1\n  3f317 LocalVariable CallFunc_Conv_StringToInt_ReturnValue_1\n  3f328 CallMath import:-327:Conv_StringToInt\n    3f32d LocalVariable CallFunc_Array_Get_Item_1\n3f33f LetObj\n  3f340 LocalVariable CallFunc_GetEventCharacter_ReturnValue\n  3f351 FinalFunction import:-400:GetEventCharacter\n    3f356 LocalVariable CallFunc_Conv_StringToInt_ReturnValue_1\n3f368 Context skip=23 rvalue=<null-field>\n  3f369 LocalVariable CallFunc_GetEventCharacter_ReturnValue\n  3f386 VirtualFunction SetPlayFootStep\n    3f38f LocalVariable CallFunc_Greater_IntInt_ReturnValue\n3f3a1 LetBool\n  3f3a2 LocalOutVariable ReturnValue\n  3f3b3 True\n3f3b4 Return\n  3f3b5 LocalOutVariable ReturnValue\n3f3c6 EndOfScript",
+      "GetSpawnNPCAnimationLabel": "7c9b4 PushExecutionFlow target=848\n7c9b9 PushExecutionFlow target=236\n7c9be LetBool\n  7c9bf LocalVariable K2Node_SwitchEnum_CmpSuccess\n  7c9d0 CallMath import:-305:NotEqual_ByteByte\n    7c9d5 LocalVariable SpawnType\n    7c9e6 ByteConst 0\n7c9e9 JumpIfNot target=279\n  7c9ee LocalVariable K2Node_SwitchEnum_CmpSuccess\n7c9ff LetBool\n  7ca00 LocalVariable K2Node_SwitchEnum_CmpSuccess\n  7ca11 CallMath import:-305:NotEqual_ByteByte\n    7ca16 LocalVariable SpawnType\n    7ca27 ByteConst 1\n7ca2a JumpIfNot target=344\n  7ca2f LocalVariable K2Node_SwitchEnum_CmpSuccess\n7ca40 LetBool\n  7ca41 LocalVariable K2Node_SwitchEnum_CmpSuccess\n  7ca52 CallMath import:-305:NotEqual_ByteByte\n    7ca57 LocalVariable SpawnType\n    7ca68 ByteConst 2\n7ca6b JumpIfNot target=517\n  7ca70 LocalVariable K2Node_SwitchEnum_CmpSuccess\n7ca81 LetBool\n  7ca82 LocalVariable K2Node_SwitchEnum_CmpSuccess\n  7ca93 CallMath import:-305:NotEqual_ByteByte\n    7ca98 LocalVariable SpawnType\n    7caa9 ByteConst 3\n7caac JumpIfNot target=751\n  7cab1 LocalVariable K2Node_SwitchEnum_CmpSuccess\n7cac2 LetBool\n  7cac3 LocalVariable K2Node_SwitchEnum_CmpSuccess\n  7cad4 CallMath import:-305:NotEqual_ByteByte\n    7cad9 LocalVariable SpawnType\n    7caea ByteConst 4\n7caed JumpIfNot target=279\n  7caf2 LocalVariable K2Node_SwitchEnum_CmpSuccess\n7cb03 PopExecutionFlow\n7cb04 LetBool\n  7cb05 LocalOutVariable Found\n  7cb16 True\n7cb17 Let property=AnimationLabel\n  7cb28 LocalOutVariable AnimationLabel\n  7cb39 LocalVariable TempLabel\n7cb4a Jump target=848\n7cb4f Let property=CallFunc_Conv_StringToName_ReturnValue\n  7cb60 LocalVariable CallFunc_Conv_StringToName_ReturnValue\n  7cb71 CallMath import:-328:Conv_StringToName\n    7cb76 LocalVariable SpawnLabel\n7cb88 Let property=TempLabel\n  7cb99 LocalVariable TempLabel\n  7cbaa LocalVariable CallFunc_Conv_StringToName_ReturnValue\n7cbbb PopExecutionFlow\n7cbbc Let property=CallFunc_Conv_StringToName_ReturnValue_1\n  7cbcd LocalVariable CallFunc_Conv_StringToName_ReturnValue_1\n  7cbde CallMath import:-328:Conv_StringToName\n    7cbe3 LocalVariable SpawnLabel\n7cbf5 LetBool\n  7cbf6 LocalVariable CallFunc_GetNPCDataByNPCLabel_ReturnValue\n  7cc07 CallMath import:-759:GetNPCDataByNPCLabel\n    7cc0c LocalVariable CallFunc_GetNPCDataByNPCLabel_outData\n    7cc1d LocalVariable CallFunc_Conv_StringToName_ReturnValue_1\n7cc2f JumpIfNot target=470\n  7cc34 LocalVariable CallFunc_GetNPCDataByNPCLabel_ReturnValue\n7cc45 Let property=TempLabel\n  7cc56 LocalVariable TempLabel\n  7cc67 StructMemberContext ActionID\n    7cc78 LocalVariable CallFunc_GetNPCDataByNPCLabel_outData\n7cc89 PopExecutionFlow\n7cc8a LetBool\n  7cc8b LocalOutVariable Found\n  7cc9c False\n7cc9d Let property=AnimationLabel\n  7ccae LocalOutVariable AnimationLabel\n  7ccbf NameConst None\n7ccc8 Jump target=848\n7cccd Let property=CallFunc_Conv_StringToName_ReturnValue_2\n  7ccde LocalVariable CallFunc_Conv_StringToName_ReturnValue_2\n  7ccef CallMath import:-328:Conv_StringToName\n    7ccf4 LocalVariable SpawnLabel\n7cd06 LetBool\n  7cd07 LocalVariable CallFunc_GetPlacementData_ReturnValue\n  7cd18 CallMath import:-761:GetPlacementData\n    7cd1d LocalVariable CallFunc_GetPlacementData_outData\n    7cd2e LocalVariable CallFunc_Conv_StringToName_ReturnValue_2\n7cd40 JumpIfNot target=704\n  7cd45 LocalVariable CallFunc_GetPlacementData_ReturnValue\n7cd56 LetBool\n  7cd57 LocalVariable CallFunc_GetNPCDataByNPCLabel_ReturnValue_1\n  7cd68 CallMath import:-759:GetNPCDataByNPCLabel\n    7cd6d LocalVariable CallFunc_GetNPCDataByNPCLabel_outData_1\n    7cd7e StructMemberContext ResourceLabel\n      7cd8f LocalVariable CallFunc_GetPlacementData_outData\n7cda1 JumpIfNot target=704\n  7cda6 LocalVariable CallFunc_GetNPCDataByNPCLabel_ReturnValue_1\n7cdb7 Let property=TempLabel\n  7cdc8 LocalVariable TempLabel\n  7cdd9 StructMemberContext ActionID\n    7cdea LocalVariable CallFunc_GetNPCDataByNPCLabel_outData_1\n7cdfb PopExecutionFlow\n7cdfc LetBool\n  7cdfd LocalOutVariable Found\n  7ce0e False\n7ce0f Let property=AnimationLabel\n  7ce20 LocalOutVariable AnimationLabel\n  7ce31 NameConst None\n7ce3a Jump target=848\n7ce3f Let property=CallFunc_Conv_StringToInt_ReturnValue\n  7ce50 LocalVariable CallFunc_Conv_StringToInt_ReturnValue\n  7ce61 CallMath import:-327:Conv_StringToInt\n    7ce66 LocalVariable SpawnLabel\n7ce78 LocalVirtualFunction GetAnimationLabelPartyPosition\n  7ce81 LocalVariable CallFunc_Conv_StringToInt_ReturnValue\n  7ce92 LocalVariable CallFunc_GetAnimationLabelPartyPosition_AnimationLabel\n7cea4 Let property=TempLabel\n  7ceb5 LocalVariable TempLabel\n  7cec6 LocalVariable CallFunc_GetAnimationLabelPartyPosition_AnimationLabel\n7ced7 PopExecutionFlow\n7ced8 Return\n  7ced9 Nothing\n7ceda EndOfScript"
+    },
+    "defaults": [
+      {
+        "UberGraphFrame": {},
+        "InitCameraPos": {
+          "kind": "native-struct",
+          "type": "Vector",
+          "components": [
+            {
+              "kind": "float32",
+              "bits": 0,
+              "value": 0
+            },
+            {
+              "kind": "float32",
+              "bits": 0,
+              "value": 0
+            },
+            {
+              "kind": "float32",
+              "bits": 0,
+              "value": 0
+            }
+          ]
+        },
+        "BalloonParam": {
+          "Text": {
+            "Type": "EBalloonType::NORMAL",
+            "Reset": [],
+            "Height": [],
+            "Width": [],
+            "Names": [],
+            "Text": []
+          },
+          "VoiceLabel": [],
+          "TargetActor": {
+            "kind": "object",
+            "index": 0,
+            "path": null
+          },
+          "Offset": {
+            "kind": "native-struct",
+            "type": "Vector2D",
+            "components": [
+              {
+                "kind": "float32",
+                "bits": 0,
+                "value": 0
+              },
+              {
+                "kind": "float32",
+                "bits": 0,
+                "value": 0
+              }
+            ]
+          },
+          "EnableTail": false,
+          "UnderOffset": {
+            "kind": "native-struct",
+            "type": "Vector2D",
+            "components": [
+              {
+                "kind": "float32",
+                "bits": 0,
+                "value": 0
+              },
+              {
+                "kind": "float32",
+                "bits": 0,
+                "value": 0
+              }
+            ]
+          },
+          "BalloonDir": "EEventBalloonDir::DEFAULT",
+          "BalloonOffsetScale": 0,
+          "TextPosition": "EBALLOON_TEXT_POS::eTOP",
+          "EnableCustomFadeTime": false,
+          "FadeOutTime": 0
+        },
+        "IsSetUpEventData": true,
+        "TargetInventionData": {
+          "ID": 0,
+          "InventionItemlabel": "None",
+          "LearnAbilitylabel": "None",
+          "Materials": []
+        },
+        "CharacterList": [
+          "EPlayableCharacterID::eFENCER",
+          "EPlayableCharacterID::eHUNTER",
+          "EPlayableCharacterID::eALCHEMIST",
+          "EPlayableCharacterID::eMERCHANT",
+          "EPlayableCharacterID::ePRIEST",
+          "EPlayableCharacterID::ePROFESSOR",
+          "EPlayableCharacterID::eTHIEF",
+          "EPlayableCharacterID::eDANCER"
+        ],
+        "RestoreEncountTrigger": {
+          "ID": 0,
+          "StartFlag": 0,
+          "StartFlag_2": 0,
+          "StartFlag_3": 0,
+          "EndFlag": 0,
+          "EndFlag_2": 0,
+          "EndFlag_3": 0,
+          "DayTimeDecreaseValue": 0,
+          "DayTimeEncountVolumeName": "None",
+          "NightDecreaseValue": 0,
+          "NightEncountVolumeName": "None",
+          "LostWayDecreaseValue": 0,
+          "LostWayEncountVolumeName": "None",
+          "DarkAreaDecreaseValue": 0,
+          "DarkAreaEncountVolumeName": "None"
+        },
+        "ZenithColor": {
+          "kind": "native-struct",
+          "type": "LinearColor",
+          "components": [
+            {
+              "kind": "float32",
+              "bits": 0,
+              "value": 0
+            },
+            {
+              "kind": "float32",
+              "bits": 0,
+              "value": 0
+            },
+            {
+              "kind": "float32",
+              "bits": 0,
+              "value": 0
+            },
+            {
+              "kind": "float32",
+              "bits": 1065353216,
+              "value": 1
+            }
+          ]
+        },
+        "CloudColor": {
+          "kind": "native-struct",
+          "type": "LinearColor",
+          "components": [
+            {
+              "kind": "float32",
+              "bits": 0,
+              "value": 0
+            },
+            {
+              "kind": "float32",
+              "bits": 0,
+              "value": 0
+            },
+            {
+              "kind": "float32",
+              "bits": 0,
+              "value": 0
+            },
+            {
+              "kind": "float32",
+              "bits": 1065353216,
+              "value": 1
+            }
+          ]
+        },
+        "BackupPlayerPlacement_PChat": {
+          "MoveMode": "EKSCharacterMoveMode::WALK",
+          "LadderUpEndPos": {
+            "kind": "native-struct",
+            "type": "Vector",
+            "components": [
+              {
+                "kind": "float32",
+                "bits": 0,
+                "value": 0
+              },
+              {
+                "kind": "float32",
+                "bits": 0,
+                "value": 0
+              },
+              {
+                "kind": "float32",
+                "bits": 0,
+                "value": 0
+              }
+            ]
+          },
+          "LadderDownEndPos": {
+            "kind": "native-struct",
+            "type": "Vector",
+            "components": [
+              {
+                "kind": "float32",
+                "bits": 0,
+                "value": 0
+              },
+              {
+                "kind": "float32",
+                "bits": 0,
+                "value": 0
+              },
+              {
+                "kind": "float32",
+                "bits": 0,
+                "value": 0
+              }
+            ]
+          },
+          "MoveLadderPosition": {
+            "kind": "native-struct",
+            "type": "Vector",
+            "components": [
+              {
+                "kind": "float32",
+                "bits": 0,
+                "value": 0
+              },
+              {
+                "kind": "float32",
+                "bits": 0,
+                "value": 0
+              },
+              {
+                "kind": "float32",
+                "bits": 0,
+                "value": 0
+              }
+            ]
+          },
+          "PlayerLocation": {
+            "kind": "native-struct",
+            "type": "Vector",
+            "components": [
+              {
+                "kind": "float32",
+                "bits": 0,
+                "value": 0
+              },
+              {
+                "kind": "float32",
+                "bits": 0,
+                "value": 0
+              },
+              {
+                "kind": "float32",
+                "bits": 0,
+                "value": 0
+              }
+            ]
+          },
+          "EncountTriggerId": 0,
+          "EquipLantern": {
+            "EquipLanternDayTime": [],
+            "EquipLanternNight": []
+          },
+          "EnableSwitchIndoorTrigger": []
+        },
+        "BackupPlayerPlacement_Theater": {
+          "MoveMode": "EKSCharacterMoveMode::WALK",
+          "LadderUpEndPos": {
+            "kind": "native-struct",
+            "type": "Vector",
+            "components": [
+              {
+                "kind": "float32",
+                "bits": 0,
+                "value": 0
+              },
+              {
+                "kind": "float32",
+                "bits": 0,
+                "value": 0
+              },
+              {
+                "kind": "float32",
+                "bits": 0,
+                "value": 0
+              }
+            ]
+          },
+          "LadderDownEndPos": {
+            "kind": "native-struct",
+            "type": "Vector",
+            "components": [
+              {
+                "kind": "float32",
+                "bits": 0,
+                "value": 0
+              },
+              {
+                "kind": "float32",
+                "bits": 0,
+                "value": 0
+              },
+              {
+                "kind": "float32",
+                "bits": 0,
+                "value": 0
+              }
+            ]
+          },
+          "MoveLadderPosition": {
+            "kind": "native-struct",
+            "type": "Vector",
+            "components": [
+              {
+                "kind": "float32",
+                "bits": 0,
+                "value": 0
+              },
+              {
+                "kind": "float32",
+                "bits": 0,
+                "value": 0
+              },
+              {
+                "kind": "float32",
+                "bits": 0,
+                "value": 0
+              }
+            ]
+          },
+          "PlayerLocation": {
+            "kind": "native-struct",
+            "type": "Vector",
+            "components": [
+              {
+                "kind": "float32",
+                "bits": 0,
+                "value": 0
+              },
+              {
+                "kind": "float32",
+                "bits": 0,
+                "value": 0
+              },
+              {
+                "kind": "float32",
+                "bits": 0,
+                "value": 0
+              }
+            ]
+          },
+          "EncountTriggerId": 0,
+          "EquipLantern": {
+            "EquipLanternDayTime": [],
+            "EquipLanternNight": []
+          },
+          "EnableSwitchIndoorTrigger": []
+        },
+        "m_pMPC": {
+          "kind": "object",
+          "index": -851,
+          "path": "/Game/Environment/Resource/Sky/Material/MPC/MPC_MJEnvTimeZone.MPC_MJEnvTimeZone"
+        },
+        "EventListDb": {
+          "kind": "object",
+          "index": -185,
+          "path": "/Game/Event/Database/EventList.EventList"
+        },
+        "PostProcessMaterial": [
+          {
+            "kind": "object",
+            "index": -849,
+            "path": "/Game/Event/Resource/Mono.Mono"
+          },
+          {
+            "kind": "object",
+            "index": -850,
+            "path": "/Game/UserInterface/Event/Material/DeepThinkingPostMaterial.DeepThinkingPostMaterial"
+          }
+        ],
+        "SepiaLUT": {
+          "kind": "object",
+          "index": -1002,
+          "path": "/Game/Event/Resource/LUT/LUT_CandleLight.LUT_CandleLight"
+        },
+        "GRAY_SCALE": {
+          "kind": "native-struct",
+          "type": "Vector",
+          "components": [
+            {
+              "kind": "float32",
+              "bits": 1063675494,
+              "value": 0.8999999761581421
+            },
+            {
+              "kind": "float32",
+              "bits": 1058474557,
+              "value": 0.5899999737739563
+            },
+            {
+              "kind": "float32",
+              "bits": 1038174126,
+              "value": 0.10999999940395355
+            }
+          ]
+        },
+        "GRAY_ALPHA": {
+          "kind": "native-struct",
+          "type": "Vector",
+          "components": [
+            {
+              "kind": "float32",
+              "bits": 1056964608,
+              "value": 0.5
+            },
+            {
+              "kind": "float32",
+              "bits": 1056964608,
+              "value": 0.5
+            },
+            {
+              "kind": "float32",
+              "bits": 1056964608,
+              "value": 0.5
+            }
+          ]
+        },
+        "PrimaryActorTick": {
+          "bTickEvenWhenPaused": true,
+          "bCanEverTick": true
+        },
+        "bCanBeDamaged": false,
+        "bFindCameraComponentWhenViewTarget": false,
+        "bEnableAutoLODGeneration": false
+      }
+    ]
+  }
+}

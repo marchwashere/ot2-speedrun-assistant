@@ -105,3 +105,11 @@ assert.deepEqual(context.conningStages.slice(-4).map(([label])=>label),[
  "Wellgrove · Girl's Mother Empowering Lychee (M) entreated · change path action, then close without dialogue",
  'Wellgrove · Dancer License acquired']);
 console.log('PASS: immediate Wellgrove night, two-item Entreat, Lychee and Dancer License in Detailed log');
+coast.oresrush_supplies.wellgrove.champion.supplies.al_return={new_delsta:entry,day:entry,highroad:entry,delivery:entry};
+context.conningStages=[];
+vm.runInNewContext(source.slice(start,end),context);
+assert.deepEqual(context.conningStages.slice(-4).map(([label])=>label),[
+ 'New Delsta · fast travel after Dancer License, chapter start discarded',
+ 'New Delsta · switched to day immediately after landing','New Delsta Highroad · entered for Al',
+ 'Al · recovered bag delivered · 1,500 leaves, Slippery Nut, Healing Grape ×3']);
+console.log('PASS: New Delsta day switch, Highroad and Al delivery in Detailed log');

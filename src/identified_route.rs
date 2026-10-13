@@ -164,6 +164,10 @@ pub fn simulate_route(voices:&str,pirro_first:bool,hp:u32,galdera_route:bool)->R
         let supplies=&champion["supplies"];
         assert_eq!(supplies["dancer_license"]["world_after"]["job_licenses"]["5"],1);
         for item in ["ITM_CSM_0670","ITM_MRL_COM_0010","ITM_CSM_0230"] {assert_eq!(supplies["dancer_license"]["world_after"]["route_items"][item],1);}
+        let delivered=&supplies["al_return"]["delivery"]["world_after"];
+        assert_eq!(delivered["map"],"Fld_Cty_1_3");assert_eq!(delivered["time"],2);
+        assert!(delivered["route_items"]["ITM_TRE_SS_TD11_0100_0010"].is_null());
+        assert_eq!(delivered["route_items"]["ITM_CSM_0680"],1);assert_eq!(delivered["route_items"]["ITM_CSM_0010"],3);
         assert_eq!(g["coast"]["oresrush_supplies"]["pickaxe"]["world_after"]["hired_merchant"]["talent"],"SPACT_MERCHANT_014");
         assert_ne!(g["coast"]["southern_sai"]["encounter"]["situation"],"Surprise");
         assert_eq!(g["fight"]["state"]["outcome"],"victory");

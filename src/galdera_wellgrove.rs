@@ -61,6 +61,7 @@ pub(crate) fn finish(entry:&Entry)->Result<Trip> {
         let mut state:world::WorldState=serde_json::from_value(f["before"]["world_after"].clone()).unwrap();
         state.award_victory(ot2_battle_engine::progression::Reward {exp:300_000,jp:0,money:0}).unwrap();
         state.time=4;state.galdera_route=true;
+        state.set_flag(20510,true);state.route_items.insert("ITM_TRE_SS_TD11_0100_0010".into(),1);
         let mut direct=false;let mut adjusted=false;let mut western_adjusted=false;
         for seed in 0u32..128 {
             let rng=CrtRng::new(seed.wrapping_mul(1775700753));

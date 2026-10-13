@@ -10,6 +10,7 @@ fn data()->&'static Data {static D:OnceLock<Data>=OnceLock::new();D.get_or_init(
 #[derive(Debug,Serialize)]pub struct Trip {
     pub night:Entry,pub tavern_entreat:Entry,pub mother_entreat:Entry,pub dancer_license:Entry,
     pub tavern_required_levels:Vec<u32>,pub agnea_level:u32,pub required_level:u32,
+    pub al_return:crate::galdera_al_return::Trip,
 }
 fn point(l:&mut Loader<'_>,before:CrtRng)->Entry {
     Entry {arrival:before,after:l.rng,world_after:l.state.clone(),trace:std::mem::take(&mut l.trace),decisions:std::mem::take(&mut l.decisions)}
@@ -41,5 +42,6 @@ pub(crate) fn finish(entry:&Entry)->Result<Trip> {
     l.state.job_licenses.entry(d.dancer_job).or_insert(1);
     l.boundary("First Dancer License acquired; no job assignment or skill purchases");
     let dancer_license=point(&mut l,mother_entreat.after);
-    Ok(Trip {night,tavern_entreat,mother_entreat,dancer_license,tavern_required_levels:d.shopkeeper.items.iter().map(|i|i.required_level).collect(),agnea_level,required_level:d.mother.required_level})
+    let al_return=crate::galdera_al_return::finish(&dancer_license)?;
+    Ok(Trip {night,tavern_entreat,mother_entreat,dancer_license,tavern_required_levels:d.shopkeeper.items.iter().map(|i|i.required_level).collect(),agnea_level,required_level:d.mother.required_level,al_return})
 }

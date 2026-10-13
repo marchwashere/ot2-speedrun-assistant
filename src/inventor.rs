@@ -613,7 +613,11 @@ mod gravell_integration_tests {
  fn coast_extension_freezes_exp100_and_replays_the_adjusted_finisher() {
   let fixture:serde_json::Value=serde_json::from_str(include_str!("../data/source/gravell-complete-route-fixture.json")).unwrap();
   let b=&fixture["before"];
-  let entry=Entry {arrival:serde_json::from_value(b["arrival"].clone()).unwrap(),after:serde_json::from_value(b["after"].clone()).unwrap(),world_after:serde_json::from_value(b["world_after"].clone()).unwrap(),trace:vec![],decisions:vec![]};
+  let mut entry=Entry {arrival:serde_json::from_value(b["arrival"].clone()).unwrap(),after:serde_json::from_value(b["after"].clone()).unwrap(),world_after:serde_json::from_value(b["world_after"].clone()).unwrap(),trace:vec![],decisions:vec![]};
+  // This older fixture starts after the preceding route. Supply its Galdera
+  // bag-recovery prerequisite; the full transcript test replays the real grant.
+  entry.world_after.set_flag(20510,true);
+  entry.world_after.route_items.insert("ITM_TRE_SS_TD11_0100_0010".into(),1);
   let mut g=gravell_arrival(&entry).unwrap().unwrap();
   let prefix=serde_json::to_value(&g.fight.actions[..g.fight.actions.len()-1]).unwrap();
   let reward=g.rewards.awarded;
@@ -725,6 +729,21 @@ mod gravell_integration_tests {
   assert_eq!(ws.dancer_license.world_after.time,4);
   assert_eq!(serde_json::to_value(&ws.dancer_license.world_after.character_progression).unwrap(),serde_json::to_value(&t.wellgrove.world_after.character_progression).unwrap());
   assert_eq!(ws.dancer_license.world_after.active_scenarios,t.wellgrove.world_after.active_scenarios);
+  let ar=&ws.al_return;
+  assert_eq!(ar.new_delsta.arrival,ws.dancer_license.after);
+  assert_eq!(ar.new_delsta.world_after.map,"Twn_Cty_1_1_A");assert_eq!(ar.new_delsta.world_after.time,4);
+  assert_eq!(ar.day.arrival,ar.new_delsta.after);assert_eq!(ar.day.world_after.time,2);
+  assert_eq!(ar.highroad.arrival,ar.day.after);assert_eq!(ar.highroad.world_after.map,"Fld_Cty_1_3");
+  assert!(ar.highroad.world_after.route_items.contains_key("ITM_TRE_SS_TD11_0100_0010"));
+  assert!(ar.delivery.world_after.flag(20511));
+  assert!(!ar.delivery.world_after.route_items.contains_key("ITM_TRE_SS_TD11_0100_0010"));
+  assert_eq!(ar.delivery.world_after.route_items.get("ITM_CSM_0680"),Some(&1));
+  assert_eq!(ar.delivery.world_after.route_items.get("ITM_CSM_0010"),Some(&3));
+  assert_eq!(ar.reward_money,1500);
+  assert_eq!(ar.delivery.trace.iter().filter(|r|matches!(r.kind,world::DrawKind::Counter)).count(),2);
+  assert!(!ar.delivery.world_after.existing_npcs.iter().any(|id|world::catalog().placements[id].resource=="NPC_SS_TD11_0100_0100"));
+  assert_eq!(ar.delivery.world_after.active_scenarios,ws.dancer_license.world_after.active_scenarios);
+  assert_eq!(serde_json::to_value(&ar.delivery.world_after.character_progression).unwrap(),serde_json::to_value(&ws.dancer_license.world_after.character_progression).unwrap());
   assert!(matches!(s.encounter.situation.as_deref(),Some("Normal"|"Preemptive")));
   assert_eq!(s.escape.chance_percent,100);assert!(s.escape.success);
   assert_eq!(s.menu.party_levels,s.arrival.world_after.party.iter().map(|id|s.arrival.world_after.character_progression[id].level).collect::<Vec<_>>());

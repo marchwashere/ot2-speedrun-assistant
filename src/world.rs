@@ -1032,9 +1032,23 @@ impl<'a> Loader<'a> {
                 }
                 5500 if name=="SC_FC13_Tutorial_0400" && c.index==4 => {
                     ensure(self.state.flag(20510),"Al's bag must be recovered before delivery")?;
+                    ensure(choices.get(&(name.into(),4)).map(String::as_str)==Some("eDIALOG_YES"),"Al bag delivery requires confirming Yes")?;
+                    let item="ITM_TRE_SS_TD11_0100_0010";
+                    let count=self.state.route_items.get_mut(item).ok_or_else(||SimError("Al's recovered bag is missing".into()))?;
+                    ensure(*count>0,"Al's recovered bag is missing")?;*count-=1;
+                    if *count==0 {self.state.route_items.remove(item);}
+                    self.boundary("Al: confirmed bag delivery; SubDeliveryItem consumes recovered bag");
                     pc=5;
                 }
-                1310 if name=="SC_FC13_Tutorial_0400" && c.opt==["SS_TUT_003","1"] => {self.boundary("The Traveler's Bag completed: 1,500 leaves, Slippery Nut, Healing Grape x3");}
+                2000 if name=="SC_FC13_Tutorial_0310" && c.index==29 && c.opt==["ITM_TRE_SS_TD11_0100_0010","1"] => {
+                    *self.state.route_items.entry(c.opt[0].clone()).or_default()+=1;
+                    self.boundary("Recovered Al's bag added to inventory");
+                }
+                1310 if name=="SC_FC13_Tutorial_0400" && c.opt==["SS_TUT_003","1"] => {
+                    *self.state.route_items.entry("ITM_CSM_0680".into()).or_default()+=1;
+                    *self.state.route_items.entry("ITM_CSM_0010".into()).or_default()+=3;
+                    self.boundary("The Traveler's Bag completed: 1,500 leaves, Slippery Nut, Healing Grape x3");
+                }
                 4|10|20|30|40|55|60|62|65|100|106|200|203|210|220|240|300|310|710|711|8010|9100|2000|5005 if matches!(name,"SC_SP_Tutorial_0200"|"SC_FC13_Tutorial_0310"|"SC_FC13_Tutorial_0400") => {}
                 70 | 71 => {
                     let v = c.opt.first().map(String::as_str);
