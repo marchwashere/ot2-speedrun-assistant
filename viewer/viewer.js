@@ -842,7 +842,7 @@ function renderCrackridgeVoyage() {
   $('canalbrine-route-log').hidden=true;
   $('canalbrine-water-result').hidden=true;
   $('canalbrine-water-log').hidden=true;
-  for(const id of ['new-delsta-bg-result','crackridge-bg-result','clockbank-bg-result','oresrush-time-result','cropdale-time-result','conning-north-result','conning-west-result','conning-steal-result','inventor-escape-result','clockbank-movement-result','crackridge-return-result','southern-crackridge-result','western-crackridge-result','western-crackridge-return-result','gravell-result','galdera-coast-result','southern-sai-result','eastern-sai-result','western-sai-result','eastern-wellgrove-result','galdera-clockbank-result','galdera-temenos-result','galdera-quicksand-result','galdera-lord-sands-result','galdera-quicksand-loot-result','conning-log']) $(id).hidden=true;
+  for(const id of ['new-delsta-bg-result','crackridge-bg-result','clockbank-bg-result','oresrush-time-result','cropdale-time-result','conning-north-result','conning-west-result','conning-steal-result','inventor-escape-result','clockbank-movement-result','crackridge-return-result','southern-crackridge-result','southern-crackridge-altar-return-result','western-crackridge-result','western-crackridge-return-result','gravell-result','galdera-coast-result','southern-sai-result','eastern-sai-result','western-sai-result','eastern-wellgrove-result','galdera-clockbank-result','galdera-temenos-result','galdera-quicksand-result','galdera-lord-sands-result','galdera-quicksand-loot-result','conning-log']) $(id).hidden=true;
   const early=result.post_battle_field?.flats_escape?.early_cait;
   const timing=early?.southern_rare_target?'after':early?.snows_approach?.predicted_before_osvald?'before':snowsEncounterTiming ?? 'after';
   const exit=result.post_battle_field?.flats_escape?.snows_escape?.[timing+'_osvald'];
@@ -1080,7 +1080,19 @@ function renderCrackridgeVoyage() {
               for(const [label,e] of [['Southern Crackridge Wilds · loaded',a.arrival],['Southern Crackridge Wilds · escaped',a.field_return]]) {conningStages.push([label,e]);conningSpans.push(...e.trace);}
               conningPoints.push(...lateRouteMenuCheckpoints('Southern Crackridge Wilds',a));
               conningSpans.push(...a.escape.trace);
-              for(const [key,label,b] of [['western-crackridge','Western Crackridge Wilds · before town',a.southern],['western-crackridge-return','Western Crackridge Wilds · after town',a.southern?.southern]]) {
+              let western=a.southern;
+              if(a.altar) {
+                const v=a.altar,m=v.movement;
+                $('southern-crackridge-routine').innerHTML=instructionBoxHtml(['Run until the first encounter'])+lateRouteInstructions(a)+instructionBoxHtml(['After Escape, toward Altar of the Trader: Run first '+m.run_percent.toFixed(1)+'% · walk remaining '+(100-m.run_percent).toFixed(1)+'% (3-decrement leeway; no second encounter)']);
+                for(const [label,e] of [['Southern Crackridge · altar approach complete',v.approach_exit],['Altar of the Trader · loaded',v.arrival],['Partitio · Negotiate Schedule learned',v.learned]]) {conningStages.push([label,e]);conningSpans.push(...e.trace);}
+                const back=a.southern;
+                $('southern-crackridge-altar-return-result').hidden=false;
+                $('southern-crackridge-altar-return-routine').innerHTML=lateRouteInstructions(back);
+                for(const [label,e] of [['Southern Crackridge after altar · loaded',back.arrival],['Southern Crackridge after altar · escaped',back.field_return]]) {conningStages.push([label,e]);conningSpans.push(...e.trace);}
+                conningPoints.push(...lateRouteMenuCheckpoints('Southern Crackridge after altar',back));conningSpans.push(...back.escape.trace);
+                western=back.southern;
+              }
+              for(const [key,label,b] of [['western-crackridge','Western Crackridge Wilds · before town',western],['western-crackridge-return','Western Crackridge Wilds · after town',western?.southern]]) {
                 if(!b) continue;
                 if(b.bg_adjustment) {
                   const c=b.bg_adjustment;

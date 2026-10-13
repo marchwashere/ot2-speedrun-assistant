@@ -5332,6 +5332,41 @@
         false,
         false
       ]
+    },
+    "Dng_Wld_2_Job": {
+      "id": 95,
+      "streams": [
+        "Dng_Wld_2_Job",
+        "Dng_Wld_2_Job_Art",
+        "Dng_Wld_2_Job_Coll",
+        "Btl_Fld_Mnt_Land_A"
+      ],
+      "field_streams": [
+        "Dng_Wld_2_Job",
+        "Dng_Wld_2_Job_Art",
+        "Dng_Wld_2_Job_Coll"
+      ],
+      "environment_draws": [],
+      "placements": [
+        "EV_TRIGGER_SHO_ADVANCED_ABILITY_0000"
+      ],
+      "counter": {
+        "min": 1000,
+        "range_a": 400,
+        "range_b": 400,
+        "first_ratio": 0.5
+      },
+      "bar_event": "None",
+      "bar_allowed": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ]
     }
   },
   "placements": {
@@ -47283,6 +47318,22 @@
       "prologue": "EPlayableCharacterID::eNONE",
       "not_final": false,
       "excludes": []
+    },
+    "EV_TRIGGER_SHO_ADVANCED_ABILITY_0000": {
+      "kind": 3,
+      "resource": "None",
+      "action": null,
+      "begin": 0,
+      "end": 2503,
+      "time": "eALL",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
     }
   },
   "flag_rules": [
@@ -81825,6 +81876,226 @@
         },
         {
           "index": 1,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        }
+      ]
+    },
+    "SHRINE_SHO_0100": {
+      "map_id": 0,
+      "reset_counter": false,
+      "completion": null,
+      "commands": [
+        {
+          "index": 0,
+          "cmd": 1100,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "NARRATION_SHR_SHO_01"
+          ]
+        },
+        {
+          "index": 1,
+          "cmd": 62,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "2"
+          ]
+        },
+        {
+          "index": 2,
+          "cmd": 1,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 3,
+          "cmd": 2,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 4,
+          "cmd": 200,
+          "target": -1,
+          "text": "",
+          "opt": [
+            "10",
+            "1",
+            "0",
+            "ShoJ000_Mle"
+          ]
+        },
+        {
+          "index": 5,
+          "cmd": 300,
+          "target": -1,
+          "text": "",
+          "opt": [
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 6,
+          "cmd": 52,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "2"
+          ]
+        },
+        {
+          "index": 7,
+          "cmd": 910,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "se_jobget"
+          ]
+        },
+        {
+          "index": 8,
+          "cmd": 700,
+          "target": 10,
+          "text": "",
+          "opt": [
+            "EVE_JOBGET_A",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 9,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "4000"
+          ]
+        },
+        {
+          "index": 10,
+          "cmd": 910,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "se_menu_ability_on"
+          ]
+        },
+        {
+          "index": 11,
+          "cmd": 5001,
+          "target": 0,
+          "text": "ED_SHO_ADVANCEABILITY_0010",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 12,
+          "cmd": 62,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "2"
+          ]
+        },
+        {
+          "index": 13,
+          "cmd": 310,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 14,
+          "cmd": 220,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 15,
+          "cmd": 1,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 16,
+          "cmd": 2,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 17,
+          "cmd": 230,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 18,
+          "cmd": 8910,
+          "target": 4,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 19,
+          "cmd": 70,
+          "target": 2503,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 20,
+          "cmd": 9990,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 21,
+          "cmd": 52,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "2"
+          ]
+        },
+        {
+          "index": 22,
           "cmd": 10000,
           "target": 0,
           "text": "",

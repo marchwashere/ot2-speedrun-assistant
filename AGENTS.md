@@ -1,5 +1,16 @@
 # Active project
 
+- Galdera now visits Altar of the Trader BEFORE first Western Crackridge visit.
+  Harbor -> Southern encounter -> altar EX2 Negotiate Schedule -> Southern
+  encounter -> Western -> town -> Western -> Chubby (five field encounters).
+  First Southern: run to encounter; manipulate Escape reset, then maximize safe
+  run/walk percentage over remaining 286-run/301-walk distance +3 leeway.
+  Record actual traveled prefix, no second encounter before altar; separate UI
+  return-Southern card. EX abilities are separate from paid job skills/support
+  counts. Map95/event SHRINE_SHO_0100, flag2503, Partitio EX slot1 ABI_SET_MER_090.
+  No event RNG; native loads retained. Galdera departure window3000/preferred1400;
+  Any% unchanged. See docs/galdera-altar.md; new retail checkpoints pending.
+
 - After Gaol spear: teleport Gravell, night, Debt Collector Ambush (level30),
   first Porta dialogue restores Sword/Axe and grants Armsmaster/Peak Performance;
   day, sell Axe then Sword with Smooth Talker (one RNG draw each,250000 total),

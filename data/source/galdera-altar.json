@@ -1,0 +1,78 @@
+{
+  "sources": [
+    {
+      "source": "/Game/Character/Database/PlayableCharacterDB",
+      "sha256": "d624b29cafae9397ea9e6557930820c1bc22fcbaea37617fb07f76c9ca80b650"
+    },
+    {
+      "source": "/Game/GameText/Database/GameTextEN",
+      "sha256": "81d35e50a54c02b6f26764dcca33a49154eaeb358a17cb2f320b638516a550bc"
+    },
+    {
+      "source": "/Game/Event/Database/EventList",
+      "sha256": "acbbb094b2b071271fde8e4adf26b0df3661594556b3835b96e93a97300089a3"
+    }
+  ],
+  "event": {
+    "id": "SHRINE_SHO_0100",
+    "EventIndex": 0,
+    "ExecCode": "SHRINE_SHO_0100",
+    "CueSheetName": "None",
+    "RadarMapExitCode": "None",
+    "MapID": "None",
+    "Kind": "EEventKind::EVENT_OTHER",
+    "EventSoundLabel": "None",
+    "MissionLabel": "None",
+    "EventSkip": 0,
+    "LevelTriggerID": "ELevelTriggerID::Trigger_01",
+    "LanthanumFlag": 0,
+    "EncountTrigger": "None",
+    "CameraLockTrigger1": "None",
+    "CameraLockTrigger2": "None",
+    "CameraLockTrigger3": "None",
+    "StartFadeOutFlag": 0,
+    "ChengeTimeSequencer": "None",
+    "ChengeFinishTimeSequencer": "None",
+    "TargetChara": 0,
+    "EncountReset": false,
+    "Args": [
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      "",
+      ""
+    ]
+  },
+  "partitio_ex": [
+    {
+      "AbilityID": "ABI_SET_MER_080",
+      "HiddenText": "eADVANCED_ABILITY_HIDDEN_TEXT_06"
+    },
+    {
+      "AbilityID": "ABI_SET_MER_090",
+      "HiddenText": "eADVANCED_ABILITY_HIDDEN_TEXT_07"
+    }
+  ],
+  "skill_name": "Negotiate Schedule",
+  "native": {
+    "dispatch": "8910 / 0x22ce -> FUN_140e9c5c0 -> FUN_140f34de0(target, opt[0], true)",
+    "effect": "Sets Partitio advanced-ability slot1 in its separate save array and notifies acquisition; no JP, regular job ability count, support unlock, or CRT draw. Shrine script subsequently sets flag2503, refreshes placements; EncountReset=false. Fixed narration, actor placement, effects and message contain no randomized selection."
+  },
+  "movement": {
+    "run": 286,
+    "walk": 301,
+    "leeway": 3,
+    "before_battle": "Run until encounter; subtract actual counter_updates from measured distance.",
+    "after_battle": "Round remaining walking distance up; pad both remaining endpoints by3; select maximum integer running updates leaving counter>0."
+  }
+}

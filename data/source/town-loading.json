@@ -319,6 +319,10 @@
       "sha256": "98fc19ba1f9559a46fff91c49216c5db65dd51dc5ae640416ce9a57a61fd6701"
     },
     {
+      "source": "/Game/Event/json/SHRINE_SHO_0100",
+      "sha256": "ed3a428fd14a82a545efb182d3e87c7fab565426f1fca5fd91c9e4045906c9f1"
+    },
+    {
       "source": "/Game/Event/json/MapInStorySelect",
       "sha256": "e434039b004b97e0666e6652c597a21d8358abcecd3a279d25f2a0f7431093e6"
     },
@@ -1061,6 +1065,22 @@
     {
       "source": "/Game/Level/Level/Wilderness/Btl_Fld_Wld_Land_A.umap",
       "sha256": "4368b4dd54b674d6913ace1664c93a92cbb0bfadc7a22910ca2489f1b1c2ca8f"
+    },
+    {
+      "source": "/Game/Level/Level/Wilderness/Dng_Wld_2_Job.umap",
+      "sha256": "cc5de5e668fecd9dfda6e7efe4e970707b259687c860d0dc10e3acf0c0b42c42"
+    },
+    {
+      "source": "/Game/Level/Level/Wilderness/Dng_Wld_2_Job_Art.umap",
+      "sha256": "f214819dbd0a0419a5db1980055e1d90e675f62b22f1a858a79cf34200602c49"
+    },
+    {
+      "source": "/Game/Level/Level/Wilderness/Dng_Wld_2_Job_Coll.umap",
+      "sha256": "f0d61cfe1bcabd7a62ab45fac477670b886a42db1abfd180d025779beae05eeb"
+    },
+    {
+      "source": "/Game/Level/Level/Mount/Btl_Fld_Mnt_Land_A.umap",
+      "sha256": "c7272b7e1b81a6c47d14784ae658d25b1ab357342f62a3b3fe6c5d8b26a27143"
     },
     {
       "source": "/Game/Level/Level/Wilderness/Twn_Wld_1_1_C.umap",

@@ -271,6 +271,8 @@ pub struct CharacterProgression {
 }
 #[derive(Debug,Clone,Default,PartialEq,Eq,PartialOrd,Ord,Hash,Serialize,Deserialize)]
 pub struct CharacterJobs {
+    #[serde(default,skip_serializing_if="BTreeSet::is_empty")]
+    pub ex_abilities:BTreeSet<String>,
     pub secondary_job:Option<u32>,
     /// Source AbilitySet IDs, including the two automatically granted defaults.
     pub learned_abilities:BTreeMap<u32,BTreeSet<String>>,
@@ -278,7 +280,7 @@ pub struct CharacterJobs {
     pub equipped_support:BTreeSet<String>,
 }
 impl CharacterJobs {
-    pub fn is_empty(&self)->bool {self.secondary_job.is_none() && self.learned_abilities.is_empty()
+    pub fn is_empty(&self)->bool {self.ex_abilities.is_empty() && self.secondary_job.is_none() && self.learned_abilities.is_empty()
         && self.unlocked_support.is_empty() && self.equipped_support.is_empty()}
 }
 impl WorldState {
@@ -1013,6 +1015,12 @@ impl<'a> Loader<'a> {
             ensure(c.index == pc, "Invalid event command index")?;
             pc += 1;
             match c.cmd {
+                8910 if name=="SHRINE_SHO_0100" && c.target==4 && c.opt==["1"] => {
+                    ensure(self.state.party.contains(&4),"Negotiate Schedule requires Partitio in the party")?;
+                    self.state.character_progression.get_mut(&4).ok_or_else(||SimError("Missing Partitio progression".into()))?.jobs.ex_abilities.insert("ABI_SET_MER_090".into());
+                    self.boundary("Partitio learned Negotiate Schedule (EX); no JP or CRT draw");
+                }
+                1100 | 200 | 300 | 700 | 10 | 5001 | 220 if name=="SHRINE_SHO_0100" => {}
                 8601 if name=="SYS_WPM_GUILD_0010" => weapon_master.start(),
                 8602 if name=="SYS_WPM_GUILD_0010" => {
                     let branch=weapon_master.branch(self)?;

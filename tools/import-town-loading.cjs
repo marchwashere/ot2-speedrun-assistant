@@ -29,7 +29,7 @@ const taskRows = table('Story/Database/MainStoryTask');
 const tutorials = table('Tutorial/Database/TutorialFlagPart');
 const rules = table('Flag/Database/FlagRandomControlDB');
 const overrides = table('Flag/Database/FlagOverrideDB');
-const maps = levels.filter(r => [6,19,20,28,40,44,45,46,47,48,50,54,57,64,65,69,85,86,87,88,90,100,101,107,110,111,123,124,125,129,132,145,146,152,153,155,169,170,189].includes(r.ID) || r.id === 'Fld_Fst_1_3' || r.id === 'Twn_Wld_3_1_A' || ['Fld_Dst_2_2','Fld_Dst_2_3','Fld_Dst_2_4','Fld_Fst_2_2','Twn_Dst_2_1_A','Twn_Dst_2_1_B'].includes(r.id) || r.id.startsWith('Twn_Cty_1_'));
+const maps = levels.filter(r => [6,19,20,28,40,44,45,46,47,48,50,54,57,64,65,69,85,86,87,88,90,95,100,101,107,110,111,123,124,125,129,132,145,146,152,153,155,169,170,189].includes(r.ID) || r.id === 'Fld_Fst_1_3' || r.id === 'Twn_Wld_3_1_A' || ['Fld_Dst_2_2','Fld_Dst_2_3','Fld_Dst_2_4','Fld_Fst_2_2','Twn_Dst_2_1_A','Twn_Dst_2_1_B'].includes(r.id) || r.id.startsWith('Twn_Cty_1_'));
 const allMaps = new Map();
 function walk(dir) { for(const e of fs.readdirSync(dir,{withFileTypes:true})) {
   const f = path.join(dir,e.name);
@@ -107,7 +107,7 @@ const labels = new Set(maps.flatMap(m=>lists.find(l=>l.id===m.id)?.LabelList||[]
 const placementBy = new Map(placements.map(p=>[p.id,p]));
 const npcBy = new Map(npcs.map(p=>[p.id,p]));
 const events = {};
-for(const name of [...['0100','0200','0300','0400','0410','0500','0600','0700','0800','0900','0910','1000','1100','1200','1300','1400','1500','1600','1700','1900','2000'].map(s=>'MS_TOU_10_'+s),...['0100','0200','0300','0310','0400'].map(s=>'MS_KEN_00_'+s),...['0100','0200','0300','0310','0400'].map(s=>'MS_SIN_00_'+s),'SC_FC13_Tutorial_0100','MS_KUS_00_0100','MS_GAK_00_0100','MS_ODO_00_0200','MS_SHO_00_0100','MS_SHO_00_0200','MS_TOU_2A_0100','MS_ODO_20_0100','MS_SHO_20_0050',...['0100','0110','0200','0300','0400','0410','0500','0600','0610','0615','0620'].map(n=>'MS_SHO_20_'+n),'SC_LinerShip_Cty_to_Wld','SC_LinerShip_Cty_to_Isd','SC_LinerShip_Isd_to_Sea','SYS_INV_GUILD_0010','SYS_INV_GUILD_0C10','SYS_INV_GUILD_0D10','SYS_SCH_GUILD_0010','SYS_SCH_GUILD_0030','SYS_MER_GUILD_0010','SYS_MER_GUILD_0030','MapInStorySelect']) {
+for(const name of [...['0100','0200','0300','0400','0410','0500','0600','0700','0800','0900','0910','1000','1100','1200','1300','1400','1500','1600','1700','1900','2000'].map(s=>'MS_TOU_10_'+s),...['0100','0200','0300','0310','0400'].map(s=>'MS_KEN_00_'+s),...['0100','0200','0300','0310','0400'].map(s=>'MS_SIN_00_'+s),'SC_FC13_Tutorial_0100','MS_KUS_00_0100','MS_GAK_00_0100','MS_ODO_00_0200','MS_SHO_00_0100','MS_SHO_00_0200','MS_TOU_2A_0100','MS_ODO_20_0100','MS_SHO_20_0050',...['0100','0110','0200','0300','0400','0410','0500','0600','0610','0615','0620'].map(n=>'MS_SHO_20_'+n),'SC_LinerShip_Cty_to_Wld','SC_LinerShip_Cty_to_Isd','SC_LinerShip_Isd_to_Sea','SYS_INV_GUILD_0010','SYS_INV_GUILD_0C10','SYS_INV_GUILD_0D10','SYS_SCH_GUILD_0010','SYS_SCH_GUILD_0030','SYS_MER_GUILD_0010','SYS_MER_GUILD_0030','SHRINE_SHO_0100','MapInStorySelect']) {
   const row=eventRows.find(r=>r.id===name); assert(row);
   const raw=fs.readFileSync(path.join(s.assets.CONTENT,'Event/json',name));
   sources.push({source:'/Game/Event/json/'+name,sha256:s.assets.hash(raw)});
