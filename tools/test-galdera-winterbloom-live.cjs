@@ -85,7 +85,7 @@ function find(v){if(v&&typeof v==='object'){if(v.coast&&v.fight)return v;for(con
   assert.deepEqual(tm.recruitment.world_after.party,[7,6,5,4]);assert(tm.recruitment.world_after.bench.includes(8));
   assert.equal(tm.recruitment.world_after.character_progression[5].level,1);
   assert.equal(tm.recruitment.world_after.character_progression[5].experience,0);
-  const q=tm.quicksand;assert(q);
+  const q=tm.quicksand;assert(q);assert.equal(q.adjustment,undefined);assert.equal(q.additional_time_switches,undefined);assert.deepEqual(q.southern_sai.arrival,q.sai.after);
   assert.deepEqual(q.setup.after,tm.recruitment.after);
   const qw=q.quicksand.world_after;assert.equal(qw.map,'Dng_Dst_2_2');assert.deepEqual(qw.party,[7,6,5,4]);
   assert.equal(qw.character_progression[6].jobs.secondary_job,2);assert.equal(qw.character_progression[5].jobs.secondary_job,5);
@@ -97,7 +97,7 @@ function find(v){if(v&&typeof v==='object'){if(v.coast&&v.fight)return v;for(con
   if(q.western_sai.encounter.situation==='Normal')assert.deepEqual([...q.western_sai.menu.current_order].sort(),[0,1,3]);
   assert.deepEqual(q.western_sai.arrival.arrival,q.southern_sai.after);
   assert.deepEqual(q.quicksand.arrival,q.western_sai.field_return.after);
-  console.log(JSON.stringify({fixture:label,quicksand_switches:q.additional_time_switches,western_menu:q.western_sai.menu.rng.draws,quicksand:q.quicksand.after.draws,order:q.western_sai.menu.current_order}));
+  console.log(JSON.stringify({fixture:label,temenos_boost_cycles:tm.battle.boost_cycles,western_menu:q.western_sai.menu.rng.draws,quicksand:q.quicksand.after.draws,order:q.western_sai.menu.current_order}));
   assert(tm.recruitment.world_after.evasive_maneuvers);assert.equal(tm.battle.report.outcome,'victory');
   assert(tm.recruitment.world_after.character_progression[8].experience>fc.flamechurch.world_after.character_progression[8].experience);
   console.log(JSON.stringify({fixture:label,temenos_menu:tm.battle.at_command_menu.draws,actor:tm.battle.actor,boost_cycles:tm.battle.boost_cycles,recruited:tm.recruitment.after.draws,party:tm.recruitment.world_after.party}));

@@ -4,7 +4,7 @@
   existing licenses/native job stats; retain existing supports, no Temenos Step Ahead.
   Teleport Sai daytime, discard chapters, Southern Sai no encounter, Western Sai
   one Normal/Preemptive encounter with guaranteed Escape, load Quicksand Gaol
-  Dng_Dst_2_2 map40. Only extra Sai night/day pairs repair ambushes. Three-support
+  Dng_Dst_2_2 map40. Temenos recruitment boost cycles repair ambushes; no Sai time switches. Three-support
   opening uses actual [0,1,3] bonus-turn membership; Temenos joins regular turn.
   Distances unmeasured: do not invent counter budgets. See docs/galdera-quicksand.md.
 
