@@ -53,6 +53,7 @@ pub mod conning;
 pub mod gravell_setup;
 pub mod galdera_coast;
 pub mod galdera_oresrush;
+pub mod galdera_winterbloom;
 
 pub mod voice_identification;
 pub mod identified_route;

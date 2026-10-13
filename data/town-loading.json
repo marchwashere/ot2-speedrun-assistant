@@ -68335,6 +68335,730 @@
           ]
         }
       ]
+    },
+    "SC_SS_TSnow21_0200_02A0": {
+      "map_id": 170,
+      "reset_counter": true,
+      "completion": null,
+      "commands": [
+        {
+          "index": 0,
+          "cmd": 4000,
+          "target": 20394,
+          "text": "",
+          "opt": [
+            "8",
+            "0"
+          ]
+        },
+        {
+          "index": 1,
+          "cmd": 9100,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 2,
+          "cmd": 40,
+          "target": -1,
+          "text": "TX_SS_TSn21_0200_0010",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 3,
+          "cmd": 40,
+          "target": -1,
+          "text": "TX_SS_TSn21_0200_0020",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 4,
+          "cmd": 40,
+          "target": -1,
+          "text": "TX_SS_TSn21_0200_0030",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 5,
+          "cmd": 40,
+          "target": -1,
+          "text": "TX_SS_TSn21_0200_0035",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 6,
+          "cmd": 4220,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "5",
+            "6",
+            "7"
+          ]
+        },
+        {
+          "index": 7,
+          "cmd": 40,
+          "target": -1,
+          "text": "TX_SS_TSn21_0200_0030_EX1",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 8,
+          "cmd": 5500,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "8",
+            "71"
+          ]
+        },
+        {
+          "index": 9,
+          "cmd": 62,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "2"
+          ]
+        },
+        {
+          "index": 10,
+          "cmd": 2,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 11,
+          "cmd": 106,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "NPC_SS_TSnow21_0200_0100",
+            "0"
+          ]
+        },
+        {
+          "index": 12,
+          "cmd": 106,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "NACT_Twn_Snw_2_1_A_1100_D000",
+            "0"
+          ]
+        },
+        {
+          "index": 13,
+          "cmd": 200,
+          "target": -1,
+          "text": "",
+          "opt": [
+            "10",
+            "1",
+            "0",
+            "SnwYf001_Fml"
+          ]
+        },
+        {
+          "index": 14,
+          "cmd": 230,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 15,
+          "cmd": 300,
+          "target": -1,
+          "text": "",
+          "opt": [
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 16,
+          "cmd": 8010,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 17,
+          "cmd": 4,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 18,
+          "cmd": 9100,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 19,
+          "cmd": 52,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "2"
+          ]
+        },
+        {
+          "index": 20,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 21,
+          "cmd": 240,
+          "target": 10,
+          "text": "",
+          "opt": [
+            "14",
+            "0"
+          ]
+        },
+        {
+          "index": 22,
+          "cmd": 910,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "se_event_whoosh_041"
+          ]
+        },
+        {
+          "index": 23,
+          "cmd": 40,
+          "target": 10,
+          "text": "TX_SS_TSn21_0200_0040",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 24,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 25,
+          "cmd": 240,
+          "target": 10,
+          "text": "",
+          "opt": [
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 26,
+          "cmd": 40,
+          "target": 10,
+          "text": "TX_SS_TSn21_0200_0050",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 27,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 28,
+          "cmd": 240,
+          "target": 10,
+          "text": "",
+          "opt": [
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 29,
+          "cmd": 910,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "se_event_whoosh_06"
+          ]
+        },
+        {
+          "index": 30,
+          "cmd": 40,
+          "target": 10,
+          "text": "TX_SS_TSn21_0200_0080",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 31,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 32,
+          "cmd": 65,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1000",
+            "2"
+          ]
+        },
+        {
+          "index": 33,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 34,
+          "cmd": 910,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "se_event_swordhit3"
+          ]
+        },
+        {
+          "index": 35,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1000"
+          ]
+        },
+        {
+          "index": 36,
+          "cmd": 910,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "se_event_swordhit3"
+          ]
+        },
+        {
+          "index": 37,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1000"
+          ]
+        },
+        {
+          "index": 38,
+          "cmd": 910,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "se_event_hitsword2"
+          ]
+        },
+        {
+          "index": 39,
+          "cmd": 8031,
+          "target": 34155,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 40,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 41,
+          "cmd": 55,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1000",
+            "2"
+          ]
+        },
+        {
+          "index": 42,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 43,
+          "cmd": 240,
+          "target": 10,
+          "text": "",
+          "opt": [
+            "9",
+            "0"
+          ]
+        },
+        {
+          "index": 44,
+          "cmd": 910,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "se_event_whoosh_041"
+          ]
+        },
+        {
+          "index": 45,
+          "cmd": 40,
+          "target": 10,
+          "text": "TX_SS_TSn21_0200_0090",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 46,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 47,
+          "cmd": 40,
+          "target": 10,
+          "text": "TX_SS_TSn21_0200_0100",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 48,
+          "cmd": 240,
+          "target": 10,
+          "text": "",
+          "opt": [
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 49,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 50,
+          "cmd": 240,
+          "target": 10,
+          "text": "",
+          "opt": [
+            "14",
+            "0"
+          ]
+        },
+        {
+          "index": 51,
+          "cmd": 910,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "se_event_whoosh_041"
+          ]
+        },
+        {
+          "index": 52,
+          "cmd": 40,
+          "target": 10,
+          "text": "TX_SS_TSn21_0200_0110",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 53,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 54,
+          "cmd": 240,
+          "target": 10,
+          "text": "",
+          "opt": [
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 55,
+          "cmd": 40,
+          "target": 10,
+          "text": "TX_SS_TSn21_0200_0120",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 56,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 57,
+          "cmd": 240,
+          "target": 10,
+          "text": "",
+          "opt": [
+            "19",
+            "0"
+          ]
+        },
+        {
+          "index": 58,
+          "cmd": 910,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "se_event_whoosh_06"
+          ]
+        },
+        {
+          "index": 59,
+          "cmd": 40,
+          "target": 10,
+          "text": "TX_SS_TSn21_0200_0130",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 60,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 61,
+          "cmd": 62,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "2"
+          ]
+        },
+        {
+          "index": 62,
+          "cmd": 310,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 63,
+          "cmd": 8010,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 64,
+          "cmd": 100,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 65,
+          "cmd": 70,
+          "target": 20393,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 66,
+          "cmd": 70,
+          "target": 34155,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 67,
+          "cmd": 230,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 68,
+          "cmd": 9990,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 69,
+          "cmd": 52,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "2"
+          ]
+        },
+        {
+          "index": 70,
+          "cmd": 1310,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "SS_SNW2_0200",
+            "1"
+          ]
+        },
+        {
+          "index": 71,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 72,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        }
+      ]
     }
   },
   "tutorials": {

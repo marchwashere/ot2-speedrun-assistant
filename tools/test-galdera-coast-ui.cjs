@@ -55,3 +55,11 @@ vm.runInNewContext(source.slice(start,end),context);
 assert.equal(context.conningStages.at(-1)[0],'Sai: East District · Elemental Augmentor entreated · change path action, then close without dialogue');
 assert.equal(context.conningStages.at(-4)[0],'Sai · fast travel back, chapter start discarded');
 console.log('PASS: Sai return, East District, night Entreat with dialogue skip');
+coast.oresrush_supplies.winterbloom={arrival:entry,sword_quest:entry,soldier_entreat:entry};
+context.conningStages=[];
+vm.runInNewContext(source.slice(start,end),context);
+assert.deepEqual(context.conningStages.slice(-3).map(([label])=>label),[
+ 'Winterbloom · fast travel, chapter start discarded',
+ 'Winterbloom · deliver Sturdy Pickaxe · Rusty Sword, Revitalizing Jam, 7,000 leaves',
+ 'Winterbloom · Fortifying Nut (L) entreated from Soldier · change path action, then close without dialogue']);
+console.log('PASS: Winterbloom quest and Soldier Entreat with dialogue skip');

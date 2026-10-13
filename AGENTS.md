@@ -1,5 +1,16 @@
 # Active project
 
+- After Sai East District Entreat: fast travel Winterbloom at night, discard any
+  chapter start, deliver Sturdy Pickaxe via SC_SS_TSnow21_0200_02A0 Yes. Consume
+  Pickaxe; reward Rusty Sword, Revitalizing Jam, 7000 leaves. Native 9990 refresh
+  removes quest NPC and resets encounter counter; temporary quest actor is a
+  field character without randomized NPC frame. Then Agnea Entreat Soldier's
+  Fortifying Nut L (ProperBeg26), switch selected path action before closing.
+  One opening timer draw only; inventory retained without consuming the nut.
+  Fixed steps appear in Detailed log. See docs/galdera-winterbloom.md and source
+  audit; endpoints await retail validation. After other event importers run
+  tools/import-galdera-winterbloom.cjs to retain the quest event.
+
 - After Pickaxe: fast travel back to Sai main, enter Sai: East District
   Twn_Dst_2_1_B, decline any chapter prompt, switch night, Agnea Entreat Elemental
   Augmentor ITM_EQP_ACS_250 from NPC_Twn_Dst_2_1_B_TALK_1800 (requires level25).

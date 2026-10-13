@@ -8,7 +8,7 @@ use std::sync::OnceLock;
 #[derive(Deserialize)]struct Pickaxe {npc:String,item:String,proper_steal:u32,guaranteed_level:u32}
 fn data()->&'static Data {static D:OnceLock<Data>=OnceLock::new();D.get_or_init(||serde_json::from_str(include_str!("../data/galdera-oresrush.json")).expect("Audited Oresrush actions"))}
 #[derive(Debug,Serialize)]
-pub struct Supplies {pub warrior:Entry,pub oresrush:Entry,pub night:Entry,pub hire:Entry,pub day:Entry,pub pickaxe:Entry,pub steal_chance:u32,pub steal_roll:u32,pub hire_event:String,#[serde(skip_serializing_if="Option::is_none")]pub steal_event:Option<String>,pub augmentor:AugmentorTrip}
+pub struct Supplies {pub warrior:Entry,pub oresrush:Entry,pub night:Entry,pub hire:Entry,pub day:Entry,pub pickaxe:Entry,pub steal_chance:u32,pub steal_roll:u32,pub hire_event:String,#[serde(skip_serializing_if="Option::is_none")]pub steal_event:Option<String>,pub augmentor:AugmentorTrip,pub winterbloom:crate::galdera_winterbloom::Trip}
 #[derive(Debug,Serialize)]
 pub struct AugmentorTrip {pub sai:Entry,pub east_district:Entry,pub night:Entry,pub entreat:Entry,pub required_level:u32,pub agnea_level:u32}
 fn point(l:&mut Loader<'_>,arrival:CrtRng)->Entry {Entry {arrival,after:l.rng,world_after:l.state.clone(),trace:std::mem::take(&mut l.trace),decisions:std::mem::take(&mut l.decisions)}}
@@ -54,7 +54,8 @@ pub(crate) fn finish(sai:&Entry)->Result<Supplies> {
     l.boundary("Sturdy Pickaxe stolen: change selected path action, then close without Steal dialogue; no closing lottery draw");
     let pickaxe=point(&mut l,day.after);
     let augmentor=augmentor(&pickaxe)?;
-    Ok(Supplies {warrior,oresrush,night,hire,day,pickaxe,steal_chance:100,steal_roll,hire_event,steal_event,augmentor})
+    let winterbloom=crate::galdera_winterbloom::finish(&augmentor.entreat)?;
+    Ok(Supplies {warrior,oresrush,night,hire,day,pickaxe,steal_chance:100,steal_roll,hire_event,steal_event,augmentor,winterbloom})
 }
 fn augmentor(entry:&Entry)->Result<AugmentorTrip> {
     let d=&data().augmentor;

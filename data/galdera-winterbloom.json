@@ -1,0 +1,13 @@
+{
+  "event": "SC_SS_TSnow21_0200_02A0",
+  "quest_npc": "NPC_SS_TSn21_0200_0100",
+  "pickaxe": "ITM_TRE_SS_TSn21_0200_0010",
+  "sword": "ITM_TRE_WPM_01",
+  "jam": "ITM_CSM_0110",
+  "reward_money": 7000,
+  "soldier": {
+    "npc": "NPC_Twn_Snw_2_1_A_TALK_1500",
+    "item": "ITM_CSM_0550",
+    "required_level": 26
+  }
+}

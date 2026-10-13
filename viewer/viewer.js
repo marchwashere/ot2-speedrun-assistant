@@ -1152,6 +1152,12 @@ function renderCrackridgeVoyage() {
                           conningStages.push([label,e]);conningSpans.push(...e.trace);
                         }
                       }
+                      if(o.winterbloom) {
+                        const w=o.winterbloom;
+                        for(const [label,e] of [['Winterbloom · fast travel, chapter start discarded',w.arrival],['Winterbloom · deliver Sturdy Pickaxe · Rusty Sword, Revitalizing Jam, 7,000 leaves',w.sword_quest],['Winterbloom · Fortifying Nut (L) entreated from Soldier · change path action, then close without dialogue',w.soldier_entreat]]) {
+                          conningStages.push([label,e]);conningSpans.push(...e.trace);
+                        }
+                      }
                     }
                   }
                 }

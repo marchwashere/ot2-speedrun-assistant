@@ -1005,6 +1005,27 @@ impl<'a> Loader<'a> {
             ensure(c.index == pc, "Invalid event command index")?;
             pc += 1;
             match c.cmd {
+                40 if name=="SC_SS_TSnow21_0200_02A0" => {},
+                4220 if name=="SC_SS_TSnow21_0200_02A0" && c.index==6 => {
+                    let count=self.state.party.len()+usize::from(self.state.hired_merchant.is_some());
+                    let needed=c.opt[0].parse::<usize>().map_err(|_|SimError("Invalid Rusty Sword party threshold".into()))?;
+                    pc=c.opt[if count>=needed {1}else{2}].parse::<usize>().map_err(|_|SimError("Invalid Rusty Sword party branch".into()))?+1;
+                }
+                5500 if name=="SC_SS_TSnow21_0200_02A0" && c.index==8 => {
+                    ensure(choices.get(&(name.into(),c.index)).map(String::as_str)==Some("eDIALOG_YES"),"Rusty Sword quest requires confirming Pickaxe delivery")?;
+                    let item="ITM_TRE_SS_TSn21_0200_0010";
+                    let count=self.state.route_items.get_mut(item).ok_or_else(||SimError("Sturdy Pickaxe is missing".into()))?;
+                    ensure(*count>0,"Sturdy Pickaxe is missing")?;*count-=1;
+                    if *count==0 {self.state.route_items.remove(item);}
+                    pc=c.opt[0].parse::<usize>().map_err(|_|SimError("Invalid Rusty Sword delivery branch".into()))?+1;
+                    self.boundary("Rusty Sword quest: confirmed Yes; SubDeliveryItem consumes Sturdy Pickaxe");
+                }
+                1310 if name=="SC_SS_TSnow21_0200_02A0" && c.opt==["SS_SNW2_0200","1"] => {
+                    for item in ["ITM_TRE_WPM_01","ITM_CSM_0110"] {*self.state.route_items.entry(item.into()).or_default()+=1;}
+                    self.boundary("The Sword in the Stone completed: Rusty Sword, Revitalizing Jam, 7,000 leaves");
+                }
+                8031 if name=="SC_SS_TSnow21_0200_02A0" && c.target==34155 && c.opt==["1"] => {},
+                4|10|55|65|100|106|200|240|300|8010|9100 if name=="SC_SS_TSnow21_0200_02A0" => {},
                 600 if name=="SC_SP_Tutorial_0200" && c.index==7 => {
                     ensure(matches!(stop_before,Some(EventStop::Battle)),"Traveler's Bag requires an explicit battle boundary")?;
                     return Ok(EventExit::Battle(ScriptedBattle {event:name.into(),command_index:c.index,volume:c.opt[0].clone(),victory_event:c.opt[1].clone()}));
