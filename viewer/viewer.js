@@ -842,7 +842,7 @@ function renderCrackridgeVoyage() {
   $('canalbrine-route-log').hidden=true;
   $('canalbrine-water-result').hidden=true;
   $('canalbrine-water-log').hidden=true;
-  for(const id of ['new-delsta-bg-result','crackridge-bg-result','clockbank-bg-result','oresrush-time-result','cropdale-time-result','conning-north-result','conning-west-result','conning-steal-result','inventor-escape-result','clockbank-movement-result','crackridge-return-result','southern-crackridge-result','western-crackridge-result','western-crackridge-return-result','gravell-result','galdera-coast-result','southern-sai-result','eastern-sai-result','western-sai-result','eastern-wellgrove-result','galdera-clockbank-result','galdera-temenos-result','galdera-quicksand-result','conning-log']) $(id).hidden=true;
+  for(const id of ['new-delsta-bg-result','crackridge-bg-result','clockbank-bg-result','oresrush-time-result','cropdale-time-result','conning-north-result','conning-west-result','conning-steal-result','inventor-escape-result','clockbank-movement-result','crackridge-return-result','southern-crackridge-result','western-crackridge-result','western-crackridge-return-result','gravell-result','galdera-coast-result','southern-sai-result','eastern-sai-result','western-sai-result','eastern-wellgrove-result','galdera-clockbank-result','galdera-temenos-result','galdera-quicksand-result','galdera-lord-sands-result','conning-log']) $(id).hidden=true;
   const early=result.post_battle_field?.flats_escape?.early_cait;
   const timing=early?.southern_rare_target?'after':early?.snows_approach?.predicted_before_osvald?'before':snowsEncounterTiming ?? 'after';
   const exit=result.post_battle_field?.flats_escape?.snows_escape?.[timing+'_osvald'];
@@ -1235,6 +1235,15 @@ function renderCrackridgeVoyage() {
                                     let previous=f.arrival.after;const origin=BigInt(previous.draws)-BigInt(f.encounter.checkpoints[0].draws);
                                     for(const checkpoint of f.encounter.checkpoints){const after={state:checkpoint.state,draws:origin+BigInt(checkpoint.draws)};conningSpans.push({reason:label+' · '+checkpoint.label,before:previous,after});previous=after;}
                                     conningSpans.push(...f.escape.trace);
+                                    if(q.lord_sands) {
+                                      const r=q.lord_sands,b=r.battle,party=['Throné','Osvald','Temenos','Partitio'];
+                                      $('galdera-lord-sands-result').hidden=false;
+                                      $('galdera-lord-sands-routine').innerHTML=instructionBoxHtml(['Go directly to the boss · no random encounters','Switch to night before the fight',...b.actions.map(a=>'T'+a.turn+' · '+party[a.actor]+' · '+(a.bp?'+'+a.bp+' BP → ':'')+a.name)])+'<p class="muted">Beastlings: '+b.money_spent.toLocaleString()+' leaves · Rewards: '+b.rewards.exp+' EXP · '+b.rewards.jp+' JP · '+b.rewards.money+' leaves</p>';
+                                      for(const [stage,e]of [['Lord of the Sands · night switch',r.night],['Lord of the Sands · accepted boss prompt',r.prompt],['Lord of the Sands · victory field return',r.field_return],['Lord of the Sands · defeat event complete',r.victory]]){conningStages.push([stage,e]);conningSpans.push(...e.trace);}
+                                      conningPoints.push(['Lord of the Sands · first command menu',b.at_command_menu],['Lord of the Sands · victory and drops',b.after]);
+                                      for(const a of b.actions)conningPoints.push(['Lord of the Sands · T'+a.turn+' '+party[a.actor]+' · before '+a.name,a.report.rng_before],['Lord of the Sands · T'+a.turn+' '+party[a.actor]+' · after '+a.name,a.report.rng_after]);
+                                      conningSpans.push(...b.trace);
+                                    }
                                   }
                                 }
                               }

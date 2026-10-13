@@ -152,3 +152,10 @@ assert.match($('galdera-quicksand-routine').innerHTML,/Escape \(100%\)/);
 assert.equal(context.conningStages.at(-1)[0],'Quicksand Gaol · entered');
 
 assert.doesNotMatch($('galdera-quicksand-routine').innerHTML,/switch night|time adjustment/);
+
+fc.temenos.quicksand.lord_sands={night:entry,prompt:entry,field_return:entry,victory:entry,battle:{at_command_menu:entry.after,after:entry.after,trace:[],money_spent:15000,rewards:{exp:533,jp:37,money:1188},actions:[{turn:2,actor:2,bp:0,name:'Staff attack',report:{rng_before:entry.after,rng_after:entry.after}},{turn:3,actor:3,bp:3,name:'Hired Help: Beastlings',report:{rng_before:entry.after,rng_after:entry.after}}]}};
+vm.runInNewContext(source.slice(start,end),context);
+assert.equal($('galdera-lord-sands-result').hidden,false);
+assert.match($('galdera-lord-sands-routine').innerHTML,/T2 · Temenos · Staff attack/);
+assert.match($('galdera-lord-sands-routine').innerHTML,/T3 · Partitio · \+3 BP/);
+assert.equal(context.conningStages.at(-1)[0],'Lord of the Sands · defeat event complete');

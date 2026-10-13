@@ -78943,6 +78943,112 @@
           ]
         }
       ]
+    },
+    "EV_Dng_Dst_2_2_0010": {
+      "map_id": 0,
+      "reset_counter": false,
+      "completion": null,
+      "commands": [
+        {
+          "index": 0,
+          "cmd": 5010,
+          "target": 0,
+          "text": "ED_SUB_Dungeon_0010",
+          "opt": [
+            "eDIALOG_YES",
+            "0",
+            "eDIALOG_NO",
+            "2",
+            "-1",
+            "-1",
+            "-1",
+            "-1"
+          ]
+        },
+        {
+          "index": 1,
+          "cmd": 600,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "EVM_DNG_DST_2_2_L",
+            "EV_Dng_Dst_2_2_0020",
+            "0",
+            "1",
+            "0"
+          ]
+        },
+        {
+          "index": 2,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 3,
+          "cmd": 20,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "150"
+          ]
+        },
+        {
+          "index": 4,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        }
+      ]
+    },
+    "EV_Dng_Dst_2_2_0020": {
+      "map_id": 0,
+      "reset_counter": false,
+      "completion": null,
+      "commands": [
+        {
+          "index": 0,
+          "cmd": 70,
+          "target": 40010,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 1,
+          "cmd": 2,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 2,
+          "cmd": 62,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "2"
+          ]
+        },
+        {
+          "index": 3,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        }
+      ]
     }
   },
   "tutorials": {

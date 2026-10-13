@@ -1,0 +1,658 @@
+{
+  "events": {
+    "EV_Dng_Dst_2_2_0010": {
+      "map_id": 0,
+      "reset_counter": false,
+      "completion": null,
+      "commands": [
+        {
+          "index": 0,
+          "cmd": 5010,
+          "target": 0,
+          "text": "ED_SUB_Dungeon_0010",
+          "opt": [
+            "eDIALOG_YES",
+            "0",
+            "eDIALOG_NO",
+            "2",
+            "-1",
+            "-1",
+            "-1",
+            "-1"
+          ]
+        },
+        {
+          "index": 1,
+          "cmd": 600,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "EVM_DNG_DST_2_2_L",
+            "EV_Dng_Dst_2_2_0020",
+            "0",
+            "1",
+            "0"
+          ]
+        },
+        {
+          "index": 2,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 3,
+          "cmd": 20,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "150"
+          ]
+        },
+        {
+          "index": 4,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        }
+      ]
+    },
+    "EV_Dng_Dst_2_2_0020": {
+      "map_id": 0,
+      "reset_counter": false,
+      "completion": null,
+      "commands": [
+        {
+          "index": 0,
+          "cmd": 70,
+          "target": 40010,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 1,
+          "cmd": 2,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 2,
+          "cmd": 62,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "2"
+          ]
+        },
+        {
+          "index": 3,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        }
+      ]
+    }
+  },
+  "volume": {
+    "id": "EVM_DNG_DST_2_2_L",
+    "ID": 898,
+    "StartFlag": 0,
+    "EndFlag": 0,
+    "UseMapIndex": 0,
+    "EncountStepMin": 0,
+    "RandomStepA": 0,
+    "RandomStepB": 0,
+    "WaterSide": false,
+    "Area": "EAreaID::DESERT",
+    "RareCatlinParam": {
+      "RareEnemyFlag": false,
+      "RareEnemyRate": 0,
+      "RareEnemyCnt_Low": 0,
+      "RareEnemyCnt_Middle": 0,
+      "RareEnemyCnt_High": 0
+    },
+    "RareOctlinParam": {
+      "RareEnemyFlag": false,
+      "RareEnemyRate": 0,
+      "RareEnemyCnt_Low": 0,
+      "RareEnemyCnt_Middle": 0,
+      "RareEnemyCnt_High": 0
+    },
+    "EncounterList": [
+      {
+        "ProgressBorder": 0,
+        "DisplayLevel": 30,
+        "DangerLevel": 30,
+        "EncounterName": "ENC_DNG_DST_2_2_L_010"
+      },
+      {
+        "ProgressBorder": 0,
+        "DisplayLevel": 0,
+        "DangerLevel": 0,
+        "EncounterName": "None"
+      },
+      {
+        "ProgressBorder": 0,
+        "DisplayLevel": 0,
+        "DangerLevel": 0,
+        "EncounterName": "None"
+      },
+      {
+        "ProgressBorder": 0,
+        "DisplayLevel": 0,
+        "DangerLevel": 0,
+        "EncounterName": "None"
+      }
+    ]
+  },
+  "encounter": {
+    "id": "ENC_DNG_DST_2_2_L_010",
+    "ID": 1574,
+    "FirstEncount": 0,
+    "Group": [
+      {
+        "GroupID": "ENG_DNG_DST_2_2_L_110",
+        "Appearance": 100
+      },
+      {
+        "GroupID": "None",
+        "Appearance": 0
+      },
+      {
+        "GroupID": "None",
+        "Appearance": 0
+      },
+      {
+        "GroupID": "None",
+        "Appearance": 0
+      },
+      {
+        "GroupID": "None",
+        "Appearance": 0
+      },
+      {
+        "GroupID": "None",
+        "Appearance": 0
+      },
+      {
+        "GroupID": "None",
+        "Appearance": 0
+      },
+      {
+        "GroupID": "None",
+        "Appearance": 0
+      },
+      {
+        "GroupID": "None",
+        "Appearance": 0
+      }
+    ]
+  },
+  "scripted_start": {
+    "asset": "Battle/BP/EncountManagerBP",
+    "sha256": "e34c385f8cbd8395c6bc1202c824b7b2730a1535c3a591de8306335264ce8abc",
+    "functions": {
+      "StartEventBattleByEncountVolume": "14707 PushExecutionFlow target=1357\n1470c LetBool\n  1470d LocalVariable CallFunc_GetEncountVolumeRowData_ReturnValue\n  1471e CallMath import:-160:GetEncountVolumeRowData\n    14723 LocalVariable CallFunc_GetEncountVolumeRowData_returnCode\n    14734 LocalVariable CallFunc_GetEncountVolumeRowData_OutData\n    14745 LocalVariable EncountVolumeID\n    14756 True\n14758 LetBool\n  14759 LocalVariable K2Node_SwitchEnum_CmpSuccess\n  1476a CallMath import:-126:NotEqual_ByteByte\n    1476f LocalVariable CallFunc_GetEncountVolumeRowData_returnCode\n    14780 ByteConst 0\n14783 JumpIfNot target=99\n  14788 LocalVariable K2Node_SwitchEnum_CmpSuccess\n14799 PopExecutionFlow\n1479a PushExecutionFlow target=1128\n1479f Let property=CallFunc_Array_Length_ReturnValue\n  147b0 LocalVariable CallFunc_Array_Length_ReturnValue\n  147c1 Context skip=28 rvalue=CallFunc_Array_Length_ReturnValue\n    147c2 ObjectConst import:-257:Default__KismetArrayLibrary\n    147db FinalFunction import:-96:Array_Length\n      147e0 StructMemberContext EncounterList\n        147f1 LocalVariable CallFunc_GetEncountVolumeRowData_OutData\n14803 LetBool\n  14804 LocalVariable CallFunc_Greater_IntInt_ReturnValue\n  14815 CallMath import:-116:Greater_IntInt\n    1481a LocalVariable CallFunc_Array_Length_ReturnValue\n    1482b IntConst 0\n14831 PopExecutionFlowIfNot\n  14832 LocalVariable CallFunc_Greater_IntInt_ReturnValue\n14843 Let property=CallFunc_Array_Length_ReturnValue\n  14854 LocalVariable CallFunc_Array_Length_ReturnValue\n  14865 Context skip=28 rvalue=CallFunc_Array_Length_ReturnValue\n    14866 ObjectConst import:-257:Default__KismetArrayLibrary\n    1487f FinalFunction import:-96:Array_Length\n      14884 StructMemberContext EncounterList\n        14895 LocalVariable CallFunc_GetEncountVolumeRowData_OutData\n148a7 Let property=CallFunc_Subtract_IntInt_ReturnValue\n  148b8 LocalVariable CallFunc_Subtract_IntInt_ReturnValue\n  148c9 CallMath import:-131:Subtract_IntInt\n    148ce LocalVariable CallFunc_Array_Length_ReturnValue\n    148df IntConst 1\n148e5 Let property=CallFunc_Multiply_IntInt_ReturnValue\n  148f6 LocalVariable CallFunc_Multiply_IntInt_ReturnValue\n  14907 CallMath import:-124:Multiply_IntInt\n    1490c LocalVariable CallFunc_Subtract_IntInt_ReturnValue\n    1491d IntConst -1\n14923 Let property=Temp_int_Variable_1\n  14934 LocalVariable Temp_int_Variable_1\n  14945 LocalVariable CallFunc_Multiply_IntInt_ReturnValue\n14956 LetBool\n  14957 LocalVariable Temp_bool_Variable\n  14968 False\n14969 Let property=Temp_int_Variable\n  1497a LocalVariable Temp_int_Variable\n  1498b LocalVariable Temp_int_Variable_1\n1499c LetBool\n  1499d LocalVariable CallFunc_LessEqual_IntInt_ReturnValue\n  149ae CallMath import:-120:LessEqual_IntInt\n    149b3 LocalVariable Temp_int_Variable\n    149c4 IntConst 0\n149ca LetBool\n  149cb LocalVariable CallFunc_Not_PreBool_ReturnValue\n  149dc CallMath import:-125:Not_PreBool\n    149e1 LocalVariable Temp_bool_Variable\n149f3 LetBool\n  149f4 LocalVariable CallFunc_BooleanAND_ReturnValue\n  14a05 CallMath import:-101:BooleanAND\n    14a0a LocalVariable CallFunc_Not_PreBool_ReturnValue\n    14a1b LocalVariable CallFunc_LessEqual_IntInt_ReturnValue\n14a2d PopExecutionFlowIfNot\n  14a2e LocalVariable CallFunc_BooleanAND_ReturnValue\n14a3f PushExecutionFlow target=1244\n14a44 Let property=CallFunc_Abs_Int_ReturnValue\n  14a55 LocalVariable CallFunc_Abs_Int_ReturnValue\n  14a66 CallMath import:-99:Abs_Int\n    14a6b LocalVariable Temp_int_Variable\n14a7d Context skip=46 rvalue=<null-field>\n  14a7e ObjectConst import:-257:Default__KismetArrayLibrary\n  14a8f FinalFunction import:-94:Array_Get\n    14a94 StructMemberContext EncounterList\n      14aa5 LocalVariable CallFunc_GetEncountVolumeRowData_OutData\n    14ab6 LocalVariable CallFunc_Abs_Int_ReturnValue\n    14ac7 LocalVariable CallFunc_Array_Get_Item\n14ad9 LetBool\n  14ada LocalVariable CallFunc_NotEqual_NameName_ReturnValue\n  14aeb CallMath import:-128:NotEqual_NameName\n    14af0 StructMemberContext EncounterName\n      14b01 LocalVariable CallFunc_Array_Get_Item\n    14b12 NameConst None\n14b1c Context skip=24 rvalue=<null-field>\n  14b1d ObjectConst import:-264:Default__LibAccessor_SaveGame_C\n  14b2e LocalVirtualFunction GetSaveData\n    14b37 Self\n    14b38 LocalVariable CallFunc_GetSaveData_KSSaveGame\n14b4a Let property=CallFunc_GetMainProgressPoint_ReturnValue\n  14b5b LocalVariable CallFunc_GetMainProgressPoint_ReturnValue\n  14b6c Context skip=10 rvalue=CallFunc_GetMainProgressPoint_ReturnValue\n    14b6d LocalVariable CallFunc_GetSaveData_KSSaveGame\n    14b92 FinalFunction import:-246:GetMainProgressPoint\n14b98 LetBool\n  14b99 LocalVariable CallFunc_LessEqual_IntInt_ReturnValue_1\n  14baa CallMath import:-120:LessEqual_IntInt\n    14baf StructMemberContext ProgressBorder\n      14bc0 LocalVariable CallFunc_Array_Get_Item\n    14bd1 LocalVariable CallFunc_GetMainProgressPoint_ReturnValue\n14be3 LetBool\n  14be4 LocalVariable CallFunc_BooleanAND_ReturnValue_1\n  14bf5 CallMath import:-101:BooleanAND\n    14bfa LocalVariable CallFunc_LessEqual_IntInt_ReturnValue_1\n    14c0b LocalVariable CallFunc_NotEqual_NameName_ReturnValue\n14c1d PopExecutionFlowIfNot\n  14c1e LocalVariable CallFunc_BooleanAND_ReturnValue_1\n14c2f Let property=CallFunc_Abs_Int_ReturnValue\n  14c40 LocalVariable CallFunc_Abs_Int_ReturnValue\n  14c51 CallMath import:-99:Abs_Int\n    14c56 LocalVariable Temp_int_Variable\n14c68 Context skip=46 rvalue=<null-field>\n  14c69 ObjectConst import:-257:Default__KismetArrayLibrary\n  14c7a FinalFunction import:-94:Array_Get\n    14c7f StructMemberContext EncounterList\n      14c90 LocalVariable CallFunc_GetEncountVolumeRowData_OutData\n    14ca1 LocalVariable CallFunc_Abs_Int_ReturnValue\n    14cb2 LocalVariable CallFunc_Array_Get_Item\n14cc4 LetBool\n  14cc5 LocalVariable CallFunc_GetDataTableRowFromName_ReturnValue\n  14cd6 Context skip=46 rvalue=CallFunc_GetDataTableRowFromName_ReturnValue\n    14cd7 ObjectConst import:-69:Default__DataTableFunctionLibrary\n    14cf0 FinalFunction import:-90:GetDataTableRowFromName\n      14cf5 ObjectConst import:-64:BattleEncounterData\n      14cfa StructMemberContext EncounterName\n        14d0b LocalVariable CallFunc_Array_Get_Item\n      14d1c LocalVariable CallFunc_GetDataTableRowFromName_OutRow\n14d2e PopExecutionFlowIfNot\n  14d2f LocalVariable CallFunc_GetDataTableRowFromName_ReturnValue\n14d40 Let property=TmpEncounter\n  14d51 LocalVariable TmpEncounter\n  14d62 LocalVariable CallFunc_GetDataTableRowFromName_OutRow\n14d73 LetBool\n  14d74 LocalVariable Temp_bool_Variable\n  14d85 True\n14d86 PopExecutionFlow\n14d87 Let property=EnemyGroupID\n  14d98 InstanceVariable EnemyGroupID\n  14da9 StructMemberContext GroupID\n    14dba ArrayGetByRef\n      14dbb StructMemberContext Group\n        14dcc LocalVariable TmpEncounter\n      14ddd IntConst 0\n14de2 LetBool\n  14de3 InstanceVariable UseEventBGM\n  14df4 LocalVariable IsEventBGM\n14e05 Let property=EncountType\n  14e16 InstanceVariable EncountType\n  14e27 ByteConst 1\n14e29 LetBool\n  14e2a InstanceVariable m_bIsViewerMode\n  14e3b False\n14e3c LocalVirtualFunction BattleSequenceStart\n14e46 PopExecutionFlow\n14e47 LetBool\n  14e48 LocalVariable CallFunc_Not_PreBool_ReturnValue\n  14e59 CallMath import:-125:Not_PreBool\n    14e5e LocalVariable Temp_bool_Variable\n14e70 PopExecutionFlowIfNot\n  14e71 LocalVariable CallFunc_Not_PreBool_ReturnValue\n14e82 Let property=CallFunc_Add_IntInt_ReturnValue\n  14e93 LocalVariable CallFunc_Add_IntInt_ReturnValue\n  14ea4 CallMath import:-100:Add_IntInt\n    14ea9 LocalVariable Temp_int_Variable\n    14eba IntConst 1\n14ec0 Let property=Temp_int_Variable\n  14ed1 LocalVariable Temp_int_Variable\n  14ee2 LocalVariable CallFunc_Add_IntInt_ReturnValue\n14ef3 Jump target=433\n14ef8 Return\n  14ef9 Nothing\n14efa EndOfScript",
+      "StartEventBattle": "1bc15 PushExecutionFlow target=1611\n1bc1a LetBool\n  1bc1b LocalVariable CallFunc_GetEncountVolumeRowData_ReturnValue\n  1bc2c CallMath import:-160:GetEncountVolumeRowData\n    1bc31 LocalVariable CallFunc_GetEncountVolumeRowData_returnCode\n    1bc42 LocalVariable CallFunc_GetEncountVolumeRowData_OutData\n    1bc53 LocalVariable EncountVolumeID\n    1bc64 True\n1bc66 LetBool\n  1bc67 LocalVariable K2Node_SwitchEnum_CmpSuccess\n  1bc78 CallMath import:-126:NotEqual_ByteByte\n    1bc7d LocalVariable CallFunc_GetEncountVolumeRowData_returnCode\n    1bc8e ByteConst 0\n1bc91 JumpIfNot target=99\n  1bc96 LocalVariable K2Node_SwitchEnum_CmpSuccess\n1bca7 PopExecutionFlow\n1bca8 PushExecutionFlow target=1398\n1bcad PushExecutionFlow target=1333\n1bcb2 PushExecutionFlow target=1138\n1bcb7 Let property=CallFunc_Array_Length_ReturnValue\n  1bcc8 LocalVariable CallFunc_Array_Length_ReturnValue\n  1bcd9 Context skip=28 rvalue=CallFunc_Array_Length_ReturnValue\n    1bcda ObjectConst import:-257:Default__KismetArrayLibrary\n    1bcf3 FinalFunction import:-96:Array_Length\n      1bcf8 StructMemberContext EncounterList\n        1bd09 LocalVariable CallFunc_GetEncountVolumeRowData_OutData\n1bd1b LetBool\n  1bd1c LocalVariable CallFunc_Greater_IntInt_ReturnValue\n  1bd2d CallMath import:-116:Greater_IntInt\n    1bd32 LocalVariable CallFunc_Array_Length_ReturnValue\n    1bd43 IntConst 0\n1bd49 PopExecutionFlowIfNot\n  1bd4a LocalVariable CallFunc_Greater_IntInt_ReturnValue\n1bd5b Let property=CallFunc_Array_Length_ReturnValue\n  1bd6c LocalVariable CallFunc_Array_Length_ReturnValue\n  1bd7d Context skip=28 rvalue=CallFunc_Array_Length_ReturnValue\n    1bd7e ObjectConst import:-257:Default__KismetArrayLibrary\n    1bd97 FinalFunction import:-96:Array_Length\n      1bd9c StructMemberContext EncounterList\n        1bdad LocalVariable CallFunc_GetEncountVolumeRowData_OutData\n1bdbf Let property=CallFunc_Subtract_IntInt_ReturnValue\n  1bdd0 LocalVariable CallFunc_Subtract_IntInt_ReturnValue\n  1bde1 CallMath import:-131:Subtract_IntInt\n    1bde6 LocalVariable CallFunc_Array_Length_ReturnValue\n    1bdf7 IntConst 1\n1bdfd Let property=CallFunc_Multiply_IntInt_ReturnValue\n  1be0e LocalVariable CallFunc_Multiply_IntInt_ReturnValue\n  1be1f CallMath import:-124:Multiply_IntInt\n    1be24 LocalVariable CallFunc_Subtract_IntInt_ReturnValue\n    1be35 IntConst -1\n1be3b Let property=Temp_int_Variable_1\n  1be4c LocalVariable Temp_int_Variable_1\n  1be5d LocalVariable CallFunc_Multiply_IntInt_ReturnValue\n1be6e LetBool\n  1be6f LocalVariable Temp_bool_Variable\n  1be80 False\n1be81 Let property=Temp_int_Variable\n  1be92 LocalVariable Temp_int_Variable\n  1bea3 LocalVariable Temp_int_Variable_1\n1beb4 LetBool\n  1beb5 LocalVariable CallFunc_LessEqual_IntInt_ReturnValue\n  1bec6 CallMath import:-120:LessEqual_IntInt\n    1becb LocalVariable Temp_int_Variable\n    1bedc IntConst 0\n1bee2 LetBool\n  1bee3 LocalVariable CallFunc_Not_PreBool_ReturnValue\n  1bef4 CallMath import:-125:Not_PreBool\n    1bef9 LocalVariable Temp_bool_Variable\n1bf0b LetBool\n  1bf0c LocalVariable CallFunc_BooleanAND_ReturnValue\n  1bf1d CallMath import:-101:BooleanAND\n    1bf22 LocalVariable CallFunc_Not_PreBool_ReturnValue\n    1bf33 LocalVariable CallFunc_LessEqual_IntInt_ReturnValue\n1bf45 PopExecutionFlowIfNot\n  1bf46 LocalVariable CallFunc_BooleanAND_ReturnValue\n1bf57 PushExecutionFlow target=1498\n1bf5c Let property=CallFunc_Abs_Int_ReturnValue\n  1bf6d LocalVariable CallFunc_Abs_Int_ReturnValue\n  1bf7e CallMath import:-99:Abs_Int\n    1bf83 LocalVariable Temp_int_Variable\n1bf95 Context skip=46 rvalue=<null-field>\n  1bf96 ObjectConst import:-257:Default__KismetArrayLibrary\n  1bfa7 FinalFunction import:-94:Array_Get\n    1bfac StructMemberContext EncounterList\n      1bfbd LocalVariable CallFunc_GetEncountVolumeRowData_OutData\n    1bfce LocalVariable CallFunc_Abs_Int_ReturnValue\n    1bfdf LocalVariable CallFunc_Array_Get_Item\n1bff1 LetBool\n  1bff2 LocalVariable CallFunc_NotEqual_NameName_ReturnValue\n  1c003 CallMath import:-128:NotEqual_NameName\n    1c008 StructMemberContext EncounterName\n      1c019 LocalVariable CallFunc_Array_Get_Item\n    1c02a NameConst None\n1c034 Context skip=24 rvalue=<null-field>\n  1c035 ObjectConst import:-264:Default__LibAccessor_SaveGame_C\n  1c046 LocalVirtualFunction GetSaveData\n    1c04f Self\n    1c050 LocalVariable CallFunc_GetSaveData_KSSaveGame\n1c062 Let property=CallFunc_GetMainProgressPoint_ReturnValue\n  1c073 LocalVariable CallFunc_GetMainProgressPoint_ReturnValue\n  1c084 Context skip=10 rvalue=CallFunc_GetMainProgressPoint_ReturnValue\n    1c085 LocalVariable CallFunc_GetSaveData_KSSaveGame\n    1c0aa FinalFunction import:-246:GetMainProgressPoint\n1c0b0 LetBool\n  1c0b1 LocalVariable CallFunc_LessEqual_IntInt_ReturnValue_1\n  1c0c2 CallMath import:-120:LessEqual_IntInt\n    1c0c7 StructMemberContext ProgressBorder\n      1c0d8 LocalVariable CallFunc_Array_Get_Item\n    1c0e9 LocalVariable CallFunc_GetMainProgressPoint_ReturnValue\n1c0fb LetBool\n  1c0fc LocalVariable CallFunc_BooleanAND_ReturnValue_1\n  1c10d CallMath import:-101:BooleanAND\n    1c112 LocalVariable CallFunc_LessEqual_IntInt_ReturnValue_1\n    1c123 LocalVariable CallFunc_NotEqual_NameName_ReturnValue\n1c135 PopExecutionFlowIfNot\n  1c136 LocalVariable CallFunc_BooleanAND_ReturnValue_1\n1c147 Let property=CallFunc_Abs_Int_ReturnValue\n  1c158 LocalVariable CallFunc_Abs_Int_ReturnValue\n  1c169 CallMath import:-99:Abs_Int\n    1c16e LocalVariable Temp_int_Variable\n1c180 Context skip=46 rvalue=<null-field>\n  1c181 ObjectConst import:-257:Default__KismetArrayLibrary\n  1c192 FinalFunction import:-94:Array_Get\n    1c197 StructMemberContext EncounterList\n      1c1a8 LocalVariable CallFunc_GetEncountVolumeRowData_OutData\n    1c1b9 LocalVariable CallFunc_Abs_Int_ReturnValue\n    1c1ca LocalVariable CallFunc_Array_Get_Item\n1c1dc LetBool\n  1c1dd LocalVariable CallFunc_GetDataTableRowFromName_ReturnValue\n  1c1ee Context skip=46 rvalue=CallFunc_GetDataTableRowFromName_ReturnValue\n    1c1ef ObjectConst import:-69:Default__DataTableFunctionLibrary\n    1c208 FinalFunction import:-90:GetDataTableRowFromName\n      1c20d ObjectConst import:-64:BattleEncounterData\n      1c212 StructMemberContext EncounterName\n        1c223 LocalVariable CallFunc_Array_Get_Item\n      1c234 LocalVariable CallFunc_GetDataTableRowFromName_OutRow\n1c246 PopExecutionFlowIfNot\n  1c247 LocalVariable CallFunc_GetDataTableRowFromName_ReturnValue\n1c258 Let property=TmpEncounter\n  1c269 LocalVariable TmpEncounter\n  1c27a LocalVariable CallFunc_GetDataTableRowFromName_OutRow\n1c28b LetBool\n  1c28c LocalVariable Temp_bool_Variable\n  1c29d True\n1c29e PopExecutionFlow\n1c29f Let property=EnemyGroupID\n  1c2b0 InstanceVariable EnemyGroupID\n  1c2c1 StructMemberContext GroupID\n    1c2d2 ArrayGetByRef\n      1c2d3 StructMemberContext Group\n        1c2e4 LocalVariable TmpEncounter\n      1c2f5 IntConst 0\n1c2fa LetBool\n  1c2fb InstanceVariable UseEventBGM\n  1c30c LocalVariable IsEventBGM\n1c31d LetBool\n  1c31e InstanceVariable IsSingleBattleMode\n  1c32f LocalVariable SingleBattle\n1c340 Let property=SingleBattleCharacterID\n  1c351 InstanceVariable SingleBattleCharacterID\n  1c362 LocalVariable CharacterID\n1c373 Let property=BattleStartType\n  1c384 InstanceVariable BattleStartType\n  1c395 ByteConst 0\n1c397 Let property=m_eFixFirstOrderPlayerID\n  1c3a8 InstanceVariable m_eFixFirstOrderPlayerID\n  1c3b9 LocalVariable FixFirstOrderPlayer\n1c3ca Let property=EncountType\n  1c3db InstanceVariable EncountType\n  1c3ec ByteConst 1\n1c3ee LetBool\n  1c3ef InstanceVariable m_bIsViewerMode\n  1c400 False\n1c401 PopExecutionFlow\n1c402 Let property=BattleMapIndex\n  1c413 InstanceVariable BattleMapIndex\n  1c424 StructMemberContext UseMapIndex\n    1c435 LocalVariable CallFunc_GetEncountVolumeRowData_OutData\n1c446 LetBool\n  1c447 InstanceVariable IsWaterSideBattle\n  1c458 StructMemberContext WaterSide\n    1c469 LocalVariable CallFunc_GetEncountVolumeRowData_OutData\n1c47a PopExecutionFlow\n1c47b LetObj\n  1c47c LocalVariable CallFunc_GetManagerInstance_ReturnValue\n  1c48d CallMath import:-146:GetManagerInstance\n    1c492 ObjectConst import:-40:FadeManager\n1c498 Context skip=19 rvalue=<null-field>\n  1c499 LocalVariable CallFunc_GetManagerInstance_ReturnValue\n  1c4b6 FinalFunction import:-215:SetIsCancelWipeOutAtBattleEnd\n    1c4bb LocalVariable IsNextEvent\n1c4cd LocalVirtualFunction BattleSequenceStart\n1c4d7 LetBool\n  1c4d8 LocalOutVariable ReturnValue\n  1c4e9 True\n1c4ea Jump target=1611\n1c4ef LetBool\n  1c4f0 LocalVariable CallFunc_Not_PreBool_ReturnValue\n  1c501 CallMath import:-125:Not_PreBool\n    1c506 LocalVariable Temp_bool_Variable\n1c518 PopExecutionFlowIfNot\n  1c519 LocalVariable CallFunc_Not_PreBool_ReturnValue\n1c52a Let property=CallFunc_Add_IntInt_ReturnValue\n  1c53b LocalVariable CallFunc_Add_IntInt_ReturnValue\n  1c54c CallMath import:-100:Add_IntInt\n    1c551 LocalVariable Temp_int_Variable\n    1c562 IntConst 1\n1c568 Let property=Temp_int_Variable\n  1c579 LocalVariable Temp_int_Variable\n  1c58a LocalVariable CallFunc_Add_IntInt_ReturnValue\n1c59b Jump target=443\n1c5a0 Return\n  1c5a1 LocalOutVariable ReturnValue\n1c5b2 EndOfScript"
+    },
+    "defaults": [
+      {
+        "UberGraphFrame": {},
+        "EncountEnable": true,
+        "PrePlayerPos": {
+          "kind": "native-struct",
+          "type": "Vector",
+          "components": [
+            {
+              "kind": "float32",
+              "bits": 0,
+              "value": 0
+            },
+            {
+              "kind": "float32",
+              "bits": 0,
+              "value": 0
+            },
+            {
+              "kind": "float32",
+              "bits": 0,
+              "value": 0
+            }
+          ]
+        },
+        "CurrentEncounter": {
+          "ID": 0,
+          "FirstEncount": 0,
+          "Group": []
+        },
+        "BackupPrePlayerPos": {
+          "kind": "native-struct",
+          "type": "Vector",
+          "components": [
+            {
+              "kind": "float32",
+              "bits": 0,
+              "value": 0
+            },
+            {
+              "kind": "float32",
+              "bits": 0,
+              "value": 0
+            },
+            {
+              "kind": "float32",
+              "bits": 0,
+              "value": 0
+            }
+          ]
+        },
+        "CurrentEncountTrigger": {
+          "ID": 0,
+          "StartFlag": 0,
+          "StartFlag_2": 0,
+          "StartFlag_3": 0,
+          "EndFlag": 0,
+          "EndFlag_2": 0,
+          "EndFlag_3": 0,
+          "DayTimeDecreaseValue": 0,
+          "DayTimeEncountVolumeName": "None",
+          "NightDecreaseValue": 0,
+          "NightEncountVolumeName": "None",
+          "LostWayDecreaseValue": 0,
+          "LostWayEncountVolumeName": "None",
+          "DarkAreaDecreaseValue": 0,
+          "DarkAreaEncountVolumeName": "None"
+        },
+        "EncountCameraPosition": {
+          "kind": "native-struct",
+          "type": "Vector",
+          "components": [
+            {
+              "kind": "float32",
+              "bits": 0,
+              "value": 0
+            },
+            {
+              "kind": "float32",
+              "bits": 0,
+              "value": 0
+            },
+            {
+              "kind": "float32",
+              "bits": 0,
+              "value": 0
+            }
+          ]
+        },
+        "EncountCameraRotation": {
+          "kind": "native-struct",
+          "type": "Rotator",
+          "components": [
+            {
+              "kind": "float32",
+              "bits": 0,
+              "value": 0
+            },
+            {
+              "kind": "float32",
+              "bits": 0,
+              "value": 0
+            },
+            {
+              "kind": "float32",
+              "bits": 0,
+              "value": 0
+            }
+          ]
+        },
+        "CurrentEncountVolume": {
+          "ID": 0,
+          "StartFlag": 0,
+          "EndFlag": 0,
+          "UseMapIndex": 0,
+          "EncountStepMin": 0,
+          "RandomStepA": 0,
+          "RandomStepB": 0,
+          "WaterSide": false,
+          "Area": "EAreaID::SNOW",
+          "RareCatlinParam": {
+            "RareEnemyFlag": false,
+            "RareEnemyRate": 0,
+            "RareEnemyCnt_Low": 0,
+            "RareEnemyCnt_Middle": 0,
+            "RareEnemyCnt_High": 0
+          },
+          "RareOctlinParam": {
+            "RareEnemyFlag": false,
+            "RareEnemyRate": 0,
+            "RareEnemyCnt_Low": 0,
+            "RareEnemyCnt_Middle": 0,
+            "RareEnemyCnt_High": 0
+          },
+          "EncounterList": []
+        },
+        "RareCatlinParam": {
+          "RareEnemyFlag": false,
+          "RareEnemyRate": 0,
+          "RareEnemyCnt_Low": 0,
+          "RareEnemyCnt_Middle": 0,
+          "RareEnemyCnt_High": 0
+        },
+        "RareOctlinParam": {
+          "RareEnemyFlag": false,
+          "RareEnemyRate": 0,
+          "RareEnemyCnt_Low": 0,
+          "RareEnemyCnt_Middle": 0,
+          "RareEnemyCnt_High": 0
+        },
+        "FirstEncountStepRatio": 1,
+        "PrimaryActorTick": {
+          "TickGroup": "TG_PostPhysics"
+        }
+      }
+    ]
+  },
+  "night": {
+    "asset": "Battle/BP/BattleManagerBP",
+    "sha256": "139466a3fbf82ced8be92faafe0072747a960db77be86f848f787586b22888b1",
+    "functions": {
+      "ExecSpecialAction_DebuffInNight": "e6f2b PushExecutionFlow target=2573\ne6f30 PushExecutionFlow target=2299\ne6f35 PushExecutionFlow target=1541\ne6f3a LetBool\n  e6f3b LocalVariable Temp_bool_True_if_break_was_hit_Variable\n  e6f4c False\ne6f4d Let property=Temp_int_Loop_Counter_Variable_1\n  e6f5e LocalVariable Temp_int_Loop_Counter_Variable_1\n  e6f6f IntConst 0\ne6f74 Let property=Temp_int_Array_Index_Variable\n  e6f85 LocalVariable Temp_int_Array_Index_Variable\n  e6f96 IntConst 0\ne6f9b LetBool\n  e6f9c LocalVariable CallFunc_Not_PreBool_ReturnValue\n  e6fad CallMath import:-291:Not_PreBool\n    e6fb2 LocalVariable Temp_bool_True_if_break_was_hit_Variable\ne6fc4 Let property=CallFunc_Array_Length_ReturnValue_1\n  e6fd5 LocalVariable CallFunc_Array_Length_ReturnValue_1\n  e6fe6 Context skip=19 rvalue=CallFunc_Array_Length_ReturnValue_1\n    e6fe7 ObjectConst import:-554:Default__KismetArrayLibrary\n    e7000 FinalFunction import:-250:Array_Length\n      e7005 InstanceVariable m_acBattleEnemy\ne7017 LetBool\n  e7018 LocalVariable CallFunc_Less_IntInt_ReturnValue_1\n  e7029 CallMath import:-281:Less_IntInt\n    e702e LocalVariable Temp_int_Loop_Counter_Variable_1\n    e703f LocalVariable CallFunc_Array_Length_ReturnValue_1\ne7051 LetBool\n  e7052 LocalVariable CallFunc_BooleanAND_ReturnValue\n  e7063 CallMath import:-261:BooleanAND\n    e7068 LocalVariable CallFunc_Not_PreBool_ReturnValue\n    e7079 LocalVariable CallFunc_Less_IntInt_ReturnValue_1\ne708b PopExecutionFlowIfNot\n  e708c LocalVariable CallFunc_BooleanAND_ReturnValue\ne709d Let property=Temp_int_Array_Index_Variable\n  e70ae LocalVariable Temp_int_Array_Index_Variable\n  e70bf LocalVariable Temp_int_Loop_Counter_Variable_1\ne70d0 PushExecutionFlow target=2499\ne70d5 Context skip=37 rvalue=<null-field>\n  e70d6 ObjectConst import:-554:Default__KismetArrayLibrary\n  e70e7 FinalFunction import:-247:Array_Get\n    e70ec InstanceVariable m_acBattleEnemy\n    e70fd LocalVariable Temp_int_Array_Index_Variable\n    e710e LocalVariable CallFunc_Array_Get_Item\ne7120 Let property=<null-field>\n  e7129 LocalVariable K2Node_DynamicCast_AsBattle_Character_Base_BP\n  e713a DynamicCast import:-26:BattleCharacterBaseBP_C\n    e713f LocalVariable CallFunc_Array_Get_Item\ne7150 Let property=<null-field>\n  e7159 LocalVariable K2Node_DynamicCast_bSuccess\n  e716a Cast cast=71\n    e716c LocalVariable K2Node_DynamicCast_AsBattle_Character_Base_BP\ne717d PopExecutionFlowIfNot\n  e717e LocalVariable K2Node_DynamicCast_bSuccess\ne718f Context skip=37 rvalue=<null-field>\n  e7190 ObjectConst import:-554:Default__KismetArrayLibrary\n  e71a1 FinalFunction import:-247:Array_Get\n    e71a6 InstanceVariable m_acBattleEnemy\n    e71b7 LocalVariable Temp_int_Array_Index_Variable\n    e71c8 LocalVariable CallFunc_Array_Get_Item\ne71da LetBool\n  e71db LocalVariable CallFunc_IsCharacterDead_ReturnValue\n  e71ec Context skip=14 rvalue=CallFunc_IsCharacterDead_ReturnValue\n    e71ed LocalVariable CallFunc_Array_Get_Item\n    e7212 VirtualFunction IsCharacterDead\ne721c LetBool\n  e721d LocalVariable CallFunc_Not_PreBool_ReturnValue_1\n  e722e CallMath import:-291:Not_PreBool\n    e7233 LocalVariable CallFunc_IsCharacterDead_ReturnValue\ne7245 PopExecutionFlowIfNot\n  e7246 LocalVariable CallFunc_Not_PreBool_ReturnValue_1\ne7257 Context skip=64 rvalue=<null-field>\n  e7258 ObjectConst import:-567:Default__LibGetParam_C\n  e7269 LocalVirtualFunction GetBattleParamToInt\n    e7272 NameConst DEBUFF_IN_NIGHT_PARAM\n    e727b Self\n    e727c LocalVariable CallFunc_GetBattleParamToInt_Min\n    e728d LocalVariable CallFunc_GetBattleParamToInt_Max\n    e729e LocalVariable CallFunc_GetBattleParamToInt_Init\n    e72af LocalVariable CallFunc_GetBattleParamToInt_Param\ne72c1 Let property=DiseaseName_8_75475DD04B3C5EEC50F1BE921DE759E3\n  e72d2 StructMemberContext DiseaseName_8_75475DD04B3C5EEC50F1BE921DE759E3\n    e72e3 LocalVariable K2Node_MakeStruct_DiseaseHandler_1\n  e72f4 NameConst DEF_DOWN\ne72fd Let property=InvocationValue_7_F85884EE4AC9C18B8BAAB98975B996B5\n  e730e StructMemberContext InvocationValue_7_F85884EE4AC9C18B8BAAB98975B996B5\n    e731f LocalVariable K2Node_MakeStruct_DiseaseHandler_1\n  e7330 IntConst 0\ne7335 Let property=InvocationTurn_11_C97E85724193E3C53F6406BEEFFB9C53\n  e7346 StructMemberContext InvocationTurn_11_C97E85724193E3C53F6406BEEFFB9C53\n    e7357 LocalVariable K2Node_MakeStruct_DiseaseHandler_1\n  e7368 LocalVariable CallFunc_GetBattleParamToInt_Param\ne7379 LetObj\n  e737a StructMemberContext ActionCommand_14_759AA0334A1C779519C960A6C4606684\n    e738b LocalVariable K2Node_MakeStruct_DiseaseHandler_1\n  e739c NoObject\ne739d LetBool\n  e739e StructMemberContext ByEquipment_16_702E94F346D453347267E6809E6BC4F8\n    e73af LocalVariable K2Node_MakeStruct_DiseaseHandler_1\n  e73c0 False\ne73c1 Context skip=60 rvalue=<null-field>\n  e73c2 LocalVariable K2Node_DynamicCast_AsBattle_Character_Base_BP\n  e73df LocalVirtualFunction AddDisease\n    e73e8 LocalVariable K2Node_MakeStruct_DiseaseHandler_1\n    e73f9 LocalVariable ActionEnforcer\n    e740a IntConst 0\n    e740f IntConst 0\n    e7414 LocalVariable CallFunc_AddDisease_Success_1\n    e7425 LocalVariable CallFunc_AddDisease_AddType_1\ne7437 Context skip=64 rvalue=<null-field>\n  e7438 ObjectConst import:-567:Default__LibGetParam_C\n  e7449 LocalVirtualFunction GetBattleParamToInt\n    e7452 NameConst DEBUFF_IN_NIGHT_PARAM\n    e745b Self\n    e745c LocalVariable CallFunc_GetBattleParamToInt_Min\n    e746d LocalVariable CallFunc_GetBattleParamToInt_Max\n    e747e LocalVariable CallFunc_GetBattleParamToInt_Init\n    e748f LocalVariable CallFunc_GetBattleParamToInt_Param\ne74a1 Let property=DiseaseName_8_75475DD04B3C5EEC50F1BE921DE759E3\n  e74b2 StructMemberContext DiseaseName_8_75475DD04B3C5EEC50F1BE921DE759E3\n    e74c3 LocalVariable K2Node_MakeStruct_DiseaseHandler\n  e74d4 NameConst MDEF_DOWN\ne74dd Let property=InvocationValue_7_F85884EE4AC9C18B8BAAB98975B996B5\n  e74ee StructMemberContext InvocationValue_7_F85884EE4AC9C18B8BAAB98975B996B5\n    e74ff LocalVariable K2Node_MakeStruct_DiseaseHandler\n  e7510 IntConst 0\ne7515 Let property=InvocationTurn_11_C97E85724193E3C53F6406BEEFFB9C53\n  e7526 StructMemberContext InvocationTurn_11_C97E85724193E3C53F6406BEEFFB9C53\n    e7537 LocalVariable K2Node_MakeStruct_DiseaseHandler\n  e7548 LocalVariable CallFunc_GetBattleParamToInt_Param\ne7559 LetObj\n  e755a StructMemberContext ActionCommand_14_759AA0334A1C779519C960A6C4606684\n    e756b LocalVariable K2Node_MakeStruct_DiseaseHandler\n  e757c NoObject\ne757d LetBool\n  e757e StructMemberContext ByEquipment_16_702E94F346D453347267E6809E6BC4F8\n    e758f LocalVariable K2Node_MakeStruct_DiseaseHandler\n  e75a0 False\ne75a1 Context skip=60 rvalue=<null-field>\n  e75a2 LocalVariable K2Node_DynamicCast_AsBattle_Character_Base_BP\n  e75bf LocalVirtualFunction AddDisease\n    e75c8 LocalVariable K2Node_MakeStruct_DiseaseHandler\n    e75d9 LocalVariable ActionEnforcer\n    e75ea IntConst 0\n    e75ef IntConst 0\n    e75f4 LocalVariable CallFunc_AddDisease_Success\n    e7605 LocalVariable CallFunc_AddDisease_AddType\ne7617 Context skip=64 rvalue=<null-field>\n  e7618 ObjectConst import:-567:Default__LibGetParam_C\n  e7629 LocalVirtualFunction GetBattleParamToInt\n    e7632 NameConst DEBUFF_IN_NIGHT_PARAM\n    e763b Self\n    e763c LocalVariable CallFunc_GetBattleParamToInt_Min\n    e764d LocalVariable CallFunc_GetBattleParamToInt_Max\n    e765e LocalVariable CallFunc_GetBattleParamToInt_Init\n    e766f LocalVariable CallFunc_GetBattleParamToInt_Param\ne7681 Let property=DiseaseName_8_75475DD04B3C5EEC50F1BE921DE759E3\n  e7692 StructMemberContext DiseaseName_8_75475DD04B3C5EEC50F1BE921DE759E3\n    e76a3 LocalVariable K2Node_MakeStruct_DiseaseHandler_2\n  e76b4 NameConst BLIND\ne76bd Let property=InvocationValue_7_F85884EE4AC9C18B8BAAB98975B996B5\n  e76ce StructMemberContext InvocationValue_7_F85884EE4AC9C18B8BAAB98975B996B5\n    e76df LocalVariable K2Node_MakeStruct_DiseaseHandler_2\n  e76f0 IntConst 0\ne76f5 Let property=InvocationTurn_11_C97E85724193E3C53F6406BEEFFB9C53\n  e7706 StructMemberContext InvocationTurn_11_C97E85724193E3C53F6406BEEFFB9C53\n    e7717 LocalVariable K2Node_MakeStruct_DiseaseHandler_2\n  e7728 LocalVariable CallFunc_GetBattleParamToInt_Init\ne7739 LetObj\n  e773a StructMemberContext ActionCommand_14_759AA0334A1C779519C960A6C4606684\n    e774b LocalVariable K2Node_MakeStruct_DiseaseHandler_2\n  e775c NoObject\ne775d LetBool\n  e775e StructMemberContext ByEquipment_16_702E94F346D453347267E6809E6BC4F8\n    e776f LocalVariable K2Node_MakeStruct_DiseaseHandler_2\n  e7780 False\ne7781 Context skip=60 rvalue=<null-field>\n  e7782 LocalVariable K2Node_DynamicCast_AsBattle_Character_Base_BP\n  e779f LocalVirtualFunction AddDisease\n    e77a8 LocalVariable K2Node_MakeStruct_DiseaseHandler_2\n    e77b9 LocalVariable ActionEnforcer\n    e77ca IntConst 0\n    e77cf IntConst 0\n    e77d4 LocalVariable CallFunc_AddDisease_Success_2\n    e77e5 LocalVariable CallFunc_AddDisease_AddType_2\ne77f7 Context skip=14 rvalue=<null-field>\n  e77f8 LocalVariable K2Node_DynamicCast_AsBattle_Character_Base_BP\n  e7815 LocalVirtualFunction UpdateStatusUI\ne781f PopExecutionFlow\ne7820 LetBool\n  e7821 LocalVariable Temp_bool_True_if_break_was_hit_Variable_1\n  e7832 False\ne7833 Let property=Temp_int_Loop_Counter_Variable\n  e7844 LocalVariable Temp_int_Loop_Counter_Variable\n  e7855 IntConst 0\ne785a Let property=Temp_int_Array_Index_Variable_1\n  e786b LocalVariable Temp_int_Array_Index_Variable_1\n  e787c IntConst 0\ne7881 Let property=CallFunc_Array_Length_ReturnValue\n  e7892 LocalVariable CallFunc_Array_Length_ReturnValue\n  e78a3 Context skip=19 rvalue=CallFunc_Array_Length_ReturnValue\n    e78a4 ObjectConst import:-554:Default__KismetArrayLibrary\n    e78bd FinalFunction import:-250:Array_Length\n      e78c2 InstanceVariable m_acBattleEnemy\ne78d4 LetBool\n  e78d5 LocalVariable CallFunc_Less_IntInt_ReturnValue\n  e78e6 CallMath import:-281:Less_IntInt\n    e78eb LocalVariable Temp_int_Loop_Counter_Variable\n    e78fc LocalVariable CallFunc_Array_Length_ReturnValue\ne790e LetBool\n  e790f LocalVariable CallFunc_Not_PreBool_ReturnValue_3\n  e7920 CallMath import:-291:Not_PreBool\n    e7925 LocalVariable Temp_bool_True_if_break_was_hit_Variable_1\ne7937 LetBool\n  e7938 LocalVariable CallFunc_BooleanAND_ReturnValue_1\n  e7949 CallMath import:-261:BooleanAND\n    e794e LocalVariable CallFunc_Not_PreBool_ReturnValue_3\n    e795f LocalVariable CallFunc_Less_IntInt_ReturnValue\ne7971 PopExecutionFlowIfNot\n  e7972 LocalVariable CallFunc_BooleanAND_ReturnValue_1\ne7983 Let property=Temp_int_Array_Index_Variable_1\n  e7994 LocalVariable Temp_int_Array_Index_Variable_1\n  e79a5 LocalVariable Temp_int_Loop_Counter_Variable\ne79b6 PushExecutionFlow target=2225\ne79bb Context skip=37 rvalue=<null-field>\n  e79bc ObjectConst import:-554:Default__KismetArrayLibrary\n  e79cd FinalFunction import:-247:Array_Get\n    e79d2 InstanceVariable m_acBattleEnemy\n    e79e3 LocalVariable Temp_int_Array_Index_Variable_1\n    e79f4 LocalVariable CallFunc_Array_Get_Item_1\ne7a06 Let property=<null-field>\n  e7a0f LocalVariable K2Node_DynamicCast_AsBattle_Enemy_BP\n  e7a20 DynamicCast import:-30:BattleEnemyBP_C\n    e7a25 LocalVariable CallFunc_Array_Get_Item_1\ne7a36 Let property=<null-field>\n  e7a3f LocalVariable K2Node_DynamicCast_bSuccess_1\n  e7a50 Cast cast=71\n    e7a52 LocalVariable K2Node_DynamicCast_AsBattle_Enemy_BP\ne7a63 PopExecutionFlowIfNot\n  e7a64 LocalVariable K2Node_DynamicCast_bSuccess_1\ne7a75 LetBool\n  e7a76 LocalVariable CallFunc_IsCharacterDead_ReturnValue_1\n  e7a87 Context skip=14 rvalue=CallFunc_IsCharacterDead_ReturnValue_1\n    e7a88 LocalVariable K2Node_DynamicCast_AsBattle_Enemy_BP\n    e7aad VirtualFunction IsCharacterDead\ne7ab7 LetBool\n  e7ab8 LocalVariable CallFunc_Not_PreBool_ReturnValue_2\n  e7ac9 CallMath import:-291:Not_PreBool\n    e7ace LocalVariable CallFunc_IsCharacterDead_ReturnValue_1\ne7ae0 PopExecutionFlowIfNot\n  e7ae1 LocalVariable CallFunc_Not_PreBool_ReturnValue_2\ne7af2 Context skip=24 rvalue=<null-field>\n  e7af3 ObjectConst import:-561:Default__LibAccessor_EffectManager_C\n  e7b04 LocalVirtualFunction GetEffectManager\n    e7b0d Self\n    e7b0e LocalVariable CallFunc_GetEffectManager_EffectManager\ne7b20 Context skip=24 rvalue=<null-field>\n  e7b21 LocalVariable K2Node_DynamicCast_AsBattle_Enemy_BP\n  e7b3e LocalVirtualFunction GetEffectSpawnPosition\n    e7b47 True\n    e7b48 LocalVariable CallFunc_GetEffectSpawnPosition_Position\ne7b5a Context skip=87 rvalue=<null-field>\n  e7b5b LocalVariable CallFunc_GetEffectManager_EffectManager\n  e7b78 FinalFunction import:-506:SpawnEffect\n    e7b7d NameConst Btl_SatisfactionDown_A\n    e7b86 NoObject\n    e7b87 LocalVariable CallFunc_GetEffectSpawnPosition_Position\n    e7b98 RotationConst pitch=0 yaw=0 roll=0\n    e7ba5 False\n    e7ba6 LocalVariable CallFunc_SpawnEffect_Effect\n    e7bb7 LocalVariable CallFunc_SpawnEffect_Success\n    e7bc8 LocalVariable CallFunc_SpawnEffect_LoopEffect\n    e7bd9 VectorConst x=1 y=1 z=1\ne7be7 PopExecutionFlow\ne7be8 Let property=CallFunc_Add_IntInt_ReturnValue\n  e7bf9 LocalVariable CallFunc_Add_IntInt_ReturnValue\n  e7c0a CallMath import:-259:Add_IntInt\n    e7c0f LocalVariable Temp_int_Loop_Counter_Variable\n    e7c20 IntConst 1\ne7c26 Let property=Temp_int_Loop_Counter_Variable\n  e7c37 LocalVariable Temp_int_Loop_Counter_Variable\n  e7c48 LocalVariable CallFunc_Add_IntInt_ReturnValue\ne7c59 Jump target=1598\ne7c5e LetObj\n  e7c5f LocalVariable CallFunc_GetManagerInstance_ReturnValue\n  e7c70 CallMath import:-348:GetManagerInstance\n    e7c75 ObjectConst import:-134:SoundManager\ne7c7b Context skip=36 rvalue=<null-field>\n  e7c7c LocalVariable CallFunc_GetManagerInstance_ReturnValue\n  e7c99 LocalVirtualFunction RequestPlayBattleSeByLabel\n    e7ca2 NameConst se_bat_sunlight\n    e7cab LocalVariable CallFunc_RequestPlayBattleSeByLabel_Success\ne7cbd CallMath import:-523:GetGameText\n  e7cc2 NameConst eBATTLE_PARTY_BUFF_IN_DAYTIME\n  e7ccb LocalVariable CallFunc_GetGameText_OutText\ne7cdd LocalVirtualFunction ActionInfoOpen\n  e7ce6 LocalVariable CallFunc_GetGameText_OutText\ne7cf8 LetBool\n  e7cf9 LocalVariable CallFunc_IsKSPartyBattle_ReturnValue\n  e7d0a LocalVirtualFunction IsKSPartyBattle\ne7d14 PopExecutionFlowIfNot\n  e7d15 LocalVariable CallFunc_IsKSPartyBattle_ReturnValue\ne7d26 LocalVirtualFunction UpdateHPState\n  e7d2f LocalVariable CallFunc_UpdateHPState_Result\ne7d41 PopExecutionFlow\ne7d42 Let property=CallFunc_Add_IntInt_ReturnValue_1\n  e7d53 LocalVariable CallFunc_Add_IntInt_ReturnValue_1\n  e7d64 CallMath import:-259:Add_IntInt\n    e7d69 LocalVariable Temp_int_Loop_Counter_Variable_1\n    e7d7a IntConst 1\ne7d80 Let property=Temp_int_Loop_Counter_Variable_1\n  e7d91 LocalVariable Temp_int_Loop_Counter_Variable_1\n  e7da2 LocalVariable CallFunc_Add_IntInt_ReturnValue_1\ne7db3 Jump target=72\ne7db8 Return\n  e7db9 Nothing\ne7dba EndOfScript",
+      "ExecSpecialAction_BuffInNight": "e8839 PushExecutionFlow target=2575\ne883e PushExecutionFlow target=2358\ne8843 PushExecutionFlow target=1600\ne8848 PushExecutionFlow target=1546\ne884d LetBool\n  e884e LocalVariable Temp_bool_True_if_break_was_hit_Variable\n  e885f False\ne8860 Let property=Temp_int_Loop_Counter_Variable_1\n  e8871 LocalVariable Temp_int_Loop_Counter_Variable_1\n  e8882 IntConst 0\ne8887 Let property=Temp_int_Array_Index_Variable\n  e8898 LocalVariable Temp_int_Array_Index_Variable\n  e88a9 IntConst 0\ne88ae LetBool\n  e88af LocalVariable CallFunc_Not_PreBool_ReturnValue\n  e88c0 CallMath import:-291:Not_PreBool\n    e88c5 LocalVariable Temp_bool_True_if_break_was_hit_Variable\ne88d7 Let property=CallFunc_Array_Length_ReturnValue_1\n  e88e8 LocalVariable CallFunc_Array_Length_ReturnValue_1\n  e88f9 Context skip=19 rvalue=CallFunc_Array_Length_ReturnValue_1\n    e88fa ObjectConst import:-554:Default__KismetArrayLibrary\n    e8913 FinalFunction import:-250:Array_Length\n      e8918 InstanceVariable m_acBattlePlayer\ne892a LetBool\n  e892b LocalVariable CallFunc_Less_IntInt_ReturnValue_1\n  e893c CallMath import:-281:Less_IntInt\n    e8941 LocalVariable Temp_int_Loop_Counter_Variable_1\n    e8952 LocalVariable CallFunc_Array_Length_ReturnValue_1\ne8964 LetBool\n  e8965 LocalVariable CallFunc_BooleanAND_ReturnValue\n  e8976 CallMath import:-261:BooleanAND\n    e897b LocalVariable CallFunc_Not_PreBool_ReturnValue\n    e898c LocalVariable CallFunc_Less_IntInt_ReturnValue_1\ne899e PopExecutionFlowIfNot\n  e899f LocalVariable CallFunc_BooleanAND_ReturnValue\ne89b0 Let property=Temp_int_Array_Index_Variable\n  e89c1 LocalVariable Temp_int_Array_Index_Variable\n  e89d2 LocalVariable Temp_int_Loop_Counter_Variable_1\ne89e3 PushExecutionFlow target=2501\ne89e8 Context skip=37 rvalue=<null-field>\n  e89e9 ObjectConst import:-554:Default__KismetArrayLibrary\n  e89fa FinalFunction import:-247:Array_Get\n    e89ff InstanceVariable m_acBattlePlayer\n    e8a10 LocalVariable Temp_int_Array_Index_Variable\n    e8a21 LocalVariable CallFunc_Array_Get_Item\ne8a33 Let property=<null-field>\n  e8a3c LocalVariable K2Node_DynamicCast_AsBattle_Character_Base_BP\n  e8a4d DynamicCast import:-26:BattleCharacterBaseBP_C\n    e8a52 LocalVariable CallFunc_Array_Get_Item\ne8a63 Let property=<null-field>\n  e8a6c LocalVariable K2Node_DynamicCast_bSuccess\n  e8a7d Cast cast=71\n    e8a7f LocalVariable K2Node_DynamicCast_AsBattle_Character_Base_BP\ne8a90 PopExecutionFlowIfNot\n  e8a91 LocalVariable K2Node_DynamicCast_bSuccess\ne8aa2 Context skip=37 rvalue=<null-field>\n  e8aa3 ObjectConst import:-554:Default__KismetArrayLibrary\n  e8ab4 FinalFunction import:-247:Array_Get\n    e8ab9 InstanceVariable m_acBattlePlayer\n    e8aca LocalVariable Temp_int_Array_Index_Variable\n    e8adb LocalVariable CallFunc_Array_Get_Item\ne8aed LetBool\n  e8aee LocalVariable CallFunc_IsCharacterDead_ReturnValue\n  e8aff Context skip=14 rvalue=CallFunc_IsCharacterDead_ReturnValue\n    e8b00 LocalVariable CallFunc_Array_Get_Item\n    e8b25 VirtualFunction IsCharacterDead\ne8b2f LetBool\n  e8b30 LocalVariable CallFunc_Not_PreBool_ReturnValue_1\n  e8b41 CallMath import:-291:Not_PreBool\n    e8b46 LocalVariable CallFunc_IsCharacterDead_ReturnValue\ne8b58 PopExecutionFlowIfNot\n  e8b59 LocalVariable CallFunc_Not_PreBool_ReturnValue_1\ne8b6a Context skip=64 rvalue=<null-field>\n  e8b6b ObjectConst import:-567:Default__LibGetParam_C\n  e8b7c LocalVirtualFunction GetBattleParamToInt\n    e8b85 NameConst BUFF_IN_NIGHT_PARAM\n    e8b8e Self\n    e8b8f LocalVariable CallFunc_GetBattleParamToInt_Min\n    e8ba0 LocalVariable CallFunc_GetBattleParamToInt_Max\n    e8bb1 LocalVariable CallFunc_GetBattleParamToInt_Init\n    e8bc2 LocalVariable CallFunc_GetBattleParamToInt_Param\ne8bd4 Let property=DiseaseName_8_75475DD04B3C5EEC50F1BE921DE759E3\n  e8be5 StructMemberContext DiseaseName_8_75475DD04B3C5EEC50F1BE921DE759E3\n    e8bf6 LocalVariable K2Node_MakeStruct_DiseaseHandler_2\n  e8c07 NameConst ATK_UP\ne8c10 Let property=InvocationValue_7_F85884EE4AC9C18B8BAAB98975B996B5\n  e8c21 StructMemberContext InvocationValue_7_F85884EE4AC9C18B8BAAB98975B996B5\n    e8c32 LocalVariable K2Node_MakeStruct_DiseaseHandler_2\n  e8c43 IntConst 0\ne8c48 Let property=InvocationTurn_11_C97E85724193E3C53F6406BEEFFB9C53\n  e8c59 StructMemberContext InvocationTurn_11_C97E85724193E3C53F6406BEEFFB9C53\n    e8c6a LocalVariable K2Node_MakeStruct_DiseaseHandler_2\n  e8c7b LocalVariable CallFunc_GetBattleParamToInt_Param\ne8c8c LetObj\n  e8c8d StructMemberContext ActionCommand_14_759AA0334A1C779519C960A6C4606684\n    e8c9e LocalVariable K2Node_MakeStruct_DiseaseHandler_2\n  e8caf NoObject\ne8cb0 LetBool\n  e8cb1 StructMemberContext ByEquipment_16_702E94F346D453347267E6809E6BC4F8\n    e8cc2 LocalVariable K2Node_MakeStruct_DiseaseHandler_2\n  e8cd3 False\ne8cd4 Context skip=60 rvalue=<null-field>\n  e8cd5 LocalVariable K2Node_DynamicCast_AsBattle_Character_Base_BP\n  e8cf2 LocalVirtualFunction AddDisease\n    e8cfb LocalVariable K2Node_MakeStruct_DiseaseHandler_2\n    e8d0c LocalVariable ActionEnforcer\n    e8d1d IntConst 0\n    e8d22 IntConst 0\n    e8d27 LocalVariable CallFunc_AddDisease_Success_2\n    e8d38 LocalVariable CallFunc_AddDisease_AddType_2\ne8d4a Context skip=64 rvalue=<null-field>\n  e8d4b ObjectConst import:-567:Default__LibGetParam_C\n  e8d5c LocalVirtualFunction GetBattleParamToInt\n    e8d65 NameConst BUFF_IN_NIGHT_PARAM\n    e8d6e Self\n    e8d6f LocalVariable CallFunc_GetBattleParamToInt_Min\n    e8d80 LocalVariable CallFunc_GetBattleParamToInt_Max\n    e8d91 LocalVariable CallFunc_GetBattleParamToInt_Init\n    e8da2 LocalVariable CallFunc_GetBattleParamToInt_Param\ne8db4 Let property=DiseaseName_8_75475DD04B3C5EEC50F1BE921DE759E3\n  e8dc5 StructMemberContext DiseaseName_8_75475DD04B3C5EEC50F1BE921DE759E3\n    e8dd6 LocalVariable K2Node_MakeStruct_DiseaseHandler_1\n  e8de7 NameConst MATK_UP\ne8df0 Let property=InvocationValue_7_F85884EE4AC9C18B8BAAB98975B996B5\n  e8e01 StructMemberContext InvocationValue_7_F85884EE4AC9C18B8BAAB98975B996B5\n    e8e12 LocalVariable K2Node_MakeStruct_DiseaseHandler_1\n  e8e23 IntConst 0\ne8e28 Let property=InvocationTurn_11_C97E85724193E3C53F6406BEEFFB9C53\n  e8e39 StructMemberContext InvocationTurn_11_C97E85724193E3C53F6406BEEFFB9C53\n    e8e4a LocalVariable K2Node_MakeStruct_DiseaseHandler_1\n  e8e5b LocalVariable CallFunc_GetBattleParamToInt_Param\ne8e6c LetObj\n  e8e6d StructMemberContext ActionCommand_14_759AA0334A1C779519C960A6C4606684\n    e8e7e LocalVariable K2Node_MakeStruct_DiseaseHandler_1\n  e8e8f NoObject\ne8e90 LetBool\n  e8e91 StructMemberContext ByEquipment_16_702E94F346D453347267E6809E6BC4F8\n    e8ea2 LocalVariable K2Node_MakeStruct_DiseaseHandler_1\n  e8eb3 False\ne8eb4 Context skip=60 rvalue=<null-field>\n  e8eb5 LocalVariable K2Node_DynamicCast_AsBattle_Character_Base_BP\n  e8ed2 LocalVirtualFunction AddDisease\n    e8edb LocalVariable K2Node_MakeStruct_DiseaseHandler_1\n    e8eec LocalVariable ActionEnforcer\n    e8efd IntConst 0\n    e8f02 IntConst 0\n    e8f07 LocalVariable CallFunc_AddDisease_Success_1\n    e8f18 LocalVariable CallFunc_AddDisease_AddType_1\ne8f2a Context skip=64 rvalue=<null-field>\n  e8f2b ObjectConst import:-567:Default__LibGetParam_C\n  e8f3c LocalVirtualFunction GetBattleParamToInt\n    e8f45 NameConst BUFF_IN_NIGHT_PARAM\n    e8f4e Self\n    e8f4f LocalVariable CallFunc_GetBattleParamToInt_Min\n    e8f60 LocalVariable CallFunc_GetBattleParamToInt_Max\n    e8f71 LocalVariable CallFunc_GetBattleParamToInt_Init\n    e8f82 LocalVariable CallFunc_GetBattleParamToInt_Param\ne8f94 Let property=DiseaseName_8_75475DD04B3C5EEC50F1BE921DE759E3\n  e8fa5 StructMemberContext DiseaseName_8_75475DD04B3C5EEC50F1BE921DE759E3\n    e8fb6 LocalVariable K2Node_MakeStruct_DiseaseHandler\n  e8fc7 NameConst AGI_UP\ne8fd0 Let property=InvocationValue_7_F85884EE4AC9C18B8BAAB98975B996B5\n  e8fe1 StructMemberContext InvocationValue_7_F85884EE4AC9C18B8BAAB98975B996B5\n    e8ff2 LocalVariable K2Node_MakeStruct_DiseaseHandler\n  e9003 IntConst 0\ne9008 Let property=InvocationTurn_11_C97E85724193E3C53F6406BEEFFB9C53\n  e9019 StructMemberContext InvocationTurn_11_C97E85724193E3C53F6406BEEFFB9C53\n    e902a LocalVariable K2Node_MakeStruct_DiseaseHandler\n  e903b LocalVariable CallFunc_GetBattleParamToInt_Param\ne904c LetObj\n  e904d StructMemberContext ActionCommand_14_759AA0334A1C779519C960A6C4606684\n    e905e LocalVariable K2Node_MakeStruct_DiseaseHandler\n  e906f NoObject\ne9070 LetBool\n  e9071 StructMemberContext ByEquipment_16_702E94F346D453347267E6809E6BC4F8\n    e9082 LocalVariable K2Node_MakeStruct_DiseaseHandler\n  e9093 False\ne9094 Context skip=60 rvalue=<null-field>\n  e9095 LocalVariable K2Node_DynamicCast_AsBattle_Character_Base_BP\n  e90b2 LocalVirtualFunction AddDisease\n    e90bb LocalVariable K2Node_MakeStruct_DiseaseHandler\n    e90cc LocalVariable ActionEnforcer\n    e90dd IntConst 0\n    e90e2 IntConst 0\n    e90e7 LocalVariable CallFunc_AddDisease_Success\n    e90f8 LocalVariable CallFunc_AddDisease_AddType\ne910a Context skip=14 rvalue=<null-field>\n  e910b LocalVariable K2Node_DynamicCast_AsBattle_Character_Base_BP\n  e9128 LocalVirtualFunction UpdateStatusUI\ne9132 PopExecutionFlow\ne9133 LetBool\n  e9134 LocalVariable CallFunc_ExecMoveNextOrder_ReturnValue\n  e9145 Context skip=21 rvalue=CallFunc_ExecMoveNextOrder_ReturnValue\n    e9146 InstanceVariable m_cBattleActionOrder\n    e916b LocalVirtualFunction ExecMoveNextOrder\n      e9174 ByteConst 0\n      e9176 IntConst -1\ne917c PopExecutionFlow\ne917d LetBool\n  e917e LocalVariable Temp_bool_True_if_break_was_hit_Variable_1\n  e918f False\ne9190 Let property=Temp_int_Loop_Counter_Variable\n  e91a1 LocalVariable Temp_int_Loop_Counter_Variable\n  e91b2 IntConst 0\ne91b7 Let property=Temp_int_Array_Index_Variable_1\n  e91c8 LocalVariable Temp_int_Array_Index_Variable_1\n  e91d9 IntConst 0\ne91de Let property=CallFunc_Array_Length_ReturnValue\n  e91ef LocalVariable CallFunc_Array_Length_ReturnValue\n  e9200 Context skip=19 rvalue=CallFunc_Array_Length_ReturnValue\n    e9201 ObjectConst import:-554:Default__KismetArrayLibrary\n    e921a FinalFunction import:-250:Array_Length\n      e921f InstanceVariable m_acBattlePlayer\ne9231 LetBool\n  e9232 LocalVariable CallFunc_Less_IntInt_ReturnValue\n  e9243 CallMath import:-281:Less_IntInt\n    e9248 LocalVariable Temp_int_Loop_Counter_Variable\n    e9259 LocalVariable CallFunc_Array_Length_ReturnValue\ne926b LetBool\n  e926c LocalVariable CallFunc_Not_PreBool_ReturnValue_2\n  e927d CallMath import:-291:Not_PreBool\n    e9282 LocalVariable Temp_bool_True_if_break_was_hit_Variable_1\ne9294 LetBool\n  e9295 LocalVariable CallFunc_BooleanAND_ReturnValue_1\n  e92a6 CallMath import:-261:BooleanAND\n    e92ab LocalVariable CallFunc_Not_PreBool_ReturnValue_2\n    e92bc LocalVariable CallFunc_Less_IntInt_ReturnValue\ne92ce PopExecutionFlowIfNot\n  e92cf LocalVariable CallFunc_BooleanAND_ReturnValue_1\ne92e0 Let property=Temp_int_Array_Index_Variable_1\n  e92f1 LocalVariable Temp_int_Array_Index_Variable_1\n  e9302 LocalVariable Temp_int_Loop_Counter_Variable\ne9313 PushExecutionFlow target=2284\ne9318 Context skip=37 rvalue=<null-field>\n  e9319 ObjectConst import:-554:Default__KismetArrayLibrary\n  e932a FinalFunction import:-247:Array_Get\n    e932f InstanceVariable m_acBattlePlayer\n    e9340 LocalVariable Temp_int_Array_Index_Variable_1\n    e9351 LocalVariable CallFunc_Array_Get_Item_1\ne9363 Let property=<null-field>\n  e936c LocalVariable K2Node_DynamicCast_AsBattle_Character_Base_BP_1\n  e937d DynamicCast import:-26:BattleCharacterBaseBP_C\n    e9382 LocalVariable CallFunc_Array_Get_Item_1\ne9393 Let property=<null-field>\n  e939c LocalVariable K2Node_DynamicCast_bSuccess_1\n  e93ad Cast cast=71\n    e93af LocalVariable K2Node_DynamicCast_AsBattle_Character_Base_BP_1\ne93c0 PopExecutionFlowIfNot\n  e93c1 LocalVariable K2Node_DynamicCast_bSuccess_1\ne93d2 LetBool\n  e93d3 LocalVariable CallFunc_IsCharacterDead_ReturnValue_1\n  e93e4 Context skip=14 rvalue=CallFunc_IsCharacterDead_ReturnValue_1\n    e93e5 LocalVariable K2Node_DynamicCast_AsBattle_Character_Base_BP_1\n    e940a VirtualFunction IsCharacterDead\ne9414 LetBool\n  e9415 LocalVariable CallFunc_Not_PreBool_ReturnValue_3\n  e9426 CallMath import:-291:Not_PreBool\n    e942b LocalVariable CallFunc_IsCharacterDead_ReturnValue_1\ne943d PopExecutionFlowIfNot\n  e943e LocalVariable CallFunc_Not_PreBool_ReturnValue_3\ne944f Context skip=24 rvalue=<null-field>\n  e9450 ObjectConst import:-561:Default__LibAccessor_EffectManager_C\n  e9461 LocalVirtualFunction GetEffectManager\n    e946a Self\n    e946b LocalVariable CallFunc_GetEffectManager_EffectManager\ne947d Context skip=24 rvalue=<null-field>\n  e947e LocalVariable K2Node_DynamicCast_AsBattle_Character_Base_BP_1\n  e949b LocalVirtualFunction GetEffectSpawnPosition\n    e94a4 True\n    e94a5 LocalVariable CallFunc_GetEffectSpawnPosition_Position\ne94b7 Context skip=87 rvalue=<null-field>\n  e94b8 LocalVariable CallFunc_GetEffectManager_EffectManager\n  e94d5 FinalFunction import:-506:SpawnEffect\n    e94da NameConst Btl_SatisfactionUp_A\n    e94e3 NoObject\n    e94e4 LocalVariable CallFunc_GetEffectSpawnPosition_Position\n    e94f5 RotationConst pitch=0 yaw=0 roll=0\n    e9502 False\n    e9503 LocalVariable CallFunc_SpawnEffect_Effect\n    e9514 LocalVariable CallFunc_SpawnEffect_Success\n    e9525 LocalVariable CallFunc_SpawnEffect_LoopEffect\n    e9536 VectorConst x=1 y=1 z=1\ne9544 PopExecutionFlow\ne9545 Let property=CallFunc_Add_IntInt_ReturnValue_1\n  e9556 LocalVariable CallFunc_Add_IntInt_ReturnValue_1\n  e9567 CallMath import:-259:Add_IntInt\n    e956c LocalVariable Temp_int_Loop_Counter_Variable\n    e957d IntConst 1\ne9583 Let property=Temp_int_Loop_Counter_Variable\n  e9594 LocalVariable Temp_int_Loop_Counter_Variable\n  e95a5 LocalVariable CallFunc_Add_IntInt_ReturnValue_1\ne95b6 Jump target=1657\ne95bb LetObj\n  e95bc LocalVariable CallFunc_GetManagerInstance_ReturnValue\n  e95cd CallMath import:-348:GetManagerInstance\n    e95d2 ObjectConst import:-134:SoundManager\ne95d8 Context skip=36 rvalue=<null-field>\n  e95d9 LocalVariable CallFunc_GetManagerInstance_ReturnValue\n  e95f6 LocalVirtualFunction RequestPlayBattleSeByLabel\n    e95ff NameConst se_bat_moonlight\n    e9608 LocalVariable CallFunc_RequestPlayBattleSeByLabel_Success\ne961a CallMath import:-523:GetGameText\n  e961f NameConst eBATTLE_PARTY_BUFF_IN_NIGHTTIME\n  e9628 LocalVariable CallFunc_GetGameText_OutText\ne963a LocalVirtualFunction ActionInfoOpen\n  e9643 LocalVariable CallFunc_GetGameText_OutText\ne9655 PopExecutionFlow\ne9656 Let property=CallFunc_Add_IntInt_ReturnValue\n  e9667 LocalVariable CallFunc_Add_IntInt_ReturnValue\n  e9678 CallMath import:-259:Add_IntInt\n    e967d LocalVariable Temp_int_Loop_Counter_Variable_1\n    e968e IntConst 1\ne9694 Let property=Temp_int_Loop_Counter_Variable_1\n  e96a5 LocalVariable Temp_int_Loop_Counter_Variable_1\n  e96b6 LocalVariable CallFunc_Add_IntInt_ReturnValue\ne96c7 Jump target=77\ne96cc Return\n  e96cd Nothing\ne96ce EndOfScript"
+    },
+    "defaults": [
+      {
+        "UberGraphFrame": {},
+        "RecoveryCutDiseaseMaterialCurve_ScrollParameter_5CD8F9C34693B09366CBFB985BD32928": {
+          "kind": "native-struct",
+          "type": "Vector",
+          "components": [
+            {
+              "kind": "float32",
+              "bits": 0,
+              "value": 0
+            },
+            {
+              "kind": "float32",
+              "bits": 0,
+              "value": 0
+            },
+            {
+              "kind": "float32",
+              "bits": 0,
+              "value": 0
+            }
+          ]
+        },
+        "RecoveryCutDiseaseMaterialCurve_MaskParameter_5CD8F9C34693B09366CBFB985BD32928": {
+          "kind": "native-struct",
+          "type": "Vector",
+          "components": [
+            {
+              "kind": "float32",
+              "bits": 0,
+              "value": 0
+            },
+            {
+              "kind": "float32",
+              "bits": 0,
+              "value": 0
+            },
+            {
+              "kind": "float32",
+              "bits": 0,
+              "value": 0
+            }
+          ]
+        },
+        "PrevFlow": "EBATTLE_FLOW_STATE::NewEnumerator0",
+        "ActionParam": {
+          "Enforcer": {
+            "kind": "object",
+            "index": 0,
+            "path": null
+          },
+          "Targets": [],
+          "ActionCommand": {
+            "ID": 0,
+            "AbilityID": 0,
+            "DisplayName": "None",
+            "Detail": "None",
+            "CommandActor": {
+              "kind": "soft-object",
+              "asset": {
+                "base": "None",
+                "number": 0,
+                "text": "None"
+              },
+              "subPath": ""
+            },
+            "AbilityType": "EABILITY_TYPE::ePHYSICS",
+            "AbilityUseType": "EABILITY_USE_TYPE::eALWAYS",
+            "AlwaysDisable": false,
+            "Attribute": "EATTRIBUTE_TYPE::eNONE",
+            "DependWeapon": false,
+            "RestrictWeapon": "EWEAPON_CATEGORY::eSWORD",
+            "TargetType": "EBATTLE_TARGET_TYPE::eSELF",
+            "ExceptEnforcer": false,
+            "CostType": "EABILITY_COST_TYPE::eNONE",
+            "CostValue": 0,
+            "HitRatio": 0,
+            "CriticalRatio": 0,
+            "CriticalPower": 0,
+            "AbilityRatio": 0,
+            "BaseCount": 0,
+            "MinimumCount": 0,
+            "RandomCountMin": 0,
+            "RandomCountMax": 0,
+            "EstimateOrderType": "EBATTLE_ACTION_ORDER_ESTIMATE_TYPE::eNONE",
+            "EstimateOrderCount": 0,
+            "Ailment": [],
+            "KeepBoostEffect": false,
+            "EnableItemAll": false,
+            "EnableSkillAll": false,
+            "EnableConvergence": false,
+            "EnableDiffusion": false,
+            "EnableReflection": false,
+            "EnableCounter": false,
+            "EnableHideOut": false,
+            "EnableRepeat": false,
+            "EnableCover": false,
+            "EnableProvoke": false,
+            "EnableDisableMagic": false,
+            "EnableEnchant": false,
+            "EnableChaseAttack": false,
+            "EnableWeakCheckAll": false,
+            "EnableNormalAttackAll": false,
+            "EnableSession": false,
+            "EnableBusinessSupport": false,
+            "EnableForceWeakness": false,
+            "EnableNoUseMaterial": false,
+            "EnableSwitchWeapon": false,
+            "EnableCompensationMagic": false,
+            "EnableExcitement": false,
+            "SongAbilityFlag": false,
+            "DanceAbilityFlag": false,
+            "EnableAutoTameMonster": false,
+            "UseAbilityCamera": false,
+            "ActionCommandSequencer": {
+              "kind": "soft-object",
+              "asset": {
+                "base": "None",
+                "number": 0,
+                "text": "None"
+              },
+              "subPath": ""
+            },
+            "AbilitySE": [],
+            "SlideFrame": 0
+          },
+          "BoostLevel": 0,
+          "AddValueA": "None",
+          "AddValueB": "None",
+          "MenuIndex": 0,
+          "AdditiveTurn": false,
+          "UseActionLabel": "None",
+          "UseGrowMagicBuff": false
+        },
+        "ReturnBattleFlow": "EBATTLE_FLOW_STATE::NewEnumerator0",
+        "MapBGMData": {
+          "SoundCri": {
+            "kind": "object",
+            "index": 0,
+            "path": null
+          },
+          "BgmLabel": "None",
+          "BgmId": 0,
+          "Priority": 0,
+          "FadeIn": 0,
+          "FadeOut": 0,
+          "Volume": 0,
+          "Time": 0,
+          "StateChangeBgm": 0,
+          "TargetSoundComponent": {
+            "kind": "object",
+            "index": 0,
+            "path": null
+          },
+          "IsInterupt": false,
+          "IsPlayedMusicRecord": false
+        },
+        "EnemyGroup": {
+          "VoiceID": "None",
+          "TalkPlayerID": "EPlayableCharacterID::eNONE",
+          "PlayerVoiceID": "None",
+          "BGMID": "None",
+          "UseBattleBGM": false,
+          "UseVictoryBGM": false,
+          "ViewResult": false,
+          "ResumeBGM": false,
+          "BossBattle": false,
+          "EscapeEnable": false,
+          "PlacementType": "None",
+          "EnemyID": [],
+          "SaveEndrollSegment": "EEndRollSegmentSet::ER_NONE",
+          "ID": 0,
+          "BattleStartDashEnable": false,
+          "UseVictoryAction": false,
+          "ResultDashEnable": false,
+          "ItemEnable": false,
+          "GuardEnable": false,
+          "BoostEnable": false,
+          "BoostFinishResultEnable": false,
+          "BattleStartEvent": {
+            "kind": "soft-object",
+            "asset": {
+              "base": "None",
+              "number": 0,
+              "text": "None"
+            },
+            "subPath": ""
+          },
+          "BattleStartEnemyVoiceEnable": false,
+          "WeaponUnloadGCType": "EWEAPON_UNLOAD_GC_TYPE::eTURN_END"
+        },
+        "EscapeSuccess": true,
+        "PlayerStatusUIMax": 8,
+        "BattleDamageUIMax": 50,
+        "EnemyStatusUIMax": 6,
+        "DebugResultExpRatio": 1,
+        "DebugResultJPRatio": 1,
+        "DebugResultMoneyRatio": 1,
+        "DebugResultDropRatio": 1,
+        "BattleCameraType": "EBATTLE_CAMERA_TYPE::EBATTLE_CAMERA_MAX",
+        "ExecutableChangeSubParty": true,
+        "EXPRatioByAbility": 1,
+        "EXPRatioByEquipment": 1,
+        "JPRatioByAbility": 1,
+        "JPRatioByEquipment": 1,
+        "MoneyRatioByEquipment": 1,
+        "DropRatioByEquipment": 1,
+        "DebugResultEXPValue": -1,
+        "CurrentReplayData": {
+          "Enable": false,
+          "PlayerID": [],
+          "PlayerJob": [],
+          "PlayerPos": [],
+          "PlayerDisease": [],
+          "PlayerStatus": [],
+          "PlayerWeapon": [],
+          "MasqueradeTargetID": 0,
+          "MasqueradeJobID": 0,
+          "EnemyID": [],
+          "EnemyPos": [],
+          "EnemyDisease": [],
+          "EnemyDiseaseParam": [],
+          "EnemyStatus": [],
+          "EnemyActionMode": [],
+          "SupportID": [],
+          "SupportStatus": [],
+          "ActionID": 0,
+          "ActionEnforcer": 0,
+          "PotentialityActionStatus": 0,
+          "ActionTarget": 0,
+          "ActionParam": [],
+          "FieldStatus": 0,
+          "FinishType": 0,
+          "CameraType": 0
+        },
+        "RecordPlayerIDList": [
+          0
+        ],
+        "RecordPlayerJobList": [
+          0
+        ],
+        "RecordPlayerPosList": [
+          {
+            "kind": "native-struct",
+            "type": "Vector",
+            "components": [
+              {
+                "kind": "float32",
+                "bits": 0,
+                "value": 0
+              },
+              {
+                "kind": "float32",
+                "bits": 0,
+                "value": 0
+              },
+              {
+                "kind": "float32",
+                "bits": 0,
+                "value": 0
+              }
+            ]
+          }
+        ],
+        "RecordPlayerStatusList": [
+          0
+        ],
+        "OpenTutorialType": "ETUTORIAL_TYPE::eBATTLE_BREAK",
+        "ReturnTutorialFlow": "EBATTLE_FLOW_STATE::NewEnumerator14",
+        "WorkMaterialParam": {
+          "Array": []
+        },
+        "RemoveSolid00": "False",
+        "RemoveSolid01": "False",
+        "RemoveSolid02": "False",
+        "VignetteIntensity_Original": 1,
+        "bFirst_VignetteIntensity": true,
+        "m_bDebugRelaseWeaponTexture": true
+      }
+    ]
+  }
+}

@@ -3,7 +3,9 @@
 - Lord of the Sands routine agreed: night before boss; T1 ASA Throne dagger x2,
   Osvald/Partitio Defend; T2 Throne Critical Scope, Osvald +2 Aggressive Slash,
   Partitio Defend, Temenos staff; T3 Partitio +3 Beastlings. Preserve these actions.
-  Routine is planned, not RNG-wired; see docs/galdera-quicksand.md.
+  Implemented through night switch, boss prompt, all eight actions, victory rewards,
+  field return and defeat flag40010. User confirmed no dungeon encounters.
+  Source-backed prediction awaits retail trace validation; see docs/galdera-quicksand.md.
 
 - After Temenos recruitment, assign Osvald Warrior2 and Temenos Dancer5 using
   existing licenses/native job stats; retain existing supports, no Temenos Step Ahead.

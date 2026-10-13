@@ -98,6 +98,13 @@ function find(v){if(v&&typeof v==='object'){if(v.coast&&v.fight)return v;for(con
   assert.deepEqual(q.western_sai.arrival.arrival,q.southern_sai.after);
   assert.deepEqual(q.quicksand.arrival,q.western_sai.field_return.after);
   console.log(JSON.stringify({fixture:label,temenos_boost_cycles:tm.battle.boost_cycles,western_menu:q.western_sai.menu.rng.draws,quicksand:q.quicksand.after.draws,order:q.western_sai.menu.current_order}));
+  const lord=q.lord_sands;assert(lord);assert.deepEqual(lord.night.arrival,q.quicksand.after);assert.equal(lord.night.world_after.time,4);
+  assert.deepEqual(lord.prompt.after,lord.battle.before);assert.deepEqual(lord.field_return.arrival,lord.battle.after);assert.deepEqual(lord.victory.arrival,lord.field_return.after);
+  assert.equal(lord.battle.actions.length,8);assert.equal(lord.battle.actions.at(-1).report.outcome,'victory');
+  assert(lord.battle.actions.some(a=>a.turn===2&&a.actor===2&&a.name==='Staff attack'));
+  assert.equal(lord.battle.rewards.jp,37);assert.equal(lord.battle.money_spent,15000);
+  for(const id of [7,6,5,4]){const old=qw.character_progression[id],now=lord.victory.world_after.character_progression[id];assert.equal(now.experience-old.experience,lord.battle.rewards.exp);assert.equal(now.jp_earned-old.jp_earned,37);}
+  console.log(JSON.stringify({fixture:label,lord_menu:lord.battle.at_command_menu.draws,lord_after:lord.victory.after.draws,rewards:lord.battle.rewards}));
   assert(tm.recruitment.world_after.evasive_maneuvers);assert.equal(tm.battle.report.outcome,'victory');
   assert(tm.recruitment.world_after.character_progression[8].experience>fc.flamechurch.world_after.character_progression[8].experience);
   console.log(JSON.stringify({fixture:label,temenos_menu:tm.battle.at_command_menu.draws,actor:tm.battle.actor,boost_cycles:tm.battle.boost_cycles,recruited:tm.recruitment.after.draws,party:tm.recruitment.world_after.party}));

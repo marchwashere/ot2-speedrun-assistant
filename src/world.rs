@@ -1381,6 +1381,10 @@ impl<'a> Loader<'a> {
                 // have no CRT lottery or field-state/placement side effects.
                 4 | 10 | 20 | 30 | 55 | 60 | 65 | 106 | 200 | 210 | 240 | 300 | 400 | 710 | 711 | 8010 | 9100
                     if matches!(name,"MS_KEN_00_0100"|"MS_KEN_00_0300"|"MS_KUS_00_0100"|"MS_SIN_00_0100"|"MS_SIN_00_0300") => {}
+                600 if name=="EV_Dng_Dst_2_2_0010" && c.index==1 && c.opt==["EVM_DNG_DST_2_2_L","EV_Dng_Dst_2_2_0020","0","1","0"] => {
+                    ensure(matches!(stop_before,Some(EventStop::Battle)),"Lord Sands requires explicit battle boundary")?;
+                    return Ok(EventExit::Battle(ScriptedBattle {event:name.into(),command_index:c.index,volume:c.opt[0].clone(),victory_event:c.opt[1].clone()}));
+                }
                 600 if name=="MS_SIN_00_0100" && c.index==82 && c.opt==["ENM_EVE_CLE_C00_010","MS_SIN_00_0300","0","1","0"] => {
                     ensure(matches!(stop_before,Some(EventStop::Battle)),"Temenos battle requires explicit boundary")?;
                     return Ok(EventExit::Battle(ScriptedBattle {event:name.into(),command_index:c.index,volume:c.opt[0].clone(),victory_event:c.opt[1].clone()}));
