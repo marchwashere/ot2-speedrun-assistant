@@ -61,7 +61,16 @@ pub fn kill(entry:CrtRng,state:&WorldState,level:u32,p:&encounter::Prediction)->
     }
     // CalcBonusReward: one-turn JP +10%, no-damage money +10%.
     l.state.award_victory(ot2_battle_engine::progression::Reward {exp:gained,jp:battle.base_jp+(battle.base_jp/10).max(1),money:battle.base_money+(battle.base_money/10).max(1)})?;
-    {
+    if l.state.galdera_route {
+        let osvald=l.state.character_progression.get_mut(&6).unwrap();
+        ensure(osvald.jp_earned-osvald.jp_spent>=130,"Insufficient carried JP for Advanced Magic and Elemental Barrage")?;
+        let learned=osvald.jobs.learned_abilities.entry(6).or_default();
+        learned.extend(["ABI_SET_SCH_010","ABI_SET_SCH_020"].into_iter().map(str::to_owned));
+        ensure(!learned.contains("ABI_SET_SCH_070") && !learned.contains("ABI_SET_SCH_060"),"Rare setup skills already purchased")?;
+        learned.extend(["ABI_SET_SCH_070","ABI_SET_SCH_060"].into_iter().map(str::to_owned));
+        osvald.jp_spent+=130;
+        osvald.jobs.unlocked_support.insert("ABI_SCH_SUP_01".into());
+    } else {
         let osvald=l.state.character_progression.get_mut(&6).unwrap();
         ensure(osvald.jp_earned-osvald.jp_spent>=130,"Insufficient carried JP for two Osvald skills")?;
         osvald.jp_spent+=130;
@@ -75,7 +84,7 @@ pub fn kill(entry:CrtRng,state:&WorldState,level:u32,p:&encounter::Prediction)->
     l.state.character_progression.get_mut(&6).unwrap().jobs.equipped_support.insert("ABI_SCH_SUP_01".into());
     let party_levels_after=l.state.party.iter().map(|id|l.state.character_progression[id].level).collect();
     l.state.osvald_extra_skills=2;l.state.refresh_support_skills();
-    l.boundary("Osvald learns two skills and equips Evasive Maneuvers: future movement ability multiplier 50%");
+    l.boundary(if l.state.galdera_route {"Osvald learns Advanced Magic (30 JP), Elemental Barrage (100 JP), then equips Evasive Maneuvers; Throné learns nothing"} else {"Osvald learns two skills and equips Evasive Maneuvers: future movement ability multiplier 50%"});
     Ok(Some(Victory {map:l.state.map.clone(),battle,after:l.rng,world_after:l.state,trace:l.trace,decisions:l.decisions,learned_skills:2,evasive_maneuvers:true,party_levels_after}))
 }
 

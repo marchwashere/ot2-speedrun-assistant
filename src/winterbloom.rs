@@ -1,4 +1,4 @@
-//! Western Snows entry -> guild license -> Winterbloom tag, 345 running updates.
+//! Western Snows -> Winterbloom. Any% takes the guild detour; Galdera goes direct.
 //! Movement-error override is a separate immutable second-encounter continuation.
 use crate::{CrtRng,Result,SimError,ensure,encounter::{self,Boundary,PredictionOptions},
     escape_search::FieldSearch,highroad::{Escape,FieldReturn},snows_escape::Entry,
@@ -27,17 +27,17 @@ pub struct Prediction {
     pub first_trigger_updates:u32,
     pub remaining_updates:u32,
     pub predicted_second_encounter:bool,
-    pub second_encounter:encounter::Prediction,
+    pub second_encounter:Option<encounter::Prediction>,
     pub without_second:Option<Entry>,
-    pub with_second:Flee,
+    pub with_second:Option<Flee>,
     pub voyage_without_second:Option<crate::winter_voyage::Prediction>,
-    pub voyage_with_second:crate::winter_voyage::Prediction,
+    pub voyage_with_second:Option<crate::winter_voyage::Prediction>,
     pub verification:&'static str,
 }
 impl Prediction {
     pub fn input_cost(&self)->u32 {
         self.first_escape.as_ref().map_or(0,|s|s.weighted_input_cost)
-            +if self.predicted_second_encounter {self.with_second.escape.weighted_input_cost}else{0}
+            +if self.predicted_second_encounter {self.with_second.as_ref().unwrap().escape.weighted_input_cost}else{0}
     }
 }
 
@@ -67,6 +67,7 @@ fn town(rng:CrtRng,state:&WorldState,remaining:u32,decrement:u32)->Result<Entry>
     ensure(state.encounter_counter>remaining*decrement,"Winterbloom approach would generate another encounter")?;
     let mut state=state.clone();state.encounter_counter-=remaining*decrement;
     let mut l=Loader::new(world::catalog(),state,rng)?;
+    if !l.state.galdera_route {
     // GuildData GUILD_005: fixed dialogue + license flags, no reset or random line.
     l.skipped_event("SYS_SCH_GUILD_0010")?;
     l.skipped_event("SYS_SCH_GUILD_0030")?;
@@ -77,6 +78,7 @@ fn town(rng:CrtRng,state:&WorldState,remaining:u32,decrement:u32)->Result<Entry>
     l.state.set_flag(100,true); // native SetAcquiredJobLicense's shared saved event flag
     l.dismiss_tutorial(59)?;
     l.boundary("Scholar License acquired; guild interaction preserves the encounter counter");
+    }
     l.visit_map(TOWN)?;
     l.skipped_event("MapInStorySelect")?;
     l.boundary("Winterbloom: story prompt dismissed without starting chapter");
@@ -90,6 +92,27 @@ fn finish(entry:&Entry,first:encounter::Prediction,first_escape:Option<Escape>,
     let _profile=crate::profile::span("Western finish");
     ensure(state.evasive_maneuvers,"Western onward route requires the rare kill and Evasive Maneuvers")?;
     let trigger=first.counter_updates.unwrap();
+    if state.galdera_route {
+        ensure(state.time==2,"Galdera direct Winterbloom crossing requires daytime")?;
+        let evasive=entry.world_after.evasive_maneuvers;
+        // Percentages refer to the whole measured path. Round movement up;
+        // reserve three additional running updates at the end.
+        let run=if evasive {194}else{103};
+        let walk=if evasive {0}else{98};
+        ensure(trigger<=run,"First encounter must occur before the walking section")?;
+        let spend=(run-trigger+3)*7+walk*5;
+        let destination=town(after,state,spend,1)?;
+        if !crate::winter_voyage::safe(&destination)? {return Ok(None);}
+        let voyage=crate::winter_voyage::predict(&destination)?;
+        return Ok(Some(Prediction {evasive_at_entry:evasive,first_encounter:first,
+            first_escape,first_field_return:first_return,first_is_rare,
+            first_trigger_updates:trigger,remaining_updates:run-trigger+walk+3,
+            predicted_second_encounter:false,second_encounter:None,
+            without_second:Some(destination),with_second:None,
+            voyage_without_second:Some(voyage),voyage_with_second:None,
+            verification:if evasive {"Galdera: direct to Winterbloom, no Scholar Guild. Run 100% / walk 0%; 194 running updates +3 leeway; exactly one encounter."}
+                else {"Galdera: direct to Winterbloom, no Scholar Guild. Run first 53% / walk final 47% of TOTAL distance; equip EM after rare victory. 194 run /208 walk measurement +3 leeway; exactly one encounter."}}));
+    }
     ensure(trigger<=RUN_UPDATES,"Western first encounter lies beyond the measured route")?;
     let remaining=RUN_UPDATES-trigger;
     let second=encounter_at(after,state)?;
@@ -118,10 +141,10 @@ fn finish(entry:&Entry,first:encounter::Prediction,first_escape:Option<Escape>,
             return Ok(Some(Prediction {evasive_at_entry:entry.world_after.evasive_maneuvers,
                 first_encounter:first,first_escape,first_field_return:first_return,first_is_rare,
                 first_trigger_updates:trigger,remaining_updates:remaining,predicted_second_encounter:predicted,
-                second_encounter:second,without_second,
-                voyage_without_second,voyage_with_second,
-                with_second:Flee {encounter:encounter_at(after,&w)?,escape,field_return:returned,
-                    remaining_updates:remaining_after,town:destination},
+                second_encounter:Some(second),without_second,
+                voyage_without_second,voyage_with_second:Some(voyage_with_second),
+                with_second:Some(Flee {encounter:encounter_at(after,&w)?,escape,field_return:returned,
+                    remaining_updates:remaining_after,town:destination}),
                 verification:"Source-derived Western route; 345 running updates without padding. Extra-encounter override includes excess movement to its real trigger; town/story endpoints await retail validation."}));
         }
     }
@@ -145,7 +168,7 @@ pub fn with_evasive(entry:&Entry)->Result<Option<Prediction>> {
     for cost in 0..u32::MAX {
         for escape in search.unboosted_break_candidates(cost)? {
             let returned=restore(escape.attempt.as_ref().unwrap().after,&w,escape.enemy_knowledge())?;
-            if !safe(&encounter_at(returned.after,&returned.world_after)?) {continue;}
+            if !w.galdera_route && !safe(&encounter_at(returned.after,&returned.world_after)?) {continue;}
             let after=returned.after;let state=returned.world_after.clone();
             if let Some(p)=finish(entry,first.clone(),Some(escape),Some(returned),false,after,&state)? {return Ok(Some(p));}
         }
@@ -156,6 +179,19 @@ pub fn with_evasive(entry:&Entry)->Result<Option<Prediction>> {
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[test]
+    fn galdera_direct_crossing_stays_below_minimum_reset_with_leeway() {
+        for evasive in [false,true] {
+            for initial in 500u32..=899 {
+                let first=initial.div_ceil(if evasive {7}else{15});
+                let (run,walk)=if evasive {(194,0)}else{(103,98)};
+                assert!(first<=run);
+                assert!((run-first+3)*7+walk*5<1000);
+            }
+        }
+        // Rounded segment budgets cover at least the full measured path.
+        assert!(103.0/194.0+98.0/208.0>=1.0);
+    }
     fn entry(seed:u32,evasive:bool,counter:u32)->Entry {
         let mut w=world::throne_after_second_state().unwrap();
         // This late-route fixture has completed Throné's first chapter.
@@ -231,13 +267,13 @@ mod tests {
             assert_eq!(p.first_encounter.decrement,Some(7));
             assert_eq!(p.first_trigger_updates,129);
             assert_eq!(p.remaining_updates,216);
-            assert!(safe(&p.first_encounter)&&safe(&p.second_encounter));
+            assert!(safe(&p.first_encounter)&&safe(p.second_encounter.as_ref().unwrap()));
             assert!(p.first_escape.as_ref().unwrap().attempt.as_ref().unwrap().success);
-            assert!(p.with_second.escape.attempt.as_ref().unwrap().success);
-            assert_eq!(p.with_second.town.world_after.map,TOWN);
-            assert!(p.with_second.town.world_after.active_scenarios.is_empty());
-            assert_eq!(p.with_second.town.world_after.character_progression[&6].experience,e.world_after.character_progression[&6].experience);
-            for onward in p.voyage_without_second.iter().chain(std::iter::once(&p.voyage_with_second)) {
+            assert!(p.with_second.as_ref().unwrap().escape.attempt.as_ref().unwrap().success);
+            assert_eq!(p.with_second.as_ref().unwrap().town.world_after.map,TOWN);
+            assert!(p.with_second.as_ref().unwrap().town.world_after.active_scenarios.is_empty());
+            assert_eq!(p.with_second.as_ref().unwrap().town.world_after.character_progression[&6].experience,e.world_after.character_progression[&6].experience);
+            for onward in p.voyage_without_second.iter().chain(p.voyage_with_second.iter()) {
                 assert!(safe(&onward.arrival.encounter));
                 assert!(onward.escape.attempt.as_ref().unwrap().success);
                 assert_eq!(onward.escape.menu.party_levels,[15,15]);
@@ -301,8 +337,8 @@ mod tests {
             assert!(!route.evasive_at_entry);
             assert!(route.first_is_rare && route.predicted_second_encounter);
             assert_eq!(route.first_encounter.decrement,Some(15));
-            assert_eq!(route.second_encounter.decrement,Some(7));
-            assert_eq!(route.with_second.town.world_after.character_progression[&6].level,v.party_levels_after[1]);
+            assert_eq!(route.second_encounter.as_ref().unwrap().decrement,Some(7));
+            assert_eq!(route.with_second.as_ref().unwrap().town.world_after.character_progression[&6].level,v.party_levels_after[1]);
             return;
         }
         panic!("No Western rare fixture");

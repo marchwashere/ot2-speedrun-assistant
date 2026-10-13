@@ -1,6 +1,11 @@
 # Gravell restoration and supplies
 
 After Scorched Bone Spear, fast travel to Gravell and discard chapter starts.
+While daytime, steal Pom and Strengthening Serum from the Villager, then
+Empowering Lychee (L) from Old Man NPC_Twn_Wld_3_1_A_TALK_0200. Switch path
+action before closing after each NPC. The Lychee is guaranteed at level31
+and adds two draws: opening timer and Steal check, with no closing dialogue.
+Teach/equip the planned Temenos and Partitio skills (no RNG draws).
 Switch night and Ambush the Debt Collector (Throné30 required; carried70).
 Talk to Porta, restore both rusty weapons, switch day, sell Lionheart's Axe
 and Conqueror's Sword separately, then Steal Reinforcing Jam from Shopkeeper

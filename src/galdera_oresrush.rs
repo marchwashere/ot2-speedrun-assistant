@@ -2,7 +2,8 @@
 use crate::{Result,CrtRng,ensure,world::{self,Loader,HiredMerchant},snows_escape::Entry};
 use serde::{Deserialize,Serialize};
 use std::sync::OnceLock;
-#[derive(Deserialize)]struct Data {warrior_job:u32,guild_flag:u32,peddler:Peddler,pickaxe:Pickaxe,augmentor:Augmentor}
+#[derive(Deserialize)]struct Data {warrior_job:u32,guild_flag:u32,peddler:Peddler,pickaxe:Pickaxe,augmentor:Augmentor,jam:Jam}
+#[derive(Deserialize)]struct Jam {npc:String,item:String,proper_steal:u32,guaranteed_level:u32}
 #[derive(Deserialize)]struct Augmentor {npc:String,item:String,required_level:u32}
 #[derive(Deserialize)]struct Peddler {npc:String,unique_id:u32,supporter:String,talent:String,price:u32,events:Vec<String>}
 #[derive(Deserialize)]struct Pickaxe {npc:String,item:String,required_level:u32}
@@ -10,7 +11,7 @@ fn data()->&'static Data {static D:OnceLock<Data>=OnceLock::new();D.get_or_init(
 #[derive(Debug,Serialize)]
 pub struct Supplies {pub warrior:Entry,pub oresrush:Entry,pub night:Entry,pub hire:Entry,pub pickaxe:Entry,pub pickaxe_required_level:u32,pub pickaxe_agnea_level:u32,pub hire_event:String,pub augmentor:AugmentorTrip,pub winterbloom:crate::galdera_winterbloom::Trip,pub wellgrove:crate::galdera_wellgrove::Trip}
 #[derive(Debug,Serialize)]
-pub struct AugmentorTrip {pub sai:Entry,pub east_district:Entry,pub entreat:Entry,pub required_level:u32,pub agnea_level:u32}
+pub struct AugmentorTrip {pub sai:Entry,pub east_district:Entry,pub entreat:Entry,pub day:Entry,pub jam_steal:Entry,pub required_level:u32,pub agnea_level:u32}
 fn point(l:&mut Loader<'_>,arrival:CrtRng)->Entry {Entry {arrival,after:l.rng,world_after:l.state.clone(),trace:std::mem::take(&mut l.trace),decisions:std::mem::take(&mut l.decisions)}}
 fn present(l:&Loader<'_>,npc:&str)->bool {l.state.existing_npcs.iter().any(|id|l.data.placements[id].resource==npc)}
 fn dialogue(l:&mut Loader<'_>,npc:&str,events:&[String])->Result<String> {
@@ -51,7 +52,7 @@ pub(crate) fn finish(sai:&Entry)->Result<Supplies> {
     l.boundary("Sturdy Pickaxe entreated at night: change selected path action, then close without dialogue; no success check or closing lottery draw");
     let pickaxe=point(&mut l,hire.after);
     let augmentor=augmentor(&pickaxe)?;
-    let winterbloom=crate::galdera_winterbloom::finish(&augmentor.entreat)?;
+    let winterbloom=crate::galdera_winterbloom::finish(&augmentor.jam_steal)?;
     let wellgrove=crate::galdera_wellgrove::finish(&winterbloom.soldier_entreat)?;
     Ok(Supplies {warrior,oresrush,night,hire,pickaxe,pickaxe_required_level:d.pickaxe.required_level,pickaxe_agnea_level,hire_event,augmentor,winterbloom,wellgrove})
 }
@@ -71,5 +72,16 @@ fn augmentor(entry:&Entry)->Result<AugmentorTrip> {
     *l.state.route_items.entry(d.item.clone()).or_default()+=1;
     l.boundary(format!("Agnea level{agnea_level} Entreat Elemental Augmentor (requires{}); change selected path action, then close without dialogue or closing lottery",d.required_level));
     let entreat=point(&mut l,east_district.after);
-    Ok(AugmentorTrip {sai,east_district,entreat,required_level:d.required_level,agnea_level})
+    l.manual_time_switch(2,"Sai East District: switch to day immediately after Elemental Augmentor Entreat")?;
+    let day=point(&mut l,entreat.after);
+    let jam=&data().jam;
+    ensure(l.state.party.contains(&7)&&present(&l,&jam.npc),"Throné or daytime Sai Jam Townsperson unavailable")?;
+    ensure(l.state.character_progression[&7].level>=jam.guaranteed_level,"Sai Reinforcing Jam Steal is not guaranteed")?;
+    l.draw(world::DrawKind::PathActionMenu,&jam.npc,"Open Townsperson Reinforcing Jam Steal menu: action timer",None);
+    let roll=l.draw(world::DrawKind::StealCheck,&jam.item,format!("Reinforcing Jam: ProperSteal{}, guaranteed level{}, probability100%",jam.proper_steal,jam.guaranteed_level),Some(100))+1;
+    if let Some(t)=l.trace.last_mut(){t.value=Some(roll);}
+    *l.state.route_items.entry(jam.item.clone()).or_default()+=1;
+    l.boundary("Reinforcing Jam stolen outside Sai East District orphanage; change selected path action, then close without dialogue or closing lottery");
+    let jam_steal=point(&mut l,day.after);
+    Ok(AugmentorTrip {sai,east_district,entreat,day,jam_steal,required_level:d.required_level,agnea_level})
 }

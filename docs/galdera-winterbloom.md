@@ -1,7 +1,8 @@
 # Winterbloom supplies
 
-Continue from the nighttime Elemental Augmentor Entreat. Fast travel to
-Winterbloom and discard chapter starts. Carry the hired Smooth Talker Peddler
+Continue from the daytime Sai East District Reinforcing Jam Steal. Fast travel to
+Winterbloom, discard chapter starts, then switch to night before Pickaxe delivery.
+Carry the hired Smooth Talker Peddler
 and Sturdy Pickaxe from Oresrush.
 
 The quest NPC selects Pickaxe delivery SC_SS_TSnow21_0200_02A0. Confirm Yes:

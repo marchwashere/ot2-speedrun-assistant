@@ -273,6 +273,64 @@
     "IsUnlimited": false,
     "BeSoldOut": false
   },
+  "jamNpc": {
+    "id": "NPC_Twn_Dst_2_1_B_TALK_0400",
+    "ID": 5,
+    "TextLabel": "CN_NPC_Twn_Dst_2_1_B_TALK_0400",
+    "NPC_UnqIndex": 12823,
+    "ActionID": "DstMf001_Fml",
+    "FaintAction": 36,
+    "UsePathLabel": "",
+    "IgnoreRelation": false,
+    "WorseRelationTextLabel": "eNPC_TALK_00",
+    "FCmd_Purchase_ID": "FC_P_NPC_Twn_Dst_2_1_B_TALK_0400",
+    "FCmd_Lure_ID": "FC_L_NPC_Twn_Dst_2_1_B_TALK_0400",
+    "FCmd_Battle_ID": "FC_B_NPC_Twn_Dst_2_1_B_TALK_0400",
+    "FCmd_Search_ID": "FC_INFO_NPC_Twn_Dst_2_1_B_TALK_0400",
+    "FCmd_RecoverArea": 5,
+    "FCmd_EnemyGroup": "ENG_NPC_Twn_Dst_2_1_B_0400",
+    "FCmd_UseBattleMapIndex": 0,
+    "TextInfoLabel": "None",
+    "IsNotWorsenRelation": false,
+    "FcSpecialPopupType": "EFieldCommandSpecialPopupType::eNone"
+  },
+  "jamPurchase": {
+    "id": "FC_P_NPC_Twn_Dst_2_1_B_TALK_0400",
+    "ID": 5,
+    "CommandEnable": 3,
+    "ShopID": "NPC_Twn_Dst_2_1_B_TALK_0400_NPCBUY",
+    "PurchaseBuyTalkID": "None",
+    "StealSuccessTalkID": "None",
+    "StealFailedTalkID": "None",
+    "BegSuccessTalkID": "None",
+    "RobEnemyGroupID": "None",
+    "RobBeforeTalkID": "None",
+    "RobBeforeEventID": "None"
+  },
+  "jamItem": {
+    "id": "NPC_Twn_Dst_2_1_B_TALK_0400_NPCBUY_02",
+    "ID": 1678,
+    "ItemLabel": "ITM_CSM_0101",
+    "FCPrice": 23750,
+    "PossibleItemLabel": "None",
+    "ObtainFlag": 15,
+    "ProperSteal": 35,
+    "ProperBeg": 45,
+    "LineupTime": "ELineupTime::eAlways",
+    "VisibleFlags": [
+      0
+    ],
+    "HiddenFlags": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "MillionaireModeLavel": "None",
+    "IsUnlimited": false,
+    "BeSoldOut": false
+  },
   "runtime": {
     "warrior_job": 2,
     "guild_flag": 411,
@@ -296,6 +354,12 @@
       "npc": "NPC_Twn_Dst_2_1_B_TALK_1800",
       "item": "ITM_EQP_ACS_250",
       "required_level": 25
+    },
+    "jam": {
+      "npc": "NPC_Twn_Dst_2_1_B_TALK_0400",
+      "item": "ITM_CSM_0101",
+      "proper_steal": 35,
+      "guaranteed_level": 46
     }
   },
   "blueprints": [

@@ -1,5 +1,28 @@
 # Active project
 
+- Gravell restoration visit: after daytime Villager supplies, steal Empowering
+  Lychee L from Old Man TALK_0200 (guaranteed31), then switch path action/close.
+  Adds two draws (opening + Steal check). Only switch night after this steal
+  and the RNG-free skill setup. Carry the Lychee into downstream inventory.
+
+- Galdera after Sai East District Augmentor Entreat: immediately day, steal
+  Reinforcing Jam from Townsperson TALK_0400 outside orphanage (guaranteed46),
+  switch path action/close. Opening + success check =2 draws. Teleport Winterbloom
+  daytime, switch night BEFORE pickaxe delivery; later Sai day switch unchanged.
+  This replaces the planned Beastling Village jam chest, not an extra fifth jam.
+
+- Galdera Wellgrove night: after Girl's Mother and before Dancer License,
+  Entreat Magic Nut L from Mysterious Merchant north of tavern (TALK_1800,
+  Agnea20). Switch path action before closing; one opening draw, no closing
+  dialogue/check. Keep nut in route_items and propagate RNG downstream.
+
+- Galdera early Western Winterbloom now goes directly to town: no Scholar Guild/license,
+  no second encounter or override. Measured194 run/208 walk +3 running-update leeway.
+  EM at entry:100% run. No EM:run first53%, walk final47% of TOTAL path;
+  rounded budgets103 run/98 walk; equip EM immediately after rare kill.
+  Galdera rare setup records Advanced Magic + Elemental Barrage (30+100 JP),
+  equips Osvald EM; Throné learns nothing. Any% guild/extra-encounter route unchanged.
+
 - Gravell now steals small Pom and Strengthening Serum BEFORE night (3 draws,
   path-action switch/close). Temenos BG + A Step Ahead; Partitio Collect +
   Boost-Start; true JP costs, no menu RNG. Then existing blacksmith/sales/Jam.

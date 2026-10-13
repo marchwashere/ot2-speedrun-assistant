@@ -18,6 +18,11 @@ const augmentorNpc=one(npcs,'NPC_Twn_Dst_2_1_B_TALK_1800');
 const augmentorPurchase=one(purchases,augmentorNpc.FCmd_Purchase_ID);assert.equal(augmentorPurchase.BegSuccessTalkID,'None');
 const augmentorItem=one(items,'NPC_Twn_Dst_2_1_B_TALK_1800_NPCBUY_02');assert.equal(augmentorItem.ItemLabel,'ITM_EQP_ACS_250');assert.equal(augmentorItem.ProperBeg,25);
 const over=Number(one(params,'STEAL_PROBABILITY_LEVEL_OVER').Init);assert.equal(over,11);
+const jamNpc=one(npcs,'NPC_Twn_Dst_2_1_B_TALK_0400');
+const jamPurchase=one(purchases,jamNpc.FCmd_Purchase_ID);
+const jamItem=one(items,jamPurchase.ShopID+'_02');
+assert.equal(jamItem.ItemLabel,'ITM_CSM_0101');assert.equal(jamItem.ProperSteal,35);
+assert.equal(jamPurchase.StealSuccessTalkID,'None');assert(jamPurchase.CommandEnable&1);
 assert.equal(Number(one(params,'STEAL_PROBABILITY_OVER').Init),100);
 const hire=one(commands,'FIELD_COMMAND_HIRE'),steal=one(commands,'FIELD_COMMAND_STEAL');
 assert.deepEqual(hire.BranchEventWeight,[.5,.5]);assert.deepEqual(steal.BranchEventWeight,[.5,.5]);
@@ -57,6 +62,7 @@ assert(!/Random|K2_SetTimer/.test(begCode));assert(begCode.includes('AddBackpack
 const runtime={warrior_job:2,guild_flag:411,peddler:{npc:peddler.id,unique_id:peddler.NPC_UnqIndex,supporter:lead.SupporterID,talent:lead.SpActionMerchant,price:lead.HirePrice,events:hire.SuccessEventLabel},
  pickaxe:{npc:miner.id,item:pickaxe.ItemLabel,required_level:pickaxe.ProperBeg},
  augmentor:{npc:augmentorNpc.id,item:augmentorItem.ItemLabel,required_level:augmentorItem.ProperBeg}};
+runtime.jam={npc:jamNpc.id,item:jamItem.ItemLabel,proper_steal:jamItem.ProperSteal,guaranteed_level:jamItem.ProperSteal+over};
 fs.writeFileSync(path.join(__dirname,'../data/galdera-oresrush.json'),JSON.stringify(runtime,null,2)+'\n');
-fs.writeFileSync(path.join(__dirname,'../data/source/galdera-oresrush.json'),JSON.stringify({sources,guild,lead,peddler,miner,purchase,pickaxe,runtime,blueprints:bp},null,2)+'\n');
+fs.writeFileSync(path.join(__dirname,'../data/source/galdera-oresrush.json'),JSON.stringify({sources,guild,lead,peddler,miner,purchase,pickaxe,jamNpc,jamPurchase,jamItem,runtime,blueprints:bp},null,2)+'\n');
 console.log(JSON.stringify(runtime));

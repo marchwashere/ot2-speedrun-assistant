@@ -261,6 +261,64 @@
     "IsUnlimited": false,
     "BeSoldOut": false
   },
+  "magicMerchant": {
+    "id": "NPC_Twn_Fst_2_1_A_TALK_1800",
+    "ID": 22,
+    "TextLabel": "CN_NPC_Twn_Fst_2_1_A_TALK_1800",
+    "NPC_UnqIndex": 13123,
+    "ActionID": "NonMrc007_Mle",
+    "FaintAction": 36,
+    "UsePathLabel": "",
+    "IgnoreRelation": false,
+    "WorseRelationTextLabel": "eNPC_TALK_00",
+    "FCmd_Purchase_ID": "FC_P_NPC_Twn_Fst_2_1_A_TALK_1800",
+    "FCmd_Lure_ID": "FC_L_NPC_Twn_Fst_2_1_A_TALK_1800",
+    "FCmd_Battle_ID": "FC_B_NPC_Twn_Fst_2_1_A_TALK_1800",
+    "FCmd_Search_ID": "FC_INFO_NPC_Twn_Fst_2_1_A_TALK_1800",
+    "FCmd_RecoverArea": 5,
+    "FCmd_EnemyGroup": "ENG_NPC_Twn_Fst_2_1_A_1800",
+    "FCmd_UseBattleMapIndex": 0,
+    "TextInfoLabel": "None",
+    "IsNotWorsenRelation": false,
+    "FcSpecialPopupType": "EFieldCommandSpecialPopupType::eNone"
+  },
+  "magicPurchase": {
+    "id": "FC_P_NPC_Twn_Fst_2_1_A_TALK_1800",
+    "ID": 30,
+    "CommandEnable": 12,
+    "ShopID": "NPC_Twn_Fst_2_1_A_TALK_1800_NPCBUY",
+    "PurchaseBuyTalkID": "None",
+    "StealSuccessTalkID": "None",
+    "StealFailedTalkID": "None",
+    "BegSuccessTalkID": "None",
+    "RobEnemyGroupID": "None",
+    "RobBeforeTalkID": "None",
+    "RobBeforeEventID": "None"
+  },
+  "magic": {
+    "id": "NPC_Twn_Fst_2_1_A_TALK_1800_NPCBUY_03",
+    "ID": 2008,
+    "ItemLabel": "ITM_CSM_0610",
+    "FCPrice": 5472,
+    "PossibleItemLabel": "None",
+    "ObtainFlag": 15,
+    "ProperSteal": 22,
+    "ProperBeg": 20,
+    "LineupTime": "ELineupTime::eAlways",
+    "VisibleFlags": [
+      0
+    ],
+    "HiddenFlags": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "MillionaireModeLavel": "None",
+    "IsUnlimited": false,
+    "BeSoldOut": false
+  },
   "guild": {
     "id": "GUILD_007",
     "ID": 8,

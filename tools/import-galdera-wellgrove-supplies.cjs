@@ -8,6 +8,10 @@ assert.equal(shopPurchase.BegSuccessTalkID,'None');assert.equal(motherPurchase.B
 const sharp=items.find(r=>r.id===shopPurchase.ShopID+'_02'),serum=items.find(r=>r.id===shopPurchase.ShopID+'_03'),lychee=items.find(r=>r.id===motherPurchase.ShopID+'_02');
 const merchant=npcs.find(r=>r.id==='NPC_Twn_Fst_2_1_A_TALK_0300');
 const merchantPurchase=purchases.find(r=>r.id===merchant.FCmd_Purchase_ID);
+const magicMerchant=npcs.find(r=>r.id==='NPC_Twn_Fst_2_1_A_TALK_1800');
+const magicPurchase=purchases.find(r=>r.id===magicMerchant.FCmd_Purchase_ID);
+const magic=items.find(r=>r.id.startsWith(magicPurchase.ShopID+'_')&&r.ItemLabel==='ITM_CSM_0610');
+assert.equal(magic.ProperBeg,20);assert.equal(magicPurchase.BegSuccessTalkID,'None');
 assert.equal(merchantPurchase.StealSuccessTalkID,'None');
 const poms=['01','02'].map(slot=>items.find(r=>r.id===merchantPurchase.ShopID+'_'+slot));
 for(const r of poms){assert.equal(r.ItemLabel,'ITM_CSM_0080');assert.equal(r.ProperSteal,10);}
@@ -30,6 +34,7 @@ for(const name of [guild.FistTaskEvent,guild.CompleteEvent[0]]){
 fs.writeFileSync(worldPath,JSON.stringify(world,null,2)+'\n');
 const runtime={shopkeeper:{npc:shopkeeper.id,items:[sharp,serum].map(r=>({item:r.ItemLabel,required_level:r.ProperBeg}))},mother:{npc:mother.id,item:lychee.ItemLabel,required_level:lychee.ProperBeg},dancer_job:job.JobID,guild_resource:'SYS_GUILD_DAN',guild_events:[guild.FistTaskEvent,guild.CompleteEvent[0]]};
 runtime.merchant={npc:merchant.id,item:poms[0].ItemLabel,quantity:poms.length,proper_steal:10,guaranteed_level:10+over};
+runtime.magic_merchant={npc:magicMerchant.id,item:magic.ItemLabel,required_level:magic.ProperBeg};
 fs.writeFileSync(path.join(__dirname,'../data/galdera-wellgrove-supplies.json'),JSON.stringify(runtime,null,2)+'\n');
-fs.writeFileSync(path.join(__dirname,'../data/source/galdera-wellgrove-supplies.json'),JSON.stringify({sources,merchant,merchantPurchase,poms,shopkeeper,mother,shopPurchase,motherPurchase,sharp,serum,lychee,guild,job},null,2)+'\n');
+fs.writeFileSync(path.join(__dirname,'../data/source/galdera-wellgrove-supplies.json'),JSON.stringify({sources,merchant,merchantPurchase,poms,shopkeeper,mother,shopPurchase,motherPurchase,sharp,serum,lychee,magicMerchant,magicPurchase,magic,guild,job},null,2)+'\n');
 console.log(JSON.stringify(runtime));

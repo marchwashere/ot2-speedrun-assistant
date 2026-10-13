@@ -29,5 +29,10 @@
     "quantity": 2,
     "proper_steal": 10,
     "guaranteed_level": 21
+  },
+  "magic_merchant": {
+    "npc": "NPC_Twn_Fst_2_1_A_TALK_1800",
+    "item": "ITM_CSM_0610",
+    "required_level": 20
   }
 }

@@ -21,5 +21,11 @@
     "npc": "NPC_Twn_Dst_2_1_B_TALK_1800",
     "item": "ITM_EQP_ACS_250",
     "required_level": 25
+  },
+  "jam": {
+    "npc": "NPC_Twn_Dst_2_1_B_TALK_0400",
+    "item": "ITM_CSM_0101",
+    "proper_steal": 35,
+    "guaranteed_level": 46
   }
 }

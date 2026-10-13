@@ -550,10 +550,14 @@ function renderEarlyCait() {
   const exit=f.snows_escape?.[timing+'_osvald'];
   const exitError=f.snows_escape?.[timing+'_error'];
   const appendRare=v=>{
-    const points=[['Rare fight · first command menu',v.battle.at_command_menu],['Rare fight · victory and drops',v.battle.after],['Rare fight · field return, two skills learned and Evasive Maneuvers equipped',v.after]];
+    const points=[['Rare fight · first command menu',v.battle.at_command_menu],['Rare fight · victory and drops',v.battle.after],[v.world_after.galdera_route?'Rare fight · Osvald: Advanced Magic → Elemental Barrage → equip Evasive Maneuvers; Throné: learn nothing':'Rare fight · field return, two skills learned and Evasive Maneuvers equipped',v.after]];
     $('checkpoints').innerHTML+=points.map(([label,r])=>`<tr><td>${label}</td><td>${totalAdvances(r)}</td><td>${hex(r.state)}</td><td>${r.draws}</td></tr>`).join('');
     trace.push(...v.battle.trace,...v.trace);
     const ledger=v.world_after.character_progression;
+    if(v.world_after.galdera_route) {
+      const target=v.map==='Fld_Snw_2_2'?'western-first-routine':v.map==='Fld_Snw_1_3'?'eastern-escape-routine':'snows-escape-routine';
+      $(target).innerHTML+=instructionBoxHtml(['After rare victory: Osvald learns Advanced Magic (30 JP), then Elemental Barrage (100 JP); equip Evasive Maneuvers','Throné learns nothing']);
+    }
     if(ledger) {
       $('progression-log').hidden=false;
       $('progression-details').innerHTML=v.world_after.party.map(id=>{
@@ -660,12 +664,14 @@ function renderEarlyCait() {
   if(west) {
     $('rare-fight-result').hidden=false;
     $('western-encounter-name').textContent=encounterLabel(west.first_encounter);
-    $('western-first-routine').innerHTML=west.first_is_rare?instructionBoxHtml(['SS M']):escapeRoutine(west.first_escape);
-    const second=west.predicted_second_encounter || westernSecondOverride===true;
+    $('western-first-routine').innerHTML=west.first_is_rare?instructionBoxHtml(west.with_second?['SS M']:['SS M','Osvald: learn Advanced Magic, then Elemental Barrage; equip Evasive Maneuvers','Throné: learn nothing']):escapeRoutine(west.first_escape);
+    const second=Boolean(west.with_second) && (west.predicted_second_encounter || westernSecondOverride===true);
+    $('western-second-no').hidden=!west.with_second;
+    $('western-second-yes').hidden=!west.with_second;
     $('western-second-no').disabled=west.predicted_second_encounter;
     $('western-second-no').setAttribute('aria-pressed',String(!second));
     $('western-second-yes').setAttribute('aria-pressed',String(second));
-    $('western-second-status').textContent=second?encounterLabel(west.second_encounter):'No second encounter predicted';
+    $('western-second-status').textContent=second?encounterLabel(west.second_encounter):!west.with_second?west.verification:'No second encounter predicted';
     $('western-second-routine').innerHTML=second?escapeRoutine(west.with_second.escape):'';
     const destination=second?west.with_second.town:west.without_second;
     $('winterbloom-log').hidden=false;
@@ -848,7 +854,7 @@ function renderCrackridgeVoyage() {
   const exit=result.post_battle_field?.flats_escape?.snows_escape?.[timing+'_osvald'];
   const west=early?.after_rare?.passage?.winterbloom ?? exit?.winterbloom_after_eastern ?? exit?.western?.winterbloom;
   if(west) {
-    const second=west.predicted_second_encounter || westernSecondOverride===true;
+    const second=Boolean(west.with_second) && (west.predicted_second_encounter || westernSecondOverride===true);
     const v=second?west.voyage_with_second:west.voyage_without_second;
     $('crackridge-switch-result').hidden=true;
     $('crackridge-travel-title').textContent='Winterbloom → New Delsta Harbor → Crackridge Harbor';
@@ -1164,13 +1170,13 @@ function renderCrackridgeVoyage() {
                       }
                       if(o.augmentor) {
                         const a=o.augmentor;
-                        for(const [label,e] of [['Sai · fast travel back at night, chapter start discarded',a.sai],['Sai: East District · entered at night, chapter start discarded',a.east_district],['Sai: East District · Elemental Augmentor entreated · change path action, then close without dialogue',a.entreat]]) {
+                        for(const [label,e] of [['Sai · fast travel back at night, chapter start discarded',a.sai],['Sai: East District · entered at night, chapter start discarded',a.east_district],['Sai: East District · Elemental Augmentor entreated · change path action, then close without dialogue',a.entreat],['Sai: East District · switch to day immediately',a.day],['Sai: East District · steal Reinforcing Jam from Townsperson outside orphanage · change path action, then close without dialogue',a.jam_steal]]) {
                           conningStages.push([label,e]);conningSpans.push(...e.trace);
                         }
                       }
                       if(o.winterbloom) {
                         const w=o.winterbloom;
-                        for(const [label,e] of [['Winterbloom · fast travel, chapter start discarded',w.arrival],['Winterbloom · deliver Sturdy Pickaxe · Rusty Sword, Revitalizing Jam, 7,000 leaves',w.sword_quest],['Winterbloom · Fortifying Nut (L) entreated from Soldier · change path action, then close without dialogue',w.soldier_entreat]]) {
+                        for(const [label,e] of [['Winterbloom · fast travel in daytime, chapter start discarded',w.arrival],['Winterbloom · switch to night before pickaxe delivery',w.night],['Winterbloom · deliver Sturdy Pickaxe · Rusty Sword, Revitalizing Jam, 7,000 leaves',w.sword_quest],['Winterbloom · Fortifying Nut (L) entreated from Soldier · change path action, then close without dialogue',w.soldier_entreat]]) {
                           conningStages.push([label,e]);conningSpans.push(...e.trace);
                         }
                       }
@@ -1210,7 +1216,7 @@ function renderCrackridgeVoyage() {
                           conningSpans.push(...f.escape.trace);
                           if(t.supplies) {
                             const v=t.supplies;
-                            for(const [stage,e] of [['Wellgrove · Merchant: steal 2 Energizing Pomegranates (M) · change path action, then close without dialogue',v.pom_steal],['Wellgrove · switched to night after stealing both Pom M',v.night],['Wellgrove tavern · Sharp Nut (L) and Diffusing Serum entreated · change path action, then close without dialogue',v.tavern_entreat],["Wellgrove · Girl's Mother Empowering Lychee (M) entreated · change path action, then close without dialogue",v.mother_entreat],['Wellgrove · Dancer License acquired',v.dancer_license]]) {
+                            for(const [stage,e] of [['Wellgrove · Merchant: steal 2 Energizing Pomegranates (M) · change path action, then close without dialogue',v.pom_steal],['Wellgrove · switched to night after stealing both Pom M',v.night],['Wellgrove tavern · Sharp Nut (L) and Diffusing Serum entreated · change path action, then close without dialogue',v.tavern_entreat],["Wellgrove · Girl's Mother Empowering Lychee (M) entreated · change path action, then close without dialogue",v.mother_entreat],['Wellgrove · Mysterious Merchant north of tavern: Magic Nut (L) entreated · change path action, then close without dialogue',v.magic_entreat],['Wellgrove · Dancer License acquired',v.dancer_license]]) {
                               conningStages.push([stage,e]);conningSpans.push(...e.trace);
                             }
                             if(v.al_return) {
@@ -1293,7 +1299,7 @@ function renderCrackridgeVoyage() {
                                       }
                                       if(q.gravell) {
                                         const g=q.gravell;
-                                        for(const [stage,e]of [['Gravell · teleported, chapters discarded',g.arrival],['Gravell · daytime Villager Pom and Strengthening Serum stolen; switch path action and close',g.supplies],['Gravell · Temenos BG / A Step Ahead; Partitio Collect / Boost-Start',g.setup],['Gravell · night for Ambush',g.night],['Gravell · Debt Collector ambushed',g.ambush],['Gravell · Rusty Sword and Rusty Axe restored; Armsmaster unlocked',g.restoration],['Gravell · day for shop and Steal',g.day],["Gravell · Lionheart’s Axe and Conqueror’s Sword sold · "+g.sale_proceeds.toLocaleString()+' leaves',g.sales],['Gravell · Reinforcing Jam stolen (100%); switch path action before closing',g.jam_steal]]){conningStages.push([stage,e]);conningSpans.push(...e.trace);}
+                                        for(const [stage,e]of [['Gravell · teleported, chapters discarded',g.arrival],['Gravell · daytime Villager Pom and Strengthening Serum stolen; switch path action and close',g.supplies],['Gravell · daytime Old Man Empowering Lychee (L) stolen; switch path action and close',g.lychee_steal],['Gravell · Temenos BG / A Step Ahead; Partitio Collect / Boost-Start',g.setup],['Gravell · night for Ambush',g.night],['Gravell · Debt Collector ambushed',g.ambush],['Gravell · Rusty Sword and Rusty Axe restored; Armsmaster unlocked',g.restoration],['Gravell · day for shop and Steal',g.day],["Gravell · Lionheart’s Axe and Conqueror’s Sword sold · "+g.sale_proceeds.toLocaleString()+' leaves',g.sales],['Gravell · Reinforcing Jam stolen (100%); switch path action before closing',g.jam_steal]]){conningStages.push([stage,e]);conningSpans.push(...e.trace);}
                                       }
                                     }
                                   }

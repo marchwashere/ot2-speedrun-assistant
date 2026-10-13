@@ -118,11 +118,38 @@ pub fn simulate_route(voices:&str,pirro_first:bool,hp:u32,galdera_route:bool)->R
     #[ignore = "Full live-transcript Galdera route replay"]
     fn galdera_skips_hikari_and_replays_full_route() {
         let result=simulate_route("SNNNNSSSSSNSNSSSSNNNSNSSNNSNS",true,154,true).unwrap();
+        fn find_restoration(v:&serde_json::Value)->Option<&serde_json::Value> {
+            if v["lychee_steal"].is_object() && v["restoration"].is_object() {return Some(v);}
+            v.as_object()?.values().find_map(find_restoration)
+        }
+        let restoration=find_restoration(&result).expect("Gravell restoration visit");
+        let lychee=&restoration["lychee_steal"];
+        assert_eq!(lychee["arrival"],restoration["supplies"]["after"]);
+        assert_eq!(lychee["after"]["draws"].as_u64().unwrap(),lychee["arrival"]["draws"].as_u64().unwrap()+2);
+        assert_eq!(lychee["world_after"]["time"],2);
+        let old_count=restoration["supplies"]["world_after"]["route_items"]["ITM_CSM_0240"].as_u64().unwrap_or(0);
+        assert_eq!(lychee["world_after"]["route_items"]["ITM_CSM_0240"].as_u64().unwrap(),old_count+1);
+        assert_eq!(restoration["setup"]["arrival"],lychee["after"]);
+        assert_eq!(restoration["night"]["arrival"],restoration["setup"]["after"]);
+        assert_eq!(restoration["night"]["world_after"]["time"],4);
         fn find_ryu(v:&serde_json::Value)->Option<&serde_json::Value> {
             if v["town_entry"].is_object() && v["canalbrine"]["water"].is_object() {return Some(v);}
             v.as_object()?.values().find_map(find_ryu)
         }
         let r=find_ryu(&result).expect("Ryu continuation");
+        fn find_winter(v:&serde_json::Value)->Option<&serde_json::Value> {
+            if v["evasive_at_entry"].is_boolean() {return Some(v);}
+            v.as_object()?.values().find_map(find_winter)
+        }
+        let winter=find_winter(&result).unwrap();
+        assert!(winter["with_second"].is_null() && winter["second_encounter"].is_null());
+        assert!(winter["voyage_with_second"].is_null());
+        let w=&winter["without_second"]["world_after"];
+        assert!(w["job_licenses"]["6"].is_null());
+        let skills=&w["character_progression"]["6"]["jobs"]["learned_abilities"]["6"];
+        assert!(skills.as_array().unwrap().contains(&serde_json::json!("ABI_SET_SCH_070")));
+        assert!(skills.as_array().unwrap().contains(&serde_json::json!("ABI_SET_SCH_060")));
+
         assert!(r["hikari"].is_null());
         assert_eq!(r["canalbrine"]["water"]["field_return"]["world_after"]["party"],serde_json::json!([7,6,8,4]));
         assert_eq!(r["canalbrine"]["water"]["field_return"]["world_after"]["bench"],serde_json::json!([]));
@@ -179,7 +206,7 @@ pub fn simulate_route(voices:&str,pirro_first:bool,hp:u32,galdera_route:bool)->R
         let q=&fc["temenos"]["quicksand"];
         let gv=&q["gravell"];
         assert_eq!(gv["supplies"]["after"]["draws"].as_u64().unwrap()-gv["arrival"]["after"]["draws"].as_u64().unwrap(),3);
-        assert_eq!(gv["supplies"]["after"],gv["setup"]["after"]);
+        assert_eq!(gv["lychee_steal"]["after"],gv["setup"]["after"]);
         assert_eq!(gv["supplies"]["world_after"]["time"],2);
         assert_eq!(q["flex"]["rewards"]["awarded"]["jp"],12760);
         assert_eq!(q["flex"]["fight"]["state"]["outcome"],"victory");

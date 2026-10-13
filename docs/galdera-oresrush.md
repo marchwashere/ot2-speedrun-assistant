@@ -6,10 +6,13 @@ chapter-start prompt and remain at night. Agnea Entreats Elemental Augmentor
 level25. BegItemExec checks level and grants the item without a probability
 lottery. The user changes path action before closing, skipping the success
 dialogue. This session adds only the common opening action timer (one draw).
-The accessory is recorded but not equipped. Continue at night through the
-Winterbloom Rusty Sword quest and Fortifying Nut L Entreat; switch to day only
-after teleporting back to Sai. Loader evaluates every map callback with the
-carried nighttime state and preserves the hired Peddler.
+The accessory is recorded but not equipped. Immediately switch to day and
+Steal Reinforcing Jam from Townsperson `NPC_Twn_Dst_2_1_B_TALK_0400` outside
+the orphanage. ProperSteal35 guarantees success at level46. Switch path action
+before closing: one opening timer and one success check, no closing lottery.
+Teleport to Winterbloom in daytime, then switch to night before Pickaxe delivery.
+Remain at night for the Soldier Entreat; switch day after returning to Sai.
+Loader evaluates the actual time-switch callbacks and preserves the hired Peddler.
 
 After entering Sai, get the first Warrior License without equipping a new job or
 learning skills. `SYS_WAR_GUILD_0010` and `0030` have `MapID=None`,

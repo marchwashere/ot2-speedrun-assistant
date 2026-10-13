@@ -13,6 +13,15 @@
         }
       ]
     },
+    "gravell_lychee": {
+      "npc": "NPC_Twn_Wld_3_1_A_TALK_0200",
+      "items": [
+        {
+          "id": "ITM_CSM_0240",
+          "level": 31
+        }
+      ]
+    },
     "mason": {
       "npc": "NPC_Twn_Wld_2_1_A_TALK_1100",
       "items": [
