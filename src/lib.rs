@@ -56,6 +56,7 @@ pub mod galdera_oresrush;
 pub mod galdera_winterbloom;
 pub mod galdera_wellgrove;
 pub mod galdera_champion;
+pub mod galdera_wellgrove_supplies;
 
 pub mod voice_identification;
 pub mod identified_route;

@@ -1,5 +1,17 @@
 # Active project
 
+- After Wellgrove entry: one tavern Shopkeeper menu Steals Sharp Nut L then
+  Diffusing Serum, change path action before close (opening +2 checks =3 CRT).
+  NPC_Twn_Fst_2_1_A_TALK_0400, ProperSteal22/21 => level33/32 guarantee. Switch
+  night; Agnea Entreat Empowering Lychee M from Girl's Mother, then path-action
+  switch/close (1 CRT opening; ProperBeg20). Use actually placed quest NPC
+  NPC_SS_TF21_0200_0300, not unused A_TALK_0600; same items, quest not accepted.
+  Acquire first Dancer License at night (JobID5, SYS_DAN_GUILD_0010/0030): fixed
+  dialogue, flags406false/411true, no reset or RNG; record license without job
+  assignment or purchases. All steps in Detailed log; retain supplies unused.
+  tools/import-galdera-wellgrove-supplies.cjs adds runtime/source audit and event
+  scripts; rerun after town/bag/Oresrush/Winterbloom importers. Retail pending.
+
 - Eastern Wellgrove continuation: run43 updates to Man with Horses, Steal
   Champion Seeker ITM_EQP_DGR_120 from NPC_SS_TD31_0300_0300 (ProperSteal38,
   level49+ gives100%, Throné70), switch path action before close: two draws,

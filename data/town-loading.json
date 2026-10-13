@@ -71482,6 +71482,116 @@
           ]
         }
       ]
+    },
+    "SYS_DAN_GUILD_0010": {
+      "map_id": 0,
+      "reset_counter": false,
+      "completion": null,
+      "commands": [
+        {
+          "index": 0,
+          "cmd": 40,
+          "target": 5102,
+          "text": "TX_SYS_GUILD_DAN_0010",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 1,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        }
+      ]
+    },
+    "SYS_DAN_GUILD_0030": {
+      "map_id": 0,
+      "reset_counter": false,
+      "completion": null,
+      "commands": [
+        {
+          "index": 0,
+          "cmd": 40,
+          "target": 5102,
+          "text": "TX_SYS_GUILD_DAN_0100",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 1,
+          "cmd": 40,
+          "target": 5102,
+          "text": "TX_SYS_GUILD_DAN_0110",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 2,
+          "cmd": 40,
+          "target": 5102,
+          "text": "TX_SYS_GUILD_DAN_0120",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 3,
+          "cmd": 40,
+          "target": 5102,
+          "text": "TX_SYS_GUILD_DAN_0130",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 4,
+          "cmd": 70,
+          "target": 406,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 5,
+          "cmd": 70,
+          "target": 411,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 6,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        }
+      ]
     }
   },
   "tutorials": {

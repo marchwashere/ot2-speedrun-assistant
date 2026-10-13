@@ -1267,6 +1267,7 @@ impl<'a> Loader<'a> {
                 }
                 40 if ((matches!(name,"SYS_SCH_GUILD_0010"|"SYS_SCH_GUILD_0030") && c.target==5105 && c.text.starts_with("TX_SYS_GUILD_SCH_"))
                     || (matches!(name,"SYS_WAR_GUILD_0010"|"SYS_WAR_GUILD_0030") && c.target==5107 && c.text.starts_with("TX_SYS_GUILD_WAR_"))
+                    || (matches!(name,"SYS_DAN_GUILD_0010"|"SYS_DAN_GUILD_0030") && c.target==5102 && c.text.starts_with("TX_SYS_GUILD_DAN_"))
                     || (matches!(name,"SYS_MER_GUILD_0010"|"SYS_MER_GUILD_0030") && c.target==5104 && (c.text.starts_with("TX_SYS_GUILD_MER_")||c.text.starts_with("TX_SYS_GUILD_MAR_")))
                     || (name=="MapInStorySelect" && c.target==0 && c.text=="TX_SYS_MapInStorySelect_0010"))
                     && c.opt == ["1","0","0","0"] => {

@@ -45,6 +45,20 @@ function find(v){if(v&&typeof v==='object'){if(v.coast&&v.fight)return v;for(con
   assert.deepEqual(t.wellgrove.world_after.active_scenarios,state.active_scenarios);
   assert.deepEqual(t.wellgrove.world_after.character_progression,state.character_progression);
   console.log(JSON.stringify({fixture:label,western_boost_cycles:wg.western_escape_boost_cycles,steal:t.steal.after.draws,encounter_menu:t.encounter.menu.rng.draws,wellgrove:t.wellgrove.after.draws,remaining_counter:t.exit.world_after.encounter_counter}));
+  const supplies=t.supplies;assert(supplies);
+  assert.equal(t.wellgrove.after.draws,label==='32'?4950:4061,'Earlier Wellgrove entry remains frozen');
+  assert.equal(supplies.tavern_steal.after.draws-t.wellgrove.after.draws,3);
+  assert.deepEqual(supplies.steal_chances,[100,100]);
+  assert.equal(supplies.night.world_after.time,4);
+  assert.equal(supplies.mother_entreat.after.draws-supplies.night.after.draws,1);
+  assert.equal(supplies.required_level,20);assert(supplies.agnea_level>=20);
+  assert.deepEqual(supplies.dancer_license.after,supplies.mother_entreat.after);
+  const end=supplies.dancer_license.world_after;
+  assert.equal(end.job_licenses['5'],1);assert.equal(end.time,4);assert.equal(end.map,'Twn_Fst_2_1_A');
+  for(const item of ['ITM_CSM_0670','ITM_MRL_COM_0010','ITM_CSM_0230'])assert.equal(end.route_items[item],1);
+  assert.deepEqual(end.character_progression,state.character_progression);
+  assert.deepEqual(end.active_scenarios,state.active_scenarios);
+  console.log(JSON.stringify({fixture:label,tavern_steal:supplies.tavern_steal.after.draws,night:supplies.night.after.draws,entreat:supplies.mother_entreat.after.draws,dancer_license:supplies.dancer_license.after.draws}));
   fs.writeFileSync(path.join(__dirname,'../outputs/galdera-winterbloom-'+label+'.json'),JSON.stringify(json));
   console.log(JSON.stringify({fixture:label,arrival:w.arrival.after.draws,quest:w.sword_quest.after.draws,entreat:w.soldier_entreat.after.draws,quest_draws:Number(w.sword_quest.after.draws)-Number(w.arrival.after.draws),counter:w.sword_quest.world_after.encounter_counter}));
  }

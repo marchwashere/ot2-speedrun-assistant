@@ -1192,6 +1192,12 @@ function renderCrackridgeVoyage() {
                             conningSpans.push({reason:label+' · '+checkpoint.label,before:previous,after});previous=after;
                           }
                           conningSpans.push(...f.escape.trace);
+                          if(t.supplies) {
+                            const v=t.supplies;
+                            for(const [stage,e] of [['Wellgrove tavern · Sharp Nut (L) and Diffusing Serum stolen · 100% · change path action, then close without dialogue',v.tavern_steal],['Wellgrove · switched to night',v.night],["Wellgrove · Girl's Mother Empowering Lychee (M) entreated · change path action, then close without dialogue",v.mother_entreat],['Wellgrove · Dancer License acquired',v.dancer_license]]) {
+                              conningStages.push([stage,e]);conningSpans.push(...e.trace);
+                            }
+                          }
                         }
                       }
                     }

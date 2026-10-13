@@ -1,0 +1,350 @@
+{
+  "sources": [
+    {
+      "source": "/Game/Character/Database/NPCData",
+      "sha256": "ad0dfb8416c6235f60529a73ae07acda68d76d4f930acaa478c7cd8d9f6b101b"
+    },
+    {
+      "source": "/Game/Character/Database/NPCPurchaseData",
+      "sha256": "e8b32ed58e30d77842e73daab29d4ec184a05143fffb8cf171c46ab9cdb1066f"
+    },
+    {
+      "source": "/Game/Shop/Database/PurchaseItemTable",
+      "sha256": "93a6ebef110fdd3857ef48b24780304a20f7ff386fc7471a7926eea1dc6a8c8e"
+    },
+    {
+      "source": "/Game/GameParam/GameParamDefineTable",
+      "sha256": "10cd9a80a908332702c3fcf75d8935f68889bbec618f01292894bfb63df99d1e"
+    },
+    {
+      "source": "/Game/Shop/Database/GuildData",
+      "sha256": "ec86ddce780025453431be946972781b8388aee46699f8402297a35704caf982"
+    },
+    {
+      "source": "/Game/Character/Database/JobData",
+      "sha256": "787d98d2be48d04bafa080a4ea828ee7f3d762455ff0a414795d9e4cb7db7ac1"
+    },
+    {
+      "source": "/Game/Event/Database/EventList",
+      "sha256": "acbbb094b2b071271fde8e4adf26b0df3661594556b3835b96e93a97300089a3"
+    },
+    {
+      "source": "/Game/Event/json/SYS_DAN_GUILD_0010",
+      "sha256": "7a3d78331075a6194a3de27bfce358125bd2d54d919845316735b1c1c4184613"
+    },
+    {
+      "source": "/Game/Event/json/SYS_DAN_GUILD_0030",
+      "sha256": "b5b6c667f7f43b49b291f926d60ef5881ec6cefedd3bdacd080ba1e4ca5a88b9"
+    }
+  ],
+  "shopkeeper": {
+    "id": "NPC_Twn_Fst_2_1_A_TALK_0400",
+    "ID": 7,
+    "TextLabel": "CN_NPC_Twn_Fst_2_1_A_TALK_0400",
+    "NPC_UnqIndex": 13104,
+    "ActionID": "NonYm001_Mle",
+    "FaintAction": 36,
+    "UsePathLabel": "",
+    "IgnoreRelation": false,
+    "WorseRelationTextLabel": "eNPC_TALK_00",
+    "FCmd_Purchase_ID": "FC_P_NPC_Twn_Fst_2_1_A_TALK_0400",
+    "FCmd_Lure_ID": "FC_L_NPC_Twn_Fst_2_1_A_TALK_0400",
+    "FCmd_Battle_ID": "FC_B_NPC_Twn_Fst_2_1_A_TALK_0400",
+    "FCmd_Search_ID": "FC_INFO_NPC_Twn_Fst_2_1_A_TALK_0400",
+    "FCmd_RecoverArea": 5,
+    "FCmd_EnemyGroup": "ENG_NPC_Twn_Fst_2_1_A_0400",
+    "FCmd_UseBattleMapIndex": 0,
+    "TextInfoLabel": "None",
+    "IsNotWorsenRelation": false,
+    "FcSpecialPopupType": "EFieldCommandSpecialPopupType::eNone"
+  },
+  "mother": {
+    "id": "NPC_SS_TF21_0200_0300",
+    "ID": 33,
+    "TextLabel": "CN_NPC_SS_TF21_0200_0300",
+    "NPC_UnqIndex": 11492,
+    "ActionID": "NonYf001_Fml",
+    "FaintAction": 36,
+    "UsePathLabel": "",
+    "IgnoreRelation": false,
+    "WorseRelationTextLabel": "eNPC_TALK_00",
+    "FCmd_Purchase_ID": "FC_P_NPC_SS_TF21_0200_0300",
+    "FCmd_Lure_ID": "FC_L_NPC_SS_TF21_0200_0300",
+    "FCmd_Battle_ID": "FC_B_NPC_SS_TF21_0200_0300",
+    "FCmd_Search_ID": "FC_INFO_NPC_SS_TF21_0200_0300",
+    "FCmd_RecoverArea": 5,
+    "FCmd_EnemyGroup": "ENG_NPC_SS_TF21_0200_0300",
+    "FCmd_UseBattleMapIndex": 0,
+    "TextInfoLabel": "None",
+    "IsNotWorsenRelation": false,
+    "FcSpecialPopupType": "EFieldCommandSpecialPopupType::eNone"
+  },
+  "shopPurchase": {
+    "id": "FC_P_NPC_Twn_Fst_2_1_A_TALK_0400",
+    "ID": 16,
+    "CommandEnable": 15,
+    "ShopID": "NPC_Twn_Fst_2_1_A_TALK_0400_NPCBUY",
+    "PurchaseBuyTalkID": "None",
+    "StealSuccessTalkID": "None",
+    "StealFailedTalkID": "None",
+    "BegSuccessTalkID": "None",
+    "RobEnemyGroupID": "None",
+    "RobBeforeTalkID": "None",
+    "RobBeforeEventID": "None"
+  },
+  "motherPurchase": {
+    "id": "FC_P_NPC_SS_TF21_0200_0300",
+    "ID": 13,
+    "CommandEnable": 15,
+    "ShopID": "NPC_SS_TF21_0200_0300_NPCBUY",
+    "PurchaseBuyTalkID": "None",
+    "StealSuccessTalkID": "None",
+    "StealFailedTalkID": "None",
+    "BegSuccessTalkID": "None",
+    "RobEnemyGroupID": "None",
+    "RobBeforeTalkID": "None",
+    "RobBeforeEventID": "None"
+  },
+  "sharp": {
+    "id": "NPC_Twn_Fst_2_1_A_TALK_0400_NPCBUY_02",
+    "ID": 1972,
+    "ItemLabel": "ITM_CSM_0670",
+    "FCPrice": 5472,
+    "PossibleItemLabel": "None",
+    "ObtainFlag": 15,
+    "ProperSteal": 22,
+    "ProperBeg": 26,
+    "LineupTime": "ELineupTime::eAlways",
+    "VisibleFlags": [
+      0
+    ],
+    "HiddenFlags": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "MillionaireModeLavel": "None",
+    "IsUnlimited": false,
+    "BeSoldOut": false
+  },
+  "serum": {
+    "id": "NPC_Twn_Fst_2_1_A_TALK_0400_NPCBUY_03",
+    "ID": 1973,
+    "ItemLabel": "ITM_MRL_COM_0010",
+    "FCPrice": 2850,
+    "PossibleItemLabel": "None",
+    "ObtainFlag": 15,
+    "ProperSteal": 21,
+    "ProperBeg": 26,
+    "LineupTime": "ELineupTime::eAlways",
+    "VisibleFlags": [
+      0
+    ],
+    "HiddenFlags": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "MillionaireModeLavel": "None",
+    "IsUnlimited": false,
+    "BeSoldOut": false
+  },
+  "lychee": {
+    "id": "NPC_SS_TF21_0200_0300_NPCBUY_02",
+    "ID": 408,
+    "ItemLabel": "ITM_CSM_0230",
+    "FCPrice": 1045,
+    "PossibleItemLabel": "None",
+    "ObtainFlag": 15,
+    "ProperSteal": 12,
+    "ProperBeg": 20,
+    "LineupTime": "ELineupTime::eAlways",
+    "VisibleFlags": [
+      0
+    ],
+    "HiddenFlags": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "MillionaireModeLavel": "None",
+    "IsUnlimited": false,
+    "BeSoldOut": false
+  },
+  "guild": {
+    "id": "GUILD_007",
+    "ID": 8,
+    "GuildName": "eGUILD_TYPE_08",
+    "GuildNpcLabel": "NPC_Twn_Fst_2_1_A_GUILD",
+    "WorldMapLocation": "eMAP_Twn_Fst_2_1",
+    "LicenseItem": "ITM_EQP_JOB_0005",
+    "GuildStampLabel": "GUILD_STAMP_08",
+    "JobIconLabel": "job_title_job08",
+    "FistTaskEvent": "SYS_DAN_GUILD_0010",
+    "FirstReconfirm": "SYS_DAN_GUILD_0020",
+    "JobLicenseData": [
+      {
+        "TaskTitle": "eGUILD_TYPE_08_TASK_TITLE_01",
+        "NeedItemLabel": "None",
+        "NeedItemNum": 0,
+        "NeedMoney": 0,
+        "NeedAbility": "None",
+        "LearnedCount": 0,
+        "TaskDescription": "eGUILD_TYPE_08_TASK_TEXT_01"
+      },
+      {
+        "TaskTitle": "eGUILD_TYPE_08_TASK_TITLE_02",
+        "NeedItemLabel": "None",
+        "NeedItemNum": 0,
+        "NeedMoney": 0,
+        "NeedAbility": "ABI_SET_DAN_100",
+        "LearnedCount": 1,
+        "TaskDescription": "eGUILD_TYPE_08_TASK_TEXT_02"
+      },
+      {
+        "TaskTitle": "eGUILD_TYPE_08_TASK_TITLE_03",
+        "NeedItemLabel": "None",
+        "NeedItemNum": 0,
+        "NeedMoney": 0,
+        "NeedAbility": "ABI_SET_DAN_100",
+        "LearnedCount": 2,
+        "TaskDescription": "eGUILD_TYPE_08_TASK_TEXT_03"
+      }
+    ],
+    "GuildTalkData": [
+      {
+        "Title": "eGUILD_SUB_CONTENT_00",
+        "TalkEvent": "SYS_DAN_GUILD_0060"
+      },
+      {
+        "Title": "eGUILD_SUB_CONTENT_01",
+        "TalkEvent": "SYS_DAN_GUILD_0070"
+      },
+      {
+        "Title": "eGUILD_SUB_CONTENT_02",
+        "TalkEvent": "SYS_DAN_GUILD_0080"
+      }
+    ],
+    "CompleteEvent": [
+      "SYS_DAN_GUILD_0030",
+      "None",
+      "None"
+    ],
+    "OpenGuildMenu": true,
+    "UnVisitedShowRadarIcon": true,
+    "OverrideEmotion": 0
+  },
+  "job": {
+    "id": "eDANCER",
+    "ID": 5,
+    "JobID": 5,
+    "DisplayName": "eCLASS_NAME_18",
+    "Detail": "None",
+    "DisplayOrder": 5,
+    "MenuJobIcon": "MENU_JOB_ICON_08",
+    "AbilityJobIcon": "ABILITY_JOB_ICON_08",
+    "PermissionFlag": 6,
+    "EquipJobItem": "ITM_EQP_JOB_0005",
+    "ProperEquipment": [
+      false,
+      false,
+      true,
+      false,
+      false,
+      false,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "ParameterRevision": {
+      "HP": 100,
+      "MP": 100,
+      "BP": 100,
+      "SP": 100,
+      "POT": 100,
+      "ATK": 100,
+      "DEF": 100,
+      "MATK": 108,
+      "MDEF": 100,
+      "ACC": 100,
+      "EVA": 110,
+      "CON": 100,
+      "AGI": 110
+    },
+    "JobCommandName": "BASIC_COMMAND_014",
+    "JobCommandDetail": "BASIC_COMMAND_014_DETAIL",
+    "JobCommandAbility": [
+      {
+        "AbilityName": "ABI_SET_DAN_010",
+        "GetParam": 1
+      },
+      {
+        "AbilityName": "ABI_SET_DAN_020",
+        "GetParam": 1
+      },
+      {
+        "AbilityName": "ABI_SET_DAN_040",
+        "GetParam": 0
+      },
+      {
+        "AbilityName": "ABI_SET_DAN_030",
+        "GetParam": 0
+      },
+      {
+        "AbilityName": "ABI_SET_DAN_060",
+        "GetParam": 0
+      },
+      {
+        "AbilityName": "ABI_SET_DAN_050",
+        "GetParam": 0
+      },
+      {
+        "AbilityName": "ABI_SET_DAN_070",
+        "GetParam": 0
+      },
+      {
+        "AbilityName": "ABI_SET_DAN_100",
+        "GetParam": 2
+      }
+    ],
+    "JobSupportAbility": [
+      {
+        "AbilityName": "ABI_DAN_SUP_01",
+        "GetParam": 4
+      },
+      {
+        "AbilityName": "ABI_DAN_SUP_02",
+        "GetParam": 5
+      },
+      {
+        "AbilityName": "ABI_DAN_SUP_03",
+        "GetParam": 6
+      },
+      {
+        "AbilityName": "ABI_DAN_SUP_04",
+        "GetParam": 7
+      }
+    ],
+    "JPCost": [
+      0,
+      0,
+      30,
+      100,
+      500,
+      1000,
+      3000,
+      5000
+    ]
+  }
+}

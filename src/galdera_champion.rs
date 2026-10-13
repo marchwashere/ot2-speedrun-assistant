@@ -10,6 +10,7 @@ fn data()->&'static Data {static D:OnceLock<Data>=OnceLock::new();D.get_or_init(
     pub approach:Entry,pub steal:Entry,pub encounter:SouthernSai,pub exit:Entry,pub wellgrove:Entry,
     pub steal_chance:u32,pub steal_roll:u32,pub throne_level:u32,
     pub running_updates_to_npc:u32,pub total_running_updates:u32,pub run_decrement:u32,pub running_updates_after_escape:u32,
+    pub supplies:crate::galdera_wellgrove_supplies::Trip,
 }
 fn point(l:&mut Loader<'_>,before:CrtRng)->Entry {
     Entry {arrival:before,after:l.rng,world_after:l.state.clone(),trace:std::mem::take(&mut l.trace),decisions:std::mem::take(&mut l.decisions)}
@@ -43,5 +44,6 @@ pub(crate) fn finish(entry:&Entry)->Result<Option<Trip>> {
     let exit=point(&mut l,encounter.field_return.after);
     l.visit_map("Twn_Fst_2_1_A")?;l.skipped_event("MapInStorySelect")?;
     let wellgrove=point(&mut l,exit.after);
-    Ok(Some(Trip {approach,steal,encounter,exit,wellgrove,steal_chance:100,steal_roll,throne_level,running_updates_to_npc:NPC_UPDATES,total_running_updates:TOTAL_UPDATES,run_decrement:decrement,running_updates_after_escape:remaining}))
+    let supplies=crate::galdera_wellgrove_supplies::finish(&wellgrove)?;
+    Ok(Some(Trip {approach,steal,encounter,exit,wellgrove,steal_chance:100,steal_roll,throne_level,running_updates_to_npc:NPC_UPDATES,total_running_updates:TOTAL_UPDATES,run_decrement:decrement,running_updates_after_escape:remaining,supplies}))
 }

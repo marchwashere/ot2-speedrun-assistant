@@ -1,0 +1,28 @@
+{
+  "shopkeeper": {
+    "npc": "NPC_Twn_Fst_2_1_A_TALK_0400",
+    "items": [
+      {
+        "item": "ITM_CSM_0670",
+        "proper_steal": 22,
+        "guaranteed_level": 33
+      },
+      {
+        "item": "ITM_MRL_COM_0010",
+        "proper_steal": 21,
+        "guaranteed_level": 32
+      }
+    ]
+  },
+  "mother": {
+    "npc": "NPC_SS_TF21_0200_0300",
+    "item": "ITM_CSM_0230",
+    "required_level": 20
+  },
+  "dancer_job": 5,
+  "guild_resource": "SYS_GUILD_DAN",
+  "guild_events": [
+    "SYS_DAN_GUILD_0010",
+    "SYS_DAN_GUILD_0030"
+  ]
+}
