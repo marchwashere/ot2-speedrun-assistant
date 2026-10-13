@@ -1,5 +1,13 @@
 # Active project
 
+- Galdera Western Conning Coast: after encounter and existing day switch, before
+  town entry, steal Whimsical Leaf then Pomegranate Leaf from Merchant
+  NPC_SS_TSe21_0100_0300 in one menu. Guaranteed at Throné15/17 respectively.
+  Switch path action then close: opening timer + two checks =3 CRT draws.
+  Keep both ingredients in route_items; departure() carries post-steal state
+  through all coast searches and town loads. Any% unchanged. Source audit in
+  data/source/galdera-coast-leaves.json; fixed steps in Detailed log.
+
 - Galdera now visits Altar of the Trader BEFORE first Western Crackridge visit.
   Harbor -> Southern encounter -> altar EX2 Negotiate Schedule -> Southern
   encounter -> Western -> town -> Western -> Chubby (five field encounters).

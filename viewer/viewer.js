@@ -1001,6 +1001,10 @@ function renderCrackridgeVoyage() {
         const origin=BigInt(previous.draws)-BigInt(fight.arrival.encounter.checkpoints[0].draws);
         for(const c of fight.arrival.encounter.checkpoints) {const after={state:c.state,draws:origin+BigInt(c.draws)};conningSpans.push({reason:label+' · '+c.label,before:previous,after});previous=after;}
         conningSpans.push(...(fight.victory||fight.escape).trace,...fight.field_return.trace,...fight.day.trace);
+        if(fight.leaf_steal) {
+          conningStages.push(['Western Coast Merchant · steal Whimsical Leaf ×1, then Pomegranate Leaf ×1 (100%); change path action, then close',fight.leaf_steal]);
+          conningSpans.push(...fight.leaf_steal.trace);
+        }
       }
       conningStages.push(['Conning Creek · loaded; no chapter started',conning.town]);
       conningSpans.push(...conning.town.trace);

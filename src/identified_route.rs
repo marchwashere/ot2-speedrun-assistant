@@ -132,7 +132,14 @@ pub fn simulate_route(voices:&str,pirro_first:bool,hp:u32,galdera_route:bool)->R
         assert!(!recruited.flag(8050));
         assert!(!recruited.active_scenarios.contains(&701));
         assert!(!recruited.confirmed_scenarios.contains(&701));
-        let inventor=&r["canalbrine"]["conning"]["pomegranate"]["inventor"];
+        let coasts=&r["canalbrine"]["conning"];
+        let leaf=&coasts["western"]["leaf_steal"];
+        assert_eq!(leaf["after"]["draws"].as_u64().unwrap(),coasts["western"]["day"]["after"]["draws"].as_u64().unwrap()+3);
+        assert_eq!(leaf["world_after"]["map"],"Fld_Sea_2_3");
+        assert_eq!(leaf["world_after"]["route_items"]["ITM_MRL_REV_0080"],1);
+        assert_eq!(leaf["world_after"]["route_items"]["ITM_MRL_REV_0030"],1);
+        assert_eq!(coasts["town"]["arrival"],leaf["after"]);
+        let inventor=&coasts["pomegranate"]["inventor"];
         let mut leg=&inventor["crackridge_return"];
         while leg["southern"].is_object(){leg=&leg["southern"];}
         let g=&leg["gravell"];

@@ -1,0 +1,85 @@
+{
+  "sources": [
+    {
+      "source": "/Game/Character/Database/NPCData",
+      "sha256": "ad0dfb8416c6235f60529a73ae07acda68d76d4f930acaa478c7cd8d9f6b101b"
+    },
+    {
+      "source": "/Game/Character/Database/NPCPurchaseData",
+      "sha256": "e8b32ed58e30d77842e73daab29d4ec184a05143fffb8cf171c46ab9cdb1066f"
+    },
+    {
+      "source": "/Game/Shop/Database/PurchaseItemTable",
+      "sha256": "93a6ebef110fdd3857ef48b24780304a20f7ff386fc7471a7926eea1dc6a8c8e"
+    },
+    {
+      "source": "/Game/GameParam/GameParamDefineTable",
+      "sha256": "10cd9a80a908332702c3fcf75d8935f68889bbec618f01292894bfb63df99d1e"
+    }
+  ],
+  "npc": "NPC_SS_TSe21_0100_0300",
+  "purchase": {
+    "id": "FC_P_NPC_SS_TSe21_0100_0300",
+    "ID": 3,
+    "CommandEnable": 15,
+    "ShopID": "NPC_SS_TSe21_0100_0300_NPCBUY",
+    "PurchaseBuyTalkID": "None",
+    "StealSuccessTalkID": "None",
+    "StealFailedTalkID": "None",
+    "BegSuccessTalkID": "None",
+    "RobEnemyGroupID": "None",
+    "RobBeforeTalkID": "None",
+    "RobBeforeEventID": "None"
+  },
+  "items": [
+    {
+      "id": "NPC_SS_TSe21_0100_0300_NPCBUY_02",
+      "ID": 874,
+      "ItemLabel": "ITM_MRL_REV_0030",
+      "FCPrice": 950,
+      "PossibleItemLabel": "None",
+      "ObtainFlag": 15,
+      "ProperSteal": 6,
+      "ProperBeg": 10,
+      "LineupTime": "ELineupTime::eAlways",
+      "VisibleFlags": [
+        0
+      ],
+      "HiddenFlags": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "MillionaireModeLavel": "None",
+      "IsUnlimited": false,
+      "BeSoldOut": false
+    },
+    {
+      "id": "NPC_SS_TSe21_0100_0300_NPCBUY_03",
+      "ID": 875,
+      "ItemLabel": "ITM_MRL_REV_0080",
+      "FCPrice": 180,
+      "PossibleItemLabel": "None",
+      "ObtainFlag": 15,
+      "ProperSteal": 4,
+      "ProperBeg": 8,
+      "LineupTime": "ELineupTime::eAlways",
+      "VisibleFlags": [
+        0
+      ],
+      "HiddenFlags": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "MillionaireModeLavel": "None",
+      "IsUnlimited": false,
+      "BeSoldOut": false
+    }
+  ],
+  "sequence": "After Western encounter/day switch, before town entry: one Steal menu, Whimsical Leaf then Pomegranate Leaf, change path action and close. One timer draw plus two guaranteed-success checks; no closing lottery."
+}

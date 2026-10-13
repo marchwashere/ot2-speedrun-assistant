@@ -44,7 +44,9 @@ pub struct Fight {
     pub arrival:Arrival,pub menu:FieldEscapeMenu,pub inputs:BoostInputs,
     pub escape:Option<FieldEscapeAttempt>,pub victory:Option<FieldRareVictory>,
     pub field_return:Entry,pub day:Entry,
+    #[serde(skip_serializing_if="Option::is_none")] pub leaf_steal:Option<Entry>,
 }
+impl Fight {fn departure(&self)->&Entry {self.leaf_steal.as_ref().unwrap_or(&self.day)}}
 #[derive(Debug,Serialize)]
 pub struct Prediction {pub northern:Fight,pub western:Fight,pub town:Entry,pub harbor:Entry,pub input_cost:u32,pub verification:&'static str,
     pub pomegranate:Option<Pomegranate>}
@@ -123,7 +125,7 @@ fn search_pomegranate(p:&mut Prediction)->Result<()> {
             for total in 0..=max {for town_count in 0..=total {
                 let harbor_count=total-town_count;
                 if 7*(town_count.saturating_sub(2)+harbor_count.saturating_sub(2))!=paid {continue;}
-                if let Some((town,harbor,mut tail))=pomegranate_tail(&western.day.world_after,western.day.after,town_count,harbor_count)? {
+                if let Some((town,harbor,mut tail))=pomegranate_tail(&western.departure().world_after,western.departure().after,town_count,harbor_count)? {
                     tail.voyage=Some(canalbrine_voyage(&tail.steal)?);
                     let approach=crate::inventor::approach(&tail.voyage.as_ref().unwrap().castti)?;
                     // Galdera's New Delsta controls can also select a safe
@@ -177,10 +179,10 @@ pub fn nearest_bounded(north:Arrival,limit:Option<u32>)->Result<Option<Predictio
         for m in 0..u32::MAX/2-n {
             if limit.is_some_and(|l|2*(n+m)>l) {return Ok(None);}
             let Some(western)=fight(west.clone(),m,!kill)? else {continue;};
-            let mut l=Loader::new(world::catalog(),western.day.world_after.clone(),western.day.after)?;
+            let mut l=Loader::new(world::catalog(),western.departure().world_after.clone(),western.departure().after)?;
             let scenarios=l.state.active_scenarios.clone();l.visit_map(TOWN)?;
             ensure(l.state.active_scenarios==scenarios,"Conning arrival must not start a chapter")?;
-            let town=checkpoint(&mut l,western.day.after);
+            let town=checkpoint(&mut l,western.departure().after);
             l.visit_map(HARBOR)?;
             let harbor=checkpoint(&mut l,town.after);
             return Ok(Some(Prediction {northern,western,town,harbor,pomegranate:None,input_cost:2*(n+m),verification:"Nearest-menu boosts only. Both openings reject surprise; one Cultured Cait pack cleared with Shadow Soulstone M and the other escaped first try. Real carried levels and shared map loads; no Osvald Chapter 3. Assumes one encounter per coast. Awaiting retail validation."}));
@@ -220,7 +222,24 @@ fn fight(a:Arrival,n:u32,kill:bool)->Result<Option<Fight>> {
     let field_return=checkpoint(&mut l,after);
     l.manual_time_switch(2,"Coast: switch back to day after encounter")?;
     let day=checkpoint(&mut l,field_return.after);
-    Ok(Some(Fight {arrival:a,menu:m,inputs,escape,victory,field_return,day}))
+    let leaf_steal=if day.world_after.galdera_route&&day.world_after.map==WEST {Some(steal_leaves(&day)?)}else{None};
+    Ok(Some(Fight {arrival:a,menu:m,inputs,escape,victory,field_return,day,leaf_steal}))
+}
+fn steal_leaves(entry:&Entry)->Result<Entry> {
+    let mut l=Loader::new(world::catalog(),entry.world_after.clone(),entry.after)?;
+    let npc="NPC_SS_TSe21_0100_0300";
+    ensure(l.state.map==WEST&&l.state.time==2,"Coast Merchant steals require daytime Western Coast")?;
+    ensure(l.state.party.contains(&7)&&l.state.existing_npcs.iter().any(|id|l.data.placements[id].resource==npc),"Coast Merchant or Throné unavailable")?;
+    let level=l.state.character_progression[&7].level;
+    ensure(level>=17,"Coast leaf steals require Throné level17 for guaranteed success")?;
+    l.draw(world::DrawKind::PathActionMenu,npc,"Merchant: open one Steal menu (action timer)",None);
+    for (item,name,required) in [("ITM_MRL_REV_0080","Whimsical Leaf",15),("ITM_MRL_REV_0030","Pomegranate Leaf",17)] {
+        let roll=l.draw(world::DrawKind::StealCheck,item,format!("{name}: Throné Lv{level}, guaranteed from Lv{required}, 100%"),Some(100))+1;
+        if let Some(t)=l.trace.last_mut(){t.value=Some(roll);}
+        *l.state.route_items.entry(item.into()).or_default()+=1;
+    }
+    l.boundary("Merchant: after both steals, change selected path action, then close without dialogue/closing voice lottery");
+    Ok(checkpoint(&mut l,entry.after))
 }
 pub(crate) fn apply_item_victory(w:&mut WorldState,v:&FieldRareVictory)->Result<()> {
         w.enemy_knowledge=v.enemy_knowledge.clone();
@@ -275,10 +294,10 @@ impl Cache {
             }
             let Some((_,west))=&node.first[first as usize] else {continue;};
             let Some(western)=fight(west.clone(),cost/2-first,!node.kill)? else {continue;};
-            let mut l=Loader::new(world::catalog(),western.day.world_after.clone(),western.day.after)?;
+            let mut l=Loader::new(world::catalog(),western.departure().world_after.clone(),western.departure().after)?;
             let before_scenarios=l.state.active_scenarios.clone();l.visit_map(TOWN)?;
             ensure(l.state.active_scenarios==before_scenarios,"Conning arrival must not start a chapter")?;
-            let town=checkpoint(&mut l,western.day.after);
+            let town=checkpoint(&mut l,western.departure().after);
             let (northern,_)=node.first[first as usize].take().unwrap();
             l.visit_map(HARBOR)?;
             let harbor=checkpoint(&mut l,town.after);
@@ -308,7 +327,7 @@ mod tests {
         assert_eq!(serde_json::to_value(&p.northern).unwrap(),northern);
         assert_eq!(serde_json::to_value(&p.western.arrival).unwrap(),opening);
         assert!(tail.roll<=tail.chance);
-        assert_eq!(tail.throne_level,p.western.day.world_after.character_progression[&7].level);
+        assert_eq!(tail.throne_level,p.western.departure().world_after.character_progression[&7].level);
         assert_eq!(tail.steal.after.draws-tail.steal.arrival.draws,3);
         assert_eq!(tail.steal.world_after.time,2);
         assert_eq!(tail.steal.world_after.map,HARBOR);
