@@ -14,6 +14,9 @@ assert(lead.FollowingFlags.every(x=>x===0)&&lead.UnFollowingFlags.every(x=>x===0
 const miner=one(npcs,'NPC_SS_TSn21_0200_0200'),purchase=one(purchases,miner.FCmd_Purchase_ID);
 assert.equal(purchase.StealSuccessTalkID,'None');
 const pickaxe=one(items,'NPC_SS_TSn21_0200_0200_NPCBUY_01');assert.equal(pickaxe.ProperSteal,22);
+const augmentorNpc=one(npcs,'NPC_Twn_Dst_2_1_B_TALK_1800');
+const augmentorPurchase=one(purchases,augmentorNpc.FCmd_Purchase_ID);assert.equal(augmentorPurchase.BegSuccessTalkID,'None');
+const augmentorItem=one(items,'NPC_Twn_Dst_2_1_B_TALK_1800_NPCBUY_02');assert.equal(augmentorItem.ItemLabel,'ITM_EQP_ACS_250');assert.equal(augmentorItem.ProperBeg,25);
 const over=Number(one(params,'STEAL_PROBABILITY_LEVEL_OVER').Init);assert.equal(over,11);
 assert.equal(Number(one(params,'STEAL_PROBABILITY_OVER').Init),100);
 const hire=one(commands,'FIELD_COMMAND_HIRE'),steal=one(commands,'FIELD_COMMAND_STEAL');
@@ -37,6 +40,8 @@ for(const [asset,names]of [
  ['FieldCommand/BPv2/Flow/BP_FCv2_FieldCommandFlow_Steal',['UpdateFlow']],
  ['FieldCommand/BP/LibFieldCommand',['SetupFollowNPC']],
  ['Character/BP/KSCharacterManagerBP',['RefreshFollowCharacter']],
+ ['UserInterface/FieldCommand/BP/FieldCommandWisgetBeg',['BegItemExec']],
+ ['FieldCommand/BPv2/Flow/BP_FCv2_FieldCommandFlow_Beg',['UpdateFlow']],
  ]){
  // Manager function name differs across cooked builds; inspect exports below.
  const pkg=s.assets.loadPackage(path.join(s.assets.CONTENT,asset+'.uasset'));
@@ -47,8 +52,11 @@ for(const [asset,names]of [
 }
 assert(bp.some(b=>Object.values(b.functions).some(v=>v.includes('K2_SetTimerDelegate'))));
 assert(bp.some(b=>Object.values(b.functions).some(v=>v.includes('RandomFloatInRange'))));
+const begCode=bp.flatMap(b=>Object.entries(b.functions)).find(([n])=>n==='BegItemExec')[1];
+assert(!/Random|K2_SetTimer/.test(begCode));assert(begCode.includes('AddBackpackItem'));
 const runtime={warrior_job:2,guild_flag:411,peddler:{npc:peddler.id,unique_id:peddler.NPC_UnqIndex,supporter:lead.SupporterID,talent:lead.SpActionMerchant,price:lead.HirePrice,events:hire.SuccessEventLabel},
- pickaxe:{npc:miner.id,item:pickaxe.ItemLabel,proper_steal:pickaxe.ProperSteal,guaranteed_level:pickaxe.ProperSteal+over,events:steal.SuccessEventLabel}};
+ pickaxe:{npc:miner.id,item:pickaxe.ItemLabel,proper_steal:pickaxe.ProperSteal,guaranteed_level:pickaxe.ProperSteal+over,events:steal.SuccessEventLabel},
+ augmentor:{npc:augmentorNpc.id,item:augmentorItem.ItemLabel,required_level:augmentorItem.ProperBeg}};
 fs.writeFileSync(path.join(__dirname,'../data/galdera-oresrush.json'),JSON.stringify(runtime,null,2)+'\n');
 fs.writeFileSync(path.join(__dirname,'../data/source/galdera-oresrush.json'),JSON.stringify({sources,guild,lead,peddler,miner,purchase,pickaxe,runtime,blueprints:bp},null,2)+'\n');
 console.log(JSON.stringify(runtime));

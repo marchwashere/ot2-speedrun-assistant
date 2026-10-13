@@ -21,5 +21,10 @@
       "FC_TOU_STEAL_Success_1",
       "FC_TOU_STEAL_Success_2"
     ]
+  },
+  "augmentor": {
+    "npc": "NPC_Twn_Dst_2_1_B_TALK_1800",
+    "item": "ITM_EQP_ACS_250",
+    "required_level": 25
   }
 }

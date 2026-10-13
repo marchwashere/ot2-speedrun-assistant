@@ -29,7 +29,7 @@ const taskRows = table('Story/Database/MainStoryTask');
 const tutorials = table('Tutorial/Database/TutorialFlagPart');
 const rules = table('Flag/Database/FlagRandomControlDB');
 const overrides = table('Flag/Database/FlagOverrideDB');
-const maps = levels.filter(r => [19,28,44,45,46,47,48,50,54,57,64,65,69,85,86,87,88,90,100,101,107,110,111,123,124,125,129,132,145,152,153,155,169,170,189].includes(r.ID) || r.id === 'Fld_Fst_1_3' || r.id === 'Twn_Wld_3_1_A' || ['Fld_Dst_2_3','Fld_Dst_2_4','Twn_Dst_2_1_A'].includes(r.id) || r.id.startsWith('Twn_Cty_1_'));
+const maps = levels.filter(r => [19,28,44,45,46,47,48,50,54,57,64,65,69,85,86,87,88,90,100,101,107,110,111,123,124,125,129,132,145,152,153,155,169,170,189].includes(r.ID) || r.id === 'Fld_Fst_1_3' || r.id === 'Twn_Wld_3_1_A' || ['Fld_Dst_2_3','Fld_Dst_2_4','Twn_Dst_2_1_A','Twn_Dst_2_1_B'].includes(r.id) || r.id.startsWith('Twn_Cty_1_'));
 const allMaps = new Map();
 function walk(dir) { for(const e of fs.readdirSync(dir,{withFileTypes:true})) {
   const f = path.join(dir,e.name);

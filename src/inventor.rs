@@ -647,6 +647,14 @@ mod gravell_integration_tests {
   let mut refreshed=Loader::new(world::catalog(),supplies.pickaxe.world_after.clone(),supplies.pickaxe.after).unwrap();
   refreshed.refresh_npcs("test hired follower persistence").unwrap();
   assert_eq!(refreshed.rng,supplies.pickaxe.after);
+  let a=&supplies.augmentor;
+  assert_eq!(a.sai.arrival,supplies.pickaxe.after);
+  assert_eq!(a.entreat.world_after.map,"Twn_Dst_2_1_B");assert_eq!(a.entreat.world_after.time,4);
+  assert_eq!(a.required_level,25);assert!(a.agnea_level>=25);
+  assert_eq!(a.entreat.after.draws,a.night.after.draws+1);
+  assert!(!a.entreat.trace.iter().any(|t|matches!(t.kind,world::DrawKind::DialogueLottery|world::DrawKind::StealCheck)));
+  assert_eq!(a.entreat.world_after.route_items.get("ITM_EQP_ACS_250"),Some(&1));
+  assert_eq!(a.entreat.world_after.hired_merchant,supplies.pickaxe.world_after.hired_merchant);
   assert!(matches!(s.encounter.situation.as_deref(),Some("Normal"|"Preemptive")));
   assert_eq!(s.escape.chance_percent,100);assert!(s.escape.success);
   assert_eq!(s.menu.party_levels,s.arrival.world_after.party.iter().map(|id|s.arrival.world_after.character_progression[id].level).collect::<Vec<_>>());

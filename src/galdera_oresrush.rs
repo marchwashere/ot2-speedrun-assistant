@@ -2,12 +2,15 @@
 use crate::{Result,CrtRng,ensure,world::{self,Loader,HiredMerchant},snows_escape::Entry};
 use serde::{Deserialize,Serialize};
 use std::sync::OnceLock;
-#[derive(Deserialize)]struct Data {warrior_job:u32,guild_flag:u32,peddler:Peddler,pickaxe:Pickaxe}
+#[derive(Deserialize)]struct Data {warrior_job:u32,guild_flag:u32,peddler:Peddler,pickaxe:Pickaxe,augmentor:Augmentor}
+#[derive(Deserialize)]struct Augmentor {npc:String,item:String,required_level:u32}
 #[derive(Deserialize)]struct Peddler {npc:String,unique_id:u32,supporter:String,talent:String,price:u32,events:Vec<String>}
 #[derive(Deserialize)]struct Pickaxe {npc:String,item:String,proper_steal:u32,guaranteed_level:u32}
 fn data()->&'static Data {static D:OnceLock<Data>=OnceLock::new();D.get_or_init(||serde_json::from_str(include_str!("../data/galdera-oresrush.json")).expect("Audited Oresrush actions"))}
 #[derive(Debug,Serialize)]
-pub struct Supplies {pub warrior:Entry,pub oresrush:Entry,pub night:Entry,pub hire:Entry,pub day:Entry,pub pickaxe:Entry,pub steal_chance:u32,pub steal_roll:u32,pub hire_event:String,#[serde(skip_serializing_if="Option::is_none")]pub steal_event:Option<String>}
+pub struct Supplies {pub warrior:Entry,pub oresrush:Entry,pub night:Entry,pub hire:Entry,pub day:Entry,pub pickaxe:Entry,pub steal_chance:u32,pub steal_roll:u32,pub hire_event:String,#[serde(skip_serializing_if="Option::is_none")]pub steal_event:Option<String>,pub augmentor:AugmentorTrip}
+#[derive(Debug,Serialize)]
+pub struct AugmentorTrip {pub sai:Entry,pub east_district:Entry,pub night:Entry,pub entreat:Entry,pub required_level:u32,pub agnea_level:u32}
 fn point(l:&mut Loader<'_>,arrival:CrtRng)->Entry {Entry {arrival,after:l.rng,world_after:l.state.clone(),trace:std::mem::take(&mut l.trace),decisions:std::mem::take(&mut l.decisions)}}
 fn present(l:&Loader<'_>,npc:&str)->bool {l.state.existing_npcs.iter().any(|id|l.data.placements[id].resource==npc)}
 fn dialogue(l:&mut Loader<'_>,npc:&str,events:&[String])->Result<String> {
@@ -50,5 +53,26 @@ pub(crate) fn finish(sai:&Entry)->Result<Supplies> {
     let steal_event=None;
     l.boundary("Sturdy Pickaxe stolen: change selected path action, then close without Steal dialogue; no closing lottery draw");
     let pickaxe=point(&mut l,day.after);
-    Ok(Supplies {warrior,oresrush,night,hire,day,pickaxe,steal_chance:100,steal_roll,hire_event,steal_event})
+    let augmentor=augmentor(&pickaxe)?;
+    Ok(Supplies {warrior,oresrush,night,hire,day,pickaxe,steal_chance:100,steal_roll,hire_event,steal_event,augmentor})
+}
+fn augmentor(entry:&Entry)->Result<AugmentorTrip> {
+    let d=&data().augmentor;
+    let mut l=Loader::new(world::catalog(),entry.world_after.clone(),entry.after)?;
+    l.visit_map("Twn_Dst_2_1_A")?;l.skipped_event("MapInStorySelect")?;
+    let sai=point(&mut l,entry.after);
+    l.visit_map("Twn_Dst_2_1_B")?;l.skipped_event("MapInStorySelect")?;
+    let east_district=point(&mut l,sai.after);
+    l.manual_time_switch(4,"Sai: East District: switch to night for Elemental Augmentor")?;
+    let night=point(&mut l,east_district.after);
+    ensure(l.state.party.contains(&8)&&present(&l,&d.npc),"Agnea or Elemental Augmentor Townsperson is unavailable")?;
+    let agnea_level=l.state.character_progression[&8].level;
+    ensure(agnea_level>=d.required_level,"Agnea does not meet Elemental Augmentor Entreat level")?;
+    ensure(!l.state.route_items.contains_key(&d.item),"Elemental Augmentor already obtained")?;
+    l.draw(world::DrawKind::PathActionMenu,&d.npc,"Entreat: PlayFieldCommandActions / K2_SetTimerDelegate",None);
+    // BegItemExec checks level and grants the item; no probability lottery.
+    *l.state.route_items.entry(d.item.clone()).or_default()+=1;
+    l.boundary(format!("Agnea level{agnea_level} Entreat Elemental Augmentor (requires{}); change selected path action, then close without dialogue or closing lottery",d.required_level));
+    let entreat=point(&mut l,night.after);
+    Ok(AugmentorTrip {sai,east_district,night,entreat,required_level:d.required_level,agnea_level})
 }

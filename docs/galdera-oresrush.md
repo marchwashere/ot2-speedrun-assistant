@@ -1,5 +1,14 @@
 # Warrior License and Oresrush supplies
 
+After the Pickaxe, fast travel back to Sai, enter its East District, discard any
+chapter-start prompt and switch to night. Agnea Entreats Elemental Augmentor
+`ITM_EQP_ACS_250` from Townsperson `NPC_Twn_Dst_2_1_B_TALK_1800`, requiring
+level25. BegItemExec checks level and grants the item without a probability
+lottery. The user changes path action before closing, skipping the success
+dialogue. This session adds only the common opening action timer (one draw).
+The route ends at night with the accessory recorded but not equipped. All map
+loads/time callbacks are evaluated by Loader and the hired Peddler is preserved.
+
 After entering Sai, get the first Warrior License without equipping a new job or
 learning skills. `SYS_WAR_GUILD_0010` and `0030` have `MapID=None`,
 `EncountReset=false` and fixed dialogue; 0030 clears406/sets411. License JobID2

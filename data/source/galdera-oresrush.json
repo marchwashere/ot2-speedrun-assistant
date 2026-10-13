@@ -79,6 +79,14 @@
     {
       "source": "/Game/Character/BP/KSCharacterManagerBP",
       "sha256": "5c714f6007623bcf4eb574e48376ad4b9c5b424dfbdd53cde3af1ac02484da1c"
+    },
+    {
+      "source": "/Game/UserInterface/FieldCommand/BP/FieldCommandWisgetBeg",
+      "sha256": "7688defae2c5202d05780cfd77687f1a2555cd4eb4617a62f94f2974bf429771"
+    },
+    {
+      "source": "/Game/FieldCommand/BPv2/Flow/BP_FCv2_FieldCommandFlow_Beg",
+      "sha256": "32da99da507e9ca2e417624de56d0795f827968bdd065b9dab064fddf330e706"
     }
   ],
   "guild": {
@@ -288,6 +296,11 @@
         "FC_TOU_STEAL_Success_1",
         "FC_TOU_STEAL_Success_2"
       ]
+    },
+    "augmentor": {
+      "npc": "NPC_Twn_Dst_2_1_B_TALK_1800",
+      "item": "ITM_EQP_ACS_250",
+      "required_level": 25
     }
   },
   "blueprints": [
@@ -490,6 +503,69 @@
             "TickGroup": "TG_PostPhysics"
           }
         }
+      ]
+    },
+    {
+      "asset": "UserInterface/FieldCommand/BP/FieldCommandWisgetBeg",
+      "sha256": "7688defae2c5202d05780cfd77687f1a2555cd4eb4617a62f94f2974bf429771",
+      "functions": {
+        "BegItemExec": "0aeb6 PushExecutionFlow target=774\n0aebb PushExecutionFlow target=218\n0aec0 PushExecutionFlow target=184\n0aec5 PushExecutionFlow target=118\n0aeca PushExecutionFlow target=48\n0aecf LetBool\n  0aed0 InstanceVariable IsExecuted\n  0aee1 True\n0aee2 LetBool\n  0aee3 InstanceVariable IsSucceeded\n  0aef4 True\n0aef5 PopExecutionFlow\n0aef6 Context skip=47 rvalue=<null-field>\n  0aef7 ObjectConst import:-103:Default__ItemFunction_C\n  0af08 LocalVirtualFunction AddBackpackItem\n    0af11 StructMemberContext ItemLabel\n      0af22 LocalOutVariable PurchaseItemInfoData\n    0af33 IntConst 1\n    0af38 Self\n    0af39 LocalVariable CallFunc_AddBackpackItem_Success\n0af4b PopExecutionFlow\n0af4c Context skip=43 rvalue=<null-field>\n  0af4d ObjectConst import:-109:Default__LibFieldCommand_C\n  0af5e LocalVirtualFunction AddPurchasedList\n    0af67 InstanceVariable CurentNPCLabel\n    0af78 ArrayGetByRef\n      0af79 InstanceVariable PurchaseIndexList\n      0af8a InstanceVariable ListSelect\n    0af9b Self\n0af9d PopExecutionFlow\n0af9e LetBool\n  0af9f LocalVariable CallFunc_PlaySeByLabel_ReturnValue\n  0afb0 CallMath import:-95:PlaySeByLabel\n    0afb5 NameConst se_menu_field_success\n0afbf PopExecutionFlow\n0afc0 LetObj\n  0afc1 LocalVariable CallFunc_GetNPC_ReturnValue\n  0afd2 CallMath import:-92:GetNPC\n    0afd7 InstanceVariable CurentNPCLabel\n0afe9 Let property=<null-field>\n  0aff2 LocalVariable K2Node_DynamicCast_AsKSField_NPCCharacter\n  0b003 DynamicCast import:-3:KSFieldNPCCharacter_C\n    0b008 LocalVariable CallFunc_GetNPC_ReturnValue\n0b019 Let property=<null-field>\n  0b022 LocalVariable K2Node_DynamicCast_bSuccess\n  0b033 Cast cast=71\n    0b035 LocalVariable K2Node_DynamicCast_AsKSField_NPCCharacter\n0b046 JumpIfNot target=763\n  0b04b LocalVariable K2Node_DynamicCast_bSuccess\n0b05c LetObj\n  0b05d LocalVariable CallFunc_GetNpcPropertyComponent_ReturnValue\n  0b06e Context skip=14 rvalue=CallFunc_GetNpcPropertyComponent_ReturnValue\n    0b06f LocalVariable K2Node_DynamicCast_AsKSField_NPCCharacter\n    0b094 VirtualFunction GetNpcPropertyComponent\n0b09e Let property=CallFunc_GetNpcLabel_ReturnValue\n  0b0af LocalVariable CallFunc_GetNpcLabel_ReturnValue\n  0b0c0 Context skip=10 rvalue=CallFunc_GetNpcLabel_ReturnValue\n    0b0c1 LocalVariable CallFunc_GetNpcPropertyComponent_ReturnValue\n    0b0e6 FinalFunction import:-96:GetNpcLabel\n0b0ec LetBool\n  0b0ed LocalVariable CallFunc_GetPlayEventFromEventTypeAndParam_ReturnValue\n  0b0fe Context skip=62 rvalue=CallFunc_GetPlayEventFromEventTypeAndParam_ReturnValue\n    0b0ff ObjectConst import:-55:Default__EventFunctionBP_C\n    0b118 LocalVirtualFunction GetPlayEventFromEventTypeAndParam\n      0b121 LocalVariable CallFunc_GetNpcLabel_ReturnValue\n      0b132 ByteConst 7\n      0b134 StructMemberContext ItemLabel\n        0b145 LocalOutVariable PurchaseItemInfoData\n      0b156 Self\n      0b157 LocalVariable CallFunc_GetPlayEventFromEventTypeAndParam_EventName\n      0b168 LocalVariable CallFunc_GetPlayEventFromEventTypeAndParam_EventNo\n0b17a JumpIfNot target=763\n  0b17f LocalVariable CallFunc_GetPlayEventFromEventTypeAndParam_ReturnValue\n0b190 LetObj\n  0b191 LocalVariable CallFunc_GetNpcPropertyComponent_ReturnValue\n  0b1a2 Context skip=14 rvalue=CallFunc_GetNpcPropertyComponent_ReturnValue\n    0b1a3 LocalVariable K2Node_DynamicCast_AsKSField_NPCCharacter\n    0b1c8 VirtualFunction GetNpcPropertyComponent\n0b1d2 Let property=CallFunc_GetNpcLabel_ReturnValue\n  0b1e3 LocalVariable CallFunc_GetNpcLabel_ReturnValue\n  0b1f4 Context skip=10 rvalue=CallFunc_GetNpcLabel_ReturnValue\n    0b1f5 LocalVariable CallFunc_GetNpcPropertyComponent_ReturnValue\n    0b21a FinalFunction import:-96:GetNpcLabel\n0b220 LetBool\n  0b221 LocalVariable CallFunc_GetPlayEventFromEventTypeAndParam_ReturnValue\n  0b232 Context skip=62 rvalue=CallFunc_GetPlayEventFromEventTypeAndParam_ReturnValue\n    0b233 ObjectConst import:-55:Default__EventFunctionBP_C\n    0b24c LocalVirtualFunction GetPlayEventFromEventTypeAndParam\n      0b255 LocalVariable CallFunc_GetNpcLabel_ReturnValue\n      0b266 ByteConst 7\n      0b268 StructMemberContext ItemLabel\n        0b279 LocalOutVariable PurchaseItemInfoData\n      0b28a Self\n      0b28b LocalVariable CallFunc_GetPlayEventFromEventTypeAndParam_EventName\n      0b29c LocalVariable CallFunc_GetPlayEventFromEventTypeAndParam_EventNo\n0b2ae Let property=PlayEventLabel\n  0b2bf InstanceVariable PlayEventLabel\n  0b2d0 LocalVariable CallFunc_GetPlayEventFromEventTypeAndParam_EventName\n0b2e1 LetBool\n  0b2e2 LocalOutVariable IsListClose\n  0b2f3 True\n0b2f4 Jump target=774\n0b2f9 LetBool\n  0b2fa LocalOutVariable IsListClose\n  0b30b False\n0b30c Return\n  0b30d Nothing\n0b30e EndOfScript"
+      },
+      "defaults": [
+        {
+          "UberGraphFrame": {},
+          "State": "EFIELDCOMMAND_BEG_STATE::eLIST",
+          "GuideData": [
+            {
+              "m_eButtonType": "ECONTROL_GUIDE_BUTTON_TYPE::eSTICK_L",
+              "m_Name": "eMAINMENU_INPUT_GUIDE_CHOICE",
+              "m_IsForceDisplay": false
+            },
+            {
+              "m_eButtonType": "ECONTROL_GUIDE_BUTTON_TYPE::eBUTTON_A",
+              "m_Name": "eMAINMENU_INPUT_GUIDE_SELECT",
+              "m_IsForceDisplay": false
+            },
+            {
+              "m_eButtonType": "ECONTROL_GUIDE_BUTTON_TYPE::eBUTTON_B",
+              "m_Name": "eMAINMENU_INPUT_GUIDE_CANCEL",
+              "m_IsForceDisplay": false
+            },
+            {
+              "m_eButtonType": "ECONTROL_GUIDE_BUTTON_TYPE::eBUTTON_Y",
+              "m_Name": "eMAINMENU_INPUT_GUIDE_HELP",
+              "m_IsForceDisplay": false
+            }
+          ],
+          "GuideDataSingle": [
+            {
+              "m_eButtonType": "ECONTROL_GUIDE_BUTTON_TYPE::eBUTTON_A",
+              "m_Name": "eMAINMENU_INPUT_GUIDE_SELECT",
+              "m_IsForceDisplay": false
+            },
+            {
+              "m_eButtonType": "ECONTROL_GUIDE_BUTTON_TYPE::eBUTTON_B",
+              "m_Name": "eMAINMENU_INPUT_GUIDE_CANCEL",
+              "m_IsForceDisplay": false
+            },
+            {
+              "m_eButtonType": "ECONTROL_GUIDE_BUTTON_TYPE::eBUTTON_Y",
+              "m_Name": "eMAINMENU_INPUT_GUIDE_HELP",
+              "m_IsForceDisplay": false
+            }
+          ],
+          "bHasScriptImplementedPaint": false
+        }
+      ]
+    },
+    {
+      "asset": "FieldCommand/BPv2/Flow/BP_FCv2_FieldCommandFlow_Beg",
+      "sha256": "32da99da507e9ca2e417624de56d0795f827968bdd065b9dab064fddf330e706",
+      "functions": {
+        "UpdateFlow": "03240 PushExecutionFlow target=889\n03245 PushExecutionFlow target=268\n0324a Let property=CallFunc_GetState_ReturnValue\n  0325b LocalVariable CallFunc_GetState_ReturnValue\n  0326c LocalVirtualFunction GetState\n03276 LetBool\n  03277 LocalVariable K2Node_SwitchEnum_CmpSuccess\n  03288 CallMath import:-44:NotEqual_ByteByte\n    0328d LocalVariable CallFunc_GetState_ReturnValue\n    0329e ByteConst 1\n032a1 JumpIfNot target=293\n  032a6 LocalVariable K2Node_SwitchEnum_CmpSuccess\n032b7 LetBool\n  032b8 LocalVariable K2Node_SwitchEnum_CmpSuccess\n  032c9 CallMath import:-44:NotEqual_ByteByte\n    032ce LocalVariable CallFunc_GetState_ReturnValue\n    032df ByteConst 2\n032e2 JumpIfNot target=511\n  032e7 LocalVariable K2Node_SwitchEnum_CmpSuccess\n032f8 LetBool\n  032f9 LocalVariable K2Node_SwitchEnum_CmpSuccess\n  0330a CallMath import:-44:NotEqual_ByteByte\n    0330f LocalVariable CallFunc_GetState_ReturnValue\n    03320 ByteConst 3\n03323 JumpIfNot target=697\n  03328 LocalVariable K2Node_SwitchEnum_CmpSuccess\n03339 LetBool\n  0333a LocalVariable K2Node_SwitchEnum_CmpSuccess\n  0334b CallMath import:-44:NotEqual_ByteByte\n    03350 LocalVariable CallFunc_GetState_ReturnValue\n    03361 ByteConst 4\n03364 JumpIfNot target=844\n  03369 LocalVariable K2Node_SwitchEnum_CmpSuccess\n0337a LetBool\n  0337b LocalVariable K2Node_SwitchEnum_CmpSuccess\n  0338c CallMath import:-44:NotEqual_ByteByte\n    03391 LocalVariable CallFunc_GetState_ReturnValue\n    033a2 ByteConst 5\n033a5 JumpIfNot target=869\n  033aa LocalVariable K2Node_SwitchEnum_CmpSuccess\n033bb PopExecutionFlow\n033bc Let property=Result\n  033cd LocalOutVariable Result\n  033de ByteConst 5\n033e0 Jump target=889\n033e5 LetBool\n  033e6 LocalVariable CallFunc_GetPlayableEventLabelByGotItems_ReturnValue\n  033f7 LocalVirtualFunction GetPlayableEventLabelByGotItems\n    03400 LocalVariable CallFunc_GetPlayableEventLabelByGotItems_EventName\n03412 JumpIfNot target=470\n  03417 LocalVariable CallFunc_GetPlayableEventLabelByGotItems_ReturnValue\n03428 LocalVirtualFunction SetNextEventLabel\n  03431 LocalVariable CallFunc_GetPlayableEventLabelByGotItems_EventName\n03443 BindDelegate BeginEventCallback\n  0344c LocalVariable K2Node_CreateDelegate_OutputDelegate\n  0345d Self\n0345e LetBool\n  0345f LocalVariable CallFunc_SetEventData_ReturnValue\n  03470 CallMath import:-50:SetEventData\n    03475 LocalVariable K2Node_CreateDelegate_OutputDelegate\n03487 JumpIfNot target=470\n  0348c LocalVariable CallFunc_SetEventData_ReturnValue\n0349d LocalVirtualFunction SetState\n  034a6 ByteConst 5\n034a9 Let property=Result\n  034ba LocalOutVariable Result\n  034cb ByteConst 0\n034cd Jump target=889\n034d2 LocalVirtualFunction SetState\n  034db ByteConst 2\n034de Let property=Result\n  034ef LocalOutVariable Result\n  03500 ByteConst 0\n03502 Jump target=889\n03507 LocalVirtualFunction FaceEachOther\n03511 LocalVirtualFunction GetNpcPurchaseData\n  0351a LocalVariable CallFunc_GetNpcPurchaseData_PurchaseData\n0352c LocalVirtualFunction GetNpcSerifLabel\n  03535 StructMemberContext BegSuccessTalkID\n    03546 LocalVariable CallFunc_GetNpcPurchaseData_PurchaseData\n  03557 ByteConst 3\n  03559 LocalVariable CallFunc_GetNpcSerifLabel_OutputSerifLabel\n0356b LocalVirtualFunction GetTargetNpc\n  03574 LocalVariable CallFunc_GetTargetNpc_TargetNPC\n03586 LetBool\n  03587 LocalVariable CallFunc_AddNpcTalkBalloon_ReturnValue\n  03598 LocalVirtualFunction AddNpcTalkBalloon\n    035a1 LocalVariable CallFunc_GetNpcSerifLabel_OutputSerifLabel\n    035b2 LocalVariable CallFunc_GetTargetNpc_TargetNPC\n035c4 LocalVirtualFunction SetState\n  035cd ByteConst 3\n035d0 Let property=Result\n  035e1 LocalOutVariable Result\n  035f2 ByteConst 0\n035f4 Jump target=889\n035f9 SetMap count=2\n  035fa LocalVariable K2Node_MakeMap_Map\n  0360f InstanceVariable SuccessEventLabel1\n  03620 InstanceVariable BranchEventWeight1\n  03631 InstanceVariable SuccessEventLabel2\n  03642 InstanceVariable BranchEventWeight2\n03654 LocalVirtualFunction DrawEventLabel\n  0365d LocalVariable K2Node_MakeMap_Map\n  0366e LocalVariable CallFunc_DrawEventLabel_WinningLabel\n03680 LocalVirtualFunction RequestPlayerTalkEvent\n  03689 LocalVariable CallFunc_DrawEventLabel_WinningLabel\n0369b LocalVirtualFunction SetState\n  036a4 ByteConst 5\n036a7 Let property=Result\n  036b8 LocalOutVariable Result\n  036c9 ByteConst 0\n036cb Jump target=889\n036d0 Let property=Result\n  036e1 LocalOutVariable Result\n  036f2 ByteConst 3\n036f4 Jump target=889\n036f9 Let property=Result\n  0370a LocalOutVariable Result\n  0371b ByteConst 1\n0371d Return\n  0371e Nothing\n0371f EndOfScript"
+      },
+      "defaults": [
+        {}
       ]
     }
   ]

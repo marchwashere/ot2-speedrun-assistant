@@ -144,6 +144,7 @@ pub fn simulate_route(voices:&str,pirro_first:bool,hp:u32,galdera_route:bool)->R
         assert_eq!(g["coast"]["eastern_sai_encounter"]["escape"]["success"],true);
         assert_eq!(g["coast"]["sai"]["world_after"]["map"],"Twn_Dst_2_1_A");
         assert_eq!(g["coast"]["oresrush_supplies"]["steal_chance"],100);
+        assert_eq!(g["coast"]["oresrush_supplies"]["augmentor"]["entreat"]["world_after"]["route_items"]["ITM_EQP_ACS_250"],1);
         assert_eq!(g["coast"]["oresrush_supplies"]["pickaxe"]["world_after"]["hired_merchant"]["talent"],"SPACT_MERCHANT_014");
         assert_ne!(g["coast"]["southern_sai"]["encounter"]["situation"],"Surprise");
         assert_eq!(g["fight"]["state"]["outcome"],"victory");

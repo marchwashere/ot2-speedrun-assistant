@@ -1,5 +1,14 @@
 # Active project
 
+- After Pickaxe: fast travel back to Sai main, enter Sai: East District
+  Twn_Dst_2_1_B, decline any chapter prompt, switch night, Agnea Entreat Elemental
+  Augmentor ITM_EQP_ACS_250 from NPC_Twn_Dst_2_1_B_TALK_1800 (requires level25).
+  Change selected path action before closing to skip dialogue. Entreat adds only
+  the opening action timer1 CRT; BegItemExec has no probability lottery. Carry
+  the item in route_items and retain hired Smooth Talker; end at night, unequipped.
+  East District map and source Entreat Blueprint audit are imported. Fixed steps
+  appear in Detailed log, native endpoint still awaits retail validation.
+
 - After Sai: Warrior first license (JobID2, SYS_WAR_GUILD_0010/0030; source
   current route zero CRT), fast travel Oresrush C, decline chapter prompt,
   night -> Hire Peddler NPC_SS_TW11_0100_0100 (1600 leaves, Smooth Talker

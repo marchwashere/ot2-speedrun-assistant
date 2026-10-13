@@ -49,3 +49,9 @@ assert.deepEqual(context.conningStages.slice(-6).map(([label])=>label),[
  'Sai · Warrior License acquired','Oresrush · fast travel, chapter start discarded','Oresrush · switched to night',
  'Oresrush · Smooth Talker Peddler hired · 1,600 leaves','Oresrush · switched to day','Oresrush · Sturdy Pickaxe stolen · 100% · change path action, then close without dialogue']);
 console.log('PASS: Warrior License, night Hire, day Pickaxe Steal in Detailed log');
+coast.oresrush_supplies.augmentor={sai:entry,east_district:entry,night:entry,entreat:entry};
+context.conningStages=[];
+vm.runInNewContext(source.slice(start,end),context);
+assert.equal(context.conningStages.at(-1)[0],'Sai: East District · Elemental Augmentor entreated · change path action, then close without dialogue');
+assert.equal(context.conningStages.at(-4)[0],'Sai · fast travel back, chapter start discarded');
+console.log('PASS: Sai return, East District, night Entreat with dialogue skip');

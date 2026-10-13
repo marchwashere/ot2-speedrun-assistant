@@ -1146,6 +1146,12 @@ function renderCrackridgeVoyage() {
                       for(const [label,e] of [['Sai · Warrior License acquired',o.warrior],['Oresrush · fast travel, chapter start discarded',o.oresrush],['Oresrush · switched to night',o.night],['Oresrush · Smooth Talker Peddler hired · 1,600 leaves',o.hire],['Oresrush · switched to day',o.day],['Oresrush · Sturdy Pickaxe stolen · '+o.steal_chance+'% · change path action, then close without dialogue',o.pickaxe]]) {
                         conningStages.push([label,e]);conningSpans.push(...e.trace);
                       }
+                      if(o.augmentor) {
+                        const a=o.augmentor;
+                        for(const [label,e] of [['Sai · fast travel back, chapter start discarded',a.sai],['Sai: East District · entered, chapter start discarded',a.east_district],['Sai: East District · switched to night',a.night],['Sai: East District · Elemental Augmentor entreated · change path action, then close without dialogue',a.entreat]]) {
+                          conningStages.push([label,e]);conningSpans.push(...e.trace);
+                        }
+                      }
                     }
                   }
                 }
