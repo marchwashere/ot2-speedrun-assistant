@@ -1,5 +1,12 @@
 # Active project
 
+- Shared core turn-order correction: later Defend overtakes earlier Defends and
+  Springy Boots, after break recovery. Four ASA Defends reverse party order in
+  the next turn. Boots excludes shuffle draws and adds 20000 to future timing;
+  break immediately moves hidden rows to the end. Recalculate route outputs;
+  see core docs/turn-order-controls.md. Both Galdera web fixtures keep their
+  prefix through Gaol entry, but Lord Sands actions/exit RNG change.
+
 - After Lord of the Sands: switch day, open Rusty Axe chest, one ordinary-land
   encounter outside the arena, guaranteed Escape, open Scorched Bone Spear chest.
   Defeat flag40010 replaces ENT_DNG_DST_2_2_LND with ENT_DNG_DST_2_2_L_LND,

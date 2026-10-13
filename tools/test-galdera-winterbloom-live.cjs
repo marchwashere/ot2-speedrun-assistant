@@ -112,6 +112,9 @@ function find(v){if(v&&typeof v==='object'){if(v.coast&&v.fight)return v;for(con
   assert.equal(loot.scorched_bone_spear.world_after.opened_route_chests.length,2);
   console.log(JSON.stringify({fixture:label,finisher_cycles:lord.finisher_boost_cycles,loot_menu:loot.encounter.menu.rng.draws,spear:loot.scorched_bone_spear.after.draws}));
   assert.equal(lord.battle.actions.length,8);assert.equal(lord.battle.actions.at(-1).report.outcome,'victory');
+  const bonusDefenders=lord.battle.actions.filter(a=>a.turn===1&&a.name==='Defend').map(a=>a.actor);
+  assert.deepEqual(lord.battle.actions.filter(a=>a.turn===2).slice(0,2).map(a=>a.actor),bonusDefenders.reverse(),
+    'Later Defend must go before earlier Defend in the actual web prediction');
   assert(lord.battle.actions.some(a=>a.turn===2&&a.actor===2&&a.name==='Staff attack'));
   assert.equal(lord.battle.rewards.jp,37);assert.equal(lord.battle.money_spent,15000);
   for(const id of [7,6,5,4]){const old=qw.character_progression[id],now=lord.victory.world_after.character_progression[id];assert.equal(now.experience-old.experience,lord.battle.rewards.exp);assert.equal(now.jp_earned-old.jp_earned,37);}
