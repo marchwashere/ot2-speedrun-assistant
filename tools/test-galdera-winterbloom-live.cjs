@@ -79,6 +79,19 @@ function find(v){if(v&&typeof v==='object'){if(v.coast&&v.fight)return v;for(con
   assert.deepEqual(ar.delivery.world_after.character_progression,end.character_progression);
   assert.deepEqual(ar.delivery.world_after.active_scenarios,end.active_scenarios);
   console.log(JSON.stringify({fixture:label,new_delsta:ar.new_delsta.after.draws,day:ar.day.after.draws,highroad:ar.highroad.after.draws,delivery:ar.delivery.after.draws,delivery_draws:ar.delivery.after.draws-ar.highroad.after.draws}));
+  assert.equal(ar.delivery.after.draws,label==='32'?5075:4164,'Earlier Al delivery endpoint remains unchanged');
+  const fc=ar.flamechurch;assert(fc);
+  assert.deepEqual(fc.highroad_exit.arrival,ar.delivery.after);
+  assert.equal(ar.delivery.world_after.encounter_counter-fc.highroad_exit.world_after.encounter_counter,336);
+  assert.equal(fc.highroad_running_updates,56);assert.equal(fc.clockbank_running_updates,193);assert.equal(fc.run_decrement,6);
+  assert(['Normal','Preemptive'].includes(fc.encounter.encounter.situation));
+  assert.equal(fc.encounter.escape.chance_percent,100);assert.equal(fc.encounter.escape.success,true);
+  assert.equal(fc.encounter.encounter.counter_updates+fc.running_updates_after_escape,193);
+  assert(fc.clockbank_exit.world_after.encounter_counter>0);
+  assert.equal(fc.eastern_flamechurch.world_after.map,'Fld_Mnt_1_2');assert.equal(fc.eastern_flamechurch.world_after.time,2);
+  assert.deepEqual(fc.eastern_flamechurch.world_after.route_items,ar.delivery.world_after.route_items);
+  assert.deepEqual(fc.eastern_flamechurch.world_after.character_progression,ar.delivery.world_after.character_progression);
+  console.log(JSON.stringify({fixture:label,clockbank_entry:fc.clockbank_entry.after.draws,switches:fc.additional_time_switches,first_menu:fc.encounter.menu.rng.draws,remaining_updates:fc.running_updates_after_escape,flamechurch:fc.eastern_flamechurch.after.draws}));
   fs.writeFileSync(path.join(__dirname,'../outputs/galdera-winterbloom-'+label+'.json'),JSON.stringify(json));
   console.log(JSON.stringify({fixture:label,arrival:w.arrival.after.draws,quest:w.sword_quest.after.draws,entreat:w.soldier_entreat.after.draws,quest_draws:Number(w.sword_quest.after.draws)-Number(w.arrival.after.draws),counter:w.sword_quest.world_after.encounter_counter}));
  }

@@ -58,6 +58,7 @@ pub mod galdera_wellgrove;
 pub mod galdera_champion;
 pub mod galdera_wellgrove_supplies;
 pub mod galdera_al_return;
+pub mod galdera_flamechurch;
 
 pub mod voice_identification;
 pub mod identified_route;

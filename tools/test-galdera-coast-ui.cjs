@@ -113,3 +113,18 @@ assert.deepEqual(context.conningStages.slice(-4).map(([label])=>label),[
  'New Delsta · switched to day immediately after landing','New Delsta Highroad · entered for Al',
  'Al · recovered bag delivered · 1,500 leaves, Slippery Nut, Healing Grape ×3']);
 console.log('PASS: New Delsta day switch, Highroad and Al delivery in Detailed log');
+coast.oresrush_supplies.wellgrove.champion.supplies.al_return.flamechurch={highroad_exit:entry,clockbank_entry:entry,
+ additional_time_switches:0,encounter:{...coast.southern_sai,menu:{first_actor:3,rng:entry.after}},clockbank_exit:entry,eastern_flamechurch:entry};
+context.conningStages=[];
+vm.runInNewContext(source.slice(start,end),context);
+assert.equal($('galdera-clockbank-result').hidden,false);
+assert.match($('galdera-clockbank-routine').innerHTML,/T1 · Partitio · 1st command menu/);
+assert.match($('galdera-clockbank-routine').innerHTML,/run 100%/);
+assert.match($('galdera-clockbank-routine').innerHTML,/Escape \(100%\)/);
+assert(!context.conningStages.some(([label])=>label==='Western Clockbank Highroad · night/day adjustment'));
+assert.equal(context.conningStages.at(-1)[0],'Eastern Flamechurch Pass · entered');
+coast.oresrush_supplies.wellgrove.champion.supplies.al_return.flamechurch.additional_time_switches=2;
+coast.oresrush_supplies.wellgrove.champion.supplies.al_return.flamechurch.adjustment=entry;
+vm.runInNewContext(source.slice(start,end),context);
+assert.match($('galdera-clockbank-routine').innerHTML,/switch night → day 1 time\(s\)/);
+console.log('PASS: Western Clockbank full-run encounter and optional ambush adjustment before Flamechurch');

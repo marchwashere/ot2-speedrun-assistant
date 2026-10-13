@@ -842,7 +842,7 @@ function renderCrackridgeVoyage() {
   $('canalbrine-route-log').hidden=true;
   $('canalbrine-water-result').hidden=true;
   $('canalbrine-water-log').hidden=true;
-  for(const id of ['new-delsta-bg-result','crackridge-bg-result','clockbank-bg-result','oresrush-time-result','cropdale-time-result','conning-north-result','conning-west-result','conning-steal-result','inventor-escape-result','clockbank-movement-result','crackridge-return-result','southern-crackridge-result','western-crackridge-result','western-crackridge-return-result','gravell-result','galdera-coast-result','southern-sai-result','eastern-sai-result','western-sai-result','eastern-wellgrove-result','conning-log']) $(id).hidden=true;
+  for(const id of ['new-delsta-bg-result','crackridge-bg-result','clockbank-bg-result','oresrush-time-result','cropdale-time-result','conning-north-result','conning-west-result','conning-steal-result','inventor-escape-result','clockbank-movement-result','crackridge-return-result','southern-crackridge-result','western-crackridge-result','western-crackridge-return-result','gravell-result','galdera-coast-result','southern-sai-result','eastern-sai-result','western-sai-result','eastern-wellgrove-result','galdera-clockbank-result','conning-log']) $(id).hidden=true;
   const early=result.post_battle_field?.flats_escape?.early_cait;
   const timing=early?.southern_rare_target?'after':early?.snows_approach?.predicted_before_osvald?'before':snowsEncounterTiming ?? 'after';
   const exit=result.post_battle_field?.flats_escape?.snows_escape?.[timing+'_osvald'];
@@ -1201,6 +1201,24 @@ function renderCrackridgeVoyage() {
                               const a=v.al_return;
                               for(const [stage,e] of [['New Delsta · fast travel after Dancer License, chapter start discarded',a.new_delsta],['New Delsta · switched to day immediately after landing',a.day],['New Delsta Highroad · entered for Al',a.highroad],["Al · recovered bag delivered · 1,500 leaves, Slippery Nut, Healing Grape ×3",a.delivery]]) {
                                 conningStages.push([stage,e]);conningSpans.push(...e.trace);
+                              }
+                              if(a.flamechurch) {
+                                const t=a.flamechurch,f=t.encounter,label='Western Clockbank Highroad · before Flamechurch';
+                                for(const [stage,e] of [['New Delsta Highroad · run 100% to Western Clockbank without encounter',t.highroad_exit],['Western Clockbank Highroad · entered',t.clockbank_entry],['Western Clockbank Highroad · night/day adjustment',t.adjustment],[label+' · escaped, field restored',f.field_return],['Western Clockbank Highroad · run 100% to exit without a second encounter',t.clockbank_exit],['Eastern Flamechurch Pass · entered',t.eastern_flamechurch]]) {
+                                  if(e){conningStages.push([stage,e]);conningSpans.push(...e.trace);}
+                                }
+                                $('galdera-clockbank-result').hidden=false;
+                                $('galdera-clockbank-routine').innerHTML='<p><strong>'+escapeHtml(encounterLabel(f.encounter))+'</strong></p>'
+                                  +`<p><strong>T1 · ${names[f.menu.first_actor]} · 1st command menu</strong></p>`
+                                  +instructionBoxHtml(['Al → Western Clockbank: run 100%',...(t.additional_time_switches?[`On entering Western Clockbank: switch night → day ${t.additional_time_switches/2} time(s)`]:[]),'Western Clockbank → Eastern Flamechurch Pass: run 100%',`Escape (${f.escape.chance_percent}%)`,'Continue running 100% to Eastern Flamechurch Pass']);
+                                conningPoints.push([label+' · before battle initialization',f.battle_entry],[label+' · first command menu',f.menu.rng]);
+                                let previous=f.arrival.after;
+                                const origin=BigInt(previous.draws)-BigInt(f.encounter.checkpoints[0].draws);
+                                for(const checkpoint of f.encounter.checkpoints) {
+                                  const after={state:checkpoint.state,draws:origin+BigInt(checkpoint.draws)};
+                                  conningSpans.push({reason:label+' · '+checkpoint.label,before:previous,after});previous=after;
+                                }
+                                conningSpans.push(...f.escape.trace);
                               }
                             }
                           }

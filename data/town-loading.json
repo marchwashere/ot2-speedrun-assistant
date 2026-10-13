@@ -20,6 +20,55 @@
     ]
   },
   "maps": {
+    "Fld_Mnt_1_2": {
+      "id": 6,
+      "streams": [
+        "Fld_Mnt_1_2",
+        "Fld_Mnt_1_2_Art",
+        "Fld_Mnt_1_2_Coll",
+        "Fld_Mnt_1_2_GD",
+        "Fld_Mnt_1_2_Sound",
+        "Btl_Fld_Mnt_Land_A"
+      ],
+      "field_streams": [
+        "Fld_Mnt_1_2",
+        "Fld_Mnt_1_2_Art",
+        "Fld_Mnt_1_2_Coll",
+        "Fld_Mnt_1_2_GD",
+        "Fld_Mnt_1_2_Sound"
+      ],
+      "environment_draws": [],
+      "placements": [
+        "Treasure_Fld_Mnt_1_2_01",
+        "Treasure_Fld_Mnt_1_2_02",
+        "Treasure_Fld_Mnt_1_2_03",
+        "Treasure_Fld_Mnt_1_2_04",
+        "SYS_INFO_BOARD_MNT_1_2_0010",
+        "NPC_SYS_SAVE_Fld_Mnt_1_2_0000",
+        "Trigger_SS_TMount12_Tutorial_0100",
+        "NPC_SS_TMount12_Tutorial_0100",
+        "NPC_SS_TMount12_Tutorial_0200",
+        "Trigger_SS_TMount12_Tutorial_Enable",
+        "Trigger_SS_TMount12_Tutorial_Ongoing"
+      ],
+      "counter": {
+        "min": 1000,
+        "range_a": 400,
+        "range_b": 400,
+        "first_ratio": 0.5
+      },
+      "bar_event": "None",
+      "bar_allowed": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ]
+    },
     "Fld_Dst_1_1": {
       "id": 19,
       "streams": [
@@ -5081,6 +5130,190 @@
     }
   },
   "placements": {
+    "Treasure_Fld_Mnt_1_2_01": {
+      "kind": 2,
+      "resource": "Treasure_Fld_Mnt_1_2_01",
+      "action": null,
+      "begin": 0,
+      "end": 0,
+      "time": "eALL",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "Treasure_Fld_Mnt_1_2_02": {
+      "kind": 2,
+      "resource": "Treasure_Fld_Mnt_1_2_02",
+      "action": null,
+      "begin": 0,
+      "end": 0,
+      "time": "eALL",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "Treasure_Fld_Mnt_1_2_03": {
+      "kind": 2,
+      "resource": "Treasure_Fld_Mnt_1_2_03",
+      "action": null,
+      "begin": 0,
+      "end": 0,
+      "time": "eALL",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "Treasure_Fld_Mnt_1_2_04": {
+      "kind": 2,
+      "resource": "Treasure_Fld_Mnt_1_2_04",
+      "action": null,
+      "begin": 0,
+      "end": 0,
+      "time": "eALL",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "SYS_INFO_BOARD_MNT_1_2_0010": {
+      "kind": 1,
+      "resource": "NPC_SYS_INFOMATION_BOARD",
+      "action": "Signboard_A",
+      "begin": 0,
+      "end": 0,
+      "time": "eALL",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "NPC_SYS_SAVE_Fld_Mnt_1_2_0000": {
+      "kind": 1,
+      "resource": "NPC_SYS_SAVE",
+      "action": "NpcCty_SV_001",
+      "begin": 0,
+      "end": 0,
+      "time": "eALL",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "Trigger_SS_TMount12_Tutorial_0100": {
+      "kind": 3,
+      "resource": "None",
+      "action": null,
+      "begin": 0,
+      "end": 20509,
+      "time": "eALL",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": true,
+      "excludes": [
+        "Trigger_SS_TMount12_Tutorial_Enable"
+      ]
+    },
+    "NPC_SS_TMount12_Tutorial_0100": {
+      "kind": 1,
+      "resource": "NPC_SS_TD11_0100_0100",
+      "action": "SubAlfred_Mle",
+      "begin": 0,
+      "end": 20511,
+      "time": "eALL",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": true,
+      "excludes": [
+        "Trigger_SS_TMount12_Tutorial_Enable"
+      ]
+    },
+    "NPC_SS_TMount12_Tutorial_0200": {
+      "kind": 1,
+      "resource": "NPC_SS_TD11_0100_0200",
+      "action": "NonBlackSnake001_Mle",
+      "begin": 0,
+      "end": 20510,
+      "time": "eNIGHT",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": true,
+      "excludes": [
+        "Trigger_SS_TMount12_Tutorial_Enable"
+      ]
+    },
+    "Trigger_SS_TMount12_Tutorial_Enable": {
+      "kind": 3,
+      "resource": "None",
+      "action": null,
+      "begin": 20509,
+      "end": 0,
+      "time": "eALL",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": true,
+      "excludes": [
+        "Trigger_SS_TMount12_Tutorial_Ongoing"
+      ]
+    },
+    "Trigger_SS_TMount12_Tutorial_Ongoing": {
+      "kind": 3,
+      "resource": "None",
+      "action": null,
+      "begin": 20506,
+      "end": 0,
+      "time": "eALL",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": true,
+      "excludes": []
+    },
     "Treasure_Fld_Dst_1_1_01": {
       "kind": 2,
       "resource": "Treasure_Fld_Dst_1_1_01",

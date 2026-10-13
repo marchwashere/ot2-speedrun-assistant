@@ -5,7 +5,7 @@ use std::sync::OnceLock;
 #[derive(Deserialize)]struct Data {event:String,npc:String,bag:String,reward_money:u32,rewards:Vec<Reward>}
 #[derive(Deserialize)]struct Reward {item:String,quantity:u32}
 fn data()->&'static Data {static D:OnceLock<Data>=OnceLock::new();D.get_or_init(||serde_json::from_str(include_str!("../data/galdera-al-return.json")).unwrap())}
-#[derive(Debug,Serialize)]pub struct Trip {pub new_delsta:Entry,pub day:Entry,pub highroad:Entry,pub delivery:Entry,pub reward_money:u32}
+#[derive(Debug,Serialize)]pub struct Trip {pub new_delsta:Entry,pub day:Entry,pub highroad:Entry,pub delivery:Entry,pub reward_money:u32,pub flamechurch:crate::galdera_flamechurch::Trip}
 fn point(l:&mut Loader<'_>,before:CrtRng)->Entry {
     Entry {arrival:before,after:l.rng,world_after:l.state.clone(),trace:std::mem::take(&mut l.trace),decisions:std::mem::take(&mut l.decisions)}
 }
@@ -25,5 +25,6 @@ pub(crate) fn finish(entry:&Entry)->Result<Trip> {
     ensure(l.state.flag(20511)&&!l.state.route_items.contains_key(&d.bag),"Al's bag was not delivered")?;
     ensure(d.rewards.iter().all(|r|l.state.route_items.get(&r.item).copied().unwrap_or(0)>=r.quantity),"Traveler's Bag rewards missing")?;
     let delivery=point(&mut l,highroad.after);
-    Ok(Trip {new_delsta,day,highroad,delivery,reward_money:d.reward_money})
+    let flamechurch=crate::galdera_flamechurch::finish(&delivery)?;
+    Ok(Trip {new_delsta,day,highroad,delivery,reward_money:d.reward_money,flamechurch})
 }

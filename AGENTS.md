@@ -1,5 +1,18 @@
 # Active project
 
+- After Al delivery: run100% for56 land updates on New Delsta Highroad, cost336
+  with day/Evasive (6/update), then load Western Clockbank Fld_Cty_1_4. Run100%
+  for193 land updates toward Eastern Flamechurch; exactly one encounter, native
+  Escape100 at actual first actor, remaining traversal without a second fight.
+  User confirmed entirely on land. Western volume aliases CTY_1_3 land tables,
+  core coverage already complete. Freeze Al/earlier controls; only if ambushed,
+  add complete night/day pairs at Clockbank entry using real callbacks/counter
+  preservation. Show extra pairs, formation, actor and Run100% in a distinct
+  Galdera Clockbank card. Native field reset pays remaining193-trigger updates;
+  load Eastern Flamechurch Fld_Mnt_1_2, stop at daytime entry. Map6 is imported;
+  rerun Bag/Oresrush/Winterbloom/Wellgrove-supplies event imports after town.
+  See docs/galdera-flamechurch.md; retail validation pending.
+
 - After Dancer License: teleport New Delsta main, discard chapters, immediately
   switch day in town, enter Highroad Fld_Cty_1_3 and deliver recovered bag to Al
   via SC_FC13_Tutorial_0400 command4 Yes. No unmeasured movement/battle invented
