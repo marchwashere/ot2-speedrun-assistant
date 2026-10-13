@@ -42,18 +42,19 @@ assert.match($('eastern-sai-routine').innerHTML,/T1 · Throné · 1st command me
 assert.match($('eastern-sai-routine').innerHTML,/Escape \(100%\)/);
 assert(context.conningStages.some(([label])=>label==='Sai · loaded, chapter start discarded'));
 console.log('PASS: separate Eastern and Southern encounter cards, followed by Sai');
-coast.oresrush_supplies={warrior:entry,oresrush:entry,night:entry,hire:entry,day:entry,pickaxe:entry,steal_chance:100};
+coast.oresrush_supplies={warrior:entry,oresrush:entry,night:entry,hire:entry,pickaxe:entry};
 context.conningStages=[];
 vm.runInNewContext(source.slice(start,end),context);
-assert.deepEqual(context.conningStages.slice(-6).map(([label])=>label),[
+assert.deepEqual(context.conningStages.slice(-5).map(([label])=>label),[
  'Sai · Warrior License acquired','Oresrush · fast travel, chapter start discarded','Oresrush · switched to night',
- 'Oresrush · Smooth Talker Peddler hired · 1,600 leaves','Oresrush · switched to day','Oresrush · Sturdy Pickaxe stolen · 100% · change path action, then close without dialogue']);
-console.log('PASS: Warrior License, night Hire, day Pickaxe Steal in Detailed log');
-coast.oresrush_supplies.augmentor={sai:entry,east_district:entry,night:entry,entreat:entry};
+ 'Oresrush · Smooth Talker Peddler hired · 1,600 leaves','Oresrush · Sturdy Pickaxe entreated at night · change path action, then close without dialogue']);
+console.log('PASS: Warrior License, night Hire and Pickaxe Entreat in Detailed log');
+coast.oresrush_supplies.augmentor={sai:entry,east_district:entry,entreat:entry};
 context.conningStages=[];
 vm.runInNewContext(source.slice(start,end),context);
 assert.equal(context.conningStages.at(-1)[0],'Sai: East District · Elemental Augmentor entreated · change path action, then close without dialogue');
-assert.equal(context.conningStages.at(-4)[0],'Sai · fast travel back, chapter start discarded');
+assert.equal(context.conningStages.at(-3)[0],'Sai · fast travel back at night, chapter start discarded');
+assert(!context.conningStages.some(([label])=>label==='Oresrush · switched to day'||label==='Sai: East District · switched to night'));
 console.log('PASS: Sai return, East District, night Entreat with dialogue skip');
 coast.oresrush_supplies.winterbloom={arrival:entry,sword_quest:entry,soldier_entreat:entry};
 context.conningStages=[];

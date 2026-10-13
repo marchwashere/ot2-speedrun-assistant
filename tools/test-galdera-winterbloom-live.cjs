@@ -8,8 +8,13 @@ function find(v){if(v&&typeof v==='object'){if(v.coast&&v.fight)return v;for(con
   const res=await fetch(origin+'/api/identified-route?'+new URLSearchParams({voices,r3_first:first,hp,route:'galdera'}));assert(res.ok);
   const json=await res.json(),g=find(json);assert(g,'Complete Galdera route must be available');
   const o=g.coast.oresrush_supplies,w=o.winterbloom;assert(w);
-  const baseline=label==='32'?{draws:4621,state:3642146968}:{draws:3726,state:173771461};
-  assert.deepEqual(o.augmentor.entreat.after,baseline,'Earlier route endpoint must remain unchanged');
+  const baseline=label==='32'?{draws:4509,state:3276242088}:{draws:3615,state:4028002692};
+  assert.deepEqual(o.hire.after,baseline,'Earlier route through Peddler Hire remains unchanged');
+  assert(!('day'in o));assert(!('night'in o.augmentor));
+  assert.equal(o.pickaxe.after.draws-o.hire.after.draws,1);
+  assert.equal(o.pickaxe_required_level,30);assert(o.pickaxe_agnea_level>=30);
+  assert(!o.pickaxe.trace.some(r=>['steal_check','dialogue_lottery'].includes(r.kind)));
+  for(const e of [o.hire,o.pickaxe,o.augmentor.sai,o.augmentor.east_district,o.augmentor.entreat,w.arrival,w.sword_quest,w.soldier_entreat])assert.equal(e.world_after.time,4,'Remain at night through Winterbloom');
   assert.deepEqual(w.arrival.arrival,o.augmentor.entreat.after);
   const state=w.soldier_entreat.world_after;
   assert.equal(state.map,'Twn_Snw_2_1_A');assert.equal(state.time,4);
@@ -20,8 +25,9 @@ function find(v){if(v&&typeof v==='object'){if(v.coast&&v.fight)return v;for(con
   assert.equal(Number(w.soldier_entreat.after.draws)-Number(w.sword_quest.after.draws),1);
   assert.equal(w.required_level,26);assert(w.agnea_level>=26);assert.equal(w.reward_money,7000);
   const wg=o.wellgrove;assert(wg);
-  assert.equal(w.soldier_entreat.after.draws,label==='32'?4658:3763,'Winterbloom endpoint is frozen');
   assert.deepEqual(wg.sai.arrival,w.soldier_entreat.after);
+  assert.equal(wg.sai.world_after.time,4);
+  assert.deepEqual(wg.day.arrival,wg.sai.after,'Switch day after landing in Sai');
   assert.equal(wg.day.world_after.time,2);
   assert.equal(wg.southern_sai.world_after.map,'Fld_Dst_2_3');
   assert.deepEqual(wg.western_sai.arrival.arrival,wg.southern_sai.after,'No Southern Sai battle');
@@ -46,7 +52,6 @@ function find(v){if(v&&typeof v==='object'){if(v.coast&&v.fight)return v;for(con
   assert.deepEqual(t.wellgrove.world_after.character_progression,state.character_progression);
   console.log(JSON.stringify({fixture:label,western_boost_cycles:wg.western_escape_boost_cycles,steal:t.steal.after.draws,encounter_menu:t.encounter.menu.rng.draws,wellgrove:t.wellgrove.after.draws,remaining_counter:t.exit.world_after.encounter_counter}));
   const supplies=t.supplies;assert(supplies);
-  assert.equal(t.wellgrove.after.draws,label==='32'?4950:4061,'Earlier Wellgrove entry remains frozen');
   assert.deepEqual(supplies.night.arrival,t.wellgrove.after);
   assert.equal(supplies.tavern_entreat.after.draws-supplies.night.after.draws,1);
   assert.deepEqual(supplies.tavern_required_levels,[26,26]);

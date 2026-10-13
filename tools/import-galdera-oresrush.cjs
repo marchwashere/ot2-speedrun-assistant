@@ -12,8 +12,8 @@ const peddler=one(npcs,'NPC_SS_TW11_0100_0100'),lead=one(leads,peddler.FCmd_Lure
 assert.equal(lead.SpActionMerchant,'SPACT_MERCHANT_014');assert.equal(lead.HirePrice,1600);assert(lead.CommandEnable&4);
 assert(lead.FollowingFlags.every(x=>x===0)&&lead.UnFollowingFlags.every(x=>x===0));assert.equal(lead.HireSuccesTalkID,'None');
 const miner=one(npcs,'NPC_SS_TSn21_0200_0200'),purchase=one(purchases,miner.FCmd_Purchase_ID);
-assert.equal(purchase.StealSuccessTalkID,'None');
-const pickaxe=one(items,'NPC_SS_TSn21_0200_0200_NPCBUY_01');assert.equal(pickaxe.ProperSteal,22);
+assert.equal(purchase.BegSuccessTalkID,'None');assert(purchase.CommandEnable&4);
+const pickaxe=one(items,'NPC_SS_TSn21_0200_0200_NPCBUY_01');assert.equal(pickaxe.ProperBeg,30);
 const augmentorNpc=one(npcs,'NPC_Twn_Dst_2_1_B_TALK_1800');
 const augmentorPurchase=one(purchases,augmentorNpc.FCmd_Purchase_ID);assert.equal(augmentorPurchase.BegSuccessTalkID,'None');
 const augmentorItem=one(items,'NPC_Twn_Dst_2_1_B_TALK_1800_NPCBUY_02');assert.equal(augmentorItem.ItemLabel,'ITM_EQP_ACS_250');assert.equal(augmentorItem.ProperBeg,25);
@@ -55,7 +55,7 @@ assert(bp.some(b=>Object.values(b.functions).some(v=>v.includes('RandomFloatInRa
 const begCode=bp.flatMap(b=>Object.entries(b.functions)).find(([n])=>n==='BegItemExec')[1];
 assert(!/Random|K2_SetTimer/.test(begCode));assert(begCode.includes('AddBackpackItem'));
 const runtime={warrior_job:2,guild_flag:411,peddler:{npc:peddler.id,unique_id:peddler.NPC_UnqIndex,supporter:lead.SupporterID,talent:lead.SpActionMerchant,price:lead.HirePrice,events:hire.SuccessEventLabel},
- pickaxe:{npc:miner.id,item:pickaxe.ItemLabel,proper_steal:pickaxe.ProperSteal,guaranteed_level:pickaxe.ProperSteal+over,events:steal.SuccessEventLabel},
+ pickaxe:{npc:miner.id,item:pickaxe.ItemLabel,required_level:pickaxe.ProperBeg},
  augmentor:{npc:augmentorNpc.id,item:augmentorItem.ItemLabel,required_level:augmentorItem.ProperBeg}};
 fs.writeFileSync(path.join(__dirname,'../data/galdera-oresrush.json'),JSON.stringify(runtime,null,2)+'\n');
 fs.writeFileSync(path.join(__dirname,'../data/source/galdera-oresrush.json'),JSON.stringify({sources,guild,lead,peddler,miner,purchase,pickaxe,runtime,blueprints:bp},null,2)+'\n');

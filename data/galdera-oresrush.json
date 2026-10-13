@@ -15,12 +15,7 @@
   "pickaxe": {
     "npc": "NPC_SS_TSn21_0200_0200",
     "item": "ITM_TRE_SS_TSn21_0200_0010",
-    "proper_steal": 22,
-    "guaranteed_level": 33,
-    "events": [
-      "FC_TOU_STEAL_Success_1",
-      "FC_TOU_STEAL_Success_2"
-    ]
+    "required_level": 30
   },
   "augmentor": {
     "npc": "NPC_Twn_Dst_2_1_B_TALK_1800",

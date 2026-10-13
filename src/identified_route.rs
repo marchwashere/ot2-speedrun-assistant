@@ -143,7 +143,8 @@ pub fn simulate_route(voices:&str,pirro_first:bool,hp:u32,galdera_route:bool)->R
         assert_eq!(g["coast"]["southern_sai"]["escape"]["success"],true);
         assert_eq!(g["coast"]["eastern_sai_encounter"]["escape"]["success"],true);
         assert_eq!(g["coast"]["sai"]["world_after"]["map"],"Twn_Dst_2_1_A");
-        assert_eq!(g["coast"]["oresrush_supplies"]["steal_chance"],100);
+        assert_eq!(g["coast"]["oresrush_supplies"]["pickaxe_required_level"],30);
+        assert_eq!(g["coast"]["oresrush_supplies"]["pickaxe"]["world_after"]["time"],4);
         assert_eq!(g["coast"]["oresrush_supplies"]["augmentor"]["entreat"]["world_after"]["route_items"]["ITM_EQP_ACS_250"],1);
         let wg=&g["coast"]["oresrush_supplies"]["wellgrove"];
         assert_eq!(wg["day"]["world_after"]["time"],2);

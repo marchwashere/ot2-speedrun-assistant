@@ -1,13 +1,15 @@
 # Warrior License and Oresrush supplies
 
 After the Pickaxe, fast travel back to Sai, enter its East District, discard any
-chapter-start prompt and switch to night. Agnea Entreats Elemental Augmentor
+chapter-start prompt and remain at night. Agnea Entreats Elemental Augmentor
 `ITM_EQP_ACS_250` from Townsperson `NPC_Twn_Dst_2_1_B_TALK_1800`, requiring
 level25. BegItemExec checks level and grants the item without a probability
 lottery. The user changes path action before closing, skipping the success
 dialogue. This session adds only the common opening action timer (one draw).
-The route ends at night with the accessory recorded but not equipped. All map
-loads/time callbacks are evaluated by Loader and the hired Peddler is preserved.
+The accessory is recorded but not equipped. Continue at night through the
+Winterbloom Rusty Sword quest and Fortifying Nut L Entreat; switch to day only
+after teleporting back to Sai. Loader evaluates every map callback with the
+carried nighttime state and preserves the hired Peddler.
 
 After entering Sai, get the first Warrior License without equipping a new job or
 learning skills. `SYS_WAR_GUILD_0010` and `0030` have `MapID=None`,
@@ -16,7 +18,7 @@ is distinct from GuildData ID1. The source-derived current route consumes zero
 CRT at this stage, verified in the route replay.
 
 Fast travel to Oresrush (`Twn_Wld_1_1_C`), discard chapter selection, switch night,
-hire the Peddler `NPC_SS_TW11_0100_0100`, then switch day and steal Sturdy Pickaxe
+hire the Peddler `NPC_SS_TW11_0100_0100`, stay at night and Entreat Sturdy Pickaxe
 from the indoor Retired Miner `NPC_SS_TSn21_0200_0200`. Both NPCs have all-day
 placements gated by9000 and skipped Partitio prologue; Hire itself is night-only.
 The Peddler costs1600 leaves, grants Smooth Talker (`SPACT_MERCHANT_014`) and uses
@@ -25,23 +27,22 @@ suppresses the original placement on later NPC refreshes. Character manager's
 RefreshFollowCharacter uses pooled party follower actors; no placed-NPC random
 frame is generated for this conversion. A full leaves balance is not modeled.
 
-Pickaxe has ProperSteal22. GameParam `STEAL_PROBABILITY_LEVEL_OVER.Init=11`
-and `STEAL_PROBABILITY_OVER.Init=100` make it guaranteed at level33 or higher.
-Carried Throné is level70. Still execute the real RandomIntegerInRange1..100
-success check. The acquired quest item is stored in `WorldState.route_items`.
+Pickaxe has ProperBeg30. Agnea level30+ qualifies, and the carried Agnea is70.
+Miner CommandEnable7 enables Beg (bit4), and the all-day placement is present
+at night. BegItemExec grants the item without a probability check. Store the
+acquired quest item in `WorldState.route_items`.
 Both inventory and hired NPC identity belong in exact search-cache keys.
 
 Hire draws its common field-command action timer, then the success dialogue
 lottery in BP_FCv2_FieldCommandFlowBase.DrawEventLabel. Two equal-weight events
 are selected with the native15-bit float and <= cumulative comparison. The
 selected FC_SHO_HIRE_Success_1/2 event has fixed command42 and no counter reset.
-Steal draws its action timer and item success roll. The user then changes the
-selected path action before closing, just as in Conning Creek. This skips
-DrawEventLabel and the FC_TOU_STEAL_Success_1/2 closing event entirely. Source
-Peddler HireSuccesTalkID and Miner
-StealSuccessTalkID are both None; there is no extra NPC-specific reaction draw.
+Pickaxe Entreat draws only its opening action timer. Change selected path
+action before closing to suppress DrawEventLabel and the closing dialogue.
+Peddler HireSuccesTalkID and Miner BegSuccessTalkID are both None; there is no
+extra NPC-specific reaction draw.
 
-Thus Hire adds two CRT draws and this one-item Steal adds two; map/time
+Thus Hire adds two CRT draws and this one-item Entreat adds one; map/time
 callbacks are evaluated separately using the carried state. These new action
 endpoints await retail validation. Fixed steps appear only in Detailed log.
 

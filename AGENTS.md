@@ -52,7 +52,7 @@
   tools/import-galdera-winterbloom.cjs to retain the quest event.
 
 - After Pickaxe: fast travel back to Sai main, enter Sai: East District
-  Twn_Dst_2_1_B, decline any chapter prompt, switch night, Agnea Entreat Elemental
+  Twn_Dst_2_1_B, decline any chapter prompt, remain at night, Agnea Entreat Elemental
   Augmentor ITM_EQP_ACS_250 from NPC_Twn_Dst_2_1_B_TALK_1800 (requires level25).
   Change selected path action before closing to skip dialogue. Entreat adds only
   the opening action timer1 CRT; BegItemExec has no probability lottery. Carry
@@ -63,14 +63,16 @@
 - After Sai: Warrior first license (JobID2, SYS_WAR_GUILD_0010/0030; source
   current route zero CRT), fast travel Oresrush C, decline chapter prompt,
   night -> Hire Peddler NPC_SS_TW11_0100_0100 (1600 leaves, Smooth Talker
-  SPACT_MERCHANT_014) -> day -> Steal Pickaxe from Retired Miner, change path
-  action then close to suppress the Steal dialogue (same as Conning Creek)
-  NPC_SS_TSn21_0200_0200. ProperSteal22 + over-level11 guarantees level33+.
-  Hire action timer + dialogue lottery2; Pickaxe Steal timer + roll2, no closing
-  dialogue lottery. Paying/registering the hired follower adds no CRT draw.
+  SPACT_MERCHANT_014) -> stay night -> Entreat Pickaxe from Retired Miner, change
+  path action then close to suppress dialogue. NPC_SS_TSn21_0200_0200 has an
+  all-day placement, Beg enabled (CommandEnable bit4), ProperBeg30. Agnea70
+  qualifies. Hire timer + dialogue lottery2; Pickaxe Entreat opening timer1,
+  no probability or closing draw. Paying/registering follower adds no CRT draw.
+  Remain night through Sai main/East District Augmentor Entreat and Winterbloom
+  Sword quest/Fort L Entreat; switch day only after landing back in Sai.
   Retain hired identity/talent and quest item in state/cache; suppress original
-  hired NPC placement on refresh. Apply this closing exception to both the
-  Conning Creek two-item session and the Oresrush Pickaxe session only.
+  hired NPC placement on refresh. Conning Creek keeps its existing Steal
+  closing exception; Oresrush now uses the same Entreat closing trick.
   Fixed steps belong in Detailed log. Regenerate event data with import-galdera-
   oresrush.cjs after town and bag imports. See docs/galdera-oresrush.md; endpoints
   await retail validation.
