@@ -134,3 +134,11 @@ vm.runInNewContext(source.slice(start,end),context);
 assert.match($("galdera-clockbank-routine").innerHTML,/Boost 0 → 1 → 0 × 2 before Escape/);
 assert.match($("galdera-clockbank-routine").innerHTML,/run first 45.8% · walk remaining 54.2%/);
 assert.equal(context.conningStages.at(-1)[0],"Flamechurch · entered, chapter start discarded");
+
+fc.temenos={introduction:entry,field_return:entry,recruitment:entry,battle:{actor:1,boost_cycles:2,at_command_menu:entry.after,after:entry.after,trace:[]}};
+vm.runInNewContext(source.slice(start,end),context);
+assert.equal($('galdera-temenos-result').hidden,false);
+assert.match($('galdera-temenos-routine').innerHTML,/Osvald/);
+assert.match($('galdera-temenos-routine').innerHTML,/Boost 0 → 1 → 0 × 2/);
+assert.match($('galdera-temenos-routine').innerHTML,/Boost to \+1 BP → regular attack/);
+assert.match($('galdera-temenos-routine').innerHTML,/replace Agnea/);

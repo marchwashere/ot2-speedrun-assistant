@@ -81,6 +81,13 @@ function find(v){if(v&&typeof v==='object'){if(v.coast&&v.fight)return v;for(con
   console.log(JSON.stringify({fixture:label,new_delsta:ar.new_delsta.after.draws,day:ar.day.after.draws,highroad:ar.highroad.after.draws,delivery:ar.delivery.after.draws,delivery_draws:ar.delivery.after.draws-ar.highroad.after.draws}));
   assert.equal(ar.delivery.after.draws,label==='32'?5075:4164,'Earlier Al delivery endpoint remains unchanged');
   const fc=ar.flamechurch;assert(fc);
+  const tm=fc.temenos;assert(tm);assert.deepEqual(tm.introduction.arrival,fc.flamechurch.after);
+  assert.deepEqual(tm.recruitment.world_after.party,[7,6,5,4]);assert(tm.recruitment.world_after.bench.includes(8));
+  assert.equal(tm.recruitment.world_after.character_progression[5].level,1);
+  assert.equal(tm.recruitment.world_after.character_progression[5].experience,0);
+  assert(tm.recruitment.world_after.evasive_maneuvers);assert.equal(tm.battle.report.outcome,'victory');
+  assert(tm.recruitment.world_after.character_progression[8].experience>fc.flamechurch.world_after.character_progression[8].experience);
+  console.log(JSON.stringify({fixture:label,temenos_menu:tm.battle.at_command_menu.draws,actor:tm.battle.actor,boost_cycles:tm.battle.boost_cycles,recruited:tm.recruitment.after.draws,party:tm.recruitment.world_after.party}));
   assert(fc.pass_exit.world_after.encounter_counter>0);assert.deepEqual(fc.pass_exit.after,fc.eastern_flamechurch.after);
   assert.equal(fc.flamechurch.world_after.map,"Twn_Mnt_1_1_A");
   console.log(JSON.stringify({fixture:label,escape_boost_cycles:fc.escape_boost_cycles,movement:fc.movement}));

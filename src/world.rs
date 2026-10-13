@@ -1097,7 +1097,9 @@ impl<'a> Loader<'a> {
                     }
                 }
                 3000 => {
-                    if name=="MS_KUS_00_0100" && c.target==3 {
+                    if name=="MS_SIN_00_0300" && c.target==5 {
+                        ensure(self.state.party==[7,6,8,4]&&!self.state.bench.contains(&5),"Temenos requires original Galdera party")?;self.state.bench.push(5);
+                    } else if name=="MS_KUS_00_0100" && c.target==3 {
                         ensure(self.state.party.len()==4 && !self.state.party.contains(&3) && !self.state.bench.contains(&3),"Castti requires the carried full party")?;
                         self.state.bench.push(3);
                         self.boundary("Castti joined the bench; active party unchanged");
@@ -1113,7 +1115,7 @@ impl<'a> Loader<'a> {
                         self.boundary("Osvald joined the party; fixed join dialog dismissed");
                     }
                 }
-                3010 | 3120 if (name == "MS_GAK_00_0100" && c.target == 6) || (name == "MS_ODO_00_0200" && c.target == 8) || (name == "MS_SHO_00_0100" && c.target == 4) || (name=="MS_KEN_00_0300" && c.target==1) || (name=="MS_KUS_00_0100" && c.target==3) => {
+                3010 | 3120 if (name == "MS_GAK_00_0100" && c.target == 6) || (name == "MS_ODO_00_0200" && c.target == 8) || (name == "MS_SHO_00_0100" && c.target == 4) || (name=="MS_KEN_00_0300" && c.target==1) || (name=="MS_KUS_00_0100" && c.target==3) || (name=="MS_SIN_00_0300" && c.target==5) => {
                     let selected = choices.get(&(name.into(), c.index)).ok_or_else(|| {
                         SimError(format!("Missing recruitment choice for {name}:{}", c.index))
                     })?;
@@ -1167,6 +1169,15 @@ impl<'a> Loader<'a> {
                     self.refresh_bar()?;
                     self.boundary("Castti retained on bench; party selection dismissed");
                 }
+                3005 if name=="MS_SIN_00_0300" && c.target==5 => {
+                    ensure(!self.state.flag(2900)&&self.state.party==[7,6,8,4]&&self.state.bench.contains(&5),"Temenos full-party replacement boundary")?;
+                    ensure(choices.get(&(name.into(),c.index)).map(String::as_str)==Some("8"),"Temenos must replace Agnea")?;
+                    self.state.sync_progression()?;
+                    let i=self.state.bench.iter().position(|&id|id==5).unwrap();self.state.bench[i]=8;self.state.party[2]=5;
+                    self.state.party_experience=self.state.party.iter().map(|id|self.state.character_progression[id].experience).collect();
+                    self.state.refresh_support_skills();self.refresh_bar()?;
+                    self.boundary("Temenos replaces Agnea; Agnea progression retained on bench");
+                }
                 3005 if name=="MS_KEN_00_0300" && c.target==1 => {
                     ensure(!self.state.flag(2900) && self.state.party==[7,6,8,4]
                         && self.state.bench.contains(&1),"Hikari replacement requires the carried four-member party")?;
@@ -1192,13 +1203,13 @@ impl<'a> Loader<'a> {
                     // respawning ordinary field NPCs. Ryu has BarEvent=None.
                     self.refresh_bar()?;
                 }
-                7410 if matches!(name,"MS_GAK_00_0100"|"MS_ODO_00_0200"|"MS_SHO_00_0100"|"MS_KEN_00_0300"|"MS_KUS_00_0100") => {
+                7410 if matches!(name,"MS_GAK_00_0100"|"MS_ODO_00_0200"|"MS_SHO_00_0100"|"MS_KEN_00_0300"|"MS_KUS_00_0100"|"MS_SIN_00_0300") => {
                     let amount = c.opt[0]
                         .parse::<i32>()
                         .map_err(|_| SimError("Invalid event variable increment".into()))?;
                     *self.state.event_variables.entry(c.target).or_default() += amount;
                 }
-                7420 if matches!(name,"MS_GAK_00_0100"|"MS_ODO_00_0200"|"MS_SHO_00_0100"|"MS_KEN_00_0300"|"MS_KUS_00_0100") => {
+                7420 if matches!(name,"MS_GAK_00_0100"|"MS_ODO_00_0200"|"MS_SHO_00_0100"|"MS_KEN_00_0300"|"MS_KUS_00_0100"|"MS_SIN_00_0300") => {
                     let expected = c.opt[0]
                         .parse::<i32>()
                         .map_err(|_| SimError("Invalid event variable comparison".into()))?;
@@ -1363,12 +1374,17 @@ impl<'a> Loader<'a> {
                     && c.opt==["1","0","0","0"] => {}
                 4 | 10 | 20 | 30 | 60 | 106 | 200 | 210 | 240 | 300 | 710 | 711 | 8010 | 9100
                     if name=="MS_SHO_00_0100" => {}
+                40 if matches!(name,"MS_SIN_00_0100"|"MS_SIN_00_0300") && c.text.starts_with("TX_PCJ_SIN_0000_") && c.opt==["1","0","0","0"] => {}
                 40 if matches!(name,"MS_KEN_00_0100"|"MS_KEN_00_0300")
                     && c.text.starts_with("TX_PCJ_KEN_0000_") && c.opt==["1","0","0","0"] => {}
                 // 55/65 are the source widget's fixed fade-in/fade-out. They
                 // have no CRT lottery or field-state/placement side effects.
                 4 | 10 | 20 | 30 | 55 | 60 | 65 | 106 | 200 | 210 | 240 | 300 | 400 | 710 | 711 | 8010 | 9100
-                    if matches!(name,"MS_KEN_00_0100"|"MS_KEN_00_0300"|"MS_KUS_00_0100") => {}
+                    if matches!(name,"MS_KEN_00_0100"|"MS_KEN_00_0300"|"MS_KUS_00_0100"|"MS_SIN_00_0100"|"MS_SIN_00_0300") => {}
+                600 if name=="MS_SIN_00_0100" && c.index==82 && c.opt==["ENM_EVE_CLE_C00_010","MS_SIN_00_0300","0","1","0"] => {
+                    ensure(matches!(stop_before,Some(EventStop::Battle)),"Temenos battle requires explicit boundary")?;
+                    return Ok(EventExit::Battle(ScriptedBattle {event:name.into(),command_index:c.index,volume:c.opt[0].clone(),victory_event:c.opt[1].clone()}));
+                }
                 600 if name=="MS_KEN_00_0100" && c.index==66
                     && c.target==0 && c.opt==["ENM_EVE_WAR_C00_010","MS_KEN_00_0300","0","1","0"] => {
                     ensure(matches!(stop_before,Some(EventStop::Battle)),"Scripted battle requires an explicit battle boundary")?;

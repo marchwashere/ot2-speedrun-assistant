@@ -842,7 +842,7 @@ function renderCrackridgeVoyage() {
   $('canalbrine-route-log').hidden=true;
   $('canalbrine-water-result').hidden=true;
   $('canalbrine-water-log').hidden=true;
-  for(const id of ['new-delsta-bg-result','crackridge-bg-result','clockbank-bg-result','oresrush-time-result','cropdale-time-result','conning-north-result','conning-west-result','conning-steal-result','inventor-escape-result','clockbank-movement-result','crackridge-return-result','southern-crackridge-result','western-crackridge-result','western-crackridge-return-result','gravell-result','galdera-coast-result','southern-sai-result','eastern-sai-result','western-sai-result','eastern-wellgrove-result','galdera-clockbank-result','conning-log']) $(id).hidden=true;
+  for(const id of ['new-delsta-bg-result','crackridge-bg-result','clockbank-bg-result','oresrush-time-result','cropdale-time-result','conning-north-result','conning-west-result','conning-steal-result','inventor-escape-result','clockbank-movement-result','crackridge-return-result','southern-crackridge-result','western-crackridge-result','western-crackridge-return-result','gravell-result','galdera-coast-result','southern-sai-result','eastern-sai-result','western-sai-result','eastern-wellgrove-result','galdera-clockbank-result','galdera-temenos-result','conning-log']) $(id).hidden=true;
   const early=result.post_battle_field?.flats_escape?.early_cait;
   const timing=early?.southern_rare_target?'after':early?.snows_approach?.predicted_before_osvald?'before':snowsEncounterTiming ?? 'after';
   const exit=result.post_battle_field?.flats_escape?.snows_escape?.[timing+'_osvald'];
@@ -1219,6 +1219,14 @@ function renderCrackridgeVoyage() {
                                   conningSpans.push({reason:label+' · '+checkpoint.label,before:previous,after});previous=after;
                                 }
                                 conningSpans.push(...f.escape.trace);
+                                if(t.temenos) {
+                                  const r=t.temenos,b=r.battle;
+                                  $('galdera-temenos-result').hidden=false;
+                                  $('galdera-temenos-routine').innerHTML='<p><strong>T1 · '+names[b.actor]+' · 1st command menu</strong></p>'+instructionBoxHtml([...(b.boost_cycles?['Boost 0 → 1 → 0 × '+b.boost_cycles]:[]),'Boost to +1 BP → regular attack','Recruit Temenos · skip Chapter 1 · replace Agnea']);
+                                  conningStages.push(['Temenos · introduction before battle',r.introduction],['Temenos · victory field return',r.field_return],['Temenos · recruited, Chapter 1 skipped, Agnea replaced',r.recruitment]);
+                                  conningPoints.push(['Temenos · first command menu',b.at_command_menu],['Temenos · battle victory',b.after]);
+                                  conningSpans.push(...r.introduction.trace,...b.trace,...r.field_return.trace,...r.recruitment.trace);
+                                }
                               }
                             }
                           }

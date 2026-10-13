@@ -48505,6 +48505,36 @@
         "off_flag_ranges": []
       }
     ],
+    "5": [
+      {
+        "scenario": 500,
+        "character": "EPlayableCharacterID::ePRIEST",
+        "points": 1,
+        "on_flag_ranges": [
+          [
+            5500,
+            5533
+          ],
+          [
+            25018,
+            25019
+          ],
+          [
+            25021,
+            25022
+          ],
+          [
+            25028,
+            25028
+          ],
+          [
+            25032,
+            25033
+          ]
+        ],
+        "off_flag_ranges": []
+      }
+    ],
     "6": [
       {
         "scenario": 600,
@@ -57570,6 +57600,4647 @@
         },
         {
           "index": 68,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        }
+      ]
+    },
+    "MS_SIN_00_0100": {
+      "map_id": 20,
+      "reset_counter": true,
+      "completion": null,
+      "commands": [
+        {
+          "index": 0,
+          "cmd": 60,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1000",
+            "2"
+          ]
+        },
+        {
+          "index": 1,
+          "cmd": 2,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 2,
+          "cmd": 106,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "NPC_Twn_Mnt_1_1_A_TALK_0200_D000",
+            "0"
+          ]
+        },
+        {
+          "index": 3,
+          "cmd": 106,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "NPC_Twn_Mnt_1_1_A_TALK_0100_D000",
+            "0"
+          ]
+        },
+        {
+          "index": 4,
+          "cmd": 106,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "NACT_Twn_Mnt_1_1_A_0900_D000",
+            "0"
+          ]
+        },
+        {
+          "index": 5,
+          "cmd": 106,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "NPC_Twn_Mnt_1_1_A_TALK_0300_N000",
+            "0"
+          ]
+        },
+        {
+          "index": 6,
+          "cmd": 106,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "NACT_Twn_Mnt_1_1_A_2200_N000",
+            "0"
+          ]
+        },
+        {
+          "index": 7,
+          "cmd": 106,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "NPC_PRIEST_0000_0100",
+            "0"
+          ]
+        },
+        {
+          "index": 8,
+          "cmd": 106,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "NPC_PRIEST_0000_0200",
+            "0"
+          ]
+        },
+        {
+          "index": 9,
+          "cmd": 106,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "NPC_PRIEST_0000_0300",
+            "0"
+          ]
+        },
+        {
+          "index": 10,
+          "cmd": 106,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "NPC_PRIEST_0000_0400",
+            "0"
+          ]
+        },
+        {
+          "index": 11,
+          "cmd": 200,
+          "target": -1,
+          "text": "",
+          "opt": [
+            "10",
+            "1",
+            "0",
+            "SinJ000_Mle"
+          ]
+        },
+        {
+          "index": 12,
+          "cmd": 200,
+          "target": -1,
+          "text": "",
+          "opt": [
+            "20",
+            "1",
+            "0",
+            "NonSld002_Mle"
+          ]
+        },
+        {
+          "index": 13,
+          "cmd": 230,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 14,
+          "cmd": 300,
+          "target": -1,
+          "text": "",
+          "opt": [
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 15,
+          "cmd": 8010,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 16,
+          "cmd": 4,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 17,
+          "cmd": 20,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "300"
+          ]
+        },
+        {
+          "index": 18,
+          "cmd": 52,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "2"
+          ]
+        },
+        {
+          "index": 19,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 20,
+          "cmd": 910,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "se_event_whoosh_04"
+          ]
+        },
+        {
+          "index": 21,
+          "cmd": 240,
+          "target": 20,
+          "text": "",
+          "opt": [
+            "13",
+            "0"
+          ]
+        },
+        {
+          "index": 22,
+          "cmd": 40,
+          "target": 20,
+          "text": "TX_PCJ_SIN_0000_0010",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 23,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 24,
+          "cmd": 910,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "se_event_whoosh_041"
+          ]
+        },
+        {
+          "index": 25,
+          "cmd": 240,
+          "target": 20,
+          "text": "",
+          "opt": [
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 26,
+          "cmd": 40,
+          "target": 20,
+          "text": "TX_PCJ_SIN_0000_0020",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 27,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1000"
+          ]
+        },
+        {
+          "index": 28,
+          "cmd": 910,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "se_event_whoosh_06"
+          ]
+        },
+        {
+          "index": 29,
+          "cmd": 240,
+          "target": 20,
+          "text": "",
+          "opt": [
+            "9",
+            "0"
+          ]
+        },
+        {
+          "index": 30,
+          "cmd": 40,
+          "target": 20,
+          "text": "TX_PCJ_SIN_0000_0030",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 31,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 32,
+          "cmd": 20,
+          "target": 10,
+          "text": "",
+          "opt": [
+            "800"
+          ]
+        },
+        {
+          "index": 33,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 34,
+          "cmd": 400,
+          "target": -1,
+          "text": "",
+          "opt": [
+            "2000"
+          ]
+        },
+        {
+          "index": 35,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1500"
+          ]
+        },
+        {
+          "index": 36,
+          "cmd": 40,
+          "target": 10,
+          "text": "TX_PCJ_SIN_0000_0040",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 37,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 38,
+          "cmd": 30,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 39,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "300"
+          ]
+        },
+        {
+          "index": 40,
+          "cmd": 30,
+          "target": 10,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 41,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 42,
+          "cmd": 40,
+          "target": 10,
+          "text": "TX_PCJ_SIN_0000_0060",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 43,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 44,
+          "cmd": 910,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "se_event_whoosh_041"
+          ]
+        },
+        {
+          "index": 45,
+          "cmd": 240,
+          "target": 10,
+          "text": "",
+          "opt": [
+            "19",
+            "0"
+          ]
+        },
+        {
+          "index": 46,
+          "cmd": 40,
+          "target": 10,
+          "text": "TX_PCJ_SIN_0000_0070",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 47,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 48,
+          "cmd": 910,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "se_event_whoosh_04"
+          ]
+        },
+        {
+          "index": 49,
+          "cmd": 240,
+          "target": 10,
+          "text": "",
+          "opt": [
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 50,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1000"
+          ]
+        },
+        {
+          "index": 51,
+          "cmd": 910,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "se_event_whoosh_06"
+          ]
+        },
+        {
+          "index": 52,
+          "cmd": 240,
+          "target": 10,
+          "text": "",
+          "opt": [
+            "14",
+            "0"
+          ]
+        },
+        {
+          "index": 53,
+          "cmd": 40,
+          "target": 10,
+          "text": "TX_PCJ_SIN_0000_0090",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 54,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 55,
+          "cmd": 910,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "se_event_whoosh_041"
+          ]
+        },
+        {
+          "index": 56,
+          "cmd": 240,
+          "target": 10,
+          "text": "",
+          "opt": [
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 57,
+          "cmd": 40,
+          "target": 10,
+          "text": "TX_PCJ_SIN_0000_0100",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 58,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 59,
+          "cmd": 5010,
+          "target": 0,
+          "text": "ADD_MEMBER_DIALOG_SIN_01",
+          "opt": [
+            "eDIALOG_YES",
+            "59",
+            "eDIALOG_NO",
+            "83",
+            "-1",
+            "-1",
+            "-1",
+            "-1"
+          ]
+        },
+        {
+          "index": 60,
+          "cmd": 70,
+          "target": 37518,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 61,
+          "cmd": 70,
+          "target": 37503,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 62,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 63,
+          "cmd": 910,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "se_event_whoosh_04"
+          ]
+        },
+        {
+          "index": 64,
+          "cmd": 240,
+          "target": 10,
+          "text": "",
+          "opt": [
+            "9",
+            "0"
+          ]
+        },
+        {
+          "index": 65,
+          "cmd": 40,
+          "target": 10,
+          "text": "TX_PCJ_SIN_0000_0110",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 66,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 67,
+          "cmd": 910,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "se_event_whoosh_041"
+          ]
+        },
+        {
+          "index": 68,
+          "cmd": 240,
+          "target": 10,
+          "text": "",
+          "opt": [
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 69,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 70,
+          "cmd": 400,
+          "target": -1,
+          "text": "",
+          "opt": [
+            "2000"
+          ]
+        },
+        {
+          "index": 71,
+          "cmd": 20,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "650",
+            "0",
+            "-1",
+            "1"
+          ]
+        },
+        {
+          "index": 72,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 73,
+          "cmd": 30,
+          "target": 10,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 74,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "3000"
+          ]
+        },
+        {
+          "index": 75,
+          "cmd": 30,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 76,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 77,
+          "cmd": 910,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "se_event_whoosh_04"
+          ]
+        },
+        {
+          "index": 78,
+          "cmd": 240,
+          "target": 20,
+          "text": "",
+          "opt": [
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 79,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 80,
+          "cmd": 40,
+          "target": 20,
+          "text": "TX_PCJ_SIN_0000_0120",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 81,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 82,
+          "cmd": 600,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "ENM_EVE_CLE_C00_010",
+            "MS_SIN_00_0300",
+            "0",
+            "1",
+            "0"
+          ]
+        },
+        {
+          "index": 83,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 84,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 85,
+          "cmd": 40,
+          "target": 10,
+          "text": "TX_PCJ_SIN_0000_0230",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 86,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1000"
+          ]
+        },
+        {
+          "index": 87,
+          "cmd": 62,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "2"
+          ]
+        },
+        {
+          "index": 88,
+          "cmd": 210,
+          "target": 10,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 89,
+          "cmd": 210,
+          "target": 20,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 90,
+          "cmd": 310,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 91,
+          "cmd": 1,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 92,
+          "cmd": 8010,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 93,
+          "cmd": 70,
+          "target": 37518,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 94,
+          "cmd": 70,
+          "target": 37503,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 95,
+          "cmd": 9990,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 96,
+          "cmd": 230,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 97,
+          "cmd": 52,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "2"
+          ]
+        },
+        {
+          "index": 98,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        }
+      ]
+    },
+    "MS_SIN_00_0200": {
+      "map_id": 20,
+      "reset_counter": true,
+      "completion": null,
+      "commands": [
+        {
+          "index": 0,
+          "cmd": 60,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1000",
+            "2"
+          ]
+        },
+        {
+          "index": 1,
+          "cmd": 2,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 2,
+          "cmd": 106,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "NPC_Twn_Mnt_1_1_A_TALK_0200_D000",
+            "0"
+          ]
+        },
+        {
+          "index": 3,
+          "cmd": 106,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "NPC_Twn_Mnt_1_1_A_TALK_0100_D000",
+            "0"
+          ]
+        },
+        {
+          "index": 4,
+          "cmd": 106,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "NACT_Twn_Mnt_1_1_A_0900_D000",
+            "0"
+          ]
+        },
+        {
+          "index": 5,
+          "cmd": 106,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "NPC_Twn_Mnt_1_1_A_TALK_0300_N000",
+            "0"
+          ]
+        },
+        {
+          "index": 6,
+          "cmd": 106,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "NACT_Twn_Mnt_1_1_A_2200_N000",
+            "0"
+          ]
+        },
+        {
+          "index": 7,
+          "cmd": 106,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "NPC_PRIEST_0000_0100",
+            "0"
+          ]
+        },
+        {
+          "index": 8,
+          "cmd": 106,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "NPC_PRIEST_0000_0200",
+            "0"
+          ]
+        },
+        {
+          "index": 9,
+          "cmd": 106,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "NPC_PRIEST_0000_0300",
+            "0"
+          ]
+        },
+        {
+          "index": 10,
+          "cmd": 106,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "NPC_PRIEST_0000_0400",
+            "0"
+          ]
+        },
+        {
+          "index": 11,
+          "cmd": 200,
+          "target": -1,
+          "text": "",
+          "opt": [
+            "10",
+            "1",
+            "0",
+            "SinJ000_Mle"
+          ]
+        },
+        {
+          "index": 12,
+          "cmd": 200,
+          "target": -1,
+          "text": "",
+          "opt": [
+            "20",
+            "1",
+            "0",
+            "NonSld002_Mle"
+          ]
+        },
+        {
+          "index": 13,
+          "cmd": 230,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 14,
+          "cmd": 300,
+          "target": -1,
+          "text": "",
+          "opt": [
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 15,
+          "cmd": 8010,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 16,
+          "cmd": 4,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 17,
+          "cmd": 52,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "2"
+          ]
+        },
+        {
+          "index": 18,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 19,
+          "cmd": 40,
+          "target": 10,
+          "text": "TX_PCJ_SIN_0000_0240",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 20,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 21,
+          "cmd": 5010,
+          "target": 0,
+          "text": "ADD_MEMBER_DIALOG_SIN_01",
+          "opt": [
+            "eDIALOG_YES",
+            "21",
+            "eDIALOG_NO",
+            "43",
+            "-1",
+            "-1",
+            "-1",
+            "-1"
+          ]
+        },
+        {
+          "index": 22,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 23,
+          "cmd": 910,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "se_event_whoosh_04"
+          ]
+        },
+        {
+          "index": 24,
+          "cmd": 240,
+          "target": 10,
+          "text": "",
+          "opt": [
+            "9",
+            "0"
+          ]
+        },
+        {
+          "index": 25,
+          "cmd": 40,
+          "target": 10,
+          "text": "TX_PCJ_SIN_0000_0110",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 26,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 27,
+          "cmd": 240,
+          "target": 10,
+          "text": "",
+          "opt": [
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 28,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 29,
+          "cmd": 400,
+          "target": -1,
+          "text": "",
+          "opt": [
+            "2000"
+          ]
+        },
+        {
+          "index": 30,
+          "cmd": 20,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "650",
+            "0",
+            "-1",
+            "1"
+          ]
+        },
+        {
+          "index": 31,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 32,
+          "cmd": 30,
+          "target": 10,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 33,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "3000"
+          ]
+        },
+        {
+          "index": 34,
+          "cmd": 30,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 35,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 36,
+          "cmd": 30,
+          "target": 20,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 37,
+          "cmd": 910,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "se_event_whoosh_041"
+          ]
+        },
+        {
+          "index": 38,
+          "cmd": 240,
+          "target": 20,
+          "text": "",
+          "opt": [
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 39,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 40,
+          "cmd": 40,
+          "target": 20,
+          "text": "TX_PCJ_SIN_0000_0120",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 41,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 42,
+          "cmd": 600,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "ENM_EVE_CLE_C00_010",
+            "MS_SIN_00_0300",
+            "0",
+            "1",
+            "0"
+          ]
+        },
+        {
+          "index": 43,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 44,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 45,
+          "cmd": 40,
+          "target": 10,
+          "text": "TX_PCJ_SIN_0000_0230",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 46,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1000"
+          ]
+        },
+        {
+          "index": 47,
+          "cmd": 62,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "2"
+          ]
+        },
+        {
+          "index": 48,
+          "cmd": 210,
+          "target": 10,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 49,
+          "cmd": 210,
+          "target": 20,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 50,
+          "cmd": 310,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 51,
+          "cmd": 1,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 52,
+          "cmd": 8010,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 53,
+          "cmd": 9990,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 54,
+          "cmd": 230,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 55,
+          "cmd": 52,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "2"
+          ]
+        },
+        {
+          "index": 56,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        }
+      ]
+    },
+    "MS_SIN_00_0300": {
+      "map_id": 20,
+      "reset_counter": true,
+      "completion": null,
+      "commands": [
+        {
+          "index": 0,
+          "cmd": 60,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1000",
+            "2"
+          ]
+        },
+        {
+          "index": 1,
+          "cmd": 2,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 2,
+          "cmd": 106,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "NPC_Twn_Mnt_1_1_A_TALK_0200_D000",
+            "0"
+          ]
+        },
+        {
+          "index": 3,
+          "cmd": 106,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "NPC_Twn_Mnt_1_1_A_TALK_0100_D000",
+            "0"
+          ]
+        },
+        {
+          "index": 4,
+          "cmd": 106,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "NACT_Twn_Mnt_1_1_A_0900_D000",
+            "0"
+          ]
+        },
+        {
+          "index": 5,
+          "cmd": 106,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "NPC_Twn_Mnt_1_1_A_TALK_0300_N000",
+            "0"
+          ]
+        },
+        {
+          "index": 6,
+          "cmd": 106,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "NACT_Twn_Mnt_1_1_A_2200_N000",
+            "0"
+          ]
+        },
+        {
+          "index": 7,
+          "cmd": 106,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "NPC_PRIEST_0000_0100",
+            "0"
+          ]
+        },
+        {
+          "index": 8,
+          "cmd": 106,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "NPC_PRIEST_0000_0200",
+            "0"
+          ]
+        },
+        {
+          "index": 9,
+          "cmd": 106,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "NPC_PRIEST_0000_0300",
+            "0"
+          ]
+        },
+        {
+          "index": 10,
+          "cmd": 106,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "NPC_PRIEST_0000_0400",
+            "0"
+          ]
+        },
+        {
+          "index": 11,
+          "cmd": 200,
+          "target": -1,
+          "text": "",
+          "opt": [
+            "10",
+            "1",
+            "0",
+            "SinJ000_Mle"
+          ]
+        },
+        {
+          "index": 12,
+          "cmd": 200,
+          "target": -1,
+          "text": "",
+          "opt": [
+            "20",
+            "1",
+            "0",
+            "NonSld002_Mle"
+          ]
+        },
+        {
+          "index": 13,
+          "cmd": 230,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 14,
+          "cmd": 300,
+          "target": -1,
+          "text": "",
+          "opt": [
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 15,
+          "cmd": 8010,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 16,
+          "cmd": 4,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 17,
+          "cmd": 240,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "20",
+            "0"
+          ]
+        },
+        {
+          "index": 18,
+          "cmd": 240,
+          "target": 20,
+          "text": "",
+          "opt": [
+            "36",
+            "0"
+          ]
+        },
+        {
+          "index": 19,
+          "cmd": 52,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "2"
+          ]
+        },
+        {
+          "index": 20,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 21,
+          "cmd": 910,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "se_event_whoosh_04"
+          ]
+        },
+        {
+          "index": 22,
+          "cmd": 240,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 23,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 24,
+          "cmd": 40,
+          "target": 20,
+          "text": "TX_PCJ_SIN_0000_0130",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 25,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 26,
+          "cmd": 20,
+          "target": 10,
+          "text": "",
+          "opt": [
+            "550",
+            "0",
+            "-1",
+            "1"
+          ]
+        },
+        {
+          "index": 27,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 28,
+          "cmd": 30,
+          "target": 10,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 29,
+          "cmd": 40,
+          "target": 10,
+          "text": "TX_PCJ_SIN_0000_0140",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 30,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 31,
+          "cmd": 910,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "se_event_whoosh_06"
+          ]
+        },
+        {
+          "index": 32,
+          "cmd": 240,
+          "target": 10,
+          "text": "",
+          "opt": [
+            "9",
+            "0"
+          ]
+        },
+        {
+          "index": 33,
+          "cmd": 40,
+          "target": 10,
+          "text": "TX_PCJ_SIN_0000_0150",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 34,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 35,
+          "cmd": 910,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "se_event_whoosh_041"
+          ]
+        },
+        {
+          "index": 36,
+          "cmd": 240,
+          "target": 10,
+          "text": "",
+          "opt": [
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 37,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 38,
+          "cmd": 40,
+          "target": 10,
+          "text": "TX_PCJ_SIN_0000_0160",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 39,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1000"
+          ]
+        },
+        {
+          "index": 40,
+          "cmd": 910,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "se_event_whoosh_04"
+          ]
+        },
+        {
+          "index": 41,
+          "cmd": 240,
+          "target": 10,
+          "text": "",
+          "opt": [
+            "19",
+            "0"
+          ]
+        },
+        {
+          "index": 42,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 43,
+          "cmd": 40,
+          "target": 10,
+          "text": "TX_PCJ_SIN_0000_0170",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 44,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 45,
+          "cmd": 240,
+          "target": 10,
+          "text": "",
+          "opt": [
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 46,
+          "cmd": 3010,
+          "target": 5,
+          "text": "ADD_MEMBER_DIALOG_SIN_02",
+          "opt": [
+            "46",
+            "127"
+          ]
+        },
+        {
+          "index": 47,
+          "cmd": 9100,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 48,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 49,
+          "cmd": 910,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "se_event_whoosh_06"
+          ]
+        },
+        {
+          "index": 50,
+          "cmd": 240,
+          "target": 10,
+          "text": "",
+          "opt": [
+            "10",
+            "0"
+          ]
+        },
+        {
+          "index": 51,
+          "cmd": 40,
+          "target": 10,
+          "text": "TX_PCJ_SIN_0000_0180",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 52,
+          "cmd": 240,
+          "target": 10,
+          "text": "",
+          "opt": [
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 53,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 54,
+          "cmd": 9100,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 55,
+          "cmd": 3000,
+          "target": 5,
+          "text": "",
+          "opt": [
+            " ",
+            " ",
+            "0"
+          ]
+        },
+        {
+          "index": 56,
+          "cmd": 9100,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 57,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 58,
+          "cmd": 3120,
+          "target": 5,
+          "text": "",
+          "opt": [
+            "58",
+            "62"
+          ]
+        },
+        {
+          "index": 59,
+          "cmd": 62,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "2"
+          ]
+        },
+        {
+          "index": 60,
+          "cmd": 3100,
+          "target": 5,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 61,
+          "cmd": 1000,
+          "target": -1,
+          "text": "",
+          "opt": [
+            "MS_SIN_10_0100"
+          ]
+        },
+        {
+          "index": 62,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 63,
+          "cmd": 7100,
+          "target": 66,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 64,
+          "cmd": 9100,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 65,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 66,
+          "cmd": 40,
+          "target": 10,
+          "text": "TX_PCJ_SIN_0000_0190",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 67,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1000"
+          ]
+        },
+        {
+          "index": 68,
+          "cmd": 3005,
+          "target": 5,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 69,
+          "cmd": 62,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "2"
+          ]
+        },
+        {
+          "index": 70,
+          "cmd": 310,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 71,
+          "cmd": 70,
+          "target": 37504,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 72,
+          "cmd": 1,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 73,
+          "cmd": 8010,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 74,
+          "cmd": 7410,
+          "target": 1,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 75,
+          "cmd": 7420,
+          "target": 1,
+          "text": "",
+          "opt": [
+            "8",
+            "75",
+            "85"
+          ]
+        },
+        {
+          "index": 76,
+          "cmd": 4000,
+          "target": 6525,
+          "text": "",
+          "opt": [
+            "76",
+            "108"
+          ]
+        },
+        {
+          "index": 77,
+          "cmd": 4000,
+          "target": 7062,
+          "text": "",
+          "opt": [
+            "77",
+            "108"
+          ]
+        },
+        {
+          "index": 78,
+          "cmd": 4000,
+          "target": 7521,
+          "text": "",
+          "opt": [
+            "78",
+            "108"
+          ]
+        },
+        {
+          "index": 79,
+          "cmd": 4000,
+          "target": 5022,
+          "text": "",
+          "opt": [
+            "79",
+            "108"
+          ]
+        },
+        {
+          "index": 80,
+          "cmd": 4000,
+          "target": 8520,
+          "text": "",
+          "opt": [
+            "80",
+            "108"
+          ]
+        },
+        {
+          "index": 81,
+          "cmd": 4000,
+          "target": 8019,
+          "text": "",
+          "opt": [
+            "81",
+            "108"
+          ]
+        },
+        {
+          "index": 82,
+          "cmd": 4000,
+          "target": 6019,
+          "text": "",
+          "opt": [
+            "82",
+            "108"
+          ]
+        },
+        {
+          "index": 83,
+          "cmd": 4000,
+          "target": 20133,
+          "text": "",
+          "opt": [
+            "83",
+            "108"
+          ]
+        },
+        {
+          "index": 84,
+          "cmd": 5,
+          "target": 87,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 85,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 86,
+          "cmd": 5,
+          "target": 108,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 87,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 88,
+          "cmd": 70,
+          "target": 24996,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 89,
+          "cmd": 70,
+          "target": 34115,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 90,
+          "cmd": 70,
+          "target": 37518,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 91,
+          "cmd": 70,
+          "target": 37504,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 92,
+          "cmd": 70,
+          "target": 5518,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 93,
+          "cmd": 70,
+          "target": 34,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 94,
+          "cmd": 70,
+          "target": 25562,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 95,
+          "cmd": 70,
+          "target": 1017,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 96,
+          "cmd": 70,
+          "target": 1018,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 97,
+          "cmd": 70,
+          "target": 1016,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 98,
+          "cmd": 70,
+          "target": 1031,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 99,
+          "cmd": 70,
+          "target": 1043,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 100,
+          "cmd": 70,
+          "target": 1317,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 101,
+          "cmd": 70,
+          "target": 1318,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 102,
+          "cmd": 70,
+          "target": 1316,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 103,
+          "cmd": 70,
+          "target": 1331,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 104,
+          "cmd": 70,
+          "target": 1343,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 105,
+          "cmd": 9990,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 106,
+          "cmd": 52,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "2"
+          ]
+        },
+        {
+          "index": 107,
+          "cmd": 7100,
+          "target": 68,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 108,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 109,
+          "cmd": 70,
+          "target": 37518,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 110,
+          "cmd": 70,
+          "target": 37504,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 111,
+          "cmd": 70,
+          "target": 5518,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 112,
+          "cmd": 70,
+          "target": 34,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 113,
+          "cmd": 70,
+          "target": 25562,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 114,
+          "cmd": 70,
+          "target": 1017,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 115,
+          "cmd": 70,
+          "target": 1018,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 116,
+          "cmd": 70,
+          "target": 1016,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 117,
+          "cmd": 70,
+          "target": 1031,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 118,
+          "cmd": 70,
+          "target": 1043,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 119,
+          "cmd": 70,
+          "target": 1317,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 120,
+          "cmd": 70,
+          "target": 1318,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 121,
+          "cmd": 70,
+          "target": 1316,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 122,
+          "cmd": 70,
+          "target": 1331,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 123,
+          "cmd": 70,
+          "target": 1343,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 124,
+          "cmd": 9990,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 125,
+          "cmd": 52,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "2"
+          ]
+        },
+        {
+          "index": 126,
+          "cmd": 7100,
+          "target": 68,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 127,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 128,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 129,
+          "cmd": 910,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "se_event_whoosh_041"
+          ]
+        },
+        {
+          "index": 130,
+          "cmd": 240,
+          "target": 10,
+          "text": "",
+          "opt": [
+            "9",
+            "0"
+          ]
+        },
+        {
+          "index": 131,
+          "cmd": 40,
+          "target": 10,
+          "text": "TX_PCJ_SIN_0000_0200",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 132,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1000"
+          ]
+        },
+        {
+          "index": 133,
+          "cmd": 62,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "2"
+          ]
+        },
+        {
+          "index": 134,
+          "cmd": 210,
+          "target": 10,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 135,
+          "cmd": 310,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 136,
+          "cmd": 1,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 137,
+          "cmd": 8010,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 138,
+          "cmd": 70,
+          "target": 37518,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 139,
+          "cmd": 70,
+          "target": 37504,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 140,
+          "cmd": 9990,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 141,
+          "cmd": 230,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 142,
+          "cmd": 52,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "2"
+          ]
+        },
+        {
+          "index": 143,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        }
+      ]
+    },
+    "MS_SIN_00_0310": {
+      "map_id": 20,
+      "reset_counter": true,
+      "completion": null,
+      "commands": [
+        {
+          "index": 0,
+          "cmd": 60,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1000",
+            "2"
+          ]
+        },
+        {
+          "index": 1,
+          "cmd": 2,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 2,
+          "cmd": 106,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "NPC_Twn_Mnt_1_1_A_TALK_0200_D000",
+            "0"
+          ]
+        },
+        {
+          "index": 3,
+          "cmd": 106,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "NPC_Twn_Mnt_1_1_A_TALK_0100_D000",
+            "0"
+          ]
+        },
+        {
+          "index": 4,
+          "cmd": 106,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "NACT_Twn_Mnt_1_1_A_0900_D000",
+            "0"
+          ]
+        },
+        {
+          "index": 5,
+          "cmd": 106,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "NPC_Twn_Mnt_1_1_A_TALK_0300_N000",
+            "0"
+          ]
+        },
+        {
+          "index": 6,
+          "cmd": 106,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "NACT_Twn_Mnt_1_1_A_2200_N000",
+            "0"
+          ]
+        },
+        {
+          "index": 7,
+          "cmd": 106,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "NPC_PRIEST_0000_0100",
+            "0"
+          ]
+        },
+        {
+          "index": 8,
+          "cmd": 106,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "NPC_PRIEST_0000_0200",
+            "0"
+          ]
+        },
+        {
+          "index": 9,
+          "cmd": 106,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "NPC_PRIEST_0000_0300",
+            "0"
+          ]
+        },
+        {
+          "index": 10,
+          "cmd": 106,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "NPC_PRIEST_0000_0400",
+            "0"
+          ]
+        },
+        {
+          "index": 11,
+          "cmd": 200,
+          "target": -1,
+          "text": "",
+          "opt": [
+            "10",
+            "1",
+            "0",
+            "SinJ000_Mle"
+          ]
+        },
+        {
+          "index": 12,
+          "cmd": 230,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 13,
+          "cmd": 300,
+          "target": -1,
+          "text": "",
+          "opt": [
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 14,
+          "cmd": 8010,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 15,
+          "cmd": 4,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 16,
+          "cmd": 52,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "2"
+          ]
+        },
+        {
+          "index": 17,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 18,
+          "cmd": 40,
+          "target": 10,
+          "text": "TX_PCJ_SIN_0000_0220",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 19,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 20,
+          "cmd": 3010,
+          "target": 5,
+          "text": "ADD_MEMBER_DIALOG_SIN_02",
+          "opt": [
+            "20",
+            "102"
+          ]
+        },
+        {
+          "index": 21,
+          "cmd": 9100,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 22,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 23,
+          "cmd": 910,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "se_event_whoosh_06"
+          ]
+        },
+        {
+          "index": 24,
+          "cmd": 240,
+          "target": 10,
+          "text": "",
+          "opt": [
+            "10",
+            "0"
+          ]
+        },
+        {
+          "index": 25,
+          "cmd": 40,
+          "target": 10,
+          "text": "TX_PCJ_SIN_0000_0180",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 26,
+          "cmd": 240,
+          "target": 10,
+          "text": "",
+          "opt": [
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 27,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 28,
+          "cmd": 9100,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 29,
+          "cmd": 3000,
+          "target": 5,
+          "text": "",
+          "opt": [
+            " ",
+            " ",
+            "0"
+          ]
+        },
+        {
+          "index": 30,
+          "cmd": 9100,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 31,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 32,
+          "cmd": 3120,
+          "target": 5,
+          "text": "",
+          "opt": [
+            "32",
+            "36"
+          ]
+        },
+        {
+          "index": 33,
+          "cmd": 62,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "2"
+          ]
+        },
+        {
+          "index": 34,
+          "cmd": 3100,
+          "target": 5,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 35,
+          "cmd": 1000,
+          "target": -1,
+          "text": "",
+          "opt": [
+            "MS_SIN_10_0100"
+          ]
+        },
+        {
+          "index": 36,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 37,
+          "cmd": 7100,
+          "target": 66,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 38,
+          "cmd": 9100,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 39,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 40,
+          "cmd": 40,
+          "target": 10,
+          "text": "TX_PCJ_SIN_0000_0190",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 41,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 42,
+          "cmd": 3005,
+          "target": 5,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 43,
+          "cmd": 62,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "2"
+          ]
+        },
+        {
+          "index": 44,
+          "cmd": 310,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 45,
+          "cmd": 1,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 46,
+          "cmd": 8010,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 47,
+          "cmd": 7410,
+          "target": 1,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 48,
+          "cmd": 7420,
+          "target": 1,
+          "text": "",
+          "opt": [
+            "8",
+            "48",
+            "58"
+          ]
+        },
+        {
+          "index": 49,
+          "cmd": 4000,
+          "target": 6525,
+          "text": "",
+          "opt": [
+            "49",
+            "82"
+          ]
+        },
+        {
+          "index": 50,
+          "cmd": 4000,
+          "target": 7062,
+          "text": "",
+          "opt": [
+            "50",
+            "82"
+          ]
+        },
+        {
+          "index": 51,
+          "cmd": 4000,
+          "target": 7521,
+          "text": "",
+          "opt": [
+            "51",
+            "82"
+          ]
+        },
+        {
+          "index": 52,
+          "cmd": 4000,
+          "target": 5022,
+          "text": "",
+          "opt": [
+            "52",
+            "82"
+          ]
+        },
+        {
+          "index": 53,
+          "cmd": 4000,
+          "target": 8520,
+          "text": "",
+          "opt": [
+            "53",
+            "82"
+          ]
+        },
+        {
+          "index": 54,
+          "cmd": 4000,
+          "target": 8019,
+          "text": "",
+          "opt": [
+            "54",
+            "82"
+          ]
+        },
+        {
+          "index": 55,
+          "cmd": 4000,
+          "target": 6019,
+          "text": "",
+          "opt": [
+            "55",
+            "82"
+          ]
+        },
+        {
+          "index": 56,
+          "cmd": 4000,
+          "target": 20133,
+          "text": "",
+          "opt": [
+            "56",
+            "82"
+          ]
+        },
+        {
+          "index": 57,
+          "cmd": 5,
+          "target": 60,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 58,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 59,
+          "cmd": 5,
+          "target": 82,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 60,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 61,
+          "cmd": 70,
+          "target": 24996,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 62,
+          "cmd": 70,
+          "target": 34115,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 63,
+          "cmd": 70,
+          "target": 37504,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 64,
+          "cmd": 70,
+          "target": 37518,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 65,
+          "cmd": 70,
+          "target": 5518,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 66,
+          "cmd": 70,
+          "target": 34,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 67,
+          "cmd": 70,
+          "target": 25562,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 68,
+          "cmd": 70,
+          "target": 1017,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 69,
+          "cmd": 70,
+          "target": 1018,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 70,
+          "cmd": 70,
+          "target": 1016,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 71,
+          "cmd": 70,
+          "target": 1031,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 72,
+          "cmd": 70,
+          "target": 1043,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 73,
+          "cmd": 70,
+          "target": 1317,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 74,
+          "cmd": 70,
+          "target": 1318,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 75,
+          "cmd": 70,
+          "target": 1316,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 76,
+          "cmd": 70,
+          "target": 1331,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 77,
+          "cmd": 70,
+          "target": 1343,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 78,
+          "cmd": 230,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 79,
+          "cmd": 9990,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 80,
+          "cmd": 52,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "2"
+          ]
+        },
+        {
+          "index": 81,
+          "cmd": 7100,
+          "target": 68,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 82,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 83,
+          "cmd": 70,
+          "target": 37504,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 84,
+          "cmd": 70,
+          "target": 37518,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 85,
+          "cmd": 70,
+          "target": 5518,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 86,
+          "cmd": 70,
+          "target": 34,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 87,
+          "cmd": 70,
+          "target": 25562,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 88,
+          "cmd": 70,
+          "target": 1017,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 89,
+          "cmd": 70,
+          "target": 1018,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 90,
+          "cmd": 70,
+          "target": 1016,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 91,
+          "cmd": 70,
+          "target": 1031,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 92,
+          "cmd": 70,
+          "target": 1043,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 93,
+          "cmd": 70,
+          "target": 1317,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 94,
+          "cmd": 70,
+          "target": 1318,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 95,
+          "cmd": 70,
+          "target": 1316,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 96,
+          "cmd": 70,
+          "target": 1331,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 97,
+          "cmd": 70,
+          "target": 1343,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 98,
+          "cmd": 230,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 99,
+          "cmd": 9990,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 100,
+          "cmd": 52,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "2"
+          ]
+        },
+        {
+          "index": 101,
+          "cmd": 7100,
+          "target": 68,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 102,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 103,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 104,
+          "cmd": 910,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "se_event_whoosh_041"
+          ]
+        },
+        {
+          "index": 105,
+          "cmd": 240,
+          "target": 10,
+          "text": "",
+          "opt": [
+            "9",
+            "0"
+          ]
+        },
+        {
+          "index": 106,
+          "cmd": 40,
+          "target": 10,
+          "text": "TX_PCJ_SIN_0000_0200",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 107,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1000"
+          ]
+        },
+        {
+          "index": 108,
+          "cmd": 62,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "2"
+          ]
+        },
+        {
+          "index": 109,
+          "cmd": 210,
+          "target": 10,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 110,
+          "cmd": 310,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 111,
+          "cmd": 1,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 112,
+          "cmd": 8010,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 113,
+          "cmd": 9990,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 114,
+          "cmd": 230,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 115,
+          "cmd": 52,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "2"
+          ]
+        },
+        {
+          "index": 116,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        }
+      ]
+    },
+    "MS_SIN_00_0400": {
+      "map_id": 20,
+      "reset_counter": true,
+      "completion": null,
+      "commands": [
+        {
+          "index": 0,
+          "cmd": 3110,
+          "target": 5,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 1,
+          "cmd": 4000,
+          "target": 2901,
+          "text": "",
+          "opt": [
+            "1",
+            "7"
+          ]
+        },
+        {
+          "index": 2,
+          "cmd": 310,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 3,
+          "cmd": 9990,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 4,
+          "cmd": 8010,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 5,
+          "cmd": 3130,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 6,
+          "cmd": 52,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "2"
+          ]
+        },
+        {
+          "index": 7,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 8,
+          "cmd": 500,
+          "target": 20,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 9,
+          "cmd": 903,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1000",
+            "1000"
+          ]
+        },
+        {
+          "index": 10,
+          "cmd": 2,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 11,
+          "cmd": 106,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "NPC_Twn_Mnt_1_1_A_TALK_0200_D000",
+            "0"
+          ]
+        },
+        {
+          "index": 12,
+          "cmd": 106,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "NPC_Twn_Mnt_1_1_A_TALK_0100_D000",
+            "0"
+          ]
+        },
+        {
+          "index": 13,
+          "cmd": 106,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "NACT_Twn_Mnt_1_1_A_0900_D000",
+            "0"
+          ]
+        },
+        {
+          "index": 14,
+          "cmd": 106,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "NPC_Twn_Mnt_1_1_A_TALK_0300_N000",
+            "0"
+          ]
+        },
+        {
+          "index": 15,
+          "cmd": 106,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "NACT_Twn_Mnt_1_1_A_2200_N000",
+            "0"
+          ]
+        },
+        {
+          "index": 16,
+          "cmd": 106,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "NPC_PRIEST_0000_0100",
+            "0"
+          ]
+        },
+        {
+          "index": 17,
+          "cmd": 106,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "NPC_PRIEST_0000_0200",
+            "0"
+          ]
+        },
+        {
+          "index": 18,
+          "cmd": 106,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "NPC_PRIEST_0000_0300",
+            "0"
+          ]
+        },
+        {
+          "index": 19,
+          "cmd": 106,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "NPC_PRIEST_0000_0400",
+            "0"
+          ]
+        },
+        {
+          "index": 20,
+          "cmd": 200,
+          "target": -1,
+          "text": "",
+          "opt": [
+            "10",
+            "1",
+            "0",
+            "SinJ000_Mle"
+          ]
+        },
+        {
+          "index": 21,
+          "cmd": 230,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 22,
+          "cmd": 300,
+          "target": -1,
+          "text": "",
+          "opt": [
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 23,
+          "cmd": 8010,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 24,
+          "cmd": 4,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 25,
+          "cmd": 52,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "2"
+          ]
+        },
+        {
+          "index": 26,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 27,
+          "cmd": 40,
+          "target": 10,
+          "text": "TX_PCJ_SIN_0000_0190",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 28,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1000"
+          ]
+        },
+        {
+          "index": 29,
+          "cmd": 3005,
+          "target": 5,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 30,
+          "cmd": 62,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "2"
+          ]
+        },
+        {
+          "index": 31,
+          "cmd": 310,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 32,
+          "cmd": 1,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 33,
+          "cmd": 8010,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 34,
+          "cmd": 7410,
+          "target": 1,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 35,
+          "cmd": 7420,
+          "target": 1,
+          "text": "",
+          "opt": [
+            "8",
+            "35",
+            "45"
+          ]
+        },
+        {
+          "index": 36,
+          "cmd": 4000,
+          "target": 6525,
+          "text": "",
+          "opt": [
+            "36",
+            "57"
+          ]
+        },
+        {
+          "index": 37,
+          "cmd": 4000,
+          "target": 7062,
+          "text": "",
+          "opt": [
+            "37",
+            "57"
+          ]
+        },
+        {
+          "index": 38,
+          "cmd": 4000,
+          "target": 7521,
+          "text": "",
+          "opt": [
+            "38",
+            "57"
+          ]
+        },
+        {
+          "index": 39,
+          "cmd": 4000,
+          "target": 5022,
+          "text": "",
+          "opt": [
+            "39",
+            "57"
+          ]
+        },
+        {
+          "index": 40,
+          "cmd": 4000,
+          "target": 8520,
+          "text": "",
+          "opt": [
+            "40",
+            "57"
+          ]
+        },
+        {
+          "index": 41,
+          "cmd": 4000,
+          "target": 8019,
+          "text": "",
+          "opt": [
+            "41",
+            "57"
+          ]
+        },
+        {
+          "index": 42,
+          "cmd": 4000,
+          "target": 6019,
+          "text": "",
+          "opt": [
+            "42",
+            "57"
+          ]
+        },
+        {
+          "index": 43,
+          "cmd": 4000,
+          "target": 20133,
+          "text": "",
+          "opt": [
+            "43",
+            "57"
+          ]
+        },
+        {
+          "index": 44,
+          "cmd": 5,
+          "target": 47,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 45,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 46,
+          "cmd": 5,
+          "target": 57,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 47,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 48,
+          "cmd": 70,
+          "target": 34115,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 49,
+          "cmd": 70,
+          "target": 24996,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 50,
+          "cmd": 70,
+          "target": 37504,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 51,
+          "cmd": 70,
+          "target": 37518,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 52,
+          "cmd": 70,
+          "target": 5518,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 53,
+          "cmd": 70,
+          "target": 34,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 54,
+          "cmd": 9990,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 55,
+          "cmd": 230,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 56,
+          "cmd": 52,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "2"
+          ]
+        },
+        {
+          "index": 57,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 58,
+          "cmd": 70,
+          "target": 37504,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 59,
+          "cmd": 70,
+          "target": 37518,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 60,
+          "cmd": 70,
+          "target": 5518,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 61,
+          "cmd": 70,
+          "target": 34,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 62,
+          "cmd": 9990,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 63,
+          "cmd": 230,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 64,
+          "cmd": 52,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "2"
+          ]
+        },
+        {
+          "index": 65,
           "cmd": 10000,
           "target": 0,
           "text": "",

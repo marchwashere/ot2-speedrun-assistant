@@ -179,6 +179,26 @@
       "sha256": "dd53483fe70430e55d6291d1f63fe1f4169b39176c4372521cf680ac3e85b42c"
     },
     {
+      "source": "/Game/Event/json/MS_SIN_00_0100",
+      "sha256": "fcdc0dd94fb61a670f45116d84a3d24dc51e76372e41b436cf1c4ede98f02b82"
+    },
+    {
+      "source": "/Game/Event/json/MS_SIN_00_0200",
+      "sha256": "e9db46250ce358b61c1c9d49c9aa9fcd66ba20b607701acdee25f30b2362bb38"
+    },
+    {
+      "source": "/Game/Event/json/MS_SIN_00_0300",
+      "sha256": "5d42745d675983bce257fe5c4c058d5c1a73ec8a98f2d4a5b35bd397f2478a10"
+    },
+    {
+      "source": "/Game/Event/json/MS_SIN_00_0310",
+      "sha256": "416eca71ff1f1b67958f36d69f8f3f040e8b7d4e09f7a94f3f44cdd2f11af6be"
+    },
+    {
+      "source": "/Game/Event/json/MS_SIN_00_0400",
+      "sha256": "2722445e0f85b204124526a1346bef311acec57c65faf9a7de0d1564833dea32"
+    },
+    {
       "source": "/Game/Event/json/SC_FC13_Tutorial_0100",
       "sha256": "395de9e878dd48a9630b84ba3ed9b998c873aa9c60de22331d9443c770901ecf"
     },

@@ -9,7 +9,7 @@ const PASS_WALK:u32=137+3;
     pub highroad_exit:Entry,pub clockbank_entry:Entry,
     #[serde(skip_serializing_if="Option::is_none")]pub adjustment:Option<Entry>,
     pub additional_time_switches:u32,pub encounter:SouthernSai,pub clockbank_exit:Entry,pub eastern_flamechurch:Entry,
-    pub escape_boost_cycles:u32,pub movement:galdera_coast::Movement,pub pass_exit:Entry,pub flamechurch:Entry,
+    #[serde(skip_serializing_if="Option::is_none")]pub temenos:Option<crate::galdera_temenos::Trip>,pub escape_boost_cycles:u32,pub movement:galdera_coast::Movement,pub pass_exit:Entry,pub flamechurch:Entry,
     pub highroad_running_updates:u32,pub clockbank_running_updates:u32,pub running_updates_after_escape:u32,pub run_decrement:u32,
 }
 fn point(l:&mut Loader<'_>,before:CrtRng)->Entry {
@@ -80,7 +80,8 @@ pub(crate) fn finish(entry:&Entry)->Result<Trip> {
         }
         cursor.boost_cancel_cycle();escape_boost_cycles+=1;
     };
-    Ok(Trip {escape_boost_cycles,movement,pass_exit,flamechurch,highroad_exit,clockbank_entry,adjustment,additional_time_switches,encounter,clockbank_exit,eastern_flamechurch,highroad_running_updates:TO_CLOCKBANK,clockbank_running_updates:TO_FLAMECHURCH,running_updates_after_escape:remaining,run_decrement})
+    let temenos=if flamechurch.world_after.galdera_route {Some(crate::galdera_temenos::finish(&flamechurch)?)}else{None};
+    Ok(Trip {temenos,escape_boost_cycles,movement,pass_exit,flamechurch,highroad_exit,clockbank_entry,adjustment,additional_time_switches,encounter,clockbank_exit,eastern_flamechurch,highroad_running_updates:TO_CLOCKBANK,clockbank_running_updates:TO_FLAMECHURCH,running_updates_after_escape:remaining,run_decrement})
 }
 
 #[cfg(test)]mod tests {
@@ -89,6 +90,8 @@ pub(crate) fn finish(entry:&Entry)->Result<Trip> {
     fn full_run_has_one_safe_encounter_and_adjustment_replays_native_callbacks() {
         let f:serde_json::Value=serde_json::from_str(include_str!("../data/source/gravell-complete-route-fixture.json")).unwrap();
         let mut w:world::WorldState=serde_json::from_value(f["before"]["world_after"].clone()).unwrap();
+        w.party=vec![7,6,8,4];w.bench=vec![1,3];w.party_experience=w.party.iter().map(|id|w.character_progression[id].experience).collect();
+        w.character_progression.get_mut(&6).unwrap().jobs.equipped_support.insert("ABI_SCH_SUP_01".into());
         w.award_victory(ot2_battle_engine::progression::Reward {exp:300_000,jp:0,money:0}).unwrap();
         w.encounter_counter=560;assert!(movement(&w).unwrap().is_none());
         w.encounter_counter=561;let walk=movement(&w).unwrap().unwrap();assert_eq!((walk.running_updates,walk.walking_updates,walk.estimated_counter_at_exit),(0,140,1));

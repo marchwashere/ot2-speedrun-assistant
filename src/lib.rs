@@ -62,3 +62,4 @@ pub mod galdera_flamechurch;
 
 pub mod voice_identification;
 pub mod identified_route;
+mod galdera_temenos;

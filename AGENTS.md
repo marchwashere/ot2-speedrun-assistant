@@ -1,5 +1,12 @@
 # Active project
 
+- After Flamechurch entry: recruit Temenos via MS_SIN_00_0100 Yes59/battle82,
+  first actor +1 BP regular attack with actual boost/cancel kill search. Normal
+  attacks use80% AbilityRatio; Osvald/Partitio may require crit manipulation.
+  Native field return, MS_SIN_00_0300 Yes46/skip58/replace Agnea68; Temenos starts
+  level1, party [7,6,5,4], Agnea benched. Log every boundary and show separate card.
+  Source imports and core profile documented in docs/galdera-temenos.md.
+
 - Flamechurch continuation now uses the preceding Clockbank Escape boost/cancel cycles
   to ensure an encounterless Eastern Flamechurch Pass crossing. Measured133 run/137 walk +3 each (136/140);
   require counter561+, maximize safe running within first accepted counter,
