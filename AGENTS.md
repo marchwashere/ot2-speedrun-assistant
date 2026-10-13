@@ -1,9 +1,10 @@
 # Active project
 
-- After Wellgrove entry: one tavern Shopkeeper menu Steals Sharp Nut L then
-  Diffusing Serum, change path action before close (opening +2 checks =3 CRT).
-  NPC_Twn_Fst_2_1_A_TALK_0400, ProperSteal22/21 => level33/32 guarantee. Switch
-  night; Agnea Entreat Empowering Lychee M from Girl's Mother, then path-action
+- After Wellgrove entry: immediately switch night, then one tavern Shopkeeper
+  Entreat menu obtains Sharp Nut L and Diffusing Serum; change path action before
+  close (one opening draw, no item probability checks). Both require Agnea26;
+  NPC_Twn_Fst_2_1_A_TALK_0400. Then Entreat Empowering Lychee M from Girl's Mother,
+  followed by path-action
   switch/close (1 CRT opening; ProperBeg20). Use actually placed quest NPC
   NPC_SS_TF21_0200_0300, not unused A_TALK_0600; same items, quest not accepted.
   Acquire first Dancer License at night (JobID5, SYS_DAN_GUILD_0010/0030): fixed

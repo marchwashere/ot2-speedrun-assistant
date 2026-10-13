@@ -13,10 +13,6 @@
       "sha256": "93a6ebef110fdd3857ef48b24780304a20f7ff386fc7471a7926eea1dc6a8c8e"
     },
     {
-      "source": "/Game/GameParam/GameParamDefineTable",
-      "sha256": "10cd9a80a908332702c3fcf75d8935f68889bbec618f01292894bfb63df99d1e"
-    },
-    {
       "source": "/Game/Shop/Database/GuildData",
       "sha256": "ec86ddce780025453431be946972781b8388aee46699f8402297a35704caf982"
     },

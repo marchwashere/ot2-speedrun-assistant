@@ -4,13 +4,11 @@
     "items": [
       {
         "item": "ITM_CSM_0670",
-        "proper_steal": 22,
-        "guaranteed_level": 33
+        "required_level": 26
       },
       {
         "item": "ITM_MRL_COM_0010",
-        "proper_steal": 21,
-        "guaranteed_level": 32
+        "required_level": 26
       }
     ]
   },
