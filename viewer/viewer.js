@@ -1252,6 +1252,10 @@ function renderCrackridgeVoyage() {
                                         for(const c of f.encounter.checkpoints)conningPoints.push([label+' · '+c.label,{draws:Number(origin+BigInt(c.draws)),state:c.state}]);
                                         conningPoints.push([label+' · first command menu',f.menu.rng]);conningSpans.push(...f.escape.trace);
                                       }
+                                      if(q.gravell) {
+                                        const g=q.gravell;
+                                        for(const [stage,e]of [['Gravell · teleported, chapters discarded',g.arrival],['Gravell · night for Ambush',g.night],['Gravell · Debt Collector ambushed',g.ambush],['Gravell · Rusty Sword and Rusty Axe restored; Armsmaster unlocked',g.restoration],['Gravell · day for shop and Steal',g.day],["Gravell · Lionheart’s Axe and Conqueror’s Sword sold · "+g.sale_proceeds.toLocaleString()+' leaves',g.sales],['Gravell · Reinforcing Jam stolen (100%); switch path action before closing',g.jam_steal]]){conningStages.push([stage,e]);conningSpans.push(...e.trace);}
+                                      }
                                     }
                                   }
                                 }

@@ -170,3 +170,7 @@ assert.match($('galdera-quicksand-loot-routine').innerHTML,/Rusty Axe/);
 assert.match($('galdera-quicksand-loot-routine').innerHTML,/Temenos · Escape/);
 assert.match($('galdera-quicksand-loot-routine').innerHTML,/Scorched Bone Spear/);
 assert.equal(context.conningStages.at(-1)[0],'Quicksand Gaol · Scorched Bone Spear obtained');
+fc.temenos.quicksand.gravell={arrival:entry,night:entry,ambush:entry,restoration:entry,day:entry,sales:entry,jam_steal:entry,sale_proceeds:250000};
+vm.runInNewContext(source.slice(start,end),context);
+assert.match(context.conningStages.at(-1)[0],/Reinforcing Jam stolen \(100%\); switch path action/);
+assert(context.conningStages.some(([label])=>/250,000 leaves/.test(label)));

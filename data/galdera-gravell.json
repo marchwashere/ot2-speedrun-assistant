@@ -1,0 +1,140 @@
+{
+  "guard": "NPC_Twn_Wld_3_1_A_TALK_1600",
+  "ambush_level": 30,
+  "before_events": [
+    "FC_TOU_ASSASSINATE_Before_1",
+    "FC_TOU_ASSASSINATE_Before_2"
+  ],
+  "success_event": "FC_TOU_ASSASSINATE_Success",
+  "shopkeeper": "NPC_Twn_Wld_3_1_A_TALK_0500",
+  "jam": "ITM_CSM_0101",
+  "proper_steal": 35,
+  "steal_level": 46,
+  "weapons": [
+    {
+      "rust": "ITM_TRE_WPM_01",
+      "item": "ITM_EQP_SWD_990",
+      "sort": 929,
+      "sell_price": 100000,
+      "flag": 2402,
+      "ability": "ABI_SET_WPM_010"
+    },
+    {
+      "rust": "ITM_TRE_WPM_04",
+      "item": "ITM_EQP_AXE_990",
+      "sort": 932,
+      "sell_price": 100000,
+      "flag": 2405,
+      "ability": "ABI_SET_WPM_040"
+    }
+  ],
+  "job": {
+    "id": "eWEAPON_MASTER",
+    "ID": 8,
+    "JobID": 8,
+    "DisplayName": "eCLASS_NAME_21",
+    "Detail": "None",
+    "DisplayOrder": 9,
+    "MenuJobIcon": "MENU_JOB_ICON_12",
+    "AbilityJobIcon": "ABILITY_JOB_ICON_12",
+    "PermissionFlag": 9,
+    "EquipJobItem": "ITM_EQP_JOB_0008",
+    "ProperEquipment": [
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true,
+      true
+    ],
+    "ParameterRevision": {
+      "HP": 100,
+      "MP": 100,
+      "BP": 100,
+      "SP": 100,
+      "POT": 100,
+      "ATK": 112,
+      "DEF": 112,
+      "MATK": 100,
+      "MDEF": 100,
+      "ACC": 106,
+      "EVA": 104,
+      "CON": 100,
+      "AGI": 106
+    },
+    "JobCommandName": "BASIC_COMMAND_017",
+    "JobCommandDetail": "BASIC_COMMAND_017_DETAIL",
+    "JobCommandAbility": [
+      {
+        "AbilityName": "ABI_SET_WPM_080",
+        "GetParam": 1
+      },
+      {
+        "AbilityName": "ABI_SET_WPM_070",
+        "GetParam": 1
+      },
+      {
+        "AbilityName": "ABI_SET_WPM_010",
+        "GetParam": 0
+      },
+      {
+        "AbilityName": "ABI_SET_WPM_020",
+        "GetParam": 0
+      },
+      {
+        "AbilityName": "ABI_SET_WPM_030",
+        "GetParam": 0
+      },
+      {
+        "AbilityName": "ABI_SET_WPM_040",
+        "GetParam": 0
+      },
+      {
+        "AbilityName": "ABI_SET_WPM_050",
+        "GetParam": 0
+      },
+      {
+        "AbilityName": "ABI_SET_WPM_060",
+        "GetParam": 0
+      }
+    ],
+    "JobSupportAbility": [
+      {
+        "AbilityName": "ABI_WPM_SUP_01",
+        "GetParam": 4
+      },
+      {
+        "AbilityName": "ABI_WPM_SUP_02",
+        "GetParam": 5
+      },
+      {
+        "AbilityName": "ABI_WPM_SUP_03",
+        "GetParam": 6
+      },
+      {
+        "AbilityName": "ABI_WPM_SUP_04",
+        "GetParam": 7
+      }
+    ],
+    "JPCost": [
+      0,
+      2000,
+      2000,
+      2000,
+      2000,
+      2000,
+      2000,
+      5000
+    ]
+  },
+  "first_talk_flag": 2400,
+  "license_flag": 2417
+}

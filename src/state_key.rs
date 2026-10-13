@@ -17,6 +17,8 @@ impl EnemyHistoryKey {
 
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
 pub(crate) struct WorldKey {
+    armsmaster_abilities:BTreeSet<String>,
+    swooned_route_npcs:BTreeSet<String>,
     opened_route_chests:BTreeSet<String>,
     hired_merchant:Option<crate::world::HiredMerchant>,
     route_items:BTreeMap<String,u32>,
@@ -54,13 +56,14 @@ pub(crate) struct WorldKey {
 }
 impl WorldKey {
     pub(crate) fn new(world: &WorldState) -> Self {
-        let WorldState { opened_route_chests,hired_merchant,route_items,galdera_route, map, visited_maps, time, flags, event_variables, party, bench,
+        let WorldState { armsmaster_abilities,swooned_route_npcs,opened_route_chests,hired_merchant,route_items,galdera_route, map, visited_maps, time, flags, event_variables, party, bench,
             story_types, active_scenarios, main_progress_points, completed_scenarios, confirmed_scenarios,
             prologues, resident_levels, shared_levels, existing_npcs, npc_start_delays,
             npc_end_delays, first_encounter, encounter_counter, evasive_maneuvers,
             osvald_extra_skills, party_experience, character_progression, job_licenses, inventor_abilities, enemy_knowledge,
             suppress_flag_callbacks, suppress_level_lottery, suppress_time_callbacks } = world;
         Self {
+            armsmaster_abilities:armsmaster_abilities.clone(),swooned_route_npcs:swooned_route_npcs.clone(),
             opened_route_chests:opened_route_chests.clone(),
             hired_merchant:hired_merchant.clone(),route_items:route_items.clone(),
             galdera_route: *galdera_route,

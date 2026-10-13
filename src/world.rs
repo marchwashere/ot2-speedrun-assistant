@@ -193,6 +193,10 @@ pub fn catalog() -> &'static Catalog {
 #[derive(Debug, Clone, Serialize, Deserialize)]
 pub struct WorldState {
     #[serde(default,skip_serializing_if="BTreeSet::is_empty")]
+    pub armsmaster_abilities:BTreeSet<String>,
+    #[serde(default,skip_serializing_if="BTreeSet::is_empty")]
+    pub swooned_route_npcs:BTreeSet<String>,
+    #[serde(default,skip_serializing_if="BTreeSet::is_empty")]
     pub opened_route_chests:BTreeSet<String>,
     #[serde(default,skip_serializing_if="Option::is_none")]
     pub hired_merchant:Option<HiredMerchant>,
@@ -370,6 +374,7 @@ pub enum DrawKind {
     FlagLottery,
     PathActionMenu,
     StealCheck,
+    MerchantTalent,
     DialogueLottery,
     TavernLottery,
     BattleTiming,
@@ -997,6 +1002,7 @@ impl<'a> Loader<'a> {
             }
         }
         let mut pc = 0;
+        let mut weapon_master=crate::galdera_gravell::Flow::default();
         let mut steps = 0;
         // Native flag/time commands mark EventManager +0x810. FinishPre
         // (e8e740) dispatches ed58b0 before its encounter-counter callback.
@@ -1007,6 +1013,22 @@ impl<'a> Loader<'a> {
             ensure(c.index == pc, "Invalid event command index")?;
             pc += 1;
             match c.cmd {
+                8601 if name=="SYS_WPM_GUILD_0010" => weapon_master.start(),
+                8602 if name=="SYS_WPM_GUILD_0010" => {
+                    let branch=weapon_master.branch(self)?;
+                    pc=c.opt.get(branch).ok_or_else(||SimError("Missing Armsmaster branch".into()))?.parse::<usize>().map_err(|_|SimError("Invalid Armsmaster branch".into()))?+1;
+                },
+                8603 if name=="SYS_WPM_GUILD_0010" => weapon_master.apply(self)?,
+                8604 if name=="SYS_WPM_GUILD_0010" => {},
+                1300 if name=="SYS_WPM_GUILD_0010" && c.opt==["SS_WLD3_0300"] => {
+                    self.boundary("In Search of the Divine Weapons accepted; two of six weapons restored");
+                },
+                2500 if name=="SYS_WPM_GUILD_0010" => {
+                    ensure(c.opt==["NPC_Twn_Wld_3_1_A_TALK_1600_D000"],"Unexpected Armsmaster swoon target")?;
+                    self.state.swooned_route_npcs.remove(&c.opt[0]);
+                    self.boundary("Armsmaster event cancels Debt Collector swoon");
+                },
+                40 | 4 | 10 | 55 | 65 | 203 | 210 | 240 | 300 | 710 | 711 | 8010 | 9100 | 7240 if name=="SYS_WPM_GUILD_0010" => {},
                 40 if name=="SC_SS_TSnow21_0200_02A0" => {},
                 4220 if name=="SC_SS_TSnow21_0200_02A0" && c.index==6 => {
                     let count=self.state.party.len()+usize::from(self.state.hired_merchant.is_some());
@@ -1499,6 +1521,7 @@ pub fn throne_after_second_state() -> Result<WorldState> {
     let data = catalog();
     let p = &data.fresh_throne;
     let state = WorldState {
+        armsmaster_abilities:BTreeSet::new(),swooned_route_npcs:BTreeSet::new(),
         hired_merchant:None,route_items:BTreeMap::new(),opened_route_chests:BTreeSet::new(),
         galdera_route: false,
         map: p.map.clone(),

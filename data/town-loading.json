@@ -79049,6 +79049,2790 @@
           ]
         }
       ]
+    },
+    "SYS_WPM_GUILD_0010": {
+      "map_id": 0,
+      "reset_counter": false,
+      "completion": null,
+      "commands": [
+        {
+          "index": 0,
+          "cmd": 8601,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 1,
+          "cmd": 8602,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "3",
+            "90"
+          ]
+        },
+        {
+          "index": 2,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 3,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 4,
+          "cmd": 8602,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "6",
+            "16",
+            "83"
+          ]
+        },
+        {
+          "index": 5,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 6,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 7,
+          "cmd": 40,
+          "target": -1,
+          "text": "TX_SS_TW31_0300_0010",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 8,
+          "cmd": 40,
+          "target": -1,
+          "text": "TX_SS_TW31_0300_0020",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 9,
+          "cmd": 40,
+          "target": -1,
+          "text": "TX_SS_TW31_0300_0030",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 10,
+          "cmd": 40,
+          "target": -1,
+          "text": "TX_SS_TW31_0300_0040",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 11,
+          "cmd": 70,
+          "target": 20292,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 12,
+          "cmd": 70,
+          "target": 20295,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 13,
+          "cmd": 2500,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "NPC_Twn_Wld_3_1_A_TALK_1600_D000"
+          ]
+        },
+        {
+          "index": 14,
+          "cmd": 8602,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "16",
+            "257"
+          ]
+        },
+        {
+          "index": 15,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 16,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 17,
+          "cmd": 40,
+          "target": -1,
+          "text": "TX_SS_TW31_0300_0050",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 18,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 19,
+          "cmd": 65,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1000",
+            "2"
+          ]
+        },
+        {
+          "index": 20,
+          "cmd": 1250,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1",
+            "SwitchIndoorTriggerBP_Smith"
+          ]
+        },
+        {
+          "index": 21,
+          "cmd": 1,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 22,
+          "cmd": 2,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 23,
+          "cmd": 4,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 24,
+          "cmd": 230,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 25,
+          "cmd": 8010,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 26,
+          "cmd": 203,
+          "target": -1,
+          "text": "",
+          "opt": [
+            "11",
+            "1",
+            "0",
+            "NPC_Twn_Wld_3_1_A_GUILD"
+          ]
+        },
+        {
+          "index": 27,
+          "cmd": 300,
+          "target": -1,
+          "text": "",
+          "opt": [
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 28,
+          "cmd": 9100,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 29,
+          "cmd": 55,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1000",
+            "2"
+          ]
+        },
+        {
+          "index": 30,
+          "cmd": 40,
+          "target": -1,
+          "text": "TX_SS_TW31_0300_0060",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 31,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 32,
+          "cmd": 240,
+          "target": 11,
+          "text": "",
+          "opt": [
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 33,
+          "cmd": 910,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "se_event_whoosh_041"
+          ]
+        },
+        {
+          "index": 34,
+          "cmd": 40,
+          "target": -1,
+          "text": "TX_SS_TW31_0300_0070",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 35,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 36,
+          "cmd": 40,
+          "target": -1,
+          "text": "TX_SS_TW31_0300_0080",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 37,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1000"
+          ]
+        },
+        {
+          "index": 38,
+          "cmd": 240,
+          "target": 11,
+          "text": "",
+          "opt": [
+            "10",
+            "0"
+          ]
+        },
+        {
+          "index": 39,
+          "cmd": 910,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "se_event_whoosh_06"
+          ]
+        },
+        {
+          "index": 40,
+          "cmd": 40,
+          "target": -1,
+          "text": "TX_SS_TW31_0300_0090",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 41,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 42,
+          "cmd": 240,
+          "target": 11,
+          "text": "",
+          "opt": [
+            "19",
+            "0"
+          ]
+        },
+        {
+          "index": 43,
+          "cmd": 910,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "se_event_whoosh_06"
+          ]
+        },
+        {
+          "index": 44,
+          "cmd": 40,
+          "target": -1,
+          "text": "TX_SS_TW31_0300_0100",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 45,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 46,
+          "cmd": 40,
+          "target": -1,
+          "text": "TX_SS_TW31_0300_0110",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 47,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 48,
+          "cmd": 240,
+          "target": 11,
+          "text": "",
+          "opt": [
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 49,
+          "cmd": 910,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "se_event_whoosh_041"
+          ]
+        },
+        {
+          "index": 50,
+          "cmd": 40,
+          "target": -1,
+          "text": "TX_SS_TW31_0300_0120",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 51,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 52,
+          "cmd": 8602,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "171"
+          ]
+        },
+        {
+          "index": 53,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 54,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 55,
+          "cmd": 8602,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "57",
+            "61"
+          ]
+        },
+        {
+          "index": 56,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 57,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 58,
+          "cmd": 40,
+          "target": -1,
+          "text": "TX_SS_TW31_0300_0270",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 59,
+          "cmd": 8602,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "257"
+          ]
+        },
+        {
+          "index": 60,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 61,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 62,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1000"
+          ]
+        },
+        {
+          "index": 63,
+          "cmd": 240,
+          "target": 10,
+          "text": "",
+          "opt": [
+            "19",
+            "0"
+          ]
+        },
+        {
+          "index": 64,
+          "cmd": 910,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "se_event_whoosh_06"
+          ]
+        },
+        {
+          "index": 65,
+          "cmd": 40,
+          "target": -1,
+          "text": "TX_SS_TW31_0300_0280",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 66,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 67,
+          "cmd": 40,
+          "target": -1,
+          "text": "TX_SS_TW31_0300_0290",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 68,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 69,
+          "cmd": 240,
+          "target": 10,
+          "text": "",
+          "opt": [
+            "10",
+            "0"
+          ]
+        },
+        {
+          "index": 70,
+          "cmd": 910,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "se_event_whoosh_06"
+          ]
+        },
+        {
+          "index": 71,
+          "cmd": 40,
+          "target": -1,
+          "text": "TX_SS_TW31_0300_0300",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 72,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 73,
+          "cmd": 240,
+          "target": 10,
+          "text": "",
+          "opt": [
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 74,
+          "cmd": 910,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "se_event_whoosh_041"
+          ]
+        },
+        {
+          "index": 75,
+          "cmd": 40,
+          "target": -1,
+          "text": "TX_SS_TW31_0300_0320",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 76,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 77,
+          "cmd": 70,
+          "target": 20295,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 78,
+          "cmd": 4000,
+          "target": 20293,
+          "text": "",
+          "opt": [
+            "80",
+            "78"
+          ]
+        },
+        {
+          "index": 79,
+          "cmd": 1310,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "SS_WLD3_0300",
+            "1"
+          ]
+        },
+        {
+          "index": 80,
+          "cmd": 70,
+          "target": 20293,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 81,
+          "cmd": 8602,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "257"
+          ]
+        },
+        {
+          "index": 82,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 83,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 84,
+          "cmd": 40,
+          "target": -1,
+          "text": "TX_SS_TW31_0300_0010",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 85,
+          "cmd": 40,
+          "target": -1,
+          "text": "TX_SS_TW31_0300_0020",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 86,
+          "cmd": 40,
+          "target": -1,
+          "text": "TX_SS_TW31_0300_0030",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 87,
+          "cmd": 40,
+          "target": -1,
+          "text": "TX_SS_TW31_0300_0040",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 88,
+          "cmd": 8602,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "257"
+          ]
+        },
+        {
+          "index": 89,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 90,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 91,
+          "cmd": 8602,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "93",
+            "102",
+            "113"
+          ]
+        },
+        {
+          "index": 92,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 93,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 94,
+          "cmd": 40,
+          "target": -1,
+          "text": "TX_SS_TW31_0300_0330",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 95,
+          "cmd": 40,
+          "target": -1,
+          "text": "TX_SS_TW31_0300_0340",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 96,
+          "cmd": 40,
+          "target": -1,
+          "text": "TX_SS_TW31_0300_0350",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 97,
+          "cmd": 40,
+          "target": -1,
+          "text": "TX_SS_TW31_0300_0360",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 98,
+          "cmd": 70,
+          "target": 20296,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 99,
+          "cmd": 8603,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 100,
+          "cmd": 8602,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "108",
+            "113"
+          ]
+        },
+        {
+          "index": 101,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 102,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 103,
+          "cmd": 40,
+          "target": -1,
+          "text": "TX_SS_TW31_0300_0370",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 104,
+          "cmd": 40,
+          "target": -1,
+          "text": "TX_SS_TW31_0300_0380",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 105,
+          "cmd": 8603,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 106,
+          "cmd": 8602,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "108",
+            "113"
+          ]
+        },
+        {
+          "index": 107,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 108,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 109,
+          "cmd": 40,
+          "target": -1,
+          "text": "TX_SS_TW31_0300_0390",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 110,
+          "cmd": 40,
+          "target": -1,
+          "text": "TX_SS_TW31_0300_0400",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 111,
+          "cmd": 8602,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "113"
+          ]
+        },
+        {
+          "index": 112,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 113,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 114,
+          "cmd": 8602,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "116",
+            "129",
+            "162",
+            "167"
+          ]
+        },
+        {
+          "index": 115,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 116,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 117,
+          "cmd": 40,
+          "target": -1,
+          "text": "TX_SS_TW31_0300_0130",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 118,
+          "cmd": 40,
+          "target": -1,
+          "text": "TX_SS_TW31_0300_0140",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 119,
+          "cmd": 40,
+          "target": -1,
+          "text": "TX_SS_TW31_0300_0150",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 120,
+          "cmd": 8602,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "171"
+          ]
+        },
+        {
+          "index": 121,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 122,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 123,
+          "cmd": 8602,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "125",
+            "129",
+            "162"
+          ]
+        },
+        {
+          "index": 124,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 125,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 126,
+          "cmd": 40,
+          "target": -1,
+          "text": "TX_SS_TW31_0300_0270",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 127,
+          "cmd": 8602,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "257"
+          ]
+        },
+        {
+          "index": 128,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 129,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 130,
+          "cmd": 4000,
+          "target": 20294,
+          "text": "",
+          "opt": [
+            "130",
+            "149"
+          ]
+        },
+        {
+          "index": 131,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1000"
+          ]
+        },
+        {
+          "index": 132,
+          "cmd": 240,
+          "target": 10,
+          "text": "",
+          "opt": [
+            "19",
+            "0"
+          ]
+        },
+        {
+          "index": 133,
+          "cmd": 910,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "se_event_whoosh_06"
+          ]
+        },
+        {
+          "index": 134,
+          "cmd": 40,
+          "target": -1,
+          "text": "TX_SS_TW31_0300_0280",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 135,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 136,
+          "cmd": 40,
+          "target": -1,
+          "text": "TX_SS_TW31_0300_0290",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 137,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 138,
+          "cmd": 240,
+          "target": 10,
+          "text": "",
+          "opt": [
+            "10",
+            "0"
+          ]
+        },
+        {
+          "index": 139,
+          "cmd": 910,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "se_event_whoosh_06"
+          ]
+        },
+        {
+          "index": 140,
+          "cmd": 4000,
+          "target": 20296,
+          "text": "",
+          "opt": [
+            "140",
+            "142"
+          ]
+        },
+        {
+          "index": 141,
+          "cmd": 40,
+          "target": -1,
+          "text": "TX_SS_TW31_0300_0310",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 142,
+          "cmd": 5,
+          "target": 143,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 143,
+          "cmd": 40,
+          "target": -1,
+          "text": "TX_SS_TW31_0300_0300",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 144,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 145,
+          "cmd": 240,
+          "target": 10,
+          "text": "",
+          "opt": [
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 146,
+          "cmd": 910,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "se_event_whoosh_041"
+          ]
+        },
+        {
+          "index": 147,
+          "cmd": 40,
+          "target": -1,
+          "text": "TX_SS_TW31_0300_0320",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 148,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 149,
+          "cmd": 5,
+          "target": 156,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 150,
+          "cmd": 40,
+          "target": -1,
+          "text": "TX_SS_TW31_0300_0280",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 151,
+          "cmd": 40,
+          "target": -1,
+          "text": "TX_SS_TW31_0300_0290",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 152,
+          "cmd": 4000,
+          "target": 20296,
+          "text": "",
+          "opt": [
+            "152",
+            "154"
+          ]
+        },
+        {
+          "index": 153,
+          "cmd": 40,
+          "target": -1,
+          "text": "TX_SS_TW31_0300_0310",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 154,
+          "cmd": 5,
+          "target": 155,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 155,
+          "cmd": 40,
+          "target": -1,
+          "text": "TX_SS_TW31_0300_0300",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 156,
+          "cmd": 40,
+          "target": -1,
+          "text": "TX_SS_TW31_0300_0320",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 157,
+          "cmd": 4000,
+          "target": 20293,
+          "text": "",
+          "opt": [
+            "159",
+            "157"
+          ]
+        },
+        {
+          "index": 158,
+          "cmd": 1310,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "SS_WLD3_0300",
+            "1"
+          ]
+        },
+        {
+          "index": 159,
+          "cmd": 70,
+          "target": 20293,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 160,
+          "cmd": 8602,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "257"
+          ]
+        },
+        {
+          "index": 161,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 162,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 163,
+          "cmd": 40,
+          "target": -1,
+          "text": "TX_SS_TW31_0300_0410",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 164,
+          "cmd": 40,
+          "target": -1,
+          "text": "TX_SS_TW31_0300_0420",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 165,
+          "cmd": 8602,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "257"
+          ]
+        },
+        {
+          "index": 166,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 167,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 168,
+          "cmd": 40,
+          "target": -1,
+          "text": "TX_SS_TW31_0300_0270",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 169,
+          "cmd": 8602,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "257"
+          ]
+        },
+        {
+          "index": 170,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 171,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 172,
+          "cmd": 65,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1000",
+            "2"
+          ]
+        },
+        {
+          "index": 173,
+          "cmd": 9100,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 174,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1000"
+          ]
+        },
+        {
+          "index": 175,
+          "cmd": 910,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "se_event_hitsword"
+          ]
+        },
+        {
+          "index": 176,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 177,
+          "cmd": 910,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "se_event_hitsword"
+          ]
+        },
+        {
+          "index": 178,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 179,
+          "cmd": 910,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "se_event_hitsword"
+          ]
+        },
+        {
+          "index": 180,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 181,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1000"
+          ]
+        },
+        {
+          "index": 182,
+          "cmd": 70,
+          "target": 20294,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 183,
+          "cmd": 210,
+          "target": 11,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 184,
+          "cmd": 1250,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1",
+            "SwitchIndoorTriggerBP_Smith"
+          ]
+        },
+        {
+          "index": 185,
+          "cmd": 1,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 186,
+          "cmd": 2,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 187,
+          "cmd": 4,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 188,
+          "cmd": 230,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 189,
+          "cmd": 8010,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 190,
+          "cmd": 203,
+          "target": -1,
+          "text": "",
+          "opt": [
+            "10",
+            "1",
+            "0",
+            "NPC_Twn_Wld_3_1_A_GUILD"
+          ]
+        },
+        {
+          "index": 191,
+          "cmd": 300,
+          "target": -1,
+          "text": "",
+          "opt": [
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 192,
+          "cmd": 55,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1000",
+            "2"
+          ]
+        },
+        {
+          "index": 193,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1000"
+          ]
+        },
+        {
+          "index": 194,
+          "cmd": 240,
+          "target": 10,
+          "text": "",
+          "opt": [
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 195,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "250"
+          ]
+        },
+        {
+          "index": 196,
+          "cmd": 240,
+          "target": 10,
+          "text": "",
+          "opt": [
+            "19",
+            "0"
+          ]
+        },
+        {
+          "index": 197,
+          "cmd": 910,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "se_event_whoosh_06"
+          ]
+        },
+        {
+          "index": 198,
+          "cmd": 40,
+          "target": -1,
+          "text": "TX_SS_TW31_0300_0160",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 199,
+          "cmd": 8603,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 200,
+          "cmd": 240,
+          "target": 10,
+          "text": "",
+          "opt": [
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 201,
+          "cmd": 910,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "se_event_whoosh_041"
+          ]
+        },
+        {
+          "index": 202,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 203,
+          "cmd": 8602,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "205",
+            "253"
+          ]
+        },
+        {
+          "index": 204,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 205,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 206,
+          "cmd": 240,
+          "target": 10,
+          "text": "",
+          "opt": [
+            "10",
+            "0"
+          ]
+        },
+        {
+          "index": 207,
+          "cmd": 910,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "se_event_whoosh_06"
+          ]
+        },
+        {
+          "index": 208,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1000"
+          ]
+        },
+        {
+          "index": 209,
+          "cmd": 710,
+          "target": 10,
+          "text": "",
+          "opt": [
+            "8"
+          ]
+        },
+        {
+          "index": 210,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "2000"
+          ]
+        },
+        {
+          "index": 211,
+          "cmd": 711,
+          "target": 10,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 212,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1000"
+          ]
+        },
+        {
+          "index": 213,
+          "cmd": 240,
+          "target": 10,
+          "text": "",
+          "opt": [
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 214,
+          "cmd": 910,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "se_event_whoosh_041"
+          ]
+        },
+        {
+          "index": 215,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 216,
+          "cmd": 40,
+          "target": -1,
+          "text": "TX_SS_TW31_0300_0170",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 217,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 218,
+          "cmd": 40,
+          "target": -1,
+          "text": "TX_SS_TW31_0300_0180",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 219,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 220,
+          "cmd": 40,
+          "target": -1,
+          "text": "TX_SS_TW31_0300_0190",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 221,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 222,
+          "cmd": 40,
+          "target": -1,
+          "text": "TX_SS_TW31_0300_0200",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 223,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 224,
+          "cmd": 40,
+          "target": -1,
+          "text": "TX_SS_TW31_0300_0210",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 225,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 226,
+          "cmd": 240,
+          "target": 10,
+          "text": "",
+          "opt": [
+            "10",
+            "0"
+          ]
+        },
+        {
+          "index": 227,
+          "cmd": 910,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "se_event_whoosh_06"
+          ]
+        },
+        {
+          "index": 228,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1000"
+          ]
+        },
+        {
+          "index": 229,
+          "cmd": 40,
+          "target": -1,
+          "text": "TX_SS_TW31_0300_0220",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 230,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 231,
+          "cmd": 40,
+          "target": -1,
+          "text": "TX_SS_TW31_0300_0230",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 232,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 233,
+          "cmd": 240,
+          "target": 10,
+          "text": "",
+          "opt": [
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 234,
+          "cmd": 910,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "se_event_whoosh_041"
+          ]
+        },
+        {
+          "index": 235,
+          "cmd": 40,
+          "target": -1,
+          "text": "TX_SS_TW31_0300_0240",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 236,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 237,
+          "cmd": 240,
+          "target": 10,
+          "text": "",
+          "opt": [
+            "19",
+            "0"
+          ]
+        },
+        {
+          "index": 238,
+          "cmd": 910,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "se_event_whoosh_06"
+          ]
+        },
+        {
+          "index": 239,
+          "cmd": 40,
+          "target": -1,
+          "text": "TX_SS_TW31_0300_0250",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 240,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 241,
+          "cmd": 70,
+          "target": 406,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 242,
+          "cmd": 70,
+          "target": 411,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 243,
+          "cmd": 8603,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 244,
+          "cmd": 7100,
+          "target": 59,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 245,
+          "cmd": 240,
+          "target": 10,
+          "text": "",
+          "opt": [
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 246,
+          "cmd": 8602,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "253"
+          ]
+        },
+        {
+          "index": 247,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 248,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 249,
+          "cmd": 40,
+          "target": -1,
+          "text": "TX_SS_TW31_0300_0260",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 250,
+          "cmd": 8603,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 251,
+          "cmd": 8602,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "253"
+          ]
+        },
+        {
+          "index": 252,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 253,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 254,
+          "cmd": 8603,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 255,
+          "cmd": 8602,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "248",
+            "54",
+            "122"
+          ]
+        },
+        {
+          "index": 256,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 257,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 258,
+          "cmd": 4000,
+          "target": 20294,
+          "text": "",
+          "opt": [
+            "258",
+            "268"
+          ]
+        },
+        {
+          "index": 259,
+          "cmd": 62,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "2"
+          ]
+        },
+        {
+          "index": 260,
+          "cmd": 70,
+          "target": 20294,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 261,
+          "cmd": 1,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 262,
+          "cmd": 2,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 263,
+          "cmd": 4,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 264,
+          "cmd": 8010,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 265,
+          "cmd": 310,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 266,
+          "cmd": 7240,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "GUILD_009"
+          ]
+        },
+        {
+          "index": 267,
+          "cmd": 9990,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 268,
+          "cmd": 52,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "2"
+          ]
+        },
+        {
+          "index": 269,
+          "cmd": 4000,
+          "target": 20295,
+          "text": "",
+          "opt": [
+            "269",
+            "271"
+          ]
+        },
+        {
+          "index": 270,
+          "cmd": 1300,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "SS_WLD3_0300"
+          ]
+        },
+        {
+          "index": 271,
+          "cmd": 70,
+          "target": 20295,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 272,
+          "cmd": 8604,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 273,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        }
+      ]
+    },
+    "FC_TOU_ASSASSINATE_Before_1": {
+      "map_id": 0,
+      "reset_counter": false,
+      "completion": null,
+      "commands": [
+        {
+          "index": 0,
+          "cmd": 42,
+          "target": 7,
+          "text": "eFC_ASSASINATE_PC_TALK_01_A",
+          "opt": [
+            "1",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 1,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        }
+      ]
+    },
+    "FC_TOU_ASSASSINATE_Before_2": {
+      "map_id": 0,
+      "reset_counter": false,
+      "completion": null,
+      "commands": [
+        {
+          "index": 0,
+          "cmd": 42,
+          "target": 7,
+          "text": "eFC_ASSASINATE_PC_TALK_01_B",
+          "opt": [
+            "1",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 1,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        }
+      ]
+    },
+    "FC_TOU_ASSASSINATE_Success": {
+      "map_id": 0,
+      "reset_counter": false,
+      "completion": null,
+      "commands": [
+        {
+          "index": 0,
+          "cmd": 42,
+          "target": 7,
+          "text": "eFC_ASSASINATE_PC_TALK_02",
+          "opt": [
+            "1",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 1,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        }
+      ]
     }
   },
   "tutorials": {

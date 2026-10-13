@@ -116,6 +116,31 @@ function find(v){if(v&&typeof v==='object'){if(v.coast&&v.fight)return v;for(con
   assert.deepEqual(loot.scorched_bone_spear.arrival,loot.encounter.field_return.after);assert.deepEqual(loot.scorched_bone_spear.after,loot.encounter.field_return.after);
   assert.equal(loot.scorched_bone_spear.world_after.route_items.ITM_EQP_LNS_220,1);
   assert.equal(loot.scorched_bone_spear.world_after.opened_route_chests.length,2);
+  const gr=q.gravell;assert(gr);assert.deepEqual(gr.arrival.arrival,loot.scorched_bone_spear.after);
+  assert.equal(gr.arrival.world_after.map,'Twn_Wld_3_1_A');assert.equal(gr.night.world_after.time,4);
+  assert.equal(gr.ambush.after.draws-gr.night.after.draws,2);
+  assert(gr.ambush.world_after.swooned_route_npcs.includes('NPC_Twn_Wld_3_1_A_TALK_1600_D000'));
+  const restored=gr.restoration.world_after;
+  for(const item of ['ITM_EQP_SWD_990','ITM_EQP_AXE_990','ITM_EQP_JOB_0008'])assert.equal(restored.route_items[item],1);
+  for(const item of ['ITM_TRE_WPM_01','ITM_TRE_WPM_04'])assert.equal(restored.route_items[item],undefined);
+  assert.equal(restored.job_licenses[8],1);assert.deepEqual(restored.armsmaster_abilities,['ABI_SET_WPM_010','ABI_SET_WPM_040']);
+  for(const f of [2400,2402,2405,2417,20292])assert(restored.flags.includes(f));
+  assert(!restored.flags.includes(20293),'Two weapons do not complete the six-weapon quest');
+  assert.equal(restored.swooned_route_npcs,undefined);
+  assert(!restored.existing_npcs.includes('NPC_Twn_Wld_3_1_A_TALK_1600_D000'));
+  for(const [id,p]of Object.entries(restored.character_progression)) {
+    assert(p.jobs.unlocked_support.includes('ABI_WPM_SUP_01'));
+    assert.deepEqual(p.jobs.equipped_support||[],loot.scorched_bone_spear.world_after.character_progression[id].jobs?.equipped_support||[]);
+  }
+  assert.equal(gr.day.world_after.time,2);assert.equal(gr.sale_proceeds,250000);
+  assert.equal(gr.sales.after.draws-gr.day.after.draws,2,'One Smooth Talker draw per weapon sale');
+  assert.equal(gr.sales.trace.filter(t=>t.kind==='merchant_talent').length,2);
+  assert.equal(gr.jam_steal.after.draws-gr.sales.after.draws,2,'Jam opening and check; no closing lottery');
+  assert.equal(gr.jam_steal_chance,100);assert.equal(gr.jam_guaranteed_level,46);assert(gr.throne_level>=46);
+  assert.equal(gr.jam_steal.world_after.route_items.ITM_CSM_0101,(loot.scorched_bone_spear.world_after.route_items.ITM_CSM_0101||0)+1);
+  for(const item of ['ITM_EQP_SWD_990','ITM_EQP_AXE_990'])assert.equal(gr.jam_steal.world_after.route_items[item],undefined);
+  assert.equal(gr.jam_steal.world_after.route_items.ITM_EQP_LNS_220,1);
+  assert(!gr.jam_steal.trace.some(t=>t.kind==='dialogue_lottery'));
   console.log(JSON.stringify({fixture:label,finisher_cycles:lord.finisher_boost_cycles,loot_menu:loot.encounter.menu.rng.draws,spear:loot.scorched_bone_spear.after.draws}));
   assert.equal(lord.battle.actions.length,8);assert.equal(lord.battle.actions.at(-1).report.outcome,'victory');
   const bonusDefenders=lord.battle.actions.filter(a=>a.turn===1&&a.name==='Defend').map(a=>a.actor);

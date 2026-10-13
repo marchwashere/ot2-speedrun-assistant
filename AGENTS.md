@@ -1,5 +1,13 @@
 # Active project
 
+- After Gaol spear: teleport Gravell, night, Debt Collector Ambush (level30),
+  first Porta dialogue restores Sword/Axe and grants Armsmaster/Peak Performance;
+  day, sell Axe then Sword with Smooth Talker (one RNG draw each,250000 total),
+  Shopkeeper Reinforcing Jam Steal (guaranteed46), path-action switch/close.
+  Detailed log fixed stages; actual event860x flow/NPC refreshes, no flat offset.
+  Two weapons do not complete the six-weapon quest. Import galdera-gravell after
+  other event importers. See docs/galdera-gravell.md; retail check pending.
+
 - Shared core turn-order correction: later Defend overtakes earlier Defends and
   Springy Boots, after break recovery. Four ASA Defends reverse party order in
   the next turn. Boots excludes shuffle draws and adds 20000 to future timing;
