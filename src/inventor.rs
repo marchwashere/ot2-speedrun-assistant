@@ -111,7 +111,7 @@ pub(crate) fn settle_gravell(night:&Entry,rng:CrtRng,mut fight:ot2_battle_engine
  for (&id,actor) in state.party.iter().zip(&fight.state.actors) {state.character_progression.get_mut(&id).unwrap().character.resources=Some(actor.resources.clone());}
  state.award_victory(rewards.awarded)?;state.first_encounter=false;
  let mut l=Loader::new(world::catalog(),state,rewards.after)?;
- l.restore_field_after_battle(if night.world_after.party.contains(&5) {"Roque Harbor JP ×100 victory"}else{"Western Gravell EXP ×100 victory"})?;
+ l.restore_field_after_battle(if night.world_after.map==crate::galdera_shipwreck::MAP {"Shipwreck JP ×100 victory"}else if night.world_after.map==crate::galdera_nameless::MAP {"Nameless Isle JP ×100 victory"}else if night.world_after.party.contains(&5) {"Roque Harbor JP ×100 victory"}else{"Western Gravell EXP ×100 victory"})?;
  let field_return=point(&mut l,rewards.after);
  Ok((fight,rewards,field_return))
 }
@@ -673,6 +673,12 @@ mod gravell_integration_tests {
   assert_eq!(refreshed.rng,supplies.pickaxe.after);
   let a=&supplies.augmentor;
   assert_eq!(a.sai.arrival,supplies.pickaxe.after);
+  assert_eq!(a.skull_helm.arrival,a.sai.after);
+  assert_eq!(a.skull_helm.after.draws,a.sai.after.draws+1);
+  assert_eq!(a.skull_helm.world_after.time,4);
+  assert_eq!(a.east_district.arrival,a.skull_helm.after);
+  assert_eq!(a.entreat.world_after.route_items.get("ITM_EQP_HLM_180"),Some(&1));
+  assert!(!a.skull_helm.trace.iter().any(|t|matches!(t.kind,world::DrawKind::DialogueLottery|world::DrawKind::StealCheck)));
   assert_eq!(a.entreat.world_after.map,"Twn_Dst_2_1_B");assert_eq!(a.entreat.world_after.time,4);
   assert_eq!(a.required_level,25);assert!(a.agnea_level>=25);
   assert_eq!(a.sai.world_after.time,4);assert_eq!(a.east_district.world_after.time,4);
@@ -746,15 +752,12 @@ mod gravell_integration_tests {
   assert_eq!(ws.pom_steal_rolls.len(),2);assert_eq!(ws.pom_steal_chance,100);
   assert!(!ws.pom_steal.trace.iter().any(|r|matches!(r.kind,world::DrawKind::DialogueLottery)));
   assert_eq!(ws.night.arrival,ws.pom_steal.after);
-  assert_eq!(ws.tavern_entreat.arrival,ws.night.after);
-  assert_eq!(ws.tavern_entreat.after.draws,ws.night.after.draws+1);
-  assert_eq!(ws.tavern_required_levels,vec![26,26]);
-  assert!(!ws.tavern_entreat.trace.iter().any(|r|matches!(r.kind,world::DrawKind::DialogueLottery|world::DrawKind::StealCheck)));
-  assert_eq!(ws.tavern_entreat.world_after.route_items.get("ITM_CSM_0670"),Some(&1));
-  assert_eq!(ws.tavern_entreat.world_after.route_items.get("ITM_MRL_COM_0010"),Some(&1));
+  assert!(!ws.night.world_after.route_items.contains_key("ITM_CSM_0670"));
+  assert!(!ws.night.world_after.route_items.contains_key("ITM_MRL_COM_0010"));
+  assert_eq!(ws.mother_entreat.arrival,ws.night.after);
   assert_eq!(ws.night.world_after.time,4);
   assert_eq!(ws.required_level,20);assert!(ws.agnea_level>=20);
-  assert_eq!(ws.mother_entreat.after.draws,ws.tavern_entreat.after.draws+1);
+  assert_eq!(ws.mother_entreat.after.draws,ws.night.after.draws+1);
   assert!(!ws.mother_entreat.trace.iter().any(|r|matches!(r.kind,world::DrawKind::DialogueLottery|world::DrawKind::StealCheck)));
   assert_eq!(ws.mother_entreat.world_after.route_items.get("ITM_CSM_0230"),Some(&1));
   assert_eq!(ws.magic_entreat.arrival,ws.mother_entreat.after);

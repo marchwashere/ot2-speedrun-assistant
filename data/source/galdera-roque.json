@@ -1,0 +1,514 @@
+{
+  "sources": [
+    {
+      "source": "/Game/Character/Database/NPCData",
+      "sha256": "ad0dfb8416c6235f60529a73ae07acda68d76d4f930acaa478c7cd8d9f6b101b"
+    },
+    {
+      "source": "/Game/Character/Database/NPCPurchaseData",
+      "sha256": "e8b32ed58e30d77842e73daab29d4ec184a05143fffb8cf171c46ab9cdb1066f"
+    },
+    {
+      "source": "/Game/Shop/Database/PurchaseItemTable",
+      "sha256": "93a6ebef110fdd3857ef48b24780304a20f7ff386fc7471a7926eea1dc6a8c8e"
+    },
+    {
+      "source": "/Game/Placement/Database/PlacementData",
+      "sha256": "0d5f12698b8e1f97740d5cc527b040b8bc8f10e343919c4fcac03b8fa6d5e793"
+    },
+    {
+      "source": "/Game/Character/Database/NPCBattleData",
+      "sha256": "971ea631372d5218ac05aa6c668263941d48c072a9cc155597156974c5e1ce63"
+    },
+    {
+      "source": "/Game/FieldCommand/Database/FieldCommandData",
+      "sha256": "bbfe6e7266905298685398c4c5a7940c97ae5e5f38bb61585d3bcfce6dab271e"
+    },
+    {
+      "source": "/Game/Environment/Database/ObjectData",
+      "sha256": "3820395bd5885e0cc7eb4cd3da39e944af210795f4421d203020a7222cd5bff1"
+    }
+  ],
+  "worker": {
+    "id": "NPC_Twn_Sea_3_1_A_TALK_0100",
+    "ID": 4,
+    "TextLabel": "CN_NPC_Twn_Sea_3_1_A_TALK_0100",
+    "NPC_UnqIndex": 14001,
+    "ActionID": "WldYm001_Mle",
+    "FaintAction": 36,
+    "UsePathLabel": "",
+    "IgnoreRelation": false,
+    "WorseRelationTextLabel": "eNPC_TALK_00",
+    "FCmd_Purchase_ID": "FC_P_NPC_Twn_Sea_3_1_A_TALK_0100",
+    "FCmd_Lure_ID": "FC_L_NPC_Twn_Sea_3_1_A_TALK_0100",
+    "FCmd_Battle_ID": "FC_B_NPC_Twn_Sea_3_1_A_TALK_0100",
+    "FCmd_Search_ID": "FC_INFO_NPC_Twn_Sea_3_1_A_TALK_0100",
+    "FCmd_RecoverArea": 5,
+    "FCmd_EnemyGroup": "ENG_NPC_Twn_Sea_3_1_A_TALK_0100",
+    "FCmd_UseBattleMapIndex": 0,
+    "TextInfoLabel": "NPC_000",
+    "IsNotWorsenRelation": false,
+    "FcSpecialPopupType": "EFieldCommandSpecialPopupType::eNone"
+  },
+  "purchase": {
+    "id": "FC_P_NPC_Twn_Sea_3_1_A_TALK_0100",
+    "ID": 4,
+    "CommandEnable": 15,
+    "ShopID": "NPC_Twn_Sea_3_1_A_TALK_0100_NPCBUY",
+    "PurchaseBuyTalkID": "None",
+    "StealSuccessTalkID": "None",
+    "StealFailedTalkID": "None",
+    "BegSuccessTalkID": "None",
+    "RobEnemyGroupID": "None",
+    "RobBeforeTalkID": "None",
+    "RobBeforeEventID": "None"
+  },
+  "guard": {
+    "id": "NPC_Twn_Sea_3_1_A_TALK_0200",
+    "ID": 5,
+    "TextLabel": "CN_NPC_Twn_Sea_3_1_A_TALK_0200",
+    "NPC_UnqIndex": 14002,
+    "ActionID": "NonSld007_Mle",
+    "FaintAction": 36,
+    "UsePathLabel": "",
+    "IgnoreRelation": false,
+    "WorseRelationTextLabel": "eNPC_TALK_00",
+    "FCmd_Purchase_ID": "FC_P_NPC_Twn_Sea_3_1_A_TALK_0200",
+    "FCmd_Lure_ID": "FC_L_NPC_Twn_Sea_3_1_A_TALK_0200",
+    "FCmd_Battle_ID": "FC_B_NPC_Twn_Sea_3_1_A_TALK_0200",
+    "FCmd_Search_ID": "FC_INFO_NPC_Twn_Sea_3_1_A_TALK_0200",
+    "FCmd_RecoverArea": 5,
+    "FCmd_EnemyGroup": "ENG_NPC_Twn_Sea_3_1_A_TALK_0200",
+    "FCmd_UseBattleMapIndex": 0,
+    "TextInfoLabel": "NPC_000",
+    "IsNotWorsenRelation": false,
+    "FcSpecialPopupType": "EFieldCommandSpecialPopupType::eNone"
+  },
+  "battle": {
+    "id": "FC_B_NPC_Twn_Sea_3_1_A_TALK_0200",
+    "ID": 2,
+    "CommandEnable": 15,
+    "EnemyGroupID": "None",
+    "WinEventFlag": [
+      0,
+      0,
+      0
+    ],
+    "LoseEventFlag": [
+      0,
+      0,
+      0
+    ],
+    "CanSwoon": true,
+    "SwoonTalkID": "None",
+    "SleepTalkID": "None",
+    "SwoonRecLevel": [
+      "Twn_Sea_3_1_B",
+      "Fld_Sea_3_1",
+      "None",
+      "None",
+      "None"
+    ],
+    "SwoonRecTimeZoneChange": false,
+    "SwooningFlags": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "BattleNeedLevel": 25,
+    "BattlePCTalk": 0,
+    "PreBattleTalkID": "None",
+    "PreBattleEventID": "None",
+    "LoseBattleTalkID": "None",
+    "LearnAbility": "ABI_SET_LRN_1930",
+    "IsDeathMatch": false,
+    "IsGameOverWhenLoose": false,
+    "AdditionalTargetNpc": [
+      "None",
+      "None"
+    ],
+    "IsIgnoreLeanAbility": false,
+    "BeforeMonsterEventID": "None",
+    "PreMonsterTalkID": "None",
+    "LooseMonsterTalkID": "None",
+    "AssassinateNeedLevel": 48,
+    "DoseItemID": "ITM_SLP_0020",
+    "DoseItemNum": 2
+  },
+  "ambush": {
+    "id": "FIELD_COMMAND_ASSASSINATE",
+    "ID": 14,
+    "FieldCommandType": "MJFieldCommandType::eAssassinate",
+    "FieldCommandCategory": "EFieldCommandCategory::eNight",
+    "NameTextLabel": "eFC_NAME_ASSASSINATE",
+    "DetailTextLabel": "eSTATUSMENU_FIELD_COMMAND_ASSASSINATE_DETAIL",
+    "DetailTextLabel_PlayerSelect": "TITLE_PLAYER_FC_N_05",
+    "HelpTextLabel": "eFC_NAME_ASSASSINATE_HELP",
+    "HelpTextLabel_NoNpc": "None",
+    "HelpTextLabel_Special": "None",
+    "HeaderTextLabel": "eFC_ASSASSINATE_HEADER",
+    "HeaderTextLabel_Special": "None",
+    "FooterTextLabel": "eFC_PREVIEW_UI_FOOTER",
+    "UnavailableTextLabel": "eFC_ASSASSINATE_UnavailableText",
+    "SELabel": "se_menu_field_darkness",
+    "IconLabel": "field_command_icon_15",
+    "IconLabel_Large": "field_command_iconL_15",
+    "StatusMenuIconLabel": "field_command_status_menu_icon_15",
+    "ActionWaitTime": 0.800000011920929,
+    "BranchEventWeight": [
+      0.5,
+      0.5
+    ],
+    "BeforeEventLabel": [
+      "FC_TOU_ASSASSINATE_Before_1",
+      "FC_TOU_ASSASSINATE_Before_2"
+    ],
+    "SuccessEventLabel": [
+      "FC_TOU_ASSASSINATE_Success",
+      "None"
+    ],
+    "FailedEventLabel": [
+      "None"
+    ],
+    "BadConnectionEventLabel": [
+      "FC_TOU_IMPOSSIBLE"
+    ],
+    "FlowClass": {
+      "kind": "soft-object",
+      "asset": {
+        "base": "None",
+        "number": 0,
+        "text": "None"
+      },
+      "subPath": ""
+    },
+    "FlowClassV2": {
+      "kind": "soft-object",
+      "asset": {
+        "base": "/Game/FieldCommand/BPv2/Flow/BP_FCv2_FieldCommandFlow_Assassinate.BP_FCv2_FieldCommandFlow_Assassinate_c",
+        "number": 0,
+        "text": "/Game/FieldCommand/BPv2/Flow/BP_FCv2_FieldCommandFlow_Assassinate.BP_FCv2_FieldCommandFlow_Assassinate_c"
+      },
+      "subPath": ""
+    },
+    "SubFlowClassV2": {
+      "kind": "soft-object",
+      "asset": {
+        "base": "None",
+        "number": 0,
+        "text": "None"
+      },
+      "subPath": ""
+    }
+  },
+  "chests": [
+    {
+      "id": "Treasure_Twn_Sea_3_1_A_10",
+      "ID": 1602,
+      "ObjectType": 1,
+      "ObjResLabel": "None",
+      "IsCollision": true,
+      "IsPutOnGround": true,
+      "IsMoney": false,
+      "HaveItemLabel": "ITM_CSM_0240",
+      "HaveItemCnt": 1,
+      "HideDialog": false,
+      "IsRevivalByLevelChange": false,
+      "RandomItemCandidates": [
+        {
+          "ItemLabel": "None",
+          "ItemNum": 0,
+          "Rate": 0
+        },
+        {
+          "ItemLabel": "None",
+          "ItemNum": 0,
+          "Rate": 0
+        },
+        {
+          "ItemLabel": "None",
+          "ItemNum": 0,
+          "Rate": 0
+        }
+      ]
+    },
+    {
+      "id": "Treasure_Twn_Sea_3_1_A_05",
+      "ID": 1597,
+      "ObjectType": 2,
+      "ObjResLabel": "None",
+      "IsCollision": true,
+      "IsPutOnGround": true,
+      "IsMoney": true,
+      "HaveItemLabel": "None",
+      "HaveItemCnt": 39800,
+      "HideDialog": false,
+      "IsRevivalByLevelChange": false,
+      "RandomItemCandidates": [
+        {
+          "ItemLabel": "None",
+          "ItemNum": 0,
+          "Rate": 0
+        },
+        {
+          "ItemLabel": "None",
+          "ItemNum": 0,
+          "Rate": 0
+        },
+        {
+          "ItemLabel": "None",
+          "ItemNum": 0,
+          "Rate": 0
+        }
+      ]
+    },
+    {
+      "id": "Treasure_Twn_Sea_3_1_A_06",
+      "ID": 1598,
+      "ObjectType": 1,
+      "ObjResLabel": "None",
+      "IsCollision": true,
+      "IsPutOnGround": true,
+      "IsMoney": false,
+      "HaveItemLabel": "ITM_CSM_0111",
+      "HaveItemCnt": 1,
+      "HideDialog": false,
+      "IsRevivalByLevelChange": false,
+      "RandomItemCandidates": [
+        {
+          "ItemLabel": "None",
+          "ItemNum": 0,
+          "Rate": 0
+        },
+        {
+          "ItemLabel": "None",
+          "ItemNum": 0,
+          "Rate": 0
+        },
+        {
+          "ItemLabel": "None",
+          "ItemNum": 0,
+          "Rate": 0
+        }
+      ]
+    },
+    {
+      "id": "Treasure_Twn_Sea_3_1_A_07",
+      "ID": 1599,
+      "ObjectType": 1,
+      "ObjResLabel": "None",
+      "IsCollision": true,
+      "IsPutOnGround": true,
+      "IsMoney": false,
+      "HaveItemLabel": "ITM_CSM_0111",
+      "HaveItemCnt": 1,
+      "HideDialog": false,
+      "IsRevivalByLevelChange": false,
+      "RandomItemCandidates": [
+        {
+          "ItemLabel": "None",
+          "ItemNum": 0,
+          "Rate": 0
+        },
+        {
+          "ItemLabel": "None",
+          "ItemNum": 0,
+          "Rate": 0
+        },
+        {
+          "ItemLabel": "None",
+          "ItemNum": 0,
+          "Rate": 0
+        }
+      ]
+    },
+    {
+      "id": "Treasure_Twn_Sea_3_1_A_09",
+      "ID": 1601,
+      "ObjectType": 1,
+      "ObjResLabel": "None",
+      "IsCollision": true,
+      "IsPutOnGround": true,
+      "IsMoney": false,
+      "HaveItemLabel": "ITM_CSM_0111",
+      "HaveItemCnt": 1,
+      "HideDialog": false,
+      "IsRevivalByLevelChange": false,
+      "RandomItemCandidates": [
+        {
+          "ItemLabel": "None",
+          "ItemNum": 0,
+          "Rate": 0
+        },
+        {
+          "ItemLabel": "None",
+          "ItemNum": 0,
+          "Rate": 0
+        },
+        {
+          "ItemLabel": "None",
+          "ItemNum": 0,
+          "Rate": 0
+        }
+      ]
+    },
+    {
+      "id": "Treasure_Twn_Sea_3_1_A_08",
+      "ID": 1600,
+      "ObjectType": 2,
+      "ObjResLabel": "None",
+      "IsCollision": true,
+      "IsPutOnGround": true,
+      "IsMoney": false,
+      "HaveItemLabel": "ITM_CSM_0610",
+      "HaveItemCnt": 1,
+      "HideDialog": false,
+      "IsRevivalByLevelChange": false,
+      "RandomItemCandidates": [
+        {
+          "ItemLabel": "None",
+          "ItemNum": 0,
+          "Rate": 0
+        },
+        {
+          "ItemLabel": "None",
+          "ItemNum": 0,
+          "Rate": 0
+        },
+        {
+          "ItemLabel": "None",
+          "ItemNum": 0,
+          "Rate": 0
+        }
+      ]
+    }
+  ],
+  "shops": [
+    {
+      "id": "NPC_Twn_Sea_3_1_A_SHOP01_04",
+      "ID": 3175,
+      "ItemLabel": "ITM_EQP_SLD_240",
+      "FCPrice": 0,
+      "PossibleItemLabel": "None",
+      "ObtainFlag": 0,
+      "ProperSteal": 0,
+      "ProperBeg": 0,
+      "LineupTime": "ELineupTime::eAlways",
+      "VisibleFlags": [
+        0
+      ],
+      "HiddenFlags": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "MillionaireModeLavel": "None",
+      "IsUnlimited": false,
+      "BeSoldOut": false
+    },
+    {
+      "id": "NPC_Twn_Sea_3_1_A_SHOP01_07",
+      "ID": 3178,
+      "ItemLabel": "ITM_EQP_AMR_300",
+      "FCPrice": 0,
+      "PossibleItemLabel": "None",
+      "ObtainFlag": 0,
+      "ProperSteal": 0,
+      "ProperBeg": 0,
+      "LineupTime": "ELineupTime::eAlways",
+      "VisibleFlags": [
+        0
+      ],
+      "HiddenFlags": [
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "MillionaireModeLavel": "None",
+      "IsUnlimited": false,
+      "BeSoldOut": false
+    }
+  ],
+  "data": {
+    "worker": "NPC_Twn_Sea_3_1_A_TALK_0100",
+    "steals": [
+      {
+        "id": "ITM_CSM_0080",
+        "level": 21
+      },
+      {
+        "id": "ITM_CSM_0090",
+        "level": 31
+      },
+      {
+        "id": "ITM_CSM_0390",
+        "level": 27
+      }
+    ],
+    "guard": "NPC_Twn_Sea_3_1_A_TALK_0200",
+    "guard_placements": [
+      "NPC_Twn_Sea_3_1_A_TALK_0200_D000",
+      "SHO_40_01_Twn_Sea_3_1_A_TALK_0200_D000"
+    ],
+    "ambush_level": 48,
+    "before": [
+      "FC_TOU_ASSASSINATE_Before_1",
+      "FC_TOU_ASSASSINATE_Before_2"
+    ],
+    "success": "FC_TOU_ASSASSINATE_Success",
+    "chests": [
+      {
+        "id": "Treasure_Twn_Sea_3_1_A_10",
+        "item": "ITM_CSM_0240",
+        "count": 1,
+        "money": false
+      },
+      {
+        "id": "Treasure_Twn_Sea_3_1_A_05",
+        "item": "None",
+        "count": 39800,
+        "money": true
+      },
+      {
+        "id": "Treasure_Twn_Sea_3_1_A_06",
+        "item": "ITM_CSM_0111",
+        "count": 1,
+        "money": false
+      },
+      {
+        "id": "Treasure_Twn_Sea_3_1_A_07",
+        "item": "ITM_CSM_0111",
+        "count": 1,
+        "money": false
+      },
+      {
+        "id": "Treasure_Twn_Sea_3_1_A_09",
+        "item": "ITM_CSM_0111",
+        "count": 1,
+        "money": false
+      },
+      {
+        "id": "Treasure_Twn_Sea_3_1_A_08",
+        "item": "ITM_CSM_0610",
+        "count": 1,
+        "money": false
+      }
+    ],
+    "shopping": [
+      {
+        "id": "ITM_EQP_SLD_240",
+        "price": 18000
+      },
+      {
+        "id": "ITM_EQP_AMR_300",
+        "price": 24000
+      }
+    ]
+  }
+}

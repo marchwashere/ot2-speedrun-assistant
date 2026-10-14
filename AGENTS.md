@@ -1,8 +1,111 @@
 # Active project
 
+- Automatic JP-location selection is now active in galdera_flex::finish.
+  Crackridge book, Roque purchase/loot, Firestarter allow all six orders, all
+  BEFORE Nameless; Shipwreck always AFTER full Nameless/Gigantes/Georges.
+  Roque JP can end early and leave errands unmanipulated. Later candidates
+  use even Tropu switches before shipyard; no extra later coarse switch site.
+  Replay actual full downstream RNG, not a fixed anchor offset. Compare old
+  Roque fallback against later candidates by switches*7 + boost inputs; required
+  errands cost zero. Fine window96, Nameless Escape/Gigantes cycles capped48;
+  least evaluated cost, not global optimum. Carry gear, inventory, rewards,
+  knowledge and resources; terminal field_return is JP victory. Viewer handles
+  chosen location and prior Gigantes. Older "inactive selector" notes superseded.
+
+- Shipwreck candidate: galdera_shipwreck::run teleports Crackridge Harbor,
+  loads sea via owned boat, then Shipwreck with zero sea encounters. Exactly one
+  land encounter per user route. Day branch predicts successful Escape (boost
+  inputs recorded; low-level Temenos may not have100%). Night branch uses five
+  Nameless openings, Partitio small Pom, BG then Osvald+3 Fireball. Carry Rusty
+  Dagger chest ITM_TRE_WPM_03 afterward. Full gear menu applied at Shipwreck if
+  not already done at Nameless; actual acquired inventory required. Chest path
+  distance is unmeasured: no no-second-encounter guarantee or run percentage.
+  Selector/UI still inactive. Import-town-loading --add-shipwreck, then
+  import-galdera-shipwreck; core import-highroad-return adds six land formations.
+
+- Nameless JP candidate is implemented as galdera_nameless::jp_finish, separate
+  from finish/escape_approach. Daytime water Ebony Eel x3 only; reject ambush and
+  T->Throne->Osvald opening. Full BG JP100/+1 Fireball search, Partitio small Pom,
+  rewards/resources/history/drops carried. Search finisher boosts until remaining
+  mixed-terrain path is safe (+3 running padding, whole-route percentages).
+  Manip ends at JP victory; no Gigantes/Georges RNG search on this branch.
+  Automatic location selector/UI are still pending; default branch still flees.
+
+- Nameless finish now continues after the existing Georges rescue scene: day,
+  guaranteed Mage's Robe Steal (level47), path-action switch/close, Scrutinize,
+  Finisher's Claws chest. Scrutinize is 72% at Osvald70; failed candidates return
+  None, never grant information. Source-derived check plus before-dialogue lottery
+  and standard success event; no additional Georges-specific Scrutinize scene.
+  Final carried state is Trip.loot.end(), not Trip.victory. Selector still inactive.
+  Search minimum Partitio T2 finisher 0->1->0 cycles (then 0->3) to secure
+  Scrutinize; replay actual Beastlings, drops, field return, scene and day switch
+  for every candidate. Trip.finisher_boost_cycles records the selected inputs.
+
+- Nameless Isle continuation is implemented but remains inactive pending the
+  automatic JP-location selector. galdera_nameless::finish takes daytime island
+  entry, applies transactional manual gear/nuts (requires actual Roque + Firestarter
+  loot), takes the measured water Escape, switches night and replays Gigantes and
+  its victory scene/flag40003. No UI/selector activation. See docs/galdera-nameless.md.
+- Current post-Temenos menu supersedes older notes below: Osvald Collect BEFORE
+  Warrior; Partitio Collect; BOTH equip Boost-Start immediately. Temenos Dancer
+  and A Step Ahead (no Inventor assignment). All four now have ASA before Sands.
+  New Sands: T1 Scope/Holy Light/Osvald Defend; Partitio Defend if before Osvald,
+  otherwise lance. T2 Osvald+3 Slash then Partitio+3 Beastlings; others Defend.
+  Gravell only adds Temenos BG; repeated support setup is idempotent.
+
+- After Temenos recruitment, Osvald learns Merchant Collect (500 JP) BEFORE
+  changing to Warrior; equip Boost-Start on BOTH Osvald and Partitio there. Temenos
+  learns BG and directly equips A Step Ahead from globally crafted inventions;
+  synchronize Inventor unlocks without assigning Inventor or swapping jobs.
+  Existing support skills are retained; these menus consume no RNG.
+
+
+- Nameless Isle inactive dodge builder: galdera_nameless::escape_approach takes
+  daytime island-entry state with EM. Run70 land, then first water encounter;
+  measured run70/67/181, walk73/69/191. Search Escape boost cycles for a safe
+  reset; one run-to-walk switch, segment-wise ceil walking costs, +3 RUNNING
+  decrement reserve at the end. Minimize boost cycles then maximize running.
+  Returned percentages cover the WHOLE unpadded island route, including the
+  pre-battle running prefix. Retain precise segment counts for future UI.
+  No automatic JP-location selector, harbor/boat chain, JP100 fight or Gigantes
+  battle is activated by this helper. It ends just before Gigantes.
+
+
+- Galdera supplies: skip Wellgrove tavern Shopkeeper entirely. Keep Mother
+  Lychee M and Mysterious Merchant Magic L Entreats. Gravell Old Man steals
+  Lychee L then Sharp L in one menu (guaranteed31/33), path-action switch/close:
+  three draws. Sell restored weapons at Provisioner, then buy one Diffusing
+  Serum for3000 (ordinary stock, no RNG); separate serum_cost from gross sales.
+
+- Inactive deferred Roque branch: galdera_flex::deferred_roque(entry, even Tropu
+  switches, optional Wind M) keeps harbor daytime, rejects ambush, takes one
+  guaranteed Escape, enters town day, steals Pom M/L (optionally Wind M),
+  switches path action/close, night Ambush guard48, six guarded chests, buys
+  Swift Shield/Quick Cloak. Factory Worker has Wind M, NOT L. Native map/time/
+  Ambush callbacks, inventory and final RNG carried; no JP100 awarded.
+  Do not select this branch until Nameless/Shipwreck routines and automatic
+  comparison exist. No manual UI switch requested. Existing RoqueJP unchanged.
+  Add map with import-town-loading.cjs --add-roque (preserves existing imports),
+  then import-galdera-roque.cjs. Source-derived endpoints await retail check.
+
+- Galdera Sai return after Oresrush stays night: Entreat Skull Helm from Soldier
+  TALK_1500 (ProperBeg36), path-action switch/close, then enter East District
+  for Augmentor. One menu-opening draw; carry ITM_EQP_HLM_180 in inventory.
+  Replaces planned Crackridge armourer purchase; no added time switch.
+
+- Galdera second Conning Creek visit: daytime Head Cook Critical Nut L Steal
+  before optional night switch, then path-action switch/close. NPC TALK_0700,
+  ITM_CSM_0730, ProperSteal22/guaranteed33; two draws, carried inventory and
+  downstream coast search. Replaces planned Roque hidden Critical Nut L pickup.
+
+- Galdera Experimental tab uses route ID galdera_experimental, with independent
+  result/voice caches and exported route identity. It currently shares the Galdera
+  simulation as its starting baseline; earlier Temenos and revised supply routing
+  are not implemented yet. Preserve both existing routes when adding experiments.
+
 - Gravell restoration visit: after daytime Villager supplies, steal Empowering
-  Lychee L from Old Man TALK_0200 (guaranteed31), then switch path action/close.
-  Adds two draws (opening + Steal check). Only switch night after this steal
+  Lychee L and Sharp L from Old Man TALK_0200 (guaranteed31/33), then switch path action/close.
+  Adds three draws (opening + two Steal checks). Only switch night after this steal
   and the RNG-free skill setup. Carry the Lychee into downstream inventory.
 
 - Galdera after Sai East District Augmentor Entreat: immediately day, steal

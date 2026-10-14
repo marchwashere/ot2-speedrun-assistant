@@ -271,6 +271,8 @@ pub struct CharacterProgression {
 }
 #[derive(Debug,Clone,Default,PartialEq,Eq,PartialOrd,Ord,Hash,Serialize,Deserialize)]
 pub struct CharacterJobs {
+    #[serde(default,skip_serializing_if="BTreeMap::is_empty")]
+    pub equipped_route_items:BTreeMap<String,String>,
     #[serde(default,skip_serializing_if="BTreeSet::is_empty")]
     pub ex_abilities:BTreeSet<String>,
     pub secondary_job:Option<u32>,
@@ -280,7 +282,7 @@ pub struct CharacterJobs {
     pub equipped_support:BTreeSet<String>,
 }
 impl CharacterJobs {
-    pub fn is_empty(&self)->bool {self.ex_abilities.is_empty() && self.secondary_job.is_none() && self.learned_abilities.is_empty()
+    pub fn is_empty(&self)->bool {self.equipped_route_items.is_empty()&&self.ex_abilities.is_empty() && self.secondary_job.is_none() && self.learned_abilities.is_empty()
         && self.unlocked_support.is_empty() && self.equipped_support.is_empty()}
 }
 impl WorldState {
@@ -377,6 +379,7 @@ pub enum DrawKind {
     FlagLottery,
     PathActionMenu,
     StealCheck,
+    ScrutinizeCheck,
     MerchantTalent,
     DialogueLottery,
     TavernLottery,
@@ -1429,7 +1432,7 @@ impl<'a> Loader<'a> {
                 // have no CRT lottery or field-state/placement side effects.
                 4 | 10 | 20 | 30 | 55 | 60 | 65 | 106 | 200 | 210 | 240 | 300 | 400 | 710 | 711 | 8010 | 9100
                     if matches!(name,"MS_KEN_00_0100"|"MS_KEN_00_0300"|"MS_KUS_00_0100"|"MS_SIN_00_0100"|"MS_SIN_00_0300") => {}
-                600 if name=="EV_Dng_Dst_2_2_0010" && c.index==1 && c.opt==["EVM_DNG_DST_2_2_L","EV_Dng_Dst_2_2_0020","0","1","0"] => {
+                600 if c.index==1 && ((name=="EV_Dng_Dst_2_2_0010"&&c.opt==["EVM_DNG_DST_2_2_L","EV_Dng_Dst_2_2_0020","0","1","0"])||(name=="EV_Dng_Ocn_1_3_0010"&&c.opt==["EVM_DNG_OCN_1_3_L","EV_Dng_Ocn_1_3_0020","0","1","0"])) => {
                     ensure(matches!(stop_before,Some(EventStop::Battle)),"Lord Sands requires explicit battle boundary")?;
                     return Ok(EventExit::Battle(ScriptedBattle {event:name.into(),command_index:c.index,volume:c.opt[0].clone(),victory_event:c.opt[1].clone()}));
                 }
@@ -1445,6 +1448,10 @@ impl<'a> Loader<'a> {
                         volume:c.opt[0].clone(),victory_event:c.opt[1].clone()}));
                 }
                 10000 => break,
+                // Gigantes' authored post-battle scene: fixed staging/poses and
+                // dialogue. Persistent flag40003 and refresh9990 execute normally.
+                4|10|20|40|106|110|200|220|240|250|300|710|711|8010
+                    if name=="EV_Dng_Ocn_1_3_0020" => {},
                 8610 if matches!(name,"SYS_INV_GUILD_0C10"|"SYS_INV_GUILD_0D10") => {
                     // Inventor dialog Yes, after verifying materials in retail:
                     // EventManagerBP.UpdateInventorFrow uses opt[2] as EventIndex.

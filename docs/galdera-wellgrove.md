@@ -57,12 +57,13 @@ ProperSteal10, guaranteeing success at level21+. One menu opening and two
 success checks consume three CRT draws. Change path action before closing;
 no closing dialogue lottery. Add two ITM_CSM_0080 to carried inventory, then
 switch to night through Loader's real callbacks.
-Entreat Sharp Nut(L) ITM_CSM_0670 and Diffusing Serum ITM_MRL_COM_0010 from tavern
-Shopkeeper NPC_Twn_Fst_2_1_A_TALK_0400 in one menu session. Both require Agnea
-level26. Change selected path action before closing: one opening timer only,
-no item probability checks or closing dialogue.
+Skip the tavern Shopkeeper. Sharp Nut (L) now comes from the Gravell Old Man,
+in the same Steal session as Lychee (L), followed by path-action switch/close.
+Buy one Diffusing Serum for 3,000 leaves at Gravell Provisioner during the
+restored-weapon sale visit. The extra steal adds one check; the shop purchase
+adds no RNG. Wellgrove loses its former one-draw tavern interaction.
 
-Then Entreat Empowering Lychee(M)
+Entreat Empowering Lychee(M)
 ITM_CSM_0230 from Girl's Mother NPC_SS_TF21_0200_0300 (the actually placed
 pre-quest NPC, identical inventory to the unused town0600 definition). Agnea
 needs level20. Change selected path action before closing: one opening timer,

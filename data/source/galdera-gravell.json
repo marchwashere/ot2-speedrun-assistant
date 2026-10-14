@@ -87,8 +87,143 @@
     {
       "source": "/Game/UserInterface/Shop/BP/ShopMenuWidget",
       "sha256": "ed2f7810ab549ee2df8dd3af79f6f1fb67e979360671159561004b6c95b1b178"
+    },
+    {
+      "source": "/Game/Shop/Database/PurchaseItemTable",
+      "sha256": "93a6ebef110fdd3857ef48b24780304a20f7ff386fc7471a7926eea1dc6a8c8e"
     }
   ],
+  "serumStock": {
+    "id": "NPC_Twn_Wld_3_1_A_SHOP02_08",
+    "ID": 3914,
+    "ItemLabel": "ITM_MRL_COM_0010",
+    "FCPrice": 0,
+    "PossibleItemLabel": "None",
+    "ObtainFlag": 0,
+    "ProperSteal": 0,
+    "ProperBeg": 0,
+    "LineupTime": "ELineupTime::eAlways",
+    "VisibleFlags": [
+      0
+    ],
+    "HiddenFlags": [
+      0,
+      0,
+      0,
+      0,
+      0
+    ],
+    "MillionaireModeLavel": "None",
+    "IsUnlimited": false,
+    "BeSoldOut": false
+  },
+  "serumItem": {
+    "id": "ITM_MRL_COM_0010",
+    "ID": 10589,
+    "ItemNameID": "TX_NA_ITM_MRL_COM_0010",
+    "DetailTextID": "TX_CO_ITM_MRL_COM_0010",
+    "IconLabel": "ITEM_ICON_MAT_MEDICINE",
+    "ItemCategory": "EItemCategoryData::eMATERIAL_C",
+    "SortCategory": 42,
+    "BackpackPriority": 214,
+    "DisplayType": "EITEM_DISPLAY_TYPE::eDISABLE",
+    "UseType": "EITEM_USE_TYPE::eDISABLE",
+    "MaxNum": 99,
+    "SpecialItemLabel": "None",
+    "TargetType": "EBATTLE_TARGET_TYPE::eSELF",
+    "Attribute": "EATTRIBUTE_TYPE::eNONE",
+    "Ailment": [
+      {
+        "AilmentName": "None",
+        "InvocationValue": 0,
+        "InvocationTurn": 0,
+        "DiseaseRate": 0
+      },
+      {
+        "AilmentName": "None",
+        "InvocationValue": 0,
+        "InvocationTurn": 0,
+        "DiseaseRate": 0
+      },
+      {
+        "AilmentName": "None",
+        "InvocationValue": 0,
+        "InvocationTurn": 0,
+        "DiseaseRate": 0
+      },
+      {
+        "AilmentName": "None",
+        "InvocationValue": 0,
+        "InvocationTurn": 0,
+        "DiseaseRate": 0
+      }
+    ],
+    "ValuableFlag": false,
+    "BuyPrice": 3000,
+    "SellPrice": 600,
+    "BuyMeetCount": 50,
+    "SellMeetCount": 0,
+    "EquipmentCategory": "EEquipmentCategory::eSWORD",
+    "EquipmentTextureLabel": "None",
+    "EquipmentRevision": {
+      "HP": 0,
+      "MP": 0,
+      "BP": 0,
+      "SP": 0,
+      "POT": 0,
+      "ATK": 0,
+      "DEF": 0,
+      "MATK": 0,
+      "MDEF": 0,
+      "ACC": 0,
+      "EVA": 0,
+      "CON": 0,
+      "AGI": 0
+    },
+    "AttributeResist": [
+      "EATTRIBUTE_RESIST::eNONE",
+      "EATTRIBUTE_RESIST::eNONE",
+      "EATTRIBUTE_RESIST::eNONE",
+      "EATTRIBUTE_RESIST::eNONE",
+      "EATTRIBUTE_RESIST::eNONE",
+      "EATTRIBUTE_RESIST::eNONE",
+      "EATTRIBUTE_RESIST::eNONE"
+    ],
+    "DiseaseResist": [
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false,
+      false
+    ],
+    "CommandEffecter": {
+      "kind": "object",
+      "index": 0,
+      "path": null
+    },
+    "ActionCommandSequencer": {
+      "kind": "soft-object",
+      "asset": {
+        "base": "None",
+        "number": 0,
+        "text": "None"
+      },
+      "subPath": ""
+    },
+    "TextInfoLabel": "ITEM_000",
+    "DisableAttackCommand": false,
+    "DisableRecoveryCommand": false,
+    "DisableReviveCommand": false,
+    "AbilityLabel": "None",
+    "DebugRecommendLv": 0
+  },
   "guard": {
     "id": "NPC_Twn_Wld_3_1_A_TALK_1600",
     "ID": 19,

@@ -1,6 +1,22 @@
 # Sai return to Quicksand Gaol
 
-After Temenos recruitment, use Warrior license2 for Osvald (replacing Merchant0), Dancer license5 for Temenos. Native job revisions, permitted weapons, default commands and support unlocks update through the shared assignment helper; existing learned/equipped supports survive. No JP purchases or new support assignments. Setup consumes zero RNG.
+## Current routine (supersedes the historical routine below)
+
+After Temenos recruitment: Osvald learns Collect while Merchant, then takes
+Warrior; Partitio learns Collect. Equip Boost-Start on both immediately. Give
+Temenos Dancer and A Step Ahead directly; retain A Step Ahead on all four.
+Gravell subsequently teaches only Temenos Bewildering Grace. No menu RNG.
+
+Night Sands routine: T1 Throne Critical Scope, Osvald Defend, Temenos Holy Light,
+Partitio Defend if before Osvald, otherwise unboosted lance. T2 Osvald +3
+Aggressive Slash, Partitio +3 Beastlings, others Defend if needed. Six sword hits
+plus Holy Light break seven shields. Both merchants have3BP on T2. Implemented
+by `gigantes::predict_sands`;128-seed tests cover six-hit Slash and unchanged
+action prefixes when adjusting the finisher. The UI uses actual action reports.
+
+## Historical three-turn implementation
+
+After Temenos recruitment, use Warrior license2 for Osvald (replacing Merchant0), Dancer license5 for Temenos. Native job revisions, permitted weapons, default commands and support unlocks update through the shared assignment helper; existing learned/equipped supports survive. Osvald first learns Collect while still Merchant (500 JP), unlocking Boost-Start; he equips it later at Gravell, not for Lord of the Sands. No new support assignments here. Setup consumes zero RNG.
 
 Teleport daytime Sai, discard chapter starts, load Southern Sai then Western Sai with no Southern encounter per user routing. Predict one Western land encounter, reject Surprise, first-menu Escape100, then load Quicksand Gaol Dng_Dst_2_2 map40. If ambushed, increase complete boost0→1→0 cycles before the +1BP Temenos recruitment attack, require a one-action kill, and replay rewards, field return, recruitment scenes, party swap, jobs and all loads. Introduction/first menu and earlier route remain frozen; there are no Sai time switches. Distances after Sai are unmeasured, so this models the specified encounter count without inventing movement/counter decrements. Continue with the agreed boss routine below.
 

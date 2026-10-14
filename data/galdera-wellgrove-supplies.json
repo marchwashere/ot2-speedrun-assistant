@@ -1,17 +1,4 @@
 {
-  "shopkeeper": {
-    "npc": "NPC_Twn_Fst_2_1_A_TALK_0400",
-    "items": [
-      {
-        "item": "ITM_CSM_0670",
-        "required_level": 26
-      },
-      {
-        "item": "ITM_MRL_COM_0010",
-        "required_level": 26
-      }
-    ]
-  },
   "mother": {
     "npc": "NPC_SS_TF21_0200_0300",
     "item": "ITM_CSM_0230",

@@ -88,7 +88,7 @@ function validateSeed(text) {
 
 let activeRoute = 'any_hikari';
 const routeResults = new Map();
-const routeNames = () => ['Throné',activeRoute === 'galdera' ? 'Osvald' : 'Hikari','Agnea','Partitio'];
+const routeNames = () => ['Throné',activeRoute !== 'any_hikari' ? 'Osvald' : 'Hikari','Agnea','Partitio'];
 function readSetup() {
   const seed = validateSeed($('seed').value.trim());
   const text = $('advances').value.trim();
@@ -132,6 +132,7 @@ function showScreen(screen) {
     $(`${name}-mode`).setAttribute('aria-pressed', String(name === screen && (name !== 'manipulation' || activeRoute === 'any_hikari')));
   }
   $('galdera-mode').setAttribute('aria-pressed',String(screen === 'manipulation' && activeRoute === 'galdera'));
+  $('galdera-experimental-mode').setAttribute('aria-pressed',String(screen === 'manipulation' && activeRoute === 'galdera_experimental'));
   window.dispatchEvent(new CustomEvent('screen-changed', {detail:screen}));
   window.scrollTo({...position, behavior:'instant'});
   requestAnimationFrame(() => {
@@ -144,10 +145,11 @@ function selectRoute(route) {
   routeResults.set(activeRoute,{result,snowsEncounterTiming,westernSecondOverride});
   activeRoute=route;
   ({result=null,snowsEncounterTiming=null,westernSecondOverride=null}=routeResults.get(route)||{});
-  $('manipulation-title').textContent=route==='galdera'?'Galdera':'Any% Hikari';
+  $('manipulation-title').textContent=route==='galdera_experimental'?'Galdera Experimental':route==='galdera'?'Galdera':'Any% Hikari';
   showScreen('manipulation');
   $('manipulation-mode').setAttribute('aria-pressed',String(route==='any_hikari'));
   $('galdera-mode').setAttribute('aria-pressed',String(route==='galdera'));
+  $('galdera-experimental-mode').setAttribute('aria-pressed',String(route==='galdera_experimental'));
   $('error').hidden=true;
   window.dispatchEvent(new CustomEvent('route-changed',{detail:{route,previous}}));
   if(result){if(result.crt_setup)renderSetup(result.crt_setup);render();}else{
@@ -159,6 +161,7 @@ function selectRoute(route) {
 }
 $('manipulation-mode').addEventListener('click',()=>selectRoute('any_hikari'));
 $('galdera-mode').addEventListener('click',()=>selectRoute('galdera'));
+$('galdera-experimental-mode').addEventListener('click',()=>selectRoute('galdera_experimental'));
 for (const name of ['detail','field','settings']) $(`${name}-mode`).addEventListener('click',()=>showScreen(name));
 
 async function simulate(event) {
@@ -1137,11 +1140,11 @@ function renderCrackridgeVoyage() {
                   if(g.coast) {
                     const c=g.coast,m=c.movement;
                     $('galdera-coast-result').hidden=false;
-                    $('galdera-coast-routine').innerHTML=instructionBoxHtml([c.conning_night
-                      ? 'Conning Creek: switch to night immediately after landing. Western Conning Creek Coast: switch to day immediately after entering.'
+                    $('galdera-coast-routine').innerHTML=instructionBoxHtml(['Conning Creek tavern: steal Critical Nut (L) from Head Cook. Switch path action, then close.'])+instructionBoxHtml([c.conning_night
+                      ? 'Conning Creek: switch to night after the Head Cook steal. Western Conning Creek Coast: switch to day immediately after entering.'
                       : 'No night/day adjustment in Conning Creek or Western Conning Creek Coast.'])
                       +instructionBoxHtml([`Run first ${m.run_percent.toFixed(1)}% · walk remaining ${(100-m.run_percent).toFixed(1)}%`]);
-                    for(const [label,e] of [['Western Gravell · switched to day before Gravell tag',c.day_before_gravell],['Conning Creek · fast travel',c.conning],['Conning Creek · switched to night',c.conning_night],['Western Conning Creek Coast · loaded',c.coast_entry],['Western Conning Creek Coast · switched to day',c.coast_day],['Western Conning Creek Coast · reached Eastern Sai exit without encounter',c.coast_exit],['Eastern Sai Sands · loaded',c.eastern_sai]]) {
+                    for(const [label,e] of [['Western Gravell · switched to day before Gravell tag',c.day_before_gravell],['Conning Creek · fast travel',c.conning],['Conning Creek · Head Cook Critical Nut (L) steal and path-action switch',c.head_cook_steal],['Conning Creek · switched to night',c.conning_night],['Western Conning Creek Coast · loaded',c.coast_entry],['Western Conning Creek Coast · switched to day',c.coast_day],['Western Conning Creek Coast · reached Eastern Sai exit without encounter',c.coast_exit],['Eastern Sai Sands · loaded',c.eastern_sai]]) {
                       if(e){conningStages.push([label,e]);conningSpans.push(...e.trace);}
                     }
                     for(const [key,label,s] of [['eastern-sai','Eastern Sai Sands',c.eastern_sai_encounter],['southern-sai','Southern Sai Sands',c.southern_sai]]) {
@@ -1170,7 +1173,7 @@ function renderCrackridgeVoyage() {
                       }
                       if(o.augmentor) {
                         const a=o.augmentor;
-                        for(const [label,e] of [['Sai · fast travel back at night, chapter start discarded',a.sai],['Sai: East District · entered at night, chapter start discarded',a.east_district],['Sai: East District · Elemental Augmentor entreated · change path action, then close without dialogue',a.entreat],['Sai: East District · switch to day immediately',a.day],['Sai: East District · steal Reinforcing Jam from Townsperson outside orphanage · change path action, then close without dialogue',a.jam_steal]]) {
+                        for(const [label,e] of [['Sai · fast travel back at night, chapter start discarded',a.sai],['Sai · Soldier Skull Helm entreated · change path action, then close without dialogue',a.skull_helm],['Sai: East District · entered at night, chapter start discarded',a.east_district],['Sai: East District · Elemental Augmentor entreated · change path action, then close without dialogue',a.entreat],['Sai: East District · switch to day immediately',a.day],['Sai: East District · steal Reinforcing Jam from Townsperson outside orphanage · change path action, then close without dialogue',a.jam_steal]]) {
                           conningStages.push([label,e]);conningSpans.push(...e.trace);
                         }
                       }
@@ -1216,7 +1219,7 @@ function renderCrackridgeVoyage() {
                           conningSpans.push(...f.escape.trace);
                           if(t.supplies) {
                             const v=t.supplies;
-                            for(const [stage,e] of [['Wellgrove · Merchant: steal 2 Energizing Pomegranates (M) · change path action, then close without dialogue',v.pom_steal],['Wellgrove · switched to night after stealing both Pom M',v.night],['Wellgrove tavern · Sharp Nut (L) and Diffusing Serum entreated · change path action, then close without dialogue',v.tavern_entreat],["Wellgrove · Girl's Mother Empowering Lychee (M) entreated · change path action, then close without dialogue",v.mother_entreat],['Wellgrove · Mysterious Merchant north of tavern: Magic Nut (L) entreated · change path action, then close without dialogue',v.magic_entreat],['Wellgrove · Dancer License acquired',v.dancer_license]]) {
+                            for(const [stage,e] of [['Wellgrove · Merchant: steal 2 Energizing Pomegranates (M) · change path action, then close without dialogue',v.pom_steal],['Wellgrove · switched to night after stealing both Pom M',v.night],["Wellgrove · Girl's Mother Empowering Lychee (M) entreated · change path action, then close without dialogue",v.mother_entreat],['Wellgrove · Mysterious Merchant north of tavern: Magic Nut (L) entreated · change path action, then close without dialogue',v.magic_entreat],['Wellgrove · Dancer License acquired',v.dancer_license]]) {
                               conningStages.push([stage,e]);conningSpans.push(...e.trace);
                             }
                             if(v.al_return) {
@@ -1251,8 +1254,8 @@ function renderCrackridgeVoyage() {
                                   if(r.quicksand) {
                                     const q=r.quicksand,f=q.western_sai,label='Western Sai Sands · before Quicksand Gaol';
                                     $('galdera-quicksand-result').hidden=false;
-                                    $('galdera-quicksand-routine').innerHTML='<p><strong>'+escapeHtml(encounterLabel(f.encounter))+'</strong></p>'+'<p><strong>T1 · '+(f.menu.first_actor===2?'Temenos':names[f.menu.first_actor])+' · 1st command menu</strong></p>'+instructionBoxHtml(['Osvald → Warrior · Temenos → Dancer','Teleport to Sai','Southern Sai Sands → Western Sai Sands · no encounter in Southern Sai','Western Sai Sands: Escape ('+f.escape.chance_percent+'%)','Enter Quicksand Gaol']);
-                                    for(const [stage,e]of [['Party setup · Osvald Warrior, Temenos Dancer',q.setup],['Sai · returned after Temenos recruitment',q.sai],['Southern Sai Sands · encounterless crossing',q.southern_sai],['Western Sai Sands · entered before Quicksand',f.arrival],[label+' · escaped, field restored',f.field_return],['Quicksand Gaol · entered',q.quicksand]]) {if(e){conningStages.push([stage,e]);conningSpans.push(...e.trace);}}
+                                    $('galdera-quicksand-routine').innerHTML='<p><strong>'+escapeHtml(encounterLabel(f.encounter))+'</strong></p>'+'<p><strong>T1 · '+(f.menu.first_actor===2?'Temenos':names[f.menu.first_actor])+' · 1st command menu</strong></p>'+instructionBoxHtml(['Osvald: learn Collect, then → Warrior · Temenos → Dancer; equip A Step Ahead','Partitio: learn Collect · Osvald and Partitio: equip Boost-Start','Teleport to Sai','Southern Sai Sands → Western Sai Sands · no encounter in Southern Sai','Western Sai Sands: Escape ('+f.escape.chance_percent+'%)','Enter Quicksand Gaol']);
+                                    for(const [stage,e]of [['Party setup · Osvald learns Collect, then Warrior; Temenos Dancer',q.setup],['Sai · returned after Temenos recruitment',q.sai],['Southern Sai Sands · encounterless crossing',q.southern_sai],['Western Sai Sands · entered before Quicksand',f.arrival],[label+' · escaped, field restored',f.field_return],['Quicksand Gaol · entered',q.quicksand]]) {if(e){conningStages.push([stage,e]);conningSpans.push(...e.trace);}}
                                     conningPoints.push([label+' · before battle initialization',f.battle_entry],[label+' · first command menu',f.menu.rng]);
                                     let previous=f.arrival.after;const origin=BigInt(previous.draws)-BigInt(f.encounter.checkpoints[0].draws);
                                     for(const checkpoint of f.encounter.checkpoints){const after={state:checkpoint.state,draws:origin+BigInt(checkpoint.draws)};conningSpans.push({reason:label+' · '+checkpoint.label,before:previous,after});previous=after;}
@@ -1260,7 +1263,7 @@ function renderCrackridgeVoyage() {
                                     if(q.lord_sands) {
                                       const r=q.lord_sands,b=r.battle,party=['Throné','Osvald','Temenos','Partitio'];
                                       $('galdera-lord-sands-result').hidden=false;
-                                      $('galdera-lord-sands-routine').innerHTML=instructionBoxHtml(['Go directly to the boss · no random encounters','Switch to night before the fight',...b.actions.map(a=>'T'+a.turn+' · '+party[a.actor]+' · '+(a.turn===3&&r.finisher_boost_cycles?'Boost 0 → 1 → 0 × '+r.finisher_boost_cycles+' → ':'')+(a.bp?'+'+a.bp+' BP → ':'')+a.name)])+'<p class="muted">Beastlings: '+b.money_spent.toLocaleString()+' leaves · Rewards: '+b.rewards.exp+' EXP · '+b.rewards.jp+' JP · '+b.rewards.money+' leaves</p>';
+                                      $('galdera-lord-sands-routine').innerHTML=instructionBoxHtml(['Go directly to the boss · no random encounters','Switch to night before the fight',...b.actions.map(a=>'T'+a.turn+' · '+party[a.actor]+' · '+(a.actor===3&&a.turn===2&&r.finisher_boost_cycles?'Boost 0 → 1 → 0 × '+r.finisher_boost_cycles+' → ':'')+(a.bp?'+'+a.bp+' BP → ':'')+a.name)])+'<p class="muted">Beastlings: '+b.money_spent.toLocaleString()+' leaves · Rewards: '+b.rewards.exp+' EXP · '+b.rewards.jp+' JP · '+b.rewards.money+' leaves</p>';
                                       for(const [stage,e]of [['Lord of the Sands · night switch',r.night],['Lord of the Sands · accepted boss prompt',r.prompt],['Lord of the Sands · victory field return',r.field_return],['Lord of the Sands · defeat event complete',r.victory]]){conningStages.push([stage,e]);conningSpans.push(...e.trace);}
                                       conningPoints.push(['Lord of the Sands · first command menu',b.at_command_menu],['Lord of the Sands · victory and drops',b.after]);
                                       for(const a of b.actions)conningPoints.push(['Lord of the Sands · T'+a.turn+' '+party[a.actor]+' · before '+a.name,a.report.rng_before],['Lord of the Sands · T'+a.turn+' '+party[a.actor]+' · after '+a.name,a.report.rng_after]);
@@ -1275,10 +1278,10 @@ function renderCrackridgeVoyage() {
                                         conningPoints.push([label+' · first command menu',f.menu.rng]);conningSpans.push(...f.escape.trace);
                                       }
                                       if(q.flex) {
-                                        const x=q.flex,lines=['Order: '+x.order.map(n=>({1:'Boat → Roque JP ×100',2:'Crackridge book',3:'Sai → Firestarter'})[n]).join(' → ')];
-                                        for(const segment of [...x.segments,x.boat]) {
+                                        const x=q.flex,location=x.location||'Roque Island Harbor',lines=['JP ×100: '+location,'Order: '+x.order.map(n=>({1:'Boat → Roque Island',2:'Crackridge book',3:'Sai → Firestarter',4:'Nameless Isle',5:'Shipwreck'})[n]).join(' → ')];
+                                        for(const segment of [...x.segments,x.boat,...(x.continuation||[])]) {
                                           if(segment.extra_switches)lines.push((segment===x.boat?'Tropu’hopu · before entering the Shipyard':segment.name==='Sai / Firestarter'?'Sai · before leaving town':'Before teleporting to Beasting Bay')+': '+segment.extra_switches+' extra time switches');
-                                          for(const [label,e] of segment.stages){conningStages.push([label,e]);conningSpans.push(...e.trace);}
+                                          for(const [label,e] of segment.stages){lines.push(label);conningStages.push([label,e]);conningSpans.push(...e.trace);}
                                           segment.encounters.forEach((f,j)=>{
                                             const label=segment.name+' · encounter '+(j+1);lines.push(label+': '+encounterLabel(f.encounter));
                                             let previous=f.arrival.after;const origin=BigInt(previous.draws)-BigInt(f.encounter.checkpoints[0].draws);
@@ -1288,18 +1291,32 @@ function renderCrackridgeVoyage() {
                                           });
                                           if(segment.movement)lines.push('After Beasting encounter: run first '+segment.movement.run_percent.toFixed(1)+'% · walk remaining '+(100-segment.movement.run_percent).toFixed(1)+'% (includes 3-update leeway)');
                                         }
-                                        lines.push('Roque: '+encounterLabel(x.encounter));
-                                        let previous=x.boat.stages.at(-1)[1].after;const origin=BigInt(previous.draws)-BigInt(x.encounter.checkpoints[0].draws);
-                                        for(const c of x.encounter.checkpoints){const after={state:c.state,draws:Number(origin+BigInt(c.draws))};conningSpans.push({reason:'Roque · '+c.label,before:previous,after});previous=after;}
+                                        if(x.nameless||x.nameless_jp)lines.push('Nameless entry menu: Osvald equips Firestarter, Scorched Bone Spear, Skull Helm, Elemental Augmentor; Magic Nut L ×2. Throné equips Swift Shield, Quick Cloak; Critical Nut L and Fortifying Nut L. Keep jobs/supports.');
+                                        if(x.nameless){
+                                          const n=x.nameless,f=n.approach.encounter;
+                                          lines.push('Nameless Isle: '+encounterLabel(f.encounter),'Escape: boost 0 → '+n.approach.escape_inputs.join(' → ')+'; '+party[f.menu.first_actor]+' flees','Run '+n.approach.run_percent.toFixed(1)+'% of total island distance; walk the rest','Switch night for Gigantes');
+                                          conningStages.push(['Nameless gear menu',n.setup],['Nameless water',n.approach.water_entry],['Nameless Escape field return',f.field_return],['Gigantes approach',n.approach.gigantes_entry],['Gigantes night',n.night],['Gigantes prompt',n.prompt],['Gigantes field return',n.field_return],['Gigantes victory scene',n.victory],...n.loot.stages);
+                                          conningSpans.push(...f.escape.trace,...f.field_return.trace,...n.battle.trace);
+                                          for(const e of [n.setup,n.approach.water_entry,n.approach.gigantes_entry,n.night,n.prompt,n.field_return,n.victory])conningSpans.push(...e.trace);
+                                          conningPoints.push(['Nameless water · first command menu',f.menu.rng]);
+                                          for(const a of n.battle.actions||[])conningPoints.push(['Gigantes · T'+a.turn+' '+party[a.actor]+' '+a.name,a.report.rng_before]);
+                                          lines.push('Gigantes: T1 Throné/Osvald Defend; Partitio Defend if before both, otherwise attack; Temenos attack','T2 Throné +2 sword; Osvald +3 Elemental Barrage; Partitio +3 Beastlings; Temenos Defend if needed','Before Beastlings: '+n.finisher_boost_cycles+' extra 0 → 1 → 0 boost cycles');
+                                          for(const [label,e] of n.loot.stages){lines.push(label);conningSpans.push(...e.trace);}
+                                        }
+                                        if(x.shipwreck)for(const [label,e] of x.shipwreck.travel.stages){lines.push(label);conningStages.push([label,e]);conningSpans.push(...e.trace);}
+                                        if(x.nameless_jp){conningStages.push(['Nameless gear menu',x.nameless_jp.setup],['Nameless water',x.nameless_jp.water_entry]);lines.push('After JP victory: run '+x.nameless_jp.movement.run_percent.toFixed(1)+'% of total island distance; walk the rest');}
+                                        lines.push(location+': '+encounterLabel(x.encounter));
+                                        let previous=(x.encounter_arrival||x.boat.stages.at(-1)[1]).after;const origin=BigInt(previous.draws)-BigInt(x.encounter.checkpoints[0].draws);
+                                        for(const c of x.encounter.checkpoints){const after={state:c.state,draws:Number(origin+BigInt(c.draws))};conningSpans.push({reason:location+' · '+c.label,before:previous,after});previous=after;}
                                         $('galdera-flex-result').hidden=false;
-                                        const actionName=value=>{const a=typeof value==='string'?value:Object.keys(value)[0];return a==='small_pomegranate'?'Small Pom → Temenos':a==='staff'?'Staff attack → rightmost Winged Landwalker':a==='bewildering_grace'?'Bewildering Grace':a==='guards'?'Hired Help: Guards':'Defend';};
+                                        const actionName=value=>{const a=typeof value==='string'?value:Object.keys(value)[0];return a==='small_pomegranate'?'Small Pom → Temenos':a==='dagger'?'Dagger attack → default target':a==='staff'?'Staff attack → default target':a==='fireball'?'Fireball +1 BP':a==='fireball_max'?'Fireball +3 BP':a==='springy_boots'?'Springy Boots → '+party[value[a].target]:a==='bewildering_grace'?'Bewildering Grace':a==='guards'?'Hired Help: Guards':'Defend';};
                                         $('galdera-flex-routine').innerHTML=instructionBoxHtml(lines)+x.fight.actions.map(a=>'<p><strong>T'+a.round+' · '+party[a.actor]+'</strong></p>'+boostStepsHtml(a.inputs,actionName(a.action))).join('')+'<p>JP per character: '+x.rewards.awarded.jp.toLocaleString()+' · All four survive.</p>'+(x.remaining_errands.length?'<p>After manipulation: '+x.remaining_errands.map(n=>n===2?'Crackridge book':'Sai → Firestarter').join(', ')+'</p>':'');
-                                        conningSpans.push(...x.fight.trace,...x.rewards.trace,...x.field_return.trace);conningStages.push(['Roque · JP ×100 victory and field return',x.field_return]);
-                                        for(const a of x.fight.actions)conningPoints.push(['Roque · T'+a.round+' '+party[a.actor]+' · '+actionName(a.action),a.before]);
+                                        conningSpans.push(...x.fight.trace,...x.rewards.trace,...x.field_return.trace);conningStages.push([location+' · JP ×100 victory and field return',x.field_return]);
+                                        for(const a of x.fight.actions)conningPoints.push([location+' · T'+a.round+' '+party[a.actor]+' · '+actionName(a.action),a.before]);
                                       }
                                       if(q.gravell) {
                                         const g=q.gravell;
-                                        for(const [stage,e]of [['Gravell · teleported, chapters discarded',g.arrival],['Gravell · daytime Villager Pom and Strengthening Serum stolen; switch path action and close',g.supplies],['Gravell · daytime Old Man Empowering Lychee (L) stolen; switch path action and close',g.lychee_steal],['Gravell · Temenos BG / A Step Ahead; Partitio Collect / Boost-Start',g.setup],['Gravell · night for Ambush',g.night],['Gravell · Debt Collector ambushed',g.ambush],['Gravell · Rusty Sword and Rusty Axe restored; Armsmaster unlocked',g.restoration],['Gravell · day for shop and Steal',g.day],["Gravell · Lionheart’s Axe and Conqueror’s Sword sold · "+g.sale_proceeds.toLocaleString()+' leaves',g.sales],['Gravell · Reinforcing Jam stolen (100%); switch path action before closing',g.jam_steal]]){conningStages.push([stage,e]);conningSpans.push(...e.trace);}
+                                        for(const [stage,e]of [['Gravell · teleported, chapters discarded',g.arrival],['Gravell · daytime Villager Pom and Strengthening Serum stolen; switch path action and close',g.supplies],['Gravell · daytime Old Man Empowering Lychee (L) and Sharp Nut (L) stolen; switch path action and close',g.lychee_steal],['Gravell · Temenos learns BG; retain earlier A Step Ahead and Boost-Start',g.setup],['Gravell · night for Ambush',g.night],['Gravell · Debt Collector ambushed',g.ambush],['Gravell · Rusty Sword and Rusty Axe restored; Armsmaster unlocked',g.restoration],['Gravell · day for shop and Steal',g.day],["Gravell · Lionheart’s Axe and Conqueror’s Sword sold at Provisioner · "+g.sale_proceeds.toLocaleString()+' leaves',g.sales],['Gravell · buy Diffusing Serum at Provisioner · 3,000 leaves',g.serum_purchase],['Gravell · Reinforcing Jam stolen (100%); switch path action before closing',g.jam_steal]]){conningStages.push([stage,e]);conningSpans.push(...e.trace);}
                                       }
                                     }
                                   }
@@ -1865,3 +1882,4 @@ function lateRouteInstructions(r) {
   const round=r.escape_round??1;
   return html+'<p><strong>T'+round+' · '+names[r.menu.first_actor]+' · '+menuOrdinal((ordinals[round]||0)+1)+' command menu</strong></p>'+boostStepsHtml(r.inputs.levels,r.victory?'Wind Soulstone (L)':'Escape');
 }
+

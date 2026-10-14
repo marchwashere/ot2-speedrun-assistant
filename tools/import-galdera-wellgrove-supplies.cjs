@@ -32,7 +32,7 @@ for(const name of [guild.FistTaskEvent,guild.CompleteEvent[0]]){
  world.events[name]={map_id:0,reset_counter:false,completion:null,commands};
 }
 fs.writeFileSync(worldPath,JSON.stringify(world,null,2)+'\n');
-const runtime={shopkeeper:{npc:shopkeeper.id,items:[sharp,serum].map(r=>({item:r.ItemLabel,required_level:r.ProperBeg}))},mother:{npc:mother.id,item:lychee.ItemLabel,required_level:lychee.ProperBeg},dancer_job:job.JobID,guild_resource:'SYS_GUILD_DAN',guild_events:[guild.FistTaskEvent,guild.CompleteEvent[0]]};
+const runtime={mother:{npc:mother.id,item:lychee.ItemLabel,required_level:lychee.ProperBeg},dancer_job:job.JobID,guild_resource:'SYS_GUILD_DAN',guild_events:[guild.FistTaskEvent,guild.CompleteEvent[0]]};
 runtime.merchant={npc:merchant.id,item:poms[0].ItemLabel,quantity:poms.length,proper_steal:10,guaranteed_level:10+over};
 runtime.magic_merchant={npc:magicMerchant.id,item:magic.ItemLabel,required_level:magic.ProperBeg};
 fs.writeFileSync(path.join(__dirname,'../data/galdera-wellgrove-supplies.json'),JSON.stringify(runtime,null,2)+'\n');

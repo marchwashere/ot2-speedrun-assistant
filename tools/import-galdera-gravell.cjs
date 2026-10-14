@@ -38,11 +38,14 @@ const bps=[];for(const [asset,names]of [
  ['FieldCommand/BP/LibFieldCommand',['Swoon NPC']],
  ['UserInterface/Shop/BP/ShopMenuWidget',['CompleteTrade']],
  ]){const b=blueprint(asset,names);bps.push(b);sources.push({source:'/Game/'+asset,sha256:b.sha256});}
-const runtime={guard:guard.id,ambush_level:battle.AssassinateNeedLevel,before_events:ambush.BeforeEventLabel,success_event:ambush.SuccessEventLabel[0],
+const serumStock=one(table('Shop/Database/PurchaseItemTable'),'NPC_Twn_Wld_3_1_A_SHOP02_08');
+assert.equal(serumStock.ItemLabel,'ITM_MRL_COM_0010');assert.equal(serumStock.PossibleItemLabel,'None');
+const serumItem=one(itemDb,serumStock.ItemLabel);assert.equal(serumItem.BuyPrice,3000);
+const runtime={serum:serumItem.id,serum_price:serumItem.BuyPrice,guard:guard.id,ambush_level:battle.AssassinateNeedLevel,before_events:ambush.BeforeEventLabel,success_event:ambush.SuccessEventLabel[0],
  shopkeeper:shopkeeper.id,jam:jam.ItemLabel,proper_steal:jam.ProperSteal,steal_level:jam.ProperSteal+over,weapons,job,
  first_talk_flag:flag('WEAPONMASTER_NPC_FIRST_TALK'),license_flag:flag('WEAPONMASTER_FIRST_JOB_LICENSE_GET')};
 fs.writeFileSync(wp,JSON.stringify(world,null,2)+'\n');
 fs.writeFileSync(path.join(__dirname,'../data/galdera-gravell.json'),JSON.stringify(runtime,null,2)+'\n');
-fs.writeFileSync(path.join(__dirname,'../data/source/galdera-gravell.json'),JSON.stringify({sources,guard,battle,shopkeeper,purchase,jam,talent,placements,scripts,blueprints:bps,
+fs.writeFileSync(path.join(__dirname,'../data/source/galdera-gravell.json'),JSON.stringify({sources,serumStock,serumItem,guard,battle,shopkeeper,purchase,jam,talent,placements,scripts,blueprints:bps,
  native_sales:'ShopMenuWidget.CompleteTrade -> ExecMerchantSpecialAction_WithoutNpc type1 -> 140e78f00 -> 140e78a30: SPACT_MERCHANT_014 sell-high range25..25 consumes one rand per sale even though range is constant; ceil(base*25/100) added. SetTimerForNextTick in Armsmaster notifications does not use K2_SetTimerDelegate variance lottery.'},null,2)+'\n');
 console.log(JSON.stringify({ambush:runtime.ambush_level,steal:runtime.steal_level,weapons}));

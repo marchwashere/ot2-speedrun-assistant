@@ -11,7 +11,7 @@ fn data()->&'static Data {static D:OnceLock<Data>=OnceLock::new();D.get_or_init(
 #[derive(Debug,Serialize)]
 pub struct Supplies {pub warrior:Entry,pub oresrush:Entry,pub night:Entry,pub hire:Entry,pub pickaxe:Entry,pub pickaxe_required_level:u32,pub pickaxe_agnea_level:u32,pub hire_event:String,pub augmentor:AugmentorTrip,pub winterbloom:crate::galdera_winterbloom::Trip,pub wellgrove:crate::galdera_wellgrove::Trip}
 #[derive(Debug,Serialize)]
-pub struct AugmentorTrip {pub sai:Entry,pub east_district:Entry,pub entreat:Entry,pub day:Entry,pub jam_steal:Entry,pub required_level:u32,pub agnea_level:u32}
+pub struct AugmentorTrip {pub sai:Entry,pub skull_helm:Entry,pub east_district:Entry,pub entreat:Entry,pub day:Entry,pub jam_steal:Entry,pub required_level:u32,pub agnea_level:u32}
 fn point(l:&mut Loader<'_>,arrival:CrtRng)->Entry {Entry {arrival,after:l.rng,world_after:l.state.clone(),trace:std::mem::take(&mut l.trace),decisions:std::mem::take(&mut l.decisions)}}
 fn present(l:&Loader<'_>,npc:&str)->bool {l.state.existing_npcs.iter().any(|id|l.data.placements[id].resource==npc)}
 fn dialogue(l:&mut Loader<'_>,npc:&str,events:&[String])->Result<String> {
@@ -61,8 +61,17 @@ fn augmentor(entry:&Entry)->Result<AugmentorTrip> {
     let mut l=Loader::new(world::catalog(),entry.world_after.clone(),entry.after)?;
     l.visit_map("Twn_Dst_2_1_A")?;l.skipped_event("MapInStorySelect")?;
     let sai=point(&mut l,entry.after);
+    // PurchaseItemTable NPC_Twn_Dst_2_1_A_TALK_1500_NPCBUY_02:
+    // Skull Helm, ProperBeg36. Soldier has night-only placements.
+    let soldier="NPC_Twn_Dst_2_1_A_TALK_1500";
+    ensure(l.state.time==4&&l.state.party.contains(&8)&&present(&l,soldier),"Agnea or nighttime Skull Helm Soldier unavailable")?;
+    ensure(l.state.character_progression[&8].level>=36,"Agnea does not meet Skull Helm Entreat level36")?;
+    l.draw(world::DrawKind::PathActionMenu,soldier,"Skull Helm Entreat: PlayFieldCommandActions / K2_SetTimerDelegate",None);
+    *l.state.route_items.entry("ITM_EQP_HLM_180".into()).or_default()+=1;
+    l.boundary("Sai Soldier on road to East District: Entreat Skull Helm (Agnea36); change selected path action, then close without dialogue or closing lottery");
+    let skull_helm=point(&mut l,sai.after);
     l.visit_map("Twn_Dst_2_1_B")?;l.skipped_event("MapInStorySelect")?;
-    let east_district=point(&mut l,sai.after);
+    let east_district=point(&mut l,skull_helm.after);
     ensure(l.state.time==4&&l.state.party.contains(&8)&&present(&l,&d.npc),"Agnea or nighttime Elemental Augmentor Townsperson is unavailable")?;
     let agnea_level=l.state.character_progression[&8].level;
     ensure(agnea_level>=d.required_level,"Agnea does not meet Elemental Augmentor Entreat level")?;
@@ -83,5 +92,5 @@ fn augmentor(entry:&Entry)->Result<AugmentorTrip> {
     *l.state.route_items.entry(jam.item.clone()).or_default()+=1;
     l.boundary("Reinforcing Jam stolen outside Sai East District orphanage; change selected path action, then close without dialogue or closing lottery");
     let jam_steal=point(&mut l,day.after);
-    Ok(AugmentorTrip {sai,east_district,entreat,day,jam_steal,required_level:d.required_level,agnea_level})
+    Ok(AugmentorTrip {sai,skull_helm,east_district,entreat,day,jam_steal,required_level:d.required_level,agnea_level})
 }

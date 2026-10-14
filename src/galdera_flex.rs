@@ -21,11 +21,11 @@ fn chest(l:&mut Loader<'_>,index:usize)->Result<()> {
  let c=&data().chests[index];ensure(l.state.opened_route_chests.insert(c.id.clone()),"Chest already opened")?;
  *l.state.route_items.entry(c.item.clone()).or_default()+=c.count;l.boundary(format!("Open {}: {}",c.id,c.item));Ok(())
 }
-#[derive(Debug,Serialize)]pub struct Segment {pub name:String,pub stages:Vec<(String,Entry)>,pub encounters:Vec<SouthernSai>,pub extra_switches:u32,pub escape_boost_inputs:Vec<u8>,pub movement:Option<Movement>}
+#[derive(Debug,Clone,Serialize)]pub struct Segment {pub name:String,pub stages:Vec<(String,Entry)>,pub encounters:Vec<SouthernSai>,pub extra_switches:u32,pub escape_boost_inputs:Vec<u8>,pub movement:Option<Movement>}
 impl Segment {
- fn new(name:&str)->Self {Self{name:name.into(),stages:vec![],encounters:vec![],extra_switches:0,escape_boost_inputs:vec![],movement:None}}
- fn save(&mut self,l:&mut Loader<'_>,label:&str,before:CrtRng){self.stages.push((label.into(),point(l,before)));}
- fn end(&self)->&Entry {&self.stages.last().unwrap().1}
+ pub(crate) fn new(name:&str)->Self {Self{name:name.into(),stages:vec![],encounters:vec![],extra_switches:0,escape_boost_inputs:vec![],movement:None}}
+ pub(crate) fn save(&mut self,l:&mut Loader<'_>,label:&str,before:CrtRng){self.stages.push((label.into(),point(l,before)));}
+ pub(crate) fn end(&self)->&Entry {&self.stages.last().unwrap().1}
 }
 fn visit(l:&mut Loader<'_>,s:&mut Segment,map:&str,label:&str)->Result<()> {let before=l.rng;l.visit_map(map)?;if map.starts_with("Twn_"){l.skipped_event("MapInStorySelect")?;}s.save(l,label,before);Ok(())}
 fn book(entry:&Entry)->Result<Segment> {
@@ -85,7 +85,8 @@ fn to_tropu(entry:&Entry)->Result<Segment> {
  }
  Err(crate::SimError("No safe Beasting / Tropu approach".into()))
 }
-fn boat(entry:&Entry,switches:u32)->Result<Segment> {
+fn boat(entry:&Entry,switches:u32)->Result<Segment> {boat_period(entry,switches,true)}
+fn boat_period(entry:&Entry,switches:u32,night:bool)->Result<Segment> {
  let mut s=Segment::new("Boat and Roque Harbor");let mut l=Loader::new(world::catalog(),entry.world_after.clone(),entry.after)?;
  let before=l.rng;for _ in 0..switches {l.manual_time_switch(if l.state.time==2 {4}else{2},"Tropu’hopu JP100 coarse adjustment")?;}s.extra_switches=switches;s.save(&mut l,"Tropu’hopu time adjustment",before);
  visit(&mut l,&mut s,"Twn_Isd_2_1_C","Tropu’hopu Shipyard")?;
@@ -99,10 +100,30 @@ fn boat(entry:&Entry,switches:u32)->Result<Segment> {
  ensure(l.state.map=="Fld_Ocn_1_1"||l.data.maps[&l.state.map].id==189,"Boat event did not reach sea")?;
  s.save(&mut l,"Boat purchased for 100,000; no decoration; at sea",before);
  visit(&mut l,&mut s,"Fld_Sea_3_1","Roque Island: Anchorage; zero sea encounters")?;
- let before=l.rng;if l.state.time!=4 {l.manual_time_switch(4,"Night immediately upon entering Roque Harbor")?;}s.save(&mut l,"Roque Harbor night",before);Ok(s)
+ if night {let before=l.rng;if l.state.time!=4 {l.manual_time_switch(4,"Night immediately upon entering Roque Harbor")?;}s.save(&mut l,"Roque Harbor night",before);}
+ else {ensure(l.state.time==2,"Deferred JP route must reach Roque Harbor during daytime")?;}
+ Ok(s)
 }
-#[derive(Debug,Serialize)]pub struct Trip {pub order:Vec<u8>,pub segments:Vec<Segment>,pub boat:Segment,pub encounter:encounter::Prediction,pub battle_entry:CrtRng,pub fight:ot2_battle_engine::gravell_routine::Fight,pub rewards:ot2_battle_engine::gravell_routine::Rewards,pub field_return:Entry,pub extra_input_cost:u32,pub remaining_errands:Vec<u8>}
-pub(crate) fn finish(entry:&Entry)->Result<Trip> {
+
+/// Inactive candidate for the future automatic JP-location search. It deliberately
+/// does not call the Roque JP routine or claim JP100 has been obtained.
+#[derive(Debug,Serialize)]
+pub struct DeferredRoque {
+ pub approach:Segment,pub boat:Segment,pub harbor:SouthernSai,pub town:Segment,
+ pub field_return:Entry,pub wind_m:bool,pub chest_money:u32,pub shopping_cost:u32,
+ pub jp100_complete:bool,
+}
+pub fn deferred_roque(entry:&Entry,switches:u32,wind_m:bool)->Result<Option<DeferredRoque>> {
+ ensure(entry.world_after.time==2&&switches%2==0,"Daytime Roque branch requires an even number of Tropu switches")?;
+ let approach=to_tropu(entry)?;
+ let boat=boat_period(approach.end(),switches,false)?;
+ let Some(harbor)=galdera_coast::sai_encounter(boat.end().clone(),"ENT_FLD_SEA_3_1_LND")? else {return Ok(None);};
+ let town=crate::galdera_roque::town(&harbor.field_return,wind_m)?;
+ let field_return=town.end().clone();
+ Ok(Some(DeferredRoque {approach,boat,harbor,town,field_return,wind_m,chest_money:39800,shopping_cost:42000,jp100_complete:false}))
+}
+#[derive(Debug,Serialize)]pub struct Trip {pub order:Vec<u8>,pub segments:Vec<Segment>,pub boat:Segment,pub encounter:encounter::Prediction,pub battle_entry:CrtRng,pub fight:ot2_battle_engine::gravell_routine::Fight,pub rewards:ot2_battle_engine::gravell_routine::Rewards,pub field_return:Entry,pub extra_input_cost:u32,pub remaining_errands:Vec<u8>,pub location:String,pub continuation:Vec<Segment>,pub nameless:Option<crate::galdera_nameless::Trip>,pub nameless_jp:Option<crate::galdera_nameless::JpTrip>,pub shipwreck:Option<crate::galdera_shipwreck::Trip>,pub encounter_arrival:Option<Entry>,pub downstream_draws:u64}
+fn finish_roque(entry:&Entry)->Result<Trip> {
  ensure(entry.world_after.character_progression[&5].jobs.learned_abilities[&5].contains("ABI_SET_DAN_070")
   &&entry.world_after.character_progression[&5].jobs.equipped_support.contains(crate::gravell_setup::STEP_AHEAD)
   &&entry.world_after.character_progression[&4].jobs.equipped_support.contains("ABI_MER_SUP_02")
@@ -135,19 +156,159 @@ pub(crate) fn finish(entry:&Entry)->Result<Trip> {
    let (fight,rewards,mut ret)=crate::inventor::settle_gravell(e,rng,f)?;
    if let Some(n)=ret.world_after.route_items.get_mut("ITM_CSM_0070"){ensure(*n>0,"Missing small Pom")?;*n-=1;if *n==0{ret.world_after.route_items.remove("ITM_CSM_0070");}}else{return Err(crate::SimError("Missing small Pom".into()));}
    for (item,n) in &rewards.drops {*ret.world_after.route_items.entry(item.clone()).or_default()+=n;}
-   best=Some((index,Trip{order:order.iter().copied().chain([1]).collect(),segments:vec![],boat,encounter,battle_entry:rng,fight,rewards,field_return:ret,extra_input_cost:input_cost,remaining_errands:[2,3].into_iter().filter(|n|!order.contains(n)).collect()}));
+   let downstream_draws=rng.draws-boat.stages[0].1.after.draws;
+   best=Some((index,Trip{order:order.iter().copied().chain([1]).collect(),segments:vec![],boat,encounter,battle_entry:rng,fight,rewards,field_return:ret,extra_input_cost:input_cost,remaining_errands:[2,3].into_iter().filter(|n|!order.contains(n)).collect(),location:"Roque Island Harbor".into(),continuation:vec![],nameless:None,nameless_jp:None,shipwreck:None,encounter_arrival:None,downstream_draws}));
   }
  }
  let (index,mut b)=best.unwrap();b.segments=prefixes.swap_remove(index).1;Ok(b)
 }
 
+// All three errands precede Nameless; the boat can occur anywhere among them.
+const LATER_ORDERS:[[u8;3];6]=[[1,2,3],[1,3,2],[2,1,3],[3,1,2],[2,3,1],[3,2,1]];
+fn segment_cost(s:&Segment)->u32 {s.extra_switches*7+s.escape_boost_inputs.len()as u32}
+fn day(entry:&Entry)->Result<Segment> {
+ let mut s=Segment::new("Day for remaining errands");let mut l=Loader::new(world::catalog(),entry.world_after.clone(),entry.after)?;
+ if l.state.time!=2 {l.manual_time_switch(2,"Day before remaining errands / Nameless Isle")?;}
+ s.save(&mut l,"Daytime departure",entry.after);Ok(s)
+}
+fn nameless_arrival(entry:&Entry)->Result<Segment> {
+ let mut s=day(entry)?;s.name="Beasting Bay to Nameless Isle".into();
+ let mut l=Loader::new(world::catalog(),s.end().world_after.clone(),s.end().after)?;
+ visit(&mut l,&mut s,"Fld_Isd_1_3","Teleport Beasting Bay: Anchorage")?;
+ visit(&mut l,&mut s,"Fld_Ocn_1_1","Board owned boat")?;
+ visit(&mut l,&mut s,crate::galdera_nameless::MAP,"Nameless Isle entry; no sea encounters")?;Ok(s)
+}
+/// Compare complete replays, not a fixed guessed offset from Tropu to BG.
+/// Required errands are free to reorder; score only switches/boost inputs.
+pub(crate) fn finish(entry:&Entry)->Result<Trip> {
+ let mut best=finish_roque(entry)?;
+ for switches in (0u32..).step_by(2) {
+  if switches*7+4>=best.extra_input_cost {break;}
+  for order in LATER_ORDERS {
+   for ship in [false,true] {
+   let Some(candidate)=later_candidate(entry,order,switches,best.extra_input_cost,ship)?else{continue;};
+   if candidate.extra_input_cost<best.extra_input_cost {best=candidate;}
+   }
+  }
+ }
+ Ok(best)
+}
+fn later_candidate(entry:&Entry,order:[u8;3],switches:u32,limit:u32,ship:bool)->Result<Option<Trip>> {
+ let mut current=entry.clone();let mut before=vec![];let mut after=vec![];let mut purchased=None;let mut cost=0;
+ for n in order {
+  if n==1 {
+   let Some(r)=deferred_roque(&current,switches,false)?else{return Ok(None);};
+   cost+=segment_cost(&r.approach)+segment_cost(&r.boat);
+   current=r.field_return.clone();before.push(r.approach);
+   let mut harbor=Segment::new("Roque Harbor daytime Escape");harbor.stages.push(("Roque Harbor field return".into(),r.harbor.field_return.clone()));harbor.encounters.push(r.harbor);
+   after.extend([harbor,r.town]);let d=day(&current)?;current=d.end().clone();after.push(d);purchased=Some(r.boat);
+  }else{
+   let s=if n==2{book(&current)?}else{firestarter(&current)?};cost+=segment_cost(&s);current=s.end().clone();
+   if purchased.is_some(){after.push(s);}else{before.push(s);}
+  }
+ }
+ if cost+4>=limit{return Ok(None);}
+ let arrival=nameless_arrival(&current)?;let island=arrival.end().clone();after.push(arrival);
+ let boat=purchased.unwrap();let anchor=boat.stages[0].1.after;
+ let budget=(limit-cost).min(96)as usize;
+
+ if !ship {
+ if let Some(j)=crate::galdera_nameless::jp_finish(&island,budget)? {
+  let inputs=j.fight.actions.iter().map(|a|a.inputs.len()as u32).sum::<u32>();
+  return Ok(Some(Trip{order:order.into_iter().chain([4]).collect(),segments:before,boat,encounter:j.encounter.clone(),battle_entry:j.battle_entry,fight:j.fight.clone(),rewards:j.rewards.clone(),field_return:j.field_return.clone(),extra_input_cost:cost+inputs,remaining_errands:vec![],location:"Nameless Isle".into(),continuation:after,nameless:None,encounter_arrival:Some(j.water_entry.clone()),downstream_draws:j.battle_entry.draws-anchor.draws,nameless_jp:Some(j),shipwreck:None}));
+ }
+ return Ok(None);
+ }
+ // No JP awarded here: flee, finish Gigantes, then carry Georges/loot state.
+ let Some(n)=crate::galdera_nameless::finish(&island,((limit-cost)/2).min(48))?else{return Ok(None);};
+ cost+=n.approach.escape_inputs.len()as u32+n.finisher_boost_cycles*2;
+ if cost+6>=limit{return Ok(None);}
+ let Some(s)=crate::galdera_shipwreck::run(n.loot.end(),true,(limit-cost).min(96)as usize)?else{return Ok(None);};
+ let j=s.jp.as_ref().unwrap();cost+=j.fight.actions.iter().map(|a|a.inputs.len()as u32).sum::<u32>();
+ Ok(Some(Trip{order:order.into_iter().chain([4,5]).collect(),segments:before,boat,encounter:j.encounter.clone(),battle_entry:j.battle_entry,fight:j.fight.clone(),rewards:j.rewards.clone(),field_return:j.field_return.clone(),extra_input_cost:cost,remaining_errands:vec![],location:"Shipwreck".into(),continuation:after,encounter_arrival:Some(s.travel.end().clone()),downstream_draws:j.battle_entry.draws-anchor.draws,nameless:Some(n),nameless_jp:None,shipwreck:Some(s)}))
+}
+
 #[cfg(test)]mod tests {
  use super::*;
+ #[test]#[ignore="Specific screenshot seed audit; full route plus independent location searches"]
+ fn audit_seed_05d03c86() {
+  let path="target/audit-05d03c86-entry.json";
+  let v:serde_json::Value=if let Ok(s)=std::fs::read_to_string(path){serde_json::from_str(&s).unwrap()}else{
+   let r=crate::identified_route::simulate_route("SSSSSSSSSSSSSSSNNNNNNSNSNSNSSSSS",false,197,true).unwrap();
+   assert_eq!(r["initial_seed"],0x05d03c86u32);
+   fn find(v:&serde_json::Value)->Option<&serde_json::Value>{if v["restoration"].is_object()&&v["jam_steal"].is_object(){return Some(&v["jam_steal"]);}v.as_object()?.values().find_map(find)}
+   let e=find(&r).expect("Gravell flex entry").clone();std::fs::write(path,serde_json::to_vec(&e).unwrap()).unwrap();e
+  };
+  let e=Entry{arrival:serde_json::from_value(v["arrival"].clone()).unwrap(),after:serde_json::from_value(v["after"].clone()).unwrap(),world_after:serde_json::from_value(v["world_after"].clone()).unwrap(),trace:vec![],decisions:vec![]};
+  fn report(t:&Trip){
+   let anchor=t.boat.stages[0].1.after;
+   let bg=t.fight.actions.iter().find(|a|matches!(a.action,ot2_battle_engine::gravell_routine::Action::BewilderingGrace)).unwrap();
+   eprintln!("AUDIT {} order {:?} switches {} cost {} battle_inputs {} downstream {} BG_before_delta {} anchor_draws {}",t.location,t.order,t.boat.extra_switches,t.extra_input_cost,t.fight.actions.iter().map(|a|a.inputs.len()).sum::<usize>(),t.downstream_draws,bg.before.draws-anchor.draws,anchor.draws);
+   std::fs::write(format!("target/audit-05d03c86-{}.json",t.location.replace(' ',"-")),serde_json::to_vec(t).unwrap()).unwrap();
+  }
+  let roque=finish_roque(&e).unwrap();report(&roque);
+  for ship in [false,true] {
+   let mut best:Option<Trip>=None;
+   for switches in (0u32..1000).step_by(2) {
+    if best.as_ref().is_some_and(|t|switches*7+4>=t.extra_input_cost){break;}
+    for order in LATER_ORDERS {
+     if let Some(t)=later_candidate(&e,order,switches,best.as_ref().map_or(100000,|t|t.extra_input_cost),ship).unwrap(){
+      if best.as_ref().is_none_or(|b|t.extra_input_cost<b.extra_input_cost){eprintln!("candidate {} switches {} cost {}",t.location,switches,t.extra_input_cost);best=Some(t);}
+     }
+    }
+   }
+   report(&best.expect("Location candidate within 1000 switches"));
+  }
+  let selected=finish(&e).unwrap();eprintln!("AUTOMATIC {} switches {} cost {}",selected.location,selected.boat.extra_switches,selected.extra_input_cost);
+  assert_eq!(selected.location,"Shipwreck");assert_eq!(selected.boat.extra_switches,24);
+ }
  fn fixture()->Entry {
   let v:serde_json::Value=serde_json::from_str(include_str!("../data/source/galdera-flex-entry.json")).unwrap();
   let rng: CrtRng=serde_json::from_value(v["after"].clone()).unwrap();
   let mut world_after:world::WorldState=serde_json::from_value(v["world_after"].clone()).unwrap();world_after.refresh_support_skills();
   Entry{arrival:rng,after:rng,world_after,trace:vec![],decisions:vec![]}
+ }
+ fn current_fixture()->Entry {
+  let e=fixture();let mut l=Loader::new(world::catalog(),e.world_after,e.after).unwrap();
+  crate::gravell_setup::learn(&mut l.state,6,0,&["ABI_SET_MER_030"]).unwrap();
+  l.state.character_progression.get_mut(&6).unwrap().jobs.learned_abilities.entry(6).or_default().insert("ABI_SET_SCH_060".into());
+  crate::gravell_setup::jp_setup(&mut l).unwrap();
+  // Only acquisitions before flex missing from the historical fixture.
+  for (id,n) in [("ITM_EQP_LNS_220",1),("ITM_EQP_HLM_180",1),("ITM_EQP_ACS_250",1),("ITM_CSM_0610",1),("ITM_CSM_0730",1),("ITM_CSM_0550",1)] {l.state.route_items.insert(id.into(),n);}
+  point(&mut l,e.after)
+ }
+ #[test]fn later_locations_replay_prerequisites_and_stop_at_jp_victory() {
+  for ship in [false,true] {
+   let mut found=None;
+   for switches in (0..512).step_by(2) {
+    if let Some(t)=later_candidate(&current_fixture(),[1,2,3],switches,10000,ship).unwrap(){found=Some(t);break;}
+   }
+   let t=found.expect("Complete later JP candidate");
+   assert_eq!(&t.order[..3],&[1,2,3]);assert_eq!(t.order[3],4);
+   assert_eq!(t.order.last(),Some(if ship{&5}else{&4}));
+   assert!(t.remaining_errands.is_empty());assert!(t.rewards.awarded.jp>=12210);
+   assert_eq!(t.fight.state.outcome,ot2_battle_engine::Outcome::Victory);
+   assert!(t.fight.state.actors[..4].iter().all(|a|a.alive()));
+   assert_eq!(t.field_return.world_after.flag(40003),ship);
+   assert!(t.downstream_draws>0);
+   eprintln!("{}: switches {}, downstream draws {}, cost {}",t.location,t.boat.extra_switches,t.downstream_draws,t.extra_input_cost);
+  }
+ }
+ #[test]fn automatic_selector_never_costs_more_than_roque_fallback() {
+  let entry=current_fixture();let baseline=finish_roque(&entry).unwrap();let selected=finish(&entry).unwrap();
+  assert!(selected.extra_input_cost<=baseline.extra_input_cost);
+  eprintln!("Selected {} {:?}, cost {} vs Roque {}",selected.location,selected.order,selected.extra_input_cost,baseline.extra_input_cost);
+ }
+ #[test]fn selector_can_choose_a_later_location() {
+  for seed in 0..16 {
+   let mut entry=current_fixture();entry.after=CrtRng::new(seed);entry.arrival=entry.after;
+   let selected=finish(&entry).unwrap();
+   if selected.location!="Roque Island Harbor" {
+    assert_eq!(selected.order[3],4);assert_eq!(selected.remaining_errands.len(),0);
+    eprintln!("Seed {seed}: {} {:?}, cost {}",selected.location,selected.order,selected.extra_input_cost);return;
+   }
+  }
+  panic!("Expected at least one later-location winner in deterministic sample");
  }
  #[test]fn both_errand_orders_keep_inventory_and_daytime_without_repeating_pickups() {
   for order in [[2,3],[3,2]] {
@@ -169,12 +330,31 @@ pub(crate) fn finish(entry:&Entry)->Result<Trip> {
   }
  }
  #[test]fn complete_jp100_search_requires_the_full_four_alive_guards_victory() {
-  let r=finish(&fixture()).unwrap();assert_eq!(r.rewards.base.jp,116);assert_eq!(r.rewards.awarded.jp,12760);
+  let r=finish_roque(&fixture()).unwrap();assert_eq!(r.rewards.base.jp,116);assert_eq!(r.rewards.awarded.jp,12760);
   assert_eq!(r.fight.state.outcome,ot2_battle_engine::Outcome::Victory);assert!(r.fight.state.actors[..4].iter().all(|a|a.alive()));
   assert_eq!(r.fight.actions.len(),6);assert_eq!(r.fight.actions[4].actor.0,2);assert_eq!(r.fight.actions[5].actor.0,3);
   assert_eq!(r.fight.state.grace.as_ref().unwrap().jp_percent(),10000);
   assert!(!r.field_return.world_after.route_items.contains_key("ITM_CSM_0070"));
   for id in [7,6,5,4] {assert_eq!(r.field_return.world_after.character_progression[&id].jp_earned-fixture().world_after.character_progression[&id].jp_earned,12760);}
+ }
+ #[test]fn deferred_daytime_roque_carries_supplies_without_awarding_jp100() {
+  let entry=fixture();
+  for wind in [false,true] {
+   let r=(0..32).map(|n|deferred_roque(&entry,n*2,wind).unwrap()).find_map(|r|r).expect("Safe daytime harbor candidate");
+   assert_eq!(r.boat.end().world_after.time,2);
+   assert_eq!(r.harbor.escape.chance_percent,100);assert!(r.harbor.escape.success);
+   assert_ne!(r.harbor.encounter.situation.as_deref(),Some("Surprise"));
+   assert_eq!(r.field_return.world_after.map,"Twn_Sea_3_1_A");
+   assert_eq!(r.field_return.world_after.time,4);assert!(!r.jp100_complete);
+   for (id,count) in [("ITM_CSM_0080",1),("ITM_CSM_0090",1),("ITM_CSM_0240",1),("ITM_CSM_0111",3),("ITM_CSM_0610",1),("ITM_EQP_SLD_240",1),("ITM_EQP_AMR_300",1),("ITM_CSM_0390",u32::from(wind))] {
+    assert_eq!(r.field_return.world_after.route_items.get(id).copied().unwrap_or(0),entry.world_after.route_items.get(id).copied().unwrap_or(0)+count,"{id}");
+   }
+   for id in [7,6,5,4] {assert_eq!(r.field_return.world_after.character_progression[&id].jp_earned,entry.world_after.character_progression[&id].jp_earned);}
+   let steal=&r.town.stages[1].1;assert_eq!(steal.after.draws-steal.arrival.draws,if wind {4}else{3});
+   assert_eq!(r.chest_money,39800);assert_eq!(r.shopping_cost,42000);
+   assert_eq!(r.town.stages[4].1.after,r.town.stages[4].1.arrival);
+   assert_eq!(r.town.stages[5].1.after,r.town.stages[5].1.arrival);
+  }
  }
  #[test]#[ignore="Expanded synthetic RNG-state search"]fn alternate_rng_states_find_complete_jp_routes() {
   for seed in [0,1,12345678] {

@@ -1,0 +1,76 @@
+{
+  "worker": "NPC_Twn_Sea_3_1_A_TALK_0100",
+  "steals": [
+    {
+      "id": "ITM_CSM_0080",
+      "level": 21
+    },
+    {
+      "id": "ITM_CSM_0090",
+      "level": 31
+    },
+    {
+      "id": "ITM_CSM_0390",
+      "level": 27
+    }
+  ],
+  "guard": "NPC_Twn_Sea_3_1_A_TALK_0200",
+  "guard_placements": [
+    "NPC_Twn_Sea_3_1_A_TALK_0200_D000",
+    "SHO_40_01_Twn_Sea_3_1_A_TALK_0200_D000"
+  ],
+  "ambush_level": 48,
+  "before": [
+    "FC_TOU_ASSASSINATE_Before_1",
+    "FC_TOU_ASSASSINATE_Before_2"
+  ],
+  "success": "FC_TOU_ASSASSINATE_Success",
+  "chests": [
+    {
+      "id": "Treasure_Twn_Sea_3_1_A_10",
+      "item": "ITM_CSM_0240",
+      "count": 1,
+      "money": false
+    },
+    {
+      "id": "Treasure_Twn_Sea_3_1_A_05",
+      "item": "None",
+      "count": 39800,
+      "money": true
+    },
+    {
+      "id": "Treasure_Twn_Sea_3_1_A_06",
+      "item": "ITM_CSM_0111",
+      "count": 1,
+      "money": false
+    },
+    {
+      "id": "Treasure_Twn_Sea_3_1_A_07",
+      "item": "ITM_CSM_0111",
+      "count": 1,
+      "money": false
+    },
+    {
+      "id": "Treasure_Twn_Sea_3_1_A_09",
+      "item": "ITM_CSM_0111",
+      "count": 1,
+      "money": false
+    },
+    {
+      "id": "Treasure_Twn_Sea_3_1_A_08",
+      "item": "ITM_CSM_0610",
+      "count": 1,
+      "money": false
+    }
+  ],
+  "shopping": [
+    {
+      "id": "ITM_EQP_SLD_240",
+      "price": 18000
+    },
+    {
+      "id": "ITM_EQP_AMR_300",
+      "price": 24000
+    }
+  ]
+}

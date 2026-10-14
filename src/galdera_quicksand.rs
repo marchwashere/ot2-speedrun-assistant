@@ -8,10 +8,7 @@ fn point(l:&mut Loader<'_>,arrival:CrtRng)->Entry {Entry {arrival,after:l.rng,wo
 pub(crate) fn finish(entry:&Entry)->Result<Option<Trip>> {
  ensure(entry.world_after.party==[7,6,5,4]&&entry.world_after.time==2,"Quicksand trip requires daytime party after Temenos recruitment")?;
  let mut l=Loader::new(world::catalog(),entry.world_after.clone(),entry.after)?;
- crate::gravell_setup::assign(&mut l.state,6,Some(2))?;
- crate::gravell_setup::assign(&mut l.state,5,Some(5))?;
- l.state.refresh_support_skills();
- l.boundary("Osvald secondary job: Warrior; Temenos secondary job: Dancer; existing supports retained");
+ setup_party(&mut l)?;
  let setup=point(&mut l,entry.after);
  l.visit_map("Twn_Dst_2_1_A")?;l.skipped_event("MapInStorySelect")?;
  let sai=point(&mut l,setup.after);
@@ -66,7 +63,7 @@ fn finish_boss(entry:&Entry,finisher_boost_cycles:u32)->Result<LordSands> {
  ensure(request.volume=="EVM_DNG_DST_2_2_L","Unexpected boss volume")?;
  let prompt=point(&mut l,night.after);
  let players:Vec<_>=l.state.party.iter().map(|id|l.state.character_progression[id].character.clone()).collect();
- let battle=ot2_battle_engine::lord_sands::predict_with_finisher_boost_cycles(l.rng,&players,&l.state.enemy_knowledge,finisher_boost_cycles)?;
+ let battle=ot2_battle_engine::gigantes::predict_sands(l.rng,&players,&l.state.enemy_knowledge,finisher_boost_cycles)?;
  for (&id,r) in l.state.party.iter().zip(&battle.party_resources_after){l.state.character_progression.get_mut(&id).unwrap().character.resources=Some(r.clone());}
  l.state.enemy_knowledge=battle.enemy_knowledge.clone();l.state.award_victory(battle.rewards)?;
  for (item,&n) in &battle.drops {*l.state.route_items.entry(item.clone()).or_default()+=n;}
@@ -76,4 +73,48 @@ fn finish_boss(entry:&Entry,finisher_boost_cycles:u32)->Result<LordSands> {
  ensure(l.state.flag(40010),"Boss defeat flag not applied")?;
  let victory=point(&mut l,field_return.after);
  Ok(LordSands {night,prompt,battle,finisher_boost_cycles,field_return,victory})
+}
+
+fn setup_party(l:&mut Loader<'_>)->Result<()> {
+ ensure(l.state.character_progression[&6].jobs.secondary_job==Some(0),"Osvald must still be Merchant to learn Collect")?;
+ crate::gravell_setup::learn(&mut l.state,6,0,&["ABI_SET_MER_030"])?;
+ crate::gravell_setup::assign(&mut l.state,6,Some(2))?;
+ crate::gravell_setup::assign(&mut l.state,5,Some(5))?;
+ crate::gravell_setup::learn(&mut l.state,4,0,&["ABI_SET_MER_030"])?;
+ for id in [4,6] {l.state.character_progression.get_mut(&id).unwrap().jobs.equipped_support.insert("ABI_MER_SUP_02".into());}
+ for id in [4,5,6] {
+  crate::gravell_setup::unlock(&mut l.state,id,11)?;
+  let p=l.state.character_progression.get_mut(&id).unwrap();
+  ensure(p.jobs.unlocked_support.contains(crate::gravell_setup::STEP_AHEAD),"A Step Ahead not unlocked")?;
+  p.jobs.equipped_support.insert(crate::gravell_setup::STEP_AHEAD.into());
+  ensure(p.jobs.equipped_support.len()<=4,"Too many equipped supports")?;
+ }
+ l.state.refresh_support_skills();
+ l.boundary("Osvald learns Collect before switching Merchant to Warrior; Temenos becomes Dancer. Partitio learns Collect. Equip Boost-Start on Osvald and Partitio; equip A Step Ahead on Osvald, Partitio and Temenos, retaining Throné's support");
+ Ok(())
+}
+
+#[cfg(test)]mod menu_tests {
+ use super::*;
+ #[test]fn collect_before_warrior_then_gravell_supports_without_job_swaps() {
+  let f:serde_json::Value=serde_json::from_str(include_str!("../data/source/galdera-flex-entry.json")).unwrap();
+  let w:world::WorldState=serde_json::from_value(f["world_after"].clone()).unwrap();
+  let mut l=Loader::new(world::catalog(),w,CrtRng::new(123)).unwrap();
+  crate::gravell_setup::assign(&mut l.state,6,Some(0)).unwrap();
+  let spent=l.state.character_progression[&6].jp_spent;
+  let available=l.state.character_progression[&6].jp_earned-spent;
+  let rng=l.rng;let counter=l.state.encounter_counter;
+  setup_party(&mut l).unwrap();
+  let o=&l.state.character_progression[&6];
+  assert_eq!(o.jp_spent-spent,500);assert!(available>=500);
+  assert_eq!(o.jobs.secondary_job,Some(2));
+  assert!(o.jobs.unlocked_support.contains("ABI_MER_SUP_02"));
+  assert!(o.jobs.equipped_support.contains("ABI_MER_SUP_02"));
+  let before:Vec<_>=l.state.party.iter().map(|id|{let p=&l.state.character_progression[id];(*id,p.jobs.secondary_job,serde_json::to_value(&p.character.resources).unwrap())}).collect();
+  crate::gravell_setup::jp_setup(&mut l).unwrap();
+  for (id,job,resources) in before {let p=&l.state.character_progression[&id];assert_eq!(p.jobs.secondary_job,job);assert_eq!(serde_json::to_value(&p.character.resources).unwrap(),resources);}
+  for id in [4,6] {assert!(l.state.character_progression[&id].character.boost_start);}
+  assert!(l.state.character_progression[&5].jobs.equipped_support.contains(crate::gravell_setup::STEP_AHEAD));
+  assert_eq!(l.rng,rng);assert_eq!(l.state.encounter_counter,counter);
+ }
 }

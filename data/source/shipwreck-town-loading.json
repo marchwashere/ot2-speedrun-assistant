@@ -1,0 +1,512 @@
+{
+  "sources": [
+    {
+      "source": "/Game/Level/Database/LevelTable",
+      "sha256": "153569a707872dfec0504f8bd301d2b30baf6154469d5673c35680ed0ed30232"
+    },
+    {
+      "source": "/Game/Placement/Database/PlacementList",
+      "sha256": "a86c4085f751f073fb9d0c32ea84cae5bcfc97e83ecaed764056d1b3272a2bc7"
+    },
+    {
+      "source": "/Game/Placement/Database/PlacementData",
+      "sha256": "0d5f12698b8e1f97740d5cc527b040b8bc8f10e343919c4fcac03b8fa6d5e793"
+    },
+    {
+      "source": "/Game/Character/Database/NPCData",
+      "sha256": "ad0dfb8416c6235f60529a73ae07acda68d76d4f930acaa478c7cd8d9f6b101b"
+    },
+    {
+      "source": "/Game/Character/Database/PlayableCharacterDB",
+      "sha256": "d624b29cafae9397ea9e6557930820c1bc22fcbaea37617fb07f76c9ca80b650"
+    },
+    {
+      "source": "/Game/Event/Database/EventList",
+      "sha256": "acbbb094b2b071271fde8e4adf26b0df3661594556b3835b96e93a97300089a3"
+    },
+    {
+      "source": "/Game/Story/Database/MainStory",
+      "sha256": "a9e4a56d3bd1449ba1045d1adef07c3f9146e133b7571f4012627acd25b4121d"
+    },
+    {
+      "source": "/Game/Story/Database/MainStoryTask",
+      "sha256": "3bb11d1db209e13d2091ada7ffb115255b4cec18b153db845eac736d4d78028c"
+    },
+    {
+      "source": "/Game/Tutorial/Database/TutorialFlagPart",
+      "sha256": "6cd307e968e4cdc13eaded5d0f1664b83cc3c090f5a0f218237275f198d1d88f"
+    },
+    {
+      "source": "/Game/Flag/Database/FlagRandomControlDB",
+      "sha256": "db66c1ebe5e35f0dac32692e1c5f8173d22adf1fbe682ae49dede8a24aec4d13"
+    },
+    {
+      "source": "/Game/Flag/Database/FlagOverrideDB",
+      "sha256": "2f7c506c7a536df499ed9c87264167cfc4162d3c12bdfb5348537a2d2e45d8f0"
+    },
+    {
+      "source": "/Game/Environment/Resource/Object/EnvObj_Canoe/BP/BP_EnvObjMD_Canoe_A",
+      "sha256": "a3dc70f3fb3d476c107624fceb5e9f3fcee9b5e6cbb6721d8ef3e6df4febe790"
+    },
+    {
+      "source": "/Game/Environment/Resource/Object/EnvObj_Flag/BP/BP_EnvObjMD_Flag_A",
+      "sha256": "fd680eb522bcc5fef05ced68556e7acc64e1efa856bbcf35485979749431a4cd"
+    },
+    {
+      "source": "/Game/Environment/Resource/Object/EnvObj_Batlefield/BP/BP_EnvObjMD_Batlefield_A_Flag_A",
+      "sha256": "bfe4d27b98727a195f0ae3454ee1f4d380d92ec57f27e1577a6113f39a9a6baa"
+    },
+    {
+      "source": "/Game/Environment/Resource/Object/EnvObj_Batlefield/BP/BP_EnvObjMD_Batlefield_A_Flag_A_TwoTone_B",
+      "sha256": "ac631a9c62ea0f996435bac730d21cc1648344bac4499bc5e0832f1c3f6083f7"
+    },
+    {
+      "source": "/Game/Environment/Resource/Object/EnvObj_Lamp/BP/BP_Lamp_I_Sea",
+      "sha256": "0a4adf4ed63d44a29c7b008e865637b5f86ac8411686530a3a37cac705e6e443"
+    },
+    {
+      "source": "/Game/Environment/Resource/Object/EnvObj_Gondola/BP/BP_EnvObjMD_Gondola_A_NoPaddle",
+      "sha256": "6c6232a982697d646076dda3a87b0e886be29daf66753718e15b4b04773d654b"
+    },
+    {
+      "source": "/Game/Environment/Resource/Object/EnvObj_Gondola/BP/BP_EnvObjMD_Gondola_A_Paddle",
+      "sha256": "bbcb520017363996f11aef9f993ab627abd3cf747f9ce818d81c166e7bbee14c"
+    },
+    {
+      "source": "/Game/Event/json/MS_TOU_10_0100",
+      "sha256": "4889053dac297d7781ce00bec46dce14430d82c3b1bdc3fd1ceff9eaec5dd25a"
+    },
+    {
+      "source": "/Game/Event/json/MS_TOU_10_0200",
+      "sha256": "9da88d9d8f707598de5d2b41291e393dcbab530336dfe0bdf87316c5d24c61a9"
+    },
+    {
+      "source": "/Game/Event/json/MS_TOU_10_0300",
+      "sha256": "cbfa344d183b1adc2418221ebc94b1db3ae38fd59bb9ffe8e5dd63a27dbc26fb"
+    },
+    {
+      "source": "/Game/Event/json/MS_TOU_10_0400",
+      "sha256": "d282e824d3778358ce92ee251d96c4a4bc998ee4b3b978d30e8352239947dc8f"
+    },
+    {
+      "source": "/Game/Event/json/MS_TOU_10_0410",
+      "sha256": "f2afbafcfa1bdf2dd99e3f1a65e48fde5f139b20ac0fdc0a6238c515a6044c46"
+    },
+    {
+      "source": "/Game/Event/json/MS_TOU_10_0500",
+      "sha256": "6124a5c9fbd7eb3fa488481626de99b10d6448afc24b68f4aa50713d0e710120"
+    },
+    {
+      "source": "/Game/Event/json/MS_TOU_10_0600",
+      "sha256": "67a8dde22213370135e2e57267fee5d54643dacf0e7681566e1e30d9d6c2bd06"
+    },
+    {
+      "source": "/Game/Event/json/MS_TOU_10_0700",
+      "sha256": "edb1737a6e7a4667f2b72589802fee637e6feaa85552e277f18dbae71fb3ab55"
+    },
+    {
+      "source": "/Game/Event/json/MS_TOU_10_0800",
+      "sha256": "a6a323dcfc924babcc4e34ae5631ccdbdc183bc719c3818184a6546ffd0f2c81"
+    },
+    {
+      "source": "/Game/Event/json/MS_TOU_10_0900",
+      "sha256": "1cfad094190e816a367697c41527df8c03fa7b5c75ef122342ad7e4093799f5e"
+    },
+    {
+      "source": "/Game/Event/json/MS_TOU_10_0910",
+      "sha256": "6bd0eee49863081371f1c98cec18fa3f7eddd48455fd8d1bbec8de0af25f834e"
+    },
+    {
+      "source": "/Game/Event/json/MS_TOU_10_1000",
+      "sha256": "1cde86d18924eba7d37f890bf0d0f389a967930ec740004eef2ff36d2fac3fab"
+    },
+    {
+      "source": "/Game/Event/json/MS_TOU_10_1100",
+      "sha256": "550078b34587b2329415316fed264cca80c84ede37bdd7b93d523c8a8094e2da"
+    },
+    {
+      "source": "/Game/Event/json/MS_TOU_10_1200",
+      "sha256": "adac9d32b697c5d75b388ebdb9f2c5ac9e8adae8ebbe9c7fec921854e0840744"
+    },
+    {
+      "source": "/Game/Event/json/MS_TOU_10_1300",
+      "sha256": "e52f0e8d90a757c93c5d2622394ed9e5ffdb48bfa08910ca07db1f106956ff71"
+    },
+    {
+      "source": "/Game/Event/json/MS_TOU_10_1400",
+      "sha256": "da157db6b92671382363ef6d2cd9fe37ceafb3193061975fd56ddb89d91bb406"
+    },
+    {
+      "source": "/Game/Event/json/MS_TOU_10_1500",
+      "sha256": "6fd54ab946efa0e69549c16cc98a24d11dbefb5953f08d31b620f3ed6b597166"
+    },
+    {
+      "source": "/Game/Event/json/MS_TOU_10_1600",
+      "sha256": "67099bb7823261413be954a60d290481e727ceed9c228c1b01117b112e31a5a6"
+    },
+    {
+      "source": "/Game/Event/json/MS_TOU_10_1700",
+      "sha256": "53889f1a526c36de293441cd8d84aaf1d3f4b95e203e5379505d38027a68e2c1"
+    },
+    {
+      "source": "/Game/Event/json/MS_TOU_10_1900",
+      "sha256": "e1562a1e919504b3bce730839ff95abbf93b6cebebef442659f1e54c1bae3d5e"
+    },
+    {
+      "source": "/Game/Event/json/MS_TOU_10_2000",
+      "sha256": "201256ecf04662284ea8160545dcbc4a466c106e64d05dd5340ac22ee0ada437"
+    },
+    {
+      "source": "/Game/Event/json/MS_KEN_00_0100",
+      "sha256": "c7776e43231276ecba5918ba0a0a263ebac546da2291f7e3722988ea2cd81fe8"
+    },
+    {
+      "source": "/Game/Event/json/MS_KEN_00_0200",
+      "sha256": "6351311a9b6c2718f9c5733d2d869d2f187b3d748d51dc0888b76149125bd857"
+    },
+    {
+      "source": "/Game/Event/json/MS_KEN_00_0300",
+      "sha256": "fd06aca32f8ff2faa3b00d7bc09f540842b53ae89e227e3efbf876a5b6b0795f"
+    },
+    {
+      "source": "/Game/Event/json/MS_KEN_00_0310",
+      "sha256": "99a71e0b4021b0e7ec21ac47fcfa00ce7286a0547ec70ba587383485d41f8365"
+    },
+    {
+      "source": "/Game/Event/json/MS_KEN_00_0400",
+      "sha256": "dd53483fe70430e55d6291d1f63fe1f4169b39176c4372521cf680ac3e85b42c"
+    },
+    {
+      "source": "/Game/Event/json/MS_SIN_00_0100",
+      "sha256": "fcdc0dd94fb61a670f45116d84a3d24dc51e76372e41b436cf1c4ede98f02b82"
+    },
+    {
+      "source": "/Game/Event/json/MS_SIN_00_0200",
+      "sha256": "e9db46250ce358b61c1c9d49c9aa9fcd66ba20b607701acdee25f30b2362bb38"
+    },
+    {
+      "source": "/Game/Event/json/MS_SIN_00_0300",
+      "sha256": "5d42745d675983bce257fe5c4c058d5c1a73ec8a98f2d4a5b35bd397f2478a10"
+    },
+    {
+      "source": "/Game/Event/json/MS_SIN_00_0310",
+      "sha256": "416eca71ff1f1b67958f36d69f8f3f040e8b7d4e09f7a94f3f44cdd2f11af6be"
+    },
+    {
+      "source": "/Game/Event/json/MS_SIN_00_0400",
+      "sha256": "2722445e0f85b204124526a1346bef311acec57c65faf9a7de0d1564833dea32"
+    },
+    {
+      "source": "/Game/Event/json/SC_FC13_Tutorial_0100",
+      "sha256": "395de9e878dd48a9630b84ba3ed9b998c873aa9c60de22331d9443c770901ecf"
+    },
+    {
+      "source": "/Game/Event/json/MS_KUS_00_0100",
+      "sha256": "fcd064953bdb7e809f2d9f856fcaa0b38a2786d96095fb0a19d374aa9437177f"
+    },
+    {
+      "source": "/Game/Event/json/MS_GAK_00_0100",
+      "sha256": "ac24006f45ccd08ba0e20f71987698d8e43c8cc82b1ce692db75c4c5860211c6"
+    },
+    {
+      "source": "/Game/Event/json/MS_ODO_00_0200",
+      "sha256": "475fb967f601a02c35a238be7aa07b7b8b7a925d3df9d3fda4ee0ee39bc13beb"
+    },
+    {
+      "source": "/Game/Event/json/MS_SHO_00_0100",
+      "sha256": "2c346378c08df1d0bb54517f41fe803a0575f8c8fe49df0148c2b0256bd1d7b2"
+    },
+    {
+      "source": "/Game/Event/json/MS_SHO_00_0200",
+      "sha256": "ed3904235af454db5ea39e7b9ff9f8687b0de30dd2f25bdedeeee778fb9686a4"
+    },
+    {
+      "source": "/Game/Event/json/MS_TOU_2A_0100",
+      "sha256": "8d1cffe49ad5500c54fb65dcd0b74ca634d1ea27310b203d00ca4a94d8aff811"
+    },
+    {
+      "source": "/Game/Event/json/MS_ODO_20_0100",
+      "sha256": "2b23bf00c7761551f6c7a013b9eddf5044da3ff952ff6bcf245884b8baeec8bd"
+    },
+    {
+      "source": "/Game/Event/json/MS_SHO_20_0050",
+      "sha256": "c4bae721ce7379ef883c28ea43e4c49c986c3a15ac28b0659e606ddbb715b7f3"
+    },
+    {
+      "source": "/Game/Event/json/MS_SHO_20_0100",
+      "sha256": "6840da2b78b8cc0f84af7f1702aed96a448416d231cefa0b0b286edb4d8f7087"
+    },
+    {
+      "source": "/Game/Event/json/MS_SHO_20_0110",
+      "sha256": "56d4eb92972db7c5cbbf2e40f24bf965862056c43b243495be3b07689388f220"
+    },
+    {
+      "source": "/Game/Event/json/MS_SHO_20_0200",
+      "sha256": "eb31424b4322aff0891f0ba7c827bba6e603c8f4fd0cbdafc3c734cb452672ab"
+    },
+    {
+      "source": "/Game/Event/json/MS_SHO_20_0300",
+      "sha256": "f523405eb106f352da5eb1ff2baebaba115a9fcec726fd40049e75bd25f9c310"
+    },
+    {
+      "source": "/Game/Event/json/MS_SHO_20_0400",
+      "sha256": "c93034da2b7bb42540e8909966387685dcf98119da5dcd85525d0299752d0708"
+    },
+    {
+      "source": "/Game/Event/json/MS_SHO_20_0410",
+      "sha256": "0b2a73f8eff155afc7a628405b44c61e75367a9e267d485c53b893377e25e065"
+    },
+    {
+      "source": "/Game/Event/json/MS_SHO_20_0500",
+      "sha256": "c7402d4b53ed93ffa14255b9a527318f5a5c98d3bde07e088cd0b660fd06a6ff"
+    },
+    {
+      "source": "/Game/Event/json/MS_SHO_20_0600",
+      "sha256": "e36eca13f2622f7c3c81606d9477d2ed4ccaa5a89ab1b0938feeb0a53ceb330b"
+    },
+    {
+      "source": "/Game/Event/json/MS_SHO_20_0610",
+      "sha256": "cafc6ff3ae2c195e230b54a3727114ad144e74ff93272d5ee7b174ae5fb71054"
+    },
+    {
+      "source": "/Game/Event/json/MS_SHO_20_0615",
+      "sha256": "8057858749a52128d87c0cd98e91ed40d58d6673a0b2519ac862b130bb7047d3"
+    },
+    {
+      "source": "/Game/Event/json/MS_SHO_20_0620",
+      "sha256": "b74cf9dbff94bfe968b8fab1c1145291c1eb5bd0a050f63fbaab622b0b853d23"
+    },
+    {
+      "source": "/Game/Event/json/SC_LinerShip_Cty_to_Wld",
+      "sha256": "77c9d3c066c859cdd7366fe75f2b46c302087ae4a587e0d766922d2dc0cc2494"
+    },
+    {
+      "source": "/Game/Event/json/SC_LinerShip_Cty_to_Isd",
+      "sha256": "df8f182d02277a99afb5c53e2f4f9d5b1de3d5e86a3298a4a82539a5b78d4e3f"
+    },
+    {
+      "source": "/Game/Event/json/SC_LinerShip_Isd_to_Sea",
+      "sha256": "5e359d87321f04750a4ad9b23d31235cc625d5cc83bd69559bc80fd4662afdb7"
+    },
+    {
+      "source": "/Game/Event/json/SYS_INV_GUILD_0010",
+      "sha256": "cb0a122aa59a3dc7dcb3597af9dad50077d6812324922de62d86ca2ea408dd7f"
+    },
+    {
+      "source": "/Game/Event/json/SYS_INV_GUILD_0C10",
+      "sha256": "baa9a361b1efb55466ea7bb0f141515473d5317adaedba9151a308cbf058c526"
+    },
+    {
+      "source": "/Game/Event/json/SYS_INV_GUILD_0D10",
+      "sha256": "d64915c4641f2d93d701a4f038067cbf854db9d4da79d895c6da5c51a3864c23"
+    },
+    {
+      "source": "/Game/Event/json/SYS_SCH_GUILD_0010",
+      "sha256": "9f8ddb1c86a599ecd65fc3c7651a4c116d3bd3f63ac1331fb89a585e1c9fe420"
+    },
+    {
+      "source": "/Game/Event/json/SYS_SCH_GUILD_0030",
+      "sha256": "3790e3655e4ee6336ca239f0d141d6c7a3f9fd18d285faa99d9a23ce1d63f304"
+    },
+    {
+      "source": "/Game/Event/json/SYS_MER_GUILD_0010",
+      "sha256": "8a1831b9c282de3d60b07be09b78f55f62ff31087d205b7ca4dcdd3485c0ba24"
+    },
+    {
+      "source": "/Game/Event/json/SYS_MER_GUILD_0030",
+      "sha256": "98fc19ba1f9559a46fff91c49216c5db65dd51dc5ae640416ce9a57a61fd6701"
+    },
+    {
+      "source": "/Game/Event/json/SHRINE_SHO_0100",
+      "sha256": "ed3a428fd14a82a545efb182d3e87c7fab565426f1fca5fd91c9e4045906c9f1"
+    },
+    {
+      "source": "/Game/Event/json/MapInStorySelect",
+      "sha256": "e434039b004b97e0666e6652c597a21d8358abcecd3a279d25f2a0f7431093e6"
+    },
+    {
+      "source": "/Game/Level/Level/Ocean/Dng_Ocn_1_1.umap",
+      "sha256": "3b143880848d896042de220e87da802a88178ad3bf8b235a706487dc699c73bb"
+    },
+    {
+      "source": "/Game/Level/Level/Ocean/Dng_Ocn_1_1_Art.umap",
+      "sha256": "640c0404fe5715448eba688de7f52b6b0d561cc32ebaf04ccbedab61cb2d3b1d"
+    },
+    {
+      "source": "/Game/Level/Level/Ocean/Dng_Ocn_1_1_Coll.umap",
+      "sha256": "0a4a52b78152cd348ba472bff58176d85fe07d05c2e1860ac4c7caa4b461e60e"
+    },
+    {
+      "source": "/Game/Level/Level/Ocean/Dng_Ocn_1_1_Sound.umap",
+      "sha256": "333d25ab2bb43fe98848ea659939a0f252aa4396c4c5fc911fc4765852fc0c61"
+    },
+    {
+      "source": "/Game/Level/Level/Other/Btl_Dng_Ocn_A_Land_A.umap",
+      "sha256": "48237a00153ac1f1ba9d16d026379ac4a5d270fa933cb7f255e41b0d86caccb7"
+    },
+    {
+      "source": "/Game/Level/Level/Other/Btl_Dng_Ocn_A_River_A.umap",
+      "sha256": "a149e4531851b90971691eea99c35c7725ee493ae101e68ecb176dfd78bf5c88"
+    }
+  ],
+  "maps": {
+    "Dng_Ocn_1_1": {
+      "id": 221,
+      "streams": [
+        "Dng_Ocn_1_1",
+        "Dng_Ocn_1_1_Art",
+        "Dng_Ocn_1_1_Coll",
+        "Dng_Ocn_1_1_Sound",
+        "Btl_Dng_Ocn_A_Land_A",
+        "Btl_Dng_Ocn_A_River_A"
+      ],
+      "field_streams": [
+        "Dng_Ocn_1_1",
+        "Dng_Ocn_1_1_Art",
+        "Dng_Ocn_1_1_Coll",
+        "Dng_Ocn_1_1_Sound"
+      ],
+      "environment_draws": [],
+      "placements": [
+        "NPC_SYS_SAVE_Dng_Ocn_1_1_0000",
+        "Treasure_Dng_Ocn_1_1_01",
+        "Treasure_Dng_Ocn_1_1_02",
+        "Treasure_Dng_Ocn_1_1_03",
+        "Treasure_Dng_Ocn_1_1_04",
+        "Treasure_Dng_Ocn_1_1_05",
+        "Treasure_Dng_Ocn_1_1_06"
+      ],
+      "counter": {
+        "min": 1000,
+        "range_a": 400,
+        "range_b": 400,
+        "first_ratio": 0.5
+      },
+      "bar_event": "None",
+      "bar_allowed": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ]
+    }
+  },
+  "placements": {
+    "NPC_SYS_SAVE_Dng_Ocn_1_1_0000": {
+      "kind": 1,
+      "resource": "NPC_SYS_SAVE",
+      "action": "NpcCty_SV_001",
+      "begin": 0,
+      "end": 0,
+      "time": "eALL",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "Treasure_Dng_Ocn_1_1_01": {
+      "kind": 2,
+      "resource": "Treasure_Dng_Ocn_1_1_01",
+      "action": null,
+      "begin": 0,
+      "end": 0,
+      "time": "eALL",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "Treasure_Dng_Ocn_1_1_02": {
+      "kind": 2,
+      "resource": "Treasure_Dng_Ocn_1_1_02",
+      "action": null,
+      "begin": 0,
+      "end": 0,
+      "time": "eALL",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "Treasure_Dng_Ocn_1_1_03": {
+      "kind": 2,
+      "resource": "Treasure_Dng_Ocn_1_1_03",
+      "action": null,
+      "begin": 0,
+      "end": 0,
+      "time": "eALL",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "Treasure_Dng_Ocn_1_1_04": {
+      "kind": 2,
+      "resource": "Treasure_Dng_Ocn_1_1_04",
+      "action": null,
+      "begin": 0,
+      "end": 0,
+      "time": "eALL",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "Treasure_Dng_Ocn_1_1_05": {
+      "kind": 2,
+      "resource": "Treasure_Dng_Ocn_1_1_05",
+      "action": null,
+      "begin": 0,
+      "end": 0,
+      "time": "eALL",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "Treasure_Dng_Ocn_1_1_06": {
+      "kind": 2,
+      "resource": "Treasure_Dng_Ocn_1_1_06",
+      "action": null,
+      "begin": 0,
+      "end": 0,
+      "time": "eALL",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    }
+  }
+}

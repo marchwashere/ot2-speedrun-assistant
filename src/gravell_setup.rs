@@ -13,7 +13,7 @@ struct Job { #[serde(rename="JobID")] id:u32, #[serde(rename="JobCommandAbility"
 #[derive(Deserialize)]
 struct Data {jobs:Vec<Job>}
 fn data()->&'static Data {static D:OnceLock<Data>=OnceLock::new();D.get_or_init(||serde_json::from_str(include_str!("../data/gravell-setup.json")).unwrap())}
-fn unlock(w:&mut WorldState,id:u32,job:u32)->Result<()> {
+pub(crate) fn unlock(w:&mut WorldState,id:u32,job:u32)->Result<()> {
  let d=data().jobs.iter().find(|j|j.id==job).unwrap();
  let inventions=w.inventor_abilities.clone();
  let p=w.character_progression.get_mut(&id).unwrap();
@@ -55,20 +55,17 @@ pub(crate) fn jp_setup(l:&mut Loader<'_>)->Result<()> {
  let before=l.rng;
  learn(&mut l.state,5,5,&["ABI_SET_DAN_070"])?;
  learn(&mut l.state,4,0,&["ABI_SET_MER_030"])?;
- // Temporarily free Throné's Inventor license; retain both original subjobs.
- let throne=l.state.character_progression[&7].jobs.secondary_job;
- if throne==Some(11) {assign(&mut l.state,7,None)?;}
- let temenos=l.state.character_progression[&5].jobs.secondary_job;
- assign(&mut l.state,5,Some(11))?;
+ // Crafted Inventor commands/supports are globally available without job swaps.
+ unlock(&mut l.state,5,11)?;
  ensure(l.state.character_progression[&5].jobs.unlocked_support.contains(STEP_AHEAD),"Temenos Step Ahead not unlocked")?;
  l.state.character_progression.get_mut(&5).unwrap().jobs.equipped_support.insert(STEP_AHEAD.into());
- assign(&mut l.state,5,temenos)?;
- if throne==Some(11) {assign(&mut l.state,7,throne)?;}
- let p=l.state.character_progression.get_mut(&4).unwrap();
- ensure(p.jobs.unlocked_support.contains("ABI_MER_SUP_02"),"Boost-Start not unlocked")?;
- p.jobs.equipped_support.insert("ABI_MER_SUP_02".into());
+ for id in [4,6] {
+  let p=l.state.character_progression.get_mut(&id).unwrap();
+  ensure(p.jobs.unlocked_support.contains("ABI_MER_SUP_02"),format!("Boost-Start not unlocked for character {id}"))?;
+  p.jobs.equipped_support.insert("ABI_MER_SUP_02".into());
+ }
  l.state.refresh_support_skills();
- l.boundary("Gravell setup: Temenos learns Bewildering Grace and equips A Step Ahead; Partitio learns Collect and equips Boost-Start");
+ l.boundary("Gravell setup: Temenos learns Bewildering Grace; retain the A Step Ahead and Boost-Start supports equipped after his recruitment");
  ensure(l.rng==before,"JP setup changed RNG")
 }
 pub fn apply(l:&mut Loader<'_>)->Result<()> {

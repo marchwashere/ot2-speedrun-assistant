@@ -1,10 +1,76 @@
-# Gravell to Roque JP ×100
+# Flexible route to JP ×100
+
+## Active automatic location selection
+
+Crackridge book (2), Roque boat/loot (1), and Firestarter (3) may occur in any
+of the six permutations. All three must finish before Nameless Isle (4).
+Shipwreck (5) requires the complete Nameless Escape/Gigantes/Georges route.
+If JP100 succeeds at Roque or Nameless, the manipulation stops at that victory;
+later errands/bosses are not searched. Roque retains its five early prefixes.
+
+Every later candidate adjusts at Tropu'hopu BEFORE the shipyard, using even
+switch counts so Roque Harbor stays daytime. The search replays the entire
+downstream route, including all remaining errands, native map/time callbacks,
+escapes, inventory, equipment, Gigantes and successful Georges Scrutinize.
+It then runs the full JP battle search. Thus there is no guessed fixed offset
+that can accidentally skip an otherwise viable candidate: each departure's
+actual battle state determines its 96-input fine-search window. The returned
+downstream_draws measures final Tropu adjustment to battle initialization.
+One regression measured495 draws for Nameless and963 for Shipwreck; these are
+examples, not constants or distances to the BG lottery itself.
+
+Start with the accepted Roque plan. Compare all later order/location/switch
+candidates whose lower-bound input cost can beat it. Cost is seven per extra
+time switch plus actual boost inputs, including Escape and Gigantes adjustment
+cycles. Required errands remain free to reorder per user instruction. Stop
+coarse exploration once its cost alone cannot beat the incumbent. Ties retain
+the earlier accepted candidate. A seed0 regression selects Nameless with
+order[1,3,2,4], cost16, proving the selector can actually choose a later site.
+
+The selected result includes its full continuation and chosen location in the
+viewer/detailed log. The terminal field_return always means JP100 victory.
+Shipwreck's fixed Rusty Dagger pickup is retained in branch data but does not
+extend manipulation. No measured Shipwreck remainder has been supplied.
+
+Search limits:96 fine boost inputs and48 Escape/Gigantes adjustment cycles.
+Only the first safe Escape/Gigantes continuation is compared per departure.
+This selects the cheapest evaluated plan, not a global optimum over every
+possible battle action or upstream adjustment. Exact simulated replay still
+needs retail validation. The historical inactive descriptions below describe
+the candidate builders before this selector was connected.
+
+## Deferred Roque continuation (inactive)
+
+`galdera_flex::deferred_roque` is a candidate builder for the future automatic
+Nameless Isle / Shipwreck comparison. It is not called by the active route and
+does not expose a manual UI selector. Input is the daytime Gravell departure
+Entry (or an entry after completed useful errands), an even Tropu switch count,
+and whether to steal Wind Soulstone M. Odd switches are rejected: the boat and
+harbor must remain daytime. An ambushed harbor candidate returns None so a future
+search can try another preceding adjustment; no silent on-field time switch.
+
+After one normal/preemptive harbor encounter and guaranteed Escape, enter Roque
+Island during daytime and discard chapter selection. Factory Worker TALK_0100:
+Pom M and L, optionally Wind M (he does not carry Wind L); one opening plus one
+draw per steal, switch path action and close. Night, Ambush Guard TALK_0200
+(level48), execute native Ambush dialogue scripts, then open six fixed chests:
+Lychee L, 39,800 leaves, three Rejuvenating Jams, Magic Nut L. Buy Swift Shield
+and Quick Cloak from normal stock for42,000 total; Smooth Talker is a sale
+talent and does not discount these purchases. Shop transactions and fixed
+chests consume no CRT. Purchases are carried as inventory, not auto-equipped.
+
+The returned final Entry retains RNG, NPC/flag/encounter history and supplies;
+`jp100_complete=false`. Chest money and shopping costs are separate fields,
+not a fabricated complete wallet balance (the existing world does not track
+all earlier spending). No departure path or later JP battle is invented.
+The existing night Roque JP100 search still ends immediately at its victory.
+Retail validation of the new endpoints remains pending.
 
 Gravell arrival stays daytime for the Villager's small Energizing Pomegranate
 and Strengthening Serum. One Steal menu, two successful checks, then path-action
 switch/close: three CRT calls. Guaranteed levels18/32. Temenos buys Bewildering
 Grace (30 JP) and equips A Step Ahead through the existing Inventor license;
-Partitio buys Collect (500 JP) and equips Boost-Start. Prior jobs are restored.
+Partitio buys Collect (500 JP); both Partitio and Osvald equip Boost-Start. Osvald learned Collect before switching to Warrior after Temenos recruitment. Temenos equips A Step Ahead directly from the crafted inventions; no temporary job assignments occur.
 Menu setup consumes no CRT. Existing blacksmith/sales/Jam sequence follows.
 
 The search evaluates [boat], [book,boat], [Firestarter,boat], and both orders of
@@ -41,8 +107,8 @@ Roque entry switches to night if not already night.
 
 Roque requires two Winged Landwalkers, no rare replacement and no Surprise.
 All four have A Step Ahead; Partitio has Boost-Start. Require Partitio before
-Temenos in the opening. T1: both Defend; Throné small Pom to Temenos; Osvald
-unboosted staff on the rightmost enemy. T2: Temenos +3 BG, then Partitio +3 Guards.
+Temenos in the opening. T1: both Defend; Osvald small Pom to Temenos; Throné
+unboosted dagger on the rightmost/default enemy. T2: Temenos +3 BG, then Partitio +3 Guards.
 The latest Defend is first; both reach3 BP. Execute all BG children, reject
 disrupted order/death/silence/insufficient BP, then actually execute Guards.
 Acceptance requires victory, all four alive, JP modifier10000%. Rewards are

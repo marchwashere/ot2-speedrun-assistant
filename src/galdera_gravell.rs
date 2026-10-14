@@ -2,12 +2,12 @@
 use crate::{Result,ensure,CrtRng,world::{self,Loader},snows_escape::Entry};
 use serde::{Deserialize,Serialize};
 use std::sync::OnceLock;
-#[derive(Deserialize)]struct Data {guard:String,ambush_level:u32,before_events:Vec<String>,success_event:String,shopkeeper:String,jam:String,proper_steal:u32,steal_level:u32,weapons:Vec<Weapon>,job:Job,first_talk_flag:u32,license_flag:u32}
+#[derive(Deserialize)]struct Data {serum:String,serum_price:u32,guard:String,ambush_level:u32,before_events:Vec<String>,success_event:String,shopkeeper:String,jam:String,proper_steal:u32,steal_level:u32,weapons:Vec<Weapon>,job:Job,first_talk_flag:u32,license_flag:u32}
 #[derive(Deserialize)]struct Weapon {rust:String,item:String,sort:u32,sell_price:u32,flag:u32,ability:String}
 #[derive(Deserialize)]struct Ability {#[serde(rename="AbilityName")]id:String,#[serde(rename="GetParam")]count:usize}
 #[derive(Deserialize)]struct Job {#[serde(rename="JobCommandAbility")]commands:Vec<Ability>,#[serde(rename="JobSupportAbility")]supports:Vec<Ability>}
 fn data()->&'static Data {static D:OnceLock<Data>=OnceLock::new();D.get_or_init(||serde_json::from_str(include_str!("../data/galdera-gravell.json")).unwrap())}
-#[derive(Debug,Serialize)]pub struct Trip {pub arrival:Entry,pub supplies:Entry,pub lychee_steal:Entry,pub setup:Entry,pub night:Entry,pub ambush:Entry,pub restoration:Entry,pub day:Entry,pub sales:Entry,pub jam_steal:Entry,pub throne_level:u32,pub ambush_required_level:u32,pub jam_guaranteed_level:u32,pub jam_steal_chance:u32,pub jam_steal_roll:u32,pub sale_proceeds:u32}
+#[derive(Debug,Serialize)]pub struct Trip {pub arrival:Entry,pub supplies:Entry,pub lychee_steal:Entry,pub setup:Entry,pub night:Entry,pub ambush:Entry,pub restoration:Entry,pub day:Entry,pub sales:Entry,pub serum_purchase:Entry,pub serum_cost:u32,pub jam_steal:Entry,pub throne_level:u32,pub ambush_required_level:u32,pub jam_guaranteed_level:u32,pub jam_steal_chance:u32,pub jam_steal_roll:u32,pub sale_proceeds:u32}
 fn point(l:&mut Loader<'_>,before:CrtRng)->Entry {Entry {arrival:before,after:l.rng,world_after:l.state.clone(),trace:std::mem::take(&mut l.trace),decisions:std::mem::take(&mut l.decisions)}}
 fn present(l:&Loader<'_>,npc:&str)->bool {l.state.existing_npcs.iter().any(|id|l.data.placements[id].resource==npc)}
 pub(crate) fn finish(entry:&Entry)->Result<Trip> {
@@ -43,14 +43,17 @@ pub(crate) fn finish(entry:&Entry)->Result<Trip> {
   l.boundary(format!("Sold {} for {proceeds} leaves with Smooth Talker",w.item));
  }
  let sales=point(&mut l,day.after);
+ *l.state.route_items.entry(d.serum.clone()).or_default()+=1;
+ l.boundary(format!("Buy one Diffusing Serum at Gravell Provisioner for {} leaves in the weapon-sale shop session; no RNG draw",d.serum_price));
+ let serum_purchase=point(&mut l,sales.after);
  ensure(present(&l,&d.shopkeeper)&&throne_level>=d.steal_level,"Reinforcing Jam Steal is unavailable or not guaranteed")?;
  l.draw(world::DrawKind::PathActionMenu,&d.shopkeeper,"Open Shopkeeper Steal menu: action timer",None);
  let jam_steal_roll=l.draw(world::DrawKind::StealCheck,&d.jam,format!("Reinforcing Jam: ProperSteal{}, Throné{throne_level}, chance100%",d.proper_steal),Some(100))+1;
  if let Some(t)=l.trace.last_mut(){t.value=Some(jam_steal_roll);}
  *l.state.route_items.entry(d.jam.clone()).or_default()+=1;
  l.boundary("Reinforcing Jam stolen; change selected path action, then close without dialogue or closing lottery");
- let jam_steal=point(&mut l,sales.after);
- Ok(Trip {arrival,supplies,lychee_steal,setup,night,ambush,restoration,day,sales,jam_steal,throne_level,ambush_required_level:d.ambush_level,jam_guaranteed_level:d.steal_level,jam_steal_chance:100,jam_steal_roll,sale_proceeds})
+ let jam_steal=point(&mut l,serum_purchase.after);
+ Ok(Trip {arrival,supplies,lychee_steal,setup,night,ambush,restoration,day,sales,serum_purchase,serum_cost:d.serum_price,jam_steal,throne_level,ambush_required_level:d.ambush_level,jam_guaranteed_level:d.steal_level,jam_steal_chance:100,jam_steal_roll,sale_proceeds})
 }
 
 /// Native BP_WeaponMasterEventFlowV2 states for the fresh two-weapon route.
@@ -89,5 +92,29 @@ impl Flow {
     l.boundary(format!("Armsmaster ability {} unlocked globally; support unlocks updated, none equipped",w.ability));
    },_=>return Err(crate::SimError(format!("Unsupported Armsmaster apply state {}",self.state))),
   }Ok(())
+ }
+}
+
+#[cfg(test)]mod tests {
+ use super::*;
+ #[test]fn gravell_replacement_supplies_carry_inventory_and_rng() {
+  let v:serde_json::Value=serde_json::from_str(include_str!("../data/source/galdera-flex-entry.json")).unwrap();
+  let rng:CrtRng=serde_json::from_value(v["after"].clone()).unwrap();
+  let mut w:world::WorldState=serde_json::from_value(v["world_after"].clone()).unwrap();
+  w.set_flag(data().first_talk_flag,false);w.set_flag(data().license_flag,false);
+  for weapon in &data().weapons {w.route_items.remove(&weapon.item);w.route_items.insert(weapon.rust.clone(),1);}
+  for id in ["ITM_CSM_0240","ITM_CSM_0670","ITM_MRL_COM_0010"] {w.route_items.remove(id);}
+  // This fixture predates the new post-recruitment Collect purchase.
+  crate::gravell_setup::learn(&mut w,6,0,&["ABI_SET_MER_030"]).unwrap();
+  w.swooned_route_npcs.remove("NPC_Twn_Wld_3_1_A_TALK_1600_D000");
+  let e=Entry {arrival:rng,after:rng,world_after:w,trace:vec![],decisions:vec![]};
+  let g=finish(&e).unwrap();
+  assert_eq!(g.lychee_steal.after.draws-g.lychee_steal.arrival.draws,3);
+  for id in ["ITM_CSM_0240","ITM_CSM_0670"] {assert_eq!(g.lychee_steal.world_after.route_items.get(id),Some(&1));}
+  assert_eq!(g.serum_purchase.after,g.sales.after);
+  assert_eq!(g.serum_purchase.world_after.route_items.get("ITM_MRL_COM_0010"),Some(&1));
+  assert_eq!(g.serum_cost,3000);assert_eq!(g.sale_proceeds,250000);
+  assert_eq!(g.jam_steal.arrival,g.serum_purchase.after);
+  assert_eq!(g.jam_steal.after.draws-g.jam_steal.arrival.draws,2);
  }
 }

@@ -1,0 +1,2960 @@
+{
+  "sources": [
+    {
+      "source": "/Game/Item/Database/ItemDB",
+      "sha256": "89199944038f11eb9ecddde95ce199a985e1e323beab4d246c14990fc2908665"
+    },
+    {
+      "source": "/Game/Character/Database/PlayableCharacterDB",
+      "sha256": "d624b29cafae9397ea9e6557930820c1bc22fcbaea37617fb07f76c9ca80b650"
+    }
+  ],
+  "georges": {
+    "npc": "NPC_SS_TM21_0400_0200",
+    "robe": "ITM_EQP_AMR_270",
+    "steal_level": 47,
+    "information": "ITM_INF_SS_TM21_0400_0100",
+    "chances": {
+      "1": 30,
+      "2": 30,
+      "3": 30,
+      "4": 30,
+      "5": 30,
+      "6": 30,
+      "7": 30,
+      "8": 30,
+      "9": 36,
+      "10": 36,
+      "11": 36,
+      "12": 36,
+      "13": 36,
+      "14": 36,
+      "15": 36,
+      "16": 36,
+      "17": 36,
+      "18": 36,
+      "19": 36,
+      "20": 42,
+      "21": 42,
+      "22": 42,
+      "23": 42,
+      "24": 42,
+      "25": 42,
+      "26": 42,
+      "27": 42,
+      "28": 42,
+      "29": 42,
+      "30": 48,
+      "31": 48,
+      "32": 48,
+      "33": 48,
+      "34": 48,
+      "35": 48,
+      "36": 48,
+      "37": 48,
+      "38": 48,
+      "39": 48,
+      "40": 54,
+      "41": 54,
+      "42": 54,
+      "43": 54,
+      "44": 54,
+      "45": 54,
+      "46": 54,
+      "47": 54,
+      "48": 54,
+      "49": 54,
+      "50": 60,
+      "51": 60,
+      "52": 60,
+      "53": 60,
+      "54": 60,
+      "55": 60,
+      "56": 60,
+      "57": 60,
+      "58": 60,
+      "59": 60,
+      "60": 66,
+      "61": 66,
+      "62": 66,
+      "63": 66,
+      "64": 66,
+      "65": 66,
+      "66": 66,
+      "67": 66,
+      "68": 66,
+      "69": 66,
+      "70": 72,
+      "71": 72,
+      "72": 72,
+      "73": 72,
+      "74": 72,
+      "75": 72,
+      "76": 72,
+      "77": 72,
+      "78": 72,
+      "79": 72,
+      "80": 78,
+      "81": 78,
+      "82": 78,
+      "83": 78,
+      "84": 78,
+      "85": 78,
+      "86": 78,
+      "87": 78,
+      "88": 78,
+      "89": 78,
+      "90": 84,
+      "91": 84,
+      "92": 84,
+      "93": 84,
+      "94": 84,
+      "95": 84,
+      "96": 84,
+      "97": 84,
+      "98": 84,
+      "99": 84
+    },
+    "before": [
+      "FC_GAK_SEARCH_Before_1",
+      "FC_GAK_SEARCH_Before_2"
+    ],
+    "success": "FC_GAK_SEARCH_Success",
+    "chest": "Treasure_Dng_Ocn_1_3_04",
+    "claws": "ITM_EQP_ACS_940"
+  },
+  "volume": {
+    "id": "EVM_DNG_OCN_1_3_L",
+    "ID": 925,
+    "StartFlag": 0,
+    "EndFlag": 0,
+    "UseMapIndex": 0,
+    "EncountStepMin": 0,
+    "RandomStepA": 0,
+    "RandomStepB": 0,
+    "WaterSide": false,
+    "Area": "EAreaID::SNOW",
+    "RareCatlinParam": {
+      "RareEnemyFlag": false,
+      "RareEnemyRate": 0,
+      "RareEnemyCnt_Low": 0,
+      "RareEnemyCnt_Middle": 0,
+      "RareEnemyCnt_High": 0
+    },
+    "RareOctlinParam": {
+      "RareEnemyFlag": false,
+      "RareEnemyRate": 0,
+      "RareEnemyCnt_Low": 0,
+      "RareEnemyCnt_Middle": 0,
+      "RareEnemyCnt_High": 0
+    },
+    "EncounterList": [
+      {
+        "ProgressBorder": 0,
+        "DisplayLevel": 38,
+        "DangerLevel": 38,
+        "EncounterName": "ENC_DNG_OCN_1_3_L_010"
+      },
+      {
+        "ProgressBorder": 0,
+        "DisplayLevel": 0,
+        "DangerLevel": 0,
+        "EncounterName": "None"
+      },
+      {
+        "ProgressBorder": 0,
+        "DisplayLevel": 0,
+        "DangerLevel": 0,
+        "EncounterName": "None"
+      },
+      {
+        "ProgressBorder": 0,
+        "DisplayLevel": 0,
+        "DangerLevel": 0,
+        "EncounterName": "None"
+      }
+    ]
+  },
+  "encounter": {
+    "id": "ENC_DNG_OCN_1_3_L_010",
+    "ID": 1601,
+    "FirstEncount": 0,
+    "Group": [
+      {
+        "GroupID": "ENG_DNG_OCN_1_3_L_110",
+        "Appearance": 100
+      },
+      {
+        "GroupID": "None",
+        "Appearance": 0
+      },
+      {
+        "GroupID": "None",
+        "Appearance": 0
+      },
+      {
+        "GroupID": "None",
+        "Appearance": 0
+      },
+      {
+        "GroupID": "None",
+        "Appearance": 0
+      },
+      {
+        "GroupID": "None",
+        "Appearance": 0
+      },
+      {
+        "GroupID": "None",
+        "Appearance": 0
+      },
+      {
+        "GroupID": "None",
+        "Appearance": 0
+      },
+      {
+        "GroupID": "None",
+        "Appearance": 0
+      }
+    ]
+  },
+  "group": {
+    "id": "ENG_DNG_OCN_1_3_L_110",
+    "VoiceID": "None",
+    "TalkPlayerID": "EPlayableCharacterID::eNONE",
+    "PlayerVoiceID": "None",
+    "BGMID": "m58_subbossbattle1",
+    "UseBattleBGM": true,
+    "UseVictoryBGM": true,
+    "ViewResult": true,
+    "ResumeBGM": true,
+    "BossBattle": true,
+    "EscapeEnable": false,
+    "PlacementType": "PMT_TYPE_005",
+    "EnemyID": [
+      "ENE_NML_FLD_CTY_260",
+      "None",
+      "None",
+      "None",
+      "None",
+      "None",
+      "None",
+      "None",
+      "None",
+      "None"
+    ],
+    "SaveEndrollSegment": "EEndRollSegmentSet::ER_NONE",
+    "ID": 9185,
+    "BattleStartDashEnable": true,
+    "UseVictoryAction": true,
+    "ResultDashEnable": false,
+    "ItemEnable": true,
+    "GuardEnable": true,
+    "BoostEnable": true,
+    "BoostFinishResultEnable": true,
+    "BattleStartEvent": {
+      "kind": "soft-object",
+      "asset": {
+        "base": "None",
+        "number": 0,
+        "text": "None"
+      },
+      "subPath": ""
+    },
+    "BattleStartEnemyVoiceEnable": true,
+    "WeaponUnloadGCType": "EWEAPON_UNLOAD_GC_TYPE::eTURN_END"
+  },
+  "equipment": {
+    "6": {
+      "Sword": "ITM_EQP_SWD_380",
+      "Lance": "ITM_EQP_LNS_220",
+      "Head": "ITM_EQP_HLM_180",
+      "Accessory_00": "ITM_EQP_ACS_250"
+    },
+    "7": {
+      "Shield": "ITM_EQP_SLD_240",
+      "Body": "ITM_EQP_AMR_300"
+    }
+  },
+  "nuts": {
+    "6": {
+      "ITM_CSM_0610": 2
+    },
+    "7": {
+      "ITM_CSM_0730": 1,
+      "ITM_CSM_0550": 1
+    }
+  },
+  "defaults": {
+    "6": {
+      "Sword": "None",
+      "Lance": "None",
+      "Dagger": "None",
+      "Axe": "None",
+      "Bow": "None",
+      "Rod": "ITM_EQP_ROD_020",
+      "Shield": "None",
+      "Head": "None",
+      "Body": "ITM_EQP_AMR_021",
+      "Accessory_00": "None",
+      "Accessory_01": "None"
+    },
+    "7": {
+      "Sword": "ITM_EQP_SWD_031",
+      "Lance": "None",
+      "Dagger": "ITM_EQP_DGR_020",
+      "Axe": "None",
+      "Bow": "None",
+      "Rod": "None",
+      "Shield": "ITM_EQP_SLD_030",
+      "Head": "ITM_EQP_HLM_033",
+      "Body": "ITM_EQP_AMR_070",
+      "Accessory_00": "None",
+      "Accessory_01": "None"
+    }
+  },
+  "items": [
+    {
+      "id": "ITM_CSM_0550",
+      "ID": 1958,
+      "ItemNameID": "TX_NA_ITM_CSM_0550",
+      "DetailTextID": "TX_CO_ITM_CSM_0550",
+      "IconLabel": "ITEM_ICON_CONSUME_ENHANCE",
+      "ItemCategory": "EItemCategoryData::eCONSUMABLE",
+      "SortCategory": 74,
+      "BackpackPriority": 98,
+      "DisplayType": "EITEM_DISPLAY_TYPE::eITEM_USE",
+      "UseType": "EITEM_USE_TYPE::eFIELD_ONLY",
+      "MaxNum": 99,
+      "SpecialItemLabel": "None",
+      "TargetType": "EBATTLE_TARGET_TYPE::ePARTY_SINGLE",
+      "Attribute": "EATTRIBUTE_TYPE::eNONE",
+      "Ailment": [
+        {
+          "AilmentName": "GROW_ATK",
+          "InvocationValue": 28,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        }
+      ],
+      "ValuableFlag": false,
+      "BuyPrice": 5760,
+      "SellPrice": 576,
+      "BuyMeetCount": 115,
+      "SellMeetCount": 1,
+      "EquipmentCategory": "EEquipmentCategory::eSWORD",
+      "EquipmentTextureLabel": "None",
+      "EquipmentRevision": {
+        "HP": 0,
+        "MP": 0,
+        "BP": 0,
+        "SP": 0,
+        "POT": 0,
+        "ATK": 0,
+        "DEF": 0,
+        "MATK": 0,
+        "MDEF": 0,
+        "ACC": 0,
+        "EVA": 0,
+        "CON": 0,
+        "AGI": 0
+      },
+      "AttributeResist": [
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE"
+      ],
+      "DiseaseResist": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "CommandEffecter": {
+        "kind": "object",
+        "index": 0,
+        "path": null
+      },
+      "ActionCommandSequencer": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "None",
+          "number": 0,
+          "text": "None"
+        },
+        "subPath": ""
+      },
+      "TextInfoLabel": "ITEM_000",
+      "DisableAttackCommand": false,
+      "DisableRecoveryCommand": false,
+      "DisableReviveCommand": false,
+      "AbilityLabel": "None",
+      "DebugRecommendLv": 0
+    },
+    {
+      "id": "ITM_CSM_0610",
+      "ID": 1964,
+      "ItemNameID": "TX_NA_ITM_CSM_0610",
+      "DetailTextID": "TX_CO_ITM_CSM_0610",
+      "IconLabel": "ITEM_ICON_CONSUME_ENHANCE",
+      "ItemCategory": "EItemCategoryData::eCONSUMABLE",
+      "SortCategory": 74,
+      "BackpackPriority": 104,
+      "DisplayType": "EITEM_DISPLAY_TYPE::eITEM_USE",
+      "UseType": "EITEM_USE_TYPE::eFIELD_ONLY",
+      "MaxNum": 99,
+      "SpecialItemLabel": "None",
+      "TargetType": "EBATTLE_TARGET_TYPE::ePARTY_SINGLE",
+      "Attribute": "EATTRIBUTE_TYPE::eNONE",
+      "Ailment": [
+        {
+          "AilmentName": "GROW_MATK",
+          "InvocationValue": 28,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        }
+      ],
+      "ValuableFlag": false,
+      "BuyPrice": 5760,
+      "SellPrice": 576,
+      "BuyMeetCount": 99,
+      "SellMeetCount": 1,
+      "EquipmentCategory": "EEquipmentCategory::eSWORD",
+      "EquipmentTextureLabel": "None",
+      "EquipmentRevision": {
+        "HP": 0,
+        "MP": 0,
+        "BP": 0,
+        "SP": 0,
+        "POT": 0,
+        "ATK": 0,
+        "DEF": 0,
+        "MATK": 0,
+        "MDEF": 0,
+        "ACC": 0,
+        "EVA": 0,
+        "CON": 0,
+        "AGI": 0
+      },
+      "AttributeResist": [
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE"
+      ],
+      "DiseaseResist": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "CommandEffecter": {
+        "kind": "object",
+        "index": 0,
+        "path": null
+      },
+      "ActionCommandSequencer": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "None",
+          "number": 0,
+          "text": "None"
+        },
+        "subPath": ""
+      },
+      "TextInfoLabel": "ITEM_000",
+      "DisableAttackCommand": false,
+      "DisableRecoveryCommand": false,
+      "DisableReviveCommand": false,
+      "AbilityLabel": "None",
+      "DebugRecommendLv": 0
+    },
+    {
+      "id": "ITM_CSM_0730",
+      "ID": 1976,
+      "ItemNameID": "TX_NA_ITM_CSM_0730",
+      "DetailTextID": "TX_CO_ITM_CSM_0730",
+      "IconLabel": "ITEM_ICON_CONSUME_ENHANCE",
+      "ItemCategory": "EItemCategoryData::eCONSUMABLE",
+      "SortCategory": 74,
+      "BackpackPriority": 116,
+      "DisplayType": "EITEM_DISPLAY_TYPE::eITEM_USE",
+      "UseType": "EITEM_USE_TYPE::eFIELD_ONLY",
+      "MaxNum": 99,
+      "SpecialItemLabel": "None",
+      "TargetType": "EBATTLE_TARGET_TYPE::ePARTY_SINGLE",
+      "Attribute": "EATTRIBUTE_TYPE::eNONE",
+      "Ailment": [
+        {
+          "AilmentName": "GROW_CON",
+          "InvocationValue": 28,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        }
+      ],
+      "ValuableFlag": false,
+      "BuyPrice": 5760,
+      "SellPrice": 576,
+      "BuyMeetCount": 99,
+      "SellMeetCount": 1,
+      "EquipmentCategory": "EEquipmentCategory::eSWORD",
+      "EquipmentTextureLabel": "None",
+      "EquipmentRevision": {
+        "HP": 0,
+        "MP": 0,
+        "BP": 0,
+        "SP": 0,
+        "POT": 0,
+        "ATK": 0,
+        "DEF": 0,
+        "MATK": 0,
+        "MDEF": 0,
+        "ACC": 0,
+        "EVA": 0,
+        "CON": 0,
+        "AGI": 0
+      },
+      "AttributeResist": [
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE"
+      ],
+      "DiseaseResist": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "CommandEffecter": {
+        "kind": "object",
+        "index": 0,
+        "path": null
+      },
+      "ActionCommandSequencer": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "None",
+          "number": 0,
+          "text": "None"
+        },
+        "subPath": ""
+      },
+      "TextInfoLabel": "ITEM_000",
+      "DisableAttackCommand": false,
+      "DisableRecoveryCommand": false,
+      "DisableReviveCommand": false,
+      "AbilityLabel": "None",
+      "DebugRecommendLv": 0
+    },
+    {
+      "id": "ITM_EQP_SWD_380",
+      "ID": 11011,
+      "ItemNameID": "TX_NA_ITM_EQP_SWD_380",
+      "DetailTextID": "TX_CO_ITM_EQP_SWD_380",
+      "IconLabel": "None",
+      "ItemCategory": "EItemCategoryData::eEQUIPMENT",
+      "SortCategory": 2,
+      "BackpackPriority": 241,
+      "DisplayType": "EITEM_DISPLAY_TYPE::eON_HIT",
+      "UseType": "EITEM_USE_TYPE::eDISABLE",
+      "MaxNum": 99,
+      "SpecialItemLabel": "None",
+      "TargetType": "EBATTLE_TARGET_TYPE::eENEMY_SINGLE",
+      "Attribute": "EATTRIBUTE_TYPE::eNONE",
+      "Ailment": [
+        {
+          "AilmentName": "FIRE_ABILITY_UP",
+          "InvocationValue": 130,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        }
+      ],
+      "ValuableFlag": false,
+      "BuyPrice": 65000,
+      "SellPrice": 13000,
+      "BuyMeetCount": 0,
+      "SellMeetCount": 0,
+      "EquipmentCategory": "EEquipmentCategory::eSWORD",
+      "EquipmentTextureLabel": "SWD_8020",
+      "EquipmentRevision": {
+        "HP": 0,
+        "MP": 0,
+        "BP": 0,
+        "SP": 0,
+        "POT": 0,
+        "ATK": 195,
+        "DEF": 0,
+        "MATK": 298,
+        "MDEF": 0,
+        "ACC": 0,
+        "EVA": 0,
+        "CON": 0,
+        "AGI": 0
+      },
+      "AttributeResist": [
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE"
+      ],
+      "DiseaseResist": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "CommandEffecter": {
+        "kind": "object",
+        "index": 0,
+        "path": null
+      },
+      "ActionCommandSequencer": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "None",
+          "number": 0,
+          "text": "None"
+        },
+        "subPath": ""
+      },
+      "TextInfoLabel": "ITEM_000",
+      "DisableAttackCommand": false,
+      "DisableRecoveryCommand": false,
+      "DisableReviveCommand": false,
+      "AbilityLabel": "None",
+      "DebugRecommendLv": 50
+    },
+    {
+      "id": "ITM_EQP_SWD_031",
+      "ID": 2042,
+      "ItemNameID": "TX_NA_ITM_EQP_SWD_031",
+      "DetailTextID": "TX_CO_ITM_EQP_SWD_031",
+      "IconLabel": "None",
+      "ItemCategory": "EItemCategoryData::eEQUIPMENT",
+      "SortCategory": 2,
+      "BackpackPriority": 267,
+      "DisplayType": "EITEM_DISPLAY_TYPE::eON_HIT",
+      "UseType": "EITEM_USE_TYPE::eDISABLE",
+      "MaxNum": 99,
+      "SpecialItemLabel": "None",
+      "TargetType": "EBATTLE_TARGET_TYPE::eENEMY_SINGLE",
+      "Attribute": "EATTRIBUTE_TYPE::eNONE",
+      "Ailment": [
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        }
+      ],
+      "ValuableFlag": false,
+      "BuyPrice": 200,
+      "SellPrice": 40,
+      "BuyMeetCount": 0,
+      "SellMeetCount": 0,
+      "EquipmentCategory": "EEquipmentCategory::eSWORD",
+      "EquipmentTextureLabel": "SWD_8000",
+      "EquipmentRevision": {
+        "HP": 0,
+        "MP": 0,
+        "BP": 0,
+        "SP": 0,
+        "POT": 0,
+        "ATK": 4,
+        "DEF": 0,
+        "MATK": 0,
+        "MDEF": 0,
+        "ACC": 0,
+        "EVA": 0,
+        "CON": 0,
+        "AGI": 0
+      },
+      "AttributeResist": [
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE"
+      ],
+      "DiseaseResist": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "CommandEffecter": {
+        "kind": "object",
+        "index": 0,
+        "path": null
+      },
+      "ActionCommandSequencer": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "None",
+          "number": 0,
+          "text": "None"
+        },
+        "subPath": ""
+      },
+      "TextInfoLabel": "ITEM_000",
+      "DisableAttackCommand": false,
+      "DisableRecoveryCommand": false,
+      "DisableReviveCommand": false,
+      "AbilityLabel": "None",
+      "DebugRecommendLv": 1
+    },
+    {
+      "id": "ITM_EQP_LNS_220",
+      "ID": 2094,
+      "ItemNameID": "TX_NA_ITM_EQP_LNS_220",
+      "DetailTextID": "TX_CO_ITM_EQP_LNS_220",
+      "IconLabel": "None",
+      "ItemCategory": "EItemCategoryData::eEQUIPMENT",
+      "SortCategory": 3,
+      "BackpackPriority": 294,
+      "DisplayType": "EITEM_DISPLAY_TYPE::eON_HIT",
+      "UseType": "EITEM_USE_TYPE::eDISABLE",
+      "MaxNum": 99,
+      "SpecialItemLabel": "None",
+      "TargetType": "EBATTLE_TARGET_TYPE::eENEMY_SINGLE",
+      "Attribute": "EATTRIBUTE_TYPE::eNONE",
+      "Ailment": [
+        {
+          "AilmentName": "FIRE_ABILITY_UP",
+          "InvocationValue": 130,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        }
+      ],
+      "ValuableFlag": false,
+      "BuyPrice": 23000,
+      "SellPrice": 4600,
+      "BuyMeetCount": 0,
+      "SellMeetCount": 0,
+      "EquipmentCategory": "EEquipmentCategory::eLANCE",
+      "EquipmentTextureLabel": "SPR_8111",
+      "EquipmentRevision": {
+        "HP": 0,
+        "MP": 0,
+        "BP": 0,
+        "SP": 0,
+        "POT": 0,
+        "ATK": 132,
+        "DEF": 0,
+        "MATK": 0,
+        "MDEF": 0,
+        "ACC": -60,
+        "EVA": 0,
+        "CON": 0,
+        "AGI": 0
+      },
+      "AttributeResist": [
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE"
+      ],
+      "DiseaseResist": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "CommandEffecter": {
+        "kind": "object",
+        "index": 0,
+        "path": null
+      },
+      "ActionCommandSequencer": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "None",
+          "number": 0,
+          "text": "None"
+        },
+        "subPath": ""
+      },
+      "TextInfoLabel": "ITEM_000",
+      "DisableAttackCommand": false,
+      "DisableRecoveryCommand": false,
+      "DisableReviveCommand": false,
+      "AbilityLabel": "None",
+      "DebugRecommendLv": 32
+    },
+    {
+      "id": "ITM_EQP_DGR_020",
+      "ID": 2107,
+      "ItemNameID": "TX_NA_ITM_EQP_DGR_020",
+      "DetailTextID": "TX_CO_ITM_EQP_DGR_020",
+      "IconLabel": "None",
+      "ItemCategory": "EItemCategoryData::eEQUIPMENT",
+      "SortCategory": 4,
+      "BackpackPriority": 368,
+      "DisplayType": "EITEM_DISPLAY_TYPE::eON_HIT",
+      "UseType": "EITEM_USE_TYPE::eDISABLE",
+      "MaxNum": 99,
+      "SpecialItemLabel": "None",
+      "TargetType": "EBATTLE_TARGET_TYPE::eENEMY_SINGLE",
+      "Attribute": "EATTRIBUTE_TYPE::eNONE",
+      "Ailment": [
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        }
+      ],
+      "ValuableFlag": false,
+      "BuyPrice": 200,
+      "SellPrice": 40,
+      "BuyMeetCount": 0,
+      "SellMeetCount": 0,
+      "EquipmentCategory": "EEquipmentCategory::eDAGGER",
+      "EquipmentTextureLabel": "DGR_8506",
+      "EquipmentRevision": {
+        "HP": 0,
+        "MP": 0,
+        "BP": 0,
+        "SP": 0,
+        "POT": 0,
+        "ATK": 6,
+        "DEF": 0,
+        "MATK": 0,
+        "MDEF": 0,
+        "ACC": 0,
+        "EVA": 0,
+        "CON": 0,
+        "AGI": 0
+      },
+      "AttributeResist": [
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE"
+      ],
+      "DiseaseResist": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "CommandEffecter": {
+        "kind": "object",
+        "index": 0,
+        "path": null
+      },
+      "ActionCommandSequencer": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "None",
+          "number": 0,
+          "text": "None"
+        },
+        "subPath": ""
+      },
+      "TextInfoLabel": "ITEM_000",
+      "DisableAttackCommand": false,
+      "DisableRecoveryCommand": false,
+      "DisableReviveCommand": false,
+      "AbilityLabel": "None",
+      "DebugRecommendLv": 1
+    },
+    {
+      "id": "ITM_EQP_ROD_020",
+      "ID": 2204,
+      "ItemNameID": "TX_NA_ITM_EQP_ROD_020",
+      "DetailTextID": "TX_CO_ITM_EQP_ROD_020",
+      "IconLabel": "None",
+      "ItemCategory": "EItemCategoryData::eEQUIPMENT",
+      "SortCategory": 7,
+      "BackpackPriority": 518,
+      "DisplayType": "EITEM_DISPLAY_TYPE::eON_HIT",
+      "UseType": "EITEM_USE_TYPE::eDISABLE",
+      "MaxNum": 99,
+      "SpecialItemLabel": "None",
+      "TargetType": "EBATTLE_TARGET_TYPE::eENEMY_SINGLE",
+      "Attribute": "EATTRIBUTE_TYPE::eNONE",
+      "Ailment": [
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        }
+      ],
+      "ValuableFlag": false,
+      "BuyPrice": 200,
+      "SellPrice": 40,
+      "BuyMeetCount": 0,
+      "SellMeetCount": 0,
+      "EquipmentCategory": "EEquipmentCategory::eROD",
+      "EquipmentTextureLabel": "WND_8422",
+      "EquipmentRevision": {
+        "HP": 0,
+        "MP": 0,
+        "BP": 0,
+        "SP": 0,
+        "POT": 0,
+        "ATK": 3,
+        "DEF": 0,
+        "MATK": 4,
+        "MDEF": 0,
+        "ACC": 0,
+        "EVA": 0,
+        "CON": 0,
+        "AGI": 0
+      },
+      "AttributeResist": [
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE"
+      ],
+      "DiseaseResist": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "CommandEffecter": {
+        "kind": "object",
+        "index": 0,
+        "path": null
+      },
+      "ActionCommandSequencer": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "None",
+          "number": 0,
+          "text": "None"
+        },
+        "subPath": ""
+      },
+      "TextInfoLabel": "ITEM_000",
+      "DisableAttackCommand": false,
+      "DisableRecoveryCommand": false,
+      "DisableReviveCommand": false,
+      "AbilityLabel": "None",
+      "DebugRecommendLv": 1
+    },
+    {
+      "id": "ITM_EQP_SLD_240",
+      "ID": 2259,
+      "ItemNameID": "TX_NA_ITM_EQP_SLD_240",
+      "DetailTextID": "TX_CO_ITM_EQP_SLD_240",
+      "IconLabel": "None",
+      "ItemCategory": "EItemCategoryData::eEQUIPMENT",
+      "SortCategory": 10,
+      "BackpackPriority": 537,
+      "DisplayType": "EITEM_DISPLAY_TYPE::eON_HIT",
+      "UseType": "EITEM_USE_TYPE::eDISABLE",
+      "MaxNum": 99,
+      "SpecialItemLabel": "None",
+      "TargetType": "EBATTLE_TARGET_TYPE::eENEMY_SINGLE",
+      "Attribute": "EATTRIBUTE_TYPE::eNONE",
+      "Ailment": [
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        }
+      ],
+      "ValuableFlag": false,
+      "BuyPrice": 18000,
+      "SellPrice": 3600,
+      "BuyMeetCount": 0,
+      "SellMeetCount": 0,
+      "EquipmentCategory": "EEquipmentCategory::eSHIELD",
+      "EquipmentTextureLabel": "None",
+      "EquipmentRevision": {
+        "HP": 0,
+        "MP": 0,
+        "BP": 0,
+        "SP": 0,
+        "POT": 0,
+        "ATK": 0,
+        "DEF": 79,
+        "MATK": 0,
+        "MDEF": 97,
+        "ACC": 0,
+        "EVA": 0,
+        "CON": 0,
+        "AGI": 47
+      },
+      "AttributeResist": [
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE"
+      ],
+      "DiseaseResist": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "CommandEffecter": {
+        "kind": "object",
+        "index": 0,
+        "path": null
+      },
+      "ActionCommandSequencer": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "None",
+          "number": 0,
+          "text": "None"
+        },
+        "subPath": ""
+      },
+      "TextInfoLabel": "ITEM_000",
+      "DisableAttackCommand": false,
+      "DisableRecoveryCommand": false,
+      "DisableReviveCommand": false,
+      "AbilityLabel": "None",
+      "DebugRecommendLv": 45
+    },
+    {
+      "id": "ITM_EQP_SLD_030",
+      "ID": 2238,
+      "ItemNameID": "TX_NA_ITM_EQP_SLD_030",
+      "DetailTextID": "TX_CO_ITM_EQP_SLD_030",
+      "IconLabel": "None",
+      "ItemCategory": "EItemCategoryData::eEQUIPMENT",
+      "SortCategory": 10,
+      "BackpackPriority": 564,
+      "DisplayType": "EITEM_DISPLAY_TYPE::eON_HIT",
+      "UseType": "EITEM_USE_TYPE::eDISABLE",
+      "MaxNum": 99,
+      "SpecialItemLabel": "None",
+      "TargetType": "EBATTLE_TARGET_TYPE::eENEMY_SINGLE",
+      "Attribute": "EATTRIBUTE_TYPE::eNONE",
+      "Ailment": [
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        }
+      ],
+      "ValuableFlag": false,
+      "BuyPrice": 200,
+      "SellPrice": 40,
+      "BuyMeetCount": 0,
+      "SellMeetCount": 0,
+      "EquipmentCategory": "EEquipmentCategory::eSHIELD",
+      "EquipmentTextureLabel": "None",
+      "EquipmentRevision": {
+        "HP": 0,
+        "MP": 0,
+        "BP": 0,
+        "SP": 0,
+        "POT": 0,
+        "ATK": 0,
+        "DEF": 5,
+        "MATK": 0,
+        "MDEF": 3,
+        "ACC": 0,
+        "EVA": 0,
+        "CON": 0,
+        "AGI": 0
+      },
+      "AttributeResist": [
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE"
+      ],
+      "DiseaseResist": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "CommandEffecter": {
+        "kind": "object",
+        "index": 0,
+        "path": null
+      },
+      "ActionCommandSequencer": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "None",
+          "number": 0,
+          "text": "None"
+        },
+        "subPath": ""
+      },
+      "TextInfoLabel": "ITEM_000",
+      "DisableAttackCommand": false,
+      "DisableRecoveryCommand": false,
+      "DisableReviveCommand": false,
+      "AbilityLabel": "None",
+      "DebugRecommendLv": 1
+    },
+    {
+      "id": "ITM_EQP_HLM_180",
+      "ID": 2276,
+      "ItemNameID": "TX_NA_ITM_EQP_HLM_180",
+      "DetailTextID": "TX_CO_ITM_EQP_HLM_180",
+      "IconLabel": "None",
+      "ItemCategory": "EItemCategoryData::eEQUIPMENT",
+      "SortCategory": 12,
+      "BackpackPriority": 599,
+      "DisplayType": "EITEM_DISPLAY_TYPE::eON_HIT",
+      "UseType": "EITEM_USE_TYPE::eDISABLE",
+      "MaxNum": 99,
+      "SpecialItemLabel": "None",
+      "TargetType": "EBATTLE_TARGET_TYPE::eENEMY_SINGLE",
+      "Attribute": "EATTRIBUTE_TYPE::eNONE",
+      "Ailment": [
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        }
+      ],
+      "ValuableFlag": false,
+      "BuyPrice": 5200,
+      "SellPrice": 1040,
+      "BuyMeetCount": 0,
+      "SellMeetCount": 0,
+      "EquipmentCategory": "EEquipmentCategory::eLIGHT_HELMET",
+      "EquipmentTextureLabel": "None",
+      "EquipmentRevision": {
+        "HP": 0,
+        "MP": 0,
+        "BP": 0,
+        "SP": 0,
+        "POT": 0,
+        "ATK": 0,
+        "DEF": 20,
+        "MATK": 22,
+        "MDEF": 36,
+        "ACC": 0,
+        "EVA": 0,
+        "CON": 0,
+        "AGI": 0
+      },
+      "AttributeResist": [
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE"
+      ],
+      "DiseaseResist": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "CommandEffecter": {
+        "kind": "object",
+        "index": 0,
+        "path": null
+      },
+      "ActionCommandSequencer": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "None",
+          "number": 0,
+          "text": "None"
+        },
+        "subPath": ""
+      },
+      "TextInfoLabel": "ITEM_000",
+      "DisableAttackCommand": false,
+      "DisableRecoveryCommand": false,
+      "DisableReviveCommand": false,
+      "AbilityLabel": "None",
+      "DebugRecommendLv": 28
+    },
+    {
+      "id": "ITM_EQP_HLM_033",
+      "ID": 10065,
+      "ItemNameID": "TX_NA_ITM_EQP_HLM_033",
+      "DetailTextID": "TX_CO_ITM_EQP_HLM_033",
+      "IconLabel": "None",
+      "ItemCategory": "EItemCategoryData::eEQUIPMENT",
+      "SortCategory": 12,
+      "BackpackPriority": 619,
+      "DisplayType": "EITEM_DISPLAY_TYPE::eON_HIT",
+      "UseType": "EITEM_USE_TYPE::eDISABLE",
+      "MaxNum": 99,
+      "SpecialItemLabel": "None",
+      "TargetType": "EBATTLE_TARGET_TYPE::eENEMY_SINGLE",
+      "Attribute": "EATTRIBUTE_TYPE::eNONE",
+      "Ailment": [
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        }
+      ],
+      "ValuableFlag": false,
+      "BuyPrice": 200,
+      "SellPrice": 40,
+      "BuyMeetCount": 0,
+      "SellMeetCount": 0,
+      "EquipmentCategory": "EEquipmentCategory::eLIGHT_HELMET",
+      "EquipmentTextureLabel": "None",
+      "EquipmentRevision": {
+        "HP": 0,
+        "MP": 0,
+        "BP": 0,
+        "SP": 0,
+        "POT": 0,
+        "ATK": 0,
+        "DEF": 4,
+        "MATK": 0,
+        "MDEF": 2,
+        "ACC": 0,
+        "EVA": 0,
+        "CON": 0,
+        "AGI": 0
+      },
+      "AttributeResist": [
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE"
+      ],
+      "DiseaseResist": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "CommandEffecter": {
+        "kind": "object",
+        "index": 0,
+        "path": null
+      },
+      "ActionCommandSequencer": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "None",
+          "number": 0,
+          "text": "None"
+        },
+        "subPath": ""
+      },
+      "TextInfoLabel": "ITEM_000",
+      "DisableAttackCommand": false,
+      "DisableRecoveryCommand": false,
+      "DisableReviveCommand": false,
+      "AbilityLabel": "None",
+      "DebugRecommendLv": 1
+    },
+    {
+      "id": "ITM_EQP_AMR_300",
+      "ID": 2333,
+      "ItemNameID": "TX_NA_ITM_EQP_AMR_300",
+      "DetailTextID": "TX_CO_ITM_EQP_AMR_300",
+      "IconLabel": "None",
+      "ItemCategory": "EItemCategoryData::eEQUIPMENT",
+      "SortCategory": 14,
+      "BackpackPriority": 632,
+      "DisplayType": "EITEM_DISPLAY_TYPE::eON_HIT",
+      "UseType": "EITEM_USE_TYPE::eDISABLE",
+      "MaxNum": 99,
+      "SpecialItemLabel": "None",
+      "TargetType": "EBATTLE_TARGET_TYPE::eENEMY_SINGLE",
+      "Attribute": "EATTRIBUTE_TYPE::eNONE",
+      "Ailment": [
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        }
+      ],
+      "ValuableFlag": false,
+      "BuyPrice": 24000,
+      "SellPrice": 4800,
+      "BuyMeetCount": 0,
+      "SellMeetCount": 0,
+      "EquipmentCategory": "EEquipmentCategory::eLIGHT_ARMOR",
+      "EquipmentTextureLabel": "None",
+      "EquipmentRevision": {
+        "HP": 0,
+        "MP": 0,
+        "BP": 0,
+        "SP": 0,
+        "POT": 0,
+        "ATK": 0,
+        "DEF": 132,
+        "MATK": 0,
+        "MDEF": 162,
+        "ACC": 0,
+        "EVA": 0,
+        "CON": 0,
+        "AGI": 65
+      },
+      "AttributeResist": [
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE"
+      ],
+      "DiseaseResist": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "CommandEffecter": {
+        "kind": "object",
+        "index": 0,
+        "path": null
+      },
+      "ActionCommandSequencer": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "None",
+          "number": 0,
+          "text": "None"
+        },
+        "subPath": ""
+      },
+      "TextInfoLabel": "ITEM_000",
+      "DisableAttackCommand": false,
+      "DisableRecoveryCommand": false,
+      "DisableReviveCommand": false,
+      "AbilityLabel": "None",
+      "DebugRecommendLv": 45
+    },
+    {
+      "id": "ITM_EQP_AMR_021",
+      "ID": 2305,
+      "ItemNameID": "TX_NA_ITM_EQP_AMR_021",
+      "DetailTextID": "TX_CO_ITM_EQP_AMR_021",
+      "IconLabel": "None",
+      "ItemCategory": "EItemCategoryData::eEQUIPMENT",
+      "SortCategory": 14,
+      "BackpackPriority": 679,
+      "DisplayType": "EITEM_DISPLAY_TYPE::eON_HIT",
+      "UseType": "EITEM_USE_TYPE::eDISABLE",
+      "MaxNum": 99,
+      "SpecialItemLabel": "None",
+      "TargetType": "EBATTLE_TARGET_TYPE::eENEMY_SINGLE",
+      "Attribute": "EATTRIBUTE_TYPE::eNONE",
+      "Ailment": [
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        }
+      ],
+      "ValuableFlag": false,
+      "BuyPrice": 200,
+      "SellPrice": 40,
+      "BuyMeetCount": 0,
+      "SellMeetCount": 0,
+      "EquipmentCategory": "EEquipmentCategory::eLIGHT_ARMOR",
+      "EquipmentTextureLabel": "None",
+      "EquipmentRevision": {
+        "HP": 0,
+        "MP": 0,
+        "BP": 0,
+        "SP": 0,
+        "POT": 0,
+        "ATK": 0,
+        "DEF": 6,
+        "MATK": 0,
+        "MDEF": 3,
+        "ACC": 0,
+        "EVA": 0,
+        "CON": 0,
+        "AGI": 0
+      },
+      "AttributeResist": [
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE"
+      ],
+      "DiseaseResist": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "CommandEffecter": {
+        "kind": "object",
+        "index": 0,
+        "path": null
+      },
+      "ActionCommandSequencer": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "None",
+          "number": 0,
+          "text": "None"
+        },
+        "subPath": ""
+      },
+      "TextInfoLabel": "ITEM_000",
+      "DisableAttackCommand": false,
+      "DisableRecoveryCommand": false,
+      "DisableReviveCommand": false,
+      "AbilityLabel": "None",
+      "DebugRecommendLv": 1
+    },
+    {
+      "id": "ITM_EQP_AMR_070",
+      "ID": 2310,
+      "ItemNameID": "TX_NA_ITM_EQP_AMR_070",
+      "DetailTextID": "TX_CO_ITM_EQP_AMR_070",
+      "IconLabel": "None",
+      "ItemCategory": "EItemCategoryData::eEQUIPMENT",
+      "SortCategory": 14,
+      "BackpackPriority": 680,
+      "DisplayType": "EITEM_DISPLAY_TYPE::eON_HIT",
+      "UseType": "EITEM_USE_TYPE::eDISABLE",
+      "MaxNum": 99,
+      "SpecialItemLabel": "None",
+      "TargetType": "EBATTLE_TARGET_TYPE::eENEMY_SINGLE",
+      "Attribute": "EATTRIBUTE_TYPE::eNONE",
+      "Ailment": [
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        }
+      ],
+      "ValuableFlag": false,
+      "BuyPrice": 200,
+      "SellPrice": 40,
+      "BuyMeetCount": 0,
+      "SellMeetCount": 0,
+      "EquipmentCategory": "EEquipmentCategory::eLIGHT_ARMOR",
+      "EquipmentTextureLabel": "None",
+      "EquipmentRevision": {
+        "HP": 0,
+        "MP": 0,
+        "BP": 0,
+        "SP": 0,
+        "POT": 0,
+        "ATK": 0,
+        "DEF": 6,
+        "MATK": 0,
+        "MDEF": 4,
+        "ACC": 0,
+        "EVA": 0,
+        "CON": 0,
+        "AGI": 0
+      },
+      "AttributeResist": [
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE"
+      ],
+      "DiseaseResist": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "CommandEffecter": {
+        "kind": "object",
+        "index": 0,
+        "path": null
+      },
+      "ActionCommandSequencer": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "None",
+          "number": 0,
+          "text": "None"
+        },
+        "subPath": ""
+      },
+      "TextInfoLabel": "ITEM_000",
+      "DisableAttackCommand": false,
+      "DisableRecoveryCommand": false,
+      "DisableReviveCommand": false,
+      "AbilityLabel": "None",
+      "DebugRecommendLv": 1
+    },
+    {
+      "id": "ITM_EQP_ACS_250",
+      "ID": 2383,
+      "ItemNameID": "TX_NA_ITM_EQP_ACS_250",
+      "DetailTextID": "TX_CO_ITM_EQP_ACS_250",
+      "IconLabel": "None",
+      "ItemCategory": "EItemCategoryData::eEQUIPMENT",
+      "SortCategory": 16,
+      "BackpackPriority": 731,
+      "DisplayType": "EITEM_DISPLAY_TYPE::eON_HIT",
+      "UseType": "EITEM_USE_TYPE::eDISABLE",
+      "MaxNum": 99,
+      "SpecialItemLabel": "None",
+      "TargetType": "EBATTLE_TARGET_TYPE::eENEMY_SINGLE",
+      "Attribute": "EATTRIBUTE_TYPE::eNONE",
+      "Ailment": [
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        },
+        {
+          "AilmentName": "None",
+          "InvocationValue": 0,
+          "InvocationTurn": 0,
+          "DiseaseRate": 0
+        }
+      ],
+      "ValuableFlag": false,
+      "BuyPrice": 6500,
+      "SellPrice": 1300,
+      "BuyMeetCount": 0,
+      "SellMeetCount": 0,
+      "EquipmentCategory": "EEquipmentCategory::eACCESSORY",
+      "EquipmentTextureLabel": "None",
+      "EquipmentRevision": {
+        "HP": 0,
+        "MP": 0,
+        "BP": 0,
+        "SP": 0,
+        "POT": 0,
+        "ATK": 0,
+        "DEF": 0,
+        "MATK": 100,
+        "MDEF": 0,
+        "ACC": 0,
+        "EVA": 0,
+        "CON": 0,
+        "AGI": 0
+      },
+      "AttributeResist": [
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE",
+        "EATTRIBUTE_RESIST::eNONE"
+      ],
+      "DiseaseResist": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "CommandEffecter": {
+        "kind": "object",
+        "index": 0,
+        "path": null
+      },
+      "ActionCommandSequencer": {
+        "kind": "soft-object",
+        "asset": {
+          "base": "None",
+          "number": 0,
+          "text": "None"
+        },
+        "subPath": ""
+      },
+      "TextInfoLabel": "ITEM_000",
+      "DisableAttackCommand": false,
+      "DisableRecoveryCommand": false,
+      "DisableReviveCommand": false,
+      "AbilityLabel": "None",
+      "DebugRecommendLv": 45
+    }
+  ],
+  "events": {
+    "EV_Dng_Ocn_1_3_0010": {
+      "map_id": 0,
+      "reset_counter": false,
+      "completion": null,
+      "commands": [
+        {
+          "index": 0,
+          "cmd": 5010,
+          "target": 0,
+          "text": "ED_SUB_Dungeon_0010",
+          "opt": [
+            "eDIALOG_YES",
+            "0",
+            "eDIALOG_NO",
+            "2",
+            "-1",
+            "-1",
+            "-1",
+            "-1"
+          ]
+        },
+        {
+          "index": 1,
+          "cmd": 600,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "EVM_DNG_OCN_1_3_L",
+            "EV_Dng_Ocn_1_3_0020",
+            "0",
+            "1",
+            "0"
+          ]
+        },
+        {
+          "index": 2,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 3,
+          "cmd": 20,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "100"
+          ]
+        },
+        {
+          "index": 4,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        }
+      ]
+    },
+    "EV_Dng_Ocn_1_3_0020": {
+      "map_id": 0,
+      "reset_counter": true,
+      "completion": null,
+      "commands": [
+        {
+          "index": 0,
+          "cmd": 2,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 1,
+          "cmd": 106,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "Treasure_Dng_Ocn_1_3_04",
+            "0"
+          ]
+        },
+        {
+          "index": 2,
+          "cmd": 200,
+          "target": -1,
+          "text": "",
+          "opt": [
+            "20",
+            "1",
+            "0",
+            "Transparence_Fml"
+          ]
+        },
+        {
+          "index": 3,
+          "cmd": 230,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 4,
+          "cmd": 300,
+          "target": -1,
+          "text": "",
+          "opt": [
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 5,
+          "cmd": 8010,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 6,
+          "cmd": 200,
+          "target": -1,
+          "text": "",
+          "opt": [
+            "10",
+            "1",
+            "0",
+            "WldSm001_Mle"
+          ]
+        },
+        {
+          "index": 7,
+          "cmd": 250,
+          "target": 10,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 8,
+          "cmd": 110,
+          "target": 10,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 9,
+          "cmd": 4,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 10,
+          "cmd": 52,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "2"
+          ]
+        },
+        {
+          "index": 11,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1000"
+          ]
+        },
+        {
+          "index": 12,
+          "cmd": 110,
+          "target": 10,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 13,
+          "cmd": 250,
+          "target": 10,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 14,
+          "cmd": 20,
+          "target": 10,
+          "text": "",
+          "opt": [
+            "60",
+            "0",
+            "3",
+            "3"
+          ]
+        },
+        {
+          "index": 15,
+          "cmd": 240,
+          "target": 10,
+          "text": "",
+          "opt": [
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 16,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 17,
+          "cmd": 40,
+          "target": 10,
+          "text": "TX_SS_TM21_0400_EX0010",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 18,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1000"
+          ]
+        },
+        {
+          "index": 19,
+          "cmd": 62,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "2"
+          ]
+        },
+        {
+          "index": 20,
+          "cmd": 250,
+          "target": 10,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 21,
+          "cmd": 230,
+          "target": 10,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 22,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 23,
+          "cmd": 52,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "2"
+          ]
+        },
+        {
+          "index": 24,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1000"
+          ]
+        },
+        {
+          "index": 25,
+          "cmd": 910,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "se_event_whoosh_04"
+          ]
+        },
+        {
+          "index": 26,
+          "cmd": 240,
+          "target": 10,
+          "text": "",
+          "opt": [
+            "9",
+            "0"
+          ]
+        },
+        {
+          "index": 27,
+          "cmd": 40,
+          "target": 10,
+          "text": "TX_SS_TM21_0400_EX0020",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 28,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 29,
+          "cmd": 910,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "se_event_whoosh_041"
+          ]
+        },
+        {
+          "index": 30,
+          "cmd": 240,
+          "target": 10,
+          "text": "",
+          "opt": [
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 31,
+          "cmd": 40,
+          "target": 10,
+          "text": "TX_SS_TM21_0400_EX0030",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 32,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 33,
+          "cmd": 40,
+          "target": 10,
+          "text": "TX_SS_TM21_0400_EX0040",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 34,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1000"
+          ]
+        },
+        {
+          "index": 35,
+          "cmd": 710,
+          "target": 10,
+          "text": "",
+          "opt": [
+            "8"
+          ]
+        },
+        {
+          "index": 36,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "2000"
+          ]
+        },
+        {
+          "index": 37,
+          "cmd": 711,
+          "target": 10,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 38,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1000"
+          ]
+        },
+        {
+          "index": 39,
+          "cmd": 910,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "se_event_whoosh_06"
+          ]
+        },
+        {
+          "index": 40,
+          "cmd": 240,
+          "target": 10,
+          "text": "",
+          "opt": [
+            "19",
+            "0"
+          ]
+        },
+        {
+          "index": 41,
+          "cmd": 40,
+          "target": 10,
+          "text": "TX_SS_TM21_0400_EX0050",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 42,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 43,
+          "cmd": 910,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "se_event_whoosh_04"
+          ]
+        },
+        {
+          "index": 44,
+          "cmd": 240,
+          "target": 10,
+          "text": "",
+          "opt": [
+            "10",
+            "0"
+          ]
+        },
+        {
+          "index": 45,
+          "cmd": 40,
+          "target": 10,
+          "text": "TX_SS_TM21_0400_EX0060",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 46,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 47,
+          "cmd": 910,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "se_event_whoosh_041"
+          ]
+        },
+        {
+          "index": 48,
+          "cmd": 240,
+          "target": 10,
+          "text": "",
+          "opt": [
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 49,
+          "cmd": 40,
+          "target": 10,
+          "text": "TX_SS_TM21_0400_EX0070",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 50,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1000"
+          ]
+        },
+        {
+          "index": 51,
+          "cmd": 62,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "2"
+          ]
+        },
+        {
+          "index": 52,
+          "cmd": 310,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 53,
+          "cmd": 220,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 54,
+          "cmd": 2,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 55,
+          "cmd": 8010,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 56,
+          "cmd": 106,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "Treasure_Dng_Ocn_1_3_04",
+            "1"
+          ]
+        },
+        {
+          "index": 57,
+          "cmd": 70,
+          "target": 40003,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 58,
+          "cmd": 9990,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 59,
+          "cmd": 230,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 60,
+          "cmd": 52,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "2"
+          ]
+        },
+        {
+          "index": 61,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        }
+      ]
+    },
+    "FC_GAK_SEARCH_Before_1": {
+      "map_id": 0,
+      "reset_counter": false,
+      "completion": null,
+      "commands": [
+        {
+          "index": 0,
+          "cmd": 4000,
+          "target": 25524,
+          "text": "",
+          "opt": [
+            "0",
+            "2"
+          ]
+        },
+        {
+          "index": 1,
+          "cmd": 42,
+          "target": 6,
+          "text": "eFC_SEARCH_PC_TALK_01_SG",
+          "opt": [
+            "1",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 2,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 3,
+          "cmd": 4000,
+          "target": 4004,
+          "text": "",
+          "opt": [
+            "3",
+            "5"
+          ]
+        },
+        {
+          "index": 4,
+          "cmd": 42,
+          "target": 6,
+          "text": "eFC_SEARCH_PC_TALK_01_SG",
+          "opt": [
+            "1",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 5,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 6,
+          "cmd": 42,
+          "target": 6,
+          "text": "eFC_SEARCH_PC_TALK_01_A",
+          "opt": [
+            "1",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 7,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        }
+      ]
+    },
+    "FC_GAK_SEARCH_Before_2": {
+      "map_id": 0,
+      "reset_counter": false,
+      "completion": null,
+      "commands": [
+        {
+          "index": 0,
+          "cmd": 4000,
+          "target": 25524,
+          "text": "",
+          "opt": [
+            "0",
+            "2"
+          ]
+        },
+        {
+          "index": 1,
+          "cmd": 42,
+          "target": 6,
+          "text": "eFC_SEARCH_PC_TALK_01_SG",
+          "opt": [
+            "1",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 2,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 3,
+          "cmd": 4000,
+          "target": 4004,
+          "text": "",
+          "opt": [
+            "3",
+            "5"
+          ]
+        },
+        {
+          "index": 4,
+          "cmd": 42,
+          "target": 6,
+          "text": "eFC_SEARCH_PC_TALK_01_SG",
+          "opt": [
+            "1",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 5,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 6,
+          "cmd": 42,
+          "target": 6,
+          "text": "eFC_SEARCH_PC_TALK_01_B",
+          "opt": [
+            "1",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 7,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        }
+      ]
+    },
+    "FC_GAK_SEARCH_Success": {
+      "map_id": 0,
+      "reset_counter": false,
+      "completion": null,
+      "commands": [
+        {
+          "index": 0,
+          "cmd": 4000,
+          "target": 25524,
+          "text": "",
+          "opt": [
+            "0",
+            "2"
+          ]
+        },
+        {
+          "index": 1,
+          "cmd": 42,
+          "target": 6,
+          "text": "eFC_SEARCH_PC_TALK_02_SG",
+          "opt": [
+            "1",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 2,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 3,
+          "cmd": 4000,
+          "target": 4004,
+          "text": "",
+          "opt": [
+            "3",
+            "5"
+          ]
+        },
+        {
+          "index": 4,
+          "cmd": 42,
+          "target": 6,
+          "text": "eFC_SEARCH_PC_TALK_02_SG",
+          "opt": [
+            "1",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 5,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 6,
+          "cmd": 42,
+          "target": 6,
+          "text": "eFC_SEARCH_PC_TALK_02",
+          "opt": [
+            "1",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 7,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        }
+      ]
+    }
+  }
+}

@@ -65,6 +65,10 @@ pub mod identified_route;
 mod galdera_temenos;
 mod galdera_quicksand;
 mod galdera_gravell;
-mod galdera_flex;
+pub mod galdera_flex;
+mod galdera_roque;
 
 pub mod galdera_altar;
+pub mod galdera_nameless;
+pub mod galdera_shipwreck;
+pub mod nameless_setup;

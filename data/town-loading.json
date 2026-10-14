@@ -5766,6 +5766,245 @@
         false,
         false
       ]
+    },
+    "Twn_Sea_3_1_A": {
+      "id": 127,
+      "streams": [
+        "Twn_Sea_3_1_A",
+        "Twn_Sea_3_1_A_Art",
+        "Twn_Sea_3_1_A_Coll",
+        "Twn_Sea_3_1_A_GD",
+        "Twn_Sea_3_1_A_Sound",
+        "Btl_Twn_Sea_C"
+      ],
+      "field_streams": [
+        "Twn_Sea_3_1_A",
+        "Twn_Sea_3_1_A_Art",
+        "Twn_Sea_3_1_A_Coll",
+        "Twn_Sea_3_1_A_GD",
+        "Twn_Sea_3_1_A_Sound"
+      ],
+      "environment_draws": [],
+      "placements": [
+        "Treasure_Twn_Sea_3_1_A_02",
+        "Treasure_Twn_Sea_3_1_A_04",
+        "Treasure_Twn_Sea_3_1_A_05",
+        "Treasure_Twn_Sea_3_1_A_06",
+        "Treasure_Twn_Sea_3_1_A_07",
+        "Treasure_Twn_Sea_3_1_A_08",
+        "Treasure_Twn_Sea_3_1_A_09",
+        "Treasure_Twn_Sea_3_1_A_10",
+        "Treasure_Twn_Sea_3_1_A_AP_010",
+        "Treasure_Twn_Sea_3_1_A_AP_020",
+        "Treasure_Twn_Sea_3_1_A_AP_030",
+        "Treasure_Twn_Sea_3_1_A_AP_040",
+        "Treasure_Twn_Sea_3_1_A_AP_050",
+        "NPC_SYS_SAVE_Twn_Sea_3_1_A_0000",
+        "NPC_SYS_GRAMOPHONE_Twn_Sea_3_1_A",
+        "NPC_Twn_Sea_3_1_A_SHOP01",
+        "NPC_Twn_Sea_3_1_A_SHOP02",
+        "NPC_Twn_Sea_3_1_A_SHOP04",
+        "NPC_SYS_BARTENDER_Twn_Sea_3_1_A_0000",
+        "NPC_Twn_Sea_3_1_A_TALK_0100_D000",
+        "NPC_Twn_Sea_3_1_A_TALK_0200_D000",
+        "NPC_Twn_Sea_3_1_A_TALK_0300_D000",
+        "NPC_Twn_Sea_3_1_A_TALK_0400_D000",
+        "NPC_Twn_Sea_3_1_A_TALK_0500_D000",
+        "NPC_Twn_Sea_3_1_A_TALK_0600_D000",
+        "NPC_Twn_Sea_3_1_A_TALK_0700_D000",
+        "NPC_Twn_Sea_3_1_A_TALK_1600_D000",
+        "NPC_Twn_Sea_3_1_A_TALK_0300_N000",
+        "NPC_Twn_Sea_3_1_A_TALK_0500_N000",
+        "NPC_Twn_Sea_3_1_A_TALK_0600_N000",
+        "NPC_Twn_Sea_3_1_A_TALK_0800_N000",
+        "NPC_Twn_Sea_3_1_A_TALK_0900_N000",
+        "NPC_Twn_Sea_3_1_A_TALK_1000_N000",
+        "NPC_Twn_Sea_3_1_A_TALK_1100_N000",
+        "NPC_Twn_Sea_3_1_A_TALK_1200_N000",
+        "NPC_Twn_Sea_3_1_A_TALK_1300_N000",
+        "NPC_Twn_Sea_3_1_A_TALK_1400_N000",
+        "NPC_Twn_Sea_3_1_A_TALK_1500_N000",
+        "NPC_Twn_Sea_3_1_A_TALK_1600_N000",
+        "NACT_Twn_Sea_3_1_A_0100_D000",
+        "NACT_Twn_Sea_3_1_A_0200_D000",
+        "NACT_Twn_Sea_3_1_A_0300_D000",
+        "NACT_Twn_Sea_3_1_A_0300_N000",
+        "NACT_Twn_Sea_3_1_A_0400_D000",
+        "NACT_Twn_Sea_3_1_A_0500_D000",
+        "NACT_Twn_Sea_3_1_A_0600_D000",
+        "NACT_Twn_Sea_3_1_A_0700_D000",
+        "NACT_Twn_Sea_3_1_A_0800_D000",
+        "NACT_Twn_Sea_3_1_A_0900_D000",
+        "NACT_Twn_Sea_3_1_A_0900_N000",
+        "NACT_Twn_Sea_3_1_A_1000_D000",
+        "NACT_Twn_Sea_3_1_A_1000_N000",
+        "NACT_Twn_Sea_3_1_A_1100_D000",
+        "NACT_Twn_Sea_3_1_A_1200_D000",
+        "NACT_Twn_Sea_3_1_A_1300_D000",
+        "NACT_Twn_Sea_3_1_A_1400_D000",
+        "NACT_Twn_Sea_3_1_A_1500_D000",
+        "NACT_Twn_Sea_3_1_A_1600_D000",
+        "NACT_Twn_Sea_3_1_A_1600_N000",
+        "NACT_Twn_Sea_3_1_A_1700_D000",
+        "NACT_Twn_Sea_3_1_A_1700_N000",
+        "NACT_Twn_Sea_3_1_A_1800_N000",
+        "NACT_Twn_Sea_3_1_A_1900_D000",
+        "NACT_Twn_Sea_3_1_A_2000_D000",
+        "NACT_Twn_Sea_3_1_A_2200_D000",
+        "NACT_Twn_Sea_3_1_A_2300_D000",
+        "NACT_Twn_Sea_3_1_A_2400_D000",
+        "NACT_Twn_Sea_3_1_A_2500_D000",
+        "NACT_Twn_Sea_3_1_A_2600_D000",
+        "NACT_Twn_Sea_3_1_A_2800_D000",
+        "NACT_Twn_Sea_3_1_A_2900_N000",
+        "NACT_Twn_Sea_3_1_A_3000_D000",
+        "NACT_Twn_Sea_3_1_A_3100_D000",
+        "NACT_Twn_Sea_3_1_A_3200_N000",
+        "NACT_Twn_Sea_3_1_A_3300_N000",
+        "NACT_Twn_Sea_3_1_A_3400_N000",
+        "NACT_Twn_Sea_3_1_A_3500_N000",
+        "NACT_Twn_Sea_3_1_A_3600_N000",
+        "NACT_Twn_Sea_3_1_A_3700_N000",
+        "NACT_Twn_Sea_3_1_A_3800_N000",
+        "NACT_Twn_Sea_3_1_A_3900_N000",
+        "NACT_Twn_Sea_3_1_A_4000_N000",
+        "NACT_Twn_Sea_3_1_A_4100_N000",
+        "NACT_Twn_Sea_3_1_A_4200_N000",
+        "SHO_40_Twn_Sea_3_1_A_START",
+        "NPC_SHO_40_0100_0000",
+        "EV_TRIGGER_MS_SHO_40_0300",
+        "EV_TRIGGER_MS_SHO_40_0410",
+        "SHO_40_01_Twn_Sea_3_1_A_TALK_0100_D000",
+        "SHO_40_01_Twn_Sea_3_1_A_TALK_0200_D000",
+        "SHO_40_01_Twn_Sea_3_1_A_TALK_0300_D000",
+        "SHO_40_01_Twn_Sea_3_1_A_TALK_0400_D000",
+        "SHO_40_01_Twn_Sea_3_1_A_TALK_0500_D000",
+        "SHO_40_01_Twn_Sea_3_1_A_TALK_0600_D000",
+        "SHO_40_01_Twn_Sea_3_1_A_TALK_0700_D000",
+        "SHO_40_01_Twn_Sea_3_1_A_TALK_0300_N000",
+        "SHO_40_01_Twn_Sea_3_1_A_TALK_0500_N000",
+        "SHO_40_01_Twn_Sea_3_1_A_TALK_0600_N000",
+        "SHO_40_01_Twn_Sea_3_1_A_TALK_0800_N000",
+        "SHO_40_01_Twn_Sea_3_1_A_TALK_0900_N000",
+        "SHO_40_01_Twn_Sea_3_1_A_TALK_1000_N000",
+        "SHO_40_01_Twn_Sea_3_1_A_TALK_1100_N000",
+        "SHO_40_01_Twn_Sea_3_1_A_TALK_1200_N000",
+        "SHO_40_01_Twn_Sea_3_1_A_TALK_1300_N000",
+        "SHO_40_01_Twn_Sea_3_1_A_TALK_1400_N000",
+        "SHO_40_01_Twn_Sea_3_1_A_TALK_1500_N000",
+        "SHO_40_Twn_Sea_3_1_A_END",
+        "NPC_SS_JNP_FAS_0100_0000",
+        "JNP_SHO_080_D000",
+        "JNP_SHO_080_N000",
+        "NACT_Twn_Sea_3_1_A_4300_N000",
+        "JNP_SHO_070_N000"
+      ],
+      "counter": {
+        "min": 1000,
+        "range_a": 400,
+        "range_b": 400,
+        "first_ratio": 0.5
+      },
+      "bar_event": "None",
+      "bar_allowed": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ]
+    },
+    "Dng_Ocn_1_3": {
+      "id": 223,
+      "streams": [
+        "Dng_Ocn_1_3",
+        "Dng_Ocn_1_3_Art",
+        "Dng_Ocn_1_3_Coll",
+        "Dng_Ocn_1_3_Sound",
+        "Btl_Fld_Isd_Land_B",
+        "Btl_Fld_Isd_River_B"
+      ],
+      "field_streams": [
+        "Dng_Ocn_1_3",
+        "Dng_Ocn_1_3_Art",
+        "Dng_Ocn_1_3_Coll",
+        "Dng_Ocn_1_3_Sound"
+      ],
+      "environment_draws": [],
+      "placements": [
+        "NPC_SYS_SAVE_Dng_Ocn_1_3_0000",
+        "Treasure_Dng_Ocn_1_3_01",
+        "Treasure_Dng_Ocn_1_3_02",
+        "Treasure_Dng_Ocn_1_3_03",
+        "Treasure_Dng_Ocn_1_3_04",
+        "Enemy_L_Trigger_Dng_Ocn_1_3",
+        "SubEvent_NPC",
+        "NPC_SS_TMount21_0400_0200"
+      ],
+      "counter": {
+        "min": 1000,
+        "range_a": 400,
+        "range_b": 400,
+        "first_ratio": 0.5
+      },
+      "bar_event": "None",
+      "bar_allowed": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ]
+    },
+    "Dng_Ocn_1_1": {
+      "id": 221,
+      "streams": [
+        "Dng_Ocn_1_1",
+        "Dng_Ocn_1_1_Art",
+        "Dng_Ocn_1_1_Coll",
+        "Dng_Ocn_1_1_Sound",
+        "Btl_Dng_Ocn_A_Land_A",
+        "Btl_Dng_Ocn_A_River_A"
+      ],
+      "field_streams": [
+        "Dng_Ocn_1_1",
+        "Dng_Ocn_1_1_Art",
+        "Dng_Ocn_1_1_Coll",
+        "Dng_Ocn_1_1_Sound"
+      ],
+      "environment_draws": [],
+      "placements": [
+        "NPC_SYS_SAVE_Dng_Ocn_1_1_0000",
+        "Treasure_Dng_Ocn_1_1_01",
+        "Treasure_Dng_Ocn_1_1_02",
+        "Treasure_Dng_Ocn_1_1_03",
+        "Treasure_Dng_Ocn_1_1_04",
+        "Treasure_Dng_Ocn_1_1_05",
+        "Treasure_Dng_Ocn_1_1_06"
+      ],
+      "counter": {
+        "min": 1000,
+        "range_a": 400,
+        "range_b": 400,
+        "first_ratio": 0.5
+      },
+      "bar_event": "None",
+      "bar_allowed": [
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false,
+        false
+      ]
     }
   },
   "placements": {
@@ -50525,6 +50764,2078 @@
       "prologue": "EPlayableCharacterID::eNONE",
       "not_final": false,
       "excludes": []
+    },
+    "Treasure_Twn_Sea_3_1_A_02": {
+      "kind": 2,
+      "resource": "Treasure_Twn_Sea_3_1_A_02",
+      "action": null,
+      "begin": 0,
+      "end": 0,
+      "time": "eALL",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "Treasure_Twn_Sea_3_1_A_04": {
+      "kind": 2,
+      "resource": "Treasure_Twn_Sea_3_1_A_04",
+      "action": null,
+      "begin": 0,
+      "end": 0,
+      "time": "eALL",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "Treasure_Twn_Sea_3_1_A_05": {
+      "kind": 2,
+      "resource": "Treasure_Twn_Sea_3_1_A_05",
+      "action": null,
+      "begin": 0,
+      "end": 0,
+      "time": "eALL",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "Treasure_Twn_Sea_3_1_A_06": {
+      "kind": 2,
+      "resource": "Treasure_Twn_Sea_3_1_A_06",
+      "action": null,
+      "begin": 0,
+      "end": 0,
+      "time": "eALL",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "Treasure_Twn_Sea_3_1_A_07": {
+      "kind": 2,
+      "resource": "Treasure_Twn_Sea_3_1_A_07",
+      "action": null,
+      "begin": 0,
+      "end": 0,
+      "time": "eALL",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "Treasure_Twn_Sea_3_1_A_08": {
+      "kind": 2,
+      "resource": "Treasure_Twn_Sea_3_1_A_08",
+      "action": null,
+      "begin": 0,
+      "end": 0,
+      "time": "eALL",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "Treasure_Twn_Sea_3_1_A_09": {
+      "kind": 2,
+      "resource": "Treasure_Twn_Sea_3_1_A_09",
+      "action": null,
+      "begin": 0,
+      "end": 0,
+      "time": "eALL",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "Treasure_Twn_Sea_3_1_A_10": {
+      "kind": 2,
+      "resource": "Treasure_Twn_Sea_3_1_A_10",
+      "action": null,
+      "begin": 0,
+      "end": 0,
+      "time": "eALL",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "Treasure_Twn_Sea_3_1_A_AP_010": {
+      "kind": 2,
+      "resource": "Treasure_Twn_Sea_3_1_A_AP_010",
+      "action": null,
+      "begin": 39580,
+      "end": 0,
+      "time": "eALL",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "Treasure_Twn_Sea_3_1_A_AP_020": {
+      "kind": 2,
+      "resource": "Treasure_Twn_Sea_3_1_A_AP_020",
+      "action": null,
+      "begin": 39581,
+      "end": 0,
+      "time": "eALL",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "Treasure_Twn_Sea_3_1_A_AP_030": {
+      "kind": 2,
+      "resource": "Treasure_Twn_Sea_3_1_A_AP_030",
+      "action": null,
+      "begin": 39582,
+      "end": 0,
+      "time": "eALL",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "Treasure_Twn_Sea_3_1_A_AP_040": {
+      "kind": 2,
+      "resource": "Treasure_Twn_Sea_3_1_A_AP_040",
+      "action": null,
+      "begin": 39583,
+      "end": 0,
+      "time": "eALL",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "Treasure_Twn_Sea_3_1_A_AP_050": {
+      "kind": 2,
+      "resource": "Treasure_Twn_Sea_3_1_A_AP_050",
+      "action": null,
+      "begin": 39584,
+      "end": 0,
+      "time": "eALL",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "NPC_SYS_SAVE_Twn_Sea_3_1_A_0000": {
+      "kind": 1,
+      "resource": "NPC_SYS_SAVE",
+      "action": "NpcCty_SV_001",
+      "begin": 0,
+      "end": 0,
+      "time": "eALL",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "NPC_SYS_GRAMOPHONE_Twn_Sea_3_1_A": {
+      "kind": 1,
+      "resource": "NPC_SYS_GRAMOPHONE",
+      "action": "Phonograph_A",
+      "begin": 201,
+      "end": 0,
+      "time": "eALL",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "NPC_Twn_Sea_3_1_A_SHOP01": {
+      "kind": 1,
+      "resource": "NPC_Twn_Sea_3_1_A_SHOP01",
+      "action": "SeaYm001_Mle",
+      "begin": 0,
+      "end": 0,
+      "time": "eALL",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "NPC_Twn_Sea_3_1_A_SHOP02": {
+      "kind": 1,
+      "resource": "NPC_Twn_Sea_3_1_A_SHOP02",
+      "action": "NonYf001_Fml",
+      "begin": 0,
+      "end": 0,
+      "time": "eALL",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "NPC_Twn_Sea_3_1_A_SHOP04": {
+      "kind": 1,
+      "resource": "NPC_Twn_Sea_3_1_A_SHOP04",
+      "action": "SeaYf001_Fml",
+      "begin": 0,
+      "end": 0,
+      "time": "eALL",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "NPC_SYS_BARTENDER_Twn_Sea_3_1_A_0000": {
+      "kind": 1,
+      "resource": "NPC_SYS_BARTENDER",
+      "action": "NonCBar001_Mle",
+      "begin": 0,
+      "end": 0,
+      "time": "eALL",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "NPC_Twn_Sea_3_1_A_TALK_0100_D000": {
+      "kind": 1,
+      "resource": "NPC_Twn_Sea_3_1_A_TALK_0100",
+      "action": "WldYm001_Mle",
+      "begin": 0,
+      "end": 0,
+      "time": "eDAYTIME",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": [
+        "SHO_40_Twn_Sea_3_1_A_START"
+      ]
+    },
+    "NPC_Twn_Sea_3_1_A_TALK_0200_D000": {
+      "kind": 1,
+      "resource": "NPC_Twn_Sea_3_1_A_TALK_0200",
+      "action": "NonSld007_Mle",
+      "begin": 0,
+      "end": 0,
+      "time": "eALL",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": [
+        "SHO_40_Twn_Sea_3_1_A_START"
+      ]
+    },
+    "NPC_Twn_Sea_3_1_A_TALK_0300_D000": {
+      "kind": 1,
+      "resource": "NPC_Twn_Sea_3_1_A_TALK_0300",
+      "action": "NonPorCm001_Cld",
+      "begin": 0,
+      "end": 0,
+      "time": "eDAYTIME",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": [
+        "SHO_40_Twn_Sea_3_1_A_START"
+      ]
+    },
+    "NPC_Twn_Sea_3_1_A_TALK_0400_D000": {
+      "kind": 1,
+      "resource": "NPC_Twn_Sea_3_1_A_TALK_0400",
+      "action": "CtyYm001_Mle",
+      "begin": 0,
+      "end": 0,
+      "time": "eDAYTIME",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": [
+        "SHO_40_Twn_Sea_3_1_A_START"
+      ]
+    },
+    "NPC_Twn_Sea_3_1_A_TALK_0500_D000": {
+      "kind": 1,
+      "resource": "NPC_Twn_Sea_3_1_A_TALK_0500",
+      "action": "NonNbl002_Mle",
+      "begin": 0,
+      "end": 0,
+      "time": "eDAYTIME",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": [
+        "SHO_40_Twn_Sea_3_1_A_START"
+      ]
+    },
+    "NPC_Twn_Sea_3_1_A_TALK_0600_D000": {
+      "kind": 1,
+      "resource": "NPC_Twn_Sea_3_1_A_TALK_0600",
+      "action": "ShoWorker003_Mle",
+      "begin": 0,
+      "end": 0,
+      "time": "eDAYTIME",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": [
+        "SHO_40_Twn_Sea_3_1_A_START"
+      ]
+    },
+    "NPC_Twn_Sea_3_1_A_TALK_0700_D000": {
+      "kind": 1,
+      "resource": "NPC_Twn_Sea_3_1_A_TALK_0700",
+      "action": "NonMrc003_Mle",
+      "begin": 0,
+      "end": 0,
+      "time": "eDAYTIME",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": [
+        "SHO_40_Twn_Sea_3_1_A_START"
+      ]
+    },
+    "NPC_Twn_Sea_3_1_A_TALK_1600_D000": {
+      "kind": 1,
+      "resource": "NPC_Twn_Sea_3_1_A_TALK_1600",
+      "action": "NonMrc007_Mle",
+      "begin": 201,
+      "end": 0,
+      "time": "eDAYTIME",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": [
+        "SHO_40_Twn_Sea_3_1_A_START"
+      ]
+    },
+    "NPC_Twn_Sea_3_1_A_TALK_0300_N000": {
+      "kind": 1,
+      "resource": "NPC_Twn_Sea_3_1_A_TALK_0300",
+      "action": "NonPorCm001_Cld",
+      "begin": 0,
+      "end": 0,
+      "time": "eNIGHT",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": [
+        "SHO_40_Twn_Sea_3_1_A_START"
+      ]
+    },
+    "NPC_Twn_Sea_3_1_A_TALK_0500_N000": {
+      "kind": 1,
+      "resource": "NPC_Twn_Sea_3_1_A_TALK_0500",
+      "action": "NonNbl002_Mle",
+      "begin": 0,
+      "end": 0,
+      "time": "eNIGHT",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": [
+        "SHO_40_Twn_Sea_3_1_A_START"
+      ]
+    },
+    "NPC_Twn_Sea_3_1_A_TALK_0600_N000": {
+      "kind": 1,
+      "resource": "NPC_Twn_Sea_3_1_A_TALK_0600",
+      "action": "ShoWorker003_Mle",
+      "begin": 0,
+      "end": 0,
+      "time": "eNIGHT",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": [
+        "SHO_40_Twn_Sea_3_1_A_START"
+      ]
+    },
+    "NPC_Twn_Sea_3_1_A_TALK_0800_N000": {
+      "kind": 1,
+      "resource": "NPC_Twn_Sea_3_1_A_TALK_0800",
+      "action": "ShoWorker001_Mle",
+      "begin": 0,
+      "end": 0,
+      "time": "eNIGHT",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": [
+        "SHO_40_Twn_Sea_3_1_A_START"
+      ]
+    },
+    "NPC_Twn_Sea_3_1_A_TALK_0900_N000": {
+      "kind": 1,
+      "resource": "NPC_Twn_Sea_3_1_A_TALK_0900",
+      "action": "WldMm001_Mle",
+      "begin": 0,
+      "end": 0,
+      "time": "eNIGHT",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": [
+        "SHO_40_Twn_Sea_3_1_A_START"
+      ]
+    },
+    "NPC_Twn_Sea_3_1_A_TALK_1000_N000": {
+      "kind": 1,
+      "resource": "NPC_Twn_Sea_3_1_A_TALK_1000",
+      "action": "WldYm001_Mle",
+      "begin": 0,
+      "end": 0,
+      "time": "eNIGHT",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": [
+        "SHO_40_Twn_Sea_3_1_A_START"
+      ]
+    },
+    "NPC_Twn_Sea_3_1_A_TALK_1100_N000": {
+      "kind": 1,
+      "resource": "NPC_Twn_Sea_3_1_A_TALK_1100",
+      "action": "WldYm001_Mle",
+      "begin": 0,
+      "end": 0,
+      "time": "eNIGHT",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": [
+        "SHO_40_Twn_Sea_3_1_A_START"
+      ]
+    },
+    "NPC_Twn_Sea_3_1_A_TALK_1200_N000": {
+      "kind": 1,
+      "resource": "NPC_Twn_Sea_3_1_A_TALK_1200",
+      "action": "WldMm002_Mle",
+      "begin": 0,
+      "end": 0,
+      "time": "eNIGHT",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": [
+        "SHO_40_Twn_Sea_3_1_A_START"
+      ]
+    },
+    "NPC_Twn_Sea_3_1_A_TALK_1300_N000": {
+      "kind": 1,
+      "resource": "NPC_Twn_Sea_3_1_A_TALK_1300",
+      "action": "ShoWorker002_Mle",
+      "begin": 0,
+      "end": 0,
+      "time": "eNIGHT",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": [
+        "SHO_40_Twn_Sea_3_1_A_START"
+      ]
+    },
+    "NPC_Twn_Sea_3_1_A_TALK_1400_N000": {
+      "kind": 1,
+      "resource": "NPC_Twn_Sea_3_1_A_TALK_1400",
+      "action": "WldMm002_Mle",
+      "begin": 0,
+      "end": 0,
+      "time": "eNIGHT",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": [
+        "SHO_40_Twn_Sea_3_1_A_START"
+      ]
+    },
+    "NPC_Twn_Sea_3_1_A_TALK_1500_N000": {
+      "kind": 1,
+      "resource": "NPC_Twn_Sea_3_1_A_TALK_1500",
+      "action": "ShoWorker004_Fml",
+      "begin": 0,
+      "end": 0,
+      "time": "eNIGHT",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": [
+        "SHO_40_Twn_Sea_3_1_A_START"
+      ]
+    },
+    "NPC_Twn_Sea_3_1_A_TALK_1600_N000": {
+      "kind": 1,
+      "resource": "NPC_Twn_Sea_3_1_A_TALK_1600",
+      "action": "NonMrc007_Mle",
+      "begin": 201,
+      "end": 0,
+      "time": "eNIGHT",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": [
+        "SHO_40_Twn_Sea_3_1_A_START"
+      ]
+    },
+    "NACT_Twn_Sea_3_1_A_0100_D000": {
+      "kind": 1,
+      "resource": "NACT_Twn_Sea_3_1_A_0100",
+      "action": "CtyCf001_Cld",
+      "begin": 0,
+      "end": 0,
+      "time": "None",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "NACT_Twn_Sea_3_1_A_0200_D000": {
+      "kind": 1,
+      "resource": "NACT_Twn_Sea_3_1_A_0200",
+      "action": "SeaCm001_Cld",
+      "begin": 0,
+      "end": 0,
+      "time": "None",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "NACT_Twn_Sea_3_1_A_0300_D000": {
+      "kind": 1,
+      "resource": "NACT_Twn_Sea_3_1_A_0300",
+      "action": "CtyYf001_Fml",
+      "begin": 0,
+      "end": 0,
+      "time": "None",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "NACT_Twn_Sea_3_1_A_0300_N000": {
+      "kind": 1,
+      "resource": "NACT_Twn_Sea_3_1_A_0300",
+      "action": "CtyYf001_Fml",
+      "begin": 0,
+      "end": 0,
+      "time": "None",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "NACT_Twn_Sea_3_1_A_0400_D000": {
+      "kind": 1,
+      "resource": "NACT_Twn_Sea_3_1_A_0400",
+      "action": "CtyYm001_Mle",
+      "begin": 0,
+      "end": 0,
+      "time": "None",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "NACT_Twn_Sea_3_1_A_0500_D000": {
+      "kind": 1,
+      "resource": "NACT_Twn_Sea_3_1_A_0500",
+      "action": "SeaYf001_Fml",
+      "begin": 0,
+      "end": 0,
+      "time": "None",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "NACT_Twn_Sea_3_1_A_0600_D000": {
+      "kind": 1,
+      "resource": "NACT_Twn_Sea_3_1_A_0600",
+      "action": "SeaCf001_Cld",
+      "begin": 0,
+      "end": 0,
+      "time": "None",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "NACT_Twn_Sea_3_1_A_0700_D000": {
+      "kind": 1,
+      "resource": "NACT_Twn_Sea_3_1_A_0700",
+      "action": "SeaSm001_Mle",
+      "begin": 0,
+      "end": 0,
+      "time": "None",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "NACT_Twn_Sea_3_1_A_0800_D000": {
+      "kind": 1,
+      "resource": "NACT_Twn_Sea_3_1_A_0800",
+      "action": "NonRobber001_Mle",
+      "begin": 0,
+      "end": 0,
+      "time": "None",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "NACT_Twn_Sea_3_1_A_0900_D000": {
+      "kind": 1,
+      "resource": "NACT_Twn_Sea_3_1_A_0900",
+      "action": "SeaSf001_Fml",
+      "begin": 0,
+      "end": 0,
+      "time": "None",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "NACT_Twn_Sea_3_1_A_0900_N000": {
+      "kind": 1,
+      "resource": "NACT_Twn_Sea_3_1_A_0900",
+      "action": "SeaSf001_Fml",
+      "begin": 0,
+      "end": 0,
+      "time": "None",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "NACT_Twn_Sea_3_1_A_1000_D000": {
+      "kind": 1,
+      "resource": "NACT_Twn_Sea_3_1_A_1000",
+      "action": "WldMm002_Mle",
+      "begin": 0,
+      "end": 0,
+      "time": "None",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "NACT_Twn_Sea_3_1_A_1000_N000": {
+      "kind": 1,
+      "resource": "NACT_Twn_Sea_3_1_A_1000",
+      "action": "WldMm002_Mle",
+      "begin": 0,
+      "end": 0,
+      "time": "None",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "NACT_Twn_Sea_3_1_A_1100_D000": {
+      "kind": 1,
+      "resource": "NACT_Twn_Sea_3_1_A_1100",
+      "action": "NonPrts001_Fml",
+      "begin": 0,
+      "end": 0,
+      "time": "None",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "NACT_Twn_Sea_3_1_A_1200_D000": {
+      "kind": 1,
+      "resource": "NACT_Twn_Sea_3_1_A_1200",
+      "action": "CtySf001_Fml",
+      "begin": 0,
+      "end": 0,
+      "time": "None",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "NACT_Twn_Sea_3_1_A_1300_D000": {
+      "kind": 1,
+      "resource": "NACT_Twn_Sea_3_1_A_1300",
+      "action": "NonYm001_Mle",
+      "begin": 0,
+      "end": 0,
+      "time": "None",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "NACT_Twn_Sea_3_1_A_1400_D000": {
+      "kind": 1,
+      "resource": "NACT_Twn_Sea_3_1_A_1400",
+      "action": "MntYm001_Mle",
+      "begin": 0,
+      "end": 0,
+      "time": "None",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "NACT_Twn_Sea_3_1_A_1500_D000": {
+      "kind": 1,
+      "resource": "NACT_Twn_Sea_3_1_A_1500",
+      "action": "WldMm001_Mle",
+      "begin": 0,
+      "end": 0,
+      "time": "None",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "NACT_Twn_Sea_3_1_A_1600_D000": {
+      "kind": 1,
+      "resource": "NACT_Twn_Sea_3_1_A_1600",
+      "action": "NonYf001_Fml",
+      "begin": 0,
+      "end": 0,
+      "time": "None",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "NACT_Twn_Sea_3_1_A_1600_N000": {
+      "kind": 1,
+      "resource": "NACT_Twn_Sea_3_1_A_1600",
+      "action": "NonYf001_Fml",
+      "begin": 0,
+      "end": 0,
+      "time": "None",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "NACT_Twn_Sea_3_1_A_1700_D000": {
+      "kind": 1,
+      "resource": "NACT_Twn_Sea_3_1_A_1700",
+      "action": "IsdCm001_Cld",
+      "begin": 0,
+      "end": 0,
+      "time": "None",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "NACT_Twn_Sea_3_1_A_1700_N000": {
+      "kind": 1,
+      "resource": "NACT_Twn_Sea_3_1_A_1700",
+      "action": "IsdCm001_Cld",
+      "begin": 0,
+      "end": 0,
+      "time": "None",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "NACT_Twn_Sea_3_1_A_1800_N000": {
+      "kind": 1,
+      "resource": "NACT_Twn_Sea_3_1_A_1800",
+      "action": "WldYm001_Mle",
+      "begin": 0,
+      "end": 0,
+      "time": "None",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "NACT_Twn_Sea_3_1_A_1900_D000": {
+      "kind": 1,
+      "resource": "NACT_Twn_Sea_3_1_A_1900",
+      "action": "NonMrc006_Mle",
+      "begin": 0,
+      "end": 0,
+      "time": "eDAYTIME",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "NACT_Twn_Sea_3_1_A_2000_D000": {
+      "kind": 1,
+      "resource": "NACT_Twn_Sea_3_1_A_2000",
+      "action": "WldMm002_Mle",
+      "begin": 0,
+      "end": 0,
+      "time": "eDAYTIME",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "NACT_Twn_Sea_3_1_A_2200_D000": {
+      "kind": 1,
+      "resource": "NACT_Twn_Sea_3_1_A_2200",
+      "action": "SeaYm001_Mle",
+      "begin": 0,
+      "end": 0,
+      "time": "eDAYTIME",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "NACT_Twn_Sea_3_1_A_2300_D000": {
+      "kind": 1,
+      "resource": "NACT_Twn_Sea_3_1_A_2300",
+      "action": "WldMm002_Mle",
+      "begin": 0,
+      "end": 0,
+      "time": "eDAYTIME",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "NACT_Twn_Sea_3_1_A_2400_D000": {
+      "kind": 1,
+      "resource": "NACT_Twn_Sea_3_1_A_2400",
+      "action": "ShoWorker001_Mle",
+      "begin": 0,
+      "end": 0,
+      "time": "eDAYTIME",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "NACT_Twn_Sea_3_1_A_2500_D000": {
+      "kind": 1,
+      "resource": "NACT_Twn_Sea_3_1_A_2500",
+      "action": "WldSf001_Fml",
+      "begin": 0,
+      "end": 0,
+      "time": "eDAYTIME",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "NACT_Twn_Sea_3_1_A_2600_D000": {
+      "kind": 1,
+      "resource": "NACT_Twn_Sea_3_1_A_2600",
+      "action": "WldYm001_Mle",
+      "begin": 0,
+      "end": 0,
+      "time": "eDAYTIME",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "NACT_Twn_Sea_3_1_A_2800_D000": {
+      "kind": 1,
+      "resource": "NACT_Twn_Sea_3_1_A_2800",
+      "action": "WldMm002_Mle",
+      "begin": 0,
+      "end": 0,
+      "time": "eDAYTIME",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "NACT_Twn_Sea_3_1_A_2900_N000": {
+      "kind": 1,
+      "resource": "NACT_Twn_Sea_3_1_A_2900",
+      "action": "NonSm001_Mle",
+      "begin": 0,
+      "end": 0,
+      "time": "eNIGHT",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "NACT_Twn_Sea_3_1_A_3000_D000": {
+      "kind": 1,
+      "resource": "NACT_Twn_Sea_3_1_A_3000",
+      "action": "NonYm001_Mle",
+      "begin": 0,
+      "end": 0,
+      "time": "eNIGHT",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "NACT_Twn_Sea_3_1_A_3100_D000": {
+      "kind": 1,
+      "resource": "NACT_Twn_Sea_3_1_A_3100",
+      "action": "NonProstitute001_Fml",
+      "begin": 0,
+      "end": 0,
+      "time": "eNIGHT",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "NACT_Twn_Sea_3_1_A_3200_N000": {
+      "kind": 1,
+      "resource": "NACT_Twn_Sea_3_1_A_3200",
+      "action": "ShoWorker001_Mle",
+      "begin": 0,
+      "end": 0,
+      "time": "eNIGHT",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "NACT_Twn_Sea_3_1_A_3300_N000": {
+      "kind": 1,
+      "resource": "NACT_Twn_Sea_3_1_A_3300",
+      "action": "ShoWorker003_Mle",
+      "begin": 0,
+      "end": 0,
+      "time": "eNIGHT",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": true,
+      "excludes": []
+    },
+    "NACT_Twn_Sea_3_1_A_3400_N000": {
+      "kind": 1,
+      "resource": "NACT_Twn_Sea_3_1_A_3400",
+      "action": "CtyYm001_Mle",
+      "begin": 0,
+      "end": 0,
+      "time": "eNIGHT",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "NACT_Twn_Sea_3_1_A_3500_N000": {
+      "kind": 1,
+      "resource": "NACT_Twn_Sea_3_1_A_3500",
+      "action": "MntYm001_Mle",
+      "begin": 0,
+      "end": 0,
+      "time": "eNIGHT",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "NACT_Twn_Sea_3_1_A_3600_N000": {
+      "kind": 1,
+      "resource": "NACT_Twn_Sea_3_1_A_3600",
+      "action": "WldSm001_Mle",
+      "begin": 0,
+      "end": 0,
+      "time": "eNIGHT",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "NACT_Twn_Sea_3_1_A_3700_N000": {
+      "kind": 1,
+      "resource": "NACT_Twn_Sea_3_1_A_3700",
+      "action": "WldMm002_Mle",
+      "begin": 0,
+      "end": 0,
+      "time": "eNIGHT",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "NACT_Twn_Sea_3_1_A_3800_N000": {
+      "kind": 1,
+      "resource": "NACT_Twn_Sea_3_1_A_3800",
+      "action": "WldYm001_Mle",
+      "begin": 0,
+      "end": 0,
+      "time": "eNIGHT",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "NACT_Twn_Sea_3_1_A_3900_N000": {
+      "kind": 1,
+      "resource": "NACT_Twn_Sea_3_1_A_3900",
+      "action": "NonYm001_Mle",
+      "begin": 0,
+      "end": 0,
+      "time": "eNIGHT",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "NACT_Twn_Sea_3_1_A_4000_N000": {
+      "kind": 1,
+      "resource": "NACT_Twn_Sea_3_1_A_4000",
+      "action": "FstSm001_Mle",
+      "begin": 0,
+      "end": 0,
+      "time": "eNIGHT",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "NACT_Twn_Sea_3_1_A_4100_N000": {
+      "kind": 1,
+      "resource": "NACT_Twn_Sea_3_1_A_4100",
+      "action": "NonYm001_Mle",
+      "begin": 0,
+      "end": 0,
+      "time": "eNIGHT",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "NACT_Twn_Sea_3_1_A_4200_N000": {
+      "kind": 1,
+      "resource": "NACT_Twn_Sea_3_1_A_4200",
+      "action": "ShoWorker001_Mle",
+      "begin": 0,
+      "end": 0,
+      "time": "None",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "SHO_40_Twn_Sea_3_1_A_START": {
+      "kind": 3,
+      "resource": "None",
+      "action": null,
+      "begin": 0,
+      "end": 0,
+      "time": "eALL",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 4,
+      "scenario": 403,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "NPC_SHO_40_0100_0000": {
+      "kind": 1,
+      "resource": "NPC_SHO_40_0100",
+      "action": "ShoOkina_Fml",
+      "begin": 6152,
+      "end": 6154,
+      "time": "eALL",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 4,
+      "scenario": 403,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "EV_TRIGGER_MS_SHO_40_0300": {
+      "kind": 3,
+      "resource": "None",
+      "action": null,
+      "begin": 6151,
+      "end": 6152,
+      "time": "eALL",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 4,
+      "scenario": 403,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "EV_TRIGGER_MS_SHO_40_0410": {
+      "kind": 3,
+      "resource": "None",
+      "action": null,
+      "begin": 6152,
+      "end": 6154,
+      "time": "eALL",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 4,
+      "scenario": 403,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "SHO_40_01_Twn_Sea_3_1_A_TALK_0100_D000": {
+      "kind": 1,
+      "resource": "NPC_Twn_Sea_3_1_A_TALK_0100",
+      "action": "WldYm001_Mle",
+      "begin": 0,
+      "end": 0,
+      "time": "eDAYTIME",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 4,
+      "scenario": 403,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "SHO_40_01_Twn_Sea_3_1_A_TALK_0200_D000": {
+      "kind": 1,
+      "resource": "NPC_Twn_Sea_3_1_A_TALK_0200",
+      "action": "NonSld007_Mle",
+      "begin": 0,
+      "end": 0,
+      "time": "eALL",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 4,
+      "scenario": 403,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "SHO_40_01_Twn_Sea_3_1_A_TALK_0300_D000": {
+      "kind": 1,
+      "resource": "NPC_Twn_Sea_3_1_A_TALK_0300",
+      "action": "NonPorCm001_Cld",
+      "begin": 0,
+      "end": 0,
+      "time": "eDAYTIME",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 4,
+      "scenario": 403,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "SHO_40_01_Twn_Sea_3_1_A_TALK_0400_D000": {
+      "kind": 1,
+      "resource": "NPC_Twn_Sea_3_1_A_TALK_0400",
+      "action": "CtyYm001_Mle",
+      "begin": 0,
+      "end": 0,
+      "time": "eDAYTIME",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 4,
+      "scenario": 403,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "SHO_40_01_Twn_Sea_3_1_A_TALK_0500_D000": {
+      "kind": 1,
+      "resource": "NPC_Twn_Sea_3_1_A_TALK_0500",
+      "action": "NonNbl002_Mle",
+      "begin": 0,
+      "end": 0,
+      "time": "eDAYTIME",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 4,
+      "scenario": 403,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "SHO_40_01_Twn_Sea_3_1_A_TALK_0600_D000": {
+      "kind": 1,
+      "resource": "NPC_Twn_Sea_3_1_A_TALK_0600",
+      "action": "ShoWorker003_Mle",
+      "begin": 0,
+      "end": 0,
+      "time": "eDAYTIME",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 4,
+      "scenario": 403,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "SHO_40_01_Twn_Sea_3_1_A_TALK_0700_D000": {
+      "kind": 1,
+      "resource": "NPC_Twn_Sea_3_1_A_TALK_0700",
+      "action": "NonMrc003_Mle",
+      "begin": 0,
+      "end": 0,
+      "time": "eDAYTIME",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 4,
+      "scenario": 403,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "SHO_40_01_Twn_Sea_3_1_A_TALK_0300_N000": {
+      "kind": 1,
+      "resource": "NPC_Twn_Sea_3_1_A_TALK_0300",
+      "action": "NonPorCm001_Cld",
+      "begin": 0,
+      "end": 0,
+      "time": "eNIGHT",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 4,
+      "scenario": 403,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "SHO_40_01_Twn_Sea_3_1_A_TALK_0500_N000": {
+      "kind": 1,
+      "resource": "NPC_Twn_Sea_3_1_A_TALK_0500",
+      "action": "NonNbl002_Mle",
+      "begin": 0,
+      "end": 0,
+      "time": "eNIGHT",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 4,
+      "scenario": 403,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "SHO_40_01_Twn_Sea_3_1_A_TALK_0600_N000": {
+      "kind": 1,
+      "resource": "NPC_Twn_Sea_3_1_A_TALK_0600",
+      "action": "ShoWorker003_Mle",
+      "begin": 0,
+      "end": 0,
+      "time": "eNIGHT",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 4,
+      "scenario": 403,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "SHO_40_01_Twn_Sea_3_1_A_TALK_0800_N000": {
+      "kind": 1,
+      "resource": "NPC_Twn_Sea_3_1_A_TALK_0800",
+      "action": "ShoWorker001_Mle",
+      "begin": 0,
+      "end": 0,
+      "time": "eNIGHT",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 4,
+      "scenario": 403,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "SHO_40_01_Twn_Sea_3_1_A_TALK_0900_N000": {
+      "kind": 1,
+      "resource": "NPC_Twn_Sea_3_1_A_TALK_0900",
+      "action": "WldMm001_Mle",
+      "begin": 0,
+      "end": 0,
+      "time": "eNIGHT",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 4,
+      "scenario": 403,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "SHO_40_01_Twn_Sea_3_1_A_TALK_1000_N000": {
+      "kind": 1,
+      "resource": "NPC_Twn_Sea_3_1_A_TALK_1000",
+      "action": "WldYm001_Mle",
+      "begin": 0,
+      "end": 0,
+      "time": "eNIGHT",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 4,
+      "scenario": 403,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "SHO_40_01_Twn_Sea_3_1_A_TALK_1100_N000": {
+      "kind": 1,
+      "resource": "NPC_Twn_Sea_3_1_A_TALK_1100",
+      "action": "WldYm001_Mle",
+      "begin": 0,
+      "end": 0,
+      "time": "eNIGHT",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 4,
+      "scenario": 403,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "SHO_40_01_Twn_Sea_3_1_A_TALK_1200_N000": {
+      "kind": 1,
+      "resource": "NPC_Twn_Sea_3_1_A_TALK_1200",
+      "action": "WldMm002_Mle",
+      "begin": 0,
+      "end": 0,
+      "time": "eNIGHT",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 4,
+      "scenario": 403,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "SHO_40_01_Twn_Sea_3_1_A_TALK_1300_N000": {
+      "kind": 1,
+      "resource": "NPC_Twn_Sea_3_1_A_TALK_1300",
+      "action": "ShoWorker002_Mle",
+      "begin": 0,
+      "end": 0,
+      "time": "eNIGHT",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 4,
+      "scenario": 403,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "SHO_40_01_Twn_Sea_3_1_A_TALK_1400_N000": {
+      "kind": 1,
+      "resource": "NPC_Twn_Sea_3_1_A_TALK_1400",
+      "action": "WldMm002_Mle",
+      "begin": 0,
+      "end": 0,
+      "time": "eNIGHT",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 4,
+      "scenario": 403,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "SHO_40_01_Twn_Sea_3_1_A_TALK_1500_N000": {
+      "kind": 1,
+      "resource": "NPC_Twn_Sea_3_1_A_TALK_1500",
+      "action": "ShoWorker004_Fml",
+      "begin": 0,
+      "end": 0,
+      "time": "eNIGHT",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 4,
+      "scenario": 403,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "SHO_40_Twn_Sea_3_1_A_END": {
+      "kind": 0,
+      "resource": "None",
+      "action": null,
+      "begin": 0,
+      "end": 0,
+      "time": "None",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "NPC_SS_JNP_FAS_0100_0000": {
+      "kind": 1,
+      "resource": "NPC_JNP_FAS_0100",
+      "action": "ShoSecretary_Mle",
+      "begin": 6168,
+      "end": 20017,
+      "time": "eALL",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": true,
+      "excludes": []
+    },
+    "JNP_SHO_080_D000": {
+      "kind": 1,
+      "resource": "JNP_SHO_080",
+      "action": "ShoFloyd_Mle",
+      "begin": 20018,
+      "end": 0,
+      "time": "eDAYTIME",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "JNP_SHO_080_N000": {
+      "kind": 1,
+      "resource": "JNP_SHO_080",
+      "action": "ShoFloyd_Mle",
+      "begin": 20018,
+      "end": 0,
+      "time": "eNIGHT",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "NACT_Twn_Sea_3_1_A_4300_N000": {
+      "kind": 1,
+      "resource": "NACT_Twn_Sea_3_1_A_4300",
+      "action": "ShoGarnet_Oth",
+      "begin": 20018,
+      "end": 20521,
+      "time": "eNIGHT",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "JNP_SHO_070_N000": {
+      "kind": 1,
+      "resource": "JNP_SHO_070",
+      "action": "ShoSecretary_Mle",
+      "begin": 20018,
+      "end": 0,
+      "time": "eNIGHT",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "NPC_SYS_SAVE_Dng_Ocn_1_3_0000": {
+      "kind": 1,
+      "resource": "NPC_SYS_SAVE",
+      "action": "NpcCty_SV_001",
+      "begin": 0,
+      "end": 0,
+      "time": "eALL",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "Treasure_Dng_Ocn_1_3_01": {
+      "kind": 2,
+      "resource": "Treasure_Dng_Ocn_1_3_01",
+      "action": null,
+      "begin": 0,
+      "end": 0,
+      "time": "eALL",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "Treasure_Dng_Ocn_1_3_02": {
+      "kind": 2,
+      "resource": "Treasure_Dng_Ocn_1_3_02",
+      "action": null,
+      "begin": 0,
+      "end": 0,
+      "time": "eALL",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "Treasure_Dng_Ocn_1_3_03": {
+      "kind": 2,
+      "resource": "Treasure_Dng_Ocn_1_3_03",
+      "action": null,
+      "begin": 0,
+      "end": 0,
+      "time": "eALL",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "Treasure_Dng_Ocn_1_3_04": {
+      "kind": 2,
+      "resource": "Treasure_Dng_Ocn_1_3_04",
+      "action": null,
+      "begin": 0,
+      "end": 0,
+      "time": "eALL",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "Enemy_L_Trigger_Dng_Ocn_1_3": {
+      "kind": 3,
+      "resource": "None",
+      "action": null,
+      "begin": 0,
+      "end": 40003,
+      "time": "eALL",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "SubEvent_NPC": {
+      "kind": 0,
+      "resource": "None",
+      "action": null,
+      "begin": 0,
+      "end": 0,
+      "time": "None",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "NPC_SS_TMount21_0400_0200": {
+      "kind": 1,
+      "resource": "NPC_SS_TM21_0400_0200",
+      "action": "WldSm001_Mle",
+      "begin": 40003,
+      "end": 0,
+      "time": "eALL",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "NPC_SYS_SAVE_Dng_Ocn_1_1_0000": {
+      "kind": 1,
+      "resource": "NPC_SYS_SAVE",
+      "action": "NpcCty_SV_001",
+      "begin": 0,
+      "end": 0,
+      "time": "eALL",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "Treasure_Dng_Ocn_1_1_01": {
+      "kind": 2,
+      "resource": "Treasure_Dng_Ocn_1_1_01",
+      "action": null,
+      "begin": 0,
+      "end": 0,
+      "time": "eALL",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "Treasure_Dng_Ocn_1_1_02": {
+      "kind": 2,
+      "resource": "Treasure_Dng_Ocn_1_1_02",
+      "action": null,
+      "begin": 0,
+      "end": 0,
+      "time": "eALL",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "Treasure_Dng_Ocn_1_1_03": {
+      "kind": 2,
+      "resource": "Treasure_Dng_Ocn_1_1_03",
+      "action": null,
+      "begin": 0,
+      "end": 0,
+      "time": "eALL",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "Treasure_Dng_Ocn_1_1_04": {
+      "kind": 2,
+      "resource": "Treasure_Dng_Ocn_1_1_04",
+      "action": null,
+      "begin": 0,
+      "end": 0,
+      "time": "eALL",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "Treasure_Dng_Ocn_1_1_05": {
+      "kind": 2,
+      "resource": "Treasure_Dng_Ocn_1_1_05",
+      "action": null,
+      "begin": 0,
+      "end": 0,
+      "time": "eALL",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
+    },
+    "Treasure_Dng_Ocn_1_1_06": {
+      "kind": 2,
+      "resource": "Treasure_Dng_Ocn_1_1_06",
+      "action": null,
+      "begin": 0,
+      "end": 0,
+      "time": "eALL",
+      "start_delay": 0,
+      "end_delay": 0,
+      "story_type": 0,
+      "scenario": 0,
+      "not_prologue": false,
+      "prologue": "EPlayableCharacterID::eNONE",
+      "not_final": false,
+      "excludes": []
     }
   },
   "flag_rules": [
@@ -88188,6 +90499,934 @@
         },
         {
           "index": 38,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        }
+      ]
+    },
+    "EV_Dng_Ocn_1_3_0010": {
+      "map_id": 0,
+      "reset_counter": false,
+      "completion": null,
+      "commands": [
+        {
+          "index": 0,
+          "cmd": 5010,
+          "target": 0,
+          "text": "ED_SUB_Dungeon_0010",
+          "opt": [
+            "eDIALOG_YES",
+            "0",
+            "eDIALOG_NO",
+            "2",
+            "-1",
+            "-1",
+            "-1",
+            "-1"
+          ]
+        },
+        {
+          "index": 1,
+          "cmd": 600,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "EVM_DNG_OCN_1_3_L",
+            "EV_Dng_Ocn_1_3_0020",
+            "0",
+            "1",
+            "0"
+          ]
+        },
+        {
+          "index": 2,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 3,
+          "cmd": 20,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "100"
+          ]
+        },
+        {
+          "index": 4,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        }
+      ]
+    },
+    "EV_Dng_Ocn_1_3_0020": {
+      "map_id": 0,
+      "reset_counter": true,
+      "completion": null,
+      "commands": [
+        {
+          "index": 0,
+          "cmd": 2,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 1,
+          "cmd": 106,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "Treasure_Dng_Ocn_1_3_04",
+            "0"
+          ]
+        },
+        {
+          "index": 2,
+          "cmd": 200,
+          "target": -1,
+          "text": "",
+          "opt": [
+            "20",
+            "1",
+            "0",
+            "Transparence_Fml"
+          ]
+        },
+        {
+          "index": 3,
+          "cmd": 230,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 4,
+          "cmd": 300,
+          "target": -1,
+          "text": "",
+          "opt": [
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 5,
+          "cmd": 8010,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 6,
+          "cmd": 200,
+          "target": -1,
+          "text": "",
+          "opt": [
+            "10",
+            "1",
+            "0",
+            "WldSm001_Mle"
+          ]
+        },
+        {
+          "index": 7,
+          "cmd": 250,
+          "target": 10,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 8,
+          "cmd": 110,
+          "target": 10,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 9,
+          "cmd": 4,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 10,
+          "cmd": 52,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "2"
+          ]
+        },
+        {
+          "index": 11,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1000"
+          ]
+        },
+        {
+          "index": 12,
+          "cmd": 110,
+          "target": 10,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 13,
+          "cmd": 250,
+          "target": 10,
+          "text": "",
+          "opt": [
+            "0"
+          ]
+        },
+        {
+          "index": 14,
+          "cmd": 20,
+          "target": 10,
+          "text": "",
+          "opt": [
+            "60",
+            "0",
+            "3",
+            "3"
+          ]
+        },
+        {
+          "index": 15,
+          "cmd": 240,
+          "target": 10,
+          "text": "",
+          "opt": [
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 16,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 17,
+          "cmd": 40,
+          "target": 10,
+          "text": "TX_SS_TM21_0400_EX0010",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 18,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1000"
+          ]
+        },
+        {
+          "index": 19,
+          "cmd": 62,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "2"
+          ]
+        },
+        {
+          "index": 20,
+          "cmd": 250,
+          "target": 10,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 21,
+          "cmd": 230,
+          "target": 10,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 22,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 23,
+          "cmd": 52,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "2"
+          ]
+        },
+        {
+          "index": 24,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1000"
+          ]
+        },
+        {
+          "index": 25,
+          "cmd": 910,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "se_event_whoosh_04"
+          ]
+        },
+        {
+          "index": 26,
+          "cmd": 240,
+          "target": 10,
+          "text": "",
+          "opt": [
+            "9",
+            "0"
+          ]
+        },
+        {
+          "index": 27,
+          "cmd": 40,
+          "target": 10,
+          "text": "TX_SS_TM21_0400_EX0020",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 28,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 29,
+          "cmd": 910,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "se_event_whoosh_041"
+          ]
+        },
+        {
+          "index": 30,
+          "cmd": 240,
+          "target": 10,
+          "text": "",
+          "opt": [
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 31,
+          "cmd": 40,
+          "target": 10,
+          "text": "TX_SS_TM21_0400_EX0030",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 32,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 33,
+          "cmd": 40,
+          "target": 10,
+          "text": "TX_SS_TM21_0400_EX0040",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 34,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1000"
+          ]
+        },
+        {
+          "index": 35,
+          "cmd": 710,
+          "target": 10,
+          "text": "",
+          "opt": [
+            "8"
+          ]
+        },
+        {
+          "index": 36,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "2000"
+          ]
+        },
+        {
+          "index": 37,
+          "cmd": 711,
+          "target": 10,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 38,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1000"
+          ]
+        },
+        {
+          "index": 39,
+          "cmd": 910,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "se_event_whoosh_06"
+          ]
+        },
+        {
+          "index": 40,
+          "cmd": 240,
+          "target": 10,
+          "text": "",
+          "opt": [
+            "19",
+            "0"
+          ]
+        },
+        {
+          "index": 41,
+          "cmd": 40,
+          "target": 10,
+          "text": "TX_SS_TM21_0400_EX0050",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 42,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 43,
+          "cmd": 910,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "se_event_whoosh_04"
+          ]
+        },
+        {
+          "index": 44,
+          "cmd": 240,
+          "target": 10,
+          "text": "",
+          "opt": [
+            "10",
+            "0"
+          ]
+        },
+        {
+          "index": 45,
+          "cmd": 40,
+          "target": 10,
+          "text": "TX_SS_TM21_0400_EX0060",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 46,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "500"
+          ]
+        },
+        {
+          "index": 47,
+          "cmd": 910,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "se_event_whoosh_041"
+          ]
+        },
+        {
+          "index": 48,
+          "cmd": 240,
+          "target": 10,
+          "text": "",
+          "opt": [
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 49,
+          "cmd": 40,
+          "target": 10,
+          "text": "TX_SS_TM21_0400_EX0070",
+          "opt": [
+            "1",
+            "0",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 50,
+          "cmd": 10,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1000"
+          ]
+        },
+        {
+          "index": 51,
+          "cmd": 62,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "2"
+          ]
+        },
+        {
+          "index": 52,
+          "cmd": 310,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 53,
+          "cmd": 220,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 54,
+          "cmd": 2,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 55,
+          "cmd": 8010,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 56,
+          "cmd": 106,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "Treasure_Dng_Ocn_1_3_04",
+            "1"
+          ]
+        },
+        {
+          "index": 57,
+          "cmd": 70,
+          "target": 40003,
+          "text": "",
+          "opt": [
+            "1"
+          ]
+        },
+        {
+          "index": 58,
+          "cmd": 9990,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 59,
+          "cmd": 230,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 60,
+          "cmd": 52,
+          "target": 0,
+          "text": "",
+          "opt": [
+            "2"
+          ]
+        },
+        {
+          "index": 61,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        }
+      ]
+    },
+    "FC_GAK_SEARCH_Before_1": {
+      "map_id": 0,
+      "reset_counter": false,
+      "completion": null,
+      "commands": [
+        {
+          "index": 0,
+          "cmd": 4000,
+          "target": 25524,
+          "text": "",
+          "opt": [
+            "0",
+            "2"
+          ]
+        },
+        {
+          "index": 1,
+          "cmd": 42,
+          "target": 6,
+          "text": "eFC_SEARCH_PC_TALK_01_SG",
+          "opt": [
+            "1",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 2,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 3,
+          "cmd": 4000,
+          "target": 4004,
+          "text": "",
+          "opt": [
+            "3",
+            "5"
+          ]
+        },
+        {
+          "index": 4,
+          "cmd": 42,
+          "target": 6,
+          "text": "eFC_SEARCH_PC_TALK_01_SG",
+          "opt": [
+            "1",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 5,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 6,
+          "cmd": 42,
+          "target": 6,
+          "text": "eFC_SEARCH_PC_TALK_01_A",
+          "opt": [
+            "1",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 7,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        }
+      ]
+    },
+    "FC_GAK_SEARCH_Before_2": {
+      "map_id": 0,
+      "reset_counter": false,
+      "completion": null,
+      "commands": [
+        {
+          "index": 0,
+          "cmd": 4000,
+          "target": 25524,
+          "text": "",
+          "opt": [
+            "0",
+            "2"
+          ]
+        },
+        {
+          "index": 1,
+          "cmd": 42,
+          "target": 6,
+          "text": "eFC_SEARCH_PC_TALK_01_SG",
+          "opt": [
+            "1",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 2,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 3,
+          "cmd": 4000,
+          "target": 4004,
+          "text": "",
+          "opt": [
+            "3",
+            "5"
+          ]
+        },
+        {
+          "index": 4,
+          "cmd": 42,
+          "target": 6,
+          "text": "eFC_SEARCH_PC_TALK_01_SG",
+          "opt": [
+            "1",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 5,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 6,
+          "cmd": 42,
+          "target": 6,
+          "text": "eFC_SEARCH_PC_TALK_01_B",
+          "opt": [
+            "1",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 7,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        }
+      ]
+    },
+    "FC_GAK_SEARCH_Success": {
+      "map_id": 0,
+      "reset_counter": false,
+      "completion": null,
+      "commands": [
+        {
+          "index": 0,
+          "cmd": 4000,
+          "target": 25524,
+          "text": "",
+          "opt": [
+            "0",
+            "2"
+          ]
+        },
+        {
+          "index": 1,
+          "cmd": 42,
+          "target": 6,
+          "text": "eFC_SEARCH_PC_TALK_02_SG",
+          "opt": [
+            "1",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 2,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 3,
+          "cmd": 4000,
+          "target": 4004,
+          "text": "",
+          "opt": [
+            "3",
+            "5"
+          ]
+        },
+        {
+          "index": 4,
+          "cmd": 42,
+          "target": 6,
+          "text": "eFC_SEARCH_PC_TALK_02_SG",
+          "opt": [
+            "1",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 5,
+          "cmd": 10000,
+          "target": 0,
+          "text": "",
+          "opt": [
+            ""
+          ]
+        },
+        {
+          "index": 6,
+          "cmd": 42,
+          "target": 6,
+          "text": "eFC_SEARCH_PC_TALK_02",
+          "opt": [
+            "1",
+            "0",
+            "0"
+          ]
+        },
+        {
+          "index": 7,
           "cmd": 10000,
           "target": 0,
           "text": "",

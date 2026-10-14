@@ -121,6 +121,8 @@ impl CharacterKey {
 
 #[derive(Debug, Clone, PartialEq, Eq, PartialOrd, Ord, Hash)]
 struct CombatKey {
+    nuts: BTreeMap<String,u32>,
+    fire_damage_bonus:u32,
     use_cat_damage_type: bool,
     enemy_initialization: Option<(u32, bool, bool)>,
     stats: [u32; 9],
@@ -135,10 +137,11 @@ struct CombatKey {
 }
 impl CombatKey {
     fn new(c: &CombatProfile) -> Self {
-        let CombatProfile { use_cat_damage_type, enemy_initialization, attack, defense, magic, magic_defense,
+        let CombatProfile { nuts,fire_damage_bonus,use_cat_damage_type, enemy_initialization, attack, defense, magic, magic_defense,
             accuracy, evasion, critical, growth_attack, growth_magic, weapons, main_weapon,
             shields, weapon_weaknesses, element_weaknesses, statuses, steal_item, enemy_bp_base } = c;
         Self {
+            nuts:nuts.clone(),fire_damage_bonus:*fire_damage_bonus,
             use_cat_damage_type: *use_cat_damage_type,
             enemy_initialization: enemy_initialization.as_ref().map(|EnemyInitialization { initial_idle_frames, sync_to_parent, sync_children }| (*initial_idle_frames, *sync_to_parent, *sync_children)),
             stats: [*attack, *defense, *magic, *magic_defense, *accuracy, *evasion, *critical, *growth_attack, *growth_magic],

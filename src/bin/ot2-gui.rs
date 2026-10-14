@@ -295,6 +295,7 @@ fn simulate_route(
 
 #[derive(Clone)]
 struct CrtSetup {
+    experimental_route: bool,
     galdera_route: bool,
     route_end: RouteEnd,
     early_settings: ot2_speedrun_assistant::early_cait::Settings,
@@ -373,6 +374,7 @@ impl CrtSetup {
         let mut mug_clerics_max_boost_repeats = None;
         let mut crackridge_approach_max_boost_repeats = None;
         let mut galdera_route = None;
+        let mut experimental_route = false;
         let mut route_end = None;
         let mut early_clerics = None;
         let mut early_cait = None;
@@ -384,6 +386,7 @@ impl CrtSetup {
             match key {
                 "route" if galdera_route.is_none() => galdera_route=Some(match value {
                     "any_hikari"=>false, "galdera"=>true,
+                    "galdera_experimental"=>{experimental_route=true;true},
                     _=>return Err(SimError("Unknown manipulation route".into())),
                 }),
                 "route_end" if route_end.is_none() => {
@@ -596,6 +599,7 @@ impl CrtSetup {
             },
             pirro_r8_plan: pirro_r8_boost_inputs,
             mug_clerics_max_boost_repeats: mug_clerics_max_boost_repeats.unwrap_or(None),
+            experimental_route,
             galdera_route: galdera_route.unwrap_or(false),
             route_end: route_end.unwrap_or(RouteEnd::Full),
             early_settings: ot2_speedrun_assistant::early_cait::Settings {
@@ -673,7 +677,7 @@ impl CrtSetup {
             "flats_snow_max_boost_repeats":self.flats_escape_settings.snow_max_boost_repeats,
             "flats_osvald_max_boost_repeats":self.flats_escape_settings.osvald_max_boost_repeats,
             "mug_clerics_max_boost_repeats":self.mug_clerics_max_boost_repeats,
-            "route":if self.galdera_route {"galdera"} else {"any_hikari"},
+            "route":if self.experimental_route {"galdera_experimental"} else if self.galdera_route {"galdera"} else {"any_hikari"},
             "route_end":self.route_end,
             "early_clerics_max_boost_repeats":self.early_settings.clerics_max_boost_repeats,
             "early_cait_max_boost_repeats":self.early_settings.cait_max_boost_repeats,
@@ -1221,7 +1225,7 @@ fn route_with_origin(request: &str, address: &str, public_origin: Option<&str>) 
             for pair in path.split_once('?').unwrap().1.split('&') {
                 match pair.split_once('=') {
                     Some(("voices",v)) if voices.is_none()=>voices=Some(v),
-                    Some(("route",v)) if route.is_none()=>match v {"any_hikari"=>route=Some(false),"galdera"=>route=Some(true),_=>valid=false},
+                    Some(("route",v)) if route.is_none()=>match v {"any_hikari"|"galdera"|"galdera_experimental"=>route=Some(v),_=>valid=false},
                     Some(("hp",v)) if hp.is_none()=>match v.parse::<u32>() {Ok(n) if (1..=261).contains(&n)=>hp=Some(n),_=>valid=false},
                     Some(("r3_first",v)) if pirro_first.is_none()=>match v {"throne"=>pirro_first=Some(false),"pirro"=>pirro_first=Some(true),_=>valid=false},
                     _=>valid=false,
@@ -1230,8 +1234,8 @@ fn route_with_origin(request: &str, address: &str, public_origin: Option<&str>) 
             if !valid || voices.is_none() || pirro_first.is_none() || hp.is_none() {Response::error(400,"Round-3 first actor, current HP (1–261), and voice transcript are required")}
             else {match if path.starts_with("/api/identify-observed?") {
                 ot2_speedrun_assistant::voice_identification::identify_observed(voices.unwrap(),Some((pirro_first.unwrap(),hp.unwrap())))
-            } else {ot2_speedrun_assistant::identified_route::simulate_route(voices.unwrap(),pirro_first.unwrap(),hp.unwrap(),route.unwrap_or(false))} {
-                Ok(v)=>Response::json(200,v),Err(e)=>Response::error(422,&e.to_string())
+            } else {ot2_speedrun_assistant::identified_route::simulate_route(voices.unwrap(),pirro_first.unwrap(),hp.unwrap(),route.unwrap_or("any_hikari")!="any_hikari")} {
+                Ok(mut v)=>{if path.starts_with("/api/identified-route?") {let name=route.unwrap_or("any_hikari");v["route"]=json!(name);v["crt_setup"]["route"]=json!(name);}Response::json(200,v)},Err(e)=>Response::error(422,&e.to_string())
             }}
         }
         ("GET", "/api/health") => Response::json(200, json!({"app":"OT2 Battle Viewer"})),
@@ -1430,6 +1434,10 @@ mod tests {
         let galdera=super::CrtSetup::parse(&format!("{query}&route=galdera")).unwrap();
         assert!(galdera.galdera_route);
         assert_eq!(galdera.json()["route"],"galdera");
+        let experimental=super::CrtSetup::parse(&format!("{query}&route=galdera_experimental")).unwrap();
+        assert!(experimental.galdera_route && experimental.experimental_route);
+        assert_eq!(experimental.json()["route"],"galdera_experimental");
+        assert!(!galdera.experimental_route);
         assert!(super::CrtSetup::parse(&format!("{query}&route=invalid")).is_err());
         assert!(super::CrtSetup::parse(&format!("{query}&route=galdera&route=any_hikari")).is_err());
     }

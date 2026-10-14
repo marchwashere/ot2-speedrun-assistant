@@ -1,0 +1,34 @@
+{
+  "source": "/Game/Environment/Database/ObjectData",
+  "sha256": "3820395bd5885e0cc7eb4cd3da39e944af210795f4421d203020a7222cd5bff1",
+  "chest": {
+    "id": "Treasure_Dng_Ocn_1_1_06",
+    "ID": 2009,
+    "ObjectType": 2,
+    "ObjResLabel": "None",
+    "IsCollision": true,
+    "IsPutOnGround": true,
+    "IsMoney": false,
+    "HaveItemLabel": "ITM_TRE_WPM_03",
+    "HaveItemCnt": 1,
+    "HideDialog": false,
+    "IsRevivalByLevelChange": false,
+    "RandomItemCandidates": [
+      {
+        "ItemLabel": "None",
+        "ItemNum": 0,
+        "Rate": 0
+      },
+      {
+        "ItemLabel": "None",
+        "ItemNum": 0,
+        "Rate": 0
+      },
+      {
+        "ItemLabel": "None",
+        "ItemNum": 0,
+        "Rate": 0
+      }
+    ]
+  }
+}

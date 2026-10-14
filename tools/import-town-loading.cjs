@@ -29,7 +29,7 @@ const taskRows = table('Story/Database/MainStoryTask');
 const tutorials = table('Tutorial/Database/TutorialFlagPart');
 const rules = table('Flag/Database/FlagRandomControlDB');
 const overrides = table('Flag/Database/FlagOverrideDB');
-const maps = levels.filter(r => ['Fld_Isd_1_3','Fld_Isd_2_1','Twn_Isd_2_1_A','Twn_Isd_2_1_C','Fld_Sea_3_1','Fld_Dst_3_2'].includes(r.id) || [6,19,20,28,40,44,45,46,47,48,50,54,57,64,65,69,85,86,87,88,90,95,100,101,107,110,111,123,124,125,129,132,145,146,152,153,155,169,170,189].includes(r.ID) || r.id === 'Fld_Fst_1_3' || r.id === 'Twn_Wld_3_1_A' || ['Fld_Dst_2_2','Fld_Dst_2_3','Fld_Dst_2_4','Fld_Fst_2_2','Twn_Dst_2_1_A','Twn_Dst_2_1_B'].includes(r.id) || r.id.startsWith('Twn_Cty_1_'));
+const maps = levels.filter(r => process.argv.includes('--add-shipwreck') ? r.id === 'Dng_Ocn_1_1' : process.argv.includes('--add-nameless') ? r.id === 'Dng_Ocn_1_3' : process.argv.includes('--add-roque') ? r.id === 'Twn_Sea_3_1_A' : ['Fld_Isd_1_3','Fld_Isd_2_1','Twn_Isd_2_1_A','Twn_Isd_2_1_C','Twn_Sea_3_1_A','Dng_Ocn_1_3','Fld_Sea_3_1','Fld_Dst_3_2'].includes(r.id) || [6,19,20,28,40,44,45,46,47,48,50,54,57,64,65,69,85,86,87,88,90,95,100,101,107,110,111,123,124,125,129,132,145,146,152,153,155,169,170,189].includes(r.ID) || r.id === 'Fld_Fst_1_3' || r.id === 'Twn_Wld_3_1_A' || ['Fld_Dst_2_2','Fld_Dst_2_3','Fld_Dst_2_4','Fld_Fst_2_2','Twn_Dst_2_1_A','Twn_Dst_2_1_B'].includes(r.id) || r.id.startsWith('Twn_Cty_1_'));
 const allMaps = new Map();
 function walk(dir) { for(const e of fs.readdirSync(dir,{withFileTypes:true})) {
   const f = path.join(dir,e.name);
@@ -170,6 +170,14 @@ const data={
 const queriedFlags=new Set([...Object.values(data.placements).flatMap(p=>[p.begin,p.end]),...data.flag_rules.flatMap(r=>[r.begin,r.end]),...Object.values(events).flatMap(e=>e.commands.filter(c=>c.cmd===4000).map(c=>c.target))]);
 const applicableOverrides=overrides.filter(r=>r.TargetEventFlags.some(f=>f>0&&queriedFlags.has(f)));
 assert.equal(applicableOverrides.length,0,'New flag override dependencies require a runtime query binding');
+if(process.argv.includes('--add-roque')||process.argv.includes('--add-nameless')||process.argv.includes('--add-shipwreck')) {
+ const file=path.join(__dirname,'../data/town-loading.json'), prior=JSON.parse(fs.readFileSync(file));
+ Object.assign(prior.maps,data.maps);Object.assign(prior.placements,data.placements);
+ for(const [id,event]of Object.entries(data.events))if(!prior.events[id])prior.events[id]=event;
+ fs.writeFileSync(file,JSON.stringify(prior,null,2)+'\n');
+ fs.writeFileSync(path.join(__dirname,process.argv.includes('--add-shipwreck')?'../data/source/shipwreck-town-loading.json':process.argv.includes('--add-nameless')?'../data/source/nameless-town-loading.json':'../data/source/roque-town-loading.json'),JSON.stringify({sources,maps:data.maps,placements:data.placements},null,2)+'\n');
+ process.exit(0);
+}
 fs.writeFileSync(path.join(__dirname,'../data/town-loading.json'),JSON.stringify(data,null,2)+'\n');
 fs.writeFileSync(path.join(__dirname,'../data/source/canoe-initialization.json'),JSON.stringify(canoe,null,2)+'\n');
 fs.writeFileSync(path.join(__dirname,'../data/source/town-loading.json'),JSON.stringify({
