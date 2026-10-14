@@ -82,6 +82,19 @@ pub fn simulate(voices:&str,pirro_first:bool,hp:u32)->Result<serde_json::Value> 
     simulate_route(voices,pirro_first,hp,false)
 }
 pub fn simulate_route(voices:&str,pirro_first:bool,hp:u32,galdera_route:bool)->Result<serde_json::Value> {
+    simulate_route_progress(voices,pirro_first,hp,galdera_route,&mut |_,_|Ok(()))
+}
+
+thread_local! { static DEFER_FLEX: std::cell::Cell<bool> = const { std::cell::Cell::new(false) }; }
+pub(crate) fn defer_flex()->bool { DEFER_FLEX.get() }
+struct DeferredFlex(bool);
+impl Drop for DeferredFlex { fn drop(&mut self) { DEFER_FLEX.set(self.0); } }
+
+/// Publish only committed prefixes. EXP controls are finalized before publishing
+/// the post-Cait route; speculative JP candidates never reach this callback.
+pub fn simulate_route_progress(voices:&str,pirro_first:bool,hp:u32,galdera_route:bool,
+    emit:&mut dyn FnMut(&str,&serde_json::Value)->Result<()>)->Result<serde_json::Value> {
+    let _scope=DeferredFlex(DEFER_FLEX.replace(true));
     ensure((1..=261).contains(&hp),"Enter Throné’s current R3 HP (1–261)")?;
     let identified=crate::voice_identification::identify_observed(voices,Some((pirro_first,hp)))?;
     let candidate=&identified["candidate"];
@@ -98,22 +111,65 @@ pub fn simulate_route(voices:&str,pirro_first:bool,hp:u32,galdera_route:bool)->R
     let flats=crate::flats::after_highroad(field)?;
     let mut harbor=crate::harbor::after_flats(&flats)?.ok_or_else(||SimError("Harbor not reached".into()))?;
     harbor.world_after.galdera_route=galdera_route;
-    let escape=crate::flats_escape::until_osvald_cait(harbor.after,&harbor.world_after,highroad.level,
-        Default::default(),Default::default())?;
+    let escape_entry=(harbor.after,harbor.world_after.clone(),highroad.level);
     let mut result=serde_json::json!({
         "route":if galdera_route {"galdera"} else {"any_hikari"},"identified_entry":identified,"r3_observation":{"pirro_first":pirro_first,"hp":hp},"initial_seed":seed,"actors":boss.actors,"action_names":boss.action_names,
         "initial_state":boss.initial_state,"state":boss.state,"steps":boss.steps,
         "crt_setup":{"route":if galdera_route {"galdera"} else {"any_hikari"},"initial_seed":seed,"battle_seed":seed,"advances":0,"battle_entry_advances":0,
             "recreate_shared_level":false,"transition_checkpoints":[]},
         "post_battle_field":{"pirro_battle":boss,"pirro_aftermath":ending,"highroad":highroad,
-            "flats":flats,"harbor_return":harbor,"flats_escape":escape}
+            "flats":flats,"harbor_return":harbor}
     });
+    emit("Early route ready; calculating recruitment and rare encounters…",&result)?;
+    let escape=crate::flats_escape::until_osvald_cait(escape_entry.0,&escape_entry.1,escape_entry.2,
+        Default::default(),Default::default())?;
+    result["post_battle_field"]["flats_escape"]=serde_json::to_value(escape)?;
+    let mut prefix=result.clone();
+    hide_unfinalized_extensions(&mut prefix);
+    emit("Early encounters ready; searching EXP ×100 and continuing the route…",&prefix)?;
     crate::conning::extend_selected_routes(&mut result)?;
+    if galdera_route {emit("EXP ×100 and supplies ready; comparing JP ×100 locations…",&result)?;}
+    complete_flex(&mut result)?;
     Ok(result)
+}
+
+fn hide_unfinalized_extensions(value:&mut serde_json::Value) {
+    if value["cropdale_exit"].is_object() && value["cropdale_reach"].is_object() {
+        value.as_object_mut().unwrap().remove("cropdale_exit");
+        value.as_object_mut().unwrap().remove("cropdale");
+        return;
+    }
+    match value {
+        serde_json::Value::Object(rows)=>for v in rows.values_mut(){hide_unfinalized_extensions(v)},
+        serde_json::Value::Array(rows)=>for v in rows{hide_unfinalized_extensions(v)},
+        _=>{}
+    }
+}
+fn complete_flex(value:&mut serde_json::Value)->Result<()> {
+    if value["lord_sands"].is_object() && value["gravell"]["jam_steal"].is_object() && value["flex"].is_null() {
+        let point=&value["gravell"]["jam_steal"];
+        let rng=serde_json::from_value(point["after"].clone())?;
+        let entry=crate::snows_escape::Entry {arrival:rng,after:rng,
+            world_after:serde_json::from_value(point["world_after"].clone())?,trace:vec![],decisions:vec![]};
+        value["flex"]=serde_json::to_value(crate::galdera_flex::finish(&entry)?)?;
+        return Ok(());
+    }
+    match value {
+        serde_json::Value::Object(rows)=>for v in rows.values_mut(){complete_flex(v)?},
+        serde_json::Value::Array(rows)=>for v in rows{complete_flex(v)?},
+        _=>{}
+    }
+    Ok(())
 }
 
 #[cfg(test)] mod tests {
     use super::*;
+    #[test]
+    fn progressive_scope_restores_after_failure() {
+        assert!(!defer_flex());
+        assert!(simulate_route_progress("",false,0,true,&mut |_,_|Ok(())).is_err());
+        assert!(!defer_flex());
+    }
     #[test]
     #[ignore = "Full live-transcript Galdera route replay"]
     fn galdera_skips_hikari_and_replays_full_route() {

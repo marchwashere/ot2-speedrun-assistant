@@ -69,27 +69,53 @@ async function filterVoices() {
 }
 async function simulateIdentified() {
   if(voiceStage!=='lines' || !voiceFirst || voiceHp===null || !voiceCandidate || running) return;
-  const query=new URLSearchParams({route:activeRoute,voices:voiceTranscript,r3_first:voiceFirst,hp:String(voiceHp)});
+  const query=new URLSearchParams({route:activeRoute,voices:voiceTranscript,r3_first:voiceFirst,hp:String(voiceHp),stream:'1'});
   const revision=voiceRevision, candidate=voiceCandidate, route=activeRoute;
   running=true;voiceControls();$('quit').disabled=true;clearVoiceResult();
   $('status').textContent='Simulating from identified RNG…';
   try {
     const response=await fetch('/api/identified-route?'+query);
-    const data=await response.json();
-    // Inputs remain live while the server works. Never display a plan for an
-    // older transcript; filterVoices queues the newest revision after this run.
-    if(revision!==voiceRevision) return;
-    if(!response.ok) throw new Error(data.error || 'Simulation failed');
-    result=data;snowsEncounterTiming=null;westernSecondOverride=null;
-    $('seed').value=hex(candidate.current_state);$('advances').value='0';
-    render();window.dispatchEvent(new Event('battle-simulated'));
+    if(!response.ok) throw new Error((await response.json()).error || 'Simulation failed');
+    await readRouteStream(response,event=>{
+      // A late chunk must never overwrite another tab or a newer transcript.
+      if(revision!==voiceRevision || route!==activeRoute) return;
+      if(event.type==='error') throw new Error(event.message);
+      result=event.result;snowsEncounterTiming=null;westernSecondOverride=null;
+      $('seed').value=hex(candidate.current_state);$('advances').value='0';
+      render();$('status').textContent=event.message;
+      if(event.type==='complete') window.dispatchEvent(new Event('battle-simulated'));
+    });
+    if(revision!==voiceRevision || route!==activeRoute) return;
     $('voice-status').textContent=`Identified seed ${hex(candidate.current_state)} · 0 advances immediately after the last recorded boost`;
     $('status').textContent='';
   } catch(e) {
-    if(revision!==voiceRevision) return;
+    if(revision!==voiceRevision || route!==activeRoute) return;
+    if(result?.partial){result.partial_error=e.message;render();}
     $('voice-status').textContent=`RNG identified: ${hex(candidate.current_state)}. ${e.message}`;
-    $('status').textContent='Route prediction not available yet.';
+    $('status').textContent=result?.partial?'Completed sections remain available. Remaining route failed: '+e.message:'Route prediction not available yet.';
   } finally {running=false;$('quit').disabled=false;voiceControls();}
+}
+async function readRouteStream(response,onEvent) {
+  const reader=response.body.getReader(),decoder=new TextDecoder();
+  let pending='',complete=false;
+  const consume=line=>{
+    if(!line.trim())return;
+    const event=JSON.parse(line);
+    if(!['progress','complete','error'].includes(event.type))throw new Error('Invalid route stream event');
+    onEvent(event);
+    if(event.type==='error')throw new Error(event.message);
+    if(event.type==='complete')complete=true;
+  };
+  try {
+    for(;;) {
+      const {value,done}=await reader.read();
+      pending+=decoder.decode(value,{stream:!done});
+      let end;while((end=pending.indexOf('\n'))>=0){consume(pending.slice(0,end));pending=pending.slice(end+1);}
+      if(done)break;
+    }
+    if(pending.trim())consume(pending);
+    if(!complete)throw new Error('Connection ended before the remaining route finished');
+  } finally {await reader.cancel().catch(()=>{});reader.releaseLock();}
 }
 $('voice-normal').addEventListener('click',()=>recordVoice('N'));
 $('voice-special').addEventListener('click',()=>recordVoice('S'));
@@ -157,10 +183,11 @@ function identifiedBoostGroups(levels) {
   return groups;
 }
 function renderIdentified() {
+  $('export').disabled=Boolean(result.partial);
   $('results').hidden=false;$('detail-results').hidden=false;$('detail-empty').hidden=true;
   $('required-outcomes-error').hidden=true;
   $('result-context').textContent=`Identified seed ${hex(result.initial_seed)} · Pirro R3 (3 BP selected)`;
-  $('outcome').textContent='Prediction from identification';
+  $('outcome').textContent=result.partial?(result.partial_error?'Completed sections · remaining route failed':'Completed sections · remaining route calculating'):'Prediction from identification';
   $('final-hex').textContent=hex(result.state.rng.state);$('final-advances').textContent=result.state.rng.draws;
   $('checkpoints').innerHTML='';$('trace').innerHTML='';
   $('actions').innerHTML=result.steps.map((s,i)=>renderAction(s,i)).join('');

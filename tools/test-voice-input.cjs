@@ -1,16 +1,16 @@
 'use strict';
 const assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm');
 const elements=new Map(),pending=[],rendered=[],handlers={};
-const element=id=>{if(!elements.has(id))elements.set(id,{addEventListener(type,fn){handlers[id+':'+type]=fn;},focus(){},reportValidity(){return true;}});return elements.get(id);};
-const context=vm.createContext({$:element,running:false,stopped:false,activeScreen:'manipulation',
-  URLSearchParams,Event,window:{dispatchEvent(){}},document:{addEventListener(type,fn){handlers[type]=fn;},title:''},
+const element=id=>{if(!elements.has(id))elements.set(id,{addEventListener(type,fn){handlers[id+':'+type]=fn;},focus(){},setAttribute(){},reportValidity(){return true;}});return elements.get(id);};
+const context=vm.createContext({$:element,running:false,stopped:false,activeScreen:'manipulation',activeRoute:'galdera',
+  URLSearchParams,Event,TextDecoder,window:{dispatchEvent(){},addEventListener(){}},document:{addEventListener(type,fn){handlers[type]=fn;},title:''},
   hex:n=>'0x'+n.toString(16),render(){rendered.push(vm.runInContext('result',context));},
   result:null,snowsEncounterTiming:null,westernSecondOverride:null,
   fetch:url=>new Promise(resolve=>pending.push({url,resolve})),console});
 vm.runInContext(fs.readFileSync(require('node:path').join(__dirname,'../viewer/voice.js'),'utf8'),context);
 const run=code=>vm.runInContext(code,context);
 const flush=()=>new Promise(resolve=>setImmediate(resolve));
-async function reply(data,ok=true){assert(pending.length);pending.shift().resolve({ok,json:async()=>data});await flush();}
+async function reply(data,ok=true){assert(pending.length);const request=pending.shift();request.resolve(request.url.startsWith('/api/identified-route?')&&ok?new Response(JSON.stringify({type:'complete',result:data,message:''})+'\n'):{ok,json:async()=>data});await flush();}
 (async()=>{
   run("voiceStage='lines';voiceFirst='pirro';voiceHp=154;recordVoice('N')");
   await reply({count:1,observations:1,candidate:{current_state:10}});
@@ -47,5 +47,25 @@ async function reply(data,ok=true){assert(pending.length);pending.shift().resolv
   await reply({initial_seed:20});
   assert.equal(rendered.length,2);
   assert.equal(run('running'),false);
+  const streamed=run('simulateIdentified()');
+  let controller;
+  pending.shift().resolve(new Response(new ReadableStream({start(c){controller=c;}})));
+  const send=event=>controller.enqueue(new TextEncoder().encode(JSON.stringify(event)+'\n'));
+  send({type:'progress',result:{initial_seed:20,partial:true},message:'Searching JP'});
+  await flush();
+  assert.equal(rendered.length,3);assert.equal(run('running'),true);
+  assert.equal(element('status').textContent,'Searching JP');
+  send({type:'error',message:'test interruption'});controller.close();await streamed;
+  assert.equal(run('result.initial_seed'),20);
+  assert.equal(run('result.partial_error'),'test interruption');
+  assert.match(element('status').textContent,/Completed sections remain available/);
+  const stale=run('simulateIdentified()');
+  pending.shift().resolve(new Response(new ReadableStream({start(c){controller=c;}})));
+  run('voiceRevision++');
+  const count=rendered.length;
+  send({type:'progress',result:{initial_seed:999,partial:true}});
+  send({type:'complete',result:{initial_seed:999,partial:false}});controller.close();await stale;
+  assert.equal(rendered.length,count,'Ignore stale progress and completion');
   console.log('PASS: extra inputs, undo, queued latest transcript, stale success/error suppression');
+  console.log('PASS: immediate partial rendering, retained results on failure, stale stream suppression');
 })().catch(e=>{console.error(e);process.exitCode=1;});

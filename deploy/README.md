@@ -62,11 +62,14 @@ sudo systemctl status ot2 --no-pager
 curl -f -H 'Host: YOUR.DOMAIN' http://127.0.0.1:54345/api/health
 ```
 
-The explicit16MiB simulation-thread stack is already in the executable.
+The explicit32MiB simulation-thread stack is already in the executable.
 
 ## 4. Caddy
 
 Add deploy/Caddyfile.example's site block to your existing Caddy configuration.
+Keep `flush_interval -1` in the reverse_proxy block so completed route sections
+reach the browser immediately while EXP/JP searches continue. The identified-route
+endpoint streams newline-delimited JSON when requested with `stream=1`.
 Replace the domain and generate a password hash using `caddy hash-password`
 (interactive). Paste the hash, not the plaintext password, for user runner.
 Point DNS at this host and allow inbound80/443; do NOT expose54345.

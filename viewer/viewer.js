@@ -218,6 +218,7 @@ async function simulate(event) {
 }
 
 function render() {
+  $('export').disabled=Boolean(result.partial);
   if(result.identified_entry) {renderIdentified();return;}
   const state = result.state;
   const after = state.opening_crt.after_battle;
@@ -870,6 +871,7 @@ function renderCrackridgeVoyage() {
     const crop=v.cropdale_reach;
     $('cropdale-running-limit').textContent=crop.run_percent===100?'Run 100%':`Run ≈${crop.run_percent.toFixed(1)}% · walk ${(100-crop.run_percent).toFixed(1)}%`;
     $('crackridge-voyage-result').hidden=true;
+    if(!v.cropdale_exit) return; // Committed prefix; downstream search is still running.
     const switches=v.cropdale.time_switches||[];
     $('cropdale-time-result').hidden=true;
     const onward=v.cropdale_exit;
@@ -1779,7 +1781,7 @@ $('copy').addEventListener('click',async () => {
   catch { showError('Clipboard unavailable. Select and copy the final CRT value above.'); }
 });
 $('export').addEventListener('click',() => {
-  if (!result) return;
+  if (!result || result.partial) return;
   const link = document.createElement('a');
   if(result.identified_entry) {
     const url=URL.createObjectURL(new Blob([JSON.stringify(result,null,2)],{type:'application/json'}));

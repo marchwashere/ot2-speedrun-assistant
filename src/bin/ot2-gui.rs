@@ -1024,6 +1024,7 @@ struct Response {
     body: String,
     stop: bool,
     filename: Option<String>,
+    identified_stream: Option<(String,bool,u32,String)>,
 }
 impl Response {
     fn new(status: u16, mime: &'static str, body: impl Into<String>) -> Self {
@@ -1033,6 +1034,7 @@ impl Response {
             body: body.into(),
             stop: false,
             filename: None,
+            identified_stream: None,
         }
     }
     fn json(status: u16, value: Value) -> Self {
@@ -1221,9 +1223,10 @@ fn route_with_origin(request: &str, address: &str, public_origin: Option<&str>) 
             }
         }
         ("GET", path) if (path.starts_with("/api/identified-route?") || path.starts_with("/api/identify-observed?")) => {
-            let mut voices=None;let mut pirro_first=None;let mut hp=None;let mut route=None;let mut valid=true;
+            let mut voices=None;let mut pirro_first=None;let mut hp=None;let mut route=None;let mut streaming=None;let mut valid=true;
             for pair in path.split_once('?').unwrap().1.split('&') {
                 match pair.split_once('=') {
+                    Some(("stream","1")) if streaming.is_none() && path.starts_with("/api/identified-route?")=>streaming=Some(true),
                     Some(("voices",v)) if voices.is_none()=>voices=Some(v),
                     Some(("route",v)) if route.is_none()=>match v {"any_hikari"|"galdera"|"galdera_experimental"=>route=Some(v),_=>valid=false},
                     Some(("hp",v)) if hp.is_none()=>match v.parse::<u32>() {Ok(n) if (1..=261).contains(&n)=>hp=Some(n),_=>valid=false},
@@ -1232,6 +1235,11 @@ fn route_with_origin(request: &str, address: &str, public_origin: Option<&str>) 
                 }
             }
             if !valid || voices.is_none() || pirro_first.is_none() || hp.is_none() {Response::error(400,"Round-3 first actor, current HP (1–261), and voice transcript are required")}
+            else if streaming==Some(true) {
+                let mut response=Response::new(200,"application/x-ndjson; charset=utf-8","");
+                response.identified_stream=Some((voices.unwrap().to_owned(),pirro_first.unwrap(),hp.unwrap(),route.unwrap_or("any_hikari").to_owned()));
+                response
+            }
             else {match if path.starts_with("/api/identify-observed?") {
                 ot2_speedrun_assistant::voice_identification::identify_observed(voices.unwrap(),Some((pirro_first.unwrap(),hp.unwrap())))
             } else {ot2_speedrun_assistant::identified_route::simulate_route(voices.unwrap(),pirro_first.unwrap(),hp.unwrap(),route.unwrap_or("any_hikari")!="any_hikari")} {
@@ -1327,6 +1335,25 @@ fn handle(mut stream: TcpStream, address: &str) -> std::io::Result<bool> {
             };
         }
     };
+    if let Some((voices,first,hp,name))=response.identified_stream {
+        write!(stream,"HTTP/1.1 200 OK\r\nContent-Type: application/x-ndjson; charset=utf-8\r\nConnection: close\r\nCache-Control: no-store\r\nX-Accel-Buffering: no\r\nX-Content-Type-Options: nosniff\r\n\r\n")?;
+        stream.flush()?;
+        let mut send=|kind:&str,message:&str,value:Option<&Value>|->ot2_speedrun_assistant::Result<()> {
+            let mut event=json!({"type":kind,"message":message});
+            if let Some(value)=value {
+                let mut value=value.clone();value["route"]=json!(name);value["crt_setup"]["route"]=json!(name);
+                value["partial"]=json!(kind!="complete");event["result"]=value;
+            }
+            writeln!(stream,"{event}").and_then(|_|stream.flush()).map_err(|e|SimError(e.to_string()))
+        };
+        let outcome=ot2_speedrun_assistant::identified_route::simulate_route_progress(&voices,first,hp,name!="any_hikari",
+            &mut |message,value|send("progress",message,Some(value)));
+        match outcome {
+            Ok(value)=>{let _=send("complete","",Some(&value));},
+            Err(e)=>{let _=send("error",&e.to_string(),None);}
+        }
+        return Ok(false);
+    }
     let phrase = match response.status {
         200 => "OK",
         400 => "Bad Request",
@@ -1417,7 +1444,7 @@ fn run() -> Result<(), Box<dyn std::error::Error>> {
 fn main() {
     // Complete immutable route alternatives exceed Windows' 1 MiB main stack.
     // Keep the serial server on an explicitly sized simulation stack.
-    let worker=std::thread::Builder::new().name("ot2-viewer".into()).stack_size(16*1024*1024)
+    let worker=std::thread::Builder::new().name("ot2-viewer".into()).stack_size(32*1024*1024)
         .spawn(|| if let Err(error)=run() {eprintln!("OT2 Battle Viewer: {error}");std::process::exit(1);})
         .expect("Start viewer thread");
     worker.join().expect("Viewer thread failed");
@@ -1458,6 +1485,19 @@ mod tests {
         assert_eq!(call("GET /api/health HTTP/1.1\r\nHost: evil.example\r\n\r\n").status,403);
         let shutdown=call("POST /api/shutdown HTTP/1.1\r\nHost: ot2.example.com\r\nX-OT2-Viewer: 1\r\n\r\n");
         assert_eq!(shutdown.status,404);assert!(!shutdown.stop);
+    }
+    #[test]
+    fn identified_stream_validates_before_starting_work() {
+        let address="127.0.0.1:54345";
+        let call=|query:&str| route_with_origin(&format!("GET /api/identified-route?{query} HTTP/1.1\r\nHost: {address}\r\n\r\n"),address,None);
+        let query="voices=N&hp=154&r3_first=pirro&route=galdera_experimental&stream=1";
+        let response=call(query);
+        assert_eq!(response.status,200);
+        assert_eq!(response.identified_stream.unwrap(),("N".into(),true,154,"galdera_experimental".into()));
+        for suffix in ["&stream=1","&hp=154","&unknown=1"] {assert_eq!(call(&format!("{query}{suffix}")).status,400);}
+        assert_eq!(call("voices=N&hp=0&r3_first=pirro&stream=1").status,400);
+        let foreign=format!("GET /api/identified-route?{query} HTTP/1.1\r\nHost: {address}\r\nOrigin: https://evil.example\r\n\r\n");
+        assert_eq!(route_with_origin(&foreign,address,None).status,403);
     }
     #[test]
     fn canalbrine_requirements_cover_both_western_continuations() {

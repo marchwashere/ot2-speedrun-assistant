@@ -1,5 +1,15 @@
 # Active project
 
+- Identified routes stream committed snapshots with stream=1 (NDJSON): early
+  Highroad/Harbor, early rare route before unfinalized Cropdale extension, full
+  EXP100/supplies through Gravell, then final JP100 selection. DeferredFlex scope
+  postpones only the terminal JP search until the containing JSON tree exists;
+  complete_flex resumes from exact carried WorldState/RNG, not a guessed offset.
+  Never publish speculative EXP/JP candidate controls. Partial plans cannot be
+  exported; errors retain completed sections. Caddy flush_interval -1 avoids
+  buffering. Server stack32MiB (debug route overflowed16MiB). Streaming parser,
+  stale input, snapshot rendering and live prefix-preservation tests in tools.
+
 - Flex JP100 now refines with0..7 safe Defends at Firestarter Western Sai,
   Beasting Bay, Western Tropu, deferred Roque Harbor, and Nameless water Escape.
   Core safe_step_ahead_defend_through_next_round preserves real voices/queues;
