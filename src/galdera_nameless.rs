@@ -62,13 +62,14 @@ pub fn jp_finish(entry:&Entry,max_inputs:usize)->Result<Option<JpTrip>> {
 #[derive(Debug,Serialize)]pub struct Trip {pub setup:Entry,pub approach:Approach,pub night:Entry,pub prompt:Entry,pub damage_floor:ot2_battle_engine::gigantes::DamageFloor,pub battle:ot2_battle_engine::lord_sands::Prediction,pub field_return:Entry,pub victory:Entry,pub loot:crate::galdera_flex::Segment,pub finisher_boost_cycles:u32}
 /// Inactive continuation for the future automatic location selector. The caller
 /// must complete Roque loot and Firestarter first, and load the island by day.
-pub fn finish(entry:&Entry,max_cycles:u32)->Result<Option<Trip>> {
+pub fn finish(entry:&Entry,max_cycles:u32)->Result<Option<Trip>> {finish_with_defends(entry,max_cycles,0)}
+pub(crate) fn finish_with_defends(entry:&Entry,max_cycles:u32,defends:u8)->Result<Option<Trip>> {
  let mut l=Loader::new(world::catalog(),entry.world_after.clone(),entry.after)?;
  crate::nameless_setup::apply(&mut l)?;
  for id in [7,6,5,4] {ensure(l.state.character_progression[&id].jobs.equipped_support.contains(crate::gravell_setup::STEP_AHEAD),"Nameless routine requires A Step Ahead on all four")?;}
  ensure(l.state.character_progression[&6].jobs.learned_abilities.get(&6).is_some_and(|a|a.contains("ABI_SET_SCH_060")),"Osvald must know Elemental Barrage")?;
  let setup=point(&mut l,entry.after);
- let Some(approach)=escape_approach(&setup,max_cycles)?else{return Ok(None);};
+ let Some(approach)=escape_approach_with_defends(&setup,max_cycles,defends)?else{return Ok(None);};
  let e=&approach.gigantes_entry;let mut l=Loader::new(world::catalog(),e.world_after.clone(),e.after)?;
  ensure(!l.state.flag(40003),"Gigantes already defeated")?;
  l.manual_time_switch(4,"Nameless Isle: switch to night before Gigantes")?;
@@ -163,7 +164,8 @@ fn movement(counter:u32,first_water:u32,run:u32,walk:u32)->Option<Movement> {
 /// Minimize escape boost cycles, then maximize running for that reset counter.
 /// None rejects this upstream RNG candidate (ambush or adjustment budget).
 /// The first formation is fixed before any battle boost inputs are considered.
-pub fn escape_approach(entry:&Entry,max_cycles:u32)->Result<Option<Approach>> {
+pub fn escape_approach(entry:&Entry,max_cycles:u32)->Result<Option<Approach>> {escape_approach_with_defends(entry,max_cycles,0)}
+fn escape_approach_with_defends(entry:&Entry,max_cycles:u32,defends:u8)->Result<Option<Approach>> {
  let w=&entry.world_after;
  ensure(w.map==MAP&&w.time==2&&w.evasive_maneuvers,"Nameless approach requires daytime island entry with Evasive Maneuvers")?;
  let mut l=Loader::new(world::catalog(),w.clone(),entry.after)?;
@@ -176,7 +178,7 @@ pub fn escape_approach(entry:&Entry,max_cycles:u32)->Result<Option<Approach>> {
  l.state.encounter_counter-=LAND_TO_WATER*decrement;
  l.boundary("Run 100% for 70 decrements to water; canoe boarding retains the counter");
  let water_entry=point(&mut l,entry.after);
- let Some(mut encounter)=galdera_coast::sai_encounter(water_entry.clone(),"ENT_DNG_OCN_1_3_WTR")? else{return Ok(None);};
+ let Some(mut encounter)=galdera_coast::sai_encounter_defends(water_entry.clone(),"ENT_DNG_OCN_1_3_WTR",defends)? else{return Ok(None);};
  let water_updates=encounter.encounter.counter_updates.unwrap();
  ensure(water_updates<=WATER_RUN,"First encounter falls outside the measured water crossing")?;
  let first=LAND_TO_WATER+water_updates;let remaining=TOTAL_RUN-first;

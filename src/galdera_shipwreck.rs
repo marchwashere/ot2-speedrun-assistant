@@ -44,7 +44,7 @@ fn escape_battle(e:&Entry,max_inputs:usize)->Result<Option<(crate::galdera_coast
   if !escape.success{continue;}
   let ret=crate::highroad::restore_field(w,&escape,MAP,"Shipwreck daytime Escape")?;
   let field_return=Entry{arrival:ret.arrival,after:ret.after,world_after:ret.world_after,trace:ret.trace,decisions:vec![]};
-  return Ok(Some((crate::galdera_coast::SouthernSai{arrival:e.clone(),encounter,battle_entry:rng,menu,escape,field_return},inputs)));
+  return Ok(Some((crate::galdera_coast::SouthernSai{arrival:e.clone(),encounter,battle_entry:rng,menu,escape,field_return,defends:vec![],defend_rounds:vec![],escape_round:1},inputs)));
  }Ok(None)
 }
 fn jp_battle(e:&Entry,max_inputs:usize)->Result<Option<JpBattle>> {

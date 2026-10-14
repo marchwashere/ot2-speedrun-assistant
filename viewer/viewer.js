@@ -1286,19 +1286,21 @@ function renderCrackridgeVoyage() {
                                             const label=segment.name+' · encounter '+(j+1);lines.push(label+': '+encounterLabel(f.encounter));
                                             let previous=f.arrival.after;const origin=BigInt(previous.draws)-BigInt(f.encounter.checkpoints[0].draws);
                                             for(const c of f.encounter.checkpoints){const after={state:c.state,draws:Number(origin+BigInt(c.draws))};conningSpans.push({reason:label+' · '+c.label,before:previous,after});previous=after;}
-                                            lines.push('T1 · '+party[f.menu.first_actor]+' · '+(j===0&&segment.escape_boost_inputs.length?'Boost 0 → '+segment.escape_boost_inputs.join(' → ')+' → ':'')+'Escape (100%)');
-                                            conningStages.push([label+' · field return',f.field_return]);conningSpans.push(...f.escape.trace,...f.field_return.trace);conningPoints.push([label+' · first command menu',f.menu.rng]);
+                                            for(const [k,d] of (f.defends||[]).entries()){lines.push('T'+f.defend_rounds[k]+' · '+party[d.actor]+' · Defend');conningPoints.push([label+' · T'+f.defend_rounds[k]+' '+party[d.actor]+' Defend',d.rng_before]);}
+                                            lines.push('T'+(f.escape_round||1)+' · '+party[f.menu.first_actor]+' · '+(j===0&&segment.escape_boost_inputs.length?'Boost 0 → '+segment.escape_boost_inputs.join(' → ')+' → ':'')+'Escape (100%)');
+                                            conningStages.push([label+' · field return',f.field_return]);conningSpans.push(...f.escape.trace,...f.field_return.trace);conningPoints.push([label+' · Escape command menu',f.menu.rng]);
                                           });
                                           if(segment.movement)lines.push('After Beasting encounter: run first '+segment.movement.run_percent.toFixed(1)+'% · walk remaining '+(100-segment.movement.run_percent).toFixed(1)+'% (includes 3-update leeway)');
                                         }
                                         if(x.nameless||x.nameless_jp)lines.push('Nameless entry menu: Osvald equips Firestarter, Scorched Bone Spear, Skull Helm, Elemental Augmentor; Magic Nut L ×2. Throné equips Swift Shield, Quick Cloak; Critical Nut L and Fortifying Nut L. Keep jobs/supports.');
                                         if(x.nameless){
                                           const n=x.nameless,f=n.approach.encounter;
-                                          lines.push('Nameless Isle: '+encounterLabel(f.encounter),'Escape: boost 0 → '+n.approach.escape_inputs.join(' → ')+'; '+party[f.menu.first_actor]+' flees','Run '+n.approach.run_percent.toFixed(1)+'% of total island distance; walk the rest','Switch night for Gigantes');
+                                          for(const [k,d] of (f.defends||[]).entries()){lines.push('Nameless T'+f.defend_rounds[k]+' · '+party[d.actor]+' · Defend');conningPoints.push(['Nameless T'+f.defend_rounds[k]+' '+party[d.actor]+' Defend',d.rng_before]);}
+                                          lines.push('Nameless Isle: '+encounterLabel(f.encounter),'T'+(f.escape_round||1)+' · '+(n.approach.escape_inputs.length?'boost 0 → '+n.approach.escape_inputs.join(' → ')+'; ':'')+party[f.menu.first_actor]+' flees','Run '+n.approach.run_percent.toFixed(1)+'% of total island distance; walk the rest','Switch night for Gigantes');
                                           conningStages.push(['Nameless gear menu',n.setup],['Nameless water',n.approach.water_entry],['Nameless Escape field return',f.field_return],['Gigantes approach',n.approach.gigantes_entry],['Gigantes night',n.night],['Gigantes prompt',n.prompt],['Gigantes field return',n.field_return],['Gigantes victory scene',n.victory],...n.loot.stages);
                                           conningSpans.push(...f.escape.trace,...f.field_return.trace,...n.battle.trace);
                                           for(const e of [n.setup,n.approach.water_entry,n.approach.gigantes_entry,n.night,n.prompt,n.field_return,n.victory])conningSpans.push(...e.trace);
-                                          conningPoints.push(['Nameless water · first command menu',f.menu.rng]);
+                                          conningPoints.push(['Nameless water · Escape command menu',f.menu.rng]);
                                           for(const a of n.battle.actions||[])conningPoints.push(['Gigantes · T'+a.turn+' '+party[a.actor]+' '+a.name,a.report.rng_before]);
                                           lines.push('Gigantes: T1 Throné/Osvald Defend; Partitio Defend if before both, otherwise attack; Temenos attack','T2 Throné +2 sword; Osvald +3 Elemental Barrage; Partitio +3 Beastlings; Temenos Defend if needed','Before Beastlings: '+n.finisher_boost_cycles+' extra 0 → 1 → 0 boost cycles');
                                           for(const [label,e] of n.loot.stages){lines.push(label);conningSpans.push(...e.trace);}

@@ -2,6 +2,24 @@
 
 ## Active automatic location selection
 
+Defend refinement now follows the existing accepted switch-only search. Five
+controls allow0..7 Defends: Western Sai Firestarter encounter, Beasting Bay,
+Western Tropu'hopu, daytime Roque Harbor, and Nameless water when fleeing for
+Shipwreck. Each action uses the core safe-step-ahead continuation, permitting
+the first regular turn only while the next command remains a player. Escape
+must still be100% with the carried party. No enemy actions are accepted.
+Defend costs3 inputs; entering the next round costs8 once, so seven cost29.
+All resulting resets, run/walk requirements, formations, gear and battles are
+replayed. Viewer lists actual Defend actors/turns and the later Escape menu.
+
+Refinement compares every single-site count and uniform multi-site counts,
+then performs a second coordinate pass around an improved winner. It compares
+Roque prefixes and all six later errand orders, with the existing Tropu switches
+and fine boosts available. A shared12000-candidate budget bounds refinement;
+the accepted fallback is retained. This is a bounded improvement search, not
+exhaustive enumeration of all8^5 Defend combinations. Small input-cost lower
+bounds prune candidates only when they cannot beat the current accepted plan.
+
 Crackridge book (2), Roque boat/loot (1), and Firestarter (3) may occur in any
 of the six permutations. All three must finish before Nameless Isle (4).
 Shipwreck (5) requires the complete Nameless Escape/Gigantes/Georges route.

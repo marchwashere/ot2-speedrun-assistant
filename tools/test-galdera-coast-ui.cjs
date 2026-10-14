@@ -201,4 +201,14 @@ assert.match($('galdera-flex-routine').innerHTML,/Gigantes/);
 assert.match($('galdera-flex-routine').innerHTML,/Fireball \+3 BP/);
 assert(context.conningStages.some(([label])=>label==='Shipwreck · JP ×100 victory and field return'));
 console.log('PASS: Nameless and Shipwreck selected routes, Boots target, Fireball BP, and Gigantes continuation');
+const defended={...coast.southern_sai,defends:[{actor:0,rng_before:entry.after},{actor:1,rng_before:entry.after}],defend_rounds:[1,2],escape_round:2};
+x.segments=[{...segment,encounters:[defended]}];
+x.nameless.approach.encounter=defended;
+vm.runInNewContext(source.slice(start,end),context);
+assert.match($('galdera-flex-routine').innerHTML,/T1 · Throné · Defend/);
+assert.match($('galdera-flex-routine').innerHTML,/T2 · Osvald · Defend/);
+assert.match($('galdera-flex-routine').innerHTML,/T2 · Temenos · Escape/);
+assert(context.conningPoints.some(([label])=>/Nameless T2 Osvald Defend/.test(label)));
+console.log('PASS: Defend actors/rounds, later Escape menu and detailed checkpoints');
+
 

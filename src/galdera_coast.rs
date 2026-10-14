@@ -23,13 +23,15 @@ pub struct Continuation {
 pub struct SouthernSai {
     pub arrival:Entry,pub encounter:encounter::Prediction,pub battle_entry:CrtRng,
     pub menu:FieldEscapeMenu,pub escape:FieldEscapeAttempt,pub field_return:Entry,
+    pub defends:Vec<ot2_battle_engine::StepReport>,pub defend_rounds:Vec<u32>,pub escape_round:u32,
 }
 fn southern_sai(eastern:&Entry)->Result<Option<SouthernSai>> {
     let mut l=Loader::new(world::catalog(),eastern.world_after.clone(),eastern.after)?;
     l.visit_map("Fld_Dst_2_3")?;let arrival=point(&mut l,eastern.after);
     sai_encounter(arrival,"ENT_FLD_DST_2_3_LND")
 }
-pub(crate) fn sai_encounter(arrival:Entry,zone:&str)->Result<Option<SouthernSai>> {
+pub(crate) fn sai_encounter(arrival:Entry,zone:&str)->Result<Option<SouthernSai>> {sai_encounter_defends(arrival,zone,0)}
+pub(crate) fn sai_encounter_defends(arrival:Entry,zone:&str,count:u8)->Result<Option<SouthernSai>> {
     let w=&arrival.world_after;
     let levels:Vec<_>=w.party.iter().map(|id|w.character_progression[id].level).collect();
     let mut rng=arrival.after;
@@ -48,11 +50,15 @@ pub(crate) fn sai_encounter(arrival:Entry,zone:&str)->Result<Option<SouthernSai>
     let step_members:Vec<_>=w.party.iter().enumerate().filter(|(_,id)|w.character_progression[id].jobs.equipped_support.contains(crate::gravell_setup::STEP_AHEAD)).map(|(i,_)|i).collect();
     let menu=if !step_members.is_empty() {FieldEscapeMenu::with_step_ahead_members(rng,situation,&players,&levels,&ids,&w.enemy_knowledge,if step_members.len()==players.len(){None}else{Some(step_members)})?}
         else {FieldEscapeMenu::with_players(rng,situation,&players,&levels,&ids,&w.enemy_knowledge)?};
+    let mut menu=menu;let mut defends=vec![];let mut defend_rounds=vec![];
+    ensure(count<=7,"At most seven Defends before Escape")?;
+    for _ in 0..count {let round=menu.round();let Some((next,report))=menu.safe_step_ahead_defend_through_next_round()?else{return Ok(None);};defend_rounds.push(round);defends.push(report);menu=next;}
+    let escape_round=menu.round();
     let escape=menu.clone().attempt(&[],encounter.encounter_level.ok_or_else(||SimError(format!("Missing {} encounter danger level",w.map)))?)?;
-    ensure(escape.chance_percent==100&&escape.success,format!("{} first-menu Escape is not guaranteed with the carried levels",w.map))?;
-    let ret=crate::highroad::restore_field(w,&escape,&w.map,&format!("{} first-menu Escape",w.map))?;
+    ensure(escape.chance_percent==100&&escape.success,format!("{} Escape is not guaranteed with the carried levels",w.map))?;
+    let ret=crate::highroad::restore_field(w,&escape,&w.map,&format!("{} T{escape_round} Escape after {count} Defends",w.map))?;
     let field_return=Entry {arrival:ret.arrival,after:ret.after,world_after:ret.world_after,trace:ret.trace,decisions:vec![]};
-    Ok(Some(SouthernSai {arrival,encounter,battle_entry:rng,menu,escape,field_return}))
+    Ok(Some(SouthernSai {arrival,encounter,battle_entry:rng,menu,escape,field_return,defends,defend_rounds,escape_round}))
 }
 fn point(l:&mut Loader<'_>,before:CrtRng)->Entry {
     Entry {arrival:before,after:l.rng,world_after:l.state.clone(),trace:std::mem::take(&mut l.trace),decisions:std::mem::take(&mut l.decisions)}

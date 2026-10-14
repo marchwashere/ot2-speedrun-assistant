@@ -1,5 +1,14 @@
 # Active project
 
+- Flex JP100 now refines with0..7 safe Defends at Firestarter Western Sai,
+  Beasting Bay, Western Tropu, deferred Roque Harbor, and Nameless water Escape.
+  Core safe_step_ahead_defend_through_next_round preserves real voices/queues;
+  no enemy turn and guaranteed Escape required. Cost3 each +8 on round advance.
+  SouthernSai carries reports/rounds/final Escape menu; UI shows each action.
+  Replay field resets and measured walk/run paths after Defends. Two coordinate
+  passes (single-site and uniform counts), shared12000 candidate limit; preserve
+  baseline fallback. Not an exhaustive all-combination/global optimal search.
+
 - Automatic JP-location selection is now active in galdera_flex::finish.
   Crackridge book, Roque purchase/loot, Firestarter allow all six orders, all
   BEFORE Nameless; Shipwreck always AFTER full Nameless/Gigantes/Georges.
