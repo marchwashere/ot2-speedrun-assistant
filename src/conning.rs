@@ -41,6 +41,7 @@ pub fn extend_selected_routes(value:&mut serde_json::Value)->Result<()> {
 pub struct Arrival {pub entry:Entry,pub night:Entry,pub encounter:encounter::Prediction,pub battle_entry:CrtRng}
 #[derive(Debug,Serialize)]
 pub struct Fight {
+    pub defends:Vec<ot2_battle_engine::StepReport>,
     pub arrival:Arrival,pub menu:FieldEscapeMenu,pub inputs:BoostInputs,
     pub escape:Option<FieldEscapeAttempt>,pub victory:Option<FieldRareVictory>,
     pub field_return:Entry,pub day:Entry,
@@ -119,9 +120,9 @@ fn pomegranate_tail(w:&WorldState,rng:CrtRng,town_count:u32,harbor_count:u32)->R
 fn search_pomegranate(p:&mut Prediction)->Result<()> {
     let arrival=p.western.arrival.clone();let kill=p.western.victory.is_some();
     for cost in 0..u32::MAX/2 {
-        for repeats in 0..=cost/2 {
-            let paid=cost-2*repeats;if paid%7!=0 {continue;}
-            let Some(western)=fight(arrival.clone(),repeats,kill)? else {continue;};
+        for battle_cost in 0..=cost {for (repeats,defends) in controls(battle_cost) {
+            let paid=cost-battle_cost;if paid%7!=0 {continue;}
+            let Some(western)=fight_defends(arrival.clone(),repeats,kill,defends)? else {continue;};
             let max=paid/7+4;
             for total in 0..=max {for town_count in 0..=total {
                 let harbor_count=total-town_count;
@@ -134,11 +135,11 @@ fn search_pomegranate(p:&mut Prediction)->Result<()> {
                     // an unsafe zero-switch walking candidate.
                     if !approach.highroad.world_after.galdera_route && !crate::inventor::safe(&approach) {continue;}
                     tail.inventor=Some(crate::inventor::finish(approach)?);
-                    tail.input_cost=cost;p.input_cost=p.input_cost-2*p.western.inputs.extra_repeats+cost;
+                    tail.input_cost=cost;p.input_cost=p.input_cost-control_cost(&p.western)+cost;
                     p.western=western;p.town=town;p.harbor=harbor;p.pomegranate=Some(tail);return Ok(());
                 }
             }}
-        }
+        }}
     }
     Err(SimError("Pomegranate search exhausted representable input costs".into()))
 }
@@ -164,43 +165,32 @@ pub fn arrival(w:&WorldState,rng:CrtRng,map:&str)->Result<Arrival> {
 }
 fn safe(a:&Arrival)->bool {matches!(a.encounter.situation.as_deref(),Some("Normal"|"Preemptive"))}
 fn cait(a:&Arrival)->bool {a.encounter.enemies.iter().any(|s|s.enemy.id=="ENE_NML_OTR_140")}
-/// Northern boosts alone control the Western opening. Take a natural Northern
-/// Cait if present; otherwise require it in Western. Western boosts only Escape.
+/// Northern Defends and boosts control the Western opening. Take a natural Northern
+/// Cait if present; otherwise require it in Western. Never permit an enemy action.
 pub fn nearest(north:Arrival)->Result<Prediction> {
     nearest_bounded(north,None)?.ok_or_else(||SimError("Coast boost search exhausted".into()))
 }
 pub fn nearest_bounded(north:Arrival,limit:Option<u32>)->Result<Option<Prediction>> {
     ensure(safe(&north),"Northern opening must be protected by Canalbrine boosts")?;
-    let kill=cait(&north);
-    for n in 0..u32::MAX/2 {
-        if limit.is_some_and(|l|2*n>l) {return Ok(None);}
-        let Some(northern)=fight(north.clone(),n,kill)? else {continue;};
-        let west=arrival(&northern.day.world_after,northern.day.after,WEST)?;
-        if !safe(&west)||(!kill&&!cait(&west)) {continue;}
-        for m in 0..u32::MAX/2-n {
-            if limit.is_some_and(|l|2*(n+m)>l) {return Ok(None);}
-            let Some(western)=fight(west.clone(),m,!kill)? else {continue;};
-            let mut l=Loader::new(world::catalog(),western.departure().world_after.clone(),western.departure().after)?;
-            let scenarios=l.state.active_scenarios.clone();l.visit_map(TOWN)?;
-            ensure(l.state.active_scenarios==scenarios,"Conning arrival must not start a chapter")?;
-            let town=checkpoint(&mut l,western.departure().after);
-            l.visit_map(HARBOR)?;
-            let harbor=checkpoint(&mut l,town.after);
-            return Ok(Some(Prediction {northern,western,town,harbor,pomegranate:None,input_cost:2*(n+m),verification:"Nearest-menu boosts only. Both openings reject surprise; one Cultured Cait pack cleared with Shadow Soulstone M and the other escaped first try. Real carried levels and shared map loads; no Osvald Chapter 3. Assumes one encounter per coast. Awaiting retail validation."}));
-        }
-    }
+    let mut node=Node {kill:cait(&north),arrival:north,first:Default::default(),failed:Default::default()};
+    for cost in 0..=limit.unwrap_or(u32::MAX/2) {if let Some(p)=node_at_cost(&mut node,cost)? {return Ok(Some(p));}}
     Ok(None)
 }
+
 fn menu(a:&Arrival)->Result<FieldEscapeMenu> {
     let w=&a.night.world_after;
     let players:Vec<_>=w.party.iter().map(|id|w.character_progression[id].character.clone()).collect();
     let levels:Vec<_>=w.party.iter().map(|id|w.character_progression[id].level).collect();
     let ids:Vec<_>=a.encounter.enemies.iter().map(|s|s.enemy.id.as_str()).collect();
-    FieldEscapeMenu::with_players(a.battle_entry,if a.encounter.situation.as_deref()==Some("Preemptive") {Situation::Preemptive}else{Situation::Normal},&players,&levels,&ids,&w.enemy_knowledge).map_err(Into::into)
+    FieldEscapeMenu::with_players_defend(a.battle_entry,if a.encounter.situation.as_deref()==Some("Preemptive") {Situation::Preemptive}else{Situation::Normal},&players,&levels,&ids,true,&w.enemy_knowledge).map_err(Into::into)
 }
-fn fight(a:Arrival,n:u32,kill:bool)->Result<Option<Fight>> {
+#[cfg(test)]
+fn fight(a:Arrival,n:u32,kill:bool)->Result<Option<Fight>> {fight_defends(a,n,kill,0)}
+fn fight_defends(a:Arrival,n:u32,kill:bool,count:usize)->Result<Option<Fight>> {
     if !safe(&a) {return Ok(None);}
-    let m=menu(&a)?;let inputs=describe_inputs(n,0,path(n))?;
+    let mut m=menu(&a)?;let mut defends=vec![];
+    for _ in 0..count {let Some((next,report))=m.safe_first_round_defend()? else {return Ok(None);};m=next;defends.push(report);}
+    let inputs=describe_inputs(n,0,path(n))?;
     let mut w=a.night.world_after.clone();
     let (escape,victory,after)=if kill {
         ensure(cait(&a),"Only the targeted Cultured Cait pack uses SSM")?;
@@ -208,7 +198,7 @@ fn fight(a:Arrival,n:u32,kill:bool)->Result<Option<Fight>> {
         let levels:Vec<_>=w.party.iter().map(|id|w.character_progression[id].level).collect();
         let ids:Vec<_>=a.encounter.enemies.iter().map(|s|s.enemy.id.as_str()).collect();
         let situation=if a.encounter.situation.as_deref()==Some("Preemptive") {Situation::Preemptive}else{Situation::Normal};
-        let v=ot2_battle_engine::field_escape::carried_shadow_soulstone_m(a.battle_entry,situation,&players,&levels,&ids,true,&w.enemy_knowledge,&inputs.levels)?
+        let v=ot2_battle_engine::field_escape::carried_soulstone_after_defends(a.battle_entry,situation,&players,&levels,&ids,true,&w.enemy_knowledge,&inputs.levels,"shadow_soulstone_m",false,count)?
             .ok_or_else(||SimError("Shadow Soulstone M cannot clear coast formation".into()))?;
         apply_item_victory(&mut w,&v)?;
         let after=v.after;(None,Some(v),after)
@@ -228,7 +218,7 @@ fn fight(a:Arrival,n:u32,kill:bool)->Result<Option<Fight>> {
         let Some(steal)=steal_leaves(&day)? else {return Ok(None);};
         Some(steal)
     }else{None};
-    Ok(Some(Fight {arrival:a,menu:m,inputs,escape,victory,field_return,day,leaf_steal}))
+    Ok(Some(Fight {defends,arrival:a,menu:m,inputs,escape,victory,field_return,day,leaf_steal}))
 }
 fn steal_leaves(entry:&Entry)->Result<Option<Entry>> {
     let mut l=Loader::new(world::catalog(),entry.world_after.clone(),entry.after)?;
@@ -238,7 +228,7 @@ fn steal_leaves(entry:&Entry)->Result<Option<Entry>> {
     let level=l.state.character_progression[&7].level;
 
     l.draw(world::DrawKind::PathActionMenu,npc,"Merchant: open one Steal menu (action timer)",None);
-    for (item,name,proper) in [("ITM_MRL_REV_0080","Whimsical Leaf",4),("ITM_MRL_REV_0030","Pomegranate Leaf",6)] {
+    for (item,name,proper) in [("ITM_MRL_REV_0030","Pomegranate Leaf",6),("ITM_MRL_REV_0080","Whimsical Leaf",4)] {
         let chance=steal_chance(level,proper);
         let roll=l.draw(world::DrawKind::StealCheck,item,format!("{name}: Throné Lv{level}, chance {chance}%"),Some(100))+1;
         if let Some(t)=l.trace.last_mut(){t.value=Some(roll);}
@@ -268,57 +258,106 @@ pub(crate) fn apply_item_victory(w:&mut WorldState,v:&FieldRareVictory)->Result<
         })?;
     Ok(())
 }
-/// Exact cost layer. Each first menu has one BP; cancel cycle costs two inputs.
+/// Exact cost layer: ordinary first-round Defends cost three, boost cycles two.
 /// Compare both legal kill locations, including escaping a northern Cait when
 /// killing a western Cait permits a cheaper complete plan.
-struct Node {arrival:Arrival,kill:bool,first:Vec<Option<(Fight,Arrival)>>,failed:std::collections::BTreeSet<u32>}
+fn controls(cost:u32)->impl Iterator<Item=(u32,usize)> {
+    (0..=3usize).filter_map(move |d|cost.checked_sub(d as u32*crate::escape_search::DEFEND_INPUT_COST).filter(|c|c%2==0).map(|c|(c/2,d)))
+}
+fn control_cost(f:&Fight)->u32 {2*f.inputs.extra_repeats+f.defends.len()as u32*crate::escape_search::DEFEND_INPUT_COST}
+struct Node {arrival:Arrival,kill:bool,first:std::collections::BTreeMap<(u32,usize),Option<(Fight,Arrival)>>,failed:std::collections::BTreeSet<u32>}
 #[derive(Default)]
 pub struct Cache {nodes:std::collections::BTreeMap<(crate::state_key::WorldKey,u32,u64,bool),Option<Node>>}
 impl Cache {
     pub fn at_cost(&mut self,w:&WorldState,rng:CrtRng,cost:u32)->Result<Option<Prediction>> {
         for kill in [true,false] {
-            if let Some(p)=self.at_cost_mode(w,rng,cost,kill)? {return Ok(Some(p));}
+            let key=(crate::state_key::WorldKey::new(w),rng.state,rng.draws,kill);
+            if !self.nodes.contains_key(&key) {
+                let n=arrival(w,rng,NORTH)?;
+                self.nodes.insert(key.clone(),(safe(&n)&&(!kill||cait(&n))).then(||Node {kill,arrival:n,first:Default::default(),failed:Default::default()}));
+            }
+            if let Some(node)=self.nodes.get_mut(&key).unwrap() {if let Some(p)=node_at_cost(node,cost)? {return Ok(Some(p));}}
         }
         Ok(None)
     }
-    fn at_cost_mode(&mut self,w:&WorldState,rng:CrtRng,cost:u32,kill:bool)->Result<Option<Prediction>> {
-        if cost%2!=0 {return Ok(None);}
-        let key=(crate::state_key::WorldKey::new(w),rng.state,rng.draws,kill);
-        if !self.nodes.contains_key(&key) {
-            let n=arrival(w,rng,NORTH)?;
-            let value=(safe(&n)&&(!kill||cait(&n))).then(||Node {kill,arrival:n,first:vec![],failed:Default::default()});
-            self.nodes.insert(key.clone(),value);
-        }
-        let Some(node)=self.nodes.get_mut(&key).unwrap() else {return Ok(None);};
-        if node.failed.contains(&cost) {return Ok(None);}
-        for first in 0..=cost/2 {
-            if node.first.len()==first as usize {
-                let prefix=if let Some(northern)=fight(node.arrival.clone(),first,node.kill)? {
-                    let west=arrival(&northern.day.world_after,northern.day.after,WEST)?;
-                    (safe(&west)&&(node.kill||cait(&west))).then_some((northern,west))
-                }else{None};
-                node.first.push(prefix);
-            }
-            let Some((_,west))=&node.first[first as usize] else {continue;};
-            let Some(western)=fight(west.clone(),cost/2-first,!node.kill)? else {continue;};
-            let mut l=Loader::new(world::catalog(),western.departure().world_after.clone(),western.departure().after)?;
-            let before_scenarios=l.state.active_scenarios.clone();l.visit_map(TOWN)?;
-            ensure(l.state.active_scenarios==before_scenarios,"Conning arrival must not start a chapter")?;
-            let town=checkpoint(&mut l,western.departure().after);
-            let (northern,_)=node.first[first as usize].take().unwrap();
-            l.visit_map(HARBOR)?;
-            let harbor=checkpoint(&mut l,town.after);
-            return Ok(Some(Prediction {northern,western,town,harbor,pomegranate:None,input_cost:cost,
-                verification:"Source-derived night fixed-first coast encounters, carried four-character item/Escape callbacks and shared map loads. One Cultured Cait pack cleared by Shadow Soulstone M; other pack escaped. Both openings reject surprise. No Osvald Chapter 3. Movement distances are not inferred; route assumes one encounter per coast. Awaiting retail validation."}));
-        }
-        node.failed.insert(cost);Ok(None)
-    }
 }
+fn node_at_cost(node:&mut Node,cost:u32)->Result<Option<Prediction>> {
+    if node.failed.contains(&cost) {return Ok(None);}
+    for first_cost in 0..=cost {for (n,d) in controls(first_cost) {
+        let key=(n,d);
+        if !node.first.contains_key(&key) {
+            let prefix=if let Some(northern)=fight_defends(node.arrival.clone(),n,node.kill,d)? {
+                let west=arrival(&northern.day.world_after,northern.day.after,WEST)?;
+                (safe(&west)&&(node.kill||cait(&west))).then_some((northern,west))
+            }else{None};
+            node.first.insert(key,prefix);
+        }
+        let Some((_,west))=&node.first[&key] else {continue;};
+        for (m,wd) in controls(cost-first_cost) {
+            let Some(western)=fight_defends(west.clone(),m,!node.kill,wd)? else {continue;};
+            let mut l=Loader::new(world::catalog(),western.departure().world_after.clone(),western.departure().after)?;
+            let scenarios=l.state.active_scenarios.clone();l.visit_map(TOWN)?;
+            ensure(l.state.active_scenarios==scenarios,"Conning arrival must not start a chapter")?;
+            let town=checkpoint(&mut l,western.departure().after);l.visit_map(HARBOR)?;
+            let harbor=checkpoint(&mut l,town.after);
+            let (northern,_)=node.first.remove(&key).unwrap().unwrap();
+            return Ok(Some(Prediction {northern,western,town,harbor,pomegranate:None,input_cost:cost,
+                verification:"Source-derived coast search: safe first-round Defends and boost adjustments; no enemy action before the Soulstone or successful Escape. Both openings reject surprise. One Cultured Cait pack cleared. Assumes one encounter per coast; awaiting retail validation."}));
+        }
+    }}
+    node.failed.insert(cost);Ok(None)
+}
+
 pub fn at_cost(w:&WorldState,rng:CrtRng,cost:u32)->Result<Option<Prediction>> {Cache::default().at_cost(w,rng,cost)}
 
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[test]
+    fn ordinary_defends_stop_at_enemy_and_replay_soulstone() {
+        let i=input();let p=nearest(arrival(&i.world_after,i.after,NORTH).unwrap()).unwrap();
+        let mut a=if p.northern.victory.is_some(){p.northern.arrival}else{p.western.arrival};
+        let mut covered=0;
+        for situation in ["Normal","Preemptive"] {for seed in 0..32 {
+            a.battle_entry=CrtRng{state:seed,draws:500};a.encounter.situation=Some(situation.into());
+            let m=menu(&a).unwrap();
+            let expected=m.current_order.iter().take_while(|&&id|id<a.night.world_after.party.len()).count().saturating_sub(1);
+            for d in 0..=3 {
+                let f=fight_defends(a.clone(),0,true,d).unwrap();
+                assert_eq!(f.is_some(),d<=expected,"seed={seed}, situation={situation}, d={d}, order={:?}",m.current_order);
+                if let Some(f)=f {
+                    assert_eq!(f.defends.len(),d);assert_eq!(f.menu.round(),1);
+                    assert!(f.defends.iter().all(|r|r.actor.0<a.night.world_after.party.len()));
+                    assert_eq!(f.victory.as_ref().unwrap().report.rng_before,f.menu.rng);
+                    let replay=fight_defends(a.clone(),0,true,d).unwrap().unwrap();
+                    assert_eq!(f.day.after,replay.day.after);covered+=usize::from(d>0);
+                }
+            }
+        }}
+        assert!(covered>0);
+    }
+    #[test]
+    fn coast_search_can_select_odd_cost_defends() {
+        let i=input();
+        for seed in 0..1024 {
+            let rng=CrtRng{state:seed,draws:i.after.draws};
+            let mut cache=Cache::default();
+            for cost in 0..=40 {
+                if let Some(p)=cache.at_cost(&i.world_after,rng,cost).unwrap() {
+                    if p.northern.defends.len()+p.western.defends.len()>0 {
+                        assert_eq!(p.input_cost,control_cost(&p.northern)+control_cost(&p.western));
+                        for f in [&p.northern,&p.western] {
+                            let replay=fight_defends(f.arrival.clone(),f.inputs.extra_repeats,f.victory.is_some(),f.defends.len()).unwrap().unwrap();
+                            assert_eq!(replay.departure().after,f.departure().after);
+                        }
+                        eprintln!("Defend witness seed={seed}, cost={cost}");return;
+                    }
+                    break;
+                }
+            }
+        }
+        panic!("Expected a selected Defend witness");
+    }
     #[test]
     fn pomegranate_uses_carried_level_and_preserves_prior_fight() {
         for (level,chance) in [(1,8),(4,8),(5,15),(7,15),(8,55),(9,55),(10,65),(11,65),(12,80),(18,80),(19,100),(40,100)] {assert_eq!(pomegranate_chance(level),chance);}
@@ -431,7 +470,7 @@ mod tests {
             assert!(stage.after.draws>stage.arrival.draws);
             assert!(serde_json::to_string(&stage.decisions).unwrap().contains("Fld_Ocn_1_1"));
         }
-        assert_eq!(tail.input_cost,2*p.western.inputs.extra_repeats+7*(tail.town_switches.len().saturating_sub(2)+tail.harbor_switches.len().saturating_sub(2)) as u32);
+        assert_eq!(tail.input_cost,control_cost(&p.western)+7*(tail.town_switches.len().saturating_sub(2)+tail.harbor_switches.len().saturating_sub(2)) as u32);
         // Exhaust every strictly cheaper local combination independently.
         for n in 0..=tail.input_cost/2 {for t in 0..=tail.input_cost/7+4 {for h in 0..=tail.input_cost/7+4 {
             if (t+h)%2!=0||2*n+7*(t.saturating_sub(2)+h.saturating_sub(2))>=tail.input_cost {continue;}
@@ -451,15 +490,17 @@ mod tests {
         assert_eq!(input.world_after.character_progression[&7].experience,1945);
         assert_eq!(steal_chance(16,4),100);assert_eq!(steal_chance(16,6),80);assert_eq!(steal_chance(17,6),100);
         let west=arrival(&input.world_after,input.after,WEST).unwrap();
-        assert!(fight(west.clone(),0,false).unwrap().is_none());
+        assert!(fight(west.clone(),1,false).unwrap().is_none());
         let mut no_leaves=west.clone();no_leaves.night.world_after.galdera_route=false;
-        let unadjusted=fight(no_leaves,0,false).unwrap().expect("Zero-boost Escape itself succeeds");
+        let unadjusted=fight(no_leaves,1,false).unwrap().expect("One-cycle Escape itself succeeds; first steal rolls 97");
         assert!(steal_leaves(&unadjusted.day).unwrap().is_none());
-        let selected=fight(west,1,false).unwrap().expect("One boost cycle secures both steals");
+        let selected=(0..32).find_map(|n|fight(west.clone(),n,false).unwrap()).expect("Boost search secures both steals");
+        eprintln!("Pom-first selected boost cycles: {}",selected.inputs.extra_repeats);
         let steal=selected.leaf_steal.unwrap();
         assert_eq!(steal.world_after.character_progression[&7].level,16);
         let checks:Vec<_>=steal.trace.iter().filter(|t|t.kind==world::DrawKind::StealCheck).collect();
-        assert_eq!(checks.len(),2);assert_eq!(checks[0].value,Some(97));assert_eq!(checks[1].value,Some(7));
+        assert_eq!(checks.len(),2);assert_eq!(checks[0].subject,"ITM_MRL_REV_0030");assert_eq!(checks[1].subject,"ITM_MRL_REV_0080");
+        assert!(checks[0].value.unwrap()<=80);assert!(checks[1].value.unwrap()<=100);
         assert_eq!(steal.after.draws-steal.arrival.draws,3);
         for id in ["ITM_MRL_REV_0080","ITM_MRL_REV_0030"] {assert_eq!(steal.world_after.route_items.get(id).copied().unwrap_or(0),input.world_after.route_items.get(id).copied().unwrap_or(0)+1);}
         assert_eq!(serde_json::to_value(&input.world_after).unwrap(),before);

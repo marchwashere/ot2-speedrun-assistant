@@ -998,16 +998,17 @@ function renderCrackridgeVoyage() {
         $('conning-'+key+'-result').hidden=false;
         $('conning-'+key+'-encounter').textContent=encounterLabel(fight.arrival.encounter);
         const actor=routeNames()[fight.menu.first_actor];
-        $('conning-'+key+'-routine').innerHTML='<p><strong>R1 · '+actor+' · 1st command menu</strong></p>'+boostStepsHtml(fight.inputs.levels,fight.victory?'Shadow Soulstone (M)':'Escape');
+        $('conning-'+key+'-routine').innerHTML=(fight.defends||[]).map(d=>'<p><strong>R1 · '+routeNames()[d.actor]+' · Defend</strong></p>').join('')+'<p><strong>R1 · '+actor+' · '+menuOrdinal((fight.defends||[]).length+1)+' command menu</strong></p>'+boostStepsHtml(fight.inputs.levels,fight.victory?'Shadow Soulstone (M)':'Escape');
         for(const [name,entry] of [['loaded',fight.arrival.entry],['night switch',fight.arrival.night],['field returned',fight.field_return],['day switch',fight.day]]) conningStages.push([label+' · '+name,entry]);
-        conningPoints.push([label+' · first command menu',fight.menu.rng],[label+' · battle completed',(fight.victory||fight.escape).after]);
+        for(const d of fight.defends||[]) conningPoints.push([label+' · '+routeNames()[d.actor]+' Defend',d.rng_before]);
+        conningPoints.push([label+' · action command menu',fight.menu.rng],[label+' · battle completed',(fight.victory||fight.escape).after]);
         conningSpans.push(...fight.arrival.entry.trace,...fight.arrival.night.trace);
         let previous=fight.arrival.night.after;
         const origin=BigInt(previous.draws)-BigInt(fight.arrival.encounter.checkpoints[0].draws);
         for(const c of fight.arrival.encounter.checkpoints) {const after={state:c.state,draws:origin+BigInt(c.draws)};conningSpans.push({reason:label+' · '+c.label,before:previous,after});previous=after;}
         conningSpans.push(...(fight.victory||fight.escape).trace,...fight.field_return.trace,...fight.day.trace);
         if(fight.leaf_steal) {
-          conningStages.push(['Western Coast Merchant · steal Whimsical Leaf ×1, then Pomegranate Leaf ×1 (successful rolls); change path action, then close',fight.leaf_steal]);
+          conningStages.push(['Western Coast Merchant · steal Pomegranate Leaf ×1, then Whimsical Leaf ×1 (successful rolls); change path action, then close',fight.leaf_steal]);
           conningSpans.push(...fight.leaf_steal.trace);
         }
       }

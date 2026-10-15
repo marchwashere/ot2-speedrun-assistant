@@ -84,7 +84,6 @@ pub struct CoastSearch {candidates:Vec<Option<Candidate>>,tested:u64}
 impl CoastSearch {
     pub fn new()->Self {Self {candidates:vec![],tested:0}}
     pub fn at_cost(&mut self,town:&Entry,cost:u32,cache:&mut crate::conning::Cache)->Result<Option<Continuation>> {
-        if cost%2!=0 {return Ok(None);}
         for h in 0..=if town.world_after.galdera_route {0} else {cost/2} {
             if self.candidates.len()==h as usize {self.candidates.push(project(town,h)?);}
             let Some(c)=self.candidates[h as usize].as_mut() else {continue;};

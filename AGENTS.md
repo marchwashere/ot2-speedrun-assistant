@@ -1,3 +1,7 @@
+- Conning coast Cultured Cait search includes 0–3 ordinary first-round Defends, stopping before the next enemy or round transition. Use carried full battle queues (including night buffs), replay Soulstone/Escape and leaf rolls; charge 3 per Defend + 2 per boost cycle. Preserve odd total cost layers and show each Defend/final actor. No A Step Ahead assumed.
+
+- Western Coast Merchant steal order: Pomegranate Leaf first, then Whimsical Leaf, in one menu; switch path action and close afterward. Preserve this RNG check order in boost searches.
+
 - Western Coast leaf steals use actual level-based chances (ProperSteal 4 for Whimsical, 6 for Pomegranate). Failed rolls reject the battle boost candidate, never abort the route. Preserve one menu-open draw, two checks and path-action switch/close. Seed 39D1C7F5 / Throné first / 196 HP reaches Lv16 after Queen Octopuff + Cultured Cait; do not assume Lv17.
 
 - Main route cards show RNG-dependent instructions only: adjustments, predicted encounters/actors, Defends/Escape, movement percentages, and selected JP branch. Hide fixed errands, gear/skill menus, mandatory time switches and fixed boss routines. Show boss finisher adjustment only when nonzero; retain full simulation and Detailed log checkpoints.
