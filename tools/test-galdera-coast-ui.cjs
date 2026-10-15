@@ -213,3 +213,11 @@ assert(context.conningPoints.some(([label])=>/Nameless T2 Osvald Defend/.test(la
 console.log('PASS: Defend actors/rounds, later Escape menu and detailed checkpoints');
 
 
+
+fc.temenos.quicksand.pre_gravell=[{...segment,name:'Sai / Firestarter',stages:[['Firestarter chest',entry]],encounters:[]},{...segment,name:'Crackridge book',stages:[['From the Far Reaches of Hell chest',entry]],encounters:[]}];
+fc.temenos.quicksand.flex=null;
+vm.runInNewContext(source.slice(start,end),context);
+const prefixHtml=$('galdera-quicksand-loot-routine').innerHTML;
+assert(prefixHtml.indexOf('Firestarter chest')<prefixHtml.indexOf('From the Far Reaches of Hell chest'));
+assert(prefixHtml.indexOf('From the Far Reaches of Hell chest')<prefixHtml.indexOf('Teleport to Gravell'));
+console.log('PASS: Firestarter/book/Gravell instructions visible before JP search completes');

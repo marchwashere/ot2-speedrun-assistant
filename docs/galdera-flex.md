@@ -1,3 +1,5 @@
+Current order supersedes older notes: spear -> Firestarter -> Crackridge book -> Gravell restoration/supplies -> Roque -> Nameless -> Shipwreck. Firestarter/book are committed before the deferred JP search; Firestarter is no longer a JP-search Defend control site. JP location remains flexible.
+
 Current route order: keep the Gravell restoration/supplies stop, then always
 Firestarter -> Crackridge book -> boat/Roque -> Nameless Isle -> Shipwreck.
 Only the JP100 location and RNG controls remain flexible. Prediction still

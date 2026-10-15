@@ -1279,8 +1279,22 @@ function renderCrackridgeVoyage() {
                                         for(const c of f.encounter.checkpoints)conningPoints.push([label+' · '+c.label,{draws:Number(origin+BigInt(c.draws)),state:c.state}]);
                                         conningPoints.push([label+' · first command menu',f.menu.rng]);conningSpans.push(...f.escape.trace);
                                       }
+                                      if(q.pre_gravell) {
+                                        const lines=['After the spear: Firestarter → From the Far Reaches of Hell → Gravell restoration and supplies'];
+                                        for(const segment of q.pre_gravell) {
+                                          if(segment.extra_switches)lines.push('Sai: '+segment.extra_switches+' extra time switches before leaving');
+                                          const events=[...segment.stages.map(([label,e])=>({label,e,draws:e.after.draws})),...segment.encounters.map(f=>({f,draws:f.menu.rng.draws}))].sort((a,b)=>Number(BigInt(a.draws)-BigInt(b.draws)));
+                                          for(const event of events){
+                                            if(event.e){lines.push(event.label);conningStages.push([event.label,event.e]);conningSpans.push(...event.e.trace);continue;}
+                                            const f=event.f;
+                                            lines.push(segment.name+': '+encounterLabel(f.encounter),'T'+(f.escape_round||1)+' · '+party[f.menu.first_actor]+' · Escape ('+f.escape.chance_percent+'%)');
+                                            conningStages.push([segment.name+' · escaped',f.field_return]);conningSpans.push(...f.escape.trace,...f.field_return.trace);conningPoints.push([segment.name+' · Escape command menu',f.menu.rng]);
+                                          }
+                                        }
+                                        $('galdera-quicksand-loot-routine').innerHTML+=instructionBoxHtml(lines);
+                                      }
                                       if(q.flex) {
-                                        const x=q.flex,location=x.location||'Roque Island Harbor',lines=['JP ×100: '+location,'Fixed order: '+x.order.map(n=>({1:'Boat → Roque Island',2:'Crackridge book',3:'Sai → Firestarter',4:'Nameless Isle',5:'Shipwreck'})[n]).join(' → ')];
+                                        const x=q.flex,location=x.location||'Roque Island Harbor',lines=['JP ×100: '+location,'After Firestarter → book → Gravell: '+x.order.map(n=>({1:'Boat → Roque Island',2:'Crackridge book',3:'Sai → Firestarter',4:'Nameless Isle',5:'Shipwreck'})[n]).join(' → ')];
                                         for(const segment of [...x.segments,x.boat,...(x.continuation||[])]) {
                                           if(segment.extra_switches)lines.push((segment===x.boat?'Tropu’hopu · before entering the Shipyard':segment.name==='Sai / Firestarter'?'Sai · before leaving town':'Before teleporting to Beasting Bay')+': '+segment.extra_switches+' extra time switches');
                                           for(const [label,e] of segment.stages){lines.push(label);conningStages.push([label,e]);conningSpans.push(...e.trace);}
@@ -1320,6 +1334,7 @@ function renderCrackridgeVoyage() {
                                       }
                                       if(q.gravell) {
                                         const g=q.gravell;
+                                        if(q.pre_gravell)$('galdera-quicksand-loot-routine').innerHTML+=instructionBoxHtml(['Teleport to Gravell; steal Old Man Lychee (L) and Sharp Nut (L); switch path action and close','Complete skill/support menu; switch to night; ambush Debt Collector; restore Rusty Axe and Rusty Sword','Switch to day; sell Lionheart’s Axe and Conqueror’s Sword; buy Diffusing Serum; steal Reinforcing Jam; switch path action and close','Continue to the boat / Roque sequence']);
                                         for(const [stage,e]of [['Gravell · teleported, chapters discarded',g.arrival],['Gravell · daytime Old Man Empowering Lychee (L) and Sharp Nut (L) stolen; switch path action and close',g.lychee_steal],['Gravell · Temenos learns BG; retain earlier A Step Ahead and Boost-Start',g.setup],['Gravell · night for Ambush',g.night],['Gravell · Debt Collector ambushed',g.ambush],['Gravell · Rusty Sword and Rusty Axe restored; Armsmaster unlocked',g.restoration],['Gravell · day for shop and Steal',g.day],["Gravell · Lionheart’s Axe and Conqueror’s Sword sold at Provisioner · "+g.sale_proceeds.toLocaleString()+' leaves',g.sales],['Gravell · buy Diffusing Serum at Provisioner · 3,000 leaves',g.serum_purchase],['Gravell · Reinforcing Jam stolen (100%); switch path action before closing',g.jam_steal]]){conningStages.push([stage,e]);conningSpans.push(...e.trace);}
                                       }
                                     }
