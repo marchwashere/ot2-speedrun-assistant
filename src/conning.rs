@@ -84,9 +84,10 @@ fn canalbrine_voyage(entry:&Entry)->Result<CanalbrineVoyage> {
     let castti=checkpoint(&mut l,canalbrine.after);
     Ok(CanalbrineVoyage {new_delsta,anchorage,canalbrine,castti})
 }
-fn pomegranate_chance(level:u32)->u32 {
-    // FieldCommandWidgetSteal.StealItemExec; ProperSteal=8, GameParam thresholds.
-    match i64::from(level)-8 {d if d<=-11=>3,d if d<=-4=>8,d if d<0=>15,
+fn pomegranate_chance(level:u32)->u32 {steal_chance(level,8)}
+fn steal_chance(level:u32,proper:u32)->u32 {
+    // FieldCommandWidgetSteal.StealItemExec; GameParam level-difference thresholds.
+    match i64::from(level)-i64::from(proper) {d if d<=-11=>3,d if d<=-4=>8,d if d<0=>15,
         0|1=>55,2|3=>65,4..=10=>80,_=>100}
 }
 fn pomegranate_tail(w:&WorldState,rng:CrtRng,town_count:u32,harbor_count:u32)->Result<Option<(Entry,Entry,Pomegranate)>> {
@@ -222,24 +223,30 @@ fn fight(a:Arrival,n:u32,kill:bool)->Result<Option<Fight>> {
     let field_return=checkpoint(&mut l,after);
     l.manual_time_switch(2,"Coast: switch back to day after encounter")?;
     let day=checkpoint(&mut l,field_return.after);
-    let leaf_steal=if day.world_after.galdera_route&&day.world_after.map==WEST {Some(steal_leaves(&day)?)}else{None};
+    let leaf_steal=if day.world_after.galdera_route&&day.world_after.map==WEST {
+        // A failed steal rejects this boost candidate, not the whole route.
+        let Some(steal)=steal_leaves(&day)? else {return Ok(None);};
+        Some(steal)
+    }else{None};
     Ok(Some(Fight {arrival:a,menu:m,inputs,escape,victory,field_return,day,leaf_steal}))
 }
-fn steal_leaves(entry:&Entry)->Result<Entry> {
+fn steal_leaves(entry:&Entry)->Result<Option<Entry>> {
     let mut l=Loader::new(world::catalog(),entry.world_after.clone(),entry.after)?;
     let npc="NPC_SS_TSe21_0100_0300";
     ensure(l.state.map==WEST&&l.state.time==2,"Coast Merchant steals require daytime Western Coast")?;
     ensure(l.state.party.contains(&7)&&l.state.existing_npcs.iter().any(|id|l.data.placements[id].resource==npc),"Coast Merchant or Throné unavailable")?;
     let level=l.state.character_progression[&7].level;
-    ensure(level>=17,"Coast leaf steals require Throné level17 for guaranteed success")?;
+
     l.draw(world::DrawKind::PathActionMenu,npc,"Merchant: open one Steal menu (action timer)",None);
-    for (item,name,required) in [("ITM_MRL_REV_0080","Whimsical Leaf",15),("ITM_MRL_REV_0030","Pomegranate Leaf",17)] {
-        let roll=l.draw(world::DrawKind::StealCheck,item,format!("{name}: Throné Lv{level}, guaranteed from Lv{required}, 100%"),Some(100))+1;
+    for (item,name,proper) in [("ITM_MRL_REV_0080","Whimsical Leaf",4),("ITM_MRL_REV_0030","Pomegranate Leaf",6)] {
+        let chance=steal_chance(level,proper);
+        let roll=l.draw(world::DrawKind::StealCheck,item,format!("{name}: Throné Lv{level}, chance {chance}%"),Some(100))+1;
         if let Some(t)=l.trace.last_mut(){t.value=Some(roll);}
+        if roll>chance {return Ok(None);}
         *l.state.route_items.entry(item.into()).or_default()+=1;
     }
     l.boundary("Merchant: after both steals, change selected path action, then close without dialogue/closing voice lottery");
-    Ok(checkpoint(&mut l,entry.after))
+    Ok(Some(checkpoint(&mut l,entry.after)))
 }
 pub(crate) fn apply_item_victory(w:&mut WorldState,v:&FieldRareVictory)->Result<()> {
         w.enemy_knowledge=v.enemy_knowledge.clone();
@@ -437,6 +444,26 @@ mod tests {
         }}}
     }
     #[derive(serde::Deserialize)] struct Input {after:CrtRng,world_after:WorldState}
+    #[test]
+    fn lv16_leaf_steal_is_searched_with_western_battle_boosts() {
+        let input:Input=serde_json::from_str(include_str!("../data/source/coast-leaf-lv16-regression.json")).unwrap();
+        let before=serde_json::to_value(&input.world_after).unwrap();
+        assert_eq!(input.world_after.character_progression[&7].experience,1945);
+        assert_eq!(steal_chance(16,4),100);assert_eq!(steal_chance(16,6),80);assert_eq!(steal_chance(17,6),100);
+        let west=arrival(&input.world_after,input.after,WEST).unwrap();
+        assert!(fight(west.clone(),0,false).unwrap().is_none());
+        let mut no_leaves=west.clone();no_leaves.night.world_after.galdera_route=false;
+        let unadjusted=fight(no_leaves,0,false).unwrap().expect("Zero-boost Escape itself succeeds");
+        assert!(steal_leaves(&unadjusted.day).unwrap().is_none());
+        let selected=fight(west,1,false).unwrap().expect("One boost cycle secures both steals");
+        let steal=selected.leaf_steal.unwrap();
+        assert_eq!(steal.world_after.character_progression[&7].level,16);
+        let checks:Vec<_>=steal.trace.iter().filter(|t|t.kind==world::DrawKind::StealCheck).collect();
+        assert_eq!(checks.len(),2);assert_eq!(checks[0].value,Some(97));assert_eq!(checks[1].value,Some(7));
+        assert_eq!(steal.after.draws-steal.arrival.draws,3);
+        for id in ["ITM_MRL_REV_0080","ITM_MRL_REV_0030"] {assert_eq!(steal.world_after.route_items.get(id).copied().unwrap_or(0),input.world_after.route_items.get(id).copied().unwrap_or(0)+1);}
+        assert_eq!(serde_json::to_value(&input.world_after).unwrap(),before);
+    }
     fn input()->Input {serde_json::from_str(include_str!("../data/source/conning-test-entry.json")).unwrap()}
     #[test]
     fn nearest_controls_preserve_required_outcomes_and_replay() {
