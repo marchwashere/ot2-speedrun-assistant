@@ -70,14 +70,13 @@ the candidate builders before this selector was connected.
 `galdera_flex::deferred_roque` is a candidate builder for the future automatic
 Nameless Isle / Shipwreck comparison. It is not called by the active route and
 does not expose a manual UI selector. Input is the daytime Gravell departure
-Entry (or an entry after completed useful errands), an even Tropu switch count,
-and whether to steal Wind Soulstone M. Odd switches are rejected: the boat and
+Entry (or an entry after completed useful errands), and an even Tropu switch count. Odd switches are rejected: the boat and
 harbor must remain daytime. An ambushed harbor candidate returns None so a future
 search can try another preceding adjustment; no silent on-field time switch.
 
 After one normal/preemptive harbor encounter and guaranteed Escape, enter Roque
 Island during daytime and discard chapter selection. Factory Worker TALK_0100:
-Pom M and L, optionally Wind M (he does not carry Wind L); one opening plus one
+Pom M and L only; no Wind Soulstone pickup. One opening plus one
 draw per steal, switch path action and close. Night, Ambush Guard TALK_0200
 (level48), execute native Ambush dialogue scripts, then open six fixed chests:
 Lychee L, 39,800 leaves, three Rejuvenating Jams, Magic Nut L. Buy Swift Shield

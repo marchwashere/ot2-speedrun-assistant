@@ -8,10 +8,6 @@
     {
       "id": "ITM_CSM_0090",
       "level": 31
-    },
-    {
-      "id": "ITM_CSM_0390",
-      "level": 27
     }
   ],
   "guard": "NPC_Twn_Sea_3_1_A_TALK_0200",

@@ -5,7 +5,7 @@ const one=(rows,id)=>{const r=rows.find(r=>r.id===id);assert(r,id);return r;};
 const npcs=table('Character/Database/NPCData'),purchases=table('Character/Database/NPCPurchaseData'),items=table('Shop/Database/PurchaseItemTable'),placements=table('Placement/Database/PlacementData');
 const worker=one(npcs,'NPC_Twn_Sea_3_1_A_TALK_0100'),purchase=one(purchases,worker.FCmd_Purchase_ID);
 assert.equal(purchase.StealSuccessTalkID,'None');
-const steals=['ITM_CSM_0080','ITM_CSM_0090','ITM_CSM_0390'].map(id=>{const r=items.find(r=>r.id.startsWith(purchase.ShopID+'_')&&r.ItemLabel===id);assert(r);return {id,level:r.ProperSteal+11};});
+const steals=['ITM_CSM_0080','ITM_CSM_0090'].map(id=>{const r=items.find(r=>r.id.startsWith(purchase.ShopID+'_')&&r.ItemLabel===id);assert(r);return {id,level:r.ProperSteal+11};});
 assert(!items.some(r=>r.id.startsWith(purchase.ShopID+'_')&&r.ItemLabel==='ITM_CSM_0400'));
 const guard=one(npcs,'NPC_Twn_Sea_3_1_A_TALK_0200'),battle=one(table('Character/Database/NPCBattleData'),guard.FCmd_Battle_ID),ambush=one(table('FieldCommand/Database/FieldCommandData'),'FIELD_COMMAND_ASSASSINATE');
 assert.equal(battle.AssassinateNeedLevel,48);

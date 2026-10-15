@@ -120,18 +120,18 @@ fn boat_period(entry:&Entry,switches:u32,night:bool)->Result<Segment> {
 #[derive(Debug,Serialize)]
 pub struct DeferredRoque {
  pub approach:Segment,pub boat:Segment,pub harbor:SouthernSai,pub town:Segment,
- pub field_return:Entry,pub wind_m:bool,pub chest_money:u32,pub shopping_cost:u32,
+ pub field_return:Entry,pub chest_money:u32,pub shopping_cost:u32,
  pub jp100_complete:bool,
 }
-pub fn deferred_roque(entry:&Entry,switches:u32,wind_m:bool)->Result<Option<DeferredRoque>> {deferred_roque_defends(entry,switches,wind_m,[0;5])}
-fn deferred_roque_defends(entry:&Entry,switches:u32,wind_m:bool,c:[u8;5])->Result<Option<DeferredRoque>> {
+pub fn deferred_roque(entry:&Entry,switches:u32)->Result<Option<DeferredRoque>> {deferred_roque_defends(entry,switches,[0;5])}
+fn deferred_roque_defends(entry:&Entry,switches:u32,c:[u8;5])->Result<Option<DeferredRoque>> {
  ensure(entry.world_after.time==2&&switches%2==0,"Daytime Roque branch requires an even number of Tropu switches")?;
  let approach=to_tropu_defends(entry,c[1],c[2])?;
  let boat=boat_period(approach.end(),switches,false)?;
  let Some(harbor)=galdera_coast::sai_encounter_defends(boat.end().clone(),"ENT_FLD_SEA_3_1_LND",c[3])? else {return Ok(None);};
- let town=crate::galdera_roque::town(&harbor.field_return,wind_m)?;
+ let town=crate::galdera_roque::town(&harbor.field_return)?;
  let field_return=town.end().clone();
- Ok(Some(DeferredRoque {approach,boat,harbor,town,field_return,wind_m,chest_money:39800,shopping_cost:42000,jp100_complete:false}))
+ Ok(Some(DeferredRoque {approach,boat,harbor,town,field_return,chest_money:39800,shopping_cost:42000,jp100_complete:false}))
 }
 #[derive(Debug,Serialize)]pub struct Trip {pub order:Vec<u8>,pub segments:Vec<Segment>,pub boat:Segment,pub encounter:encounter::Prediction,pub battle_entry:CrtRng,pub fight:ot2_battle_engine::gravell_routine::Fight,pub rewards:ot2_battle_engine::gravell_routine::Rewards,pub field_return:Entry,pub extra_input_cost:u32,pub remaining_errands:Vec<u8>,pub location:String,pub continuation:Vec<Segment>,pub nameless:Option<crate::galdera_nameless::Trip>,pub nameless_jp:Option<crate::galdera_nameless::JpTrip>,pub shipwreck:Option<crate::galdera_shipwreck::Trip>,pub encounter_arrival:Option<Entry>,pub downstream_draws:u64,pub defend_counts:[u8;5]}
 fn finish_roque(entry:&Entry)->Result<Trip> {
@@ -267,7 +267,7 @@ fn later_candidate_defends(entry:&Entry,order:[u8;1],switches:u32,limit:u32,ship
  let mut current=entry.clone();let mut before=vec![];let mut after=vec![];let mut purchased=None;let mut cost=0;
  for n in order {
   if n==1 {
-   let Some(r)=deferred_roque_defends(&current,switches,false,c)?else{return Ok(None);};
+   let Some(r)=deferred_roque_defends(&current,switches,c)?else{return Ok(None);};
    cost+=segment_cost(&r.approach)+segment_cost(&r.boat)+defend_cost(&r.harbor);
    current=r.field_return.clone();before.push(r.approach);
    let mut harbor=Segment::new("Roque Harbor daytime Escape");harbor.stages.push(("Roque Harbor field return".into(),r.harbor.field_return.clone()));harbor.encounters.push(r.harbor);
@@ -466,18 +466,18 @@ fn later_candidate_defends(entry:&Entry,order:[u8;1],switches:u32,limit:u32,ship
  }
  #[test]fn deferred_daytime_roque_carries_supplies_without_awarding_jp100() {
   let entry=fixture();
-  for wind in [false,true] {
-   let r=(0..32).map(|n|deferred_roque(&entry,n*2,wind).unwrap()).find_map(|r|r).expect("Safe daytime harbor candidate");
+  {
+   let r=(0..32).map(|n|deferred_roque(&entry,n*2).unwrap()).find_map(|r|r).expect("Safe daytime harbor candidate");
    assert_eq!(r.boat.end().world_after.time,2);
    assert_eq!(r.harbor.escape.chance_percent,100);assert!(r.harbor.escape.success);
    assert_ne!(r.harbor.encounter.situation.as_deref(),Some("Surprise"));
    assert_eq!(r.field_return.world_after.map,"Twn_Sea_3_1_A");
    assert_eq!(r.field_return.world_after.time,4);assert!(!r.jp100_complete);
-   for (id,count) in [("ITM_CSM_0080",1),("ITM_CSM_0090",1),("ITM_CSM_0240",1),("ITM_CSM_0111",3),("ITM_CSM_0610",1),("ITM_EQP_SLD_240",1),("ITM_EQP_AMR_300",1),("ITM_CSM_0390",u32::from(wind))] {
+   for (id,count) in [("ITM_CSM_0080",1),("ITM_CSM_0090",1),("ITM_CSM_0240",1),("ITM_CSM_0111",3),("ITM_CSM_0610",1),("ITM_EQP_SLD_240",1),("ITM_EQP_AMR_300",1),("ITM_CSM_0390",0)] {
     assert_eq!(r.field_return.world_after.route_items.get(id).copied().unwrap_or(0),entry.world_after.route_items.get(id).copied().unwrap_or(0)+count,"{id}");
    }
    for id in [7,6,5,4] {assert_eq!(r.field_return.world_after.character_progression[&id].jp_earned,entry.world_after.character_progression[&id].jp_earned);}
-   let steal=&r.town.stages[1].1;assert_eq!(steal.after.draws-steal.arrival.draws,if wind {4}else{3});
+   let steal=&r.town.stages[1].1;assert_eq!(steal.after.draws-steal.arrival.draws,3);
    assert_eq!(r.chest_money,39800);assert_eq!(r.shopping_cost,42000);
    assert_eq!(r.town.stages[4].1.after,r.town.stages[4].1.arrival);
    assert_eq!(r.town.stages[5].1.after,r.town.stages[5].1.arrival);

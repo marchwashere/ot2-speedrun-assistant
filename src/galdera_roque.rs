@@ -1,11 +1,11 @@
-//! Daytime supplies and nighttime loot; inactive until later JP targets exist.
+//! Daytime supplies and nighttime loot before later JP targets.
 use crate::{Result,ensure,world::{self,Loader},snows_escape::Entry,galdera_flex::Segment};
 use serde::Deserialize;
 #[derive(Deserialize)]struct Item {id:String,level:u32}
 #[derive(Deserialize)]struct Chest {id:String,item:String,count:u32,money:bool}
 #[derive(Deserialize)]struct Purchase {id:String,price:u32}
 #[derive(Deserialize)]struct Data {worker:String,steals:Vec<Item>,guard:String,guard_placements:Vec<String>,ambush_level:u32,before:Vec<String>,success:String,chests:Vec<Chest>,shopping:Vec<Purchase>}
-pub(crate) fn town(entry:&Entry,wind_m:bool)->Result<Segment> {
+pub(crate) fn town(entry:&Entry)->Result<Segment> {
  let d:Data=serde_json::from_str(include_str!("../data/galdera-roque.json"))?;
  let mut l=Loader::new(world::catalog(),entry.world_after.clone(),entry.after)?;
  ensure(l.state.map=="Fld_Sea_3_1"&&l.state.time==2,"Roque supplies require daytime harbor field return")?;
@@ -14,13 +14,13 @@ pub(crate) fn town(entry:&Entry,wind_m:bool)->Result<Segment> {
  s.save(&mut l,"Roque Island entered during day; discard chapter start",before);
  ensure(l.state.party.contains(&7)&&l.state.existing_npcs.iter().any(|id|l.data.placements[id].resource==d.worker),"Daytime Factory Worker or Throne unavailable")?;
  let before=l.rng;l.draw(world::DrawKind::PathActionMenu,&d.worker,"Factory Worker Steal menu opening",None);
- for item in d.steals.iter().take(if wind_m {3}else{2}) {
+ for item in &d.steals {
   ensure(l.state.character_progression[&7].level>=item.level,"Factory Worker Steal not guaranteed")?;
   l.draw(world::DrawKind::StealCheck,&item.id,"Guaranteed Steal",Some(100));
   *l.state.route_items.entry(item.id.clone()).or_default()+=1;
  }
  l.boundary("Switch path action, then close Steal without dialogue lottery");
- s.save(&mut l,if wind_m {"Steal Pom M, Pom L and Wind Soulstone M; switch path action and close"}else{"Steal Pom M and Pom L; switch path action and close"},before);
+ s.save(&mut l,"Steal Pom M and Pom L; switch path action and close",before);
  let before=l.rng;l.manual_time_switch(4,"Roque Island: night for guarded-building Ambush")?;s.save(&mut l,"Switch to night",before);
  ensure(l.state.character_progression[&7].level>=d.ambush_level&&l.state.existing_npcs.iter().any(|id|l.data.placements[id].resource==d.guard),"Roque Guard Ambush unavailable")?;
  let before=l.rng;l.draw(world::DrawKind::PathActionMenu,&d.guard,"Ambush preview",None);

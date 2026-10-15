@@ -1,3 +1,5 @@
+- Roque Factory Worker: steal Pom M and Pom L only, then path-action switch/close. No Wind Soulstone pickup; later JP battles use Osvald Fireball. Retain Crackridge Mason Mighty Leaf steal.
+
 Current order supersedes older notes: spear -> Firestarter -> Crackridge book -> Gravell restoration/supplies -> Roque -> Nameless -> Shipwreck. Firestarter/book are committed before the deferred JP search; Firestarter is no longer a JP-search Defend control site. JP location remains flexible.
 
 - Galdera late route now fixes Firestarter -> Crackridge book -> Roque -> Nameless Isle -> Shipwreck after the existing Gravell stop. Only JP100 location and RNG adjustments are searched; prediction ends at JP100 victory. Do not restore errand permutations.
