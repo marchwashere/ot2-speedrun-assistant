@@ -132,7 +132,6 @@ function showScreen(screen) {
     $(`${name}-mode`).setAttribute('aria-pressed', String(name === screen && (name !== 'manipulation' || activeRoute === 'any_hikari')));
   }
   $('galdera-mode').setAttribute('aria-pressed',String(screen === 'manipulation' && activeRoute === 'galdera'));
-  $('galdera-experimental-mode').setAttribute('aria-pressed',String(screen === 'manipulation' && activeRoute === 'galdera_experimental'));
   window.dispatchEvent(new CustomEvent('screen-changed', {detail:screen}));
   window.scrollTo({...position, behavior:'instant'});
   requestAnimationFrame(() => {
@@ -145,11 +144,10 @@ function selectRoute(route) {
   routeResults.set(activeRoute,{result,snowsEncounterTiming,westernSecondOverride});
   activeRoute=route;
   ({result=null,snowsEncounterTiming=null,westernSecondOverride=null}=routeResults.get(route)||{});
-  $('manipulation-title').textContent=route==='galdera_experimental'?'Galdera Experimental':route==='galdera'?'Galdera':'Any% Hikari';
+  $('manipulation-title').textContent=route==='galdera'?'Galdera':'Any% Hikari';
   showScreen('manipulation');
   $('manipulation-mode').setAttribute('aria-pressed',String(route==='any_hikari'));
   $('galdera-mode').setAttribute('aria-pressed',String(route==='galdera'));
-  $('galdera-experimental-mode').setAttribute('aria-pressed',String(route==='galdera_experimental'));
   $('error').hidden=true;
   window.dispatchEvent(new CustomEvent('route-changed',{detail:{route,previous}}));
   if(result){if(result.crt_setup)renderSetup(result.crt_setup);render();}else{
@@ -161,7 +159,6 @@ function selectRoute(route) {
 }
 $('manipulation-mode').addEventListener('click',()=>selectRoute('any_hikari'));
 $('galdera-mode').addEventListener('click',()=>selectRoute('galdera'));
-$('galdera-experimental-mode').addEventListener('click',()=>selectRoute('galdera_experimental'));
 for (const name of ['detail','field','settings']) $(`${name}-mode`).addEventListener('click',()=>showScreen(name));
 
 async function simulate(event) {
