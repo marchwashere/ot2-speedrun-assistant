@@ -846,7 +846,7 @@ function renderCrackridgeVoyage() {
   $('canalbrine-route-log').hidden=true;
   $('canalbrine-water-result').hidden=true;
   $('canalbrine-water-log').hidden=true;
-  for(const id of ['new-delsta-bg-result','crackridge-bg-result','clockbank-bg-result','oresrush-time-result','cropdale-time-result','conning-north-result','conning-west-result','conning-steal-result','inventor-escape-result','clockbank-movement-result','crackridge-return-result','southern-crackridge-result','southern-crackridge-altar-return-result','western-crackridge-result','western-crackridge-return-result','gravell-result','galdera-coast-result','southern-sai-result','eastern-sai-result','western-sai-result','eastern-wellgrove-result','galdera-clockbank-result','galdera-temenos-result','galdera-quicksand-result','galdera-lord-sands-result','galdera-quicksand-loot-result','galdera-flex-result','conning-log']) $(id).hidden=true;
+  for(const id of ['new-delsta-bg-result','crackridge-bg-result','clockbank-bg-result','oresrush-time-result','cropdale-time-result','conning-north-result','conning-west-result','conning-steal-result','inventor-escape-result','clockbank-movement-result','crackridge-return-result','southern-crackridge-result','southern-crackridge-altar-return-result','western-crackridge-result','western-crackridge-return-result','gravell-result','galdera-coast-result','southern-sai-result','eastern-sai-result','western-sai-result','eastern-wellgrove-result','galdera-clockbank-result','galdera-temenos-result','galdera-quicksand-result','galdera-lord-sands-result','galdera-quicksand-loot-result','galdera-flex-result','galdera-pre-gravell-result','conning-log']) $(id).hidden=true;
   const early=result.post_battle_field?.flats_escape?.early_cait;
   const timing=early?.southern_rare_target?'after':early?.snows_approach?.predicted_before_osvald?'before':snowsEncounterTiming ?? 'after';
   const exit=result.post_battle_field?.flats_escape?.snows_escape?.[timing+'_osvald'];
@@ -1148,7 +1148,7 @@ function renderCrackridgeVoyage() {
                       $(key+'-result').hidden=false;
                       $(key+'-routine').innerHTML='<p><strong>'+escapeHtml(encounterLabel(s.encounter))+'</strong></p>'
                         +`<p><strong>T1 · ${names[s.menu.first_actor]} · 1st command menu</strong></p>`
-                        +instructionBoxHtml([`Escape (${s.escape.chance_percent}%)`]);
+                        +instructionBoxHtml(['Escape']);
                       for(const [stage,e] of [...(key==='southern-sai'?[[label+' · loaded',s.arrival]]:[]),[label+' · escaped, field restored',s.field_return]]) {
                         conningStages.push([stage,e]);conningSpans.push(...e.trace);
                       }
@@ -1187,7 +1187,7 @@ function renderCrackridgeVoyage() {
                         $('western-sai-result').hidden=false;
                         $('western-sai-routine').innerHTML='<p><strong>'+escapeHtml(encounterLabel(s.encounter))+'</strong></p>'
                           +`<p><strong>T1 · ${names[s.menu.first_actor]} · 1st command menu</strong></p>`
-                          +instructionBoxHtml([...(w.additional_time_switches?[`Before leaving Sai: after the immediate day switch, switch night → day ${w.additional_time_switches/2} more time(s)`]:[]),...(w.western_escape_boost_cycles?[`Boost 0 → 1 → 0 × ${w.western_escape_boost_cycles}`]:[]),`Escape (${s.escape.chance_percent}%)`]);
+                          +instructionBoxHtml([...(w.additional_time_switches?[`Before leaving Sai: after the immediate day switch, switch night → day ${w.additional_time_switches/2} more time(s)`]:[]),...(w.western_escape_boost_cycles?[`Boost 0 → 1 → 0 × ${w.western_escape_boost_cycles}`]:[]),'Escape']);
                         conningPoints.push(['Western Sai Sands · before battle initialization',s.battle_entry],['Western Sai Sands · first command menu',s.menu.rng]);
                         let previous=s.arrival.after;
                         const origin=BigInt(previous.draws)-BigInt(s.encounter.checkpoints[0].draws);
@@ -1204,7 +1204,7 @@ function renderCrackridgeVoyage() {
                           $('eastern-wellgrove-result').hidden=false;
                           $('eastern-wellgrove-routine').innerHTML='<p><strong>'+escapeHtml(encounterLabel(f.encounter))+'</strong></p>'
                             +`<p><strong>T1 · ${names[f.menu.first_actor]} · 1st command menu</strong></p>`
-                            +instructionBoxHtml([`Escape (${f.escape.chance_percent}%)`]);
+                            +instructionBoxHtml(['Escape']);
                           conningPoints.push([label+' · before battle initialization',f.battle_entry],[label+' · first command menu',f.menu.rng]);
                           let previous=f.arrival.after;
                           const origin=BigInt(previous.draws)-BigInt(f.encounter.checkpoints[0].draws);
@@ -1231,7 +1231,7 @@ function renderCrackridgeVoyage() {
                                 $('galdera-clockbank-result').hidden=false;
                                 $('galdera-clockbank-routine').innerHTML='<p><strong>'+escapeHtml(encounterLabel(f.encounter))+'</strong></p>'
                                   +`<p><strong>T1 · ${names[f.menu.first_actor]} · 1st command menu</strong></p>`
-                                  +instructionBoxHtml(['Al → Western Clockbank: run 100%',...(t.additional_time_switches?[`On entering Western Clockbank: switch night → day ${t.additional_time_switches/2} time(s)`]:[]),'Western Clockbank → Eastern Flamechurch Pass: run 100%',...(t.escape_boost_cycles?[`Boost 0 → 1 → 0 × ${t.escape_boost_cycles} before Escape`]:[]),`Escape (${f.escape.chance_percent}%)`,'Continue running 100% to Eastern Flamechurch Pass',...(t.movement?[`Eastern Flamechurch Pass → Flamechurch: run first ${t.movement.run_percent.toFixed(1)}% · walk remaining ${(100-t.movement.run_percent).toFixed(1)}%`]:[])]);
+                                  +instructionBoxHtml(['Al → Western Clockbank: run 100%',...(t.additional_time_switches?[`On entering Western Clockbank: switch night → day ${t.additional_time_switches/2} time(s)`]:[]),'Western Clockbank → Eastern Flamechurch Pass: run 100%',...(t.escape_boost_cycles?[`Boost 0 → 1 → 0 × ${t.escape_boost_cycles} before Escape`]:[]),'Escape','Continue running 100% to Eastern Flamechurch Pass',...(t.movement?[`Eastern Flamechurch Pass → Flamechurch: run first ${t.movement.run_percent.toFixed(1)}% · walk remaining ${(100-t.movement.run_percent).toFixed(1)}%`]:[])]);
                                 conningPoints.push([label+' · before battle initialization',f.battle_entry],[label+' · first command menu',f.menu.rng]);
                                 let previous=f.arrival.after;
                                 const origin=BigInt(previous.draws)-BigInt(f.encounter.checkpoints[0].draws);
@@ -1250,7 +1250,7 @@ function renderCrackridgeVoyage() {
                                   if(r.quicksand) {
                                     const q=r.quicksand,f=q.western_sai,label='Western Sai Sands · before Quicksand Gaol';
                                     $('galdera-quicksand-result').hidden=false;
-                                    $('galdera-quicksand-routine').innerHTML='<p><strong>'+escapeHtml(encounterLabel(f.encounter))+'</strong></p>'+'<p><strong>T1 · '+(f.menu.first_actor===2?'Temenos':names[f.menu.first_actor])+' · 1st command menu</strong></p>'+instructionBoxHtml(['Escape ('+f.escape.chance_percent+'%)']);
+                                    $('galdera-quicksand-routine').innerHTML='<p><strong>'+escapeHtml(encounterLabel(f.encounter))+'</strong></p>'+'<p><strong>T1 · '+(f.menu.first_actor===2?'Temenos':names[f.menu.first_actor])+' · 1st command menu</strong></p>'+instructionBoxHtml(['Escape']);
                                     for(const [stage,e]of [['Party setup · Osvald learns Collect, then Warrior; Temenos Dancer',q.setup],['Sai · returned after Temenos recruitment',q.sai],['Southern Sai Sands · encounterless crossing',q.southern_sai],['Western Sai Sands · entered before Quicksand',f.arrival],[label+' · escaped, field restored',f.field_return],['Quicksand Gaol · entered',q.quicksand]]) {if(e){conningStages.push([stage,e]);conningSpans.push(...e.trace);}}
                                     conningPoints.push([label+' · before battle initialization',f.battle_entry],[label+' · first command menu',f.menu.rng]);
                                     let previous=f.arrival.after;const origin=BigInt(previous.draws)-BigInt(f.encounter.checkpoints[0].draws);
@@ -1267,61 +1267,68 @@ function renderCrackridgeVoyage() {
                                       if(q.loot) {
                                         const t=q.loot,f=t.encounter,label='Quicksand Gaol · post-boss land encounter';
                                         $('galdera-quicksand-loot-result').hidden=false;
-                                        $('galdera-quicksand-loot-routine').innerHTML=instructionBoxHtml(['Outside the boss arena: '+encounterLabel(f.encounter),'T1 · '+party[f.menu.first_actor]+' · Escape ('+f.escape.chance_percent+'%)']);
+                                        $('galdera-quicksand-loot-routine').innerHTML=instructionBoxHtml(['Outside the boss arena: '+encounterLabel(f.encounter),'T1 · '+party[f.menu.first_actor]+' · Escape']);
                                         for(const [stage,e]of [['Quicksand Gaol · day after boss',t.day],['Quicksand Gaol · Rusty Axe obtained',t.rusty_axe],[label+' · escaped, field restored',f.field_return],['Quicksand Gaol · Scorched Bone Spear obtained',t.scorched_bone_spear]]){conningStages.push([stage,e]);conningSpans.push(...e.trace);}
                                         const origin=BigInt(f.arrival.after.draws)-BigInt(f.encounter.checkpoints[0].draws);
                                         for(const c of f.encounter.checkpoints)conningPoints.push([label+' · '+c.label,{draws:Number(origin+BigInt(c.draws)),state:c.state}]);
                                         conningPoints.push([label+' · first command menu',f.menu.rng]);conningSpans.push(...f.escape.trace);
                                       }
                                       if(q.pre_gravell) {
-                                        const lines=[];
+                                        const cards=[];
+                                        const card=(title,lines)=>cards.push('<section class="panel route-card"><h2>'+title+'</h2>'+instructionBoxHtml(lines)+'</section>');
                                         for(const segment of q.pre_gravell) {
-                                          if(segment.extra_switches)lines.push('Sai: '+segment.extra_switches+' extra time switches before leaving');
+                                          if(segment.extra_switches)card('Sai · time adjustment',[segment.extra_switches+' extra time switches before leaving']);
                                           const events=[...segment.stages.map(([label,e])=>({label,e,draws:e.after.draws})),...segment.encounters.map(f=>({f,draws:f.menu.rng.draws}))].sort((a,b)=>Number(BigInt(a.draws)-BigInt(b.draws)));
                                           for(const event of events){
                                             if(event.e){conningStages.push([event.label,event.e]);conningSpans.push(...event.e.trace);continue;}
                                             const f=event.f;
-                                            lines.push(segment.name+': '+encounterLabel(f.encounter),'T'+(f.escape_round||1)+' · '+party[f.menu.first_actor]+' · Escape ('+f.escape.chance_percent+'%)');
+                                            card(segment.name+' · encounter',[encounterLabel(f.encounter),'T'+(f.escape_round||1)+' · '+party[f.menu.first_actor]+' · '+(segment.escape_boost_inputs?.length?'Boost 0 → '+segment.escape_boost_inputs.join(' → ')+' → ':'')+'Escape']);
                                             conningStages.push([segment.name+' · escaped',f.field_return]);conningSpans.push(...f.escape.trace,...f.field_return.trace);conningPoints.push([segment.name+' · Escape command menu',f.menu.rng]);
                                           }
                                         }
-                                        if(lines.length)$('galdera-quicksand-loot-routine').innerHTML+=instructionBoxHtml(lines);
+                                        $('galdera-pre-gravell-result').hidden=!cards.length;
+                                        $('galdera-pre-gravell-result').innerHTML=cards.join('');
                                       }
                                       if(q.flex) {
-                                        const x=q.flex,location=x.location||'Roque Island Harbor',lines=['JP ×100: '+location];
+                                        const x=q.flex,location=x.location||'Roque Island Harbor',cards=[];
+                                        const card=(title,body)=>cards.push('<section class="panel route-card"><h2>'+title+'</h2>'+body+'</section>');
+                                        const instructions=(title,lines)=>{if(lines.length)card(title,instructionBoxHtml(lines));};
                                         for(const segment of [...x.segments,x.boat,...(x.continuation||[])]) {
-                                          if(segment.extra_switches)lines.push((segment===x.boat?'Tropu’hopu · before entering the Shipyard':segment.name==='Sai / Firestarter'?'Sai · before leaving town':segment.name==='Roque Island supplies'?'Roque Island · after Ambush and mandatory day switch':'Before teleporting to Beasting Bay')+': '+segment.extra_switches+' extra time switches');
+                                          if(segment.extra_switches)instructions('Time adjustment',[(segment===x.boat?'Tropu’hopu · before entering the Shipyard':segment.name==='Sai / Firestarter'?'Sai · before leaving town':segment.name==='Roque Island supplies'?'Roque Island · after Ambush and mandatory day switch':'Before teleporting to Beasting Bay')+': '+segment.extra_switches+' extra time switches']);
                                           for(const [label,e] of segment.stages){conningStages.push([label,e]);conningSpans.push(...e.trace);}
                                           segment.encounters.forEach((f,j)=>{
-                                            const label=segment.name+' · encounter '+(j+1);lines.push(label+': '+encounterLabel(f.encounter));
+                                            const label=segment.name==='Boat approach'?(j===0?'Beasting Bay: Anchorage':'Western Tropu’hopu Traverse'):segment.name==='Roque Harbor daytime Escape'?'Roque Island Harbor':segment.name+' · encounter '+(j+1),lines=[encounterLabel(f.encounter)];
                                             let previous=f.arrival.after;const origin=BigInt(previous.draws)-BigInt(f.encounter.checkpoints[0].draws);
                                             for(const c of f.encounter.checkpoints){const after={state:c.state,draws:Number(origin+BigInt(c.draws))};conningSpans.push({reason:label+' · '+c.label,before:previous,after});previous=after;}
                                             for(const [k,d] of (f.defends||[]).entries()){lines.push('T'+f.defend_rounds[k]+' · '+party[d.actor]+' · Defend');conningPoints.push([label+' · T'+f.defend_rounds[k]+' '+party[d.actor]+' Defend',d.rng_before]);}
-                                            lines.push('T'+(f.escape_round||1)+' · '+party[f.menu.first_actor]+' · '+(j===0&&segment.escape_boost_inputs.length?'Boost 0 → '+segment.escape_boost_inputs.join(' → ')+' → ':'')+'Escape (100%)');
+                                            lines.push('T'+(f.escape_round||1)+' · '+party[f.menu.first_actor]+' · '+(j===0&&segment.escape_boost_inputs.length?'Boost 0 → '+segment.escape_boost_inputs.join(' → ')+' → ':'')+'Escape');
+                                            if(j===0&&segment.movement)lines.push('Run '+segment.movement.run_percent.toFixed(1)+'% · walk '+(100-segment.movement.run_percent).toFixed(1)+'% after the encounter');
+                                            instructions(label,lines);
                                             conningStages.push([label+' · field return',f.field_return]);conningSpans.push(...f.escape.trace,...f.field_return.trace);conningPoints.push([label+' · Escape command menu',f.menu.rng]);
                                           });
-                                          if(segment.movement)lines.push('After Beasting encounter: run first '+segment.movement.run_percent.toFixed(1)+'% · walk remaining '+(100-segment.movement.run_percent).toFixed(1)+'% (includes 3-update leeway)');
                                         }
                                         if(x.nameless){
-                                          const n=x.nameless,f=n.approach.encounter;
+                                          const n=x.nameless,f=n.approach.encounter,lines=[encounterLabel(f.encounter)];
                                           for(const [k,d] of (f.defends||[]).entries()){lines.push('Nameless T'+f.defend_rounds[k]+' · '+party[d.actor]+' · Defend');conningPoints.push(['Nameless T'+f.defend_rounds[k]+' '+party[d.actor]+' Defend',d.rng_before]);}
-                                          lines.push('Nameless Isle: '+encounterLabel(f.encounter),'T'+(f.escape_round||1)+' · '+(n.approach.escape_inputs.length?'boost 0 → '+n.approach.escape_inputs.join(' → ')+'; ':'')+party[f.menu.first_actor]+' flees','Run '+n.approach.run_percent.toFixed(1)+'% of total island distance; walk the rest');
+                                          lines.push('T'+(f.escape_round||1)+' · '+(n.approach.escape_inputs.length?'boost 0 → '+n.approach.escape_inputs.join(' → ')+'; ':'')+party[f.menu.first_actor]+' flees','Run '+n.approach.run_percent.toFixed(1)+'% of total island distance; walk the rest');
+                                          instructions('Nameless Isle · encounter',lines);
                                           conningStages.push(['Nameless gear menu',n.setup],['Nameless water',n.approach.water_entry],['Nameless Escape field return',f.field_return],['Gigantes approach',n.approach.gigantes_entry],['Gigantes night',n.night],['Gigantes prompt',n.prompt],['Gigantes field return',n.field_return],['Gigantes victory scene',n.victory],...n.loot.stages);
                                           conningSpans.push(...f.escape.trace,...f.field_return.trace,...n.battle.trace);
                                           for(const e of [n.setup,n.approach.water_entry,n.approach.gigantes_entry,n.night,n.prompt,n.field_return,n.victory])conningSpans.push(...e.trace);
                                           conningPoints.push(['Nameless water · Escape command menu',f.menu.rng]);
                                           for(const a of n.battle.actions||[])conningPoints.push(['Gigantes · T'+a.turn+' '+party[a.actor]+' '+a.name,a.report.rng_before]);
-                                          if(n.finisher_boost_cycles)lines.push('Gigantes · T2 Partitio · before Beastlings: Boost 0 → 1 → 0 × '+n.finisher_boost_cycles+' → 3');
+                                          if(n.finisher_boost_cycles)instructions('Gigantes · adjustment',['T2 · Partitio · before Beastlings: Boost 0 → 1 → 0 × '+n.finisher_boost_cycles+' → 3']);
                                           for(const [label,e] of n.loot.stages){conningSpans.push(...e.trace);}
                                         }
                                         if(x.shipwreck)for(const [label,e] of x.shipwreck.travel.stages){conningStages.push([label,e]);conningSpans.push(...e.trace);}
-                                        if(x.nameless_jp){conningStages.push(['Nameless gear menu',x.nameless_jp.setup],['Nameless water',x.nameless_jp.water_entry]);lines.push('After JP victory: run '+x.nameless_jp.movement.run_percent.toFixed(1)+'% of total island distance; walk the rest');}
-                                        lines.push(location+': '+encounterLabel(x.encounter));
+                                        if(x.nameless_jp){conningStages.push(['Nameless gear menu',x.nameless_jp.setup],['Nameless water',x.nameless_jp.water_entry]);}
                                         let previous=(x.encounter_arrival||x.boat.stages.at(-1)[1]).after;const origin=BigInt(previous.draws)-BigInt(x.encounter.checkpoints[0].draws);
                                         for(const c of x.encounter.checkpoints){const after={state:c.state,draws:Number(origin+BigInt(c.draws))};conningSpans.push({reason:location+' · '+c.label,before:previous,after});previous=after;}
                                         $('galdera-flex-result').hidden=false;
                                         const actionName=value=>{const a=typeof value==='string'?value:Object.keys(value)[0];return a==='donate_bp_unboosted'?'Donate BP → Temenos (unboosted)':a==='pomegranate'?'Pom (M) → Temenos':a==='small_pomegranate'?'Small Pom → Temenos':a==='dagger'?'Dagger attack → default target':a==='staff'?'Staff attack → default target':a==='fireball'?'Fireball +1 BP':a==='fireball_max'?'Fireball +3 BP':a==='springy_boots'?'Springy Boots → '+party[value[a].target]:a==='bewildering_grace'?'Bewildering Grace':a==='guards'?'Hired Help: Guards':'Defend';};
-                                        $('galdera-flex-routine').innerHTML=instructionBoxHtml(lines)+x.fight.actions.map(a=>'<p><strong>T'+a.round+' · '+party[a.actor]+'</strong></p>'+boostStepsHtml(a.inputs,actionName(a.action))).join('')+'<p>JP per character: '+x.rewards.awarded.jp.toLocaleString()+' · All four survive.</p>'+(x.remaining_errands.length?'<p>After manipulation: '+x.remaining_errands.map(n=>n===2?'Crackridge book':'Sai → Firestarter').join(', ')+'</p>':'');
+                                        card(location+' · JP ×100','<p>'+encounterLabel(x.encounter)+'</p>'+x.fight.actions.map(a=>'<p><strong>T'+a.round+' · '+party[a.actor]+'</strong></p>'+boostStepsHtml(a.inputs,actionName(a.action))).join(''));
+                                        if(x.nameless_jp)instructions('Nameless Isle · after JP ×100',['Run '+x.nameless_jp.movement.run_percent.toFixed(1)+'% of total island distance; walk the rest']);
+                                        $('galdera-flex-routine').innerHTML=cards.join('');
                                         conningSpans.push(...x.fight.trace,...x.rewards.trace,...x.field_return.trace);conningStages.push([location+' · JP ×100 victory and field return',x.field_return]);
                                         for(const a of x.fight.actions)conningPoints.push([location+' · T'+a.round+' '+party[a.actor]+' · '+actionName(a.action),a.before]);
                                       }

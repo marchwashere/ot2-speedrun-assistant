@@ -10,10 +10,14 @@ const q={flex:{order:[3,2,1],segments:[{name:'Boat approach',extra_switches:0,st
 const c={q,$,party:['Throné','Osvald','Temenos','Partitio'],conningStages:[],conningSpans:[],conningPoints:[],encounterLabel:()=> 'Winged Landwalker ×2',instructionBoxHtml:xs=>xs.join('\n'),boostStepsHtml:(inputs,name)=>inputs.join(' → ')+' '+name};
 vm.runInNewContext(js.slice(start,end),c);
 const html=$('galdera-flex-routine').innerHTML;
-for(const re of [/62.3%.*37.7%/,/Dagger attack → default target/,/Pom \(M\) → Temenos/,/Bewildering Grace/,/Hired Help: Guards/,/12,760/,/2 extra time switches/])assert.match(html,re);
+for(const re of [/62.3%.*37.7%/,/Dagger attack → default target/,/Pom \(M\) → Temenos/,/Bewildering Grace/,/Hired Help: Guards/,/2 extra time switches/])assert.match(html,re);
 assert.doesNotMatch(html,/After Firestarter|Harbor<|Collect|Restore|Sell|Buy/);
 assert.equal($('galdera-flex-result').hidden,false);assert(c.conningPoints.length>=4);
 q.flex.fight.actions[1]={actor:3,round:1,action:{donate_bp_unboosted:{target:2}},inputs:[],before:rng};
 vm.runInNewContext(js.slice(start,end),c);
 assert.match($('galdera-flex-routine').innerHTML,/Donate BP → Temenos \(unboosted\)/);
-console.log('PASS: flexible order, movement percentage, both item/attack targets, boosts and JP reward');
+console.log('PASS: separate manipulation cards, movement percentage, targets and boosts');
+
+assert.equal((html.match(/<section class="panel route-card">/g)||[]).length,3);
+assert.doesNotMatch(html,/Escape \(100%\)|JP per character|All four survive|Lychee|cutscene|no encounter/i);
+assert.match(html,/<h2>Beasting Bay: Anchorage<\/h2>/);

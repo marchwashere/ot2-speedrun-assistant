@@ -31,7 +31,7 @@ context.names=['Throné','Osvald','Agnea','Partitio'];context.encounterLabel=()=
 vm.runInNewContext(source.slice(start,end),context);
 assert.equal($('southern-sai-result').hidden,false);
 assert.match($('southern-sai-routine').innerHTML,/T1 · Agnea · 1st command menu/);
-assert.match($('southern-sai-routine').innerHTML,/Escape \(100%\)/);
+assert.match($('southern-sai-routine').innerHTML,/Escape/);
 assert(context.conningStages.some(([label])=>label==='Southern Sai Sands · escaped, field restored'));
 console.log('PASS: Southern Sai actual actor, guaranteed Escape and field-return checkpoints');
 coast.eastern_sai_encounter={...coast.southern_sai,menu:{first_actor:0,rng:entry.after}};
@@ -39,7 +39,7 @@ coast.sai=entry;context.conningStages=[];
 vm.runInNewContext(source.slice(start,end),context);
 assert.equal($('eastern-sai-result').hidden,false);
 assert.match($('eastern-sai-routine').innerHTML,/T1 · Throné · 1st command menu/);
-assert.match($('eastern-sai-routine').innerHTML,/Escape \(100%\)/);
+assert.match($('eastern-sai-routine').innerHTML,/Escape/);
 assert(context.conningStages.some(([label])=>label==='Sai · loaded, chapter start discarded'));
 console.log('PASS: separate Eastern and Southern encounter cards, followed by Sai');
 coast.oresrush_supplies={warrior:entry,oresrush:entry,night:entry,hire:entry,day:entry,pickaxe:entry};
@@ -70,7 +70,7 @@ context.conningStages=[];
 vm.runInNewContext(source.slice(start,end),context);
 assert.equal($('western-sai-result').hidden,false);
 assert.match($('western-sai-routine').innerHTML,/T1 · Osvald · 1st command menu/);
-assert.match($('western-sai-routine').innerHTML,/Escape \(100%\)/);
+assert.match($('western-sai-routine').innerHTML,/Escape/);
 assert.deepEqual(context.conningStages.slice(-6).map(([label])=>label),[
  'Sai · fast travel from Winterbloom, chapter start discarded','Sai · switched to day immediately',
  'Southern Sai Sands · crossed without encounter','Western Sai Sands · loaded',
@@ -88,7 +88,7 @@ vm.runInNewContext(source.slice(start,end),context);
 assert.match($('western-sai-routine').innerHTML,/Boost 0 → 1 → 0 × 3/);
 assert.equal($('eastern-wellgrove-result').hidden,false);
 assert.match($('eastern-wellgrove-routine').innerHTML,/T1 · Throné · 1st command menu/);
-assert.match($('eastern-wellgrove-routine').innerHTML,/Escape \(100%\)/);
+assert.match($('eastern-wellgrove-routine').innerHTML,/Escape/);
 assert.deepEqual(context.conningStages.slice(-5).map(([label])=>label),[
  'Eastern Wellgrove Trail · run 100% to Man with Horses without encounter',
  'Eastern Wellgrove Trail · Champion Seeker and Strengthening Serum stolen · 100% · change path action, then close without dialogue',
@@ -122,7 +122,7 @@ vm.runInNewContext(source.slice(start,end),context);
 assert.equal($('galdera-clockbank-result').hidden,false);
 assert.match($('galdera-clockbank-routine').innerHTML,/T1 · Partitio · 1st command menu/);
 assert.match($('galdera-clockbank-routine').innerHTML,/run 100%/);
-assert.match($('galdera-clockbank-routine').innerHTML,/Escape \(100%\)/);
+assert.match($('galdera-clockbank-routine').innerHTML,/Escape/);
 assert(!context.conningStages.some(([label])=>label==='Western Clockbank Highroad · night/day adjustment'));
 assert.equal(context.conningStages.at(-1)[0],'Eastern Flamechurch Pass · entered');
 coast.oresrush_supplies.wellgrove.champion.supplies.al_return.flamechurch.additional_time_switches=2;
@@ -150,7 +150,7 @@ vm.runInNewContext(source.slice(start,end),context);
 assert.equal($('galdera-quicksand-result').hidden,false);
 assert.match($('galdera-quicksand-routine').innerHTML,/T1 · Temenos/);
 assert.doesNotMatch($('galdera-quicksand-routine').innerHTML,/learn Collect|equip|Teleport/);
-assert.match($('galdera-quicksand-routine').innerHTML,/Escape \(100%\)/);
+assert.match($('galdera-quicksand-routine').innerHTML,/Escape/);
 assert.equal(context.conningStages.at(-1)[0],'Quicksand Gaol · entered');
 
 assert.doesNotMatch($('galdera-quicksand-routine').innerHTML,/switch night|time adjustment/);
@@ -191,7 +191,7 @@ const x=fc.temenos.quicksand.flex={location:'Nameless Isle',order:[2,1,3,4],segm
  rewards:{awarded:{jp:12210},trace:[]},field_return:entry,remaining_errands:[],
  nameless_jp:{setup:entry,water_entry:entry,movement:{run_percent:75}}};
 vm.runInNewContext(source.slice(start,end),context);
-assert.match($('galdera-flex-routine').innerHTML,/JP ×100: Nameless Isle/);
+assert.match($('galdera-flex-routine').innerHTML,/Nameless Isle · JP ×100/);
 assert.match($('galdera-flex-routine').innerHTML,/Springy Boots → Osvald/);
 assert.match($('galdera-flex-routine').innerHTML,/Fireball \+1 BP/);
 assert.doesNotMatch($('galdera-flex-routine').innerHTML,/Winged Landwalker/);
@@ -199,7 +199,7 @@ x.location='Shipwreck';x.order.push(5);x.nameless_jp=null;
 x.nameless={setup:entry,approach:{encounter:coast.southern_sai,escape_inputs:[],run_percent:75,water_entry:entry,gigantes_entry:entry},night:entry,prompt:entry,field_return:entry,victory:entry,battle:{trace:[]},loot:segment,finisher_boost_cycles:1};
 x.shipwreck={travel:segment};x.fight.actions[1].action='fireball_max';
 vm.runInNewContext(source.slice(start,end),context);
-assert.match($('galdera-flex-routine').innerHTML,/JP ×100: Shipwreck/);
+assert.match($('galdera-flex-routine').innerHTML,/Shipwreck · JP ×100/);
 assert.match($('galdera-flex-routine').innerHTML,/Gigantes/);
 assert.match($('galdera-flex-routine').innerHTML,/Fireball \+3 BP/);
 assert(context.conningStages.some(([label])=>label==='Shipwreck · JP ×100 victory and field return'));

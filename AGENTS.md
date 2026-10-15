@@ -1,3 +1,5 @@
+- Late Galdera UI uses one standalone card per encounter, nonzero time adjustment, nonzero Gigantes adjustment, and selected JP fight; no enclosing Flexible route panel. Show only manipulation controls, predicted encounters/actors and needed movement percentages. Omit escape odds, reward summaries, fixed errands, mandatory switches and cutscene directions from main cards. Preserve diagnostic checkpoints separately.
+
 - Conning coast Cultured Cait search includes 0–3 ordinary first-round Defends, stopping before the next enemy or round transition. Use carried full battle queues (including night buffs), replay Soulstone/Escape and leaf rolls; charge 3 per Defend + 2 per boost cycle. Preserve odd total cost layers and show each Defend/final actor. No A Step Ahead assumed.
 
 - Western Coast Merchant steal order: Pomegranate Leaf first, then Whimsical Leaf, in one menu; switch path action and close afterward. Preserve this RNG check order in boost searches.
