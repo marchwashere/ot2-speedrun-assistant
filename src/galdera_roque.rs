@@ -6,6 +6,10 @@ use serde::Deserialize;
 #[derive(Deserialize)]struct Purchase {id:String,price:u32}
 #[derive(Deserialize)]struct Data {worker:String,steals:Vec<Item>,guard:String,guard_placements:Vec<String>,ambush_level:u32,before:Vec<String>,success:String,chests:Vec<Chest>,shopping:Vec<Purchase>}
 pub(crate) fn town(entry:&Entry)->Result<Segment> {
+ town_with_reloads(entry,1)
+}
+pub(crate) fn town_with_reloads(entry:&Entry,reloads:u32)->Result<Segment> {
+ ensure(reloads>0&&reloads%2==1,"Post-Ambush reloads must finish during day")?;
  let d:Data=serde_json::from_str(include_str!("../data/galdera-roque.json"))?;
  let mut l=Loader::new(world::catalog(),entry.world_after.clone(),entry.after)?;
  ensure(l.state.map=="Fld_Sea_3_1"&&l.state.time==2,"Roque supplies require daytime harbor field return")?;
@@ -28,6 +32,11 @@ pub(crate) fn town(entry:&Entry)->Result<Segment> {
  l.skipped_event(&d.before[usize::from(roll>16383)])?;
  for id in &d.guard_placements {if l.state.existing_npcs.contains(id){l.state.swooned_route_npcs.insert(id.clone());}}
  l.skipped_event(&d.success)?;s.save(&mut l,"Ambush Guard (requires Throne48)",before);
+ let before=l.rng;l.manual_time_switch(2,"Roque Island: day immediately after Guard Ambush")?;s.save(&mut l,"Switch back to day after Ambush",before);
+ for _ in 1..reloads {
+  let before=l.rng;l.manual_time_switch(if l.state.time==2 {4}else{2},"Roque Island: post-Ambush RNG adjustment")?;s.save(&mut l,"Post-Ambush extra time switch",before);
+ }
+ s.extra_switches=reloads-1;
  let before=l.rng;
  for c in &d.chests {
   ensure(l.state.opened_route_chests.insert(c.id.clone()),"Roque chest already opened")?;

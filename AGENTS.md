@@ -1,3 +1,5 @@
+- Reload cost revision 2026-10-15: first 3 Tropu’hopu reloads are free; first 4 Roque Island reloads AFTER Guard Ambush are free, including the mandatory day switch. Each subsequent reload costs 12 input equivalents. Preserve all real RNG callbacks and daytime Nameless departure; the pre-Ambush night switch does not use this allowance.
+
 - Roque Factory Worker: steal Pom M and Pom L only, then path-action switch/close. No Wind Soulstone pickup; later JP battles use Osvald Fireball. Retain Crackridge Mason Mighty Leaf steal.
 
 Current order supersedes older notes: spear -> Firestarter -> Crackridge book -> Gravell restoration/supplies -> Roque -> Nameless -> Shipwreck. Firestarter/book are committed before the deferred JP search; Firestarter is no longer a JP-search Defend control site. JP location remains flexible.

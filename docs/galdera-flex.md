@@ -78,11 +78,14 @@ After one normal/preemptive harbor encounter and guaranteed Escape, enter Roque
 Island during daytime and discard chapter selection. Factory Worker TALK_0100:
 Pom M and L only; no Wind Soulstone pickup. One opening plus one
 draw per steal, switch path action and close. Night, Ambush Guard TALK_0200
-(level48), execute native Ambush dialogue scripts, then open six fixed chests:
+(level48), execute native Ambush dialogue scripts, immediately switch back to
+day, then open six fixed chests:
 Lychee L, 39,800 leaves, three Rejuvenating Jams, Magic Nut L. Buy Swift Shield
 and Quick Cloak from normal stock for42,000 total; Smooth Talker is a sale
 talent and does not discount these purchases. Shop transactions and fixed
 chests consume no CRT. Purchases are carried as inventory, not auto-equipped.
+Remain in daytime when teleporting to Beasting Bay: Anchorage and sailing to
+Nameless Isle. Replay the post-Ambush switch through the normal loader callbacks.
 
 The returned final Entry retains RNG, NPC/flag/encounter history and supplies;
 `jp100_complete=false`. Chest money and shopping costs are separate fields,
@@ -147,3 +150,5 @@ alternate synthetic RNG states. New endpoints still need a retail trace;
 simulator reproducibility alone is not evidence of live CRT alignment.
 
 Supply revision: skip the Gravell Villager. Steal Strengthening Serum with Champion Seeker from the Man with Horses (guaranteed at Lv32), then switch path action and close. Roque uses one existing Pom M; Nameless/Shipwreck use unboosted Donate BP, consuming no Pom. Reserve the freed Tyrannodrake Pom M for Roque: planned Tyrannodrake T2 Osvald Defend, T3 latent +3 Fire Storm, with Peak Performance, Deal More Damage and the agreed equipment. Tyrannodrake is not yet an executable route segment.
+
+Reload cost revision (2026-10-15): Tropu’hopu reloads 1–3 cost zero input equivalents; later reloads cost 12 each. In Roque Island, post-Ambush reloads 1–4 cost zero, including the mandatory night-to-day switch; later reloads cost 12 each. The earlier day-to-night switch for Ambush does not count toward this allowance. Every switch still executes native loader callbacks and consumes real RNG. Search post-Ambush odd counts to preserve daytime departure, including both free choices (1 and 3); paid alternatives are explored within a 96-input reload-cost window and the incumbent budget. These are bounded evaluated candidates, not a global optimum.

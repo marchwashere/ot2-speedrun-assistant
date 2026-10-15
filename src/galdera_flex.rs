@@ -6,6 +6,8 @@ use serde::{Serialize,Deserialize};use std::{collections::BTreeMap,sync::OnceLoc
 #[derive(Deserialize)]struct Chest {id:String,item:String,count:u32}
 #[derive(Deserialize)]struct Data {steals:BTreeMap<String,Steal>,scholar:String,scholar_placement:String,ambush_level:u32,ambush_before:Vec<String>,ambush_success:String,chests:Vec<Chest>,boat_npc:String}
 const TIME_SWITCH_COST:u32=12;
+fn tropu_reload_cost(count:u32)->u32 {count.saturating_sub(3)*TIME_SWITCH_COST}
+fn roque_reload_cost(count:u32)->u32 {count.saturating_sub(4)*TIME_SWITCH_COST}
 const ERRAND_ORDER:[u8;0]=[];
 const ROUTE_ORDER:[u8;1]=[1];
 fn data()->&'static Data {static D:OnceLock<Data>=OnceLock::new();D.get_or_init(||serde_json::from_str(include_str!("../data/galdera-flex.json")).unwrap())}
@@ -125,11 +127,14 @@ pub struct DeferredRoque {
 }
 pub fn deferred_roque(entry:&Entry,switches:u32)->Result<Option<DeferredRoque>> {deferred_roque_defends(entry,switches,[0;5])}
 fn deferred_roque_defends(entry:&Entry,switches:u32,c:[u8;5])->Result<Option<DeferredRoque>> {
+ deferred_roque_reloads(entry,switches,c,1)
+}
+fn deferred_roque_reloads(entry:&Entry,switches:u32,c:[u8;5],reloads:u32)->Result<Option<DeferredRoque>> {
  ensure(entry.world_after.time==2&&switches%2==0,"Daytime Roque branch requires an even number of Tropu switches")?;
  let approach=to_tropu_defends(entry,c[1],c[2])?;
  let boat=boat_period(approach.end(),switches,false)?;
  let Some(harbor)=galdera_coast::sai_encounter_defends(boat.end().clone(),"ENT_FLD_SEA_3_1_LND",c[3])? else {return Ok(None);};
- let town=crate::galdera_roque::town(&harbor.field_return)?;
+ let town=if reloads==1 {crate::galdera_roque::town(&harbor.field_return)?}else{crate::galdera_roque::town_with_reloads(&harbor.field_return,reloads)?};
  let field_return=town.end().clone();
  Ok(Some(DeferredRoque {approach,boat,harbor,town,field_return,chest_money:39800,shopping_cost:42000,jp100_complete:false}))
 }
@@ -150,10 +155,10 @@ fn finish_roque(entry:&Entry)->Result<Trip> {
  // is the acceptance condition. No finite bound declares JP100 impossible.
  let mut best:Option<(usize,Trip)>=None;
  for switches in 0.. {
-  if best.as_ref().is_some_and(|(_,b)|switches*TIME_SWITCH_COST+6>b.extra_input_cost){break;}
+  if best.as_ref().is_some_and(|(_,b)|tropu_reload_cost(switches)+6>b.extra_input_cost){break;}
   for (index,(order,segments)) in prefixes.iter().enumerate() {
-   let overhead: u32=segments.iter().map(|s|s.extra_switches*TIME_SWITCH_COST+s.escape_boost_inputs.len()as u32).sum();
-   let cost=switches*TIME_SWITCH_COST+overhead;
+   let overhead: u32=segments.iter().map(segment_cost).sum();
+   let cost=tropu_reload_cost(switches)+overhead;
    if best.as_ref().is_some_and(|(_,b)|cost+6>b.extra_input_cost){continue;}
    let boat=boat(segments.last().unwrap().end(),switches)?;let e=boat.end();let w=&e.world_after;let mut rng=e.after;
    let encounter=encounter::catalog().predict(&mut rng,&PredictionOptions{map:w.map.clone(),zone:"ENT_FLD_SEA_3_1_LND".into(),period:"Night".into(),progress:w.main_progress_points,first_encounter:w.first_encounter,boundary:Boundary::CurrentCounter,current_counter:Some(w.encounter_counter),party_levels:w.party.iter().map(|id|w.character_progression[id].level).collect(),ability_percent:50,dash:true,..Default::default()})?;
@@ -177,7 +182,7 @@ fn finish_roque(entry:&Entry)->Result<Trip> {
 // Fixed prerequisites: Firestarter, Crackridge book, then boat/Roque.
 const LATER_ORDERS:[[u8;1];1]=[ROUTE_ORDER];
 fn defend_cost(f:&SouthernSai)->u32 {f.defends.len()as u32*3+f.escape_round.saturating_sub(1)*8}
-fn segment_cost(s:&Segment)->u32 {s.extra_switches*TIME_SWITCH_COST+s.escape_boost_inputs.len()as u32+s.encounters.iter().map(defend_cost).sum::<u32>()}
+fn segment_cost(s:&Segment)->u32 {(if s.name=="Boat and Roque Harbor" {tropu_reload_cost(s.extra_switches)} else {s.extra_switches*TIME_SWITCH_COST})+s.escape_boost_inputs.len()as u32+s.encounters.iter().map(defend_cost).sum::<u32>()}
 fn day(entry:&Entry)->Result<Segment> {
  let mut s=Segment::new("Day for remaining errands");let mut l=Loader::new(world::catalog(),entry.world_after.clone(),entry.after)?;
  if l.state.time!=2 {l.manual_time_switch(2,"Day before remaining errands / Nameless Isle")?;}
@@ -195,7 +200,7 @@ fn nameless_arrival(entry:&Entry)->Result<Segment> {
 fn finish_without_defends(entry:&Entry)->Result<Trip> {
  let mut best=finish_roque(entry)?;
  for switches in (0u32..).step_by(2) {
-  if switches*TIME_SWITCH_COST+4>=best.extra_input_cost {break;}
+  if tropu_reload_cost(switches)+4>=best.extra_input_cost {break;}
   for order in LATER_ORDERS {
    for ship in [false,true] {
    let Some(candidate)=later_candidate(entry,order,switches,best.extra_input_cost,ship)?else{continue;};
@@ -211,7 +216,7 @@ fn roque_defends(entry:&Entry,order:&[u8],switches:u32,limit:u32,c:[u8;5])->Resu
  let mut segments=vec![];let mut current=entry.clone();
  for &n in order {let s=if n==2{book(&current)?}else{firestarter_defends(&current,c[0])?};current=s.end().clone();segments.push(s);}
  let approach=to_tropu_defends(&current,c[1],c[2])?;segments.push(approach);
- let cost=switches*TIME_SWITCH_COST+segments.iter().map(segment_cost).sum::<u32>();if cost+6>=limit{return Ok(None);}
+ let cost=tropu_reload_cost(switches)+segments.iter().map(segment_cost).sum::<u32>();if cost+6>=limit{return Ok(None);}
  let boat=boat(segments.last().unwrap().end(),switches)?;let e=boat.end();let w=&e.world_after;let mut rng=e.after;
  let encounter=encounter::catalog().predict(&mut rng,&PredictionOptions{map:w.map.clone(),zone:"ENT_FLD_SEA_3_1_LND".into(),period:"Night".into(),progress:w.main_progress_points,first_encounter:w.first_encounter,boundary:Boundary::CurrentCounter,current_counter:Some(w.encounter_counter),party_levels:w.party.iter().map(|id|w.character_progression[id].level).collect(),ability_percent:50,dash:true,..Default::default()})?;
  if encounter.enemies.len()!=2||encounter.enemies.iter().any(|e|e.enemy.id!="ENE_NML_OCN_230"){return Ok(None);}
@@ -236,13 +241,13 @@ fn refine_defends(entry:&Entry,mut best:Trip)->Result<Trip> {
   for site in 1..5 {for count in 0..=7{let mut c=base;c[site]=count;if c!=base{profiles.push(c);}}}
   profiles.sort();profiles.dedup();
   for switches in 0u32.. {
-   if switches*TIME_SWITCH_COST+4>=best.extra_input_cost{break;}
+   if tropu_reload_cost(switches)+4>=best.extra_input_cost{break;}
    for &c in &profiles {
     for order in [&ERRAND_ORDER[..]] {
      // Ignore controls for encounters absent from this route prefix.
      if c[3]!=base[3]||c[4]!=base[4]||(!order.contains(&3)&&c[0]!=0){continue;}
      let lower=controls_cost(c[1])+controls_cost(c[2])+if order.contains(&3){controls_cost(c[0])}else{0};
-     if switches*TIME_SWITCH_COST+lower+6>=best.extra_input_cost{continue;}
+     if tropu_reload_cost(switches)+lower+6>=best.extra_input_cost{continue;}
      work+=1;if work>12000{return Ok(best);}
      if let Some(t)=roque_defends(entry,order,switches,best.extra_input_cost,c)?{if t.extra_input_cost<best.extra_input_cost{best=t;}}
     }
@@ -250,7 +255,7 @@ fn refine_defends(entry:&Entry,mut best:Trip)->Result<Trip> {
     for order in LATER_ORDERS {for ship in [false,true] {
      if !ship&&c[4]!=base[4]{continue;}
      let lower=c[..if ship{5}else{4}].iter().map(|&n|controls_cost(n)).sum::<u32>();
-     if switches*TIME_SWITCH_COST+lower+4>=best.extra_input_cost{continue;}
+     if tropu_reload_cost(switches)+lower+4>=best.extra_input_cost{continue;}
      work+=1;if work>12000{return Ok(best);}
      if let Some(t)=later_candidate_defends(entry,order,switches,best.extra_input_cost,ship,c)?{if t.extra_input_cost<best.extra_input_cost{best=t;}}
     }}
@@ -263,12 +268,24 @@ fn refine_defends(entry:&Entry,mut best:Trip)->Result<Trip> {
 fn controls_cost(n:u8)->u32 {u32::from(n)*3+if n>=4{8}else{0}}
 fn later_candidate(entry:&Entry,order:[u8;1],switches:u32,limit:u32,ship:bool)->Result<Option<Trip>> {later_candidate_defends(entry,order,switches,limit,ship,[0;5])}
 fn later_candidate_defends(entry:&Entry,order:[u8;1],switches:u32,limit:u32,ship:bool,c:[u8;5])->Result<Option<Trip>> {
+ let mut best:Option<Trip>=None;
+ // Preserve daytime departure: 1 or 3 reloads fit the four-reload free allowance.
+ // Paid alternatives use the same 96-input adjustment window as battle search.
+ for reloads in (1..).step_by(2) {
+  let reload_cost=roque_reload_cost(reloads);
+  let budget=best.as_ref().map_or(limit,|t|t.extra_input_cost);
+  if reload_cost>96||tropu_reload_cost(switches)+reload_cost+4>=budget {break;}
+  if let Some(t)=later_candidate_reloads(entry,order,switches,budget,ship,c,reloads)? {best=Some(t);}
+ }
+ Ok(best)
+}
+fn later_candidate_reloads(entry:&Entry,order:[u8;1],switches:u32,limit:u32,ship:bool,c:[u8;5],reloads:u32)->Result<Option<Trip>> {
  ensure(order==ROUTE_ORDER,"Expected Roque after Gravell")?;
  let mut current=entry.clone();let mut before=vec![];let mut after=vec![];let mut purchased=None;let mut cost=0;
  for n in order {
   if n==1 {
-   let Some(r)=deferred_roque_defends(&current,switches,c)?else{return Ok(None);};
-   cost+=segment_cost(&r.approach)+segment_cost(&r.boat)+defend_cost(&r.harbor);
+   let Some(r)=deferred_roque_reloads(&current,switches,c,reloads)?else{return Ok(None);};
+   cost+=segment_cost(&r.approach)+segment_cost(&r.boat)+defend_cost(&r.harbor)+roque_reload_cost(reloads);
    current=r.field_return.clone();before.push(r.approach);
    let mut harbor=Segment::new("Roque Harbor daytime Escape");harbor.stages.push(("Roque Harbor field return".into(),r.harbor.field_return.clone()));harbor.encounters.push(r.harbor);
    after.extend([harbor,r.town]);let d=day(&current)?;current=d.end().clone();after.push(d);purchased=Some(r.boat);
@@ -300,6 +317,12 @@ fn later_candidate_defends(entry:&Entry,order:[u8;1],switches:u32,limit:u32,ship
 
 #[cfg(test)]mod tests {
  use super::*;
+ #[test]fn reload_allowances_only_discount_the_named_sites() {
+  assert_eq!((0..=5).map(tropu_reload_cost).collect::<Vec<_>>(),vec![0,0,0,0,12,24]);
+  assert_eq!((0..=6).map(roque_reload_cost).collect::<Vec<_>>(),vec![0,0,0,0,0,12,24]);
+  let mut boat=Segment::new("Boat and Roque Harbor");boat.extra_switches=3;assert_eq!(segment_cost(&boat),0);
+  let mut sai=Segment::new("Sai");sai.extra_switches=3;assert_eq!(segment_cost(&sai),36);
+ }
  #[test]#[ignore="Specific screenshot seed audit; full route plus independent location searches"]
  fn audit_seed_05d03c86() {
   let path="target/audit-05d03c86-entry.json";
@@ -320,7 +343,7 @@ fn later_candidate_defends(entry:&Entry,order:[u8;1],switches:u32,limit:u32,ship
   for ship in [false,true] {
    let mut best:Option<Trip>=None;
    for switches in (0u32..1000).step_by(2) {
-    if best.as_ref().is_some_and(|t|switches*TIME_SWITCH_COST+4>=t.extra_input_cost){break;}
+    if best.as_ref().is_some_and(|t|tropu_reload_cost(switches)+4>=t.extra_input_cost){break;}
     for order in LATER_ORDERS {
      if let Some(t)=later_candidate(&e,order,switches,best.as_ref().map_or(100000,|t|t.extra_input_cost),ship).unwrap(){
       if best.as_ref().is_none_or(|b|t.extra_input_cost<b.extra_input_cost){eprintln!("candidate {} switches {} cost {}",t.location,switches,t.extra_input_cost);best=Some(t);}
@@ -355,7 +378,7 @@ fn later_candidate_defends(entry:&Entry,order:[u8;1],switches:u32,limit:u32,ship
   for ship in [false,true] {
    let mut best:Option<Trip>=None;
    for switches in (0u32..1000).step_by(2) {
-    if best.as_ref().is_some_and(|t|switches*TIME_SWITCH_COST+4>=t.extra_input_cost){break;}
+    if best.as_ref().is_some_and(|t|tropu_reload_cost(switches)+4>=t.extra_input_cost){break;}
     for order in LATER_ORDERS {
      if let Some(t)=later_candidate(&e,order,switches,best.as_ref().map_or(100000,|t|t.extra_input_cost),ship).unwrap(){
       if best.as_ref().is_none_or(|b|t.extra_input_cost<b.extra_input_cost){eprintln!("candidate {} switches {} cost {}",t.location,switches,t.extra_input_cost);best=Some(t);}
@@ -472,15 +495,25 @@ fn later_candidate_defends(entry:&Entry,order:[u8;1],switches:u32,limit:u32,ship
    assert_eq!(r.harbor.escape.chance_percent,100);assert!(r.harbor.escape.success);
    assert_ne!(r.harbor.encounter.situation.as_deref(),Some("Surprise"));
    assert_eq!(r.field_return.world_after.map,"Twn_Sea_3_1_A");
-   assert_eq!(r.field_return.world_after.time,4);assert!(!r.jp100_complete);
+   assert_eq!(r.field_return.world_after.time,2);assert!(!r.jp100_complete);
    for (id,count) in [("ITM_CSM_0080",1),("ITM_CSM_0090",1),("ITM_CSM_0240",1),("ITM_CSM_0111",3),("ITM_CSM_0610",1),("ITM_EQP_SLD_240",1),("ITM_EQP_AMR_300",1),("ITM_CSM_0390",0)] {
     assert_eq!(r.field_return.world_after.route_items.get(id).copied().unwrap_or(0),entry.world_after.route_items.get(id).copied().unwrap_or(0)+count,"{id}");
    }
    for id in [7,6,5,4] {assert_eq!(r.field_return.world_after.character_progression[&id].jp_earned,entry.world_after.character_progression[&id].jp_earned);}
    let steal=&r.town.stages[1].1;assert_eq!(steal.after.draws-steal.arrival.draws,3);
    assert_eq!(r.chest_money,39800);assert_eq!(r.shopping_cost,42000);
-   assert_eq!(r.town.stages[4].1.after,r.town.stages[4].1.arrival);
+   let daylight=&r.town.stages[4].1;
+   assert_eq!(daylight.world_after.time,2);assert!(daylight.after.draws>daylight.arrival.draws);
    assert_eq!(r.town.stages[5].1.after,r.town.stages[5].1.arrival);
+   assert_eq!(r.town.stages[6].1.after,r.town.stages[6].1.arrival);
+   let arrival=nameless_arrival(&r.field_return).unwrap();
+   assert_eq!(arrival.stages[0].1.after,r.field_return.after);
+   assert!(arrival.stages.iter().all(|(_,e)|e.world_after.time==2));
+   let adjusted=crate::galdera_roque::town_with_reloads(&r.harbor.field_return,3).unwrap();
+   assert_eq!(adjusted.end().world_after.time,2);
+   assert_eq!(adjusted.extra_switches,2);
+   assert!(adjusted.end().after.draws>r.field_return.after.draws);
+   assert_eq!(adjusted.end().world_after.route_items,r.field_return.world_after.route_items);
   }
  }
  #[test]#[ignore="Expanded synthetic RNG-state search"]fn alternate_rng_states_find_complete_jp_routes() {
