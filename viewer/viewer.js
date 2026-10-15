@@ -1221,7 +1221,7 @@ function renderCrackridgeVoyage() {
                           conningSpans.push(...f.escape.trace);
                           if(t.supplies) {
                             const v=t.supplies;
-                            for(const [stage,e] of [['Wellgrove · Merchant: steal 2 Energizing Pomegranates (M) · change path action, then close without dialogue',v.pom_steal],['Wellgrove · switched to night after stealing both Pom M',v.night],["Wellgrove · Girl's Mother Empowering Lychee (M) entreated · change path action, then close without dialogue",v.mother_entreat],['Wellgrove · Mysterious Merchant north of tavern: Magic Nut (L) entreated · change path action, then close without dialogue',v.magic_entreat],['Wellgrove · Dancer License acquired',v.dancer_license]]) {
+                            for(const [stage,e] of [['Wellgrove · Merchant: steal 2 Energizing Pomegranates (M) · change path action, then close without dialogue',v.pom_steal],["Wellgrove · Girl's Mother: steal Empowering Lychee (M) · 100% · change path action, then close without dialogue",v.mother_steal],['Wellgrove · switched to night after Lychee steal',v.night],['Wellgrove · Mysterious Merchant north of tavern: Magic Nut (L) entreated · change path action, then close without dialogue',v.magic_entreat],['Wellgrove · Dancer License acquired',v.dancer_license]]) {
                               conningStages.push([stage,e]);conningSpans.push(...e.trace);
                             }
                             if(v.al_return) {

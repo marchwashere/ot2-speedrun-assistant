@@ -91,18 +91,18 @@ assert.match($('eastern-wellgrove-routine').innerHTML,/T1 · Throné · 1st comm
 assert.match($('eastern-wellgrove-routine').innerHTML,/Escape \(100%\)/);
 assert.deepEqual(context.conningStages.slice(-5).map(([label])=>label),[
  'Eastern Wellgrove Trail · run 100% to Man with Horses without encounter',
- 'Eastern Wellgrove Trail · Champion Seeker stolen · 100% · change path action, then close without dialogue',
+ 'Eastern Wellgrove Trail · Champion Seeker and Strengthening Serum stolen · 100% · change path action, then close without dialogue',
  'Eastern Wellgrove Trail · after Champion Seeker steal · escaped, field restored',
  'Eastern Wellgrove Trail · run 100% to Wellgrove without a second encounter',
  'Wellgrove · entered, chapter start discarded']);
 console.log('PASS: Western boosts, steal dialogue skip, later encounter and Wellgrove entry');
-coast.oresrush_supplies.wellgrove.champion.supplies={pom_steal:entry,night:entry,mother_entreat:entry,magic_entreat:entry,dancer_license:entry};
+coast.oresrush_supplies.wellgrove.champion.supplies={pom_steal:entry,night:entry,mother_steal:entry,magic_entreat:entry,dancer_license:entry};
 context.conningStages=[];
 vm.runInNewContext(source.slice(start,end),context);
 assert.deepEqual(context.conningStages.slice(-5).map(([label])=>label),[
  'Wellgrove · Merchant: steal 2 Energizing Pomegranates (M) · change path action, then close without dialogue',
- 'Wellgrove · switched to night after stealing both Pom M',
- "Wellgrove · Girl's Mother Empowering Lychee (M) entreated · change path action, then close without dialogue",
+ "Wellgrove · Girl's Mother: steal Empowering Lychee (M) · 100% · change path action, then close without dialogue",
+ 'Wellgrove · switched to night after Lychee steal',
  'Wellgrove · Mysterious Merchant north of tavern: Magic Nut (L) entreated · change path action, then close without dialogue',
  'Wellgrove · Dancer License acquired']);
 console.log('PASS: daytime Pom M x2 Steal, night switch, Entreats and Dancer License in Detailed log');

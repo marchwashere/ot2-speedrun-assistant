@@ -63,11 +63,12 @@ Buy one Diffusing Serum for 3,000 leaves at Gravell Provisioner during the
 restored-weapon sale visit. The extra steal adds one check; the shop purchase
 adds no RNG. Wellgrove loses its former one-draw tavern interaction.
 
-Entreat Empowering Lychee(M)
-ITM_CSM_0230 from Girl's Mother NPC_SS_TF21_0200_0300 (the actually placed
-pre-quest NPC, identical inventory to the unused town0600 definition). Agnea
-needs level20. Change selected path action before closing: one opening timer,
-no probability check or closing dialogue. No side quest is started.
+Steal Empowering Lychee (M), ITM_CSM_0230, from Girl's Mother
+NPC_SS_TF21_0200_0300 during daytime after the two Pom M steals. ProperSteal12
+means guaranteed at Throné23. Open Steal, take the Lychee, then switch path
+action and close: one opening timer and one Steal check, no dialogue lottery.
+Switch to night only after this steal, then Entreat Magic Nut L from the
+Mysterious Merchant. No side quest is started.
 
 Obtain the first Dancer License at night via SYS_DAN_GUILD_0010/0030. The first
 license is free; source JobData confirms JobID5. The scripts have fixed dialogue,

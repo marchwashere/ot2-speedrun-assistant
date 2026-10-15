@@ -1,4 +1,4 @@
-//! Daytime Pom M x2 Steal -> night -> Lychee/Magic Nut Entreat -> Dancer License.
+//! Daytime Pom M x2 Steal -> Lychee Steal -> night -> Magic Nut Entreat -> Dancer License.
 use crate::{Result,CrtRng,ensure,world::{self,Loader},snows_escape::Entry};
 use serde::{Deserialize,Serialize};
 use std::sync::OnceLock;
@@ -8,7 +8,7 @@ use std::sync::OnceLock;
 fn data()->&'static Data {static D:OnceLock<Data>=OnceLock::new();D.get_or_init(||serde_json::from_str(include_str!("../data/galdera-wellgrove-supplies.json")).unwrap())}
 #[derive(Debug,Serialize)]pub struct Trip {
     pub pom_steal:Entry,pub pom_steal_rolls:Vec<u32>,pub pom_steal_chance:u32,pub throne_level:u32,
-    pub night:Entry,pub mother_entreat:Entry,pub magic_entreat:Entry,pub dancer_license:Entry,
+    pub night:Entry,pub mother_steal:Entry,pub magic_entreat:Entry,pub dancer_license:Entry,
     pub agnea_level:u32,pub required_level:u32,
     pub al_return:crate::galdera_al_return::Trip,
 }
@@ -32,26 +32,27 @@ pub(crate) fn finish(entry:&Entry)->Result<Trip> {
     }
     l.boundary("Two Energizing Pomegranates (M) stolen in one menu; change selected path action, then close without dialogue or closing lottery");
     let pom_steal=point(&mut l,entry.after);
-    l.manual_time_switch(4,"Wellgrove: switch to night after stealing both Pom M")?;
-    let night=point(&mut l,pom_steal.after);
     let agnea_level=l.state.character_progression[&8].level;
-    ensure(l.state.party.contains(&8)&&present(&l,&d.mother.npc),"Agnea or Girl's Mother unavailable")?;
-    ensure(agnea_level>=d.mother.required_level,"Agnea does not meet Empowering Lychee (M) Entreat level")?;
-    l.draw(world::DrawKind::PathActionMenu,&d.mother.npc,"Girl's Mother Entreat: opening action timer",None);
+    ensure(present(&l,&d.mother.npc),"Girl's Mother unavailable")?;
+    ensure(throne_level>=d.mother.required_level,"Empowering Lychee (M) Steal is not guaranteed")?;
+    l.draw(world::DrawKind::PathActionMenu,&d.mother.npc,"Girl's Mother Steal: opening action timer",None);
+    l.draw(world::DrawKind::StealCheck,&d.mother.item,"Empowering Lychee (M): guaranteed Steal",Some(100));
     *l.state.route_items.entry(d.mother.item.clone()).or_default()+=1;
-    l.boundary("Empowering Lychee (M) entreated; change selected path action, then close without dialogue or closing lottery");
-    let mother_entreat=point(&mut l,night.after);
+    l.boundary("Empowering Lychee (M) stolen; change selected path action, then close without dialogue or closing lottery");
+    let mother_steal=point(&mut l,pom_steal.after);
+    l.manual_time_switch(4,"Wellgrove: switch to night after stealing Empowering Lychee (M)")?;
+    let night=point(&mut l,mother_steal.after);
     ensure(present(&l,&d.magic_merchant.npc),"Wellgrove Mysterious Merchant unavailable")?;
     ensure(agnea_level>=d.magic_merchant.required_level,"Agnea does not meet Magic Nut (L) Entreat level")?;
     l.draw(world::DrawKind::PathActionMenu,&d.magic_merchant.npc,"Mysterious Merchant Magic Nut (L) Entreat: opening action timer",None);
     *l.state.route_items.entry(d.magic_merchant.item.clone()).or_default()+=1;
     l.boundary("Magic Nut (L) entreated from Mysterious Merchant north of tavern; change selected path action, then close without dialogue or closing lottery");
-    let magic_entreat=point(&mut l,mother_entreat.after);
+    let magic_entreat=point(&mut l,night.after);
     ensure(present(&l,&d.guild_resource),"Dancer guild unavailable")?;
     for event in &d.guild_events {l.skipped_event(event)?;}
     l.state.job_licenses.entry(d.dancer_job).or_insert(1);
     l.boundary("First Dancer License acquired; no job assignment or skill purchases");
     let dancer_license=point(&mut l,magic_entreat.after);
     let al_return=crate::galdera_al_return::finish(&dancer_license)?;
-    Ok(Trip {pom_steal,pom_steal_rolls,pom_steal_chance:100,throne_level,night,mother_entreat,magic_entreat,dancer_license,agnea_level,required_level:d.mother.required_level,al_return})
+    Ok(Trip {pom_steal,pom_steal_rolls,pom_steal_chance:100,throne_level,night,mother_steal,magic_entreat,dancer_license,agnea_level,required_level:d.mother.required_level,al_return})
 }

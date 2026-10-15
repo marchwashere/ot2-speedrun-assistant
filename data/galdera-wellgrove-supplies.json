@@ -2,7 +2,7 @@
   "mother": {
     "npc": "NPC_SS_TF21_0200_0300",
     "item": "ITM_CSM_0230",
-    "required_level": 20
+    "required_level": 23
   },
   "dancer_job": 5,
   "guild_resource": "SYS_GUILD_DAN",
