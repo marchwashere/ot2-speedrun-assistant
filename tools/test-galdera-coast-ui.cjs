@@ -143,13 +143,13 @@ assert.equal($('galdera-temenos-result').hidden,false);
 assert.match($('galdera-temenos-routine').innerHTML,/Osvald/);
 assert.match($('galdera-temenos-routine').innerHTML,/Boost 0 → 1 → 0 × 2/);
 assert.match($('galdera-temenos-routine').innerHTML,/Boost to \+1 BP → regular attack/);
-assert.match($('galdera-temenos-routine').innerHTML,/replace Agnea/);
+assert.doesNotMatch($('galdera-temenos-routine').innerHTML,/replace Agnea/);
 
 fc.temenos.quicksand={setup:entry,sai:entry,southern_sai:entry,western_sai:{...coast.southern_sai,menu:{first_actor:2,rng:entry.after}},quicksand:entry};
 vm.runInNewContext(source.slice(start,end),context);
 assert.equal($('galdera-quicksand-result').hidden,false);
 assert.match($('galdera-quicksand-routine').innerHTML,/T1 · Temenos/);
-assert.match($('galdera-quicksand-routine').innerHTML,/Osvald: learn Collect, then → Warrior · Temenos → Dancer/);
+assert.doesNotMatch($('galdera-quicksand-routine').innerHTML,/learn Collect|equip|Teleport/);
 assert.match($('galdera-quicksand-routine').innerHTML,/Escape \(100%\)/);
 assert.equal(context.conningStages.at(-1)[0],'Quicksand Gaol · entered');
 
@@ -157,19 +157,21 @@ assert.doesNotMatch($('galdera-quicksand-routine').innerHTML,/switch night|time 
 
 fc.temenos.quicksand.lord_sands={night:entry,prompt:entry,field_return:entry,victory:entry,battle:{at_command_menu:entry.after,after:entry.after,trace:[],money_spent:15000,rewards:{exp:533,jp:37,money:1188},actions:[{turn:1,actor:2,bp:0,name:'Holy Light',report:{rng_before:entry.after,rng_after:entry.after}},{turn:2,actor:3,bp:3,name:'Hired Help: Beastlings',report:{rng_before:entry.after,rng_after:entry.after}}]}};
 vm.runInNewContext(source.slice(start,end),context);
-assert.equal($('galdera-lord-sands-result').hidden,false);
-assert.match($('galdera-lord-sands-routine').innerHTML,/T1 · Temenos · Holy Light/);
-assert.match($('galdera-lord-sands-routine').innerHTML,/T2 · Partitio · \+3 BP/);
+assert.equal($('galdera-lord-sands-result').hidden,true);
+assert.equal($('galdera-lord-sands-routine').innerHTML,'');
+
 assert.equal(context.conningStages.at(-1)[0],'Lord of the Sands · defeat event complete');
 
 fc.temenos.quicksand.lord_sands.finisher_boost_cycles=2;
 fc.temenos.quicksand.loot={day:entry,rusty_axe:entry,scorched_bone_spear:entry,encounter:{...coast.southern_sai,menu:{first_actor:2,rng:entry.after}}};
 vm.runInNewContext(source.slice(start,end),context);
 assert.match($('galdera-lord-sands-routine').innerHTML,/Boost 0 → 1 → 0 × 2/);
+assert.equal($('galdera-lord-sands-result').hidden,false);
+assert.doesNotMatch($('galdera-lord-sands-routine').innerHTML,/Holy Light|Switch to night|Rewards/);
 assert.equal($('galdera-quicksand-loot-result').hidden,false);
-assert.match($('galdera-quicksand-loot-routine').innerHTML,/Rusty Axe/);
+assert.doesNotMatch($('galdera-quicksand-loot-routine').innerHTML,/Rusty Axe|Switch to day/);
 assert.match($('galdera-quicksand-loot-routine').innerHTML,/Temenos · Escape/);
-assert.match($('galdera-quicksand-loot-routine').innerHTML,/Scorched Bone Spear/);
+assert.doesNotMatch($('galdera-quicksand-loot-routine').innerHTML,/Open the Scorched Bone Spear/);
 assert.equal(context.conningStages.at(-1)[0],'Quicksand Gaol · Scorched Bone Spear obtained');
 fc.temenos.quicksand.gravell={arrival:entry,supplies:entry,setup:entry,night:entry,ambush:entry,restoration:entry,day:entry,sales:entry,serum_purchase:entry,lychee_steal:entry,jam_steal:entry,sale_proceeds:250000};
 vm.runInNewContext(source.slice(start,end),context);
@@ -218,6 +220,6 @@ fc.temenos.quicksand.pre_gravell=[{...segment,name:'Sai / Firestarter',stages:[[
 fc.temenos.quicksand.flex=null;
 vm.runInNewContext(source.slice(start,end),context);
 const prefixHtml=$('galdera-quicksand-loot-routine').innerHTML;
-assert(prefixHtml.indexOf('Firestarter chest')<prefixHtml.indexOf('From the Far Reaches of Hell chest'));
-assert(prefixHtml.indexOf('From the Far Reaches of Hell chest')<prefixHtml.indexOf('Teleport to Gravell'));
-console.log('PASS: Firestarter/book/Gravell instructions visible before JP search completes');
+assert.doesNotMatch(prefixHtml,/Firestarter chest|From the Far Reaches of Hell chest|Teleport to Gravell|sell Lionheart/);
+assert(context.conningStages.some(([label])=>label==='Firestarter chest'));
+console.log('PASS: fixed errands hidden while detailed RNG checkpoints remain available');

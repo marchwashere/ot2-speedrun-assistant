@@ -1,3 +1,5 @@
+- Main route cards show RNG-dependent instructions only: adjustments, predicted encounters/actors, Defends/Escape, movement percentages, and selected JP branch. Hide fixed errands, gear/skill menus, mandatory time switches and fixed boss routines. Show boss finisher adjustment only when nonzero; retain full simulation and Detailed log checkpoints.
+
 - Reload cost revision 2026-10-15: first 3 Tropu’hopu reloads are free; first 4 Roque Island reloads AFTER Guard Ambush are free, including the mandatory day switch. Each subsequent reload costs 12 input equivalents. Preserve all real RNG callbacks and daytime Nameless departure; the pre-Ambush night switch does not use this allowance.
 
 - Roque Factory Worker: steal Pom M and Pom L only, then path-action switch/close. No Wind Soulstone pickup; later JP battles use Osvald Fireball. Retain Crackridge Mason Mighty Leaf steal.

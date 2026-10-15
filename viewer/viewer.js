@@ -558,10 +558,7 @@ function renderEarlyCait() {
     $('checkpoints').innerHTML+=points.map(([label,r])=>`<tr><td>${label}</td><td>${totalAdvances(r)}</td><td>${hex(r.state)}</td><td>${r.draws}</td></tr>`).join('');
     trace.push(...v.battle.trace,...v.trace);
     const ledger=v.world_after.character_progression;
-    if(v.world_after.galdera_route) {
-      const target=v.map==='Fld_Snw_2_2'?'western-first-routine':v.map==='Fld_Snw_1_3'?'eastern-escape-routine':'snows-escape-routine';
-      $(target).innerHTML+=instructionBoxHtml(['After rare victory: Osvald learns Advanced Magic (30 JP), then Elemental Barrage (100 JP); equip Evasive Maneuvers','Throné learns nothing']);
-    }
+
     if(ledger) {
       $('progression-log').hidden=false;
       $('progression-details').innerHTML=v.world_after.party.map(id=>{
@@ -668,7 +665,7 @@ function renderEarlyCait() {
   if(west) {
     $('rare-fight-result').hidden=false;
     $('western-encounter-name').textContent=encounterLabel(west.first_encounter);
-    $('western-first-routine').innerHTML=west.first_is_rare?instructionBoxHtml(west.with_second?['SS M']:['SS M','Osvald: learn Advanced Magic, then Elemental Barrage; equip Evasive Maneuvers','Throné: learn nothing']):escapeRoutine(west.first_escape);
+    $('western-first-routine').innerHTML=west.first_is_rare?instructionBoxHtml(['SS M']):escapeRoutine(west.first_escape);
     const second=Boolean(west.with_second) && (west.predicted_second_encounter || westernSecondOverride===true);
     $('western-second-no').hidden=!west.with_second;
     $('western-second-yes').hidden=!west.with_second;
@@ -1028,8 +1025,7 @@ function renderCrackridgeVoyage() {
         $('conning-steal-result').hidden=false;
         $('conning-steal-routine').innerHTML=instructionBoxHtml([
           'Conning Creek time switch: '+p.town_switches.length,
-          'Conning Creek: Harbor time switch: '+p.harbor_switches.length,
-          'After stealing both items: change selected path action, then close'
+          'Conning Creek: Harbor time switch: '+p.harbor_switches.length
         ]);
         for(const [zone,entries] of [['Conning Creek',p.town_switches],['Conning Creek: Harbor',p.harbor_switches]]) {
           entries.forEach((e,i)=>{conningStages.push([zone+' · time switch '+(i+1),e]);conningSpans.push(...e.trace);});
@@ -1142,7 +1138,7 @@ function renderCrackridgeVoyage() {
                   if(g.coast) {
                     const c=g.coast,m=c.movement;
                     $('galdera-coast-result').hidden=false;
-                    $('galdera-coast-routine').innerHTML=instructionBoxHtml(['Conning Creek tavern: steal Critical Nut (L) from Head Cook. Switch path action, then close.'])+instructionBoxHtml([c.conning_night
+                    $('galdera-coast-routine').innerHTML=instructionBoxHtml([c.conning_night
                       ? 'Conning Creek: switch to night after the Head Cook steal. Western Conning Creek Coast: switch to day immediately after entering.'
                       : 'No night/day adjustment in Conning Creek or Western Conning Creek Coast.'])
                       +instructionBoxHtml([`Run first ${m.run_percent.toFixed(1)}% · walk remaining ${(100-m.run_percent).toFixed(1)}%`]);
@@ -1249,14 +1245,14 @@ function renderCrackridgeVoyage() {
                                 if(t.temenos) {
                                   const r=t.temenos,b=r.battle;
                                   $('galdera-temenos-result').hidden=false;
-                                  $('galdera-temenos-routine').innerHTML='<p><strong>T1 · '+names[b.actor]+' · 1st command menu</strong></p>'+instructionBoxHtml([...(b.boost_cycles?['Boost 0 → 1 → 0 × '+b.boost_cycles]:[]),'Boost to +1 BP → regular attack','Recruit Temenos · skip Chapter 1 · replace Agnea']);
+                                  $('galdera-temenos-routine').innerHTML='<p><strong>T1 · '+names[b.actor]+' · 1st command menu</strong></p>'+instructionBoxHtml([...(b.boost_cycles?['Boost 0 → 1 → 0 × '+b.boost_cycles]:[]),'Boost to +1 BP → regular attack']);
                                   conningStages.push(['Temenos · introduction before battle',r.introduction],['Temenos · victory field return',r.field_return],['Temenos · recruited, Chapter 1 skipped, Agnea replaced',r.recruitment]);
                                   conningPoints.push(['Temenos · first command menu',b.at_command_menu],['Temenos · battle victory',b.after]);
                                   conningSpans.push(...r.introduction.trace,...b.trace,...r.field_return.trace,...r.recruitment.trace);
                                   if(r.quicksand) {
                                     const q=r.quicksand,f=q.western_sai,label='Western Sai Sands · before Quicksand Gaol';
                                     $('galdera-quicksand-result').hidden=false;
-                                    $('galdera-quicksand-routine').innerHTML='<p><strong>'+escapeHtml(encounterLabel(f.encounter))+'</strong></p>'+'<p><strong>T1 · '+(f.menu.first_actor===2?'Temenos':names[f.menu.first_actor])+' · 1st command menu</strong></p>'+instructionBoxHtml(['Osvald: learn Collect, then → Warrior · Temenos → Dancer; equip A Step Ahead','Partitio: learn Collect · Osvald and Partitio: equip Boost-Start','Teleport to Sai','Southern Sai Sands → Western Sai Sands · no encounter in Southern Sai','Western Sai Sands: Escape ('+f.escape.chance_percent+'%)','Enter Quicksand Gaol']);
+                                    $('galdera-quicksand-routine').innerHTML='<p><strong>'+escapeHtml(encounterLabel(f.encounter))+'</strong></p>'+'<p><strong>T1 · '+(f.menu.first_actor===2?'Temenos':names[f.menu.first_actor])+' · 1st command menu</strong></p>'+instructionBoxHtml(['Escape ('+f.escape.chance_percent+'%)']);
                                     for(const [stage,e]of [['Party setup · Osvald learns Collect, then Warrior; Temenos Dancer',q.setup],['Sai · returned after Temenos recruitment',q.sai],['Southern Sai Sands · encounterless crossing',q.southern_sai],['Western Sai Sands · entered before Quicksand',f.arrival],[label+' · escaped, field restored',f.field_return],['Quicksand Gaol · entered',q.quicksand]]) {if(e){conningStages.push([stage,e]);conningSpans.push(...e.trace);}}
                                     conningPoints.push([label+' · before battle initialization',f.battle_entry],[label+' · first command menu',f.menu.rng]);
                                     let previous=f.arrival.after;const origin=BigInt(previous.draws)-BigInt(f.encounter.checkpoints[0].draws);
@@ -1264,8 +1260,8 @@ function renderCrackridgeVoyage() {
                                     conningSpans.push(...f.escape.trace);
                                     if(q.lord_sands) {
                                       const r=q.lord_sands,b=r.battle,party=['Throné','Osvald','Temenos','Partitio'];
-                                      $('galdera-lord-sands-result').hidden=false;
-                                      $('galdera-lord-sands-routine').innerHTML=instructionBoxHtml(['Go directly to the boss · no random encounters','Switch to night before the fight',...b.actions.map(a=>'T'+a.turn+' · '+party[a.actor]+' · '+(a.actor===3&&a.turn===2&&r.finisher_boost_cycles?'Boost 0 → 1 → 0 × '+r.finisher_boost_cycles+' → ':'')+(a.bp?'+'+a.bp+' BP → ':'')+a.name)])+'<p class="muted">Beastlings: '+b.money_spent.toLocaleString()+' leaves · Rewards: '+b.rewards.exp+' EXP · '+b.rewards.jp+' JP · '+b.rewards.money+' leaves</p>';
+                                      $('galdera-lord-sands-result').hidden=!r.finisher_boost_cycles;
+                                      $('galdera-lord-sands-routine').innerHTML=r.finisher_boost_cycles?instructionBoxHtml(['T2 · Partitio · before Hired Help: Beastlings','Boost 0 → 1 → 0 × '+r.finisher_boost_cycles+' → 3']):'';
                                       for(const [stage,e]of [['Lord of the Sands · night switch',r.night],['Lord of the Sands · accepted boss prompt',r.prompt],['Lord of the Sands · victory field return',r.field_return],['Lord of the Sands · defeat event complete',r.victory]]){conningStages.push([stage,e]);conningSpans.push(...e.trace);}
                                       conningPoints.push(['Lord of the Sands · first command menu',b.at_command_menu],['Lord of the Sands · victory and drops',b.after]);
                                       for(const a of b.actions)conningPoints.push(['Lord of the Sands · T'+a.turn+' '+party[a.actor]+' · before '+a.name,a.report.rng_before],['Lord of the Sands · T'+a.turn+' '+party[a.actor]+' · after '+a.name,a.report.rng_after]);
@@ -1273,31 +1269,31 @@ function renderCrackridgeVoyage() {
                                       if(q.loot) {
                                         const t=q.loot,f=t.encounter,label='Quicksand Gaol · post-boss land encounter';
                                         $('galdera-quicksand-loot-result').hidden=false;
-                                        $('galdera-quicksand-loot-routine').innerHTML=instructionBoxHtml(['Switch to day','Open the Rusty Axe chest','Outside the boss arena: '+encounterLabel(f.encounter),'T1 · '+party[f.menu.first_actor]+' · Escape ('+f.escape.chance_percent+'%)','Open the Scorched Bone Spear chest']);
+                                        $('galdera-quicksand-loot-routine').innerHTML=instructionBoxHtml(['Outside the boss arena: '+encounterLabel(f.encounter),'T1 · '+party[f.menu.first_actor]+' · Escape ('+f.escape.chance_percent+'%)']);
                                         for(const [stage,e]of [['Quicksand Gaol · day after boss',t.day],['Quicksand Gaol · Rusty Axe obtained',t.rusty_axe],[label+' · escaped, field restored',f.field_return],['Quicksand Gaol · Scorched Bone Spear obtained',t.scorched_bone_spear]]){conningStages.push([stage,e]);conningSpans.push(...e.trace);}
                                         const origin=BigInt(f.arrival.after.draws)-BigInt(f.encounter.checkpoints[0].draws);
                                         for(const c of f.encounter.checkpoints)conningPoints.push([label+' · '+c.label,{draws:Number(origin+BigInt(c.draws)),state:c.state}]);
                                         conningPoints.push([label+' · first command menu',f.menu.rng]);conningSpans.push(...f.escape.trace);
                                       }
                                       if(q.pre_gravell) {
-                                        const lines=['After the spear: Firestarter → From the Far Reaches of Hell → Gravell restoration and supplies'];
+                                        const lines=[];
                                         for(const segment of q.pre_gravell) {
                                           if(segment.extra_switches)lines.push('Sai: '+segment.extra_switches+' extra time switches before leaving');
                                           const events=[...segment.stages.map(([label,e])=>({label,e,draws:e.after.draws})),...segment.encounters.map(f=>({f,draws:f.menu.rng.draws}))].sort((a,b)=>Number(BigInt(a.draws)-BigInt(b.draws)));
                                           for(const event of events){
-                                            if(event.e){lines.push(event.label);conningStages.push([event.label,event.e]);conningSpans.push(...event.e.trace);continue;}
+                                            if(event.e){conningStages.push([event.label,event.e]);conningSpans.push(...event.e.trace);continue;}
                                             const f=event.f;
                                             lines.push(segment.name+': '+encounterLabel(f.encounter),'T'+(f.escape_round||1)+' · '+party[f.menu.first_actor]+' · Escape ('+f.escape.chance_percent+'%)');
                                             conningStages.push([segment.name+' · escaped',f.field_return]);conningSpans.push(...f.escape.trace,...f.field_return.trace);conningPoints.push([segment.name+' · Escape command menu',f.menu.rng]);
                                           }
                                         }
-                                        $('galdera-quicksand-loot-routine').innerHTML+=instructionBoxHtml(lines);
+                                        if(lines.length)$('galdera-quicksand-loot-routine').innerHTML+=instructionBoxHtml(lines);
                                       }
                                       if(q.flex) {
-                                        const x=q.flex,location=x.location||'Roque Island Harbor',lines=['JP ×100: '+location,'After Firestarter → book → Gravell: '+x.order.map(n=>({1:'Boat → Roque Island',2:'Crackridge book',3:'Sai → Firestarter',4:'Nameless Isle',5:'Shipwreck'})[n]).join(' → ')];
+                                        const x=q.flex,location=x.location||'Roque Island Harbor',lines=['JP ×100: '+location];
                                         for(const segment of [...x.segments,x.boat,...(x.continuation||[])]) {
                                           if(segment.extra_switches)lines.push((segment===x.boat?'Tropu’hopu · before entering the Shipyard':segment.name==='Sai / Firestarter'?'Sai · before leaving town':segment.name==='Roque Island supplies'?'Roque Island · after Ambush and mandatory day switch':'Before teleporting to Beasting Bay')+': '+segment.extra_switches+' extra time switches');
-                                          for(const [label,e] of segment.stages){lines.push(label);conningStages.push([label,e]);conningSpans.push(...e.trace);}
+                                          for(const [label,e] of segment.stages){conningStages.push([label,e]);conningSpans.push(...e.trace);}
                                           segment.encounters.forEach((f,j)=>{
                                             const label=segment.name+' · encounter '+(j+1);lines.push(label+': '+encounterLabel(f.encounter));
                                             let previous=f.arrival.after;const origin=BigInt(previous.draws)-BigInt(f.encounter.checkpoints[0].draws);
@@ -1308,20 +1304,19 @@ function renderCrackridgeVoyage() {
                                           });
                                           if(segment.movement)lines.push('After Beasting encounter: run first '+segment.movement.run_percent.toFixed(1)+'% · walk remaining '+(100-segment.movement.run_percent).toFixed(1)+'% (includes 3-update leeway)');
                                         }
-                                        if(x.nameless||x.nameless_jp)lines.push('Nameless entry menu: Osvald equips Firestarter, Scorched Bone Spear, Skull Helm, Elemental Augmentor; Magic Nut L ×2. Throné equips Swift Shield, Quick Cloak; Critical Nut L and Fortifying Nut L. Keep jobs/supports.');
                                         if(x.nameless){
                                           const n=x.nameless,f=n.approach.encounter;
                                           for(const [k,d] of (f.defends||[]).entries()){lines.push('Nameless T'+f.defend_rounds[k]+' · '+party[d.actor]+' · Defend');conningPoints.push(['Nameless T'+f.defend_rounds[k]+' '+party[d.actor]+' Defend',d.rng_before]);}
-                                          lines.push('Nameless Isle: '+encounterLabel(f.encounter),'T'+(f.escape_round||1)+' · '+(n.approach.escape_inputs.length?'boost 0 → '+n.approach.escape_inputs.join(' → ')+'; ':'')+party[f.menu.first_actor]+' flees','Run '+n.approach.run_percent.toFixed(1)+'% of total island distance; walk the rest','Switch night for Gigantes');
+                                          lines.push('Nameless Isle: '+encounterLabel(f.encounter),'T'+(f.escape_round||1)+' · '+(n.approach.escape_inputs.length?'boost 0 → '+n.approach.escape_inputs.join(' → ')+'; ':'')+party[f.menu.first_actor]+' flees','Run '+n.approach.run_percent.toFixed(1)+'% of total island distance; walk the rest');
                                           conningStages.push(['Nameless gear menu',n.setup],['Nameless water',n.approach.water_entry],['Nameless Escape field return',f.field_return],['Gigantes approach',n.approach.gigantes_entry],['Gigantes night',n.night],['Gigantes prompt',n.prompt],['Gigantes field return',n.field_return],['Gigantes victory scene',n.victory],...n.loot.stages);
                                           conningSpans.push(...f.escape.trace,...f.field_return.trace,...n.battle.trace);
                                           for(const e of [n.setup,n.approach.water_entry,n.approach.gigantes_entry,n.night,n.prompt,n.field_return,n.victory])conningSpans.push(...e.trace);
                                           conningPoints.push(['Nameless water · Escape command menu',f.menu.rng]);
                                           for(const a of n.battle.actions||[])conningPoints.push(['Gigantes · T'+a.turn+' '+party[a.actor]+' '+a.name,a.report.rng_before]);
-                                          lines.push('Gigantes: T1 Throné/Osvald Defend; Partitio Defend if before both, otherwise attack; Temenos attack','T2 Throné +2 sword; Osvald +3 Elemental Barrage; Partitio +3 Beastlings; Temenos Defend if needed','Before Beastlings: '+n.finisher_boost_cycles+' extra 0 → 1 → 0 boost cycles');
-                                          for(const [label,e] of n.loot.stages){lines.push(label);conningSpans.push(...e.trace);}
+                                          if(n.finisher_boost_cycles)lines.push('Gigantes · T2 Partitio · before Beastlings: Boost 0 → 1 → 0 × '+n.finisher_boost_cycles+' → 3');
+                                          for(const [label,e] of n.loot.stages){conningSpans.push(...e.trace);}
                                         }
-                                        if(x.shipwreck)for(const [label,e] of x.shipwreck.travel.stages){lines.push(label);conningStages.push([label,e]);conningSpans.push(...e.trace);}
+                                        if(x.shipwreck)for(const [label,e] of x.shipwreck.travel.stages){conningStages.push([label,e]);conningSpans.push(...e.trace);}
                                         if(x.nameless_jp){conningStages.push(['Nameless gear menu',x.nameless_jp.setup],['Nameless water',x.nameless_jp.water_entry]);lines.push('After JP victory: run '+x.nameless_jp.movement.run_percent.toFixed(1)+'% of total island distance; walk the rest');}
                                         lines.push(location+': '+encounterLabel(x.encounter));
                                         let previous=(x.encounter_arrival||x.boat.stages.at(-1)[1]).after;const origin=BigInt(previous.draws)-BigInt(x.encounter.checkpoints[0].draws);
@@ -1334,7 +1329,6 @@ function renderCrackridgeVoyage() {
                                       }
                                       if(q.gravell) {
                                         const g=q.gravell;
-                                        if(q.pre_gravell)$('galdera-quicksand-loot-routine').innerHTML+=instructionBoxHtml(['Teleport to Gravell; steal Old Man Lychee (L) and Sharp Nut (L); switch path action and close','Complete skill/support menu; switch to night; ambush Debt Collector; restore Rusty Axe and Rusty Sword','Switch to day; sell Lionheart’s Axe and Conqueror’s Sword; buy Diffusing Serum; steal Reinforcing Jam; switch path action and close','Continue to the boat / Roque sequence']);
                                         for(const [stage,e]of [['Gravell · teleported, chapters discarded',g.arrival],['Gravell · daytime Old Man Empowering Lychee (L) and Sharp Nut (L) stolen; switch path action and close',g.lychee_steal],['Gravell · Temenos learns BG; retain earlier A Step Ahead and Boost-Start',g.setup],['Gravell · night for Ambush',g.night],['Gravell · Debt Collector ambushed',g.ambush],['Gravell · Rusty Sword and Rusty Axe restored; Armsmaster unlocked',g.restoration],['Gravell · day for shop and Steal',g.day],["Gravell · Lionheart’s Axe and Conqueror’s Sword sold at Provisioner · "+g.sale_proceeds.toLocaleString()+' leaves',g.sales],['Gravell · buy Diffusing Serum at Provisioner · 3,000 leaves',g.serum_purchase],['Gravell · Reinforcing Jam stolen (100%); switch path action before closing',g.jam_steal]]){conningStages.push([stage,e]);conningSpans.push(...e.trace);}
                                       }
                                     }
