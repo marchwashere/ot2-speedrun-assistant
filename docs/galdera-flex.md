@@ -1,3 +1,9 @@
+Current route order: keep the Gravell restoration/supplies stop, then always
+Firestarter -> Crackridge book -> boat/Roque -> Nameless Isle -> Shipwreck.
+Only the JP100 location and RNG controls remain flexible. Prediction still
+ends at the chosen JP100 victory; subsequent destinations keep this order.
+This supersedes historical permutation-search descriptions below.
+
 # Flexible route to JP ×100
 
 ## Active automatic location selection

@@ -1280,7 +1280,7 @@ function renderCrackridgeVoyage() {
                                         conningPoints.push([label+' · first command menu',f.menu.rng]);conningSpans.push(...f.escape.trace);
                                       }
                                       if(q.flex) {
-                                        const x=q.flex,location=x.location||'Roque Island Harbor',lines=['JP ×100: '+location,'Order: '+x.order.map(n=>({1:'Boat → Roque Island',2:'Crackridge book',3:'Sai → Firestarter',4:'Nameless Isle',5:'Shipwreck'})[n]).join(' → ')];
+                                        const x=q.flex,location=x.location||'Roque Island Harbor',lines=['JP ×100: '+location,'Fixed order: '+x.order.map(n=>({1:'Boat → Roque Island',2:'Crackridge book',3:'Sai → Firestarter',4:'Nameless Isle',5:'Shipwreck'})[n]).join(' → ')];
                                         for(const segment of [...x.segments,x.boat,...(x.continuation||[])]) {
                                           if(segment.extra_switches)lines.push((segment===x.boat?'Tropu’hopu · before entering the Shipyard':segment.name==='Sai / Firestarter'?'Sai · before leaving town':'Before teleporting to Beasting Bay')+': '+segment.extra_switches+' extra time switches');
                                           for(const [label,e] of segment.stages){lines.push(label);conningStages.push([label,e]);conningSpans.push(...e.trace);}

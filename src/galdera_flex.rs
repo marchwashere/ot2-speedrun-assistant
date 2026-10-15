@@ -6,6 +6,8 @@ use serde::{Serialize,Deserialize};use std::{collections::BTreeMap,sync::OnceLoc
 #[derive(Deserialize)]struct Chest {id:String,item:String,count:u32}
 #[derive(Deserialize)]struct Data {steals:BTreeMap<String,Steal>,scholar:String,scholar_placement:String,ambush_level:u32,ambush_before:Vec<String>,ambush_success:String,chests:Vec<Chest>,boat_npc:String}
 const TIME_SWITCH_COST:u32=12;
+const ERRAND_ORDER:[u8;2]=[3,2];
+const ROUTE_ORDER:[u8;3]=[3,2,1];
 fn data()->&'static Data {static D:OnceLock<Data>=OnceLock::new();D.get_or_init(||serde_json::from_str(include_str!("../data/galdera-flex.json")).unwrap())}
 pub(crate) fn point(l:&mut Loader<'_>,before:CrtRng)->Entry {Entry {arrival:before,after:l.rng,world_after:l.state.clone(),trace:std::mem::take(&mut l.trace),decisions:std::mem::take(&mut l.decisions)}}
 pub(crate) fn steal(l:&mut Loader<'_>,key:&str)->Result<()> {
@@ -132,7 +134,7 @@ fn finish_roque(entry:&Entry)->Result<Trip> {
   &&entry.world_after.character_progression[&5].jobs.equipped_support.contains(crate::gravell_setup::STEP_AHEAD)
   &&entry.world_after.character_progression[&4].jobs.equipped_support.contains("ABI_MER_SUP_02")
   &&entry.world_after.route_items.get("ITM_CSM_0080").copied().unwrap_or(0)>0,"Gravell JP setup or Pom M missing")?;
- let orders:Vec<Vec<u8>>=vec![vec![],vec![2],vec![3],vec![2,3],vec![3,2]];
+ let orders:Vec<Vec<u8>>=vec![ERRAND_ORDER.to_vec()];
  let mut prefixes=vec![];
  for order in orders {
   let mut stages=vec![];let mut current=entry.clone();
@@ -167,8 +169,8 @@ fn finish_roque(entry:&Entry)->Result<Trip> {
  let (index,mut b)=best.unwrap();b.segments=prefixes.swap_remove(index).1;Ok(b)
 }
 
-// All three errands precede Nameless; the boat can occur anywhere among them.
-const LATER_ORDERS:[[u8;3];6]=[[1,2,3],[1,3,2],[2,1,3],[3,1,2],[2,3,1],[3,2,1]];
+// Fixed prerequisites: Firestarter, Crackridge book, then boat/Roque.
+const LATER_ORDERS:[[u8;3];1]=[ROUTE_ORDER];
 fn defend_cost(f:&SouthernSai)->u32 {f.defends.len()as u32*3+f.escape_round.saturating_sub(1)*8}
 fn segment_cost(s:&Segment)->u32 {s.extra_switches*TIME_SWITCH_COST+s.escape_boost_inputs.len()as u32+s.encounters.iter().map(defend_cost).sum::<u32>()}
 fn day(entry:&Entry)->Result<Segment> {
@@ -184,7 +186,7 @@ fn nameless_arrival(entry:&Entry)->Result<Segment> {
  visit(&mut l,&mut s,crate::galdera_nameless::MAP,"Nameless Isle entry; no sea encounters")?;Ok(s)
 }
 /// Compare complete replays, not a fixed guessed offset from Tropu to BG.
-/// Required errands are free to reorder; score only switches/boost inputs.
+/// Required errands have fixed order; compare JP locations and adjustment costs.
 fn finish_without_defends(entry:&Entry)->Result<Trip> {
  let mut best=finish_roque(entry)?;
  for switches in (0u32..).step_by(2) {
@@ -200,6 +202,7 @@ fn finish_without_defends(entry:&Entry)->Result<Trip> {
 }
 pub(crate) fn finish(entry:&Entry)->Result<Trip> {refine_defends(entry,finish_without_defends(entry)?)}
 fn roque_defends(entry:&Entry,order:&[u8],switches:u32,limit:u32,c:[u8;5])->Result<Option<Trip>> {
+ ensure(order==ERRAND_ORDER,"Expected Firestarter then Crackridge book")?;
  let mut segments=vec![];let mut current=entry.clone();
  for &n in order {let s=if n==2{book(&current)?}else{firestarter_defends(&current,c[0])?};current=s.end().clone();segments.push(s);}
  let approach=to_tropu_defends(&current,c[1],c[2])?;segments.push(approach);
@@ -230,7 +233,7 @@ fn refine_defends(entry:&Entry,mut best:Trip)->Result<Trip> {
   for switches in 0u32.. {
    if switches*TIME_SWITCH_COST+4>=best.extra_input_cost{break;}
    for &c in &profiles {
-    for order in [&[][..],&[2][..],&[3][..],&[2,3][..],&[3,2][..]] {
+    for order in [&ERRAND_ORDER[..]] {
      // Ignore controls for encounters absent from this route prefix.
      if c[3]!=base[3]||c[4]!=base[4]||(!order.contains(&3)&&c[0]!=0){continue;}
      let lower=controls_cost(c[1])+controls_cost(c[2])+if order.contains(&3){controls_cost(c[0])}else{0};
@@ -255,6 +258,7 @@ fn refine_defends(entry:&Entry,mut best:Trip)->Result<Trip> {
 fn controls_cost(n:u8)->u32 {u32::from(n)*3+if n>=4{8}else{0}}
 fn later_candidate(entry:&Entry,order:[u8;3],switches:u32,limit:u32,ship:bool)->Result<Option<Trip>> {later_candidate_defends(entry,order,switches,limit,ship,[0;5])}
 fn later_candidate_defends(entry:&Entry,order:[u8;3],switches:u32,limit:u32,ship:bool,c:[u8;5])->Result<Option<Trip>> {
+ ensure(order==ROUTE_ORDER,"Expected Firestarter, Crackridge book, then Roque")?;
  let mut current=entry.clone();let mut before=vec![];let mut after=vec![];let mut purchased=None;let mut cost=0;
  for n in order {
   if n==1 {
@@ -394,10 +398,10 @@ fn later_candidate_defends(entry:&Entry,order:[u8;3],switches:u32,limit:u32,ship
   for ship in [false,true] {
    let mut found=None;
    for switches in (0..512).step_by(2) {
-    if let Some(t)=later_candidate(&current_fixture(),[1,2,3],switches,10000,ship).unwrap(){found=Some(t);break;}
+    if let Some(t)=later_candidate(&current_fixture(),ROUTE_ORDER,switches,10000,ship).unwrap(){found=Some(t);break;}
    }
    let t=found.expect("Complete later JP candidate");
-   assert_eq!(&t.order[..3],&[1,2,3]);assert_eq!(t.order[3],4);
+   assert_eq!(&t.order[..3],&ROUTE_ORDER);assert_eq!(t.order[3],4);
    assert_eq!(t.order.last(),Some(if ship{&5}else{&4}));
    assert!(t.remaining_errands.is_empty());assert!(t.rewards.awarded.jp>=12210);
    assert_eq!(t.fight.state.outcome,ot2_battle_engine::Outcome::Victory);
@@ -410,6 +414,8 @@ fn later_candidate_defends(entry:&Entry,order:[u8;3],switches:u32,limit:u32,ship
  #[test]fn automatic_selector_never_costs_more_than_roque_fallback() {
   let entry=current_fixture();let baseline=finish_roque(&entry).unwrap();let selected=finish(&entry).unwrap();
   assert!(selected.extra_input_cost<=baseline.extra_input_cost);
+  assert_eq!(&baseline.order[..3],&ROUTE_ORDER);
+  assert_eq!(&selected.order[..3],&ROUTE_ORDER);
   eprintln!("Selected {} {:?}, cost {} vs Roque {}",selected.location,selected.order,selected.extra_input_cost,baseline.extra_input_cost);
  }
  #[test]fn selector_can_choose_a_later_location() {
@@ -423,8 +429,8 @@ fn later_candidate_defends(entry:&Entry,order:[u8;3],switches:u32,limit:u32,ship
   }
   panic!("Expected at least one later-location winner in deterministic sample");
  }
- #[test]fn both_errand_orders_keep_inventory_and_daytime_without_repeating_pickups() {
-  for order in [[2,3],[3,2]] {
+ #[test]fn fixed_errand_order_keeps_inventory_and_daytime_without_repeating_pickups() {
+  for order in [ERRAND_ORDER] {
    let mut e=fixture();
    for n in order {e=if n==2{book(&e).unwrap()}else{firestarter(&e).unwrap()}.end().clone();}
    assert_eq!(e.world_after.time,2);
@@ -443,7 +449,7 @@ fn later_candidate_defends(entry:&Entry,order:[u8;3],switches:u32,limit:u32,ship
   }
  }
  #[test]fn complete_jp100_search_requires_the_full_four_alive_guards_victory() {
-  let r=finish_roque(&fixture()).unwrap();assert_eq!(r.rewards.base.jp,116);assert_eq!(r.rewards.awarded.jp,12760);
+  let r=finish_roque(&fixture()).unwrap();assert_eq!(r.order,ROUTE_ORDER);assert!(r.remaining_errands.is_empty());assert_eq!(r.rewards.base.jp,116);assert_eq!(r.rewards.awarded.jp,12760);
   assert_eq!(r.fight.state.outcome,ot2_battle_engine::Outcome::Victory);assert!(r.fight.state.actors[..4].iter().all(|a|a.alive()));
   assert_eq!(r.fight.actions.len(),6);assert_eq!(r.fight.actions[4].actor.0,2);assert_eq!(r.fight.actions[5].actor.0,3);
   assert_eq!(r.fight.state.grace.as_ref().unwrap().jp_percent(),10000);

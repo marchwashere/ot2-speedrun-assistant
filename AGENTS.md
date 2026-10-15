@@ -1,3 +1,5 @@
+- Galdera late route now fixes Firestarter -> Crackridge book -> Roque -> Nameless Isle -> Shipwreck after the existing Gravell stop. Only JP100 location and RNG adjustments are searched; prediction ends at JP100 victory. Do not restore errand permutations.
+
 - 2026-10-15 supply revision supersedes older small-Pom notes: skip Gravell Villager; Steal Strengthening Serum with Champion Seeker, then path-action switch/close. Roque uses Pom M from Osvald. Nameless/Shipwreck use Partitio unboosted Donate BP and consume no Pom; retain all turn-order and BG safety checks. Tyrannodrake T2 Defend saves the reserved Pom M (documented plan, beyond current executable route).
 
 # Active project
