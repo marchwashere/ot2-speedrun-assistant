@@ -84,12 +84,7 @@ all earlier spending). No departure path or later JP battle is invented.
 The existing night Roque JP100 search still ends immediately at its victory.
 Retail validation of the new endpoints remains pending.
 
-Gravell arrival stays daytime for the Villager's small Energizing Pomegranate
-and Strengthening Serum. One Steal menu, two successful checks, then path-action
-switch/close: three CRT calls. Guaranteed levels18/32. Temenos buys Bewildering
-Grace (30 JP) and equips A Step Ahead through the existing Inventor license;
-Partitio buys Collect (500 JP); both Partitio and Osvald equip Boost-Start. Osvald learned Collect before switching to Warrior after Temenos recruitment. Temenos equips A Step Ahead directly from the crafted inventions; no temporary job assignments occur.
-Menu setup consumes no CRT. Existing blacksmith/sales/Jam sequence follows.
+Gravell arrival stays daytime for Old Man Lychee L and Sharp L steals, then path-action switch/close. Skip the Villager. Temenos learns Bewildering Grace; retain the earlier A Step Ahead and Boost-Start setup. Menu setup consumes no CRT. Existing blacksmith/sales/Jam sequence follows.
 
 The search evaluates [boat], [book,boat], [Firestarter,boat], and both orders of
 the two errands before boat. The user considers these required errands free
@@ -125,13 +120,13 @@ Roque entry switches to night if not already night.
 
 Roque requires two Winged Landwalkers, no rare replacement and no Surprise.
 All four have A Step Ahead; Partitio has Boost-Start. Require Partitio before
-Temenos in the opening. T1: both Defend; Osvald small Pom to Temenos; Throné
+Temenos in the opening. T1: both Defend; Osvald Pom (M) to Temenos; Throné
 unboosted dagger on the rightmost/default enemy. T2: Temenos +3 BG, then Partitio +3 Guards.
 The latest Defend is first; both reach3 BP. Execute all BG children, reject
 disrupted order/death/silence/insufficient BP, then actually execute Guards.
 Acceptance requires victory, all four alive, JP modifier10000%. Rewards are
 116 base JP ×100 plus Domination =12760 each. No Life in the Shadows equipped.
-The small Pom is removed from inventory and real drops/history/resources carried.
+The Pom (M) is removed from inventory and real drops/history/resources carried.
 
 Source import: tools/import-galdera-flex.cjs after the existing town/event
 importers. New maps are included by import-town-loading.cjs. Core imports:
@@ -143,3 +138,5 @@ Tests cover the turn/BP premise across128 seeds, all64 core tests, both errand
 orders, boat events and time switches, full identified-route replay and three
 alternate synthetic RNG states. New endpoints still need a retail trace;
 simulator reproducibility alone is not evidence of live CRT alignment.
+
+Supply revision: skip the Gravell Villager. Steal Strengthening Serum with Champion Seeker from the Man with Horses (guaranteed at Lv32), then switch path action and close. Roque uses one existing Pom M; Nameless/Shipwreck use unboosted Donate BP, consuming no Pom. Reserve the freed Tyrannodrake Pom M for Roque: planned Tyrannodrake T2 Osvald Defend, T3 latent +3 Fire Storm, with Peak Performance, Deal More Damage and the agreed equipment. Tyrannodrake is not yet an executable route segment.

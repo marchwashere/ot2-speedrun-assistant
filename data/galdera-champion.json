@@ -1,4 +1,6 @@
 {
+  "serum": "ITM_MRL_COM_0020",
+  "serum_level": 32,
   "npc": "NPC_SS_TD31_0300_0300",
   "item": "ITM_EQP_DGR_120",
   "proper_steal": 38,

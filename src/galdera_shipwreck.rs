@@ -52,7 +52,7 @@ fn jp_battle(e:&Entry,max_inputs:usize)->Result<Option<JpBattle>> {
  for id in [7,6,5,4]{ensure(w.character_progression[&id].jobs.equipped_support.contains(crate::gravell_setup::STEP_AHEAD),"Shipwreck needs four A Step Ahead users")?;}
  ensure(w.character_progression[&5].jobs.learned_abilities.get(&5).is_some_and(|a|a.contains("ABI_SET_DAN_070")),"Temenos needs BG")?;
  ensure(w.character_progression[&7].jobs.secondary_job==Some(11)&&w.inventor_abilities.contains("ABI_SET_INV_020"),"Throne needs Springy Boots")?;
- ensure(w.route_items.get("ITM_CSM_0070").copied().unwrap_or(0)>0,"Partitio needs small Pom")?;
+ ensure(w.character_progression[&4].jobs.learned_abilities.get(&0).is_some_and(|a|a.contains("ABI_SET_MER_050")),"Partitio needs Donate BP")?;
  let mut rng=e.after;
  let encounter=encounter::catalog().predict(&mut rng,&PredictionOptions{map:MAP.into(),zone:"ENT_DNG_OCN_1_1_LND".into(),period:"Night".into(),progress:w.main_progress_points,first_encounter:w.first_encounter,boundary:Boundary::CurrentCounter,current_counter:Some(w.encounter_counter),party_levels:w.party.iter().map(|id|w.character_progression[id].level).collect(),ability_percent:if w.evasive_maneuvers{50}else{100},dash:true,..Default::default()})?;
  let situation=match encounter.situation.as_deref(){Some("Normal")=>ot2_battle_engine::escape::Situation::Normal,Some("Preemptive")=>ot2_battle_engine::escape::Situation::Preemptive,_=>return Ok(None)};
@@ -61,7 +61,6 @@ fn jp_battle(e:&Entry,max_inputs:usize)->Result<Option<JpBattle>> {
  let Some(f)=ot2_battle_engine::nameless_routine::search_shipwreck(b,max_inputs)?else{return Ok(None);};
  let (fight,rewards,mut field_return)=crate::inventor::settle_gravell(e,rng,f)?;
  ensure(rewards.base.jp>=111,"Shipwreck formation below JP budget")?;
- let n=field_return.world_after.route_items.get_mut("ITM_CSM_0070").unwrap();*n-=1;if *n==0{field_return.world_after.route_items.remove("ITM_CSM_0070");}
  for(id,&n)in &rewards.drops{*field_return.world_after.route_items.entry(id.clone()).or_default()+=n;}
  Ok(Some(JpBattle{encounter,battle_entry:rng,fight,rewards,field_return}))
 }
@@ -73,7 +72,7 @@ fn jp_battle(e:&Entry,max_inputs:usize)->Result<Option<JpBattle>> {
   let mut l=Loader::new(world::catalog(),w,crate::CrtRng::new(seed)).unwrap();
   crate::gravell_setup::learn(&mut l.state,6,0,&["ABI_SET_MER_030"]).unwrap();crate::gravell_setup::jp_setup(&mut l).unwrap();
   // Old pre-flex fixture; explicitly supply acquired gear for this branch test.
-  for (id,n) in [("ITM_EQP_SWD_380",1),("ITM_EQP_LNS_220",1),("ITM_EQP_HLM_180",1),("ITM_EQP_ACS_250",1),("ITM_EQP_SLD_240",1),("ITM_EQP_AMR_300",1),("ITM_CSM_0610",2),("ITM_CSM_0730",1),("ITM_CSM_0550",1),("ITM_CSM_0070",2)]{l.state.route_items.insert(id.into(),n);}
+  for (id,n) in [("ITM_EQP_SWD_380",1),("ITM_EQP_LNS_220",1),("ITM_EQP_HLM_180",1),("ITM_EQP_ACS_250",1),("ITM_EQP_SLD_240",1),("ITM_EQP_AMR_300",1),("ITM_CSM_0610",2),("ITM_CSM_0730",1),("ITM_CSM_0550",1),("ITM_CSM_0070",0)]{l.state.route_items.insert(id.into(),n);}
   point(&mut l,crate::CrtRng::new(seed))
  }
  #[test]fn day_escape_and_night_jp_both_award_dagger() {
@@ -85,8 +84,8 @@ fn jp_battle(e:&Entry,max_inputs:usize)->Result<Option<JpBattle>> {
     assert_eq!(t.dagger.world_after.route_items["ITM_TRE_WPM_03"],1);assert_eq!(t.dagger.arrival,t.dagger.after);
     assert_eq!(t.travel.stages[0].1.world_after.map,"Fld_Wld_1_2");assert_eq!(t.travel.stages[1].1.world_after.map,"Fld_Ocn_1_1");
     assert_eq!(t.jp100_complete,jp);
-    if let Some(j)=t.jp {assert!(t.escape.is_none());assert_eq!(j.fight.actions.last().unwrap().action,ot2_battle_engine::gravell_routine::Action::FireballMax);assert_eq!(j.rewards.hired_help_cost,0);assert!(j.rewards.awarded.jp>=12210);assert_eq!(t.dagger.world_after.route_items["ITM_CSM_0070"],1);}
-    else {let f=t.escape.unwrap();assert!(f.escape.success);assert_eq!(t.dagger.world_after.route_items["ITM_CSM_0070"],2);}
+    if let Some(j)=t.jp {assert!(t.escape.is_none());assert_eq!(j.fight.actions.last().unwrap().action,ot2_battle_engine::gravell_routine::Action::FireballMax);assert_eq!(j.rewards.hired_help_cost,0);assert!(j.rewards.awarded.jp>=12210);assert_eq!(t.dagger.world_after.route_items.get("ITM_CSM_0070").copied().unwrap_or(0),0);}
+    else {let f=t.escape.unwrap();assert!(f.escape.success);assert_eq!(t.dagger.world_after.route_items.get("ITM_CSM_0070").copied().unwrap_or(0),0);}
     break;
    }assert!(found,"Missing branch jp={jp}");
   }

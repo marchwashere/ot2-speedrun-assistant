@@ -4,7 +4,7 @@
 It equips the entry gear, runs to the first water encounter and accepts Ebony
 Eel x3 only. It does not search opening turn order. Reject T->Throne->Osvald;
 the other five relative orders use the agreed Defend/Springy Boots branches.
-Partitio gives Temenos one small Pom. T2 Temenos +3 BG then Osvald +1 Fireball.
+Partitio uses unboosted Donate BP on Temenos; no item consumed. T2 Temenos +3 BG then Osvald +1 Fireball.
 Search complete BG outcomes and actual Fireball execution, requiring JP100,
 all four alive, and victory. Reject disrupted order/resources/silence/failed kills.
 The caller's acceptance filter replays drops and field restoration and requires

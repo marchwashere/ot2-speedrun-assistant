@@ -4,7 +4,7 @@ use serde::{Deserialize,Serialize};
 use std::sync::OnceLock;
 const NPC_UPDATES:u32=43;
 const TOTAL_UPDATES:u32=125;
-#[derive(Deserialize)]struct Data {npc:String,item:String,proper_steal:u32,guaranteed_level:u32}
+#[derive(Deserialize)]struct Data {serum:String,serum_level:u32,npc:String,item:String,proper_steal:u32,guaranteed_level:u32}
 fn data()->&'static Data {static D:OnceLock<Data>=OnceLock::new();D.get_or_init(||serde_json::from_str(include_str!("../data/galdera-champion.json")).unwrap())}
 #[derive(Debug,Serialize)]pub struct Trip {
     pub approach:Entry,pub steal:Entry,pub encounter:SouthernSai,pub exit:Entry,pub wellgrove:Entry,
@@ -32,7 +32,10 @@ pub(crate) fn finish(entry:&Entry)->Result<Option<Trip>> {
     let steal_roll=l.draw(world::DrawKind::StealCheck,&d.item,format!("Champion Seeker: ProperSteal{}, Throné level{throne_level}, probability100%",d.proper_steal),Some(100))+1;
     if let Some(t)=l.trace.last_mut(){t.value=Some(steal_roll);}
     *l.state.route_items.entry(d.item.clone()).or_default()+=1;
-    l.boundary("Champion Seeker stolen: change selected path action, then close without dialogue or closing lottery");
+    ensure(throne_level>=d.serum_level,"Strengthening Serum steal is not guaranteed")?;
+    l.draw(world::DrawKind::StealCheck,&d.serum,"Strengthening Serum guaranteed Steal",Some(100));
+    *l.state.route_items.entry(d.serum.clone()).or_default()+=1;
+    l.boundary("Champion Seeker and Strengthening Serum stolen: change selected path action, then close without dialogue or closing lottery");
     let steal=point(&mut l,approach.after);
     let Some(encounter)=galdera_coast::sai_encounter(steal.clone(),"ENT_FLD_FST_2_2_LND")? else {return Ok(None);};
     let before_encounter=encounter.encounter.counter_updates.unwrap();

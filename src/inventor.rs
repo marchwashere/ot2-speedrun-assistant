@@ -732,10 +732,11 @@ mod gravell_integration_tests {
   assert_eq!(t.approach.arrival,wg.eastern_wellgrove.after);
   assert_eq!(wg.eastern_wellgrove.world_after.encounter_counter-t.approach.world_after.encounter_counter,43*7);
   assert!(t.approach.world_after.encounter_counter>0);
-  assert_eq!(t.steal.after.draws,t.approach.after.draws+2);
+  assert_eq!(t.steal.after.draws,t.approach.after.draws+3);
   assert_eq!(t.steal_chance,100);assert!(t.throne_level>=49);
   assert!(!t.steal.trace.iter().any(|r|matches!(r.kind,world::DrawKind::DialogueLottery)));
   assert_eq!(t.steal.world_after.route_items.get("ITM_EQP_DGR_120"),Some(&1));
+  assert_eq!(t.steal.world_after.route_items.get("ITM_MRL_COM_0020"),Some(&1));
   assert_eq!(t.encounter.arrival.after,t.steal.after);
   assert_ne!(t.encounter.encounter.situation.as_deref(),Some("Surprise"));
   assert_eq!(t.encounter.escape.chance_percent,100);assert!(t.encounter.escape.success);

@@ -29,7 +29,7 @@ pub fn jp_finish(entry:&Entry,max_inputs:usize)->Result<Option<JpTrip>> {
  for id in [7,6,5,4] {ensure(l.state.character_progression[&id].jobs.equipped_support.contains(crate::gravell_setup::STEP_AHEAD),"Nameless JP requires four A Step Ahead users")?;}
  ensure(l.state.character_progression[&5].jobs.learned_abilities.get(&5).is_some_and(|a|a.contains("ABI_SET_DAN_070")),"Temenos must know Bewildering Grace")?;
  ensure(l.state.character_progression[&7].jobs.secondary_job==Some(11)&&l.state.inventor_abilities.contains("ABI_SET_INV_020"),"Throne needs Inventor and Springy Boots")?;
- ensure(l.state.route_items.get("ITM_CSM_0070").copied().unwrap_or(0)>0,"Partitio needs a small Pom")?;
+ ensure(l.state.character_progression[&4].jobs.learned_abilities.get(&0).is_some_and(|a|a.contains("ABI_SET_MER_050")),"Partitio needs Donate BP")?;
  crate::nameless_setup::apply(&mut l)?;let setup=point(&mut l,entry.after);
  let options=PredictionOptions{map:MAP.into(),zone:"ENT_DNG_OCN_1_3_WTR".into(),period:"DayTime".into(),progress:l.state.main_progress_points,first_encounter:l.state.first_encounter,boundary:Boundary::CurrentCounter,party_levels:l.state.party.iter().map(|id|l.state.character_progression[id].level).collect(),ability_percent:50,dash:true,..Default::default()};
  let run=encounter::catalog().counter_decrement(&options)?;
@@ -50,7 +50,6 @@ pub fn jp_finish(entry:&Entry,max_inputs:usize)->Result<Option<JpTrip>> {
  })?;
  let Some(f)=f else{return Ok(None);};
  let (fight,rewards,mut field_return)=crate::inventor::settle_gravell(&water_entry,rng,f)?;
- let n=field_return.world_after.route_items.get_mut("ITM_CSM_0070").unwrap();*n-=1;if *n==0{field_return.world_after.route_items.remove("ITM_CSM_0070");}
  for (id,&n) in &rewards.drops {*field_return.world_after.route_items.entry(id.clone()).or_default()+=n;}
  let movement=movement(field_return.world_after.encounter_counter,first,run,walk).unwrap();
  let mut l=Loader::new(world::catalog(),field_return.world_after.clone(),field_return.after)?;
@@ -226,10 +225,10 @@ fn escape_approach_with_defends(entry:&Entry,max_cycles:u32,defends:u8)->Result<
  }
  #[test]fn jp_branch_carries_rewards_pom_and_safe_remainder_without_boss() {
   for seed in 0u32..256 {
-   let mut e=geared_entry(seed.wrapping_mul(2654435761));e.world_after.route_items.insert("ITM_CSM_0070".into(),2);
+   let mut e=geared_entry(seed.wrapping_mul(2654435761));e.world_after.route_items.remove("ITM_CSM_0070");
    let Some(t)=jp_finish(&e,64).unwrap()else{continue;};
    assert_eq!(t.rewards.base.jp,111);assert_eq!(t.rewards.awarded.jp,12210);assert_eq!(t.rewards.hired_help_cost,0);
-   assert_eq!(t.field_return.world_after.route_items["ITM_CSM_0070"],1);
+   assert!(!t.field_return.world_after.route_items.contains_key("ITM_CSM_0070"));
    assert_eq!(t.fight.actions.last().unwrap().action,ot2_battle_engine::gravell_routine::Action::Fireball);
    assert!(t.movement.counter_at_exit>0);assert_eq!(t.field_return.after,t.gigantes_entry.after);
    assert!(!t.gigantes_entry.world_after.flag(40003));assert_eq!(t.gigantes_entry.world_after.time,2);

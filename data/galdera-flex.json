@@ -1,18 +1,5 @@
 {
   "steals": {
-    "gravell": {
-      "npc": "NPC_Twn_Wld_3_1_A_TALK_0100",
-      "items": [
-        {
-          "id": "ITM_CSM_0070",
-          "level": 18
-        },
-        {
-          "id": "ITM_MRL_COM_0020",
-          "level": 32
-        }
-      ]
-    },
     "gravell_lychee": {
       "npc": "NPC_Twn_Wld_3_1_A_TALK_0200",
       "items": [

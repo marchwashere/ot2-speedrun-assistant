@@ -130,7 +130,7 @@ fn finish_roque(entry:&Entry)->Result<Trip> {
  ensure(entry.world_after.character_progression[&5].jobs.learned_abilities[&5].contains("ABI_SET_DAN_070")
   &&entry.world_after.character_progression[&5].jobs.equipped_support.contains(crate::gravell_setup::STEP_AHEAD)
   &&entry.world_after.character_progression[&4].jobs.equipped_support.contains("ABI_MER_SUP_02")
-  &&entry.world_after.route_items.get("ITM_CSM_0070").copied().unwrap_or(0)>0,"Gravell JP setup or small Pom missing")?;
+  &&entry.world_after.route_items.get("ITM_CSM_0080").copied().unwrap_or(0)>0,"Gravell JP setup or Pom M missing")?;
  let orders:Vec<Vec<u8>>=vec![vec![],vec![2],vec![3],vec![2,3],vec![3,2]];
  let mut prefixes=vec![];
  for order in orders {
@@ -157,7 +157,7 @@ fn finish_roque(entry:&Entry)->Result<Trip> {
    let Some(f)=ot2_battle_engine::roque_routine::search(b,budget)? else {continue;};
    let input_cost=cost+f.actions.iter().map(|a|a.inputs.len()as u32).sum::<u32>();
    let (fight,rewards,mut ret)=crate::inventor::settle_gravell(e,rng,f)?;
-   if let Some(n)=ret.world_after.route_items.get_mut("ITM_CSM_0070"){ensure(*n>0,"Missing small Pom")?;*n-=1;if *n==0{ret.world_after.route_items.remove("ITM_CSM_0070");}}else{return Err(crate::SimError("Missing small Pom".into()));}
+   if let Some(n)=ret.world_after.route_items.get_mut("ITM_CSM_0080"){ensure(*n>0,"Missing Pom M")?;*n-=1;if *n==0{ret.world_after.route_items.remove("ITM_CSM_0080");}}else{return Err(crate::SimError("Missing Pom M".into()));}
    for (item,n) in &rewards.drops {*ret.world_after.route_items.entry(item.clone()).or_default()+=n;}
    let downstream_draws=rng.draws-boat.stages[0].1.after.draws;
    best=Some((index,Trip{order:order.iter().copied().chain([1]).collect(),segments:vec![],boat,encounter,battle_entry:rng,fight,rewards,field_return:ret,extra_input_cost:input_cost,remaining_errands:[2,3].into_iter().filter(|n|!order.contains(n)).collect(),location:"Roque Island Harbor".into(),continuation:vec![],nameless:None,nameless_jp:None,shipwreck:None,encounter_arrival:None,downstream_draws,defend_counts:[0;5]}));
@@ -212,7 +212,7 @@ fn roque_defends(entry:&Entry,order:&[u8],switches:u32,limit:u32,c:[u8;5])->Resu
  let Some(f)=ot2_battle_engine::roque_routine::search(b,(limit-cost).min(96)as usize)?else{return Ok(None);};
  let cost=cost+f.actions.iter().map(|a|a.inputs.len()as u32).sum::<u32>();
  let (fight,rewards,mut ret)=crate::inventor::settle_gravell(e,rng,f)?;
- let n=ret.world_after.route_items.get_mut("ITM_CSM_0070").ok_or_else(||crate::SimError("Missing small Pom".into()))?;ensure(*n>0,"Missing small Pom")?;*n-=1;if *n==0{ret.world_after.route_items.remove("ITM_CSM_0070");}
+ let n=ret.world_after.route_items.get_mut("ITM_CSM_0080").ok_or_else(||crate::SimError("Missing Pom M".into()))?;ensure(*n>0,"Missing Pom M")?;*n-=1;if *n==0{ret.world_after.route_items.remove("ITM_CSM_0080");}
  for (item,n) in &rewards.drops{*ret.world_after.route_items.entry(item.clone()).or_default()+=n;}
  let downstream_draws=rng.draws-boat.stages[0].1.after.draws;
  Ok(Some(Trip{order:order.iter().copied().chain([1]).collect(),segments,boat,encounter,battle_entry:rng,fight,rewards,field_return:ret,extra_input_cost:cost,remaining_errands:[2,3].into_iter().filter(|n|!order.contains(n)).collect(),location:"Roque Island Harbor".into(),continuation:vec![],nameless:None,nameless_jp:None,shipwreck:None,encounter_arrival:None,downstream_draws,defend_counts:c}))
@@ -446,7 +446,7 @@ fn later_candidate_defends(entry:&Entry,order:[u8;3],switches:u32,limit:u32,ship
   assert_eq!(r.fight.state.outcome,ot2_battle_engine::Outcome::Victory);assert!(r.fight.state.actors[..4].iter().all(|a|a.alive()));
   assert_eq!(r.fight.actions.len(),6);assert_eq!(r.fight.actions[4].actor.0,2);assert_eq!(r.fight.actions[5].actor.0,3);
   assert_eq!(r.fight.state.grace.as_ref().unwrap().jp_percent(),10000);
-  assert!(!r.field_return.world_after.route_items.contains_key("ITM_CSM_0070"));
+  assert_eq!(r.field_return.world_after.route_items.get("ITM_CSM_0080").copied().unwrap_or(0)+1,fixture().world_after.route_items["ITM_CSM_0080"]);
   for id in [7,6,5,4] {assert_eq!(r.field_return.world_after.character_progression[&id].jp_earned-fixture().world_after.character_progression[&id].jp_earned,12760);}
  }
  #[test]fn deferred_daytime_roque_carries_supplies_without_awarding_jp100() {
