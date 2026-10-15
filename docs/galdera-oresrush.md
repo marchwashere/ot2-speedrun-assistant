@@ -1,3 +1,10 @@
+Current revision (2026-10-15): after the night Peddler hire, switch to day and
+Steal Sturdy Pickaxe (ProperSteal22; guaranteed at Throné33). Switch path action
+and close. Steal consumes an opening timer and a probability draw. Teleport
+to Sai during day, then immediately switch to night before Skull Helm Entreat.
+Both switches run through the native placement-refresh loader. This supersedes
+the older continuous-night Pickaxe Entreat notes below.
+
 # Warrior License and Oresrush supplies
 
 After the Pickaxe, fast travel back to Sai, enter its East District, discard any

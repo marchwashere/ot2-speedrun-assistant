@@ -15,7 +15,7 @@
   "pickaxe": {
     "npc": "NPC_SS_TSn21_0200_0200",
     "item": "ITM_TRE_SS_TSn21_0200_0010",
-    "required_level": 30
+    "required_level": 33
   },
   "augmentor": {
     "npc": "NPC_Twn_Dst_2_1_B_TALK_1800",

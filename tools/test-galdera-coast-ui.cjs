@@ -42,19 +42,19 @@ assert.match($('eastern-sai-routine').innerHTML,/T1 · Throné · 1st command me
 assert.match($('eastern-sai-routine').innerHTML,/Escape \(100%\)/);
 assert(context.conningStages.some(([label])=>label==='Sai · loaded, chapter start discarded'));
 console.log('PASS: separate Eastern and Southern encounter cards, followed by Sai');
-coast.oresrush_supplies={warrior:entry,oresrush:entry,night:entry,hire:entry,pickaxe:entry};
+coast.oresrush_supplies={warrior:entry,oresrush:entry,night:entry,hire:entry,day:entry,pickaxe:entry};
 context.conningStages=[];
 vm.runInNewContext(source.slice(start,end),context);
-assert.deepEqual(context.conningStages.slice(-5).map(([label])=>label),[
+assert.deepEqual(context.conningStages.slice(-6).map(([label])=>label),[
  'Sai · Warrior License acquired','Oresrush · fast travel, chapter start discarded','Oresrush · switched to night',
- 'Oresrush · Smooth Talker Peddler hired · 1,600 leaves','Oresrush · Sturdy Pickaxe entreated at night · change path action, then close without dialogue']);
+ 'Oresrush · Smooth Talker Peddler hired · 1,600 leaves','Oresrush · switched to day after hire','Oresrush · Sturdy Pickaxe stolen · 100% · change path action, then close without dialogue']);
 console.log('PASS: Warrior License, night Hire and Pickaxe Entreat in Detailed log');
-coast.oresrush_supplies.augmentor={sai:entry,skull_helm:entry,east_district:entry,entreat:entry,day:entry,jam_steal:entry};
+coast.oresrush_supplies.augmentor={sai:entry,night:entry,skull_helm:entry,east_district:entry,entreat:entry,day:entry,jam_steal:entry};
 context.conningStages=[];
 vm.runInNewContext(source.slice(start,end),context);
 assert.equal(context.conningStages.at(-3)[0],'Sai: East District · Elemental Augmentor entreated · change path action, then close without dialogue');
-assert.equal(context.conningStages.at(-6)[0],'Sai · fast travel back at night, chapter start discarded');
-assert(!context.conningStages.some(([label])=>label==='Oresrush · switched to day'||label==='Sai: East District · switched to night'));
+assert.equal(context.conningStages.at(-7)[0],'Sai · fast travel back during day, chapter start discarded');
+assert.equal(context.conningStages.at(-6)[0],'Sai · switch to night before Skull Helm Entreat');
 console.log('PASS: Sai return, East District, night Entreat with dialogue skip');
 coast.oresrush_supplies.winterbloom={arrival:entry,night:entry,sword_quest:entry,soldier_entreat:entry};
 context.conningStages=[];
@@ -96,22 +96,23 @@ assert.deepEqual(context.conningStages.slice(-5).map(([label])=>label),[
  'Eastern Wellgrove Trail · run 100% to Wellgrove without a second encounter',
  'Wellgrove · entered, chapter start discarded']);
 console.log('PASS: Western boosts, steal dialogue skip, later encounter and Wellgrove entry');
-coast.oresrush_supplies.wellgrove.champion.supplies={pom_steal:entry,night:entry,mother_steal:entry,magic_entreat:entry,dancer_license:entry};
+coast.oresrush_supplies.wellgrove.champion.supplies={pom_steal:entry,night:entry,mother_steal:entry,magic_entreat:entry,day:entry,dancer_license:entry};
 context.conningStages=[];
 vm.runInNewContext(source.slice(start,end),context);
-assert.deepEqual(context.conningStages.slice(-5).map(([label])=>label),[
+assert.deepEqual(context.conningStages.slice(-6).map(([label])=>label),[
  'Wellgrove · Merchant: steal 2 Energizing Pomegranates (M) · change path action, then close without dialogue',
  "Wellgrove · Girl's Mother: steal Empowering Lychee (M) · 100% · change path action, then close without dialogue",
  'Wellgrove · switched to night after Lychee steal',
  'Wellgrove · Mysterious Merchant north of tavern: Magic Nut (L) entreated · change path action, then close without dialogue',
+ 'Wellgrove · switch to day immediately after Magic Nut (L) Entreat',
  'Wellgrove · Dancer License acquired']);
 console.log('PASS: daytime Pom M x2 Steal, night switch, Entreats and Dancer License in Detailed log');
-coast.oresrush_supplies.wellgrove.champion.supplies.al_return={new_delsta:entry,day:entry,highroad:entry,delivery:entry};
+coast.oresrush_supplies.wellgrove.champion.supplies.al_return={new_delsta:entry,highroad:entry,delivery:entry};
 context.conningStages=[];
 vm.runInNewContext(source.slice(start,end),context);
-assert.deepEqual(context.conningStages.slice(-4).map(([label])=>label),[
+assert.deepEqual(context.conningStages.slice(-3).map(([label])=>label),[
  'New Delsta · fast travel after Dancer License, chapter start discarded',
- 'New Delsta · switched to day immediately after landing','New Delsta Highroad · entered for Al',
+ 'New Delsta Highroad · entered for Al',
  'Al · recovered bag delivered · 1,500 leaves, Slippery Nut, Healing Grape ×3']);
 console.log('PASS: New Delsta day switch, Highroad and Al delivery in Detailed log');
 coast.oresrush_supplies.wellgrove.champion.supplies.al_return.flamechurch={highroad_exit:entry,clockbank_entry:entry,

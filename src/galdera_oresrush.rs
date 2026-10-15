@@ -9,9 +9,9 @@ use std::sync::OnceLock;
 #[derive(Deserialize)]struct Pickaxe {npc:String,item:String,required_level:u32}
 fn data()->&'static Data {static D:OnceLock<Data>=OnceLock::new();D.get_or_init(||serde_json::from_str(include_str!("../data/galdera-oresrush.json")).expect("Audited Oresrush actions"))}
 #[derive(Debug,Serialize)]
-pub struct Supplies {pub warrior:Entry,pub oresrush:Entry,pub night:Entry,pub hire:Entry,pub pickaxe:Entry,pub pickaxe_required_level:u32,pub pickaxe_agnea_level:u32,pub hire_event:String,pub augmentor:AugmentorTrip,pub winterbloom:crate::galdera_winterbloom::Trip,pub wellgrove:crate::galdera_wellgrove::Trip}
+pub struct Supplies {pub warrior:Entry,pub oresrush:Entry,pub night:Entry,pub hire:Entry,pub day:Entry,pub pickaxe:Entry,pub pickaxe_required_level:u32,pub pickaxe_throne_level:u32,pub hire_event:String,pub augmentor:AugmentorTrip,pub winterbloom:crate::galdera_winterbloom::Trip,pub wellgrove:crate::galdera_wellgrove::Trip}
 #[derive(Debug,Serialize)]
-pub struct AugmentorTrip {pub sai:Entry,pub skull_helm:Entry,pub east_district:Entry,pub entreat:Entry,pub day:Entry,pub jam_steal:Entry,pub required_level:u32,pub agnea_level:u32}
+pub struct AugmentorTrip {pub sai:Entry,pub night:Entry,pub skull_helm:Entry,pub east_district:Entry,pub entreat:Entry,pub day:Entry,pub jam_steal:Entry,pub required_level:u32,pub agnea_level:u32}
 fn point(l:&mut Loader<'_>,arrival:CrtRng)->Entry {Entry {arrival,after:l.rng,world_after:l.state.clone(),trace:std::mem::take(&mut l.trace),decisions:std::mem::take(&mut l.decisions)}}
 fn present(l:&Loader<'_>,npc:&str)->bool {l.state.existing_npcs.iter().any(|id|l.data.placements[id].resource==npc)}
 fn dialogue(l:&mut Loader<'_>,npc:&str,events:&[String])->Result<String> {
@@ -41,26 +41,31 @@ pub(crate) fn finish(sai:&Entry)->Result<Supplies> {
     l.state.existing_npcs.retain(|id|l.data.placements[id].resource!=d.peddler.npc);
     l.boundary(format!("Hire Smooth Talker Peddler for {} leaves; register follower and suppress original placement. RefreshFollowCharacter reuses party follower actors",d.peddler.price));
     let hire=point(&mut l,night.after);
-    ensure(l.state.time==4&&l.state.party.contains(&8)&&present(&l,&d.pickaxe.npc),"Agnea or nighttime Retired Miner is unavailable")?;
-    let pickaxe_agnea_level=l.state.character_progression[&8].level;
+    l.manual_time_switch(2,"Oresrush: switch to day after hiring Peddler")?;
+    let day=point(&mut l,hire.after);
+    ensure(l.state.time==2&&l.state.party.contains(&7)&&present(&l,&d.pickaxe.npc),"Throné or daytime Retired Miner is unavailable")?;
+    let pickaxe_throne_level=l.state.character_progression[&7].level;
     ensure(!l.state.route_items.contains_key(&d.pickaxe.item),"Sturdy Pickaxe was already obtained")?;
-    ensure(pickaxe_agnea_level>=d.pickaxe.required_level,"Agnea does not meet Sturdy Pickaxe Entreat level")?;
-    l.draw(world::DrawKind::PathActionMenu,&d.pickaxe.npc,"Entreat: PlayFieldCommandActions / K2_SetTimerDelegate",None);
+    ensure(pickaxe_throne_level>=d.pickaxe.required_level,"Sturdy Pickaxe steal is not guaranteed")?;
+    l.draw(world::DrawKind::PathActionMenu,&d.pickaxe.npc,"Steal: PlayFieldCommandActions / K2_SetTimerDelegate",None);
+    l.draw(world::DrawKind::StealCheck,&d.pickaxe.item,"Sturdy Pickaxe guaranteed Steal",Some(100));
     *l.state.route_items.entry(d.pickaxe.item.clone()).or_default()+=1;
     // User-specified closing behavior, matching the Conning Creek session:
     // change selected path action before closing; never execute DrawEventLabel.
-    l.boundary("Sturdy Pickaxe entreated at night: change selected path action, then close without dialogue; no success check or closing lottery draw");
-    let pickaxe=point(&mut l,hire.after);
+    l.boundary("Sturdy Pickaxe stolen during day: change selected path action, then close without dialogue; no closing lottery draw");
+    let pickaxe=point(&mut l,day.after);
     let augmentor=augmentor(&pickaxe)?;
     let winterbloom=crate::galdera_winterbloom::finish(&augmentor.jam_steal)?;
     let wellgrove=crate::galdera_wellgrove::finish(&winterbloom.soldier_entreat)?;
-    Ok(Supplies {warrior,oresrush,night,hire,pickaxe,pickaxe_required_level:d.pickaxe.required_level,pickaxe_agnea_level,hire_event,augmentor,winterbloom,wellgrove})
+    Ok(Supplies {warrior,oresrush,night,hire,day,pickaxe,pickaxe_required_level:d.pickaxe.required_level,pickaxe_throne_level,hire_event,augmentor,winterbloom,wellgrove})
 }
 fn augmentor(entry:&Entry)->Result<AugmentorTrip> {
     let d=&data().augmentor;
     let mut l=Loader::new(world::catalog(),entry.world_after.clone(),entry.after)?;
     l.visit_map("Twn_Dst_2_1_A")?;l.skipped_event("MapInStorySelect")?;
     let sai=point(&mut l,entry.after);
+    l.manual_time_switch(4,"Sai: switch to night upon return before Skull Helm Entreat")?;
+    let night=point(&mut l,sai.after);
     // PurchaseItemTable NPC_Twn_Dst_2_1_A_TALK_1500_NPCBUY_02:
     // Skull Helm, ProperBeg36. Soldier has night-only placements.
     let soldier="NPC_Twn_Dst_2_1_A_TALK_1500";
@@ -69,7 +74,7 @@ fn augmentor(entry:&Entry)->Result<AugmentorTrip> {
     l.draw(world::DrawKind::PathActionMenu,soldier,"Skull Helm Entreat: PlayFieldCommandActions / K2_SetTimerDelegate",None);
     *l.state.route_items.entry("ITM_EQP_HLM_180".into()).or_default()+=1;
     l.boundary("Sai Soldier on road to East District: Entreat Skull Helm (Agnea36); change selected path action, then close without dialogue or closing lottery");
-    let skull_helm=point(&mut l,sai.after);
+    let skull_helm=point(&mut l,night.after);
     l.visit_map("Twn_Dst_2_1_B")?;l.skipped_event("MapInStorySelect")?;
     let east_district=point(&mut l,skull_helm.after);
     ensure(l.state.time==4&&l.state.party.contains(&8)&&present(&l,&d.npc),"Agnea or nighttime Elemental Augmentor Townsperson is unavailable")?;
@@ -92,5 +97,5 @@ fn augmentor(entry:&Entry)->Result<AugmentorTrip> {
     *l.state.route_items.entry(jam.item.clone()).or_default()+=1;
     l.boundary("Reinforcing Jam stolen outside Sai East District orphanage; change selected path action, then close without dialogue or closing lottery");
     let jam_steal=point(&mut l,day.after);
-    Ok(AugmentorTrip {sai,skull_helm,east_district,entreat,day,jam_steal,required_level:d.required_level,agnea_level})
+    Ok(AugmentorTrip {sai,night,skull_helm,east_district,entreat,day,jam_steal,required_level:d.required_level,agnea_level})
 }

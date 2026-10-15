@@ -1170,12 +1170,12 @@ function renderCrackridgeVoyage() {
                     if(c.sai){conningStages.push(['Sai · loaded, chapter start discarded',c.sai]);conningSpans.push(...c.sai.trace);}
                     if(c.oresrush_supplies) {
                       const o=c.oresrush_supplies;
-                      for(const [label,e] of [['Sai · Warrior License acquired',o.warrior],['Oresrush · fast travel, chapter start discarded',o.oresrush],['Oresrush · switched to night',o.night],['Oresrush · Smooth Talker Peddler hired · 1,600 leaves',o.hire],['Oresrush · Sturdy Pickaxe entreated at night · change path action, then close without dialogue',o.pickaxe]]) {
+                      for(const [label,e] of [['Sai · Warrior License acquired',o.warrior],['Oresrush · fast travel, chapter start discarded',o.oresrush],['Oresrush · switched to night',o.night],['Oresrush · Smooth Talker Peddler hired · 1,600 leaves',o.hire],['Oresrush · switched to day after hire',o.day],['Oresrush · Sturdy Pickaxe stolen · 100% · change path action, then close without dialogue',o.pickaxe]]) {
                         conningStages.push([label,e]);conningSpans.push(...e.trace);
                       }
                       if(o.augmentor) {
                         const a=o.augmentor;
-                        for(const [label,e] of [['Sai · fast travel back at night, chapter start discarded',a.sai],['Sai · Soldier Skull Helm entreated · change path action, then close without dialogue',a.skull_helm],['Sai: East District · entered at night, chapter start discarded',a.east_district],['Sai: East District · Elemental Augmentor entreated · change path action, then close without dialogue',a.entreat],['Sai: East District · switch to day immediately',a.day],['Sai: East District · steal Reinforcing Jam from Townsperson outside orphanage · change path action, then close without dialogue',a.jam_steal]]) {
+                        for(const [label,e] of [['Sai · fast travel back during day, chapter start discarded',a.sai],['Sai · switch to night before Skull Helm Entreat',a.night],['Sai · Soldier Skull Helm entreated · change path action, then close without dialogue',a.skull_helm],['Sai: East District · entered at night, chapter start discarded',a.east_district],['Sai: East District · Elemental Augmentor entreated · change path action, then close without dialogue',a.entreat],['Sai: East District · switch to day immediately',a.day],['Sai: East District · steal Reinforcing Jam from Townsperson outside orphanage · change path action, then close without dialogue',a.jam_steal]]) {
                           conningStages.push([label,e]);conningSpans.push(...e.trace);
                         }
                       }
@@ -1221,12 +1221,12 @@ function renderCrackridgeVoyage() {
                           conningSpans.push(...f.escape.trace);
                           if(t.supplies) {
                             const v=t.supplies;
-                            for(const [stage,e] of [['Wellgrove · Merchant: steal 2 Energizing Pomegranates (M) · change path action, then close without dialogue',v.pom_steal],["Wellgrove · Girl's Mother: steal Empowering Lychee (M) · 100% · change path action, then close without dialogue",v.mother_steal],['Wellgrove · switched to night after Lychee steal',v.night],['Wellgrove · Mysterious Merchant north of tavern: Magic Nut (L) entreated · change path action, then close without dialogue',v.magic_entreat],['Wellgrove · Dancer License acquired',v.dancer_license]]) {
+                            for(const [stage,e] of [['Wellgrove · Merchant: steal 2 Energizing Pomegranates (M) · change path action, then close without dialogue',v.pom_steal],["Wellgrove · Girl's Mother: steal Empowering Lychee (M) · 100% · change path action, then close without dialogue",v.mother_steal],['Wellgrove · switched to night after Lychee steal',v.night],['Wellgrove · Mysterious Merchant north of tavern: Magic Nut (L) entreated · change path action, then close without dialogue',v.magic_entreat],['Wellgrove · switch to day immediately after Magic Nut (L) Entreat',v.day],['Wellgrove · Dancer License acquired',v.dancer_license]]) {
                               conningStages.push([stage,e]);conningSpans.push(...e.trace);
                             }
                             if(v.al_return) {
                               const a=v.al_return;
-                              for(const [stage,e] of [['New Delsta · fast travel after Dancer License, chapter start discarded',a.new_delsta],['New Delsta · switched to day immediately after landing',a.day],['New Delsta Highroad · entered for Al',a.highroad],["Al · recovered bag delivered · 1,500 leaves, Slippery Nut, Healing Grape ×3",a.delivery]]) {
+                              for(const [stage,e] of [['New Delsta · fast travel after Dancer License, chapter start discarded',a.new_delsta],['New Delsta Highroad · entered for Al',a.highroad],["Al · recovered bag delivered · 1,500 leaves, Slippery Nut, Healing Grape ×3",a.delivery]]) {
                                 conningStages.push([stage,e]);conningSpans.push(...e.trace);
                               }
                               if(a.flamechurch) {

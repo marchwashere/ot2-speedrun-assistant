@@ -8,7 +8,7 @@ use std::sync::OnceLock;
 fn data()->&'static Data {static D:OnceLock<Data>=OnceLock::new();D.get_or_init(||serde_json::from_str(include_str!("../data/galdera-wellgrove-supplies.json")).unwrap())}
 #[derive(Debug,Serialize)]pub struct Trip {
     pub pom_steal:Entry,pub pom_steal_rolls:Vec<u32>,pub pom_steal_chance:u32,pub throne_level:u32,
-    pub night:Entry,pub mother_steal:Entry,pub magic_entreat:Entry,pub dancer_license:Entry,
+    pub night:Entry,pub mother_steal:Entry,pub magic_entreat:Entry,pub day:Entry,pub dancer_license:Entry,
     pub agnea_level:u32,pub required_level:u32,
     pub al_return:crate::galdera_al_return::Trip,
 }
@@ -48,11 +48,13 @@ pub(crate) fn finish(entry:&Entry)->Result<Trip> {
     *l.state.route_items.entry(d.magic_merchant.item.clone()).or_default()+=1;
     l.boundary("Magic Nut (L) entreated from Mysterious Merchant north of tavern; change selected path action, then close without dialogue or closing lottery");
     let magic_entreat=point(&mut l,night.after);
+    l.manual_time_switch(2,"Wellgrove: switch to day immediately after Magic Nut (L) Entreat")?;
+    let day=point(&mut l,magic_entreat.after);
     ensure(present(&l,&d.guild_resource),"Dancer guild unavailable")?;
     for event in &d.guild_events {l.skipped_event(event)?;}
     l.state.job_licenses.entry(d.dancer_job).or_insert(1);
     l.boundary("First Dancer License acquired; no job assignment or skill purchases");
-    let dancer_license=point(&mut l,magic_entreat.after);
+    let dancer_license=point(&mut l,day.after);
     let al_return=crate::galdera_al_return::finish(&dancer_license)?;
-    Ok(Trip {pom_steal,pom_steal_rolls,pom_steal_chance:100,throne_level,night,mother_steal,magic_entreat,dancer_license,agnea_level,required_level:d.mother.required_level,al_return})
+    Ok(Trip {pom_steal,pom_steal_rolls,pom_steal_chance:100,throne_level,night,mother_steal,magic_entreat,day,dancer_license,agnea_level,required_level:d.mother.required_level,al_return})
 }

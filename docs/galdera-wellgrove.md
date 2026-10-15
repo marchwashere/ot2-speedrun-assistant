@@ -70,7 +70,8 @@ action and close: one opening timer and one Steal check, no dialogue lottery.
 Switch to night only after this steal, then Entreat Magic Nut L from the
 Mysterious Merchant. No side quest is started.
 
-Obtain the first Dancer License at night via SYS_DAN_GUILD_0010/0030. The first
+Immediately after Magic Nut L Entreat, switch to day.
+Obtain the first Dancer License during day via SYS_DAN_GUILD_0010/0030. The first
 license is free; source JobData confirms JobID5. The scripts have fixed dialogue,
 clear406/set411, no map change or encounter reset and zero CRT draws. Record
 one available license without assigning jobs, buying skills or using the nuts.

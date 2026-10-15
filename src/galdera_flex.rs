@@ -5,6 +5,7 @@ use serde::{Serialize,Deserialize};use std::{collections::BTreeMap,sync::OnceLoc
 #[derive(Deserialize)]struct Steal {npc:String,items:Vec<Item>}
 #[derive(Deserialize)]struct Chest {id:String,item:String,count:u32}
 #[derive(Deserialize)]struct Data {steals:BTreeMap<String,Steal>,scholar:String,scholar_placement:String,ambush_level:u32,ambush_before:Vec<String>,ambush_success:String,chests:Vec<Chest>,boat_npc:String}
+const TIME_SWITCH_COST:u32=12;
 fn data()->&'static Data {static D:OnceLock<Data>=OnceLock::new();D.get_or_init(||serde_json::from_str(include_str!("../data/galdera-flex.json")).unwrap())}
 pub(crate) fn point(l:&mut Loader<'_>,before:CrtRng)->Entry {Entry {arrival:before,after:l.rng,world_after:l.state.clone(),trace:std::mem::take(&mut l.trace),decisions:std::mem::take(&mut l.decisions)}}
 pub(crate) fn steal(l:&mut Loader<'_>,key:&str)->Result<()> {
@@ -142,10 +143,10 @@ fn finish_roque(entry:&Entry)->Result<Trip> {
  // is the acceptance condition. No finite bound declares JP100 impossible.
  let mut best:Option<(usize,Trip)>=None;
  for switches in 0.. {
-  if best.as_ref().is_some_and(|(_,b)|switches*7+6>b.extra_input_cost){break;}
+  if best.as_ref().is_some_and(|(_,b)|switches*TIME_SWITCH_COST+6>b.extra_input_cost){break;}
   for (index,(order,segments)) in prefixes.iter().enumerate() {
-   let overhead: u32=segments.iter().map(|s|s.extra_switches*7+s.escape_boost_inputs.len()as u32).sum();
-   let cost=switches*7+overhead;
+   let overhead: u32=segments.iter().map(|s|s.extra_switches*TIME_SWITCH_COST+s.escape_boost_inputs.len()as u32).sum();
+   let cost=switches*TIME_SWITCH_COST+overhead;
    if best.as_ref().is_some_and(|(_,b)|cost+6>b.extra_input_cost){continue;}
    let boat=boat(segments.last().unwrap().end(),switches)?;let e=boat.end();let w=&e.world_after;let mut rng=e.after;
    let encounter=encounter::catalog().predict(&mut rng,&PredictionOptions{map:w.map.clone(),zone:"ENT_FLD_SEA_3_1_LND".into(),period:"Night".into(),progress:w.main_progress_points,first_encounter:w.first_encounter,boundary:Boundary::CurrentCounter,current_counter:Some(w.encounter_counter),party_levels:w.party.iter().map(|id|w.character_progression[id].level).collect(),ability_percent:50,dash:true,..Default::default()})?;
@@ -169,7 +170,7 @@ fn finish_roque(entry:&Entry)->Result<Trip> {
 // All three errands precede Nameless; the boat can occur anywhere among them.
 const LATER_ORDERS:[[u8;3];6]=[[1,2,3],[1,3,2],[2,1,3],[3,1,2],[2,3,1],[3,2,1]];
 fn defend_cost(f:&SouthernSai)->u32 {f.defends.len()as u32*3+f.escape_round.saturating_sub(1)*8}
-fn segment_cost(s:&Segment)->u32 {s.extra_switches*7+s.escape_boost_inputs.len()as u32+s.encounters.iter().map(defend_cost).sum::<u32>()}
+fn segment_cost(s:&Segment)->u32 {s.extra_switches*TIME_SWITCH_COST+s.escape_boost_inputs.len()as u32+s.encounters.iter().map(defend_cost).sum::<u32>()}
 fn day(entry:&Entry)->Result<Segment> {
  let mut s=Segment::new("Day for remaining errands");let mut l=Loader::new(world::catalog(),entry.world_after.clone(),entry.after)?;
  if l.state.time!=2 {l.manual_time_switch(2,"Day before remaining errands / Nameless Isle")?;}
@@ -187,7 +188,7 @@ fn nameless_arrival(entry:&Entry)->Result<Segment> {
 fn finish_without_defends(entry:&Entry)->Result<Trip> {
  let mut best=finish_roque(entry)?;
  for switches in (0u32..).step_by(2) {
-  if switches*7+4>=best.extra_input_cost {break;}
+  if switches*TIME_SWITCH_COST+4>=best.extra_input_cost {break;}
   for order in LATER_ORDERS {
    for ship in [false,true] {
    let Some(candidate)=later_candidate(entry,order,switches,best.extra_input_cost,ship)?else{continue;};
@@ -202,7 +203,7 @@ fn roque_defends(entry:&Entry,order:&[u8],switches:u32,limit:u32,c:[u8;5])->Resu
  let mut segments=vec![];let mut current=entry.clone();
  for &n in order {let s=if n==2{book(&current)?}else{firestarter_defends(&current,c[0])?};current=s.end().clone();segments.push(s);}
  let approach=to_tropu_defends(&current,c[1],c[2])?;segments.push(approach);
- let cost=switches*7+segments.iter().map(segment_cost).sum::<u32>();if cost+6>=limit{return Ok(None);}
+ let cost=switches*TIME_SWITCH_COST+segments.iter().map(segment_cost).sum::<u32>();if cost+6>=limit{return Ok(None);}
  let boat=boat(segments.last().unwrap().end(),switches)?;let e=boat.end();let w=&e.world_after;let mut rng=e.after;
  let encounter=encounter::catalog().predict(&mut rng,&PredictionOptions{map:w.map.clone(),zone:"ENT_FLD_SEA_3_1_LND".into(),period:"Night".into(),progress:w.main_progress_points,first_encounter:w.first_encounter,boundary:Boundary::CurrentCounter,current_counter:Some(w.encounter_counter),party_levels:w.party.iter().map(|id|w.character_progression[id].level).collect(),ability_percent:50,dash:true,..Default::default()})?;
  if encounter.enemies.len()!=2||encounter.enemies.iter().any(|e|e.enemy.id!="ENE_NML_OCN_230"){return Ok(None);}
@@ -227,13 +228,13 @@ fn refine_defends(entry:&Entry,mut best:Trip)->Result<Trip> {
   for site in 0..5 {for count in 0..=7{let mut c=base;c[site]=count;if c!=base{profiles.push(c);}}}
   profiles.sort();profiles.dedup();
   for switches in 0u32.. {
-   if switches*7+4>=best.extra_input_cost{break;}
+   if switches*TIME_SWITCH_COST+4>=best.extra_input_cost{break;}
    for &c in &profiles {
     for order in [&[][..],&[2][..],&[3][..],&[2,3][..],&[3,2][..]] {
      // Ignore controls for encounters absent from this route prefix.
      if c[3]!=base[3]||c[4]!=base[4]||(!order.contains(&3)&&c[0]!=0){continue;}
      let lower=controls_cost(c[1])+controls_cost(c[2])+if order.contains(&3){controls_cost(c[0])}else{0};
-     if switches*7+lower+6>=best.extra_input_cost{continue;}
+     if switches*TIME_SWITCH_COST+lower+6>=best.extra_input_cost{continue;}
      work+=1;if work>12000{return Ok(best);}
      if let Some(t)=roque_defends(entry,order,switches,best.extra_input_cost,c)?{if t.extra_input_cost<best.extra_input_cost{best=t;}}
     }
@@ -241,7 +242,7 @@ fn refine_defends(entry:&Entry,mut best:Trip)->Result<Trip> {
     for order in LATER_ORDERS {for ship in [false,true] {
      if !ship&&c[4]!=base[4]{continue;}
      let lower=c[..if ship{5}else{4}].iter().map(|&n|controls_cost(n)).sum::<u32>();
-     if switches*7+lower+4>=best.extra_input_cost{continue;}
+     if switches*TIME_SWITCH_COST+lower+4>=best.extra_input_cost{continue;}
      work+=1;if work>12000{return Ok(best);}
      if let Some(t)=later_candidate_defends(entry,order,switches,best.extra_input_cost,ship,c)?{if t.extra_input_cost<best.extra_input_cost{best=t;}}
     }}
@@ -310,7 +311,7 @@ fn later_candidate_defends(entry:&Entry,order:[u8;3],switches:u32,limit:u32,ship
   for ship in [false,true] {
    let mut best:Option<Trip>=None;
    for switches in (0u32..1000).step_by(2) {
-    if best.as_ref().is_some_and(|t|switches*7+4>=t.extra_input_cost){break;}
+    if best.as_ref().is_some_and(|t|switches*TIME_SWITCH_COST+4>=t.extra_input_cost){break;}
     for order in LATER_ORDERS {
      if let Some(t)=later_candidate(&e,order,switches,best.as_ref().map_or(100000,|t|t.extra_input_cost),ship).unwrap(){
       if best.as_ref().is_none_or(|b|t.extra_input_cost<b.extra_input_cost){eprintln!("candidate {} switches {} cost {}",t.location,switches,t.extra_input_cost);best=Some(t);}
@@ -345,7 +346,7 @@ fn later_candidate_defends(entry:&Entry,order:[u8;3],switches:u32,limit:u32,ship
   for ship in [false,true] {
    let mut best:Option<Trip>=None;
    for switches in (0u32..1000).step_by(2) {
-    if best.as_ref().is_some_and(|t|switches*7+4>=t.extra_input_cost){break;}
+    if best.as_ref().is_some_and(|t|switches*TIME_SWITCH_COST+4>=t.extra_input_cost){break;}
     for order in LATER_ORDERS {
      if let Some(t)=later_candidate(&e,order,switches,best.as_ref().map_or(100000,|t|t.extra_input_cost),ship).unwrap(){
       if best.as_ref().is_none_or(|b|t.extra_input_cost<b.extra_input_cost){eprintln!("candidate {} switches {} cost {}",t.location,switches,t.extra_input_cost);best=Some(t);}

@@ -88,7 +88,7 @@ Gravell arrival stays daytime for Old Man Lychee L and Sharp L steals, then path
 
 The search evaluates [boat], [book,boat], [Firestarter,boat], and both orders of
 the two errands before boat. The user considers these required errands free
-when reordered; scoring charges only extra switches (7 input-equivalents each)
+when reordered; scoring charges only extra switches (12 input-equivalents each)
 and boost inputs. Unfinished errands are listed after the manipulation endpoint.
 Fine battle search uses a96-input window and compares complete BG/Guards pairs
 by total input count. Coarse switches grow until a valid plan exists, then

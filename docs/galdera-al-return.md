@@ -1,7 +1,8 @@
 # Return Al's bag after Dancer License
 
-Teleport from nighttime Wellgrove to New Delsta main. Discard chapter prompts
-and switch day immediately in town, before entering New Delsta Highroad.
+Switch to day in Wellgrove immediately after Magic Nut L Entreat, then obtain
+the Dancer License. Teleport to New Delsta main during day, discard chapter
+prompts and enter New Delsta Highroad without another time switch.
 Talk to Al and confirm Yes to deliver his recovered bag. No distance was
 supplied for the direct entry-to-Al leg; no extra encounter or movement budget
 is fabricated. The route ends after quest completion at daytime Highroad.
