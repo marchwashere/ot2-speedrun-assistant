@@ -169,7 +169,14 @@ struct CachedContinuation {
 impl CachedContinuation {
     fn at_cost(&mut self,level:u32,cost:u32)->Result<Option<Prediction>> {
         let p=self.prediction.as_ref().unwrap();
-        if p.rare_victory.is_some() {return Ok(self.prediction.take());}
+        if crate::snows_rare::target_met(&p.eastern_encounter) {
+            if cost%2!=0 {return Ok(None);}
+            let init=CrtRng {state:p.eastern_encounter.final_state,draws:p.eastern_entry.after.draws+p.eastern_encounter.draws};
+            if let Some(v)=crate::snows_rare::kill_with_repeats(init,&p.eastern_entry.world_after,level,&p.eastern_encounter,cost/2)? {
+                if !continue_eastern_rare(self.prediction.as_mut().unwrap(),&v)? {return Ok(None);}
+                let mut p=self.prediction.take().unwrap();p.rare_victory=Some(v);return Ok(Some(p));
+            }
+        }
         if self.eastern.is_none() {
             self.eastern=Some(crate::eastern_escape::Search::new(&p.eastern_entry,&p.eastern_encounter,level)?);
         }
@@ -208,12 +215,7 @@ pub fn predict_route_bounded(branch:&EncounterBranch,level:u32,before:bool,limit
                 l.restore_field_after_battle("Snows Escape field return")?;
                 if !before && l.state.encounter_counter<=onward_updates(false,trigger).1*decrement(l.state.time,true)? {return Ok(None);}
                 let returned=FieldReturn {arrival:a.after,after:l.rng,trace:l.trace,world_after:l.state};
-                let mut p=match continuation(branch,level,before,candidate,returned) {Ok(p)=>p,Err(e) if e.0.starts_with("Cannot reach Eastern")=>return Ok(None),Err(e)=>return Err(e)};
-                let init=CrtRng {state:p.eastern_encounter.final_state,draws:p.eastern_entry.after.draws+p.eastern_encounter.draws};
-                if let Some(v)=crate::snows_rare::kill(init,&p.eastern_entry.world_after,level,&p.eastern_encounter)? {
-                    if !continue_eastern_rare(&mut p,&v)? {return Ok(None);}
-                    p.rare_victory=Some(v);
-                }
+                let p=match continuation(branch,level,before,candidate,returned) {Ok(p)=>p,Err(e) if e.0.starts_with("Cannot reach Eastern")=>return Ok(None),Err(e)=>return Err(e)};
                 let mut cached=CachedContinuation {prediction:Some(p),eastern:None};
                 // New Southern layers first appear with an Eastern budget of
                 // zero. Stop before constructing siblings if this one wins.
@@ -334,7 +336,7 @@ mod tests {
                     let f=FieldReturn {arrival:a.after,after:l.rng,trace:l.trace,world_after:l.state};
                     let mut p=match continuation(branch,level,before,candidate,f) {Ok(p)=>p,Err(e) if e.0.starts_with("Cannot reach Eastern")=>continue,Err(e)=>return Err(e)};
                     let init=CrtRng {state:p.eastern_encounter.final_state,draws:p.eastern_entry.after.draws+p.eastern_encounter.draws};
-                    if let Some(v)=crate::snows_rare::kill(init,&p.eastern_entry.world_after,level,&p.eastern_encounter)? {if !continue_eastern_rare(&mut p,&v)? {continue;}p.rare_victory=Some(v);return Ok(p);}
+                    if crate::snows_rare::target_met(&p.eastern_encounter) { if (total-cost)%2!=0 {continue;} if let Some(v)=crate::snows_rare::kill_with_repeats(init,&p.eastern_entry.world_after,level,&p.eastern_encounter,(total-cost)/2)? {if !continue_eastern_rare(&mut p,&v)? {continue;}p.rare_victory=Some(v);return Ok(p);} }
                     if let Some(w)=crate::eastern_escape::within_range_eager(&p.eastern_entry,&p.eastern_encounter,level,0,total-cost)? {p.western=Some(w);return Ok(p);}
                 }
             }
@@ -354,7 +356,7 @@ mod tests {
                     Err(e)=>{assert_eq!(predict_route(b,5,before).unwrap_err().to_string(),e.to_string());continue;}
                 };
                 let actual=predict_route(b,5,before).unwrap();
-                let cost=actual.escape.weighted_input_cost+actual.western.as_ref().map_or(0,|p|p.escape.weighted_input_cost);
+                let cost=actual.escape.weighted_input_cost+actual.rare_victory.as_ref().map_or(0,|v|v.inputs.input_count as u32)+actual.western.as_ref().map_or(0,|p|p.escape.weighted_input_cost+p.rare_victory.inputs.input_count as u32);
                 let bounded=predict_route_bounded(b,5,before,Some(cost)).unwrap().unwrap();
                 assert_eq!(serde_json::to_value(&bounded).unwrap(),serde_json::to_value(&actual).unwrap());
                 if cost>0 {assert!(predict_route_bounded(b,5,before,Some(cost-1)).unwrap().is_none());}
@@ -386,22 +388,15 @@ mod tests {
                         l.restore_field_after_battle("Snows Escape field return")?;
                         if !before && l.state.encounter_counter<=onward_updates(false,trigger).1*decrement(l.state.time,true)? {continue;}
                         let f=FieldReturn {arrival:a.after,after:l.rng,trace:l.trace,world_after:l.state};
-                        let mut p=match continuation(branch,level,before,candidate,f) {Ok(p)=>p,Err(e) if e.0.starts_with("Cannot reach Eastern")=>continue,Err(e)=>return Err(e)};
-                        let init=CrtRng {state:p.eastern_encounter.final_state,draws:p.eastern_entry.after.draws+p.eastern_encounter.draws};
-                        if let Some(v)=crate::snows_rare::kill(init,&p.eastern_entry.world_after,level,&p.eastern_encounter)? {
-                            if !continue_eastern_rare(&mut p,&v)? {continue;}
-                            p.rare_victory=Some(v);
-                        }
+                        let p=match continuation(branch,level,before,candidate,f) {Ok(p)=>p,Err(e) if e.0.starts_with("Cannot reach Eastern")=>continue,Err(e)=>return Err(e)};
                         layer.push(Some(p));
                     }
                     layers.push(layer);
                 }
                 for candidate in &mut layers[cost as usize] {
-                    let p=candidate.as_ref().unwrap();
-                    if p.rare_victory.is_some() {return Ok(candidate.take());}
-                    if let Some(w)=crate::eastern_escape::within_range_eager(&p.eastern_entry,&p.eastern_encounter,level,total-cost,total-cost)? {
-                        let mut p=candidate.take().unwrap();p.western=Some(w);return Ok(Some(p));
-                    }
+                    let mut cached=CachedContinuation {prediction:candidate.take(),eastern:None};
+                    if let Some(p)=cached.at_cost(level,total-cost)? {return Ok(Some(p));}
+                    *candidate=cached.prediction;
                 }
             }
         }

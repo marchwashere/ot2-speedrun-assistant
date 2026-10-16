@@ -63,7 +63,11 @@ impl Search {
         let _profile=crate::profile::span("Eastern cost layer");
         let Some(context)=self.context.as_ref() else {return Ok(None)};
         let level=context.level;
-        self.visit(cost,|passage| western_rare(passage,level))
+        for escape_cost in 0..=cost {
+            if (cost-escape_cost)%2!=0 {continue;}
+            if let Some(p)=self.visit(escape_cost,|passage| western_rare(passage,level,(cost-escape_cost)/2))? {return Ok(Some(p));}
+        }
+        Ok(None)
     }
     fn first_passage(&mut self,cost:u32)->Result<Option<Passage>> {
         self.visit(cost,|passage|Ok(Some(passage)))
@@ -78,11 +82,11 @@ impl Search {
     }
 }
 
-fn western_rare(passage:Passage,level:u32)->Result<Option<Prediction>> {
+fn western_rare(passage:Passage,level:u32,repeats:u32)->Result<Option<Prediction>> {
     let west=passage.western_entry;
     let mut rng=west.after;
     let encounter=encounter::catalog().predict(&mut rng,&PredictionOptions {map:DESTINATION.into(),zone:"ENT_FLD_SNW_2_2_LND".into(),period:if west.world_after.time==2 {"DayTime"}else{"Night"}.into(),progress:west.world_after.main_progress_points,first_encounter:west.world_after.first_encounter,boundary:Boundary::CurrentCounter,current_counter:Some(west.world_after.encounter_counter),party_levels:vec![level,1],dash:true,ability_percent:if west.world_after.evasive_maneuvers {50}else{100},..Default::default()})?;
-    let Some(victory)=snows_rare::kill(rng,&west.world_after,level,&encounter)? else {return Ok(None)};
+    let Some(victory)=snows_rare::kill_with_repeats(rng,&west.world_after,level,&encounter,repeats)? else {return Ok(None)};
     let Some(winterbloom)=crate::winterbloom::after_rare(&west,encounter.clone(),&victory)? else {return Ok(None)};
     Ok(Some(Prediction {escape:passage.escape,field_return:passage.field_return,remaining_run:passage.remaining_run,western_entry:west,western_encounter:encounter,rare_victory:victory,winterbloom}))
 }
@@ -159,8 +163,13 @@ fn passages_eager(entry:&Entry,p:&encounter::Prediction,level:u32,min_cost:u32,m
 
 #[cfg(test)]
 pub(crate) fn within_range_eager(entry:&Entry,p:&encounter::Prediction,level:u32,min_cost:u32,max_cost:u32)->Result<Option<Prediction>> {
-    for passage in passages_eager(entry,p,level,min_cost,max_cost)? {
-        if let Some(p)=western_rare(passage,level)? {return Ok(Some(p));}
+    for cost in min_cost..=max_cost {
+        for escape_cost in 0..=cost {
+            if (cost-escape_cost)%2!=0 {continue;}
+            for passage in passages_eager(entry,p,level,escape_cost,escape_cost)? {
+                if let Some(p)=western_rare(passage,level,(cost-escape_cost)/2)? {return Ok(Some(p));}
+            }
+        }
     }
     Ok(None)
 }

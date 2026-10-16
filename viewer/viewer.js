@@ -550,6 +550,10 @@ function renderEarlyCait() {
   }
   const exit=f.snows_escape?.[timing+'_osvald'];
   const exitError=f.snows_escape?.[timing+'_error'];
+  const rareRoutine=v=>{
+    const actor=v?.battle?.actor===1?'Osvald':'Throné';
+    return (v?.inputs?.levels?.length?'<p><strong>R1 · '+actor+' · first command menu</strong></p>':'')+boostStepsHtml(v?.inputs?.levels||[],'SS M');
+  };
   const appendRare=v=>{
     const points=[['Rare fight · first command menu',v.battle.at_command_menu],['Rare fight · victory and drops',v.battle.after],[v.world_after.galdera_route?'Rare fight · Osvald: Advanced Magic → Elemental Barrage → equip Evasive Maneuvers; Throné: learn nothing':'Rare fight · field return, two skills learned and Evasive Maneuvers equipped',v.after]];
     $('checkpoints').innerHTML+=points.map(([label,r])=>`<tr><td>${label}</td><td>${totalAdvances(r)}</td><td>${hex(r.state)}</td><td>${r.draws}</td></tr>`).join('');
@@ -651,7 +655,7 @@ function renderEarlyCait() {
         $('rare-fight-result').hidden=false;
         $('western-encounter-name').textContent=encounterLabel(exit.western.western_encounter);
       } else {
-        $('eastern-escape-routine').innerHTML=instructionBoxHtml(['SS M']);
+        $('eastern-escape-routine').innerHTML=rareRoutine(victory);
       }
       appendRare(victory);
     }
@@ -662,7 +666,7 @@ function renderEarlyCait() {
   if(west) {
     $('rare-fight-result').hidden=false;
     $('western-encounter-name').textContent=encounterLabel(west.first_encounter);
-    $('western-first-routine').innerHTML=west.first_is_rare?instructionBoxHtml(['SS M']):escapeRoutine(west.first_escape);
+    $('western-first-routine').innerHTML=west.first_is_rare?rareRoutine(exit?.western?.rare_victory):escapeRoutine(west.first_escape);
     const second=Boolean(west.with_second) && (west.predicted_second_encounter || westernSecondOverride===true);
     $('western-second-no').hidden=!west.with_second;
     $('western-second-yes').hidden=!west.with_second;

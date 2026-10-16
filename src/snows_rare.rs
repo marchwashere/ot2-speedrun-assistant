@@ -15,6 +15,7 @@ pub fn target_met(p:&encounter::Prediction)->bool {
 #[derive(Debug,Serialize)]
 pub struct Victory {
     pub map:String,
+    pub inputs:crate::manipulation::BoostInputs,
     pub battle:FieldRareVictory,
     pub after:CrtRng,
     pub world_after:WorldState,
@@ -26,6 +27,10 @@ pub struct Victory {
 }
 
 pub fn kill(entry:CrtRng,state:&WorldState,level:u32,p:&encounter::Prediction)->Result<Option<Victory>> {
+    kill_with_repeats(entry,state,level,p,0)
+}
+
+pub fn kill_with_repeats(entry:CrtRng,state:&WorldState,level:u32,p:&encounter::Prediction,repeats:u32)->Result<Option<Victory>> {
     if !target_met(p) {return Ok(None);}
     let situation=if p.situation.as_deref()==Some("Preemptive") {Situation::Preemptive}else{Situation::Normal};
     let ids:Vec<_>=p.enemies.iter().map(|e|e.enemy.id.as_str()).collect();
@@ -33,7 +38,8 @@ pub fn kill(entry:CrtRng,state:&WorldState,level:u32,p:&encounter::Prediction)->
     let levels:Vec<_>=state.party.iter().map(|id|state.character_progression[id].level).collect();
     ensure(levels.first()==Some(&level),"Rare battle level disagrees with carried experience")?;
     let players:Vec<_>=state.party.iter().map(|id|state.character_progression[id].character.clone()).collect();
-    let Some(battle)=ot2_battle_engine::field_escape::carried_shadow_soulstone_m(entry,situation,&players,&levels,&ids,state.time==4,&state.enemy_knowledge,&[])? else {return Ok(None)};
+    let inputs=crate::manipulation::optimal_inputs(repeats,1,0)?;
+    let Some(battle)=ot2_battle_engine::field_escape::carried_shadow_soulstone_m(entry,situation,&players,&levels,&ids,state.time==4,&state.enemy_knowledge,&inputs.levels)? else {return Ok(None)};
     ensure(battle.base_jp>=130,"Rare fight cannot fund two learned skills")?;
     state.enemy_knowledge=battle.enemy_knowledge.clone();
     state.first_encounter=false;
@@ -85,7 +91,7 @@ pub fn kill(entry:CrtRng,state:&WorldState,level:u32,p:&encounter::Prediction)->
     let party_levels_after=l.state.party.iter().map(|id|l.state.character_progression[id].level).collect();
     l.state.osvald_extra_skills=2;l.state.refresh_support_skills();
     l.boundary(if l.state.galdera_route {"Osvald learns Advanced Magic (30 JP), Elemental Barrage (100 JP), then equips Evasive Maneuvers; Throné learns nothing"} else {"Osvald learns two skills and equips Evasive Maneuvers: future movement ability multiplier 50%"});
-    Ok(Some(Victory {map:l.state.map.clone(),battle,after:l.rng,world_after:l.state,trace:l.trace,decisions:l.decisions,learned_skills:2,evasive_maneuvers:true,party_levels_after}))
+    Ok(Some(Victory {inputs,map:l.state.map.clone(),battle,after:l.rng,world_after:l.state,trace:l.trace,decisions:l.decisions,learned_skills:2,evasive_maneuvers:true,party_levels_after}))
 }
 
 #[cfg(test)]
@@ -106,6 +112,14 @@ mod tests {
             if !target_met(&p) {continue;}
             let v=kill(rng,&w,5,&p).unwrap().unwrap();
             assert_eq!(p.rare_family.as_deref(),Some("Cait"));
+            let adjusted=kill_with_repeats(rng,&w,5,&p,3).unwrap().unwrap();
+            assert_eq!(adjusted.inputs.levels,vec![1,0,1,0,1,0]);
+            assert_eq!(adjusted.inputs.input_count,6);
+            assert_eq!(adjusted.battle.at_command_menu,v.battle.at_command_menu);
+            assert_eq!(adjusted.battle.base_jp,v.battle.base_jp);
+            assert_ne!(adjusted.after,v.after);
+            let replay=kill_with_repeats(rng,&w,5,&p,3).unwrap().unwrap();
+            assert_eq!(serde_json::to_value(&adjusted).unwrap(),serde_json::to_value(replay).unwrap());
             covered=true;
             assert!(v.evasive_maneuvers && v.world_after.evasive_maneuvers);
             assert_eq!(v.world_after.osvald_extra_skills,2);
