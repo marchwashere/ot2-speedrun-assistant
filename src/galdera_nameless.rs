@@ -127,9 +127,9 @@ fn post_gigantes(entry:&Entry)->Result<Option<crate::galdera_flex::Segment>> {
  let before=l.rng;l.draw(world::DrawKind::PathActionMenu,&g.npc,"Georges Steal menu opening",None);
  l.draw(world::DrawKind::StealCheck,&g.robe,"Guaranteed Mage's Robe Steal",Some(100));
  *l.state.route_items.entry(g.robe).or_default()+=1;
- l.boundary("Switch path action then close Steal without dialogue lottery");
- s.save(&mut l,"Steal Mage's Robe; switch path action and close",before);
- let before=l.rng;l.draw(world::DrawKind::PathActionMenu,&g.npc,"Georges Scrutinize menu opening",None);
+ l.boundary("Switch directly from Steal to Scrutinize in the open path-action menu; suppress Steal dialogue without closing or reopening");
+ s.save(&mut l,"Steal Mage's Robe; switch directly to Scrutinize",before);
+ let before=l.rng;
  let chance=g.chances[&l.state.character_progression[&6].level.to_string()];
  let roll=l.draw(world::DrawKind::ScrutinizeCheck,&g.npc,format!("Scrutinize success check ({chance}%)"),Some(100))+1;
  if roll>chance{return Ok(None);}
@@ -317,14 +317,33 @@ fn escape_approach_with_defends(entry:&Entry,max_cycles:u32,defends:u8)->Result<
     Some(s)=>{passed+=1;assert_eq!(s.stages.len(),4);
      let scrutinize=&s.stages[2].1;
      let draws:Vec<_>=scrutinize.trace.iter().filter(|t|t.value.is_some()).collect();
-     assert_eq!(draws.len(),3); // menu, success check, before-dialogue lottery
-     assert!(draws[1].value.unwrap()<72);
+     assert_eq!(draws.len(),2); // same open menu: success check, before-dialogue lottery
+     assert_eq!(draws[0].kind,world::DrawKind::ScrutinizeCheck);
+     assert!(draws[0].value.unwrap()<72);
      assert!(post_gigantes(s.end()).is_err());
     },None=>rejected+=1
    }
    assert_eq!(serde_json::to_value(&entry.world_after).unwrap(),old);
   }
   assert!(passed>0&&rejected>0);
+ }
+ #[test]fn captured_georges_continuation_uses_one_menu_for_steal_and_scrutinize() {
+  let entry=geared_entry(0);
+  let mut l=Loader::new(world::catalog(),entry.world_after,entry.after).unwrap();
+  l.manual_time_switch(4,"Gigantes night").unwrap();
+  l.skipped_event("EV_Dng_Ocn_1_3_0020").unwrap();
+  l.state.character_progression.get_mut(&6).unwrap().level=70;
+  l.rng=crate::CrtRng{state:0x98d520a9,draws:9963};
+  let rng=l.rng;let entry=point(&mut l,rng);
+  let s=post_gigantes(&entry).unwrap().expect("Captured no-adjustment finisher must pass with direct path-action switch");
+  let checks:Vec<_>=s.stages.iter().flat_map(|(_,e)|&e.trace).filter(|t|t.value.is_some()).collect();
+  assert_eq!(checks.iter().filter(|t|t.kind==world::DrawKind::PathActionMenu).count(),1);
+  let check=checks.iter().find(|t|t.kind==world::DrawKind::ScrutinizeCheck).unwrap();
+  assert_eq!(check.before.draws,9967);
+  assert_eq!(check.value,Some(25)); // Native 1-based roll26 succeeds at72%.
+  assert_eq!(s.end().after.draws,9969);
+  let mut extra_cycle=entry.clone();extra_cycle.after.advance(1);
+  assert!(post_gigantes(&extra_cycle).unwrap().is_none()); // Roll91 after the formerly selected cycle.
  }
  #[test]fn movement_padding_strict_thresholds_and_mixed_terrain() {
   // Earliest fight: two water updates. Full run costs 246*7 +21.

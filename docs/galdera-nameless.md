@@ -35,7 +35,9 @@ fire bonuses, T1 attacks and extra Barrage hits. The floor is recalculated from
 the carried loadout; source RNG prediction still awaits retail comparison.
 
 After the existing Georges rescue scene, switch to day, steal Mage's Robe
-(guaranteed at Throné47), switch path action/close, then open Scrutinize.
+(guaranteed at Throné47), then switch directly to Scrutinize without closing the
+path-action menu. There is one opening timer for the entire session, one Steal
+check, then the Scrutinize check; the switch suppresses Steal's closing dialogue.
 Scrutinize uses Osvald's actual level and the native SearchRate table (72% at70).
 Failed Scrutinize candidates trigger a search of Partitio's T2 finisher boost
 cycles (0->1->0, then normal 0->3). Replay the actual battle and all subsequent
@@ -44,6 +46,11 @@ callbacks, choosing the fewest cycles; return None only when the budget is exhau
 the before-dialogue lottery and standard success event; Georges has no special
 Scrutinize event. Open the fixed Finisher's Claws chest without an RNG draw.
 Final continuation state is `Trip.loot.end()`, not `Trip.victory`.
+
+For the captured seed1E10AA9C / Gigantes prompt9597, no extra finisher cycle
+ends the rescue scene at9963. After switching day and stealing the robe, the
+direct Scrutinize check is at9967 and rolls26 (success at72%). The former
+close/reopen model incorrectly added a draw and selected an unnecessary cycle.
 
 Seven focused continuation tests pass, including missing-inventory rollback,
 idempotence, whole-route percentages, boss/cutscene propagation and both

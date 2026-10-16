@@ -1,3 +1,5 @@
+- Georges menu (2026-10-17): Steal Mage's Robe then switch directly to Scrutinize without closing the path-action menu. One opening draw total; no Steal closing dialogue. For captured Gigantes prompt9597, zero finisher cycles reaches rescue-scene9963 and Scrutinize check9967 (roll26, success); the old extra reopening draw incorrectly selected one finisher cycle.
+
 - User-confirmed battle setting (2026-10-16): ALL fights use 2x battle speed. Core full Gigantes replay now matches the final retail capture through post-drop position9958 (361 draws). The fix normalizes the break camera's inherited 60000 Hz clock, preserves parent summon LastHit, and uses the selected normal-attack weapon and authored event phases. Do not substitute RNG offsets or a blanket 2x factor. See the core docs/gigantes.md.
 
 - Roque purchases equip Swift Shield and Quick Cloak to Throne immediately through the shop equip prompts. Apply stats/inventory at purchase, without RNG draws. Nameless entry accepts and skips this already-equipped gear, retaining its nut use and Osvald menu; never apply the armor stats twice.
