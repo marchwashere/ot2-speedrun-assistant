@@ -2,11 +2,13 @@
 let voiceStage='order', voiceFirst=null, voiceHp=null;
 let voiceLocked=false;
 let voiceTranscript='', voiceBusy=false, voiceCandidate=null, voiceRevision=0, voiceAudio=null;
+let voiceRequest=null;
+function cancelVoiceRequest(){voiceRequest?.abort();}
 const voiceRouteStates=new Map();
 window.addEventListener('route-changed',({detail:{route,previous}})=>{
   voiceRouteStates.set(previous,{voiceStage,voiceFirst,voiceHp,voiceLocked,voiceTranscript,voiceCandidate,status:$('voice-status').textContent});
   ({voiceStage='order',voiceFirst=null,voiceHp=null,voiceLocked=false,voiceTranscript='',voiceCandidate=null}=voiceRouteStates.get(route)||{});
-  voiceRevision++;
+  voiceRevision++;cancelVoiceRequest();
   $('voice-hp').value=voiceHp??'';
   $('voice-status').textContent=voiceRouteStates.get(route)?.status??'Choose turn-3 order: Left = Throné · Right = Pirro';
   voiceControls();
@@ -29,7 +31,7 @@ function voiceControls() {
 function recordVoice(symbol) {
   if(voiceStage!=='lines' || stopped || voiceLocked) return;
   try {voiceAudio ??= new (window.AudioContext || window.webkitAudioContext)();voiceAudio.resume();} catch {}
-  voiceTranscript+=symbol;voiceRevision++;voiceCandidate=null;
+  voiceTranscript+=symbol;voiceRevision++;cancelVoiceRequest();voiceCandidate=null;
   clearVoiceResult();voiceControls();
   if(voiceBusy || running) $('voice-status').textContent='Extra input recorded · updating prediction…';
   filterVoices();
@@ -50,10 +52,11 @@ function voiceNotification(seed) {
 async function filterVoices() {
   if(voiceStage!=='lines' || voiceBusy || running) return;
   voiceBusy=true;
+  const controller=new AbortController();voiceRequest=controller;
   const revision=voiceRevision, transcript=voiceTranscript, route=activeRoute;
   $('voice-status').textContent=transcript?'Filtering RNG candidates…':'Ready · Left = normal · Right = special';
   try {
-    const response=await fetch('/api/identify-observed?'+new URLSearchParams({voices:transcript,r3_first:voiceFirst,hp:String(voiceHp)}));
+    const response=await fetch('/api/identify-observed?'+new URLSearchParams({voices:transcript,r3_first:voiceFirst,hp:String(voiceHp)}),{signal:controller.signal});
     const data=await response.json();
     if(revision!==voiceRevision || route!==activeRoute) return;
     if(!response.ok) throw new Error(data.error || 'Identification failed');
@@ -71,10 +74,11 @@ async function simulateIdentified() {
   if(voiceStage!=='lines' || !voiceFirst || voiceHp===null || !voiceCandidate || running) return;
   const query=new URLSearchParams({route:activeRoute,voices:voiceTranscript,r3_first:voiceFirst,hp:String(voiceHp),stream:'1'});
   const revision=voiceRevision, candidate=voiceCandidate, route=activeRoute;
+  const controller=new AbortController();voiceRequest=controller;
   running=true;voiceControls();$('quit').disabled=true;clearVoiceResult();
   $('status').textContent='Simulating from identified RNG…';
   try {
-    const response=await fetch('/api/identified-route?'+query);
+    const response=await fetch('/api/identified-route?'+query,{signal:controller.signal});
     if(!response.ok) throw new Error((await response.json()).error || 'Simulation failed');
     await readRouteStream(response,event=>{
       // A late chunk must never overwrite another tab or a newer transcript.
@@ -121,7 +125,7 @@ $('voice-normal').addEventListener('click',()=>recordVoice('N'));
 $('voice-special').addEventListener('click',()=>recordVoice('S'));
 function undoVoice() {
   if(voiceStage!=='lines' || stopped || voiceLocked || !voiceTranscript.length)return;
-  voiceTranscript=voiceTranscript.slice(0,-1);voiceRevision++;voiceCandidate=null;
+  voiceTranscript=voiceTranscript.slice(0,-1);voiceRevision++;cancelVoiceRequest();voiceCandidate=null;
   clearVoiceResult();voiceControls();filterVoices();
 }
 $('voice-undo').addEventListener('click',undoVoice);
@@ -134,7 +138,7 @@ $('voice-lock').addEventListener('click',()=>{
   voiceLocked=!voiceLocked;voiceControls();
 });
 $('voice-reset').addEventListener('click',()=>{
-  if(running)return;voiceTranscript='';voiceRevision++;voiceCandidate=null;
+  if(running)return;voiceTranscript='';voiceRevision++;cancelVoiceRequest();voiceCandidate=null;
   voiceLocked=false;
   voiceStage='order';voiceFirst=null;voiceHp=null;$('voice-hp').value='';
   document.title='OT2 Speedrun Assistant';clearVoiceResult();voiceControls();

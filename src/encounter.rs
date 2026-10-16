@@ -229,6 +229,7 @@ impl EncounterCatalog {
 
     /// Transactional: unsupported rows never change the caller's RNG.
     pub fn predict(&self, rng: &mut CrtRng, o: &PredictionOptions) -> Result<Prediction> {
+        crate::cancellation::check()?;
         let mut work = CrtRng::new(rng.state);
         let result = self.predict_inner(&mut work, o)?;
         ensure(

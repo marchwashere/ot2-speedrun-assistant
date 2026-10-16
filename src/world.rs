@@ -413,6 +413,7 @@ pub struct Loader<'a> {
 }
 impl<'a> Loader<'a> {
     pub fn new(data: &'a Catalog, state: WorldState, rng: CrtRng) -> Result<Self> {
+        crate::cancellation::check()?;
         ensure(
             data.maps.contains_key(&state.map),
             format!("No town data for {}", state.map),

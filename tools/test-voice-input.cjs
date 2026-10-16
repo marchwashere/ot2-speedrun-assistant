@@ -1,12 +1,13 @@
 'use strict';
 const assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('node:vm');
+let honorAbort=false;
 const elements=new Map(),pending=[],rendered=[],handlers={};
 const element=id=>{if(!elements.has(id))elements.set(id,{addEventListener(type,fn){handlers[id+':'+type]=fn;},focus(){},setAttribute(){},reportValidity(){return true;}});return elements.get(id);};
 const context=vm.createContext({$:element,running:false,stopped:false,activeScreen:'manipulation',activeRoute:'galdera',
-  URLSearchParams,Event,TextDecoder,window:{dispatchEvent(){},addEventListener(){}},document:{addEventListener(type,fn){handlers[type]=fn;},title:''},
+  URLSearchParams,Event,TextDecoder,AbortController,window:{dispatchEvent(){},addEventListener(){}},document:{addEventListener(type,fn){handlers[type]=fn;},title:''},
   hex:n=>'0x'+n.toString(16),render(){rendered.push(vm.runInContext('result',context));},
   result:null,snowsEncounterTiming:null,westernSecondOverride:null,
-  fetch:url=>new Promise(resolve=>pending.push({url,resolve})),console});
+  fetch:(url,options)=>new Promise((resolve,reject)=>{const request={url,resolve,signal:options?.signal};pending.push(request);if(honorAbort)options.signal.addEventListener('abort',()=>{const i=pending.indexOf(request);if(i>=0)pending.splice(i,1);reject(new DOMException('Aborted','AbortError'));},{once:true});}),console});
 vm.runInContext(fs.readFileSync(require('node:path').join(__dirname,'../viewer/voice.js'),'utf8'),context);
 const run=code=>vm.runInContext(code,context);
 const flush=()=>new Promise(resolve=>setImmediate(resolve));
@@ -66,6 +67,15 @@ async function reply(data,ok=true){assert(pending.length);const request=pending.
   send({type:'progress',result:{initial_seed:999,partial:true}});
   send({type:'complete',result:{initial_seed:999,partial:false}});controller.close();await stale;
   assert.equal(rendered.length,count,'Ignore stale progress and completion');
+  honorAbort=true;
+  run("recordVoice('S')");
+  await reply({count:1,observations:3,candidate:{current_state:40}});
+  const old=pending[0];assert(old.url.startsWith('/api/identified-route?'));
+  run("recordVoice('N')");await flush();
+  assert(old.signal.aborted,'Extra input must abort the in-flight route');
+  assert(pending[0].url.startsWith('/api/identify-observed?'),'Latest identification starts without waiting for old route');
+  await reply({count:0,observations:4});
+  assert.equal(run('running'),false);
   console.log('PASS: extra inputs, undo, queued latest transcript, stale success/error suppression');
   console.log('PASS: immediate partial rendering, retained results on failure, stale stream suppression');
 })().catch(e=>{console.error(e);process.exitCode=1;});

@@ -888,6 +888,7 @@ fn search_bg<T:BgProjection>(entry:&Entry,mut project:impl FnMut(&Entry,BgTarget
    trials.sort_by_key(|(_,e)|target.draws.saturating_sub(e.after.draws).abs_diff(preferred_departure_gap));
    let cache=FightCache::default();
    for &(index,departure) in &trials {
+    crate::cancellation::check()?;
     if phase>0&&refinement_work.get()==0 {break;}
     let switch_cost=index as u32*switch_unit*stride;
     let local_budget=if phase==0 {400}else{192};
@@ -946,6 +947,7 @@ fn search_bg<T:BgProjection>(entry:&Entry,mut project:impl FnMut(&Entry,BgTarget
   let candidates=crate::bg_target::rank(&targets,&departure_estimates,natural,&curves,best.as_ref().unwrap().0.input_cost,384);
   let mut remaining=600_000usize;let mut caches=std::collections::BTreeMap::<(u32,u64),FightCache>::new();
   for candidate in candidates {
+   crate::cancellation::check()?;
    if remaining==0 {break;}
    let index=candidate.departure;let departure=&departures[index];
    let switch_cost=index as u32*switch_unit;

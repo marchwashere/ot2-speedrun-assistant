@@ -1332,6 +1332,7 @@ fn handle(mut stream: TcpStream, address: &str) -> std::io::Result<bool> {
         }
     };
     if let Some((voices,first,hp,name))=response.identified_stream {
+        let _cancel=ot2_speedrun_assistant::cancellation::watch(stream.try_clone()?)?;
         write!(stream,"HTTP/1.1 200 OK\r\nContent-Type: application/x-ndjson; charset=utf-8\r\nConnection: close\r\nCache-Control: no-store\r\nX-Accel-Buffering: no\r\nX-Content-Type-Options: nosniff\r\n\r\n")?;
         stream.flush()?;
         let mut send=|kind:&str,message:&str,value:Option<&Value>|->ot2_speedrun_assistant::Result<()> {
