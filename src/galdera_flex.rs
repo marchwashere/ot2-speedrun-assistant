@@ -210,7 +210,88 @@ fn finish_without_defends(entry:&Entry)->Result<Trip> {
  }
  Ok(best)
 }
-pub(crate) fn finish(entry:&Entry)->Result<Trip> {refine_defends(entry,finish_without_defends(entry)?)}
+pub(crate) fn finish(entry:&Entry)->Result<Trip> {
+ // Scan targets before selecting coarse switches. Exact replay, not the
+ // estimate, accepts a route. Keep the former search as a quality fallback.
+ let targets=crate::bg_target::targets(entry.after,20_000,"ABI_DAN_MAKA_001")?;
+ let proposed=target_first(entry,&targets,1024)?;
+ let fallback=finish_without_defends(entry)?;
+ let best=match proposed {Some(p) if p.extra_input_cost<fallback.extra_input_cost=>p,_=>fallback};
+ refine_defends(entry,best)
+}
+fn defend_curve(f:&SouthernSai)->Result<crate::bg_target::Curve>{
+ let situation=if f.encounter.situation.as_deref()==Some("Preemptive"){ot2_battle_engine::escape::Situation::Preemptive}else{ot2_battle_engine::escape::Situation::Normal};
+ let ids:Vec<_>=f.encounter.enemies.iter().map(|e|e.enemy.id.as_str()).collect();
+ crate::bg_target::curve(f.battle_entry,situation,&f.arrival.world_after,&ids)
+}
+fn roque_probe(e:&Entry)->Result<Option<CrtRng>> {
+ let w=&e.world_after;let mut rng=e.after;
+ let encounter=encounter::catalog().predict(&mut rng,&PredictionOptions{map:w.map.clone(),zone:"ENT_FLD_SEA_3_1_LND".into(),period:"Night".into(),progress:w.main_progress_points,first_encounter:w.first_encounter,boundary:Boundary::CurrentCounter,current_counter:Some(w.encounter_counter),party_levels:w.party.iter().map(|id|w.character_progression[id].level).collect(),ability_percent:50,dash:true,..Default::default()})?;
+ if encounter.enemies.len()!=2||encounter.enemies.iter().any(|e|e.enemy.id!="ENE_NML_OCN_230"){return Ok(None);}
+ let situation=match encounter.situation.as_deref(){Some("Normal")=>ot2_battle_engine::escape::Situation::Normal,Some("Preemptive")=>ot2_battle_engine::escape::Situation::Preemptive,_=>return Ok(None)};
+ let players:Vec<_>=w.party.iter().map(|id|w.character_progression[id].character.clone()).collect();
+ let b=ot2_battle_engine::field_escape::roque_jp_battle(rng,situation,&players,&w.enemy_knowledge)?;
+ Ok(ot2_battle_engine::roque_routine::prefix(b)?.map(|(b,_)|CrtRng{state:b.state().rng.state,draws:rng.draws+b.state().rng.draws}))
+}
+/// A location-specific forward probe stops at the BG command menu. It does not
+/// need a JP100 roll and never awards rewards or publishes a speculative plan.
+fn jp_estimate(entry:&Entry,location:u8,switches:u32)->Result<Option<(u64,Vec<crate::bg_target::Curve>,Entry)>> {
+ let mut disabled=[u64::MAX;8];disabled[0]=0;
+ let mut curves=vec![disabled;5];
+ let (menu,approach,boat)=if location==0 {
+  let approach=to_tropu(entry)?;let boat=boat(approach.end(),switches)?;
+  let Some(menu)=roque_probe(boat.end())?else{return Ok(None);};(menu,approach,boat)
+ }else{
+  let Some(r)=deferred_roque_reloads(entry,switches,[0;5],1)?else{return Ok(None);};
+  curves[3]=defend_curve(&r.harbor)?;
+  let island=nameless_arrival(&r.field_return)?;
+  let menu=if location==1 {crate::galdera_nameless::jp_probe(island.end())?}else{
+   let Some(n)=crate::galdera_nameless::finish_with_defends(island.end(),48,0)?else{return Ok(None);};
+   curves[4]=defend_curve(&n.approach.encounter)?;
+   crate::galdera_shipwreck::jp_probe(n.loot.end())?
+  };
+  let Some(menu)=menu else{return Ok(None);};(menu,r.approach,r.boat)
+ };
+ for (i,f) in approach.encounters.iter().enumerate(){curves[i+1]=defend_curve(f)?;}
+ let departure=approach.end().clone();
+ let coarse=boat.stages[0].1.after.draws-departure.after.draws;
+ // Eight draws allow the mandatory boost/skill setup before the first lottery.
+ // BG's later children and changing formations are covered by neighboring trials.
+ let natural=menu.draws.saturating_sub(entry.after.draws+coarse)+8;
+ Ok(Some((natural,curves,departure)))
+}
+fn target_first(entry:&Entry,targets:&[CrtRng],limit:u32)->Result<Option<Trip>>{
+ let mut trials=vec![];
+ for location in 0..3u8 {
+  let mut model=None;
+  for switches in (0..=32).step_by(if location==0{1}else{2}){
+   if let Some(m)=jp_estimate(entry,location,switches)? {model=Some(m);break;}
+  }
+  let Some((natural,curves,departure))=model else{continue;};
+  let mut l=Loader::new(world::catalog(),departure.world_after.clone(),departure.after)?;
+  let mut departures=vec![];let mut counts=vec![];
+  for switches in 0..=limit/12+4 {
+   if location==0||switches%2==0 {
+    departures.push((entry.after.draws+l.rng.draws-departure.after.draws,tropu_reload_cost(switches)));counts.push(switches);
+   }
+   let period=if l.state.time==2{4}else{2};l.manual_time_switch(period,"JP target estimate")?;
+  }
+  let mut ranked=crate::bg_target::rank(targets,&departures,natural,&curves,limit,128);ranked.truncate(384);
+  trials.extend(ranked.into_iter().map(|c|(location,counts[c.departure],c)));
+ }
+ trials.sort_by_key(|(_,_,c)|c.score);
+ let mut best:Option<Trip>=None;let mut seen=std::collections::BTreeSet::new();
+ for (location,switches,c) in trials {
+  let controls:[u8;5]=c.counts.try_into().unwrap();
+  if !seen.insert((location,switches,controls)){continue;}
+  let ceiling=best.as_ref().map_or(limit,|b|b.extra_input_cost);
+  if tropu_reload_cost(switches)+controls.iter().map(|&n|controls_cost(n)).sum::<u32>()+4>=ceiling {continue;}
+  let candidate=if location==0 {roque_defends(entry,&ERRAND_ORDER,switches,ceiling,controls)?}
+   else{later_candidate_defends(entry,ROUTE_ORDER,switches,ceiling,location==2,controls)?};
+  if let Some(t)=candidate {if best.as_ref().is_none_or(|b|t.extra_input_cost<b.extra_input_cost){best=Some(t);}}
+ }
+ Ok(best)
+}
 fn roque_defends(entry:&Entry,order:&[u8],switches:u32,limit:u32,c:[u8;5])->Result<Option<Trip>> {
  ensure(order==ERRAND_ORDER,"Errands already completed before Gravell")?;
  let mut segments=vec![];let mut current=entry.clone();
@@ -405,6 +486,27 @@ fn later_candidate_reloads(entry:&Entry,order:[u8;1],switches:u32,limit:u32,ship
   // Only acquisitions before flex missing from the historical fixture.
   for (id,n) in [("ITM_EQP_LNS_220",1),("ITM_EQP_HLM_180",1),("ITM_EQP_ACS_250",1),("ITM_CSM_0610",1),("ITM_CSM_0730",1),("ITM_CSM_0550",1)] {l.state.route_items.insert(id.into(),n);}
   before_gravell(&point(&mut l,e.after)).unwrap().last().unwrap().end().clone()
+ }
+ #[test]fn location_probes_stop_before_bg_and_preserve_source_state(){
+  let entry=current_fixture();let before=crate::state_key::WorldKey::new(&entry.world_after);
+  for location in 0..3 {
+   let model=(0..=32).step_by(if location==0{1}else{2}).find_map(|n|jp_estimate(&entry,location,n).unwrap()).expect("BG-menu calibration for each location");
+   assert!(model.0>0);assert_eq!(model.1.len(),5);
+   assert!(model.1[1][7]>model.1[1][0]);
+   assert_eq!(crate::state_key::WorldKey::new(&entry.world_after),before);
+   eprintln!("JP model location {location}: natural draws {}",model.0);
+  }
+ }
+ #[test]#[ignore="full target-first JP search; run optimized"]
+ fn target_first_replays_jp100_before_legacy_fallback(){
+  let entry=current_fixture();let started=std::time::Instant::now();
+  let targets=crate::bg_target::targets(entry.after,20_000,"ABI_DAN_MAKA_001").unwrap();
+  let t=target_first(&entry,&targets,1024).unwrap().expect("Target-first candidate");
+  assert_eq!(t.fight.state.outcome,ot2_battle_engine::Outcome::Victory);
+  assert!(t.fight.state.actors[..4].iter().all(|a|a.alive()));
+  assert_eq!(t.fight.state.grace.as_ref().unwrap().jp_percent(),10000);
+  assert_eq!(t.field_return.world_after.flag(40003),t.location=="Shipwreck");
+  eprintln!("Target-first JP: {}, switches {}, cost {}, Defends {:?}, elapsed {:?}",t.location,t.boat.extra_switches,t.extra_input_cost,t.defend_counts,started.elapsed());
  }
  #[test]fn seven_defends_replay_safe_rounds_and_field_counter() {
   let entry=current_fixture();

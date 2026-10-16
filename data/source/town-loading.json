@@ -1757,6 +1757,22 @@
     {
       "source": "/Game/Level/Level/Ocean/Btl_Fld_Ocn_A.umap",
       "sha256": "92cef5bdb2fc9e6f3dfb55c7c601ea2ab8fe17d440f9a97dddfce32d4830067b"
+    },
+    {
+      "source": "/Game/Environment/Resource/Object/EnvObj_Batlefield/BP/BP_EnvObjMD_Batlefield_A_Flag_B",
+      "sha256": "bd8393f295caa9c220745f52faa31ac83a2508a9ed397727690958a84afde0e3"
+    },
+    {
+      "source": "/Game/Level/Level/Desert/Fld_Dst_2_2.uexp",
+      "sha256": "58a89f673639dd52e55be8f6e1870f66adf7aa104944e1064249f9598ed0a734"
+    },
+    {
+      "source": "/Game/Level/Level/Desert/Fld_Dst_2_3.uexp",
+      "sha256": "f47ca96d43f64e996d246fc20e8b3e4727f7505a208572f8c95e913a475bed96"
+    },
+    {
+      "source": "/Game/Level/Level/Desert/Fld_Dst_3_2.uexp",
+      "sha256": "f540b79267035eff84f1f90ea2c1890c1919252a5d21f12aafb9d821eb46cb30"
     }
   ],
   "native": {

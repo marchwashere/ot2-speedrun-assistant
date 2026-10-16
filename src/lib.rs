@@ -1,4 +1,5 @@
-//! Headless assistant logic. UI is confined to the separate ot2-gui binary.
+mod bg_target;
+// Headless assistant logic. UI is confined to the separate ot2-gui binary.
 pub mod profile;
 pub mod black_market;
 pub mod cape_cold;

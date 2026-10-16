@@ -61,7 +61,7 @@ fn field_encounter(entry:&Entry,zone:&str)->Result<(encounter::Prediction,CrtRng
 fn gravell_arrival(entry:&Entry)->Result<Option<GravellArrival>> {gravell_target(entry,None)}
 type FightCache=std::cell::RefCell<std::collections::BTreeMap<(u32,Vec<u8>),(u32,Option<ot2_battle_engine::gravell_routine::Fight>)>>;
 #[derive(Clone,Copy)]
-struct BgTarget<'a> {rng:CrtRng,budget:u32,cache:&'a FightCache,guard_extra:usize,fight_cap:usize,action_cap:u32,work:Option<&'a std::cell::Cell<usize>>}
+struct BgTarget<'a> {rng:CrtRng,budget:u32,cache:&'a FightCache,guard_extra:usize,fight_cap:usize,action_cap:u32,work:Option<&'a std::cell::Cell<usize>>,defend_profile:Option<[usize;5]>}
 fn gravell_target(entry:&Entry,target:Option<BgTarget>)->Result<Option<GravellArrival>> {
  if target.is_some_and(|t|t.work.is_some_and(|w|w.get()==0)){return Ok(None);}
  let mut l=Loader::new(world::catalog(),entry.world_after.clone(),entry.after)?;
@@ -142,6 +142,7 @@ fn field_continuation(entry:&Entry,stage:usize,target:Option<BgTarget>)->Result<
   let mut rounds=rounds.clone();rounds.push(m.round());
   let mut actions=actions.clone();actions.push(report);menus.push((next,actions,rounds,next_cost));
  }}
+ if let Some(profile)=target.and_then(|t|t.defend_profile) {menus.retain(|(_,actions,_,_)|actions.len()==profile[stage]);}
  let mut escape_cursors:Vec<_>=menus.iter().map(|(m,_,_,_)|(m.clone(),0u32)).collect();
  let mut best:Option<HarborReturn>=None;
  for cost in 0..=target.map_or(u32::MAX/2,|t|t.budget.min(t.action_cap)) {
@@ -178,8 +179,8 @@ fn field_continuation(entry:&Entry,stage:usize,target:Option<BgTarget>)->Result<
   let onward=altar.as_ref().map_or(&field_return,|a|&a.learned);
   let next_stage=if altar.is_some(){4}else if stage==4{2}else{stage+1};
   let southern=if stage!=3 {
-   // Freeze this control at its first safe next opening. Do not recursively
-   // reopen it to rescue a distant BG target.
+   // Probe the next opening before descending. Fixed Defend profiles keep
+   // their first safe controls; unrestricted refinement can revisit them.
    if target.is_some() {
     let mut probe=Loader::new(world::catalog(),onward.world_after.clone(),onward.after)?;
     if stage==2 {probe.visit_map("Twn_Wld_2_1_A")?;}
@@ -188,14 +189,14 @@ fn field_continuation(entry:&Entry,stage:usize,target:Option<BgTarget>)->Result<
     if !matches!(field_encounter(&check,zone)?.0.situation.as_deref(),Some("Normal"|"Preemptive")) {continue;}
    }
    let Some(south)=field_continuation(onward,next_stage,target.map(|t|BgTarget {budget:t.budget-cost,..t}))? else {
-    if target.is_some() && !(w.galdera_route && target.is_some_and(|t|t.work.is_some())) {return Ok(None);}
+    if target.is_some() && !(w.galdera_route && target.is_some_and(|t|t.work.is_some()&&t.defend_profile.is_none())) {return Ok(None);}
     continue;
    };
    Some(Box::new(south))
   } else {None};
   let gravell=if stage==3 {let Some(g)=gravell_target(&field_return,target.map(|t|BgTarget {budget:best.as_ref().map_or(t.budget,|b|t.budget.min(route_cost(b).saturating_sub(1))).saturating_sub(cost),..t}))? else {continue;};Some(g)}else{None};
   let candidate=HarborReturn {altar,defend_rounds:if w.galdera_route {defend_rounds.clone()} else {vec![]},escape_round:menu.round(),bg_adjustment:None,defends:defends.clone(),arrival:arrival.clone(),encounter:encounter.clone(),battle_entry:rng,menu:menu.clone(),inputs,escape,victory,field_return,southern,approach_stages:approach_stages.clone(),gravell};
-  if stage!=3 && !(w.galdera_route && target.is_some_and(|t|t.work.is_some())) {return Ok(Some(candidate));}
+  if stage!=3 && !(w.galdera_route && target.is_some_and(|t|t.work.is_some()&&t.defend_profile.is_none())) {return Ok(Some(candidate));}
   if best.as_ref().is_none_or(|b|route_cost(&candidate)<route_cost(b)) {best=Some(candidate);}
  }
  }
@@ -274,10 +275,10 @@ pub fn finish(a:Approach)->Result<Prediction> {
   let (adjustment,mut prediction)=search_bg(&town,|departure,target| {
    let a=approach_from_town(departure)?;
    if !safe(&a) {return Ok(None);}
-   let day_cost=14+if a.highroad_day_switch.is_some() {7}else{0};
+   let day_cost=14+if a.highroad_day_switch.is_some() {12}else{0};
    if target.budget<day_cost {return Ok(None);}
    finish_target(a,Some(BgTarget {budget:target.budget-day_cost,..target}))
-  },|p:&Prediction|14+p.inputs.levels.len() as u32+route_cost(&p.crackridge_return)+if p.approach.highroad_day_switch.is_some() {7}else{0})?;
+  },|p:&Prediction|14+p.inputs.levels.len() as u32+route_cost(&p.crackridge_return)+if p.approach.highroad_day_switch.is_some() {12}else{0})?;
   prediction.approach.town=town;
   prediction.new_delsta_adjustment=Some(adjustment);
   // Freeze the completed EXP100 search before optimizing the new coast leg.
@@ -486,6 +487,8 @@ mod gravell_integration_tests {
   let fixture:serde_json::Value=serde_json::from_str(include_str!("../data/source/retail-inventor-highroad-20261010.json")).unwrap();
   let mut w:world::WorldState=serde_json::from_value(fixture["world"].clone()).unwrap();
   w.sync_progression().unwrap();w.galdera_route=true;
+  // This legacy fixture predates explicit tracking of the early Scholar menu.
+  w.character_progression.get_mut(&6).unwrap().jobs.learned_abilities.entry(6).or_default().insert("ABI_SET_SCH_060".into());
   let later_jp=w.character_progression[&1].jp_earned;
   w.character_progression.get_mut(&6).unwrap().jp_earned+=later_jp;
   w.party=vec![7,6,8,4];w.bench.retain(|&id|id!=6);w.character_progression.remove(&1);
@@ -537,7 +540,7 @@ mod gravell_integration_tests {
   for i in 0..adjustment.switches {replay.manual_time_switch(if i%2==0 {4}else{2},"test New Delsta adjustment").unwrap();}
   assert_eq!(replay.rng,adjustment.departure.after);
   assert_eq!(p.approach.agnea_story.arrival,adjustment.departure.after);
-  assert_eq!(adjustment.input_cost,14+adjustment.switches*7+p.inputs.levels.len() as u32+route_cost(&p.crackridge_return)+if p.approach.highroad_day_switch.is_some() {7}else{0});
+  assert_eq!(adjustment.input_cost,14+adjustment.switches*12+p.inputs.levels.len() as u32+route_cost(&p.crackridge_return)+if p.approach.highroad_day_switch.is_some() {12}else{0});
   let mut legs=vec![];let mut next=Some(&p.crackridge_return);
   while let Some(leg)=next {
    assert!(leg.defends.len()<=7);
@@ -834,21 +837,43 @@ mod gravell_integration_tests {
 /// work improving its total input cost. A truncated refinement is not a claim
 /// that an outcome is impossible: the already validated plan remains available.
 fn search_clockbank_bg(entry:&Entry)->Result<(ClockbankAdjustment,HarborReturn)> {search_bg(entry,|departure,target|field_continuation(departure,0,Some(target)),route_cost)}
-fn search_bg<T>(entry:&Entry,mut project:impl FnMut(&Entry,BgTarget<'_>)->Result<Option<T>>,cost:impl Fn(&T)->u32)->Result<(ClockbankAdjustment,T)> {
+trait BgProjection {fn continuation(&self)->&HarborReturn;}
+impl BgProjection for Prediction {fn continuation(&self)->&HarborReturn{&self.crackridge_return}}
+impl BgProjection for HarborReturn {fn continuation(&self)->&HarborReturn{self}}
+fn bg_estimate<T:BgProjection>(adjustment:&ClockbankAdjustment,plan:&T)->Result<(u64,Vec<crate::bg_target::Curve>)>{
+ let mut curves=vec![[0;8];5];let mut controlled=0;let mut r=plan.continuation();
+ for stage in [0,1,4,2,3] {
+  let situation=if r.encounter.situation.as_deref()==Some("Preemptive"){Situation::Preemptive}else{Situation::Normal};
+  let ids:Vec<_>=r.encounter.enemies.iter().map(|e|e.enemy.id.as_str()).collect();
+  let curve=crate::bg_target::curve(r.battle_entry,situation,&r.arrival.world_after,&ids)?;
+  controlled+=curve[r.defends.len()];
+  controlled+=r.escape.as_ref().map_or(r.inputs.levels.len()as u64,|e|e.before_check.draws-r.menu.rng.draws);
+  curves[stage]=curve;
+  if let Some(next)=&r.southern {r=next;}
+ }
+ // Retain mandatory boosts and the selected child's preceding effects in the
+ // estimate; exact replay handles variation in BG child selection and voices.
+ let f=&r.gravell.as_ref().unwrap().fight;
+ controlled+=fight_input_cost(f).saturating_sub(6)as u64;
+ Ok((adjustment.target.draws.saturating_sub(adjustment.departure.after.draws+controlled),curves))
+}
+fn search_bg<T:BgProjection>(entry:&Entry,mut project:impl FnMut(&Entry,BgTarget<'_>)->Result<Option<T>>,cost:impl Fn(&T)->u32)->Result<(ClockbankAdjustment,T)> {
+ let galdera=entry.world_after.galdera_route;
+ let switch_unit=if galdera {12}else{7};
  let stride=if entry.world_after.galdera_route {1}else{2};
  let departure_window=if entry.world_after.galdera_route {3000u64}else{1900};
  let preferred_departure_gap=if entry.world_after.galdera_route {1400u64}else{850};
  let mut loader=Loader::new(world::catalog(),entry.world_after.clone(),entry.after)?;
  let mut departures=vec![entry.clone()];
  let mut best:Option<(ClockbankAdjustment,T)>=None;
- let refinement_work=std::cell::Cell::new(5_000usize);
+ let refinement_work=std::cell::Cell::new(if galdera {25_000usize}else{5_000});
  for phase in 0..3 {
-  if phase==2 {refinement_work.set(refinement_work.get()+5_000);}
+  if phase==2 {refinement_work.set(refinement_work.get()+if galdera {25_000}else{5_000});}
   let mut scan=entry.after;if phase==0 {scan.advance(650);}
   loop {
    if phase>0 {
     if refinement_work.get()==0 {break;}
-    let max_pairs=best.as_ref().unwrap().0.input_cost.saturating_sub(7)/(7*stride);
+    let max_pairs=best.as_ref().unwrap().0.input_cost.saturating_sub(switch_unit)/(switch_unit*stride);
     while departures.len()<=max_pairs as usize {add_clockbank_cycle(&mut loader,&mut departures)?;}
     if scan.draws>departures[max_pairs as usize].after.draws+departure_window {break;}
    }
@@ -864,12 +889,12 @@ fn search_bg<T>(entry:&Entry,mut project:impl FnMut(&Entry,BgTarget<'_>)->Result
    let cache=FightCache::default();
    for &(index,departure) in &trials {
     if phase>0&&refinement_work.get()==0 {break;}
-    let switch_cost=index as u32*7*stride;
+    let switch_cost=index as u32*switch_unit*stride;
     let local_budget=if phase==0 {400}else{192};
     let ceiling=best.as_ref().map_or(local_budget,|(a,_)|local_budget.min(a.input_cost.saturating_sub(switch_cost+1)));
     if ceiling<6 {continue;}
     let search=BgTarget {rng:target,budget:ceiling,cache:&cache,guard_extra:if phase==2 {12}else{0},
-     fight_cap:if phase==0 {100}else{192},action_cap:if phase==0 {74}else{192},work:(phase>0).then_some(&refinement_work)};
+     fight_cap:if phase==0 {100}else{192},action_cap:if phase==0 {74}else{192},work:(phase>0).then_some(&refinement_work),defend_profile:None};
     if let Some(route)=project(departure,search)? {
      let input_cost=switch_cost+cost(&route);
      if best.as_ref().is_none_or(|(b,_)|input_cost<b.input_cost) {
@@ -884,33 +909,56 @@ fn search_bg<T>(entry:&Entry,mut project:impl FnMut(&Entry,BgTarget<'_>)->Result
  // ceiling. Gap estimates order work; they never exclude a departure.
  // Keep a separate computational allowance so expensive prefixes cannot starve
  // every other departure/anchor. Truncated queries are never cached as failures.
- let horizon=best.as_ref().unwrap().0.target.draws;
+ let horizon=best.as_ref().unwrap().0.target.draws+if galdera {2000}else{0};
  let mut targets=Vec::new();let mut scan=entry.after;
  while scan.draws<=horizon {
   let target=scan;scan.advance(1);let mut lottery=target;
   if ot2_battle_engine::bewildering_grace::Dance::new(3)?.select(&mut lottery)?.unwrap().ability=="ABI_DAN_MAKA_002" {targets.push(target);}
  }
- let mut adaptive_work=(best.as_ref().unwrap().0.input_cost as usize).saturating_mul(30).min(90_000);
+ let mut adaptive_work=(best.as_ref().unwrap().0.input_cost as usize).saturating_mul(if galdera {120}else{30}).min(if galdera {360_000}else{90_000});
  'adaptive: for preferred_gap in [1150u64,2200,3800] {
   for &target in &targets {
-   let mut target_work=12_000usize;
-   let mut trials:Vec<_>=departures.iter().enumerate().filter(|(i,e)|e.after.draws<target.draws&&(*i as u32)*7*stride+6<best.as_ref().unwrap().0.input_cost).collect();
+   let mut target_work=if galdera {36_000usize}else{12_000};
+   let mut trials:Vec<_>=departures.iter().enumerate().filter(|(i,e)|e.after.draws<target.draws&&(*i as u32)*switch_unit*stride+6<best.as_ref().unwrap().0.input_cost).collect();
    trials.sort_by_key(|(_,e)|(target.draws-e.after.draws).abs_diff(preferred_gap));
    let cache=FightCache::default();
    for &(index,departure) in &trials {
     if adaptive_work==0 {break 'adaptive;}
     if target_work==0 {break;}
-    let switch_cost=index as u32*7*stride;
+    let switch_cost=index as u32*switch_unit*stride;
     let ceiling=best.as_ref().unwrap().0.input_cost.saturating_sub(switch_cost+1);
     if ceiling<6 {continue;}
     let allowance=adaptive_work.min(target_work).min(6000);let work=std::cell::Cell::new(allowance);
-    let search=BgTarget {rng:target,budget:ceiling,cache:&cache,guard_extra:12,fight_cap:ceiling as usize,action_cap:ceiling,work:Some(&work)};
+    let search=BgTarget {rng:target,budget:ceiling,cache:&cache,guard_extra:12,fight_cap:ceiling as usize,action_cap:ceiling,work:Some(&work),defend_profile:None};
     if let Some(route)=project(departure,search)? {
      let input_cost=switch_cost+cost(&route);
      if input_cost<best.as_ref().unwrap().0.input_cost {best=Some((ClockbankAdjustment {switches:index as u32*stride,target,departure:departure.clone(),input_cost},route));}
     }
     adaptive_work-=allowance-work.get();target_work-=allowance-work.get();
    }
+  }
+ }
+ // Target-first refinement: estimate required route draws and measured Defend
+ // curves, then rank useful allocations and nearby switch departures per target.
+ if galdera {
+  let (natural,curves)=bg_estimate(&best.as_ref().unwrap().0,&best.as_ref().unwrap().1)?;
+  let departure_estimates:Vec<_>=departures.iter().enumerate().map(|(i,e)|(e.after.draws,i as u32*switch_unit)).collect();
+  let candidates=crate::bg_target::rank(&targets,&departure_estimates,natural,&curves,best.as_ref().unwrap().0.input_cost,384);
+  let mut remaining=600_000usize;let mut caches=std::collections::BTreeMap::<(u32,u64),FightCache>::new();
+  for candidate in candidates {
+   if remaining==0 {break;}
+   let index=candidate.departure;let departure=&departures[index];
+   let switch_cost=index as u32*switch_unit;
+   let ceiling=best.as_ref().unwrap().0.input_cost.saturating_sub(switch_cost+1);
+   if ceiling<6 {continue;}
+   let allowance=remaining.min(4000);let work=std::cell::Cell::new(allowance);
+   let cache=caches.entry((candidate.target.state,candidate.target.draws)).or_default();
+   let search=BgTarget {rng:candidate.target,budget:ceiling,cache,guard_extra:12,fight_cap:ceiling.min(256)as usize,action_cap:128,work:Some(&work),defend_profile:Some(std::array::from_fn(|i|candidate.counts[i]as usize))};
+   if let Some(route)=project(departure,search)? {
+    let input_cost=switch_cost+cost(&route);
+    if input_cost<best.as_ref().unwrap().0.input_cost {best=Some((ClockbankAdjustment {switches:index as u32,target:candidate.target,departure:departure.clone(),input_cost},route));}
+   }
+   remaining-=allowance-work.get();
   }
  }
  let (mut adjustment,route)=best.expect("baseline search returns only a valid plan");
@@ -990,7 +1038,7 @@ mod clockbank_switch_benchmark {
   let mut target=rng;target.advance(7504);
   for (budget,guard_extra) in [(192,12),(384,12),(192,384),(384,384)] {
    let cache=FightCache::default();let work=std::cell::Cell::new(100_000);
-   let search=BgTarget {rng:target,budget,cache:&cache,guard_extra,fight_cap:budget as usize,action_cap:budget,work:Some(&work)};
+   let search=BgTarget {rng:target,budget,cache:&cache,guard_extra,fight_cap:budget as usize,action_cap:budget,work:Some(&work),defend_profile:None};
    let route=field_continuation(&departure,0,Some(search)).unwrap();
    eprintln!("LIMIT budget={budget} guards={guard_extra} cost={:?} work={} truncated={}",route.as_ref().map(|r|1932+route_cost(r)),100000-work.get(),work.get()==0);
    if let Some(route)=route {
@@ -1025,7 +1073,7 @@ mod clockbank_switch_benchmark {
    for (index,departure) in trials {
     let work=std::cell::Cell::new(20_000);
     let cache=FightCache::default();
-    let search=BgTarget {rng:target,budget:384,cache:&cache,guard_extra:384,fight_cap:384,action_cap:384,work:Some(&work)};
+    let search=BgTarget {rng:target,budget:384,cache:&cache,guard_extra:384,fight_cap:384,action_cap:384,work:Some(&work),defend_profile:None};
     if let Some(route)=field_continuation(departure,0,Some(search)).unwrap() {
      let cost=index as u32*14+route_cost(&route);
      eprintln!("VALID anchor={offset} switches={} cost={cost}",index*2);
@@ -1066,5 +1114,37 @@ mod clockbank_switch_benchmark {
    }).unwrap());
   }
   for t in threads {t.join().unwrap();}
+ }
+}
+
+#[cfg(test)]
+mod galdera_defend_search_regression {
+ use super::*;
+ #[test]
+ #[ignore = "full Chubby refinement regression; run optimized"]
+ fn old_83_switch_seed_compares_whole_route_defends() {
+  let v:serde_json::Value=serde_json::from_str(include_str!("../data/source/galdera-bg-39d1-entry.json")).unwrap();
+  let rng:CrtRng=serde_json::from_value(v["after"].clone()).unwrap();
+  let entry=Entry {arrival:rng,after:rng,world_after:serde_json::from_value(v["world_after"].clone()).unwrap(),trace:vec![],decisions:vec![]};
+  let started=std::time::Instant::now();
+  let (adj,p)=search_bg(&entry,|departure,target|{
+   let a=approach_from_town(departure)?;if !safe(&a){return Ok(None);}
+   let day_cost=14+if a.highroad_day_switch.is_some(){12}else{0};
+   if target.budget<day_cost{return Ok(None);}
+   finish_target(a,Some(BgTarget{budget:target.budget-day_cost,..target}))
+  },|p:&Prediction|14+p.inputs.levels.len()as u32+route_cost(&p.crackridge_return)+if p.approach.highroad_day_switch.is_some(){12}else{0}).unwrap();
+  eprintln!("switches={} cost={} elapsed={:?}",adj.switches,adj.input_cost,started.elapsed());
+  assert!(adj.input_cost<=960,"Must recover or improve audited 61-switch profile with corrected switch pricing");
+  assert_eq!(adj.input_cost,adj.switches*12+14+p.inputs.levels.len()as u32+route_cost(&p.crackridge_return)+if p.approach.highroad_day_switch.is_some(){12}else{0});
+  let mut r=&p.crackridge_return;
+  loop {
+   assert!(r.defends.len()<=7);
+   if let Some(e)=&r.escape {assert!(e.success);}
+   if let Some(next)=&r.southern {r=next;}else{break;}
+  }
+  let f=&r.gravell.as_ref().unwrap().fight;
+  assert_eq!(f.evaluation,ot2_battle_engine::gravell_routine::Evaluation::Accepted);
+  assert!(f.state.actors[..4].iter().all(|a|a.alive()));
+  assert_eq!(f.state.grace.as_ref().unwrap().exp_percent(),10000);
  }
 }

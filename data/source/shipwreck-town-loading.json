@@ -57,6 +57,10 @@
       "sha256": "bfe4d27b98727a195f0ae3454ee1f4d380d92ec57f27e1577a6113f39a9a6baa"
     },
     {
+      "source": "/Game/Environment/Resource/Object/EnvObj_Batlefield/BP/BP_EnvObjMD_Batlefield_A_Flag_B",
+      "sha256": "bd8393f295caa9c220745f52faa31ac83a2508a9ed397727690958a84afde0e3"
+    },
+    {
       "source": "/Game/Environment/Resource/Object/EnvObj_Batlefield/BP/BP_EnvObjMD_Batlefield_A_Flag_A_TwoTone_B",
       "sha256": "ac631a9c62ea0f996435bac730d21cc1648344bac4499bc5e0832f1c3f6083f7"
     },
@@ -71,6 +75,10 @@
     {
       "source": "/Game/Environment/Resource/Object/EnvObj_Gondola/BP/BP_EnvObjMD_Gondola_A_Paddle",
       "sha256": "bbcb520017363996f11aef9f993ab627abd3cf747f9ce818d81c166e7bbee14c"
+    },
+    {
+      "source": "/Game/Environment/Resource/Object/EnvObj_Gondola/BP/BP_OnWaveObject_A",
+      "sha256": "f1f4a95f2bb63e46e3070fa36edcca969837f4e92afea947ac2fb03c28049a67"
     },
     {
       "source": "/Game/Event/json/MS_TOU_10_0100",
@@ -347,6 +355,10 @@
     {
       "source": "/Game/Level/Level/Other/Btl_Dng_Ocn_A_River_A.umap",
       "sha256": "a149e4531851b90971691eea99c35c7725ee493ae101e68ecb176dfd78bf5c88"
+    },
+    {
+      "source": "/Game/Level/Level/Ocean/Dng_Ocn_1_1.uexp",
+      "sha256": "22195d7178f48561939c125e3da8b77f85b542218554439dac650eac567541f4"
     }
   ],
   "maps": {
@@ -366,7 +378,13 @@
         "Dng_Ocn_1_1_Coll",
         "Dng_Ocn_1_1_Sound"
       ],
-      "environment_draws": [],
+      "environment_draws": [
+        {
+          "level": "Dng_Ocn_1_1",
+          "actor": "BP_OnWaveObject_A_2",
+          "kind": "gondola_bobbing_time"
+        }
+      ],
       "placements": [
         "NPC_SYS_SAVE_Dng_Ocn_1_1_0000",
         "Treasure_Dng_Ocn_1_1_01",

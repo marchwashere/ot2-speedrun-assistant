@@ -11,8 +11,8 @@ const c={a,$,conningStages:[],conningSpans:[],conningPoints:[],instructionBoxHtm
 vm.runInNewContext(source.slice(start,end)+'\nresult=western;',c);
 assert.equal(c.result,west);
 assert.match($('southern-crackridge-routine').innerHTML,/Run until the first encounter/);
-assert.match($('southern-crackridge-routine').innerHTML,/Run first 52.7% · walk remaining 47.3%/);
-assert.match($('southern-crackridge-routine').innerHTML,/3-decrement leeway/);
+assert.match($('southern-crackridge-routine').innerHTML,/Run 52.7%/);
+assert.doesNotMatch($('southern-crackridge-routine').innerHTML,/walk remaining/);
 assert.equal($('southern-crackridge-altar-return-result').hidden,false);
 assert(c.conningStages.some(([s])=>s==='Partitio · Negotiate Schedule learned'));
 c.a={southern:west};

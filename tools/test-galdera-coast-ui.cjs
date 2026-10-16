@@ -14,7 +14,7 @@ const context={$,g:{coast},conningStages:[],conningSpans:[],instructionBoxHtml(p
 }};
 vm.runInNewContext(source.slice(start,end),context);
 assert.equal($('galdera-coast-result').hidden,false);
-assert.match($('galdera-coast-routine').innerHTML,/Run first 43\.6% · walk remaining 56\.4%/);
+assert.match($('galdera-coast-routine').innerHTML,/Run 43\.6%/);
 assert.match($('galdera-coast-routine').innerHTML,/No night\/day adjustment/);
 assert(!context.conningStages.some(([label])=>label==='Conning Creek · switched to night'));
 coast.conning_night=entry;coast.coast_day=entry;context.conningStages=[];
@@ -121,28 +121,28 @@ context.conningStages=[];
 vm.runInNewContext(source.slice(start,end),context);
 assert.equal($('galdera-clockbank-result').hidden,false);
 assert.match($('galdera-clockbank-routine').innerHTML,/T1 · Partitio · 1st command menu/);
-assert.match($('galdera-clockbank-routine').innerHTML,/run 100%/);
+assert.match($('galdera-clockbank-routine').innerHTML,/Run 100%/);
 assert.match($('galdera-clockbank-routine').innerHTML,/Escape/);
 assert(!context.conningStages.some(([label])=>label==='Western Clockbank Highroad · night/day adjustment'));
 assert.equal(context.conningStages.at(-1)[0],'Eastern Flamechurch Pass · entered');
 coast.oresrush_supplies.wellgrove.champion.supplies.al_return.flamechurch.additional_time_switches=2;
 coast.oresrush_supplies.wellgrove.champion.supplies.al_return.flamechurch.adjustment=entry;
 vm.runInNewContext(source.slice(start,end),context);
-assert.match($('galdera-clockbank-routine').innerHTML,/switch night → day 1 time\(s\)/);
+assert.match($('galdera-clockbank-adjustment-routine').innerHTML,/Switch night → day 1 time\(s\)/);
 console.log('PASS: Western Clockbank full-run encounter and optional ambush adjustment before Flamechurch');
 
 const fc=coast.oresrush_supplies.wellgrove.champion.supplies.al_return.flamechurch;fc.escape_boost_cycles=2;fc.movement={run_percent:45.8};fc.pass_exit=entry;fc.flamechurch=entry;
 vm.runInNewContext(source.slice(start,end),context);
 assert.match($("galdera-clockbank-routine").innerHTML,/Boost 0 → 1 → 0 × 2 before Escape/);
-assert.match($("galdera-clockbank-routine").innerHTML,/run first 45.8% · walk remaining 54.2%/);
+assert.match($("galdera-flamechurch-pass-routine").innerHTML,/Run 45.8%/);
 assert.equal(context.conningStages.at(-1)[0],"Flamechurch · entered, chapter start discarded");
 
 fc.temenos={introduction:entry,field_return:entry,recruitment:entry,battle:{actor:1,boost_cycles:2,at_command_menu:entry.after,after:entry.after,trace:[]}};
 vm.runInNewContext(source.slice(start,end),context);
 assert.equal($('galdera-temenos-result').hidden,false);
 assert.match($('galdera-temenos-routine').innerHTML,/Osvald/);
-assert.match($('galdera-temenos-routine').innerHTML,/Boost 0 → 1 → 0 × 2/);
-assert.match($('galdera-temenos-routine').innerHTML,/Boost to \+1 BP → regular attack/);
+assert.match($('galdera-temenos-routine').innerHTML,/Boost 0 → 1 × 3/);
+assert.match($('galdera-temenos-routine').innerHTML,/\+1 BP regular attack/);
 assert.doesNotMatch($('galdera-temenos-routine').innerHTML,/replace Agnea/);
 
 fc.temenos.quicksand={setup:entry,sai:entry,southern_sai:entry,western_sai:{...coast.southern_sai,menu:{first_actor:2,rng:entry.after}},quicksand:entry};
@@ -223,3 +223,12 @@ const prefixHtml=$('galdera-quicksand-loot-routine').innerHTML;
 assert.doesNotMatch(prefixHtml,/Firestarter chest|From the Far Reaches of Hell chest|Teleport to Gravell|sell Lionheart/);
 assert(context.conningStages.some(([label])=>label==='Firestarter chest'));
 console.log('PASS: fixed errands hidden while detailed RNG checkpoints remain available');
+
+fc.temenos.battle.boost_cycles=1;
+vm.runInNewContext(source.slice(start,end),context);
+assert.match($('galdera-temenos-routine').innerHTML,/Boost 0 → 1 × 2/);
+assert.doesNotMatch($('galdera-clockbank-routine').innerHTML,/Flamechurch:|Al →/);
+assert.equal($('galdera-clockbank-approach-result').hidden,false);
+assert.equal($('galdera-clockbank-exit-result').hidden,false);
+assert.equal($('galdera-flamechurch-pass-result').hidden,false);
+console.log('PASS: split travel cards and compact recruitment boosts');

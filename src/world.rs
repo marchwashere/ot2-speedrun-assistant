@@ -1619,6 +1619,39 @@ pub fn throne_after_second_state() -> Result<WorldState> {
 mod tests {
     use super::*;
     #[test]
+    fn all_imported_maps_replay_environment_lifecycle() {
+        for (id,map) in &catalog().maps {
+            let mut w=throne_after_second_state().unwrap();
+            w.time=2;
+            if w.map==*id {w.map="Fld_Dst_2_3".into();}
+            let mut l=Loader::new(catalog(),w,CrtRng::new(0)).unwrap();
+            l.visit_map(id).unwrap();
+            let expected=map.environment_draws.iter().filter(|e|map.field_streams.contains(&e.level)).count();
+            let count=|trace:&[Trace]|trace.iter().filter(|t|matches!(t.kind,DrawKind::EnvironmentInitialization)).count();
+            assert_eq!(count(&l.trace),expected,"{id} load");
+            l.trace.clear();
+            l.manual_time_switch(4,"audit night").unwrap();
+            assert_eq!(count(&l.trace),0,"{id} time switch");
+            l.trace.clear();
+            l.restore_field_after_battle("audit return").unwrap();
+            assert_eq!(count(&l.trace),expected,"{id} field return");
+        }
+    }
+    #[test]
+    fn southern_sai_battlefield_flags_initialize_on_load_and_return() {
+        let mut l=Loader::new(catalog(),throne_after_second_state().unwrap(),CrtRng::new(0)).unwrap();
+        l.visit_map("Fld_Dst_2_3").unwrap();
+        let flags=|trace:&[Trace]| trace.iter().filter(|t| matches!(t.kind,DrawKind::EnvironmentInitialization)).count();
+        assert_eq!(flags(&l.trace),6);
+        l.trace.clear();
+        let before=l.rng.draws;
+        l.restore_field_after_battle("Southern Sai Escape").unwrap();
+        assert_eq!(flags(&l.trace),6);
+        assert_eq!(l.rng.draws-before,8); // Six flag BeginPlay calls plus B/A counter reset.
+        assert_eq!(catalog().maps["Fld_Dst_2_2"].environment_draws.len(),3);
+        assert_eq!(catalog().maps["Fld_Dst_3_2"].environment_draws.len(),1);
+    }
+    #[test]
     fn placement_story_filter_is_local_to_the_map() {
         let f:serde_json::Value=serde_json::from_str(include_str!("../data/source/live-hikari-canalbrine-20261010.json")).unwrap();
         let mut w:WorldState=serde_json::from_value(f["world_before"].clone()).unwrap();

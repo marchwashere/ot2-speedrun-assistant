@@ -1,3 +1,5 @@
+- Galdera BG target-first search: scan source EXP100/JP100 lottery positions, estimate required route draws and actual 0–7 safe-Defend draw curves, rank target-specific partial allocations with nearby time-switch departures, then accept only full exact replay. JP calibrates Roque/Nameless/Shipwreck independently before the legacy fallback; EXP calibrates from a valid incumbent. Preserve bounded work and fallback quality; no global optimality claim. Time switches cost12, round advance remains8. Saved old-leaf-order seed39D1C7F5 regression now recovers58 switches (cost910) vs83; run optimized ignored galdera_defend_search_regression. Keep fight caches separate per target.
+
 - Late Galdera UI uses one standalone card per encounter, nonzero time adjustment, nonzero Gigantes adjustment, and selected JP fight; no enclosing Flexible route panel. Show only manipulation controls, predicted encounters/actors and needed movement percentages. Omit escape odds, reward summaries, fixed errands, mandatory switches and cutscene directions from main cards. Preserve diagnostic checkpoints separately.
 
 - Conning coast Cultured Cait search includes 0–3 ordinary first-round Defends, stopping before the next enemy or round transition. Use carried full battle queues (including night buffs), replay Soulstone/Escape and leaf rolls; charge 3 per Defend + 2 per boost cycle. Preserve odd total cost layers and show each Defend/final actor. No A Step Ahead assumed.
@@ -7,6 +9,8 @@
 - Western Coast leaf steals use actual level-based chances (ProperSteal 4 for Whimsical, 6 for Pomegranate). Failed rolls reject the battle boost candidate, never abort the route. Preserve one menu-open draw, two checks and path-action switch/close. Seed 39D1C7F5 / Throné first / 196 HP reaches Lv16 after Queen Octopuff + Cultured Cait; do not assume Lv17.
 
 - Main route cards show RNG-dependent instructions only: adjustments, predicted encounters/actors, Defends/Escape, movement percentages, and selected JP branch. Hide fixed errands, gear/skill menus, mandatory time switches and fixed boss routines. Show boss finisher adjustment only when nonzero; retain full simulation and Detailed log checkpoints.
+
+- Reinforcing Jam plan (2026-10-15): collect four total from Sai orphanage Townsperson Steal, Western Sai Sands ladder chest, Gravell Shopkeeper Steal, and the sea chest northeast before Scourge of the Sea. Keep the sea chest; skip the Beastling Village guarded-house Reinforcing Jam chest. The sea/Beastling continuation remains beyond the currently executable route.
 
 - Reload cost revision 2026-10-15: first 3 Tropu’hopu reloads are free; first 4 Roque Island reloads AFTER Guard Ambush are free, including the mandatory day switch. Each subsequent reload costs 12 input equivalents. Preserve all real RNG callbacks and daytime Nameless departure; the pre-Ambush night switch does not use this allowance.
 

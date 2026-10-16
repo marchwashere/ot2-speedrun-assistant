@@ -7,7 +7,11 @@ pub const MAP:&str="Dng_Ocn_1_1";
 #[derive(Debug,Serialize)]pub struct Trip {pub travel:Segment,pub escape:Option<crate::galdera_coast::SouthernSai>,pub escape_inputs:Vec<u8>,pub jp:Option<JpBattle>,pub dagger:Entry,pub jp100_complete:bool}
 /// Caller has purchased the boat. The specified route has exactly one land
 /// encounter; no unmeasured distance or encounterless guarantee is fabricated.
-pub fn run(entry:&Entry,jp100:bool,max_inputs:usize)->Result<Option<Trip>> {
+pub fn run(entry:&Entry,jp100:bool,max_inputs:usize)->Result<Option<Trip>> {run_observed(entry,jp100,max_inputs,None)}
+pub(crate) fn jp_probe(entry:&Entry)->Result<Option<crate::CrtRng>> {
+ let mut probe=None;run_observed(entry,true,0,Some(&mut probe))?;Ok(probe)
+}
+fn run_observed(entry:&Entry,jp100:bool,max_inputs:usize,probe:Option<&mut Option<crate::CrtRng>>)->Result<Option<Trip>> {
  let mut l=Loader::new(world::catalog(),entry.world_after.clone(),entry.after)?;
  ensure(!l.state.opened_route_chests.contains("Treasure_Dng_Ocn_1_1_06"),"Rusty Dagger chest already opened")?;
  let mut travel=Segment::new("Crackridge Harbor to Shipwreck");
@@ -20,7 +24,7 @@ pub fn run(entry:&Entry,jp100:bool,max_inputs:usize)->Result<Option<Trip>> {
  travel.save(&mut l,if jp100{"Night; retain/apply Osvald and Throne gear menu"}else{"Stay during day"},before);
  let e=travel.end();
  let (escape,escape_inputs,jp,ret)=if jp100 {
-  let Some(j)=jp_battle(e,max_inputs)?else{return Ok(None);};let ret=j.field_return.clone();(None,vec![],Some(j),ret)
+  let Some(j)=jp_battle(e,max_inputs,probe)?else{return Ok(None);};let ret=j.field_return.clone();(None,vec![],Some(j),ret)
  }else{
   let Some((f,inputs))=escape_battle(e,max_inputs)?else{return Ok(None);};let ret=f.field_return.clone();(Some(f),inputs,None,ret)
  };
@@ -47,7 +51,7 @@ fn escape_battle(e:&Entry,max_inputs:usize)->Result<Option<(crate::galdera_coast
   return Ok(Some((crate::galdera_coast::SouthernSai{arrival:e.clone(),encounter,battle_entry:rng,menu,escape,field_return,defends:vec![],defend_rounds:vec![],escape_round:1},inputs)));
  }Ok(None)
 }
-fn jp_battle(e:&Entry,max_inputs:usize)->Result<Option<JpBattle>> {
+fn jp_battle(e:&Entry,max_inputs:usize,probe:Option<&mut Option<crate::CrtRng>>)->Result<Option<JpBattle>> {
  let w=&e.world_after;ensure(w.party==[7,6,5,4]&&w.time==4,"Shipwreck JP needs Galdera party at night")?;
  for id in [7,6,5,4]{ensure(w.character_progression[&id].jobs.equipped_support.contains(crate::gravell_setup::STEP_AHEAD),"Shipwreck needs four A Step Ahead users")?;}
  ensure(w.character_progression[&5].jobs.learned_abilities.get(&5).is_some_and(|a|a.contains("ABI_SET_DAN_070")),"Temenos needs BG")?;
@@ -58,6 +62,11 @@ fn jp_battle(e:&Entry,max_inputs:usize)->Result<Option<JpBattle>> {
  let situation=match encounter.situation.as_deref(){Some("Normal")=>ot2_battle_engine::escape::Situation::Normal,Some("Preemptive")=>ot2_battle_engine::escape::Situation::Preemptive,_=>return Ok(None)};
  let players:Vec<_>=w.party.iter().map(|id|w.character_progression[id].character.clone()).collect();let ids:Vec<_>=encounter.enemies.iter().map(|e|e.enemy.id.as_str()).collect();
  let b=ot2_battle_engine::field_escape::shipwreck_jp_battle(rng,situation,&players,&ids,&w.enemy_knowledge)?;
+ if let Some(probe)=probe {
+  if let Some((menu,_))=ot2_battle_engine::nameless_routine::prefix(b)? {
+   *probe=Some(crate::CrtRng{state:menu.state().rng.state,draws:rng.draws+menu.state().rng.draws});
+  }return Ok(None);
+ }
  let Some(f)=ot2_battle_engine::nameless_routine::search_shipwreck(b,max_inputs)?else{return Ok(None);};
  let (fight,rewards,mut field_return)=crate::inventor::settle_gravell(e,rng,f)?;
  ensure(rewards.base.jp>=111,"Shipwreck formation below JP budget")?;

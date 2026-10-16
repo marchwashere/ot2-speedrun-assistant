@@ -21,7 +21,11 @@ pub const END_LEEWAY:u32=3;
 /// Candidate for the pending automatic location selector. No opening-order
 /// manipulation: the caller adjusts upstream RNG for the 25% formation.
 /// JP manipulation ends at this victory, not at Gigantes or Georges.
-pub fn jp_finish(entry:&Entry,max_inputs:usize)->Result<Option<JpTrip>> {
+pub fn jp_finish(entry:&Entry,max_inputs:usize)->Result<Option<JpTrip>> {jp_observed(entry,max_inputs,None)}
+pub(crate) fn jp_probe(entry:&Entry)->Result<Option<crate::CrtRng>> {
+ let mut probe=None;jp_observed(entry,0,Some(&mut probe))?;Ok(probe)
+}
+fn jp_observed(entry:&Entry,max_inputs:usize,probe:Option<&mut Option<crate::CrtRng>>)->Result<Option<JpTrip>> {
  use crate::encounter::{self,PredictionOptions,Boundary};
  let mut l=Loader::new(world::catalog(),entry.world_after.clone(),entry.after)?;
  ensure(l.state.map==MAP&&l.state.time==2&&l.state.evasive_maneuvers,"Nameless JP approach requires daytime island entry with EM")?;
@@ -44,6 +48,11 @@ pub fn jp_finish(entry:&Entry,max_inputs:usize)->Result<Option<JpTrip>> {
  let players:Vec<_>=w.party.iter().map(|id|w.character_progression[id].character.clone()).collect();
  let b=ot2_battle_engine::field_escape::nameless_jp_battle(rng,situation,&players,&w.enemy_knowledge)?;
 
+ if let Some(probe)=probe {
+  if let Some((menu,_))=ot2_battle_engine::nameless_routine::prefix(b)? {
+   *probe=Some(crate::CrtRng{state:menu.state().rng.state,draws:rng.draws+menu.state().rng.draws});
+  }return Ok(None);
+ }
  let f=ot2_battle_engine::nameless_routine::search_accepting(b,max_inputs,|fight|{
   let (_,_,ret)=crate::inventor::settle_gravell(&water_entry,rng,fight.clone())?;
   Ok(movement(ret.world_after.encounter_counter,first,run,walk).is_some())

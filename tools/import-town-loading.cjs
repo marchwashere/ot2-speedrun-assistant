@@ -59,10 +59,12 @@ const environmentKinds=new Map([
 ]);
 for(const [asset,kind,entry] of [
  ['Environment/Resource/Object/EnvObj_Batlefield/BP/BP_EnvObjMD_Batlefield_A_Flag_A','flag_animation_speed',10],
+ ['Environment/Resource/Object/EnvObj_Batlefield/BP/BP_EnvObjMD_Batlefield_A_Flag_B','flag_animation_speed',10],
  ['Environment/Resource/Object/EnvObj_Batlefield/BP/BP_EnvObjMD_Batlefield_A_Flag_A_TwoTone_B','flag_animation_speed',10],
  ['Environment/Resource/Object/EnvObj_Lamp/BP/BP_Lamp_I_Sea','lamp_swing_time',235],
  ['Environment/Resource/Object/EnvObj_Gondola/BP/BP_EnvObjMD_Gondola_A_NoPaddle','gondola_bobbing_time',214],
  ['Environment/Resource/Object/EnvObj_Gondola/BP/BP_EnvObjMD_Gondola_A_Paddle','gondola_bobbing_time',214],
+ ['Environment/Resource/Object/EnvObj_Gondola/BP/BP_OnWaveObject_A','gondola_bobbing_time',342],
 ]) {
  const name=asset.split('/').at(-1),bp=blueprint(asset,['ReceiveBeginPlay','ExecuteUbergraph_'+name]);
  assert(bp.functions.ReceiveBeginPlay.includes('IntConst '+entry));

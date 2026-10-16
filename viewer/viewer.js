@@ -520,7 +520,7 @@ function renderEarlyCait() {
   $('snows-encounter-before').disabled=!!p.southern_rare_target;
   $('snows-encounter-status').textContent=branch?`${snowsEncounterTiming?'Selected':'Predicted'} encounter: ${beforeOsvald?'before':'after'} Osvald · ${branch.non_surprise?'No surprise':'Surprise'}`:'';
   const m=p.movement.mixed;
-  $('early-route-run').textContent=!m?'Walking target not met':p.movement.running.reaches_reset?'Run 100%':`Run ≈${m.running_distance_percent}% · walk ${m.walking_distance_percent}%`;
+  $('early-route-run').textContent=!m?'Walking target not met':p.movement.running.reaches_reset?'Run 100%':`Run ≈${m.running_distance_percent}%`;
   $('early-route-run').classList.toggle('text-bad',!m);
   $('early-route-switches').hidden=true;
   $('early-route-switches').textContent='After clerics time switch: 1 → day';
@@ -577,7 +577,7 @@ function renderEarlyCait() {
       const entry=onward.eastern_entry,e=onward.eastern_encounter,w=onward.passage;
       $('snows-onward-result').hidden=false;
       $('snows-onward-title').textContent='Encounter exit → Eastern Cape Cold Snows';
-      $('snows-onward-run').textContent=onward.onward.running.reaches_reset?'Run 100%':`Run ≈${onward.onward.running_distance_percent}% · walk ${onward.onward.walking_distance_percent}%`;
+      $('snows-onward-run').textContent=onward.onward.running.reaches_reset?'Run 100%':`Run ≈${onward.onward.running_distance_percent}%`;
       $('eastern-escape-result').hidden=false;
       $('eastern-encounter-name').textContent=encounterLabel(e);
       $('eastern-onward-run').hidden=false;
@@ -609,7 +609,7 @@ function renderEarlyCait() {
     const move=exit.onward,entry=exit.eastern_entry;
     $('snows-onward-result').hidden=false;
     $('snows-onward-title').textContent=`${move.start} → Eastern Cape Cold Snows`;
-    $('snows-onward-run').textContent=move.running.reaches_reset?'Run 100%':`Run ≈${move.running_distance_percent}% · walk ${move.walking_distance_percent}%`;
+    $('snows-onward-run').textContent=move.running.reaches_reset?'Run 100%':`Run ≈${move.running_distance_percent}%`;
     $('eastern-snows-log').hidden=false;
     $('eastern-snows-advances').textContent=totalAdvances(entry.after);
     $('eastern-snows-hex').textContent=hex(entry.after.state);
@@ -714,7 +714,7 @@ function renderVillageReturn() {
   $('village-return-advances').textContent=totalAdvances(p.after);
   $('village-return-hex').textContent=hex(p.after.state);
   const r=p.snow_reach,m=r.mixed;
-  const label=!m?'Walking target not met':r.running.reaches_reset?'Run 100%':`Run ≈${m.running_distance_percent}% · walk ${m.walking_distance_percent}%`;
+  const label=!m?'Walking target not met':r.running.reaches_reset?'Run 100%':`Run ≈${m.running_distance_percent}%`;
   $('village-snow-run').textContent=label;
   $('village-snow-run').className='run-state '+(m?'text-good':'text-bad');
   $('village-snow-detail').textContent=`Counter ${r.initial_counter} · ${m?`${m.estimated_counter_at_exit} left · route-distance estimate`:'Walking needs counter 649'}`;
@@ -754,7 +754,7 @@ function renderCapeCold() {
   $('cape-cold-diagnostics').hidden=!p?.after_loading;
   if(!p || p.error) return;
   const r=p.reach,m=r.mixed;
-  $('cape-cold-run').textContent=!m?'Walking target not met':r.running.reaches_reset?'Run 100%':`Run ≈${m.running_distance_percent}% · walk ${m.walking_distance_percent}%`;
+  $('cape-cold-run').textContent=!m?'Walking target not met':r.running.reaches_reset?'Run 100%':`Run ≈${m.running_distance_percent}%`;
   $('cape-cold-run').className='run-state '+(m?'text-good':'text-bad');
   $('cape-cold-counter').textContent=`Counter ${r.initial_counter} · ${m?`${m.estimated_counter_at_exit} left · route-distance estimate`:'Walking needs counter 487'}`;
   if(p.after_loading) {
@@ -774,7 +774,7 @@ function renderMug() {
   const search=market?.search;
   const reach=market?.cleric_reach;
   $('cleric-approach-result').hidden=!reach;
-  $('cleric-approach-run').textContent=!reach?'':reach.running.reaches_reset?'Run 100%':reach.mixed?`Run ${reach.mixed.max_running_percent}% · walk ${(100-reach.mixed.max_running_percent).toFixed(1).replace(/\.0$/,'')}%`:'Encounter unavoidable while walking';
+  $('cleric-approach-run').textContent=!reach?'':reach.running.reaches_reset?'Run 100%':reach.mixed?`Run ${reach.mixed.max_running_percent}%`:'Encounter unavoidable while walking';
   $('cleric-approach-run').classList.toggle('text-bad',!!reach && !reach.mixed);
   $('cleric-approach-detail').textContent=reach?`Flats entry → cleric spawns: ${reach.walking.updates} updates at either speed (40 measured + 2 for player error). Entry counter ${reach.initial_counter} · walking cost ${reach.walking.cost} · running cost ${reach.running.cost}. ${reach.mixed?`Safe mix: ${reach.mixed.max_running_updates} run + ${reach.mixed.walking_updates} walk updates; ${reach.mixed.counter_before_reset} counter left.`:'Walking triggers an encounter.'} World state retains the walking reference counter.`:'';
   const warning=market?.error || (search && !search.met ? 'Clerics target not met · adjust its search in Settings.' : '');
@@ -846,7 +846,7 @@ function renderCrackridgeVoyage() {
   $('canalbrine-route-log').hidden=true;
   $('canalbrine-water-result').hidden=true;
   $('canalbrine-water-log').hidden=true;
-  for(const id of ['new-delsta-bg-result','crackridge-bg-result','clockbank-bg-result','oresrush-time-result','cropdale-time-result','conning-north-result','conning-west-result','conning-steal-result','inventor-escape-result','clockbank-movement-result','crackridge-return-result','southern-crackridge-result','southern-crackridge-altar-return-result','western-crackridge-result','western-crackridge-return-result','gravell-result','galdera-coast-result','southern-sai-result','eastern-sai-result','western-sai-result','eastern-wellgrove-result','galdera-clockbank-result','galdera-temenos-result','galdera-quicksand-result','galdera-lord-sands-result','galdera-quicksand-loot-result','galdera-flex-result','galdera-pre-gravell-result','conning-log']) $(id).hidden=true;
+  for(const id of ['new-delsta-bg-result','crackridge-bg-result','clockbank-bg-result','oresrush-time-result','cropdale-time-result','conning-north-result','conning-west-result','conning-steal-result','inventor-escape-result','clockbank-movement-result','crackridge-return-result','southern-crackridge-result','southern-crackridge-altar-return-result','western-crackridge-result','western-crackridge-return-result','gravell-result','galdera-coast-result','southern-sai-result','eastern-sai-result','western-sai-result','eastern-wellgrove-result','galdera-clockbank-result','galdera-clockbank-approach-result','galdera-clockbank-adjustment-result','galdera-clockbank-exit-result','galdera-flamechurch-pass-result','galdera-temenos-result','galdera-quicksand-result','galdera-lord-sands-result','galdera-quicksand-loot-result','galdera-flex-result','galdera-pre-gravell-result','conning-log']) $(id).hidden=true;
   const early=result.post_battle_field?.flats_escape?.early_cait;
   const timing=early?.southern_rare_target?'after':early?.snows_approach?.predicted_before_osvald?'before':snowsEncounterTiming ?? 'after';
   const exit=result.post_battle_field?.flats_escape?.snows_escape?.[timing+'_osvald'];
@@ -863,7 +863,7 @@ function renderCrackridgeVoyage() {
     $('winter-crackridge-run').textContent=`Crackridge Harbor encounter exit → Eastern Cropdale Trail · Run ${v.run_percent===100?'100':('≈'+v.run_percent.toFixed(1))}%`;
     $('cropdale-walk-result').hidden=false;
     const crop=v.cropdale_reach;
-    $('cropdale-running-limit').textContent=crop.run_percent===100?'Run 100%':`Run ≈${crop.run_percent.toFixed(1)}% · walk ${(100-crop.run_percent).toFixed(1)}%`;
+    $('cropdale-running-limit').textContent=crop.run_percent===100?'Run 100%':`Run ≈${crop.run_percent.toFixed(1)}%`;
     $('crackridge-voyage-result').hidden=true;
     if(!v.cropdale_exit) return; // Committed prefix; downstream search is still running.
     const switches=v.cropdale.time_switches||[];
@@ -875,7 +875,7 @@ function renderCrackridgeVoyage() {
     $('cropdale-return-escape-routine').innerHTML=`<p><strong>R1 · ${actor} · 1st command menu</strong></p>${boostStepsHtml(onward.escape.inputs?.levels,'Escape')}`;
     const oresrush=onward.oresrush_reach;
     $('oresrush-walk-result').hidden=false;
-    $('oresrush-running-limit').textContent=!oresrush?'Walking target not met':oresrush.run_percent===100?'Run 100%':`Run ≈${oresrush.run_percent.toFixed(1)}% · walk ${(100-oresrush.run_percent).toFixed(1)}%`;
+    $('oresrush-running-limit').textContent=!oresrush?'Walking target not met':oresrush.run_percent===100?'Run 100%':`Run ≈${oresrush.run_percent.toFixed(1)}%`;
     $('oresrush-running-limit').classList.toggle('text-bad',!oresrush);
     $('oresrush-movement-log').hidden=false;
     $('oresrush-movement-budget').textContent=oresrush
@@ -1050,17 +1050,16 @@ function renderCrackridgeVoyage() {
           $('clockbank-movement-result').hidden=!i.clockbank;
           const reach=i.clockbank_reach;
           $('clockbank-movement-routine').innerHTML=instructionBoxHtml(reach ? [
-            'Start fast: first ≈'+reach.run_percent.toFixed(1)+'% of total route',
-            'Then slow: remaining ≈'+(100-reach.run_percent).toFixed(1)+'%'
+            'Run ≈'+reach.run_percent.toFixed(1)+'%'
           ] : ['Encounter unavoidable even at slow speed']);
           const movement=i.approach.thief_reach;
           $('inventor-escape-routine').innerHTML=movement ? instructionBoxHtml([
-            'Run first '+movement.run_percent.toFixed(1)+'% · walk remaining '+(100-movement.run_percent).toFixed(1)+'%'
+            'Run '+movement.run_percent.toFixed(1)+'%'
           ]) : '<p>'+escapeHtml(encounterLabel(i.approach.encounter))+'</p><p><strong>R1 · '+actor+' · 1st command menu</strong></p>'+boostStepsHtml(i.inputs.levels,'Escape');
           const thiefStages=i.thief ? [['Thief · switched to night',i.thief.night],['Thief · scripted battle initialization',i.thief.introduction],['Thief · victory and field return',i.thief.field_return],["Al’s Bag recovered · return to Al later",i.thief.bag],['Highroad · returned to day before Arkar',i.thief.day]] : [];
           if(i.thief) { $('inventor-escape-routine').innerHTML+='<p><strong>Thief · T1 · '+routeNames()[i.thief.battle.actor]+' · Shadow Soulstone (M)</strong></p>'; conningSpans.push(...(i.thief.battle.trace||[])); }
           if(i.inventor_reach) { const r=i.inventor_reach; $('inventor-escape-routine').innerHTML+='<p><strong>Thief → Inventor house</strong></p>'+instructionBoxHtml([
-            'Run first '+r.run_percent.toFixed(1)+'% · walk remaining '+(100-r.run_percent).toFixed(1)+'%'
+            'Run '+r.run_percent.toFixed(1)+'%'
           ]); }
           for(const [label,e] of [['New Delsta · fast travel',i.approach.town],[i.approach.agnea_story.world_after.galdera_route?'New Delsta · Agnea Chapter 2 left inactive':'Agnea Chapter 2 · story accepted, opening skipped',i.approach.agnea_story],['Eastern New Delsta Highroad · loaded',i.approach.highroad],['Eastern New Delsta Highroad · switched to day before encounter',i.approach.highroad_day_switch],[i.approach.thief_reach?'Highroad · reached thief without an encounter':'Inventor Highroad · escaped',i.field_return],...thiefStages,...(i.inventor_arrival?[['Inventor house · reached without an encounter',i.inventor_arrival]]:[]),['Arkar · Proof of the Inventor',i.license],['Elemental Bomb Bottle crafted',i.bomb],['Critical Scope crafted',i.scope],['Western Clockbank Highroad · loaded',i.western_clockbank],['Southern Clockbank Highroad · loaded (no intervening encounter)',i.southern_clockbank],['Clockbank · loaded',i.clockbank],['Partitio Chapter 2 · story accepted, opening skipped',i.partitio_story]]) {if(e){conningStages.push([label,e]);conningSpans.push(...e.trace);}}
           if(i.crackridge_return) {
@@ -1092,7 +1091,7 @@ function renderCrackridgeVoyage() {
               let western=a.southern;
               if(a.altar) {
                 const v=a.altar,m=v.movement;
-                $('southern-crackridge-routine').innerHTML=instructionBoxHtml(['Run until the first encounter'])+lateRouteInstructions(a)+instructionBoxHtml(['After Escape, toward Altar of the Trader: Run first '+m.run_percent.toFixed(1)+'% · walk remaining '+(100-m.run_percent).toFixed(1)+'% (3-decrement leeway; no second encounter)']);
+                $('southern-crackridge-routine').innerHTML=instructionBoxHtml(['Run until the first encounter'])+lateRouteInstructions(a)+instructionBoxHtml(['After Escape, toward Altar of the Trader: Run '+m.run_percent.toFixed(1)+'%']);
                 for(const [label,e] of [['Southern Crackridge · altar approach complete',v.approach_exit],['Altar of the Trader · loaded',v.arrival],['Partitio · Negotiate Schedule learned',v.learned]]) {conningStages.push([label,e]);conningSpans.push(...e.trace);}
                 const back=a.southern;
                 $('southern-crackridge-altar-return-result').hidden=false;
@@ -1139,7 +1138,7 @@ function renderCrackridgeVoyage() {
                     $('galdera-coast-routine').innerHTML=instructionBoxHtml([c.conning_night
                       ? 'Conning Creek: switch to night after the Head Cook steal. Western Conning Creek Coast: switch to day immediately after entering.'
                       : 'No night/day adjustment in Conning Creek or Western Conning Creek Coast.'])
-                      +instructionBoxHtml([`Run first ${m.run_percent.toFixed(1)}% · walk remaining ${(100-m.run_percent).toFixed(1)}%`]);
+                      +instructionBoxHtml([`Run ${m.run_percent.toFixed(1)}%`]);
                     for(const [label,e] of [['Western Gravell · switched to day before Gravell tag',c.day_before_gravell],['Conning Creek · fast travel',c.conning],['Conning Creek · Head Cook Critical Nut (L) steal and path-action switch',c.head_cook_steal],['Conning Creek · switched to night',c.conning_night],['Western Conning Creek Coast · loaded',c.coast_entry],['Western Conning Creek Coast · switched to day',c.coast_day],['Western Conning Creek Coast · reached Eastern Sai exit without encounter',c.coast_exit],['Eastern Sai Sands · loaded',c.eastern_sai]]) {
                       if(e){conningStages.push([label,e]);conningSpans.push(...e.trace);}
                     }
@@ -1231,7 +1230,15 @@ function renderCrackridgeVoyage() {
                                 $('galdera-clockbank-result').hidden=false;
                                 $('galdera-clockbank-routine').innerHTML='<p><strong>'+escapeHtml(encounterLabel(f.encounter))+'</strong></p>'
                                   +`<p><strong>T1 · ${names[f.menu.first_actor]} · 1st command menu</strong></p>`
-                                  +instructionBoxHtml(['Al → Western Clockbank: run 100%',...(t.additional_time_switches?[`On entering Western Clockbank: switch night → day ${t.additional_time_switches/2} time(s)`]:[]),'Western Clockbank → Eastern Flamechurch Pass: run 100%',...(t.escape_boost_cycles?[`Boost 0 → 1 → 0 × ${t.escape_boost_cycles} before Escape`]:[]),'Escape','Continue running 100% to Eastern Flamechurch Pass',...(t.movement?[`Eastern Flamechurch Pass → Flamechurch: run first ${t.movement.run_percent.toFixed(1)}% · walk remaining ${(100-t.movement.run_percent).toFixed(1)}%`]:[])]);
+                                  +instructionBoxHtml(['Run 100% until the encounter',...(t.escape_boost_cycles?[`Boost 0 → 1 → 0 × ${t.escape_boost_cycles} before Escape`]:[]),'Escape']);
+                                $('galdera-clockbank-approach-result').hidden=false;
+                                $('galdera-clockbank-approach-routine').innerHTML=instructionBoxHtml(['Run 100%']);
+                                $('galdera-clockbank-adjustment-result').hidden=!t.additional_time_switches;
+                                $('galdera-clockbank-adjustment-routine').innerHTML=t.additional_time_switches?instructionBoxHtml([`Switch night → day ${t.additional_time_switches/2} time(s)`]):'';
+                                $('galdera-clockbank-exit-result').hidden=false;
+                                $('galdera-clockbank-exit-routine').innerHTML=instructionBoxHtml(['Run 100%']);
+                                $('galdera-flamechurch-pass-result').hidden=!t.movement;
+                                $('galdera-flamechurch-pass-routine').innerHTML=t.movement?instructionBoxHtml([`Run ${t.movement.run_percent.toFixed(1)}%`]):'';
                                 conningPoints.push([label+' · before battle initialization',f.battle_entry],[label+' · first command menu',f.menu.rng]);
                                 let previous=f.arrival.after;
                                 const origin=BigInt(previous.draws)-BigInt(f.encounter.checkpoints[0].draws);
@@ -1243,7 +1250,7 @@ function renderCrackridgeVoyage() {
                                 if(t.temenos) {
                                   const r=t.temenos,b=r.battle;
                                   $('galdera-temenos-result').hidden=false;
-                                  $('galdera-temenos-routine').innerHTML='<p><strong>T1 · '+names[b.actor]+' · 1st command menu</strong></p>'+instructionBoxHtml([...(b.boost_cycles?['Boost 0 → 1 → 0 × '+b.boost_cycles]:[]),'Boost to +1 BP → regular attack']);
+                                  $('galdera-temenos-routine').innerHTML='<p><strong>T1 · '+names[b.actor]+' · 1st command menu</strong></p>'+instructionBoxHtml(['Boost 0 → 1'+(b.boost_cycles?' × '+(b.boost_cycles+1):''),'+1 BP regular attack']);
                                   conningStages.push(['Temenos · introduction before battle',r.introduction],['Temenos · victory field return',r.field_return],['Temenos · recruited, Chapter 1 skipped, Agnea replaced',r.recruitment]);
                                   conningPoints.push(['Temenos · first command menu',b.at_command_menu],['Temenos · battle victory',b.after]);
                                   conningSpans.push(...r.introduction.trace,...b.trace,...r.field_return.trace,...r.recruitment.trace);
@@ -1302,7 +1309,7 @@ function renderCrackridgeVoyage() {
                                             for(const c of f.encounter.checkpoints){const after={state:c.state,draws:Number(origin+BigInt(c.draws))};conningSpans.push({reason:label+' · '+c.label,before:previous,after});previous=after;}
                                             for(const [k,d] of (f.defends||[]).entries()){lines.push('T'+f.defend_rounds[k]+' · '+party[d.actor]+' · Defend');conningPoints.push([label+' · T'+f.defend_rounds[k]+' '+party[d.actor]+' Defend',d.rng_before]);}
                                             lines.push('T'+(f.escape_round||1)+' · '+party[f.menu.first_actor]+' · '+(j===0&&segment.escape_boost_inputs.length?'Boost 0 → '+segment.escape_boost_inputs.join(' → ')+' → ':'')+'Escape');
-                                            if(j===0&&segment.movement)lines.push('Run '+segment.movement.run_percent.toFixed(1)+'% · walk '+(100-segment.movement.run_percent).toFixed(1)+'% after the encounter');
+                                            if(j===0&&segment.movement)lines.push('Run '+segment.movement.run_percent.toFixed(1)+'% after the encounter');
                                             instructions(label,lines);
                                             conningStages.push([label+' · field return',f.field_return]);conningSpans.push(...f.escape.trace,...f.field_return.trace);conningPoints.push([label+' · Escape command menu',f.menu.rng]);
                                           });
@@ -1365,11 +1372,11 @@ function renderCrackridgeVoyage() {
       const town=oresrushRoute.town_reach;
       const ryu=oresrushRoute.ryu_reach;
       $('ryu-walk-result').hidden=false;
-      $('ryu-running-limit').textContent=!ryu?'Walking target not met':ryu.run_percent===100?'Run 100%':`Run ≈${ryu.run_percent.toFixed(1)}% · walk ${(100-ryu.run_percent).toFixed(1)}%`;
+      $('ryu-running-limit').textContent=!ryu?'Walking target not met':ryu.run_percent===100?'Run 100%':`Run ≈${ryu.run_percent.toFixed(1)}%`;
       $('ryu-running-limit').classList.toggle('text-bad',!ryu);
       const ryuTown=ryuRoute?.town_reach;
       $('ryu-town-walk-result').hidden=false;
-      $('ryu-town-running-limit').textContent=!ryuTown?'Walking target not met':ryuTown.run_percent===100?'Run 100%':`Run ≈${ryuTown.run_percent.toFixed(1)}% · walk ${(100-ryuTown.run_percent).toFixed(1)}%`;
+      $('ryu-town-running-limit').textContent=!ryuTown?'Walking target not met':ryuTown.run_percent===100?'Run 100%':`Run ≈${ryuTown.run_percent.toFixed(1)}%`;
       $('ryu-town-running-limit').classList.toggle('text-bad',!ryuTown);
       $('oresrush-route-log').hidden=false;
       $('oresrush-town-movement-budget').textContent=`Southern Oresrush Wilds entry → Oresrush · initial counter ${town.initial_counter} · measured ${town.running_updates} running updates / ${town.running_cost} counter · counter at town entry ${town.estimated_counter_at_exit}. The running budget keeps a positive counter at town entry.`;
@@ -1474,7 +1481,7 @@ function renderFlats() {
   const reach=p.harbor_reach;
   if(reach) {
     const mixed=reach.mixed;
-    const label=!mixed?'Encounter unavoidable':reach.running.reaches_reset?'Run 100%':`Run ≈${mixed.running_distance_percent}% · walk ${mixed.walking_distance_percent}%`;
+    const label=!mixed?'Encounter unavoidable':reach.running.reaches_reset?'Run 100%':`Run ≈${mixed.running_distance_percent}%`;
     const detail=reach.running.reaches_reset?`${reach.running.counter_before_reset} left at harbor · 56 running updates`:mixed?`Route-distance estimate · ${mixed.estimated_counter_at_harbor} left`:'Walking needs counter 550';
     $('flats-harbor').innerHTML=`<h3>${reach.running.reaches_reset?'Running limit':'Running limit · estimate'}</h3><p class="run-state ${mixed?'text-good':'text-bad'}">${label}</p>`;
     $('flats-harbor-detail').textContent=`Counter ${reach.initial_counter} · ${detail}`;

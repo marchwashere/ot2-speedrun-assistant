@@ -292,7 +292,23 @@
         "Fld_Dst_2_2_Coll",
         "Fld_Dst_2_2_Sound"
       ],
-      "environment_draws": [],
+      "environment_draws": [
+        {
+          "level": "Fld_Dst_2_2",
+          "actor": "BP_EnvObjMD_Batlefield_A_Flag_B_2",
+          "kind": "flag_animation_speed"
+        },
+        {
+          "level": "Fld_Dst_2_2",
+          "actor": "BP_EnvObjMD_Batlefield_A_Flag_B2",
+          "kind": "flag_animation_speed"
+        },
+        {
+          "level": "Fld_Dst_2_2",
+          "actor": "BP_EnvObjMD_Batlefield_A_Flag_B4",
+          "kind": "flag_animation_speed"
+        }
+      ],
       "placements": [
         "SYS_INFO_BOARD_DST_2_2_0010",
         "NPC_SYS_SAVE_Fld_Dst_2_2_0000",
@@ -337,7 +353,38 @@
         "Fld_Dst_2_3_Coll",
         "Fld_Dst_2_3_Sound"
       ],
-      "environment_draws": [],
+      "environment_draws": [
+        {
+          "level": "Fld_Dst_2_3",
+          "actor": "BP_EnvObjMD_Batlefield_A_Flag_B_2",
+          "kind": "flag_animation_speed"
+        },
+        {
+          "level": "Fld_Dst_2_3",
+          "actor": "BP_EnvObjMD_Batlefield_A_Flag_B2_5",
+          "kind": "flag_animation_speed"
+        },
+        {
+          "level": "Fld_Dst_2_3",
+          "actor": "BP_EnvObjMD_Batlefield_A_Flag_B3",
+          "kind": "flag_animation_speed"
+        },
+        {
+          "level": "Fld_Dst_2_3",
+          "actor": "BP_EnvObjMD_Batlefield_A_Flag_B4_9",
+          "kind": "flag_animation_speed"
+        },
+        {
+          "level": "Fld_Dst_2_3",
+          "actor": "BP_EnvObjMD_Batlefield_A_Flag_B5",
+          "kind": "flag_animation_speed"
+        },
+        {
+          "level": "Fld_Dst_2_3",
+          "actor": "BP_EnvObjMD_Batlefield_A_Flag_B6",
+          "kind": "flag_animation_speed"
+        }
+      ],
       "placements": [
         "SYS_INFO_BOARD_DST_2_3_0010",
         "NPC_SYS_SAVE_Fld_Dst_2_3_0000",
@@ -5383,7 +5430,13 @@
         "Fld_Dst_3_2_Coll",
         "Fld_Dst_3_2_Sound"
       ],
-      "environment_draws": [],
+      "environment_draws": [
+        {
+          "level": "Fld_Dst_3_2",
+          "actor": "BP_EnvObjMD_Batlefield_A_Flag_B_2",
+          "kind": "flag_animation_speed"
+        }
+      ],
       "placements": [
         "Treasure_Fld_Dst_3_2_01",
         "Treasure_Fld_Dst_3_2_02",
@@ -5978,7 +6031,13 @@
         "Dng_Ocn_1_1_Coll",
         "Dng_Ocn_1_1_Sound"
       ],
-      "environment_draws": [],
+      "environment_draws": [
+        {
+          "level": "Dng_Ocn_1_1",
+          "actor": "BP_OnWaveObject_A_2",
+          "kind": "gondola_bobbing_time"
+        }
+      ],
       "placements": [
         "NPC_SYS_SAVE_Dng_Ocn_1_1_0000",
         "Treasure_Dng_Ocn_1_1_01",
