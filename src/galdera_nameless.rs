@@ -84,6 +84,8 @@ pub(crate) fn finish_with_defends(entry:&Entry,max_cycles:u32,defends:u8)->Resul
  let night=point(&mut l,e.after);
  let request=l.skipped_event_until_battle("EV_Dng_Ocn_1_3_0010",&world::EventChoices::from([(("EV_Dng_Ocn_1_3_0010".into(),0),"eDIALOG_YES".into())]))?;
  ensure(request.volume=="EVM_DNG_OCN_1_3_L","Unexpected Gigantes volume")?;
+ // Scripted bosses bypass the field selector's player timing initialization.
+ for id in l.state.party.clone() {l.draw(world::DrawKind::BattleTiming,&id.to_string(),"Gigantes: BattlePlayerBP.Initialize timing",None);}
  let prompt=point(&mut l,night.after);
  let players:Vec<_>=l.state.party.iter().map(|id|l.state.character_progression[id].character.clone()).collect();
  let damage_floor=ot2_battle_engine::gigantes::damage_floor(&players)?;
@@ -259,6 +261,8 @@ fn escape_approach_with_defends(entry:&Entry,max_cycles:u32,defends:u8)->Result<
    assert!(t.victory.world_after.flag(40003));assert!(t.battle.broken);
    if accepted==1 {eprintln!("Gigantes conservative floor: {:?}",t.damage_floor);}
    assert_eq!(t.night.world_after.time,4);assert_eq!(t.battle.before,t.prompt.after);
+   assert_eq!(t.prompt.trace.iter().filter(|s|s.kind==world::DrawKind::BattleTiming).count(),4);
+   assert!(!t.battle.trace.iter().any(|s|s.reason=="actor_initialization"&&s.actor.is_some_and(|a|a.0<4)),"Core must not initialize the same players twice");
    assert_eq!(t.battle.actions.last().unwrap().report.outcome,ot2_battle_engine::Outcome::Victory);
    assert!(t.victory.world_after.character_progression[&6].character.combat.as_ref().unwrap().nuts.contains_key("MATK"));
    let end=t.loot.end();assert_eq!(end.world_after.time,2);

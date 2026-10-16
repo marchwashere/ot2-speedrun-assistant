@@ -10,6 +10,9 @@ pub(crate) fn finish(entry:&Entry)->Result<Trip> {
  let intro="MS_SIN_00_0100";let victory="MS_SIN_00_0300";
  let request=l.skipped_event_until_battle(intro,&world::EventChoices::from([((intro.into(),59),"eDIALOG_YES".into())]))?;
  ensure(request.volume=="ENM_EVE_CLE_C00_010"&&request.victory_event==victory,"Unexpected Temenos encounter")?;
+ // The scripted event bypasses the field selector. Core's field-style
+ // opening assumes BattlePlayerBP.Initialize timing was already consumed.
+ for id in l.state.party.clone() {l.draw(world::DrawKind::BattleTiming,&id.to_string(),"Temenos recruitment: BattlePlayerBP.Initialize timing",None);}
  let introduction=point(&mut l,entry.after);
  let players:Vec<_>=l.state.party.iter().map(|id|l.state.character_progression[id].character.clone()).collect();
  let mut minimum_cycles=0;

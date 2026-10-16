@@ -62,6 +62,8 @@ fn finish_boss(entry:&Entry,finisher_boost_cycles:u32)->Result<LordSands> {
  let night=point(&mut l,entry.after);
  let request=l.skipped_event_until_battle("EV_Dng_Dst_2_2_0010",&world::EventChoices::from([(("EV_Dng_Dst_2_2_0010".into(),0),"eDIALOG_YES".into())]))?;
  ensure(request.volume=="EVM_DNG_DST_2_2_L","Unexpected boss volume")?;
+ // Scripted bosses bypass the field selector's player timing initialization.
+ for id in l.state.party.clone() {l.draw(world::DrawKind::BattleTiming,&id.to_string(),"Lord of the Sands: BattlePlayerBP.Initialize timing",None);}
  let prompt=point(&mut l,night.after);
  let players:Vec<_>=l.state.party.iter().map(|id|l.state.character_progression[id].character.clone()).collect();
  let battle=ot2_battle_engine::gigantes::predict_sands(l.rng,&players,&l.state.enemy_knowledge,finisher_boost_cycles)?;
@@ -97,6 +99,17 @@ fn setup_party(l:&mut Loader<'_>)->Result<()> {
 
 #[cfg(test)]mod menu_tests {
  use super::*;
+ #[test]fn scripted_sands_initializes_each_player_once() {
+  let f:serde_json::Value=serde_json::from_str(include_str!("../data/source/galdera-flex-entry.json")).unwrap();
+  let w:world::WorldState=serde_json::from_value(f["world_after"].clone()).unwrap();
+  let mut l=Loader::new(world::catalog(),w,CrtRng::new(123)).unwrap();
+  crate::gravell_setup::assign(&mut l.state,6,Some(0)).unwrap();setup_party(&mut l).unwrap();
+  l.state.set_flag(40010,false);l.state.time=2;l.visit_map("Dng_Dst_2_2").unwrap();
+  let before=l.rng;let entry=point(&mut l,before);let t=finish_boss(&entry,0).unwrap();
+  assert_eq!(t.prompt.trace.iter().filter(|s|s.kind==world::DrawKind::BattleTiming).count(),4);
+  assert!(!t.battle.trace.iter().any(|s|s.reason=="actor_initialization"&&s.actor.is_some_and(|a|a.0<4)));
+  assert_eq!(t.battle.before,t.prompt.after);
+ }
  #[test]fn collect_before_warrior_then_gravell_supports_without_job_swaps() {
   let f:serde_json::Value=serde_json::from_str(include_str!("../data/source/galdera-flex-entry.json")).unwrap();
   let w:world::WorldState=serde_json::from_value(f["world_after"].clone()).unwrap();
