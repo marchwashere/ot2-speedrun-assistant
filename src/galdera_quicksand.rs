@@ -17,7 +17,7 @@ pub(crate) fn finish(entry:&Entry)->Result<Option<Trip>> {
  l.visit_map("Fld_Dst_2_2")?;let western=point(&mut l,southern_sai.after);
  let Some(western_sai)=galdera_coast::sai_encounter(western,"ENT_FLD_DST_2_2_LND")? else {return Ok(None);};
  let mut l=Loader::new(world::catalog(),western_sai.field_return.world_after.clone(),western_sai.field_return.after)?;
- l.visit_map("Dng_Dst_2_2")?;let quicksand=point(&mut l,western_sai.field_return.after);
+ l.visit_map("Dng_Dst_2_2")?;l.state.enter_encounter_zone("ENT_DNG_DST_2_2_LND")?;let quicksand=point(&mut l,western_sai.field_return.after);
  for cycles in 0..10_000 {
   let lord_sands=finish_boss(&quicksand,cycles)?;
   let Some(loot)=finish_loot(&lord_sands.victory)? else {continue;};

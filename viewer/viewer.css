@@ -180,6 +180,7 @@ footer span { margin:0 10px; }
 .diagnostic-list > section > .run-diagnostics { border:0; margin-top:10px; padding-top:0; }
 .text-good { color:var(--green); }
 .text-bad { color:#b33239; }
+.panel.jp-destination { color:#a51d2a; border:2px solid #c93846; background:#fff1f2; }
 .run-state { display:block; font:26px/1.25 var(--mono); margin:10px 0 6px; overflow-wrap:anywhere; }
 .run-diagnostics { border-top:1px solid var(--line); padding-top:12px; margin-top:16px; }
 .first-diagnostics { display:grid; grid-template-columns:minmax(0,1fr) minmax(140px,.4fr); gap:14px; margin-top:12px; }

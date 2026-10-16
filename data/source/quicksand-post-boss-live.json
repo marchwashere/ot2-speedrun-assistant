@@ -297,15 +297,15 @@
             "ABI_INV_SUP_01"
           ],
           "learned_abilities": {
+            "5": [
+              "ABI_SET_DAN_010",
+              "ABI_SET_DAN_020"
+            ],
             "11": [
               "ABI_SET_INV_010",
               "ABI_SET_INV_020",
               "ABI_SET_INV_030",
               "ABI_SET_INV_040"
-            ],
-            "5": [
-              "ABI_SET_DAN_010",
-              "ABI_SET_DAN_020"
             ]
           },
           "secondary_job": 5,
@@ -414,12 +414,6 @@
               "ABI_SET_MER_050",
               "ABI_SET_MER_070"
             ],
-            "11": [
-              "ABI_SET_INV_010",
-              "ABI_SET_INV_020",
-              "ABI_SET_INV_030",
-              "ABI_SET_INV_040"
-            ],
             "2": [
               "ABI_SET_WAR_010",
               "ABI_SET_WAR_050"
@@ -429,6 +423,12 @@
               "ABI_SET_SCH_020",
               "ABI_SET_SCH_060",
               "ABI_SET_SCH_070"
+            ],
+            "11": [
+              "ABI_SET_INV_010",
+              "ABI_SET_INV_020",
+              "ABI_SET_INV_030",
+              "ABI_SET_INV_040"
             ]
           },
           "secondary_job": 2,
@@ -625,17 +625,17 @@
             "ABI_INV_SUP_01"
           ],
           "learned_abilities": {
-            "11": [
-              "ABI_SET_INV_010",
-              "ABI_SET_INV_020",
-              "ABI_SET_INV_030",
-              "ABI_SET_INV_040"
-            ],
             "5": [
               "ABI_SET_DAN_010",
               "ABI_SET_DAN_020",
               "ABI_SET_DAN_060",
               "ABI_SET_DAN_070"
+            ],
+            "11": [
+              "ABI_SET_INV_010",
+              "ABI_SET_INV_020",
+              "ABI_SET_INV_030",
+              "ABI_SET_INV_040"
             ]
           },
           "secondary_job": null,
@@ -1200,9 +1200,9 @@
     ],
     "job_licenses": {
       "0": 1,
-      "11": 1,
       "2": 1,
-      "5": 1
+      "5": 1,
+      "11": 1
     },
     "main_progress_points": 6,
     "map": "Dng_Dst_2_2",
@@ -1298,6 +1298,11 @@
       "Twn_Wld_1_1_C",
       "Twn_Wld_2_1_A",
       "Twn_Wld_3_1_A"
-    ]
+    ],
+    "active_encounter": {
+      "map": "Dng_Dst_2_2",
+      "base": "ENT_DNG_DST_2_2_LND",
+      "zone": "ENT_DNG_DST_2_2_LND"
+    }
   }
 }

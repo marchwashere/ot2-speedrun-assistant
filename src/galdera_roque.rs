@@ -47,8 +47,9 @@ pub(crate) fn town_with_reloads(entry:&Entry,reloads:u32)->Result<Segment> {
  let before=l.rng;
  for item in &d.shopping {
   *l.state.route_items.entry(item.id.clone()).or_default()+=1;
+  crate::nameless_setup::equip_roque_purchase(&mut l,&item.id)?;
   l.boundary(format!("Shop purchase {} for {} leaves; ordinary inventory, no information unlock",item.id,item.price));
  }
- s.save(&mut l,"Buy Swift Shield and Quick Cloak (42,000 leaves); JP100 still pending",before);
+ s.save(&mut l,"Buy Swift Shield and Quick Cloak (42,000 leaves), equipping each to Throne at its purchase prompt; JP100 still pending",before);
  Ok(s)
 }

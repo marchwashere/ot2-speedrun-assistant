@@ -74,3 +74,5 @@ pub mod galdera_altar;
 pub mod galdera_nameless;
 pub mod galdera_shipwreck;
 pub mod nameless_setup;
+
+pub mod encounter_activation;

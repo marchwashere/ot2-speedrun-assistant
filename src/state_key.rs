@@ -43,6 +43,7 @@ pub(crate) struct WorldKey {
     npc_end_delays: BTreeMap<String, i32>,
     first_encounter: bool,
     encounter_counter: u32,
+    active_encounter:Option<crate::encounter_activation::ActiveEncounter>,
     evasive_maneuvers: bool,
     osvald_extra_skills: u8,
     party_experience: Vec<u32>,
@@ -56,13 +57,13 @@ pub(crate) struct WorldKey {
 }
 impl WorldKey {
     pub(crate) fn new(world: &WorldState) -> Self {
-        let WorldState { armsmaster_abilities,swooned_route_npcs,opened_route_chests,hired_merchant,route_items,galdera_route, map, visited_maps, time, flags, event_variables, party, bench,
+        let WorldState { active_encounter, armsmaster_abilities,swooned_route_npcs,opened_route_chests,hired_merchant,route_items,galdera_route, map, visited_maps, time, flags, event_variables, party, bench,
             story_types, active_scenarios, main_progress_points, completed_scenarios, confirmed_scenarios,
             prologues, resident_levels, shared_levels, existing_npcs, npc_start_delays,
             npc_end_delays, first_encounter, encounter_counter, evasive_maneuvers,
             osvald_extra_skills, party_experience, character_progression, job_licenses, inventor_abilities, enemy_knowledge,
             suppress_flag_callbacks, suppress_level_lottery, suppress_time_callbacks } = world;
-        Self {
+        Self { active_encounter:active_encounter.clone(),
             armsmaster_abilities:armsmaster_abilities.clone(),swooned_route_npcs:swooned_route_npcs.clone(),
             opened_route_chests:opened_route_chests.clone(),
             hired_merchant:hired_merchant.clone(),route_items:route_items.clone(),

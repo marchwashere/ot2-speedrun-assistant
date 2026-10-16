@@ -235,6 +235,8 @@ pub struct WorldState {
     pub npc_end_delays: BTreeMap<String, i32>,
     pub first_encounter: bool,
     pub encounter_counter: u32,
+    #[serde(default,skip_serializing_if="Option::is_none")]
+    pub active_encounter: Option<crate::encounter_activation::ActiveEncounter>,
     #[serde(default)]
     pub evasive_maneuvers: bool,
     #[serde(default)]
@@ -935,6 +937,7 @@ impl<'a> Loader<'a> {
         let shown_levels=map.field_streams.iter().filter(|level|created_levels.contains(*level))
             .cloned().collect::<BTreeSet<_>>();
         self.initialize_environment(map, &shown_levels, "");
+        self.state.active_encounter=None;
         self.state.map = destination.into();
         self.refresh_npcs("OnFieldLevelShown")?;
         self.refresh_bar()?;
@@ -1581,6 +1584,7 @@ pub fn throne_after_second_state() -> Result<WorldState> {
         npc_end_delays: BTreeMap::new(),
         first_encounter: true,
         encounter_counter: 0,
+        active_encounter: None,
         evasive_maneuvers: false,
         osvald_extra_skills: 0,
         party_experience: vec![],

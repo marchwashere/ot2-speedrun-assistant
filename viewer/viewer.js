@@ -1306,6 +1306,7 @@ function renderCrackridgeVoyage() {
                                         const instructions=(title,lines)=>{if(lines.length)card(title,instructionBoxHtml(lines));};
                                         for(const segment of [...x.segments,x.boat,...(x.continuation||[])]) {
                                           if(segment.extra_switches)instructions('Time adjustment',[(segment===x.boat?'Tropu’hopu · before entering the Shipyard':segment.name==='Sai / Firestarter'?'Sai · before leaving town':segment.name==='Roque Island supplies'?'Roque Island · after Ambush and mandatory day switch':'Before teleporting to Beasting Bay')+': '+segment.extra_switches+' extra time switches']);
+                                          if(segment===x.boat)cards.push('<section class="panel route-card jp-destination"><h2>JP ×100 · '+location+'</h2><p>'+ (location==='Roque Island Harbor'?'Switch to night upon entering Roque Harbor.':'Stay during day at Roque Harbor.')+'</p></section>');
                                           for(const [label,e] of segment.stages){conningStages.push([label,e]);conningSpans.push(...e.trace);}
                                           segment.encounters.forEach((f,j)=>{
                                             const label=segment.name==='Boat approach'?(j===0?'Beasting Bay: Anchorage':'Western Tropu’hopu Traverse'):segment.name==='Roque Harbor daytime Escape'?'Roque Island Harbor':segment.name+' · encounter '+(j+1),lines=[encounterLabel(f.encounter)];

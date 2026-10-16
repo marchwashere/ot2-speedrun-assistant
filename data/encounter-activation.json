@@ -1,0 +1,858 @@
+[
+  {
+    "key": "Dng_Cty_1_3|Octopath_Traveler2/Content/Level/Level/City/Dng_Cty_1_3_Art.umap|BP_Canoedock_Right_R2|EncountTriggerLabel_LND",
+    "map": "Dng_Cty_1_3",
+    "actor": "BP_Canoedock_Right_R2",
+    "base": "ENT_DNG_CTY_1_3_LND",
+    "start_flags": [],
+    "end_flags": [],
+    "replacements": [
+      {
+        "index": 0,
+        "flag": 40002,
+        "zone": "ENT_DNG_CTY_1_3_L_LND"
+      }
+    ]
+  },
+  {
+    "key": "Dng_Cty_1_3|Octopath_Traveler2/Content/Level/Level/City/Dng_Cty_1_3_Art.umap|BP_Canoedock_Right_R3|EncountTriggerLabel_LND",
+    "map": "Dng_Cty_1_3",
+    "actor": "BP_Canoedock_Right_R3",
+    "base": "ENT_DNG_CTY_1_3_LND",
+    "start_flags": [],
+    "end_flags": [],
+    "replacements": [
+      {
+        "index": 0,
+        "flag": 40002,
+        "zone": "ENT_DNG_CTY_1_3_L_LND"
+      }
+    ]
+  },
+  {
+    "key": "Dng_Cty_1_3|Octopath_Traveler2/Content/Level/Level/City/Dng_Cty_1_3_Art.umap|BP_Canoedock_Right_R5|EncountTriggerLabel_LND",
+    "map": "Dng_Cty_1_3",
+    "actor": "BP_Canoedock_Right_R5",
+    "base": "ENT_DNG_CTY_1_3_LND",
+    "start_flags": [],
+    "end_flags": [],
+    "replacements": [
+      {
+        "index": 0,
+        "flag": 40002,
+        "zone": "ENT_DNG_CTY_1_3_L_LND"
+      }
+    ]
+  },
+  {
+    "key": "Dng_Cty_1_3|Octopath_Traveler2/Content/Level/Level/City/Dng_Cty_1_3_Art.umap|ENT_DNG_CTY_1_3_LND|EncountTriggerLabel",
+    "map": "Dng_Cty_1_3",
+    "actor": "ENT_DNG_CTY_1_3_LND",
+    "base": "ENT_DNG_CTY_1_3_LND",
+    "start_flags": [],
+    "end_flags": [],
+    "replacements": [
+      {
+        "index": 0,
+        "flag": 40002,
+        "zone": "ENT_DNG_CTY_1_3_L_LND"
+      }
+    ]
+  },
+  {
+    "key": "Dng_Cty_2_3|Octopath_Traveler2/Content/Level/Level/City/Dng_Cty_2_3_Art.umap|ENT_DNG_CTY_2_3_LND|EncountTriggerLabel",
+    "map": "Dng_Cty_2_3",
+    "actor": "ENT_DNG_CTY_2_3_LND",
+    "base": "ENT_DNG_CTY_2_3_LND",
+    "start_flags": [],
+    "end_flags": [],
+    "replacements": [
+      {
+        "index": 0,
+        "flag": 40009,
+        "zone": "ENT_DNG_CTY_2_3_L_LND"
+      }
+    ]
+  },
+  {
+    "key": "Dng_Dst_2_2|Octopath_Traveler2/Content/Level/Level/Desert/Dng_Dst_2_2_Art.umap|ENT_DNG_DST_2_2_LND|EncountTriggerLabel",
+    "map": "Dng_Dst_2_2",
+    "actor": "ENT_DNG_DST_2_2_LND",
+    "base": "ENT_DNG_DST_2_2_LND",
+    "start_flags": [],
+    "end_flags": [],
+    "replacements": [
+      {
+        "index": 0,
+        "flag": 40010,
+        "zone": "ENT_DNG_DST_2_2_L_LND"
+      }
+    ]
+  },
+  {
+    "key": "Dng_Fst_1_2|Octopath_Traveler2/Content/Level/Level/Forest/Dng_Fst_1_2_Art.umap|ENT_DNG_FST_1_2_LND|EncountTriggerLabel",
+    "map": "Dng_Fst_1_2",
+    "actor": "ENT_DNG_FST_1_2_LND",
+    "base": "ENT_DNG_FST_1_2_LND",
+    "start_flags": [],
+    "end_flags": [],
+    "replacements": [
+      {
+        "index": 0,
+        "flag": 40008,
+        "zone": "ENT_DNG_FST_1_2_L_LND"
+      }
+    ]
+  },
+  {
+    "key": "Dng_Isd_2_1|Octopath_Traveler2/Content/Level/Level/Island/Dng_Isd_2_1_Art.umap|ENT_DNG_ISD_2_1_LND|EncountTriggerLabel",
+    "map": "Dng_Isd_2_1",
+    "actor": "ENT_DNG_ISD_2_1_LND",
+    "base": "ENT_DNG_ISD_2_1_LND",
+    "start_flags": [],
+    "end_flags": [],
+    "replacements": [
+      {
+        "index": 0,
+        "flag": 40000,
+        "zone": "ENT_DNG_ISD_2_1_L_LND"
+      }
+    ]
+  },
+  {
+    "key": "Dng_Isd_3_2_B|Octopath_Traveler2/Content/Level/Level/Island/Dng_Isd_3_2_B_Art.umap|ENT_DNG_ISD_3_2_B_LND|EncountTriggerLabel",
+    "map": "Dng_Isd_3_2_B",
+    "actor": "ENT_DNG_ISD_3_2_B_LND",
+    "base": "ENT_DNG_ISD_3_2_higetu",
+    "start_flags": [],
+    "end_flags": [],
+    "replacements": [
+      {
+        "index": 0,
+        "flag": 7724,
+        "zone": "ENT_DNG_ISD_3_2_B_LND"
+      }
+    ]
+  },
+  {
+    "key": "Dng_Isd_3_2_C|Octopath_Traveler2/Content/Level/Level/Island/Dng_Isd_3_2_C_Art.umap|ENT_DNG_ISD_3_2_C_LND|EncountTriggerLabel",
+    "map": "Dng_Isd_3_2_C",
+    "actor": "ENT_DNG_ISD_3_2_C_LND",
+    "base": "ENT_DNG_ISD_3_2_higetu",
+    "start_flags": [],
+    "end_flags": [],
+    "replacements": [
+      {
+        "index": 0,
+        "flag": 7724,
+        "zone": "ENT_DNG_ISD_3_2_C_LND"
+      }
+    ]
+  },
+  {
+    "key": "Dng_Mnt_2_1|Octopath_Traveler2/Content/Level/Level/Mount/Dng_Mnt_2_1_Art.umap|ENT_DNG_MNT_2_1_LND|EncountTriggerLabel",
+    "map": "Dng_Mnt_2_1",
+    "actor": "ENT_DNG_MNT_2_1_LND",
+    "base": "ENT_DNG_MNT_2_1_LND",
+    "start_flags": [],
+    "end_flags": [],
+    "replacements": [
+      {
+        "index": 0,
+        "flag": 40004,
+        "zone": "ENT_DNG_MNT_2_1_L_LND"
+      }
+    ]
+  },
+  {
+    "key": "Dng_Mnt_3_1_B|Octopath_Traveler2/Content/Level/Level/Mount/Dng_Mnt_3_1_B.umap|ENT_EMPTY|EncountTriggerLabel",
+    "map": "Dng_Mnt_3_1_B",
+    "actor": "ENT_EMPTY",
+    "base": "ENT_EMPTY",
+    "start_flags": [],
+    "end_flags": [],
+    "replacements": [
+      {
+        "index": 0,
+        "flag": 6717,
+        "zone": "ENT_DNG_MNT_3_1_B_LND"
+      }
+    ]
+  },
+  {
+    "key": "Dng_Ocn_1_2|Octopath_Traveler2/Content/Level/Level/Ocean/Dng_Ocn_1_2.umap|BP_Canoedock_Right_R2|EncountTriggerLabel_LND",
+    "map": "Dng_Ocn_1_2",
+    "actor": "BP_Canoedock_Right_R2",
+    "base": "ENT_DNG_OCN_1_2_LND",
+    "start_flags": [],
+    "end_flags": [],
+    "replacements": [
+      {
+        "index": 0,
+        "flag": 40007,
+        "zone": "ENT_DNG_OCN_1_2_L_LND"
+      }
+    ]
+  },
+  {
+    "key": "Dng_Ocn_1_3|Octopath_Traveler2/Content/Level/Level/Ocean/Dng_Ocn_1_3_Art.umap|BP_Canoedock_Left_L|EncountTriggerLabel_LND",
+    "map": "Dng_Ocn_1_3",
+    "actor": "BP_Canoedock_Left_L",
+    "base": "ENT_DNG_OCN_1_3_LND",
+    "start_flags": [],
+    "end_flags": [],
+    "replacements": [
+      {
+        "index": 0,
+        "flag": 40003,
+        "zone": "ENT_DNG_OCN_1_3_L_LND"
+      }
+    ]
+  },
+  {
+    "key": "Dng_Ocn_1_3|Octopath_Traveler2/Content/Level/Level/Ocean/Dng_Ocn_1_3_Art.umap|BP_Canoedock_Right_F|EncountTriggerLabel_LND",
+    "map": "Dng_Ocn_1_3",
+    "actor": "BP_Canoedock_Right_F",
+    "base": "ENT_DNG_OCN_1_3_LND",
+    "start_flags": [],
+    "end_flags": [],
+    "replacements": [
+      {
+        "index": 0,
+        "flag": 40003,
+        "zone": "ENT_DNG_OCN_1_3_L_LND"
+      }
+    ]
+  },
+  {
+    "key": "Dng_Ocn_1_3|Octopath_Traveler2/Content/Level/Level/Ocean/Dng_Ocn_1_3_Art.umap|ENT_DNG_OCN_1_3_LND|EncountTriggerLabel",
+    "map": "Dng_Ocn_1_3",
+    "actor": "ENT_DNG_OCN_1_3_LND",
+    "base": "ENT_DNG_OCN_1_3_LND",
+    "start_flags": [],
+    "end_flags": [],
+    "replacements": [
+      {
+        "index": 0,
+        "flag": 40003,
+        "zone": "ENT_DNG_OCN_1_3_L_LND"
+      }
+    ]
+  },
+  {
+    "key": "Dng_Snw_3_4_B|Octopath_Traveler2/Content/Level/Level/Snow/Dng_Snw_3_4_B.umap|ENT_DNG_SNW_3_4_B_LND|EncountTriggerLabel",
+    "map": "Dng_Snw_3_4_B",
+    "actor": "ENT_DNG_SNW_3_4_B_LND",
+    "base": "ENT_DNG_SNW_3_4_B_LND",
+    "start_flags": [],
+    "end_flags": [],
+    "replacements": [
+      {
+        "index": 0,
+        "flag": 40005,
+        "zone": "ENT_DNG_SNW_3_4_B_L_LND"
+      }
+    ]
+  },
+  {
+    "key": "Dng_Wld_1_2|Octopath_Traveler2/Content/Level/Level/Wilderness/Dng_Wld_1_2_Art.umap|ENT_DNG_WLD_1_2_LND|EncountTriggerLabel",
+    "map": "Dng_Wld_1_2",
+    "actor": "ENT_DNG_WLD_1_2_LND",
+    "base": "ENT_DNG_WLD_1_2_LND",
+    "start_flags": [],
+    "end_flags": [],
+    "replacements": [
+      {
+        "index": 0,
+        "flag": 40001,
+        "zone": "ENT_DNG_WLD_1_2_L_LND"
+      }
+    ]
+  },
+  {
+    "key": "Dng_Wld_3_2|Octopath_Traveler2/Content/Level/Level/Wilderness/Dng_Wld_3_2_Art.umap|BP_Canoedock_Left_L|EncountTriggerLabel_LND",
+    "map": "Dng_Wld_3_2",
+    "actor": "BP_Canoedock_Left_L",
+    "base": "ENT_DNG_WLD_3_2_LND",
+    "start_flags": [],
+    "end_flags": [],
+    "replacements": [
+      {
+        "index": 0,
+        "flag": 40006,
+        "zone": "ENT_DNG_WLD_3_2_L_LND"
+      }
+    ]
+  },
+  {
+    "key": "Dng_Wld_3_2|Octopath_Traveler2/Content/Level/Level/Wilderness/Dng_Wld_3_2_Art.umap|BP_Canoedock_Left_L|EncountTriggerLabel_WTR",
+    "map": "Dng_Wld_3_2",
+    "actor": "BP_Canoedock_Left_L",
+    "base": "ENT_DNG_WLD_3_2_WTR",
+    "start_flags": [],
+    "end_flags": [],
+    "replacements": [
+      {
+        "index": 0,
+        "flag": 40006,
+        "zone": "ENT_DNG_WLD_3_2_L_WTR"
+      }
+    ]
+  },
+  {
+    "key": "Dng_Wld_3_2|Octopath_Traveler2/Content/Level/Level/Wilderness/Dng_Wld_3_2_Art.umap|BP_Canoedock_Right_F|EncountTriggerLabel_LND",
+    "map": "Dng_Wld_3_2",
+    "actor": "BP_Canoedock_Right_F",
+    "base": "ENT_DNG_WLD_3_2_LND",
+    "start_flags": [],
+    "end_flags": [],
+    "replacements": [
+      {
+        "index": 0,
+        "flag": 40006,
+        "zone": "ENT_DNG_WLD_3_2_L_LND"
+      }
+    ]
+  },
+  {
+    "key": "Dng_Wld_3_2|Octopath_Traveler2/Content/Level/Level/Wilderness/Dng_Wld_3_2_Art.umap|BP_Canoedock_Right_F|EncountTriggerLabel_WTR",
+    "map": "Dng_Wld_3_2",
+    "actor": "BP_Canoedock_Right_F",
+    "base": "ENT_DNG_WLD_3_2_WTR",
+    "start_flags": [],
+    "end_flags": [],
+    "replacements": [
+      {
+        "index": 0,
+        "flag": 40006,
+        "zone": "ENT_DNG_WLD_3_2_L_WTR"
+      }
+    ]
+  },
+  {
+    "key": "Dng_Wld_3_2|Octopath_Traveler2/Content/Level/Level/Wilderness/Dng_Wld_3_2_Art.umap|ENT_DNG_WLD_3_2_LND|EncountTriggerLabel",
+    "map": "Dng_Wld_3_2",
+    "actor": "ENT_DNG_WLD_3_2_LND",
+    "base": "ENT_DNG_WLD_3_2_LND",
+    "start_flags": [],
+    "end_flags": [],
+    "replacements": [
+      {
+        "index": 0,
+        "flag": 40006,
+        "zone": "ENT_DNG_WLD_3_2_L_LND"
+      }
+    ]
+  },
+  {
+    "key": "Fld_Dst_3_1_B|Octopath_Traveler2/Content/Level/Level/Desert/Fld_Dst_3_1_B_Art.umap|BP_Canoedock_Left|EncountTriggerLabel_LND",
+    "map": "Fld_Dst_3_1_B",
+    "actor": "BP_Canoedock_Left",
+    "base": "ENT_FLD_DST_3_1_B_LND_1SHOU",
+    "start_flags": [],
+    "end_flags": [],
+    "replacements": [
+      {
+        "index": 0,
+        "flag": 5022,
+        "zone": "ENT_FLD_DST_3_1_B_LND"
+      }
+    ]
+  },
+  {
+    "key": "Fld_Dst_3_1_B|Octopath_Traveler2/Content/Level/Level/Desert/Fld_Dst_3_1_B_Art.umap|BP_Canoedock_Left|EncountTriggerLabel_WTR",
+    "map": "Fld_Dst_3_1_B",
+    "actor": "BP_Canoedock_Left",
+    "base": "ENT_FLD_DST_3_1_B_WTR_1SHOU",
+    "start_flags": [],
+    "end_flags": [],
+    "replacements": [
+      {
+        "index": 0,
+        "flag": 5022,
+        "zone": "ENT_FLD_DST_3_1_B_WTR"
+      }
+    ]
+  },
+  {
+    "key": "Fld_Dst_3_1_B|Octopath_Traveler2/Content/Level/Level/Desert/Fld_Dst_3_1_B_Art.umap|BP_Canoedock_Left2|EncountTriggerLabel_LND",
+    "map": "Fld_Dst_3_1_B",
+    "actor": "BP_Canoedock_Left2",
+    "base": "ENT_FLD_DST_3_1_B_LND_1SHOU",
+    "start_flags": [],
+    "end_flags": [],
+    "replacements": [
+      {
+        "index": 0,
+        "flag": 5022,
+        "zone": "ENT_FLD_DST_3_1_B_LND"
+      }
+    ]
+  },
+  {
+    "key": "Fld_Dst_3_1_B|Octopath_Traveler2/Content/Level/Level/Desert/Fld_Dst_3_1_B_Art.umap|BP_Canoedock_Left2|EncountTriggerLabel_WTR",
+    "map": "Fld_Dst_3_1_B",
+    "actor": "BP_Canoedock_Left2",
+    "base": "ENT_FLD_DST_3_1_B_WTR_1SHOU",
+    "start_flags": [],
+    "end_flags": [],
+    "replacements": [
+      {
+        "index": 0,
+        "flag": 5022,
+        "zone": "ENT_FLD_DST_3_1_B_WTR"
+      }
+    ]
+  },
+  {
+    "key": "Fld_Dst_3_1_B|Octopath_Traveler2/Content/Level/Level/Desert/Fld_Dst_3_1_B_Art.umap|ENT_FLD_DST_3_1_B_LND|EncountTriggerLabel",
+    "map": "Fld_Dst_3_1_B",
+    "actor": "ENT_FLD_DST_3_1_B_LND",
+    "base": "ENT_FLD_DST_3_1_B_LND_1SHOU",
+    "start_flags": [],
+    "end_flags": [
+      25461
+    ],
+    "replacements": [
+      {
+        "index": 0,
+        "flag": 5022,
+        "zone": "ENT_FLD_DST_3_1_B_LND"
+      }
+    ]
+  },
+  {
+    "key": "Fld_Dst_3_1_B|Octopath_Traveler2/Content/Level/Level/Desert/Fld_Dst_3_1_B_Art.umap|ENT_FLD_DST_3_1_B_WTR|EncountTriggerLabel",
+    "map": "Fld_Dst_3_1_B",
+    "actor": "ENT_FLD_DST_3_1_B_WTR",
+    "base": "ENT_FLD_DST_3_1_B_WTR_1SHOU",
+    "start_flags": [],
+    "end_flags": [
+      25461
+    ],
+    "replacements": [
+      {
+        "index": 0,
+        "flag": 5022,
+        "zone": "ENT_FLD_DST_3_1_B_WTR"
+      }
+    ]
+  },
+  {
+    "key": "Fld_Fst_1_1|Octopath_Traveler2/Content/Level/Level/Forest/Fld_Fst_1_1_Art.umap|BP_Canoedock_Left|EncountTriggerLabel_LND",
+    "map": "Fld_Fst_1_1",
+    "actor": "BP_Canoedock_Left",
+    "base": "ENT_EMPTY",
+    "start_flags": [],
+    "end_flags": [],
+    "replacements": [
+      {
+        "index": 0,
+        "flag": 6525,
+        "zone": "ENT_FLD_FST_1_1_LND"
+      }
+    ]
+  },
+  {
+    "key": "Fld_Fst_1_1|Octopath_Traveler2/Content/Level/Level/Forest/Fld_Fst_1_1_Art.umap|BP_Canoedock_Left|EncountTriggerLabel_WTR",
+    "map": "Fld_Fst_1_1",
+    "actor": "BP_Canoedock_Left",
+    "base": "ENT_EMPTY",
+    "start_flags": [],
+    "end_flags": [],
+    "replacements": [
+      {
+        "index": 0,
+        "flag": 6525,
+        "zone": "ENT_FLD_FST_1_1_WTR"
+      }
+    ]
+  },
+  {
+    "key": "Fld_Fst_1_1|Octopath_Traveler2/Content/Level/Level/Forest/Fld_Fst_1_1_Art.umap|BP_Canoedock_Right|EncountTriggerLabel_LND",
+    "map": "Fld_Fst_1_1",
+    "actor": "BP_Canoedock_Right",
+    "base": "ENT_EMPTY",
+    "start_flags": [],
+    "end_flags": [],
+    "replacements": [
+      {
+        "index": 0,
+        "flag": 6525,
+        "zone": "ENT_FLD_FST_1_1_LND"
+      }
+    ]
+  },
+  {
+    "key": "Fld_Fst_1_1|Octopath_Traveler2/Content/Level/Level/Forest/Fld_Fst_1_1_Art.umap|BP_Canoedock_Right|EncountTriggerLabel_WTR",
+    "map": "Fld_Fst_1_1",
+    "actor": "BP_Canoedock_Right",
+    "base": "ENT_EMPTY",
+    "start_flags": [],
+    "end_flags": [],
+    "replacements": [
+      {
+        "index": 0,
+        "flag": 6525,
+        "zone": "ENT_FLD_FST_1_1_WTR"
+      }
+    ]
+  },
+  {
+    "key": "Fld_Fst_1_1|Octopath_Traveler2/Content/Level/Level/Forest/Fld_Fst_1_1_Art.umap|ENT_FLD_FST_1_1_A_LND|EncountTriggerLabel",
+    "map": "Fld_Fst_1_1",
+    "actor": "ENT_FLD_FST_1_1_A_LND",
+    "base": "ENT_EMPTY",
+    "start_flags": [],
+    "end_flags": [],
+    "replacements": [
+      {
+        "index": 0,
+        "flag": 6525,
+        "zone": "ENT_FLD_FST_1_1_LND"
+      }
+    ]
+  },
+  {
+    "key": "Fld_Fst_1_1|Octopath_Traveler2/Content/Level/Level/Forest/Fld_Fst_1_1_Art.umap|ENT_FLD_FST_1_1_LND|EncountTriggerLabel",
+    "map": "Fld_Fst_1_1",
+    "actor": "ENT_FLD_FST_1_1_LND",
+    "base": "ENT_FLD_FST_1_1_LND",
+    "start_flags": [],
+    "end_flags": [],
+    "replacements": [
+      {
+        "index": 0,
+        "flag": 6525,
+        "zone": "ENT_FLD_FST_1_1_LND"
+      }
+    ]
+  },
+  {
+    "key": "Fld_Fst_1_1|Octopath_Traveler2/Content/Level/Level/Forest/Fld_Fst_1_1.umap|ENT_FLD_FST_1_1_LND|EncountTriggerLabel",
+    "map": "Fld_Fst_1_1",
+    "actor": "ENT_FLD_FST_1_1_LND",
+    "base": "ENT_FLD_FST_1_1_LND",
+    "start_flags": [],
+    "end_flags": [],
+    "replacements": [
+      {
+        "index": 0,
+        "flag": 6525,
+        "zone": "ENT_FLD_FST_1_1_LND"
+      }
+    ]
+  },
+  {
+    "key": "Fld_Isd_1_1|Octopath_Traveler2/Content/Level/Level/Island/Fld_Isd_1_1_Art.umap|BP_Canoedock_Left_R|EncountTriggerLabel_LND",
+    "map": "Fld_Isd_1_1",
+    "actor": "BP_Canoedock_Left_R",
+    "base": "ENT_FLD_ISD_1_1_LND_1SHOU",
+    "start_flags": [],
+    "end_flags": [],
+    "replacements": [
+      {
+        "index": 0,
+        "flag": 7521,
+        "zone": "ENT_FLD_ISD_1_1_LND"
+      }
+    ]
+  },
+  {
+    "key": "Fld_Isd_1_1|Octopath_Traveler2/Content/Level/Level/Island/Fld_Isd_1_1_Art.umap|BP_Canoedock_Left_R|EncountTriggerLabel_WTR",
+    "map": "Fld_Isd_1_1",
+    "actor": "BP_Canoedock_Left_R",
+    "base": "ENT_FLD_ISD_1_1_WTR_1SHOU",
+    "start_flags": [],
+    "end_flags": [],
+    "replacements": [
+      {
+        "index": 0,
+        "flag": 7521,
+        "zone": "ENT_FLD_ISD_1_1_WTR"
+      }
+    ]
+  },
+  {
+    "key": "Fld_Isd_1_1|Octopath_Traveler2/Content/Level/Level/Island/Fld_Isd_1_1_Art.umap|BP_Canoedock_Right_R|EncountTriggerLabel_LND",
+    "map": "Fld_Isd_1_1",
+    "actor": "BP_Canoedock_Right_R",
+    "base": "ENT_FLD_ISD_1_1_LND_1SHOU",
+    "start_flags": [],
+    "end_flags": [],
+    "replacements": [
+      {
+        "index": 0,
+        "flag": 7521,
+        "zone": "ENT_FLD_ISD_1_1_LND"
+      }
+    ]
+  },
+  {
+    "key": "Fld_Isd_1_1|Octopath_Traveler2/Content/Level/Level/Island/Fld_Isd_1_1_Art.umap|BP_Canoedock_Right_R|EncountTriggerLabel_WTR",
+    "map": "Fld_Isd_1_1",
+    "actor": "BP_Canoedock_Right_R",
+    "base": "ENT_FLD_ISD_1_1_WTR_1SHOU",
+    "start_flags": [],
+    "end_flags": [],
+    "replacements": [
+      {
+        "index": 0,
+        "flag": 7521,
+        "zone": "ENT_FLD_ISD_1_1_WTR"
+      }
+    ]
+  },
+  {
+    "key": "Fld_Isd_1_1|Octopath_Traveler2/Content/Level/Level/Island/Fld_Isd_1_1_Art.umap|ENT_FLD_ISD_1_1_LND|EncountTriggerLabel",
+    "map": "Fld_Isd_1_1",
+    "actor": "ENT_FLD_ISD_1_1_LND",
+    "base": "ENT_FLD_ISD_1_1_LND_1SHOU",
+    "start_flags": [],
+    "end_flags": [
+      25253
+    ],
+    "replacements": [
+      {
+        "index": 0,
+        "flag": 7521,
+        "zone": "ENT_FLD_ISD_1_1_LND"
+      }
+    ]
+  },
+  {
+    "key": "Fld_Ocn_1_1|Octopath_Traveler2/Content/Level/Level/Ocean/Fld_Ocn_1_1_Art.umap|ENT_FLD_OCN_1_1_SEA_1|EncountTriggerLabel",
+    "map": "Fld_Ocn_1_1",
+    "actor": "ENT_FLD_OCN_1_1_SEA_1",
+    "base": "ENT_FLD_OCN_1_1_SEA_1",
+    "start_flags": [],
+    "end_flags": [],
+    "replacements": [
+      {
+        "index": 0,
+        "flag": 40012,
+        "zone": "ENT_FLD_OCN_1_1_SEA_2"
+      },
+      {
+        "index": 1,
+        "flag": 40011,
+        "zone": "ENT_FLD_OCN_1_1_SEA_3"
+      },
+      {
+        "index": 2,
+        "flag": 40013,
+        "zone": "ENT_FLD_OCN_1_1_SEA_FULL_L"
+      }
+    ]
+  },
+  {
+    "key": "Fld_Sea_1_1|Octopath_Traveler2/Content/Level/Level/Sea/Fld_Sea_1_1_Art.umap|BP_Canoedock_Left_R|EncountTriggerLabel_LND",
+    "map": "Fld_Sea_1_1",
+    "actor": "BP_Canoedock_Left_R",
+    "base": "ENT_FLD_SEA_1_1_LND_1SHOU",
+    "start_flags": [],
+    "end_flags": [],
+    "replacements": [
+      {
+        "index": 0,
+        "flag": 8520,
+        "zone": "ENT_FLD_SEA_1_1_LND"
+      }
+    ]
+  },
+  {
+    "key": "Fld_Sea_1_1|Octopath_Traveler2/Content/Level/Level/Sea/Fld_Sea_1_1_Art.umap|BP_Canoedock_Left_R|EncountTriggerLabel_WTR",
+    "map": "Fld_Sea_1_1",
+    "actor": "BP_Canoedock_Left_R",
+    "base": "ENT_FLD_SEA_1_1_WTR_1SHOU",
+    "start_flags": [],
+    "end_flags": [],
+    "replacements": [
+      {
+        "index": 0,
+        "flag": 8520,
+        "zone": "ENT_FLD_SEA_1_1_WTR"
+      }
+    ]
+  },
+  {
+    "key": "Fld_Sea_1_1|Octopath_Traveler2/Content/Level/Level/Sea/Fld_Sea_1_1_Art.umap|BP_Canoedock_Left_R2|EncountTriggerLabel_LND",
+    "map": "Fld_Sea_1_1",
+    "actor": "BP_Canoedock_Left_R2",
+    "base": "ENT_FLD_SEA_1_1_LND_1SHOU",
+    "start_flags": [],
+    "end_flags": [],
+    "replacements": [
+      {
+        "index": 0,
+        "flag": 8520,
+        "zone": "ENT_FLD_SEA_1_1_LND"
+      }
+    ]
+  },
+  {
+    "key": "Fld_Sea_1_1|Octopath_Traveler2/Content/Level/Level/Sea/Fld_Sea_1_1_Art.umap|ENT_FLD_SEA_1_1_LND|EncountTriggerLabel",
+    "map": "Fld_Sea_1_1",
+    "actor": "ENT_FLD_SEA_1_1_LND",
+    "base": "ENT_FLD_SEA_1_1_LND_1SHOU",
+    "start_flags": [],
+    "end_flags": [],
+    "replacements": [
+      {
+        "index": 0,
+        "flag": 8520,
+        "zone": "ENT_FLD_SEA_1_1_LND"
+      }
+    ]
+  },
+  {
+    "key": "Fld_Sea_1_1|Octopath_Traveler2/Content/Level/Level/Sea/Fld_Sea_1_1_Art.umap|ENT_FLD_SEA_1_1_WTR|EncountTriggerLabel",
+    "map": "Fld_Sea_1_1",
+    "actor": "ENT_FLD_SEA_1_1_WTR",
+    "base": "ENT_FLD_SEA_1_1_WTR_1SHOU",
+    "start_flags": [],
+    "end_flags": [],
+    "replacements": [
+      {
+        "index": 0,
+        "flag": 8520,
+        "zone": "ENT_FLD_SEA_1_1_WTR"
+      }
+    ]
+  },
+  {
+    "key": "Fld_Snw_1_1_A|Octopath_Traveler2/Content/Level/Level/Snow/Fld_Snw_1_1_A_Art.umap|ENT_FLD_SNW_1_1_A_LND|EncountTriggerLabel",
+    "map": "Fld_Snw_1_1_A",
+    "actor": "ENT_FLD_SNW_1_1_A_LND",
+    "base": "ENT_FLD_SNW_1_1_A_LND_1SHOU",
+    "start_flags": [],
+    "end_flags": [],
+    "replacements": [
+      {
+        "index": 0,
+        "flag": 7062,
+        "zone": "ENT_FLD_SNW_1_1_A_LND"
+      }
+    ]
+  },
+  {
+    "key": "Fld_Snw_1_1_B|Octopath_Traveler2/Content/Level/Level/Snow/Fld_Snw_1_1_B_Art.umap|BP_Canoedock_Left_F|EncountTriggerLabel_LND",
+    "map": "Fld_Snw_1_1_B",
+    "actor": "BP_Canoedock_Left_F",
+    "base": "ENT_FLD_SNW_1_1_B_LND_1SHOU",
+    "start_flags": [],
+    "end_flags": [],
+    "replacements": [
+      {
+        "index": 0,
+        "flag": 7062,
+        "zone": "ENT_FLD_SNW_1_1_B_LND"
+      }
+    ]
+  },
+  {
+    "key": "Fld_Snw_1_1_B|Octopath_Traveler2/Content/Level/Level/Snow/Fld_Snw_1_1_B_Art.umap|BP_Canoedock_Left_F|EncountTriggerLabel_WTR",
+    "map": "Fld_Snw_1_1_B",
+    "actor": "BP_Canoedock_Left_F",
+    "base": "ENT_FLD_SNW_1_1_B_WTR_1SHOU",
+    "start_flags": [],
+    "end_flags": [],
+    "replacements": [
+      {
+        "index": 0,
+        "flag": 7062,
+        "zone": "ENT_FLD_SNW_1_1_B_WTR"
+      }
+    ]
+  },
+  {
+    "key": "Fld_Snw_1_1_B|Octopath_Traveler2/Content/Level/Level/Snow/Fld_Snw_1_1_B_Art.umap|BP_Canoedock_Right_F|EncountTriggerLabel_WTR",
+    "map": "Fld_Snw_1_1_B",
+    "actor": "BP_Canoedock_Right_F",
+    "base": "ENT_FLD_SNW_1_1_B_WTR_1SHOU",
+    "start_flags": [],
+    "end_flags": [],
+    "replacements": [
+      {
+        "index": 0,
+        "flag": 7062,
+        "zone": "ENT_FLD_SNW_1_1_B_WTR"
+      }
+    ]
+  },
+  {
+    "key": "Fld_Snw_1_1_B|Octopath_Traveler2/Content/Level/Level/Snow/Fld_Snw_1_1_B_Art.umap|BP_Canoedock_Right_F2|EncountTriggerLabel_LND",
+    "map": "Fld_Snw_1_1_B",
+    "actor": "BP_Canoedock_Right_F2",
+    "base": "ENT_FLD_SNW_1_1_B_LND_1SHOU",
+    "start_flags": [],
+    "end_flags": [],
+    "replacements": [
+      {
+        "index": 0,
+        "flag": 7062,
+        "zone": "ENT_FLD_SNW_1_1_B_LND"
+      }
+    ]
+  },
+  {
+    "key": "Fld_Snw_1_1_B|Octopath_Traveler2/Content/Level/Level/Snow/Fld_Snw_1_1_B_Art.umap|BP_Canoedock_Right_F2|EncountTriggerLabel_WTR",
+    "map": "Fld_Snw_1_1_B",
+    "actor": "BP_Canoedock_Right_F2",
+    "base": "ENT_FLD_SNW_1_1_B_WTR_1SHOU",
+    "start_flags": [],
+    "end_flags": [],
+    "replacements": [
+      {
+        "index": 0,
+        "flag": 7062,
+        "zone": "ENT_FLD_SNW_1_1_B_WTR"
+      }
+    ]
+  },
+  {
+    "key": "Fld_Snw_1_1_B|Octopath_Traveler2/Content/Level/Level/Snow/Fld_Snw_1_1_B_Art.umap|ENT_FLD_SNW_1_1_B_LND|EncountTriggerLabel",
+    "map": "Fld_Snw_1_1_B",
+    "actor": "ENT_FLD_SNW_1_1_B_LND",
+    "base": "ENT_FLD_SNW_1_1_B_LND_1SHOU",
+    "start_flags": [],
+    "end_flags": [],
+    "replacements": [
+      {
+        "index": 0,
+        "flag": 7062,
+        "zone": "ENT_FLD_SNW_1_1_B_LND"
+      }
+    ]
+  },
+  {
+    "key": "Fld_Snw_1_1_B|Octopath_Traveler2/Content/Level/Level/Snow/Fld_Snw_1_1_B.umap|ENT_MS_GAK_20_0310|EncountTriggerLabel",
+    "map": "Fld_Snw_1_1_B",
+    "actor": "ENT_MS_GAK_20_0310",
+    "base": "ENT_FLD_SNW_1_1_B_WTR_1SHOU",
+    "start_flags": [],
+    "end_flags": [],
+    "replacements": [
+      {
+        "index": 0,
+        "flag": 7062,
+        "zone": "ENT_FLD_SNW_1_2_WTR"
+      }
+    ]
+  },
+  {
+    "key": "Fld_Wld_1_1_B|Octopath_Traveler2/Content/Level/Level/Wilderness/Fld_Wld_1_1_B_Art.umap|ENT_FLD_WLD_1_1_B_LND|EncountTriggerLabel",
+    "map": "Fld_Wld_1_1_B",
+    "actor": "ENT_FLD_WLD_1_1_B_LND",
+    "base": "ENT_FLD_WLD_1_1_B_LND_1SHOU",
+    "start_flags": [],
+    "end_flags": [],
+    "replacements": [
+      {
+        "index": 0,
+        "flag": 6019,
+        "zone": "ENT_FLD_WLD_1_1_B_LND"
+      }
+    ]
+  }
+]

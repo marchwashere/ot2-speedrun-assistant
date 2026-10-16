@@ -598,12 +598,14 @@ fn later_candidate_reloads(entry:&Entry,order:[u8;1],switches:u32,limit:u32,ship
    assert_ne!(r.harbor.encounter.situation.as_deref(),Some("Surprise"));
    assert_eq!(r.field_return.world_after.map,"Twn_Sea_3_1_A");
    assert_eq!(r.field_return.world_after.time,2);assert!(!r.jp100_complete);
-   for (id,count) in [("ITM_CSM_0080",1),("ITM_CSM_0090",1),("ITM_CSM_0240",1),("ITM_CSM_0111",3),("ITM_CSM_0610",1),("ITM_EQP_SLD_240",1),("ITM_EQP_AMR_300",1),("ITM_CSM_0390",0)] {
+   for (id,count) in [("ITM_CSM_0080",1),("ITM_CSM_0090",1),("ITM_CSM_0240",1),("ITM_CSM_0111",3),("ITM_CSM_0610",1),("ITM_EQP_SLD_240",0),("ITM_EQP_AMR_300",0),("ITM_CSM_0390",0)] {
     assert_eq!(r.field_return.world_after.route_items.get(id).copied().unwrap_or(0),entry.world_after.route_items.get(id).copied().unwrap_or(0)+count,"{id}");
    }
    for id in [7,6,5,4] {assert_eq!(r.field_return.world_after.character_progression[&id].jp_earned,entry.world_after.character_progression[&id].jp_earned);}
    let steal=&r.town.stages[1].1;assert_eq!(steal.after.draws-steal.arrival.draws,3);
    assert_eq!(r.chest_money,39800);assert_eq!(r.shopping_cost,42000);
+   let gear=&r.field_return.world_after.character_progression[&7].jobs.equipped_route_items;
+   assert_eq!(gear["Shield"],"ITM_EQP_SLD_240");assert_eq!(gear["Body"],"ITM_EQP_AMR_300");
    let daylight=&r.town.stages[4].1;
    assert_eq!(daylight.world_after.time,2);assert!(daylight.after.draws>daylight.arrival.draws);
    assert_eq!(r.town.stages[5].1.after,r.town.stages[5].1.arrival);

@@ -1,3 +1,9 @@
+- User-confirmed battle setting (2026-10-16): ALL fights use 2x battle speed. Core full Gigantes replay now matches the final retail capture through post-drop position9958 (361 draws). The fix normalizes the break camera's inherited 60000 Hz clock, preserves parent summon LastHit, and uses the selected normal-attack weapon and authored event phases. Do not substitute RNG offsets or a blanket 2x factor. See the core docs/gigantes.md.
+
+- Roque purchases equip Swift Shield and Quick Cloak to Throne immediately through the shop equip prompts. Apply stats/inventory at purchase, without RNG draws. Nameless entry accepts and skips this already-equipped gear, retaining its nut use and Osvald menu; never apply the armor stats twice.
+
+- Encounter replacements: use WorldState.active_encounter and explicit enter_encounter_zone/binding at actual trigger/canoe activation. Never reselect from a boss flag on battle return. Nameless and Quicksand track activation; all 14 dungeon replacement maps are catalogued/tested. Include active selection in cache identity. See docs/encounter-activation.md.
+
 - 2026-10-16 live post-Sands correction: the uninterrupted land loot path retains ENT_DNG_DST_2_2_LND. Do not eagerly select _L_LND merely because flag40010 became true; EncountTrigger.SetEncountVolume checks replacements on trigger entry. Live fixture reproduces menu7048 and both full queues after boss exit6971/day6974. Reload/re-entry behavior is separate.
 
 - Rare-kill search: Eastern/Western snow rare victories expose exact zero-ending boost inputs before Shadow Soulstone M. Joint cost layers allocate two inputs per 0->1->0 cycle alongside preceding escapes, so an unsafe onward Harbor opening does not force a new rare formation. Retain failed zero-adjustment Eastern candidates for later cost layers. Viewer must display the selected rare-kill inputs.

@@ -12,26 +12,11 @@ pub fn apply(l:&mut Loader<'_>)->Result<()> {
  ensure(l.state.character_progression[&7].jobs.secondary_job==Some(11),"Throné must retain Inventor")?;
  let d:Data=serde_json::from_str(include_str!("../data/galdera-nameless.json"))?;
  if d.equipment.iter().all(|(id,gear)|l.state.character_progression[id].jobs.equipped_route_items==*gear){return Ok(());}
- ensure([6,7].iter().all(|id|l.state.character_progression[id].jobs.equipped_route_items.is_empty()),"Unrecognized preexisting route equipment")?;
+ ensure(d.equipment.iter().all(|(id,gear)|l.state.character_progression[id].jobs.equipped_route_items.iter().all(|(slot,item)|gear.get(slot)==Some(item))),"Unrecognized preexisting route equipment")?;
  let mut w=l.state.clone();
  for (&id,gear) in &d.equipment {
   for (slot,item) in gear {
-   take(&mut w,item)?;
-   let row=d.items.iter().find(|r|r.id==*item).unwrap();
-   let old=&d.defaults[&id][slot];
-   let previous=d.items.iter().find(|r|r.id==*old);
-   let p=w.character_progression.get_mut(&id).unwrap();let c=p.character.combat.as_mut().unwrap();
-   if let Some(weapon)=match slot.as_str(){"Sword"=>Some(ot2_battle_engine::combat::Weapon::Sword),"Lance"=>Some(ot2_battle_engine::combat::Weapon::Lance),_=>None}{
-    let equipped=c.weapons.iter_mut().find(|v|v.weapon==weapon).ok_or_else(||crate::SimError("Weapon slot unavailable".into()))?;
-    equipped.attack=row.stats["ATK"] as u32;equipped.magic=row.stats["MATK"] as u32;
-    c.fire_damage_bonus+=row.effects.iter().filter(|e|e.name=="FIRE_ABILITY_UP").map(|e|e.value-100).sum::<u32>();
-   }else{
-    for (stat,value) in [("HP",&mut p.character.stats.max_hp),("MP",&mut p.character.stats.max_sp),("AGI",&mut p.character.stats.speed),("ATK",&mut c.attack),("DEF",&mut c.defense),("MATK",&mut c.magic),("MDEF",&mut c.magic_defense),("ACC",&mut c.accuracy),("EVA",&mut c.evasion),("CON",&mut c.critical)]{
-     *value=u32::try_from(i64::from(*value)+row.stats[stat]-previous.map_or(0,|r|r.stats[stat])).map_err(|_|crate::SimError("Invalid equipment stat".into()))?;
-    }
-   }
-   p.jobs.equipped_route_items.insert(slot.clone(),item.clone());
-   if old!="None" {*w.route_items.entry(old.clone()).or_default()+=1;}
+   equip(&mut w,&d,id,slot,item)?;
   }
  }
  for (&id,nuts) in &d.nuts {for (item,&count) in nuts {for _ in 0..count{
@@ -41,6 +26,36 @@ pub fn apply(l:&mut Loader<'_>)->Result<()> {
   ot2_battle_engine::jobs::add_nut(&mut p.character,id,p.level,p.jobs.secondary_job,stat,effect.value)?;
  }}}
  l.state=w;
- l.boundary("Island entry manual menu: Osvald equips Firestarter, Scorched Bone Spear, Skull Helm and Elemental Augmentor; uses Magic Nut L x2. Throné equips Swift Shield and Quick Cloak; uses Critical Nut L and Fortifying Nut L. Keep current jobs and supports; previously applied menu is not repeated");
+ l.boundary("Island entry manual menu: Osvald equips Firestarter, Scorched Bone Spear, Skull Helm and Elemental Augmentor; uses Magic Nut L x2. Throné uses Critical Nut L and Fortifying Nut L; Swift Shield and Quick Cloak were equipped at purchase. Keep current jobs and supports; previously applied menu is not repeated");
  Ok(())
+}
+
+fn equip(w:&mut WorldState,d:&Data,id:u32,slot:&str,item:&str)->Result<()> {
+ if w.character_progression[&id].jobs.equipped_route_items.get(slot).is_some_and(|old|old==item){return Ok(());}
+ ensure(!w.character_progression[&id].jobs.equipped_route_items.contains_key(slot),"Unexpected equipment in route slot")?;
+   take(w,item)?;
+   let row=d.items.iter().find(|r|r.id==item).unwrap();
+   let old=&d.defaults[&id][slot];
+   let previous=d.items.iter().find(|r|r.id==*old);
+   let p=w.character_progression.get_mut(&id).unwrap();let c=p.character.combat.as_mut().unwrap();
+   if let Some(weapon)=match slot{"Sword"=>Some(ot2_battle_engine::combat::Weapon::Sword),"Lance"=>Some(ot2_battle_engine::combat::Weapon::Lance),_=>None}{
+    let equipped=c.weapons.iter_mut().find(|v|v.weapon==weapon).ok_or_else(||crate::SimError("Weapon slot unavailable".into()))?;
+    equipped.attack=row.stats["ATK"] as u32;equipped.magic=row.stats["MATK"] as u32;
+    c.fire_damage_bonus+=row.effects.iter().filter(|e|e.name=="FIRE_ABILITY_UP").map(|e|e.value-100).sum::<u32>();
+   }else{
+    for (stat,value) in [("HP",&mut p.character.stats.max_hp),("MP",&mut p.character.stats.max_sp),("AGI",&mut p.character.stats.speed),("ATK",&mut c.attack),("DEF",&mut c.defense),("MATK",&mut c.magic),("MDEF",&mut c.magic_defense),("ACC",&mut c.accuracy),("EVA",&mut c.evasion),("CON",&mut c.critical)]{
+     *value=u32::try_from(i64::from(*value)+row.stats[stat]-previous.map_or(0,|r|r.stats[stat])).map_err(|_|crate::SimError("Invalid equipment stat".into()))?;
+    }
+   }
+   p.jobs.equipped_route_items.insert(slot.into(),item.into());
+   if old!="None" {*w.route_items.entry(old.clone()).or_default()+=1;}
+ Ok(())
+}
+/// Accept the shop's equip-now prompt, using the same source-derived stat deltas.
+pub(crate) fn equip_roque_purchase(l:&mut Loader<'_>,item:&str)->Result<()> {
+ ensure(l.state.map=="Twn_Sea_3_1_A","Roque purchase equip belongs in the shop")?;
+ let d:Data=serde_json::from_str(include_str!("../data/galdera-nameless.json"))?;
+ let slot=d.equipment[&7].iter().find(|(_,id)|id.as_str()==item).map(|(slot,_)|slot).ok_or_else(||crate::SimError("Unexpected Roque equipment purchase".into()))?;
+ let mut w=l.state.clone();equip(&mut w,&d,7,slot,item)?;l.state=w;
+ l.boundary(format!("Equip {item} to Throne directly from purchase prompt"));Ok(())
 }

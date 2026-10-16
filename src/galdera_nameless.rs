@@ -34,12 +34,14 @@ fn jp_observed(entry:&Entry,max_inputs:usize,probe:Option<&mut Option<crate::Crt
  ensure(l.state.character_progression[&5].jobs.learned_abilities.get(&5).is_some_and(|a|a.contains("ABI_SET_DAN_070")),"Temenos must know Bewildering Grace")?;
  ensure(l.state.character_progression[&7].jobs.secondary_job==Some(11)&&l.state.inventor_abilities.contains("ABI_SET_INV_020"),"Throne needs Inventor and Springy Boots")?;
  ensure(l.state.character_progression[&4].jobs.learned_abilities.get(&0).is_some_and(|a|a.contains("ABI_SET_MER_050")),"Partitio needs Donate BP")?;
+ l.state.enter_encounter_zone("ENT_DNG_OCN_1_3_LND")?;
  crate::nameless_setup::apply(&mut l)?;let setup=point(&mut l,entry.after);
  let options=PredictionOptions{map:MAP.into(),zone:"ENT_DNG_OCN_1_3_WTR".into(),period:"DayTime".into(),progress:l.state.main_progress_points,first_encounter:l.state.first_encounter,boundary:Boundary::CurrentCounter,party_levels:l.state.party.iter().map(|id|l.state.character_progression[id].level).collect(),ability_percent:50,dash:true,..Default::default()};
  let run=encounter::catalog().counter_decrement(&options)?;
  let walk=encounter::catalog().counter_decrement(&PredictionOptions{dash:false,..options.clone()})?;
  ensure(l.state.encounter_counter>LAND_TO_WATER*run,"Encounter before water")?;
  l.state.encounter_counter-=LAND_TO_WATER*run;l.boundary("Run 70 decrements to Nameless water; canoe retains counter");
+ l.state.enter_encounter_zone("ENT_DNG_OCN_1_3_WTR")?;
  let water_entry=point(&mut l,setup.after);let w=&water_entry.world_after;let mut rng=water_entry.after;
  let encounter=encounter::catalog().predict(&mut rng,&PredictionOptions{current_counter:Some(w.encounter_counter),..options})?;
  if encounter.enemies.len()!=3||encounter.enemies.iter().any(|e|e.enemy.id!="ENE_NML_WTR_350"){return Ok(None);}
@@ -64,7 +66,8 @@ fn jp_observed(entry:&Entry,max_inputs:usize,probe:Option<&mut Option<crate::Crt
  let mut l=Loader::new(world::catalog(),field_return.world_after.clone(),field_return.after)?;
  l.state.encounter_counter=movement.counter_at_exit;
  l.boundary(format!("JP100 complete: run {:.2}% of total island distance, walk {:.2}%; reserve 3 running decrements, no second encounter before Gigantes",movement.run_percent,movement.walk_percent));
- let gigantes_entry=point(&mut l,field_return.after);
+ l.state.enter_encounter_zone("ENT_DNG_OCN_1_3_LND")?;
+  let gigantes_entry=point(&mut l,field_return.after);
  Ok(Some(JpTrip{setup,water_entry,encounter,battle_entry:rng,fight,rewards,field_return,movement,gigantes_entry}))
 }
 #[derive(Debug,Serialize)]pub struct Trip {pub setup:Entry,pub approach:Approach,pub night:Entry,pub prompt:Entry,pub damage_floor:ot2_battle_engine::gigantes::DamageFloor,pub battle:ot2_battle_engine::lord_sands::Prediction,pub field_return:Entry,pub victory:Entry,pub loot:crate::galdera_flex::Segment,pub finisher_boost_cycles:u32}
@@ -179,6 +182,7 @@ fn escape_approach_with_defends(entry:&Entry,max_cycles:u32,defends:u8)->Result<
  let w=&entry.world_after;
  ensure(w.map==MAP&&w.time==2&&w.evasive_maneuvers,"Nameless approach requires daytime island entry with Evasive Maneuvers")?;
  let mut l=Loader::new(world::catalog(),w.clone(),entry.after)?;
+ l.state.enter_encounter_zone("ENT_DNG_OCN_1_3_LND")?;
  let options=crate::encounter::PredictionOptions {zone:"ENT_DNG_OCN_1_3_LND".into(),period:"DayTime".into(),ability_percent:50,dash:true,..Default::default()};
  let decrement=crate::encounter::catalog().counter_decrement(&options)?;
  let water_decrement=crate::encounter::catalog().counter_decrement(&crate::encounter::PredictionOptions {zone:"ENT_DNG_OCN_1_3_WTR".into(),..options.clone()})?;
@@ -187,6 +191,7 @@ fn escape_approach_with_defends(entry:&Entry,max_cycles:u32,defends:u8)->Result<
  ensure(l.state.encounter_counter>LAND_TO_WATER*decrement,"Encounter would occur before water")?;
  l.state.encounter_counter-=LAND_TO_WATER*decrement;
  l.boundary("Run 100% for 70 decrements to water; canoe boarding retains the counter");
+ l.state.enter_encounter_zone("ENT_DNG_OCN_1_3_WTR")?;
  let water_entry=point(&mut l,entry.after);
  let Some(mut encounter)=galdera_coast::sai_encounter_defends(water_entry.clone(),"ENT_DNG_OCN_1_3_WTR",defends)? else{return Ok(None);};
  let water_updates=encounter.encounter.counter_updates.unwrap();
@@ -221,6 +226,20 @@ fn escape_approach_with_defends(entry:&Entry,max_cycles:u32,defends:u8)->Result<
   // their exact inventory for the continuation test, never in production.
   for (id,count) in [("ITM_EQP_SWD_380",1),("ITM_EQP_LNS_220",1),("ITM_EQP_HLM_180",1),("ITM_EQP_ACS_250",1),("ITM_EQP_SLD_240",1),("ITM_EQP_AMR_300",1),("ITM_CSM_0610",2),("ITM_CSM_0730",1),("ITM_CSM_0550",1)]{l.state.route_items.insert(id.into(),count);}
   l.visit_map(MAP).unwrap();let before=l.rng;point(&mut l,before)
+ }
+ #[test]fn purchase_equips_are_not_applied_twice_at_island_menu() {
+  let e=geared_entry(0);let mut old=Loader::new(world::catalog(),e.world_after.clone(),e.after).unwrap();
+  crate::nameless_setup::apply(&mut old).unwrap();
+  let mut early=Loader::new(world::catalog(),e.world_after,e.after).unwrap();
+  early.state.map="Twn_Sea_3_1_A".into();
+  let speed=early.state.character_progression[&7].character.stats.speed;
+  for item in ["ITM_EQP_SLD_240","ITM_EQP_AMR_300"]{crate::nameless_setup::equip_roque_purchase(&mut early,item).unwrap();}
+  assert!(early.state.character_progression[&7].character.stats.speed>speed);
+  assert_eq!(early.rng,e.after);
+  early.state.map=MAP.into();crate::nameless_setup::apply(&mut early).unwrap();
+  assert_eq!(serde_json::to_value(&early.state).unwrap(),serde_json::to_value(&old.state).unwrap());
+  let once=serde_json::to_value(&early.state).unwrap();crate::nameless_setup::apply(&mut early).unwrap();
+  assert_eq!(once,serde_json::to_value(&early.state).unwrap());assert_eq!(early.rng,e.after);
  }
  #[test]fn menu_is_transactional_idempotent_and_preserves_rng() {
   let entry=geared_entry(0);let mut l=Loader::new(world::catalog(),entry.world_after.clone(),entry.after).unwrap();

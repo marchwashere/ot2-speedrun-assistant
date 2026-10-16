@@ -36,7 +36,7 @@ pub(crate) fn sai_encounter_defends(arrival:Entry,zone:&str,count:u8)->Result<Op
     let levels:Vec<_>=w.party.iter().map(|id|w.character_progression[id].level).collect();
     let mut rng=arrival.after;
     let encounter=encounter::catalog().predict(&mut rng,&PredictionOptions {
-        map:w.map.clone(),zone:zone.into(),period:"DayTime".into(),
+        map:w.map.clone(),zone:w.encounter_zone(zone)?.into(),period:"DayTime".into(),
         progress:w.main_progress_points,first_encounter:w.first_encounter,
         boundary:Boundary::CurrentCounter,current_counter:Some(w.encounter_counter),
         party_levels:levels.clone(),ability_percent:if w.evasive_maneuvers {50}else{100},dash:true,
