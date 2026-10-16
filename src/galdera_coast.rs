@@ -13,7 +13,7 @@ pub struct Movement {
 }
 #[derive(Debug,Serialize)]
 pub struct Continuation {
-    pub day_before_gravell:Entry,pub conning:Entry,pub head_cook_steal:Entry,
+    pub day_before_gravell:Entry,pub conning:Entry,
     #[serde(skip_serializing_if="Option::is_none")] pub conning_night:Option<Entry>,
     pub coast_entry:Entry,
     #[serde(skip_serializing_if="Option::is_none")] pub coast_day:Option<Entry>,
@@ -88,21 +88,11 @@ fn travel(field_return:&Entry,night_pair:bool)->Result<Option<(Entry,Continuatio
     // User-confirmed encounterless leg: no invented movement/counter consumption.
     l.visit_map("Twn_Wld_3_1_A")?;let town=point(&mut l,day_before_gravell.after);
     l.visit_map(crate::conning::TOWN)?;let conning=point(&mut l,town.after);
-    // NPC_Twn_Sea_2_1_A_TALK_0700_NPCBUY_01: Critical Nut L,
-    // ProperSteal22 + the guaranteed-success level margin11 = level33.
-    let npc="NPC_Twn_Sea_2_1_A_TALK_0700";
-    let item="ITM_CSM_0730";
-    ensure(l.state.time==2&&l.state.party.contains(&7)&&l.state.existing_npcs.iter().any(|id|l.data.placements[id].resource==npc),"Daytime Head Cook or Throne unavailable")?;
-    ensure(l.state.character_progression[&7].level>=33,"Head Cook Critical Nut L Steal is not guaranteed")?;
-    l.draw(world::DrawKind::PathActionMenu,npc,"Head Cook: open Critical Nut (L) Steal menu",None);
-    let roll=l.draw(world::DrawKind::StealCheck,item,"Critical Nut (L): ProperSteal22, guaranteed level33, probability100%",Some(100))+1;
-    if let Some(t)=l.trace.last_mut(){t.value=Some(roll);}
-    *l.state.route_items.entry(item.into()).or_default()+=1;
-    l.boundary("Conning Creek tavern: steal Critical Nut (L) from Head Cook; change selected path action, then close without dialogue or closing lottery");
-    let head_cook_steal=point(&mut l,conning.after);
+    // Head Cook's Critical Nut (L) is deferred until after the Stormhail book,
+    // outside the manipulated route. Continue straight to the coast here.
     let conning_night=if night_pair {
-        l.manual_time_switch(4,"Conning Creek: switch to night after Head Cook steal")?;
-        Some(point(&mut l,head_cook_steal.after))
+        l.manual_time_switch(4,"Conning Creek: switch to night immediately on arrival")?;
+        Some(point(&mut l,conning.after))
     }else{None};
     let before=l.rng;l.visit_map(crate::conning::WEST)?;let coast_entry=point(&mut l,before);
     let coast_day=if night_pair {
@@ -122,7 +112,7 @@ fn travel(field_return:&Entry,night_pair:bool)->Result<Option<(Entry,Continuatio
     l.visit_map("Twn_Dst_2_1_A")?;
     l.skipped_event("MapInStorySelect")?;
     let sai=point(&mut l,southern_sai.field_return.after);
-    Ok(Some((town,Continuation {day_before_gravell,conning,head_cook_steal,conning_night,coast_entry,coast_day,movement,coast_exit,eastern_sai,eastern_sai_encounter,southern_sai,sai,oresrush_supplies:None})))
+    Ok(Some((town,Continuation {day_before_gravell,conning,conning_night,coast_entry,coast_day,movement,coast_exit,eastern_sai,eastern_sai_encounter,southern_sai,sai,oresrush_supplies:None})))
 }
 pub(crate) fn extend(g:&mut GravellArrival)->Result<()> {
     let w=&g.night.world_after;
@@ -161,7 +151,7 @@ pub(crate) fn extend(g:&mut GravellArrival)->Result<()> {
 #[cfg(test)] mod tests {
     use super::*;
     #[test]
-    fn head_cook_steal_precedes_optional_night_and_carries_nut() {
+    fn second_conning_visit_goes_straight_to_coast_without_critical_nut() {
         let f:serde_json::Value=serde_json::from_str(include_str!("../data/source/gravell-complete-route-fixture.json")).unwrap();
         let mut w:world::WorldState=serde_json::from_value(f["before"]["world_after"].clone()).unwrap();
         w.award_victory(ot2_battle_engine::progression::Reward {exp:300_000,jp:0,money:0}).unwrap();
@@ -173,11 +163,19 @@ pub(crate) fn extend(g:&mut GravellArrival)->Result<()> {
                 let rng=CrtRng::new(seed.wrapping_mul(1775700753));
                 let e=Entry {arrival:rng,after:rng,world_after:w.clone(),trace:vec![],decisions:vec![]};
                 if let Some((_,c))=travel(&e,night).unwrap() {
-                    assert_eq!(c.head_cook_steal.world_after.time,2);
-                    assert_eq!(c.sai.world_after.route_items.get("ITM_CSM_0730"),Some(&(count+1)));
-                    let mut expected=c.conning.after;expected.advance(2);
-                    assert_eq!(c.head_cook_steal.after,expected);
-                    if let Some(n)=c.conning_night {assert_eq!(n.arrival,c.head_cook_steal.after);}
+                    assert_eq!(c.sai.world_after.route_items.get("ITM_CSM_0730").copied().unwrap_or(0),count);
+                    let mut expected=Loader::new(world::catalog(),c.conning.world_after.clone(),c.conning.after).unwrap();
+                    if night {
+                        let n=c.conning_night.as_ref().unwrap();
+                        assert_eq!(n.arrival,c.conning.after);
+                        expected.manual_time_switch(4,"test: night on arrival").unwrap();
+                        assert_eq!(n.after,expected.rng);
+                    }else{assert!(c.conning_night.is_none());}
+                    assert_eq!(c.coast_entry.arrival,expected.rng);
+                    expected.visit_map(crate::conning::WEST).unwrap();
+                    assert_eq!(c.coast_entry.after,expected.rng);
+                    assert_eq!(c.coast_entry.world_after.encounter_counter,expected.state.encounter_counter);
+                    assert!(serde_json::to_value(&c).unwrap().get("head_cook_steal").is_none());
                     accepted=true;break;
                 }
             }

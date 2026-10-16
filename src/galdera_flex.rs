@@ -142,8 +142,8 @@ fn deferred_roque_reloads(entry:&Entry,switches:u32,c:[u8;5],reloads:u32)->Resul
 fn finish_roque(entry:&Entry)->Result<Trip> {
  ensure(entry.world_after.character_progression[&5].jobs.learned_abilities[&5].contains("ABI_SET_DAN_070")
   &&entry.world_after.character_progression[&5].jobs.equipped_support.contains(crate::gravell_setup::STEP_AHEAD)
-  &&entry.world_after.character_progression[&4].jobs.equipped_support.contains("ABI_MER_SUP_02")
-  &&entry.world_after.route_items.get("ITM_CSM_0080").copied().unwrap_or(0)>0,"Gravell JP setup or Pom M missing")?;
+  &&entry.world_after.character_progression[&6].character.boost_start
+  &&entry.world_after.character_progression[&4].jobs.learned_abilities.get(&0).is_some_and(|a|a.contains("ABI_SET_MER_050")),"Gravell JP setup or Donate BP missing")?;
  let orders:Vec<Vec<u8>>=vec![ERRAND_ORDER.to_vec()];
  let mut prefixes=vec![];
  for order in orders {
@@ -155,11 +155,11 @@ fn finish_roque(entry:&Entry)->Result<Trip> {
  // is the acceptance condition. No finite bound declares JP100 impossible.
  let mut best:Option<(usize,Trip)>=None;
  for switches in 0.. {
-  if best.as_ref().is_some_and(|(_,b)|tropu_reload_cost(switches)+6>b.extra_input_cost){break;}
+  if best.as_ref().is_some_and(|(_,b)|tropu_reload_cost(switches)+5>b.extra_input_cost){break;}
   for (index,(order,segments)) in prefixes.iter().enumerate() {
    let overhead: u32=segments.iter().map(segment_cost).sum();
    let cost=tropu_reload_cost(switches)+overhead;
-   if best.as_ref().is_some_and(|(_,b)|cost+6>b.extra_input_cost){continue;}
+   if best.as_ref().is_some_and(|(_,b)|cost+5>b.extra_input_cost){continue;}
    let boat=boat(segments.last().unwrap().end(),switches)?;let e=boat.end();let w=&e.world_after;let mut rng=e.after;
    let encounter=encounter::catalog().predict(&mut rng,&PredictionOptions{map:w.map.clone(),zone:"ENT_FLD_SEA_3_1_LND".into(),period:"Night".into(),progress:w.main_progress_points,first_encounter:w.first_encounter,boundary:Boundary::CurrentCounter,current_counter:Some(w.encounter_counter),party_levels:w.party.iter().map(|id|w.character_progression[id].level).collect(),ability_percent:50,dash:true,..Default::default()})?;
    if encounter.enemies.len()!=2||encounter.enemies.iter().any(|e|e.enemy.id!="ENE_NML_OCN_230") {continue;}
@@ -170,7 +170,6 @@ fn finish_roque(entry:&Entry)->Result<Trip> {
    let Some(f)=ot2_battle_engine::roque_routine::search(b,budget)? else {continue;};
    let input_cost=cost+f.actions.iter().map(|a|a.inputs.len()as u32).sum::<u32>();
    let (fight,rewards,mut ret)=crate::inventor::settle_gravell(e,rng,f)?;
-   if let Some(n)=ret.world_after.route_items.get_mut("ITM_CSM_0080"){ensure(*n>0,"Missing Pom M")?;*n-=1;if *n==0{ret.world_after.route_items.remove("ITM_CSM_0080");}}else{return Err(crate::SimError("Missing Pom M".into()));}
    for (item,n) in &rewards.drops {*ret.world_after.route_items.entry(item.clone()).or_default()+=n;}
    let downstream_draws=rng.draws-boat.stages[0].1.after.draws;
    best=Some((index,Trip{order:order.iter().copied().chain([1]).collect(),segments:vec![],boat,encounter,battle_entry:rng,fight,rewards,field_return:ret,extra_input_cost:input_cost,remaining_errands:vec![],location:"Roque Island Harbor".into(),continuation:vec![],nameless:None,nameless_jp:None,shipwreck:None,encounter_arrival:None,downstream_draws,defend_counts:[0;5]}));
@@ -297,7 +296,7 @@ fn roque_defends(entry:&Entry,order:&[u8],switches:u32,limit:u32,c:[u8;5])->Resu
  let mut segments=vec![];let mut current=entry.clone();
  for &n in order {let s=if n==2{book(&current)?}else{firestarter_defends(&current,c[0])?};current=s.end().clone();segments.push(s);}
  let approach=to_tropu_defends(&current,c[1],c[2])?;segments.push(approach);
- let cost=tropu_reload_cost(switches)+segments.iter().map(segment_cost).sum::<u32>();if cost+6>=limit{return Ok(None);}
+ let cost=tropu_reload_cost(switches)+segments.iter().map(segment_cost).sum::<u32>();if cost+5>=limit{return Ok(None);}
  let boat=boat(segments.last().unwrap().end(),switches)?;let e=boat.end();let w=&e.world_after;let mut rng=e.after;
  let encounter=encounter::catalog().predict(&mut rng,&PredictionOptions{map:w.map.clone(),zone:"ENT_FLD_SEA_3_1_LND".into(),period:"Night".into(),progress:w.main_progress_points,first_encounter:w.first_encounter,boundary:Boundary::CurrentCounter,current_counter:Some(w.encounter_counter),party_levels:w.party.iter().map(|id|w.character_progression[id].level).collect(),ability_percent:50,dash:true,..Default::default()})?;
  if encounter.enemies.len()!=2||encounter.enemies.iter().any(|e|e.enemy.id!="ENE_NML_OCN_230"){return Ok(None);}
@@ -307,7 +306,6 @@ fn roque_defends(entry:&Entry,order:&[u8],switches:u32,limit:u32,c:[u8;5])->Resu
  let Some(f)=ot2_battle_engine::roque_routine::search(b,(limit-cost).min(96)as usize)?else{return Ok(None);};
  let cost=cost+f.actions.iter().map(|a|a.inputs.len()as u32).sum::<u32>();
  let (fight,rewards,mut ret)=crate::inventor::settle_gravell(e,rng,f)?;
- let n=ret.world_after.route_items.get_mut("ITM_CSM_0080").ok_or_else(||crate::SimError("Missing Pom M".into()))?;ensure(*n>0,"Missing Pom M")?;*n-=1;if *n==0{ret.world_after.route_items.remove("ITM_CSM_0080");}
  for (item,n) in &rewards.drops{*ret.world_after.route_items.entry(item.clone()).or_default()+=n;}
  let downstream_draws=rng.draws-boat.stages[0].1.after.draws;
  Ok(Some(Trip{order:order.iter().copied().chain([1]).collect(),segments,boat,encounter,battle_entry:rng,fight,rewards,field_return:ret,extra_input_cost:cost,remaining_errands:vec![],location:"Roque Island Harbor".into(),continuation:vec![],nameless:None,nameless_jp:None,shipwreck:None,encounter_arrival:None,downstream_draws,defend_counts:c}))
@@ -328,7 +326,7 @@ fn refine_defends(entry:&Entry,mut best:Trip)->Result<Trip> {
      // Ignore controls for encounters absent from this route prefix.
      if c[3]!=base[3]||c[4]!=base[4]||(!order.contains(&3)&&c[0]!=0){continue;}
      let lower=controls_cost(c[1])+controls_cost(c[2])+if order.contains(&3){controls_cost(c[0])}else{0};
-     if tropu_reload_cost(switches)+lower+6>=best.extra_input_cost{continue;}
+     if tropu_reload_cost(switches)+lower+5>=best.extra_input_cost{continue;}
      work+=1;if work>12000{return Ok(best);}
      if let Some(t)=roque_defends(entry,order,switches,best.extra_input_cost,c)?{if t.extra_input_cost<best.extra_input_cost{best=t;}}
     }
@@ -483,9 +481,14 @@ fn later_candidate_reloads(entry:&Entry,order:[u8;1],switches:u32,limit:u32,ship
   crate::gravell_setup::learn(&mut l.state,6,0,&["ABI_SET_MER_030"]).unwrap();
   l.state.character_progression.get_mut(&6).unwrap().jobs.learned_abilities.entry(6).or_default().insert("ABI_SET_SCH_060".into());
   crate::gravell_setup::jp_setup(&mut l).unwrap();
+  crate::nameless_setup::track_augmentation_for_legacy_fixture(&mut l.state);
   // Only acquisitions before flex missing from the historical fixture.
   for (id,n) in [("ITM_EQP_LNS_220",1),("ITM_EQP_HLM_180",1),("ITM_EQP_ACS_250",1),("ITM_CSM_0610",1),("ITM_CSM_0730",1),("ITM_CSM_0550",1)] {l.state.route_items.insert(id.into(),n);}
-  before_gravell(&point(&mut l,e.after)).unwrap().last().unwrap().end().clone()
+  let e=before_gravell(&point(&mut l,e.after)).unwrap().last().unwrap().end().clone();
+  let mut l=Loader::new(world::catalog(),e.world_after,e.after).unwrap();
+  l.visit_map("Twn_Wld_3_1_A").unwrap();
+  crate::nameless_setup::equip_gravell_osvald(&mut l).unwrap();
+  point(&mut l,e.after)
  }
  #[test]fn location_probes_stop_before_bg_and_preserve_source_state(){
   let entry=current_fixture();let before=crate::state_key::WorldKey::new(&entry.world_after);
@@ -581,12 +584,14 @@ fn later_candidate_reloads(entry:&Entry,order:[u8;1],switches:u32,limit:u32,ship
    let adjustment=&b.stages[0].1;eprintln!("Tropu switches {switches}: {} CRT draws",adjustment.after.draws-adjustment.arrival.draws);
   }
  }
- #[test]fn complete_jp100_search_requires_the_full_four_alive_guards_victory() {
+ #[test]fn complete_jp100_search_requires_the_full_four_alive_fireball_victory() {
   let r=finish_roque(&current_fixture()).unwrap();assert_eq!(r.order,ROUTE_ORDER);assert!(r.remaining_errands.is_empty());assert_eq!(r.rewards.base.jp,116);assert_eq!(r.rewards.awarded.jp,12760);
   assert_eq!(r.fight.state.outcome,ot2_battle_engine::Outcome::Victory);assert!(r.fight.state.actors[..4].iter().all(|a|a.alive()));
-  assert_eq!(r.fight.actions.len(),6);assert_eq!(r.fight.actions[4].actor.0,2);assert_eq!(r.fight.actions[5].actor.0,3);
+  assert_eq!(r.fight.actions.len(),6);assert_eq!(r.fight.actions[4].actor.0,2);assert_eq!(r.fight.actions[5].actor.0,1);
+  assert_eq!(r.fight.actions[5].action,ot2_battle_engine::gravell_routine::Action::FireballTwo);
+  assert_eq!(r.rewards.hired_help_cost,0);
   assert_eq!(r.fight.state.grace.as_ref().unwrap().jp_percent(),10000);
-  assert_eq!(r.field_return.world_after.route_items.get("ITM_CSM_0080").copied().unwrap_or(0)+1,fixture().world_after.route_items["ITM_CSM_0080"]);
+  assert_eq!(r.field_return.world_after.route_items["ITM_CSM_0080"],fixture().world_after.route_items["ITM_CSM_0080"]);
   for id in [7,6,5,4] {assert_eq!(r.field_return.world_after.character_progression[&id].jp_earned-fixture().world_after.character_progression[&id].jp_earned,12760);}
  }
  #[test]fn deferred_daytime_roque_carries_supplies_without_awarding_jp100() {

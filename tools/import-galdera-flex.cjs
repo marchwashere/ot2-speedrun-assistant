@@ -4,7 +4,7 @@ const sources=[];function table(n){const t=s.table(n);sources.push({source:t.sou
 const npcs=table('Character/Database/NPCData'),purchase=table('Character/Database/NPCPurchaseData'),items=table('Shop/Database/PurchaseItemTable'),placements=table('Placement/Database/PlacementData');
 const one=(rs,id)=>{const r=rs.find(x=>x.id===id);assert(r,id);return r;};
 const steals={};
-for(const [key,id,labels]of [['gravell_lychee','NPC_Twn_Wld_3_1_A_TALK_0200',['ITM_CSM_0240','ITM_CSM_0670']],['mason','NPC_Twn_Wld_2_1_A_TALK_1100',['ITM_MRL_REV_0040']]]){
+for(const [key,id,labels]of [['mason','NPC_Twn_Wld_2_1_A_TALK_1100',['ITM_MRL_REV_0040']]]){
  const npc=one(npcs,id),p=one(purchase,npc.FCmd_Purchase_ID);assert.equal(p.StealSuccessTalkID,'None');
  steals[key]={npc:id,items:labels.map(label=>{const r=items.find(x=>x.id.startsWith(p.ShopID+'_')&&x.ItemLabel===label);assert(r);return {id:label,level:r.ProperSteal+11};})};
 }

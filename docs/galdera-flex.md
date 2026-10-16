@@ -94,13 +94,13 @@ all earlier spending). No departure path or later JP battle is invented.
 The existing night Roque JP100 search still ends immediately at its victory.
 Retail validation of the new endpoints remains pending.
 
-Gravell arrival stays daytime for Old Man Lychee L and Sharp L steals, then path-action switch/close. Skip the Villager. Temenos learns Bewildering Grace; retain the earlier A Step Ahead and Boost-Start setup. Menu setup consumes no CRT. Existing blacksmith/sales/Jam sequence follows.
+Gravell skips both Old Man and Villager. Sharp L and Diffusing Serum are already carried from the Wellgrove inn Shopkeeper steals; no Serum purchase here. Temenos learns Bewildering Grace; retain the earlier A Step Ahead and Boost-Start setup. Menu setup consumes no CRT, then switch night for the existing blacksmith/sales/Jam sequence.
 
 The search evaluates [boat], [book,boat], [Firestarter,boat], and both orders of
 the two errands before boat. The user considers these required errands free
 when reordered; scoring charges only extra switches (12 input-equivalents each)
 and boost inputs. Unfinished errands are listed after the manipulation endpoint.
-Fine battle search uses a96-input window and compares complete BG/Guards pairs
+Fine battle search uses a96-input window and compares complete BG/Fireball pairs
 by total input count. Coarse switches grow until a valid plan exists, then
 compare alternatives below the incumbent cost. This is the least-cost evaluated
 plan, not a proof of a global optimum over arbitrary actions or larger windows.
@@ -129,14 +129,17 @@ costs100000, covered by the preceding250000 weapon sales. No sea encounters.
 Roque entry switches to night if not already night.
 
 Roque requires two Winged Landwalkers, no rare replacement and no Surprise.
-All four have A Step Ahead; Partitio has Boost-Start. Require Partitio before
-Temenos in the opening. T1: both Defend; Osvald Pom (M) to Temenos; Throné
-unboosted dagger on the rightmost/default enemy. T2: Temenos +3 BG, then Partitio +3 Guards.
-The latest Defend is first; both reach3 BP. Execute all BG children, reject
-disrupted order/death/silence/insufficient BP, then actually execute Guards.
-Acceptance requires victory, all four alive, JP modifier10000%. Rewards are
-116 base JP ×100 plus Domination =12760 each. No Life in the Shadows equipped.
-The Pom (M) is removed from inventory and real drops/history/resources carried.
+All four have A Step Ahead; Osvald has Boost-Start. Use the same five opening
+orders as Shipwreck: reject Temenos -> Throne -> Osvald, ignoring Partitio's
+position. Partitio uses unboosted Donate BP on Temenos; the shared Defend/
+Springy Boots branches put Temenos first and Osvald second on T2.
+T2: Temenos +3 BG, then Osvald +2 Fireball. Execute all BG effects and the
+actual spell; reject disrupted order, death, silence, insufficient resources
+or incomplete victory. Require JP modifier10000% and all four alive.
+Rewards are116 base JP x100 plus Domination =12760 each. No Life in the Shadows.
+No Pom or Hired Help money is consumed; carry actual drops/history/resources.
+At Lv70, 774 MATK and +60% fire potency, nighttime buffs/debuffs give7243..7530
+per unbroken Landwalker (6897 HP), before any beneficial BG effects.
 
 Source import: tools/import-galdera-flex.cjs after the existing town/event
 importers. New maps are included by import-town-loading.cjs. Core imports:
@@ -149,6 +152,6 @@ orders, boat events and time switches, full identified-route replay and three
 alternate synthetic RNG states. New endpoints still need a retail trace;
 simulator reproducibility alone is not evidence of live CRT alignment.
 
-Supply revision: skip the Gravell Villager. Steal Strengthening Serum with Champion Seeker from the Man with Horses (guaranteed at Lv32), then switch path action and close. Roque uses one existing Pom M; Nameless/Shipwreck use unboosted Donate BP, consuming no Pom. Reserve the freed Tyrannodrake Pom M for Roque: planned Tyrannodrake T2 Osvald Defend, T3 latent +3 Fire Storm, with Peak Performance, Deal More Damage and the agreed equipment. Tyrannodrake is not yet an executable route segment.
+Supply revision: skip the Gravell Villager. Steal Strengthening Serum with Champion Seeker from the Man with Horses (guaranteed at Lv32), then switch path action and close. All three JP locations use unboosted Donate BP, consuming no Pom. The previously reserved Roque Pom M is spare: planned Tyrannodrake T2 Osvald Defend, T3 latent +3 Fire Storm, with Peak Performance, Deal More Damage and the agreed equipment. Tyrannodrake is not yet an executable route segment.
 
 Reload cost revision (2026-10-15): Tropu’hopu reloads 1–3 cost zero input equivalents; later reloads cost 12 each. In Roque Island, post-Ambush reloads 1–4 cost zero, including the mandatory night-to-day switch; later reloads cost 12 each. The earlier day-to-night switch for Ambush does not count toward this allowance. Every switch still executes native loader callbacks and consumes real RNG. Search post-Ambush odd counts to preserve daytime departure, including both free choices (1 and 3); paid alternatives are explored within a 96-input reload-cost window and the incumbent budget. These are bounded evaluated candidates, not a global optimum.

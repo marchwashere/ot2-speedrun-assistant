@@ -1,11 +1,25 @@
-//! Explicit, transactional Nameless entry menu. Never Optimize or fabricate loot.
+//! Source-audited Gravell Optimize result and carried island equipment.
 use crate::{Result,ensure,world::{WorldState,Loader}};
 use std::collections::BTreeMap;
 use serde::Deserialize;
 #[derive(Deserialize)]struct Item {id:String,#[serde(rename="EquipmentRevision")] stats:BTreeMap<String,i64>,#[serde(rename="Ailment")] effects:Vec<Effect>}
 #[derive(Deserialize)]struct Effect {#[serde(rename="AilmentName")] name:String,#[serde(rename="InvocationValue")] value:u32}
-#[derive(Deserialize)]struct Data {equipment:BTreeMap<u32,BTreeMap<String,String>>,nuts:BTreeMap<u32,BTreeMap<String,u32>>,defaults:BTreeMap<u32,BTreeMap<String,String>>,items:Vec<Item>}
+#[derive(Deserialize)]struct Data {equipment:BTreeMap<u32,BTreeMap<String,String>>,defaults:BTreeMap<u32,BTreeMap<String,String>>,items:Vec<Item>}
 fn take(w:&mut WorldState,item:&str)->Result<()> {let n=w.route_items.get_mut(item).ok_or_else(||crate::SimError(format!("Nameless entry is missing {item}")))?;ensure(*n>0,format!("Nameless entry is missing {item}"))?;*n-=1;if *n==0{w.route_items.remove(item);}Ok(())}
+/// Optimize after the restored weapons are sold, then manually equip the
+/// accessory. CategorizeEquipmentItems excludes others' equipped gear; with
+/// this route's inventory only Firestarter, the spear and Skull Helm improve
+/// Osvald's slots. His Stick/clothes stay equipped and accessories are skipped.
+pub(crate) fn equip_gravell_osvald(l:&mut Loader<'_>)->Result<()> {
+ ensure(l.state.map=="Twn_Wld_3_1_A","Osvald Optimize belongs in Gravell")?;
+ ensure(l.state.character_progression[&6].jobs.secondary_job==Some(2),"Osvald must be Warrior")?;
+ let d:Data=serde_json::from_str(include_str!("../data/galdera-nameless.json"))?;
+ let mut w=l.state.clone();
+ for (slot,item) in &d.equipment[&6] {equip(&mut w,&d,6,slot,item)?;}
+ l.state=w;
+ l.boundary("After restored-weapon sales: Optimize Osvald (Firestarter, Scorched Bone Spear, Skull Helm), manually equip Elemental Augmentor; keep Stick and Prisoner's Clothes. No Magic nuts used");
+ Ok(())
+}
 pub fn apply(l:&mut Loader<'_>)->Result<()> {
  ensure(l.state.map==crate::galdera_nameless::MAP||l.state.map==crate::galdera_shipwreck::MAP,"Equipment menu belongs at Nameless Isle or Shipwreck entry")?;
  ensure(l.state.character_progression[&6].jobs.secondary_job==Some(2),"Osvald must be Warrior")?;
@@ -19,14 +33,8 @@ pub fn apply(l:&mut Loader<'_>)->Result<()> {
    equip(&mut w,&d,id,slot,item)?;
   }
  }
- for (&id,nuts) in &d.nuts {for (item,&count) in nuts {for _ in 0..count{
-  take(&mut w,item)?;let effect=&d.items.iter().find(|r|r.id==*item).unwrap().effects[0];
-  let stat=effect.name.strip_prefix("GROW_").ok_or_else(||crate::SimError("Nut effect missing".into()))?;
-  let p=w.character_progression.get_mut(&id).unwrap();
-  ot2_battle_engine::jobs::add_nut(&mut p.character,id,p.level,p.jobs.secondary_job,stat,effect.value)?;
- }}}
  l.state=w;
- l.boundary("Island entry manual menu: Osvald equips Firestarter, Scorched Bone Spear, Skull Helm and Elemental Augmentor; uses Magic Nut L x2. Throné uses Critical Nut L and Fortifying Nut L; Swift Shield and Quick Cloak were equipped at purchase. Keep current jobs and supports; previously applied menu is not repeated");
+ l.boundary("Island entry: retain earlier equipment, jobs and supports; neither Osvald nor Throné uses nuts during manipulation");
  Ok(())
 }
 
@@ -58,4 +66,14 @@ pub(crate) fn equip_roque_purchase(l:&mut Loader<'_>,item:&str)->Result<()> {
  let slot=d.equipment[&7].iter().find(|(_,id)|id.as_str()==item).map(|(slot,_)|slot).ok_or_else(||crate::SimError("Unexpected Roque equipment purchase".into()))?;
  let mut w=l.state.clone();equip(&mut w,&d,7,slot,item)?;l.state=w;
  l.boundary(format!("Equip {item} to Throne directly from purchase prompt"));Ok(())
+}
+
+/// Historical snapshots predate the post-Temenos Scholar menu. Upgrade their
+/// explicit skill ledger in tests; never infer or grant supports in production.
+#[cfg(test)]
+pub(crate) fn track_augmentation_for_legacy_fixture(w:&mut WorldState) {
+ w.character_progression.get_mut(&6).unwrap().jobs.learned_abilities.insert(6,
+  ["ABI_SET_SCH_010","ABI_SET_SCH_020","ABI_SET_SCH_060","ABI_SET_SCH_070"].into_iter().map(str::to_owned).collect());
+ crate::gravell_setup::learn(w,6,6,&["ABI_SET_SCH_030"]).unwrap();
+ crate::scholar::equip_elemental_augmentation(w,6).unwrap();
 }

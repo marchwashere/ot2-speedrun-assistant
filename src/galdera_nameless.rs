@@ -222,6 +222,7 @@ fn escape_approach_with_defends(entry:&Entry,max_cycles:u32,defends:u8)->Result<
   crate::gravell_setup::learn(&mut l.state,6,0,&["ABI_SET_MER_030"]).unwrap();
   l.state.character_progression.get_mut(&6).unwrap().jobs.learned_abilities.entry(6).or_default().insert("ABI_SET_SCH_060".into()); // legacy fixture predates explicit Scholar tracking
   crate::gravell_setup::jp_setup(&mut l).unwrap();
+  crate::nameless_setup::track_augmentation_for_legacy_fixture(&mut l.state);
   // This old pre-flex fixture predates the new acquisitions; explicitly provide
   // their exact inventory for the continuation test, never in production.
   for (id,count) in [("ITM_EQP_SWD_380",1),("ITM_EQP_LNS_220",1),("ITM_EQP_HLM_180",1),("ITM_EQP_ACS_250",1),("ITM_EQP_SLD_240",1),("ITM_EQP_AMR_300",1),("ITM_CSM_0610",2),("ITM_CSM_0730",1),("ITM_CSM_0550",1)]{l.state.route_items.insert(id.into(),count);}
@@ -231,27 +232,46 @@ fn escape_approach_with_defends(entry:&Entry,max_cycles:u32,defends:u8)->Result<
   let e=geared_entry(0);let mut old=Loader::new(world::catalog(),e.world_after.clone(),e.after).unwrap();
   crate::nameless_setup::apply(&mut old).unwrap();
   let mut early=Loader::new(world::catalog(),e.world_after,e.after).unwrap();
+  early.state.map="Twn_Wld_3_1_A".into();
+  crate::nameless_setup::equip_gravell_osvald(&mut early).unwrap();
+  assert!(early.state.character_progression[&7].character.combat.as_ref().unwrap().nuts.is_empty());
   early.state.map="Twn_Sea_3_1_A".into();
   let speed=early.state.character_progression[&7].character.stats.speed;
   for item in ["ITM_EQP_SLD_240","ITM_EQP_AMR_300"]{crate::nameless_setup::equip_roque_purchase(&mut early,item).unwrap();}
   assert!(early.state.character_progression[&7].character.stats.speed>speed);
   assert_eq!(early.rng,e.after);
   early.state.map=MAP.into();crate::nameless_setup::apply(&mut early).unwrap();
+  assert!(early.state.character_progression[&7].character.combat.as_ref().unwrap().nuts.is_empty());
   assert_eq!(serde_json::to_value(&early.state).unwrap(),serde_json::to_value(&old.state).unwrap());
   let once=serde_json::to_value(&early.state).unwrap();crate::nameless_setup::apply(&mut early).unwrap();
   assert_eq!(once,serde_json::to_value(&early.state).unwrap());assert_eq!(early.rng,e.after);
  }
  #[test]fn menu_is_transactional_idempotent_and_preserves_rng() {
   let entry=geared_entry(0);let mut l=Loader::new(world::catalog(),entry.world_after.clone(),entry.after).unwrap();
-  let mut missing=l.state.clone();missing.route_items.remove("ITM_CSM_0610");
+  let mut missing=l.state.clone();missing.route_items.remove("ITM_EQP_SWD_380");
   let mut invalid=Loader::new(world::catalog(),missing,entry.after).unwrap();let old=serde_json::to_value(&invalid.state).unwrap();
   assert!(crate::nameless_setup::apply(&mut invalid).is_err());assert_eq!(serde_json::to_value(&invalid.state).unwrap(),old);
   crate::nameless_setup::apply(&mut l).unwrap();let once=serde_json::to_value(&l.state).unwrap();
   crate::nameless_setup::apply(&mut l).unwrap();assert_eq!(serde_json::to_value(&l.state).unwrap(),once);assert_eq!(l.rng,entry.after);
   let o=&l.state.character_progression[&6].character;let c=o.combat.as_ref().unwrap();
-  assert_eq!(c.magic+c.weapons.iter().map(|w|w.magic).max().unwrap(),797);
-  assert_eq!(c.nuts["MATK"],56);assert_eq!(c.fire_damage_bonus,60);
-  assert!(!l.state.route_items.contains_key("ITM_CSM_0610"));
+  assert_eq!(c.magic+c.weapons.iter().map(|w|w.magic).max().unwrap(),774);
+  assert!(!c.nuts.contains_key("MATK"));assert_eq!(c.fire_damage_bonus,60);
+  assert_eq!(l.state.route_items.get("ITM_CSM_0610"),Some(&2));
+  for item in ["ITM_CSM_0730","ITM_CSM_0550"] {assert_eq!(l.state.route_items.get(item),Some(&1));}
+  assert!(l.state.character_progression[&7].character.combat.as_ref().unwrap().nuts.is_empty());
+ }
+ #[test]fn augmentation_survives_gear_menu_and_guarantees_no_nut_gigantes_damage() {
+  let e=geared_entry(0);let mut l=Loader::new(world::catalog(),e.world_after,e.after).unwrap();
+  crate::nameless_setup::apply(&mut l).unwrap();
+  let mut players:Vec<_>=l.state.party.iter().map(|id|l.state.character_progression[id].character.clone()).collect();
+  let c=players[1].combat.as_mut().unwrap();let weapon_magic=c.weapons.iter().map(|w|w.magic).max().unwrap();
+  assert!(!c.nuts.contains_key("MATK"));
+  assert_eq!(c.magic+weapon_magic,774);
+  let floor=ot2_battle_engine::gigantes::damage_floor(&players).unwrap();assert!(floor.total>=50000,"{floor:?}");
+  eprintln!("Gigantes with neither character using nuts: {floor:?}");
+  let battle=ot2_battle_engine::gigantes::predict(crate::CrtRng::new(0xDB61DE86),&players,&l.state.enemy_knowledge).unwrap();
+  assert_eq!(battle.actions.last().unwrap().report.outcome,ot2_battle_engine::Outcome::Victory);
+  assert_eq!(l.rng,e.after);
  }
  #[test]fn jp_branch_carries_rewards_pom_and_safe_remainder_without_boss() {
   for seed in 0u32..256 {
@@ -283,7 +303,7 @@ fn escape_approach_with_defends(entry:&Entry,max_cycles:u32,defends:u8)->Result<
    assert_eq!(t.prompt.trace.iter().filter(|s|s.kind==world::DrawKind::BattleTiming).count(),4);
    assert!(!t.battle.trace.iter().any(|s|s.reason=="actor_initialization"&&s.actor.is_some_and(|a|a.0<4)),"Core must not initialize the same players twice");
    assert_eq!(t.battle.actions.last().unwrap().report.outcome,ot2_battle_engine::Outcome::Victory);
-   assert!(t.victory.world_after.character_progression[&6].character.combat.as_ref().unwrap().nuts.contains_key("MATK"));
+   assert!(!t.victory.world_after.character_progression[&6].character.combat.as_ref().unwrap().nuts.contains_key("MATK"));
    let end=t.loot.end();assert_eq!(end.world_after.time,2);
    for item in ["ITM_EQP_AMR_270","ITM_INF_SS_TM21_0400_0100","ITM_EQP_ACS_940"] {assert_eq!(end.world_after.route_items[item],1);}
    assert!(end.world_after.opened_route_chests.contains("Treasure_Dng_Ocn_1_3_04"));

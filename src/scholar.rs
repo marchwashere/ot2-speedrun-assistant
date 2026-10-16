@@ -5,16 +5,31 @@ use std::sync::OnceLock;
 
 pub const JOB:u32=6;
 pub const EVASIVE:&str="ABI_SCH_SUP_01";
+pub const ELEMENTAL_AUGMENTATION:&str="ABI_SCH_SUP_02";
 #[derive(Deserialize)]
 struct Data {job_id:u32,default_abilities:Vec<String>,selected_abilities:Vec<String>,
     jp_costs:Vec<u32>,abilities:Vec<Ability>,supports:Vec<Support>}
 #[derive(Deserialize)]
 struct Ability {id:String,name:String}
 #[derive(Deserialize)]
-struct Support {id:String,learned_ability_count:usize}
+struct Support {id:String,learned_ability_count:usize,effect:String,value:u32}
 fn data()->&'static Data {
     static DATA:OnceLock<Data>=OnceLock::new();
     DATA.get_or_init(||serde_json::from_str(include_str!("../data/scholar-assignment.json")).expect("imported Scholar setup"))
+}
+/// Flat support stats are carried alongside equipment by the growth/job helpers.
+/// Add the imported bonus only on the first equip, never on support refresh.
+pub(crate) fn equip_elemental_augmentation(w:&mut world::WorldState,id:u32)->Result<()> {
+    let support=data().supports.iter().find(|s|s.id==ELEMENTAL_AUGMENTATION).unwrap();
+    ensure(support.effect=="ePARAMETER_UP_MATK","Unexpected Elemental Augmentation effect")?;
+    let p=w.character_progression.get_mut(&id).ok_or_else(||crate::SimError("Missing support recipient".into()))?;
+    ensure(p.jobs.unlocked_support.contains(ELEMENTAL_AUGMENTATION),"Elemental Augmentation not unlocked")?;
+    if p.jobs.equipped_support.contains(ELEMENTAL_AUGMENTATION) {return Ok(());}
+    ensure(p.jobs.equipped_support.len()<4,"No free support-ability slot")?;
+    let c=p.character.combat.as_mut().ok_or_else(||crate::SimError("Missing carried combat stats".into()))?;
+    c.magic+=support.value;
+    p.jobs.equipped_support.insert(ELEMENTAL_AUGMENTATION.into());
+    Ok(())
 }
 #[derive(Debug,Serialize)]
 pub struct Purchase {pub ability:String,pub name:String,pub jp:u32}

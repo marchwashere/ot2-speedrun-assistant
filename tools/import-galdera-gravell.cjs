@@ -41,7 +41,7 @@ const bps=[];for(const [asset,names]of [
 const serumStock=one(table('Shop/Database/PurchaseItemTable'),'NPC_Twn_Wld_3_1_A_SHOP02_08');
 assert.equal(serumStock.ItemLabel,'ITM_MRL_COM_0010');assert.equal(serumStock.PossibleItemLabel,'None');
 const serumItem=one(itemDb,serumStock.ItemLabel);assert.equal(serumItem.BuyPrice,3000);
-const runtime={serum:serumItem.id,serum_price:serumItem.BuyPrice,guard:guard.id,ambush_level:battle.AssassinateNeedLevel,before_events:ambush.BeforeEventLabel,success_event:ambush.SuccessEventLabel[0],
+const runtime={guard:guard.id,ambush_level:battle.AssassinateNeedLevel,before_events:ambush.BeforeEventLabel,success_event:ambush.SuccessEventLabel[0],
  shopkeeper:shopkeeper.id,jam:jam.ItemLabel,proper_steal:jam.ProperSteal,steal_level:jam.ProperSteal+over,weapons,job,
  first_talk_flag:flag('WEAPONMASTER_NPC_FIRST_TALK'),license_flag:flag('WEAPONMASTER_FIRST_JOB_LICENSE_GET')};
 fs.writeFileSync(wp,JSON.stringify(world,null,2)+'\n');

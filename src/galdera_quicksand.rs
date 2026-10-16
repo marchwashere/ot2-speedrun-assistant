@@ -82,6 +82,8 @@ fn finish_boss(entry:&Entry,finisher_boost_cycles:u32)->Result<LordSands> {
 
 fn setup_party(l:&mut Loader<'_>)->Result<()> {
  ensure(l.state.character_progression[&6].jobs.secondary_job==Some(0),"Osvald must still be Merchant to learn Collect")?;
+ crate::gravell_setup::learn(&mut l.state,6,crate::scholar::JOB,&["ABI_SET_SCH_030"])?;
+ crate::scholar::equip_elemental_augmentation(&mut l.state,6)?;
  crate::gravell_setup::learn(&mut l.state,6,0,&["ABI_SET_MER_030"])?;
  crate::gravell_setup::assign(&mut l.state,6,Some(2))?;
  crate::gravell_setup::assign(&mut l.state,5,Some(5))?;
@@ -95,12 +97,20 @@ fn setup_party(l:&mut Loader<'_>)->Result<()> {
   ensure(p.jobs.equipped_support.len()<=4,"Too many equipped supports")?;
  }
  l.state.refresh_support_skills();
- l.boundary("Osvald learns Collect before switching Merchant to Warrior; Temenos becomes Dancer. Partitio learns Collect. Equip Boost-Start on Osvald and Partitio; equip A Step Ahead on Osvald, Partitio and Temenos, retaining Throné's support");
+ l.boundary("Osvald learns Lightning Bolt (500 JP) and immediately equips Elemental Augmentation (+50 elemental attack), then learns Collect before switching Merchant to Warrior; Temenos becomes Dancer. Partitio learns Collect. Equip Boost-Start on Osvald and Partitio; equip A Step Ahead on Osvald, Partitio and Temenos, retaining Throné's support");
  Ok(())
 }
 
 #[cfg(test)]mod menu_tests {
  use super::*;
+ fn tracked_menu_fixture()->world::WorldState {
+  let f:serde_json::Value=serde_json::from_str(include_str!("../data/source/galdera-flex-entry.json")).unwrap();
+  let mut w:world::WorldState=serde_json::from_value(f["world_after"].clone()).unwrap();
+  // This historical fixture predates the explicit early native Scholar ledger.
+  w.character_progression.get_mut(&6).unwrap().jobs.learned_abilities.insert(6,
+   ["ABI_SET_SCH_010","ABI_SET_SCH_020","ABI_SET_SCH_060","ABI_SET_SCH_070"].into_iter().map(str::to_owned).collect());
+  w
+ }
  #[test]fn live_post_sands_retains_active_land_table() {
   let f:serde_json::Value=serde_json::from_str(include_str!("../data/source/quicksand-post-boss-live.json")).unwrap();
   let rng=serde_json::from_value(f["after"].clone()).unwrap();
@@ -114,8 +124,7 @@ fn setup_party(l:&mut Loader<'_>)->Result<()> {
   assert_eq!(loot.encounter.encounter.enemies.iter().map(|e|e.enemy.id.as_str()).collect::<Vec<_>>(),["ENE_NML_FLD_DST_170","ENE_NML_FLD_DST_210","ENE_NML_FLD_DST_230"]);
  }
  #[test]fn scripted_sands_initializes_each_player_once() {
-  let f:serde_json::Value=serde_json::from_str(include_str!("../data/source/galdera-flex-entry.json")).unwrap();
-  let w:world::WorldState=serde_json::from_value(f["world_after"].clone()).unwrap();
+  let w=tracked_menu_fixture();
   let mut l=Loader::new(world::catalog(),w,CrtRng::new(123)).unwrap();
   crate::gravell_setup::assign(&mut l.state,6,Some(0)).unwrap();setup_party(&mut l).unwrap();
   l.state.set_flag(40010,false);l.state.time=2;l.visit_map("Dng_Dst_2_2").unwrap();
@@ -125,16 +134,22 @@ fn setup_party(l:&mut Loader<'_>)->Result<()> {
   assert_eq!(t.battle.before,t.prompt.after);
  }
  #[test]fn collect_before_warrior_then_gravell_supports_without_job_swaps() {
-  let f:serde_json::Value=serde_json::from_str(include_str!("../data/source/galdera-flex-entry.json")).unwrap();
-  let w:world::WorldState=serde_json::from_value(f["world_after"].clone()).unwrap();
+  let w=tracked_menu_fixture();
+  let magic_before=w.character_progression[&6].character.combat.as_ref().unwrap().magic;
   let mut l=Loader::new(world::catalog(),w,CrtRng::new(123)).unwrap();
   crate::gravell_setup::assign(&mut l.state,6,Some(0)).unwrap();
   let spent=l.state.character_progression[&6].jp_spent;
-  let available=l.state.character_progression[&6].jp_earned-spent;
+  l.state.character_progression.get_mut(&6).unwrap().jp_earned=spent+1000;
   let rng=l.rng;let counter=l.state.encounter_counter;
   setup_party(&mut l).unwrap();
   let o=&l.state.character_progression[&6];
-  assert_eq!(o.jp_spent-spent,500);assert!(available>=500);
+  assert_eq!(o.jp_spent-spent,1000);assert_eq!(o.jp_earned,o.jp_spent);
+  assert_eq!(o.jobs.learned_abilities[&6].len(),5);
+  assert!(o.jobs.learned_abilities[&6].contains("ABI_SET_SCH_030"));
+  assert!(o.jobs.unlocked_support.contains(crate::scholar::ELEMENTAL_AUGMENTATION));
+  assert!(o.jobs.equipped_support.contains(crate::scholar::ELEMENTAL_AUGMENTATION));
+  assert_eq!(o.character.combat.as_ref().unwrap().magic,magic_before+50);
+  assert_eq!(o.jobs.equipped_support.len(),4);
   assert_eq!(o.jobs.secondary_job,Some(2));
   assert!(o.jobs.unlocked_support.contains("ABI_MER_SUP_02"));
   assert!(o.jobs.equipped_support.contains("ABI_MER_SUP_02"));
@@ -143,6 +158,17 @@ fn setup_party(l:&mut Loader<'_>)->Result<()> {
   for (id,job,resources) in before {let p=&l.state.character_progression[&id];assert_eq!(p.jobs.secondary_job,job);assert_eq!(serde_json::to_value(&p.character.resources).unwrap(),resources);}
   for id in [4,6] {assert!(l.state.character_progression[&id].character.boost_start);}
   assert!(l.state.character_progression[&5].jobs.equipped_support.contains(crate::gravell_setup::STEP_AHEAD));
+  let magic=l.state.character_progression[&6].character.combat.as_ref().unwrap().magic;
+  crate::scholar::equip_elemental_augmentation(&mut l.state,6).unwrap();
+  l.state.refresh_support_skills();l.state.sync_progression().unwrap();
+  assert_eq!(l.state.character_progression[&6].character.combat.as_ref().unwrap().magic,magic);
+  let mut without=l.state.clone();
+  without.character_progression.get_mut(&6).unwrap().character.combat.as_mut().unwrap().magic-=50;
+  let reward=ot2_battle_engine::progression::Reward {exp:100000,jp:0,money:0};
+  l.state.award_victory(reward).unwrap();without.award_victory(reward).unwrap();
+  assert!(l.state.character_progression[&6].level>70);
+  assert_eq!(l.state.character_progression[&6].character.combat.as_ref().unwrap().magic,
+   without.character_progression[&6].character.combat.as_ref().unwrap().magic+50);
   assert_eq!(l.rng,rng);assert_eq!(l.state.encounter_counter,counter);
  }
 }

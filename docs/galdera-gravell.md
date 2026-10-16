@@ -1,10 +1,10 @@
 # Gravell restoration and supplies
 
-After Scorched Bone Spear, fast travel to Gravell and discard chapter starts.
-While daytime, steal Empowering Lychee (L) and Sharp Nut (L) from Old Man
-NPC_Twn_Wld_3_1_A_TALK_0200, then switch path action and close. The two steals
-require levels31/33 and consume three draws total. Skip the Villager;
-Strengthening Serum is stolen with Champion Seeker earlier.
+After Scorched Bone Spear, Firestarter and the Crackridge book, fast travel to
+Gravell and discard chapter starts. Skip both the Old Man and the Villager.
+Sharp Nut (L) and Diffusing Serum are stolen earlier from the Shopkeeper inside
+Wellgrove's inn; do not buy another Serum here. Strengthening Serum is stolen
+with Champion Seeker earlier. No Lychee (L) is collected on this visit.
 Teach/equip the planned Temenos and Partitio skills (no RNG draws).
 Switch night and Ambush the Debt Collector (Throné30 required; carried70).
 Talk to Porta, restore both rusty weapons, switch day, sell Lionheart's Axe

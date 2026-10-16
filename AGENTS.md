@@ -1,3 +1,7 @@
+- Roque JP routine (2026-10-17): share Shipwreck/Nameless five-order prefix; reject Temenos -> Throne -> Osvald. Partitio unboosted Donate BP, Defend/Springy Boots promote Temenos then Osvald. T2 +3 BG -> Osvald +2 Fireball, with actual JP100/all-alive/victory checks. No Pom, no Guards charge. Gear Osvald in Gravell after legendary sales: Optimize-equivalent Firestarter/Scorched Bone Spear/Skull Helm, manual Elemental Augmentor. Retain Elemental Augmentation; no Magic nuts during manipulation. User correction: do NOT use any nuts on Throne at Nameless either. Neither character uses nuts during the manipulated section; retain collected nuts in inventory. Lv70 no-nut Gigantes floor: sword1077 + Barrage16806 + Beastlings32696 =50579.
+
+- Post-Temenos menu (2026-10-17): Osvald learns Lightning Bolt as his fifth Scholar skill (500 JP) and immediately equips Elemental Augmentation (+50 MATK), then Collect (500 JP) before Warrior. Retain Evasive Maneuvers, A Step Ahead and Boost-Start: four supports total. Apply the flat bonus once, preserve it across refresh/growth/gear changes. No menu RNG. The Gravell revision above replaces early Magic-nut usage with this support.
+
 - Georges menu (2026-10-17): Steal Mage's Robe then switch directly to Scrutinize without closing the path-action menu. One opening draw total; no Steal closing dialogue. For captured Gigantes prompt9597, zero finisher cycles reaches rescue-scene9963 and Scrutinize check9967 (roll26, success); the old extra reopening draw incorrectly selected one finisher cycle.
 
 - User-confirmed battle setting (2026-10-16): ALL fights use 2x battle speed. Core full Gigantes replay now matches the final retail capture through post-drop position9958 (361 draws). The fix normalizes the break camera's inherited 60000 Hz clock, preserves parent summon LastHit, and uses the selected normal-attack weapon and authored event phases. Do not substitute RNG offsets or a blanket 2x factor. See the core docs/gigantes.md.
@@ -126,11 +130,13 @@ Current order supersedes older notes: spear -> Firestarter -> Crackridge book ->
   battle is activated by this helper. It ends just before Gigantes.
 
 
-- Galdera supplies: skip Wellgrove tavern Shopkeeper entirely. Keep Mother
-  Lychee M and Mysterious Merchant Magic L Entreats. Gravell Old Man steals
-  Lychee L then Sharp L in one menu (guaranteed31/33), path-action switch/close:
-  three draws. Sell restored weapons at Provisioner, then buy one Diffusing
-  Serum for3000 (ordinary stock, no RNG); separate serum_cost from gross sales.
+- Galdera supplies (2026-10-17): Wellgrove day: steal 2 Pom M from Merchant,
+  then Sharp L and Diffusing Serum from the Shopkeeper INSIDE THE INN
+  (TALK_0400; guaranteed33/32), in that order in one menu. Path-action switch
+  and close after each NPC; inn session is three draws. Skip Mother's Lychee M.
+  Switch night after inn steals; keep Magic L Entreat, then day and Dancer License.
+  Skip Gravell Old Man entirely (no Lychee L or Sharp L); no Gravell Serum purchase.
+  Keep Gravell skill setup, night Ambush, restoration, sales and Jam Steal.
 
 - Inactive deferred Roque branch: galdera_flex::deferred_roque(entry, even Tropu
   switches, optional Wind M) keeps harbor daytime, rejects ambush, takes one
@@ -148,20 +154,21 @@ Current order supersedes older notes: spear -> Firestarter -> Crackridge book ->
   for Augmentor. One menu-opening draw; carry ITM_EQP_HLM_180 in inventory.
   Replaces planned Crackridge armourer purchase; no added time switch.
 
-- Galdera second Conning Creek visit: daytime Head Cook Critical Nut L Steal
-  before optional night switch, then path-action switch/close. NPC TALK_0700,
-  ITM_CSM_0730, ProperSteal22/guaranteed33; two draws, carried inventory and
-  downstream coast search. Replaces planned Roque hidden Critical Nut L pickup.
+- Galdera Critical Nut L pickup (2026-10-17): skip the tavern on the second
+  Conning Creek visit; go straight to the coast, with the optional night switch
+  immediately on arrival. No Head Cook menu/Steal draws or nut grant here.
+  Defer the daytime Head Cook Steal until after the Stormhail Snows book, then
+  path-action switch/close. NPC TALK_0700, ITM_CSM_0730, ProperSteal22/guaranteed33.
+  That later visit is planned beyond the executable JP100 endpoint.
 
 - Galdera Experimental tab uses route ID galdera_experimental, with independent
   result/voice caches and exported route identity. It currently shares the Galdera
   simulation as its starting baseline; earlier Temenos and revised supply routing
   are not implemented yet. Preserve both existing routes when adding experiments.
 
-- Gravell restoration visit: after daytime Villager supplies, steal Empowering
-  Lychee L and Sharp L from Old Man TALK_0200 (guaranteed31/33), then switch path action/close.
-  Adds three draws (opening + two Steal checks). Only switch night after this steal
-  and the RNG-free skill setup. Carry the Lychee into downstream inventory.
+- Gravell restoration visit: skip Villager and Old Man; switch night after
+  arrival and the RNG-free skill setup. Sharp L and Diffusing Serum are already
+  carried from Wellgrove's inn; Strengthening Serum came with Champion Seeker.
 
 - Galdera after Sai East District Augmentor Entreat: immediately day, steal
   Reinforcing Jam from Townsperson TALK_0400 outside orphanage (guaranteed46),
@@ -169,7 +176,7 @@ Current order supersedes older notes: spear -> Firestarter -> Crackridge book ->
   daytime, switch night BEFORE pickaxe delivery; later Sai day switch unchanged.
   This replaces the planned Beastling Village jam chest, not an extra fifth jam.
 
-- Galdera Wellgrove night: after Girl's Mother and before Dancer License,
+- Galdera Wellgrove night: after inn Shopkeeper steals and before Dancer License,
   Entreat Magic Nut L from Mysterious Merchant north of tavern (TALK_1800,
   Agnea20). Switch path action before closing; one opening draw, no closing
   dialogue/check. Keep nut in route_items and propagate RNG downstream.

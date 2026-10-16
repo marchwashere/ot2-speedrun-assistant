@@ -2,8 +2,12 @@
 
 ## Current routine (supersedes the historical routine below)
 
-After Temenos recruitment: Osvald learns Collect while Merchant, then takes
-Warrior; Partitio learns Collect. Equip Boost-Start on both immediately. Give
+After Temenos recruitment: Osvald learns Lightning Bolt as his fifth Scholar
+skill (500 JP), immediately equips Elemental Augmentation (+50 elemental attack),
+then learns Collect while Merchant (500 JP) and takes Warrior. Partitio learns
+Collect. Equip Boost-Start on both immediately. Osvald retains Evasive Maneuvers
+and A Step Ahead, filling all four support slots. The flat elemental bonus survives
+job changes, levels and later equipment menus without being applied twice. Give
 Temenos Dancer and A Step Ahead directly; retain A Step Ahead on all four.
 Gravell subsequently teaches only Temenos Bewildering Grace. No menu RNG.
 

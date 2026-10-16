@@ -19,7 +19,9 @@ assert.match($('galdera-coast-routine').innerHTML,/No night\/day adjustment/);
 assert(!context.conningStages.some(([label])=>label==='Conning Creek · switched to night'));
 coast.conning_night=entry;coast.coast_day=entry;context.conningStages=[];
 vm.runInNewContext(source.slice(start,end),context);
-assert.match($('galdera-coast-routine').innerHTML,/switch to night after the Head Cook steal/);
+assert.match($('galdera-coast-routine').innerHTML,/switch to night immediately on arrival/);
+assert.doesNotMatch($('galdera-coast-routine').innerHTML,/Head Cook/);
+assert(!context.conningStages.some(([label])=>label.includes('Head Cook')));
 assert.match($('galdera-coast-routine').innerHTML,/switch to day immediately after entering/);
 assert(context.conningStages.some(([label])=>label==='Conning Creek · switched to night'));
 assert(context.conningStages.some(([label])=>label==='Western Conning Creek Coast · switched to day'));
@@ -96,17 +98,17 @@ assert.deepEqual(context.conningStages.slice(-5).map(([label])=>label),[
  'Eastern Wellgrove Trail · run 100% to Wellgrove without a second encounter',
  'Wellgrove · entered, chapter start discarded']);
 console.log('PASS: Western boosts, steal dialogue skip, later encounter and Wellgrove entry');
-coast.oresrush_supplies.wellgrove.champion.supplies={pom_steal:entry,night:entry,mother_steal:entry,magic_entreat:entry,day:entry,dancer_license:entry};
+coast.oresrush_supplies.wellgrove.champion.supplies={pom_steal:entry,night:entry,shopkeeper_steal:entry,magic_entreat:entry,day:entry,dancer_license:entry};
 context.conningStages=[];
 vm.runInNewContext(source.slice(start,end),context);
 assert.deepEqual(context.conningStages.slice(-6).map(([label])=>label),[
  'Wellgrove · Merchant: steal 2 Energizing Pomegranates (M) · change path action, then close without dialogue',
- "Wellgrove · Girl's Mother: steal Empowering Lychee (M) · 100% · change path action, then close without dialogue",
- 'Wellgrove · switched to night after Lychee steal',
+ 'Wellgrove inn · Shopkeeper: steal Sharp Nut (L), then Diffusing Serum · change path action, then close without dialogue',
+ 'Wellgrove · switched to night after inn steals',
  'Wellgrove · Mysterious Merchant north of tavern: Magic Nut (L) entreated · change path action, then close without dialogue',
  'Wellgrove · switch to day immediately after Magic Nut (L) Entreat',
  'Wellgrove · Dancer License acquired']);
-console.log('PASS: daytime Pom M x2 Steal, night switch, Entreats and Dancer License in Detailed log');
+console.log('PASS: daytime Pom M x2 and inn steals, night Magic Nut Entreat, day Dancer License');
 coast.oresrush_supplies.wellgrove.champion.supplies.al_return={new_delsta:entry,highroad:entry,delivery:entry};
 context.conningStages=[];
 vm.runInNewContext(source.slice(start,end),context);
@@ -173,15 +175,15 @@ assert.doesNotMatch($('galdera-quicksand-loot-routine').innerHTML,/Rusty Axe|Swi
 assert.match($('galdera-quicksand-loot-routine').innerHTML,/Temenos · Escape/);
 assert.doesNotMatch($('galdera-quicksand-loot-routine').innerHTML,/Open the Scorched Bone Spear/);
 assert.equal(context.conningStages.at(-1)[0],'Quicksand Gaol · Scorched Bone Spear obtained');
-fc.temenos.quicksand.gravell={arrival:entry,supplies:entry,setup:entry,night:entry,ambush:entry,restoration:entry,day:entry,sales:entry,serum_purchase:entry,lychee_steal:entry,jam_steal:entry,sale_proceeds:250000};
+fc.temenos.quicksand.gravell={arrival:entry,setup:entry,night:entry,ambush:entry,restoration:entry,day:entry,sales:entry,jam_steal:entry,sale_proceeds:250000};
 vm.runInNewContext(source.slice(start,end),context);
 assert.match(context.conningStages.at(-1)[0],/Reinforcing Jam stolen \(100%\); switch path action/);
 assert(context.conningStages.some(([label])=>/250,000 leaves/.test(label)));
 
-assert(context.conningStages.some(([label])=>/Old Man Empowering Lychee \(L\) and Sharp Nut \(L\)/.test(label)));
-assert(context.conningStages.some(([label])=>/buy Diffusing Serum at Provisioner · 3,000 leaves/.test(label)));
-assert(!context.conningStages.some(([label])=>/Wellgrove tavern/.test(label)));
-console.log('PASS: relocated Sharp L and serum appear in Gravell, with no Wellgrove tavern stop');
+assert(!context.conningStages.some(([label])=>/Old Man|Girl.s Mother/.test(label)));
+assert(!context.conningStages.some(([label])=>/buy Diffusing Serum/.test(label)));
+assert(context.conningStages.some(([label])=>/Wellgrove inn.*Sharp Nut.*Diffusing Serum/.test(label)));
+console.log('PASS: Sharp L and serum stolen in Wellgrove inn, with no Lychee steal or Gravell serum purchase');
 
 context.boostStepsHtml=(inputs,label)=>label;
 const segment={name:'Travel',stages:[['Travel entry',entry]],encounters:[],extra_switches:0,escape_boost_inputs:[]};

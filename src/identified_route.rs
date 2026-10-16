@@ -175,17 +175,14 @@ fn complete_flex(value:&mut serde_json::Value)->Result<()> {
     fn galdera_skips_hikari_and_replays_full_route() {
         let result=simulate_route("SNNNNSSSSSNSNSSSSNNNSNSSNNSNS",true,154,true).unwrap();
         fn find_restoration(v:&serde_json::Value)->Option<&serde_json::Value> {
-            if v["lychee_steal"].is_object() && v["restoration"].is_object() {return Some(v);}
+            if v["jam_steal"].is_object() && v["restoration"].is_object() {return Some(v);}
             v.as_object()?.values().find_map(find_restoration)
         }
         let restoration=find_restoration(&result).expect("Gravell restoration visit");
-        let lychee=&restoration["lychee_steal"];
-        assert_eq!(lychee["arrival"],restoration["supplies"]["after"]);
-        assert_eq!(lychee["after"]["draws"].as_u64().unwrap(),lychee["arrival"]["draws"].as_u64().unwrap()+2);
-        assert_eq!(lychee["world_after"]["time"],2);
-        let old_count=restoration["supplies"]["world_after"]["route_items"]["ITM_CSM_0240"].as_u64().unwrap_or(0);
-        assert_eq!(lychee["world_after"]["route_items"]["ITM_CSM_0240"].as_u64().unwrap(),old_count+1);
-        assert_eq!(restoration["setup"]["arrival"],lychee["after"]);
+        assert!(restoration.get("lychee_steal").is_none());
+        assert!(restoration.get("serum_purchase").is_none());
+        assert_eq!(restoration["setup"]["arrival"],restoration["arrival"]["after"]);
+        assert_eq!(restoration["setup"]["after"],restoration["arrival"]["after"]);
         assert_eq!(restoration["night"]["arrival"],restoration["setup"]["after"]);
         assert_eq!(restoration["night"]["world_after"]["time"],4);
         fn find_ryu(v:&serde_json::Value)->Option<&serde_json::Value> {
@@ -253,7 +250,9 @@ fn complete_flex(value:&mut serde_json::Value)->Result<()> {
         assert_eq!(champion["wellgrove"]["world_after"]["map"],"Twn_Fst_2_1_A");
         let supplies=&champion["supplies"];
         assert_eq!(supplies["dancer_license"]["world_after"]["job_licenses"]["5"],1);
-        for item in ["ITM_CSM_0670","ITM_MRL_COM_0010","ITM_CSM_0230"] {assert_eq!(supplies["dancer_license"]["world_after"]["route_items"][item],1);}
+        for item in ["ITM_CSM_0670","ITM_MRL_COM_0010"] {assert_eq!(supplies["dancer_license"]["world_after"]["route_items"][item],1);}
+        assert!(supplies.get("mother_steal").is_none());
+        assert_eq!(supplies["dancer_license"]["world_after"]["route_items"]["ITM_CSM_0230"],supplies["pom_steal"]["world_after"]["route_items"]["ITM_CSM_0230"]);
         let delivered=&supplies["al_return"]["delivery"]["world_after"];
         assert_eq!(delivered["map"],"Fld_Cty_1_3");assert_eq!(delivered["time"],2);
         assert!(delivered["route_items"]["ITM_TRE_SS_TD11_0100_0010"].is_null());
@@ -261,9 +260,9 @@ fn complete_flex(value:&mut serde_json::Value)->Result<()> {
         let fc=&supplies["al_return"]["flamechurch"];
         let q=&fc["temenos"]["quicksand"];
         let gv=&q["gravell"];
-        assert_eq!(gv["supplies"]["after"]["draws"].as_u64().unwrap()-gv["arrival"]["after"]["draws"].as_u64().unwrap(),3);
-        assert_eq!(gv["lychee_steal"]["after"],gv["setup"]["after"]);
-        assert_eq!(gv["supplies"]["world_after"]["time"],2);
+        assert_eq!(gv["arrival"]["after"],gv["setup"]["after"]);
+        assert_eq!(gv["setup"]["world_after"]["time"],2);
+        for item in ["ITM_CSM_0240","ITM_CSM_0670","ITM_MRL_COM_0010"] {assert_eq!(gv["jam_steal"]["world_after"]["route_items"][item],gv["arrival"]["world_after"]["route_items"][item]);}
         assert_eq!(q["flex"]["rewards"]["awarded"]["jp"],12760);
         assert_eq!(q["flex"]["fight"]["state"]["outcome"],"victory");
         assert_eq!(fc["highroad_running_updates"],56);assert_eq!(fc["clockbank_running_updates"],193);

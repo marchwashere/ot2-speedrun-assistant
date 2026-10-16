@@ -80,6 +80,7 @@ fn jp_battle(e:&Entry,max_inputs:usize,probe:Option<&mut Option<crate::CrtRng>>)
   let w:world::WorldState=serde_json::from_value(v["world_after"].clone()).unwrap();
   let mut l=Loader::new(world::catalog(),w,crate::CrtRng::new(seed)).unwrap();
   crate::gravell_setup::learn(&mut l.state,6,0,&["ABI_SET_MER_030"]).unwrap();crate::gravell_setup::jp_setup(&mut l).unwrap();
+  crate::nameless_setup::track_augmentation_for_legacy_fixture(&mut l.state);
   // Old pre-flex fixture; explicitly supply acquired gear for this branch test.
   for (id,n) in [("ITM_EQP_SWD_380",1),("ITM_EQP_LNS_220",1),("ITM_EQP_HLM_180",1),("ITM_EQP_ACS_250",1),("ITM_EQP_SLD_240",1),("ITM_EQP_AMR_300",1),("ITM_CSM_0610",2),("ITM_CSM_0730",1),("ITM_CSM_0550",1),("ITM_CSM_0070",0)]{l.state.route_items.insert(id.into(),n);}
   point(&mut l,crate::CrtRng::new(seed))

@@ -75,10 +75,11 @@ pub fn apply(l:&mut Loader<'_>)->Result<()> {
  assign(&mut l.state,7,Some(11))?;
  assign(&mut l.state,merchant,Some(0))?;
  learn(&mut l.state,merchant,0,&["ABI_SET_MER_050","ABI_SET_MER_070"])?;
- learn(&mut l.state,8,5,&["ABI_SET_DAN_060","ABI_SET_DAN_070"])?;
+ let agnea_first=if l.state.galdera_route {"ABI_SET_DAN_040"} else {"ABI_SET_DAN_060"};
+ learn(&mut l.state,8,5,&[agnea_first,"ABI_SET_DAN_070"])?;
  learn(&mut l.state,4,0,&["ABI_SET_MER_070","ABI_SET_MER_050"])?;
  l.state.refresh_support_skills();
- l.boundary(format!("Gravell setup: Throné -> Inventor; {} Merchant; learned Donate BP/Hired Help, Stimulate/Bewildering Grace, Partitio Hired Help/Donate BP",if merchant==6 {"Osvald"} else {"Hikari"}));
+ l.boundary(format!("Gravell setup: Throné -> Inventor; {} Merchant; learned Donate BP/Hired Help, {}/Bewildering Grace, Partitio Hired Help/Donate BP",if merchant==6 {"Osvald"} else {"Hikari"},if l.state.galdera_route {"Peacock Strut"} else {"Stimulate"}));
  ensure(l.rng==before&&l.state.encounter_counter==counter,"Job menu setup changed field RNG/counter")
 }
 

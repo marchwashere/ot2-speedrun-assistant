@@ -1,5 +1,12 @@
 # Galdera: Chubby victory to Eastern Sai Sands
 
+The second Conning Creek visit goes straight to Western Conning Creek Coast.
+Do not visit the tavern or grant its Critical Nut (L) here; the menu-opening and
+Steal draws are absent. The planned pickup is deferred until after obtaining the
+book in Stormhail Snows: return to Conning Creek by day, steal Critical Nut (L)
+from the tavern Head Cook, then switch path action and close. This later errand
+is beyond the current executable route, which ends at JP ×100 victory.
+
 Corrected active sequence: Eastern Sai Sands entry -> one Eastern encounter and
 100% Escape -> Southern Sai Sands entry -> one Southern encounter and 100%
 Escape -> Sai main town. Both openings must be Normal or Preemptive. The Eastern

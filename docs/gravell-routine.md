@@ -1,4 +1,9 @@
-Gravell requested routine (pending exact battle execution)
+Current Galdera setup: Agnea learns Peacock Strut (30 JP), then Bewildering
+Grace (100 JP), for 130 JP total. This replaces the unused Stimulate purchase;
+the current Chubby routine remains T1 Defend, T2 max-boost Bewildering Grace.
+The skill menu consumes no RNG. Any% Hikari retains its Stimulate purchase.
+
+Historical Gravell requested routine (superseded)
 
 Setup after Merchant license is CRT neutral. Merchant JobID0 vs guild ID4.
 Throne Inventor; Hikari Merchant learns Donate BP then Hired Help; Agnea learns

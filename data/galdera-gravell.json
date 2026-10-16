@@ -1,6 +1,4 @@
 {
-  "serum": "ITM_MRL_COM_0010",
-  "serum_price": 3000,
   "guard": "NPC_Twn_Wld_3_1_A_TALK_1600",
   "ambush_level": 30,
   "before_events": [

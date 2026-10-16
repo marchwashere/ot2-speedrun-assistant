@@ -2,7 +2,7 @@
 const fs=require('fs'),path=require('path'),assert=require('assert/strict'),s=require('./source.cjs');
 const items=s.table('Item/Database/ItemDB'),players=s.table('Character/Database/PlayableCharacterDB');
 const equipment={6:{Sword:'ITM_EQP_SWD_380',Lance:'ITM_EQP_LNS_220',Head:'ITM_EQP_HLM_180',Accessory_00:'ITM_EQP_ACS_250'},7:{Shield:'ITM_EQP_SLD_240',Body:'ITM_EQP_AMR_300'}};
-const nuts={6:{ITM_CSM_0610:2},7:{ITM_CSM_0730:1,ITM_CSM_0550:1}};
+const nuts={};
 const defaults=Object.fromEntries(players.rows.filter(p=>[6,7].includes(p.Id)).map(p=>[p.Id,p.FirstEquipment]));
 const wanted=new Set([...Object.values(equipment).flatMap(Object.values),...Object.values(nuts).flatMap(Object.keys),...Object.values(defaults).flatMap(Object.values)]);
 const selected=items.rows.filter(r=>wanted.has(r.id));

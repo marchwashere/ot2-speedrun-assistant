@@ -20,17 +20,19 @@ and complete Gigantes routine. It remains disconnected from the automatic
 JP-location selector and UI. The lower-level `escape_approach` remains available
 for counter-only tests. Import `import-galdera-nameless.cjs` after town imports.
 
-The menu requires the actual acquired gear and nuts; missing inventory fails
-without partial mutation. Osvald (Warrior) equips Firestarter, Scorched Bone
-Spear, Skull Helm, Elemental Augmentor and consumes two Magic L. Throné
-(Inventor) equips Swift Shield/Quick Cloak and consumes Critical L/Fortifying L.
-No Mage's Robe, Finisher's Claws, Lost Tribe Dagger, Blessing in Disguise or
-Critical S is fabricated. Applying the menu again does not consume nuts twice.
+Osvald (Warrior) is equipped in Gravell after weapon sales: Optimize selects
+Firestarter, Scorched Bone Spear and Skull Helm; manually equip Elemental
+Augmentor. Retain Elemental Augmentation. Throne (Inventor) equips Swift Shield
+and Quick Cloak at their Roque purchases. Island entry retains that equipment.
+Neither character uses any nuts during manipulation; collected nuts remain
+in inventory. Equipment application requires acquired inventory, is transactional,
+and does not reapply stats to already-equipped slots. No Mage's Robe or
+Finisher's Claws are available until after Gigantes.
 
 At the boss, switch night, accept the source prompt, execute the agreed two-turn
 routine and carry actual resources, rewards, drops and weakness history through
-field return and victory scene/flag40003. The level70 fixture has797 elemental
-attack and a conservative51506 damage floor against50000 HP, excluding criticals,
+field return and victory scene/flag40003. The level70 fixture has774 elemental
+attack and a conservative50579 damage floor against50000 HP, excluding criticals,
 fire bonuses, T1 attacks and extra Barrage hits. The floor is recalculated from
 the carried loadout; source RNG prediction still awaits retail comparison.
 
@@ -56,10 +58,13 @@ Seven focused continuation tests pass, including missing-inventory rollback,
 idempotence, whole-route percentages, boss/cutscene propagation and both
 Scrutinize outcomes. Binaries compile; retail RNG comparison remains pending.
 
-Fireball damage check for the prospective Ebony Eel x3 JP target: each has2367HP,
-231MDEF and no fire weakness. Lv70 entry loadout (797MATK, both Magic L, fire
-potency60%, no robe/claws) deals2578..2680 per target with +1BP by day, or
-3053..3174 with0BP and both night talents. No break or Advanced Magic required.
+Fireball damage for the Ebony Eel x3 JP target: each has2367HP,
+231MDEF and no fire weakness. Lv70 Osvald has774MATK, Elemental Augmentation,
+no Magic nuts and +60% fire potency. Daytime +1 BP deals2491..2590 per eel.
+Throne's attack/crit nuts are not required for this clear. Gigantes' conservative
+floor without nuts on either character is1077 sword +16806 Barrage +32696
+Beastlings =50579, with no T1 chip or critical damage credited.
+
 The JP routine now validates actual BG effects and Fireball execution in addition
 to this independent damage check.
 
