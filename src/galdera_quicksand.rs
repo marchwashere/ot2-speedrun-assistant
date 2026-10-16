@@ -45,9 +45,11 @@ fn finish_loot(entry:&Entry)->Result<Option<Loot>> {
  let day=point(&mut l,entry.after);
  chest(&mut l,"Treasure_Dng_Dst_2_2_01","Rusty Axe")?;
  let rusty_axe=point(&mut l,day.after);
- // Ordinary land switches to this replacement trigger once flag40010 is set.
+ // SetEncountVolume evaluates replacement flag40010 when the player enters
+ // the trigger. The boss return/day switch do not re-enter it: this same-visit
+ // loot encounter retains the original land table. Confirmed by live menu7048.
  // User specifies one encounter after the axe; no measured movement budget yet.
- let Some(encounter)=galdera_coast::sai_encounter(rusty_axe.clone(),"ENT_DNG_DST_2_2_L_LND")? else {return Ok(None);};
+ let Some(encounter)=galdera_coast::sai_encounter(rusty_axe.clone(),"ENT_DNG_DST_2_2_LND")? else {return Ok(None);};
  let mut l=Loader::new(world::catalog(),encounter.field_return.world_after.clone(),encounter.field_return.after)?;
  chest(&mut l,"Treasure_Dng_Dst_2_2_05","Scorched Bone Spear")?;
  let scorched_bone_spear=point(&mut l,encounter.field_return.after);
@@ -99,6 +101,18 @@ fn setup_party(l:&mut Loader<'_>)->Result<()> {
 
 #[cfg(test)]mod menu_tests {
  use super::*;
+ #[test]fn live_post_sands_retains_active_land_table() {
+  let f:serde_json::Value=serde_json::from_str(include_str!("../data/source/quicksand-post-boss-live.json")).unwrap();
+  let rng=serde_json::from_value(f["after"].clone()).unwrap();
+  let entry=Entry {arrival:rng,after:rng,world_after:serde_json::from_value(f["world_after"].clone()).unwrap(),trace:vec![],decisions:vec![]};
+  assert!(entry.world_after.flag(40010));
+  let loot=finish_loot(&entry).unwrap().unwrap();
+  let menu=serde_json::to_value(&loot.encounter.menu).unwrap();
+  assert_eq!(menu["rng"]["draws"],f["observed_menu_position"]);
+  assert_eq!(menu["current_order"],f["observed_current_order"]);
+  assert_eq!(menu["next_order"],f["observed_next_order"]);
+  assert_eq!(loot.encounter.encounter.enemies.iter().map(|e|e.enemy.id.as_str()).collect::<Vec<_>>(),["ENE_NML_FLD_DST_170","ENE_NML_FLD_DST_210","ENE_NML_FLD_DST_230"]);
+ }
  #[test]fn scripted_sands_initializes_each_player_once() {
   let f:serde_json::Value=serde_json::from_str(include_str!("../data/source/galdera-flex-entry.json")).unwrap();
   let w:world::WorldState=serde_json::from_value(f["world_after"].clone()).unwrap();

@@ -82,3 +82,19 @@ User specified the encounter count/order, not distances. Do not infer a running
 percentage or guarantee the physical crossing from an invented movement budget.
 The post-Escape counter remains the reset counter until further distances are
 provided. Source audit: tools/import-galdera-quicksand-loot.cjs. Retail pending.
+
+## Live post-boss encounter correction (2026-10-16)
+
+The land encounter after Rusty Axe retains `ENT_DNG_DST_2_2_LND` on this
+uninterrupted visit. `EncountTrigger.SetEncountVolume` evaluates the replacement
+flag when the player activates the collision trigger, not as a live flag binding.
+The boss victory flag does not itself refresh the active encounter volume.
+The former eager switch to `ENT_DNG_DST_2_2_L_LND` selected the wrong formation.
+Source methods are already recorded in `data/source/galdera-quicksand-loot.json`.
+
+The carried snapshot and live observations in `quicksand-post-boss-live.json`
+reproduce menu7048 with Partitio/Temenos/Throne/Osvald on the bonus turn, then
+Assassin Bug/Savage Scorpion/Throne/Partitio/Osvald/Desert Worm/Temenos. This
+regression covers formation, RNG position and both queues, with flag40010 true.
+
+Nameless Isle audit: flag40003 enables a replacement land label on its land trigger and canoe landings. The current route encounters water enemies before Gigantes and takes no post-boss encounter, so it does not select that replacement prematurely and requires no corresponding runtime change.
