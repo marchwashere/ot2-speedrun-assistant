@@ -31,7 +31,11 @@ Finisher's Claws are available until after Gigantes.
 
 At the boss, switch night, accept the source prompt, execute the agreed two-turn
 routine and carry actual resources, rewards, drops and weakness history through
-field return and victory scene/flag40003. The level70 fixture has774 elemental
+field return and victory scene/flag40003. T1 Throne/Osvald Defend while
+Partitio/Temenos always use unboosted lance/staff attacks, regardless of order.
+T2 Throne +2 sword, Osvald +3 Elemental Barrage, Partitio +3 Beastlings;
+Temenos Defends if reached. Both breakers' Defends put them before Partitio.
+The level70 fixture has774 elemental
 attack and a conservative50579 damage floor against50000 HP, excluding criticals,
 fire bonuses, T1 attacks and extra Barrage hits. The floor is recalculated from
 the carried loadout; source RNG prediction still awaits retail comparison.
@@ -49,7 +53,8 @@ the before-dialogue lottery and standard success event; Georges has no special
 Scrutinize event. Open the fixed Finisher's Claws chest without an RNG draw.
 Final continuation state is `Trip.loot.end()`, not `Trip.victory`.
 
-For the captured seed1E10AA9C / Gigantes prompt9597, no extra finisher cycle
+For the historical conditional-Defend routine captured at seed1E10AA9C /
+Gigantes prompt9597, no extra finisher cycle
 ends the rescue scene at9963. After switching day and stealing the robe, the
 direct Scrutinize check is at9967 and rolls26 (success at72%). The former
 close/reopen model incorrectly added a draw and selected an unnecessary cycle.

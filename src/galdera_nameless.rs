@@ -269,8 +269,12 @@ fn escape_approach_with_defends(entry:&Entry,max_cycles:u32,defends:u8)->Result<
   assert_eq!(c.magic+weapon_magic,774);
   let floor=ot2_battle_engine::gigantes::damage_floor(&players).unwrap();assert!(floor.total>=50000,"{floor:?}");
   eprintln!("Gigantes with neither character using nuts: {floor:?}");
-  let battle=ot2_battle_engine::gigantes::predict(crate::CrtRng::new(0xDB61DE86),&players,&l.state.enemy_knowledge).unwrap();
-  assert_eq!(battle.actions.last().unwrap().report.outcome,ot2_battle_engine::Outcome::Victory);
+  for seed in std::iter::once(0xDB61DE86).chain((0u32..256).map(|s|s.wrapping_mul(1775700753))) {
+   let battle=ot2_battle_engine::gigantes::predict(crate::CrtRng::new(seed),&players,&l.state.enemy_knowledge).unwrap();
+   assert_eq!(battle.actions.last().unwrap().report.outcome,ot2_battle_engine::Outcome::Victory);
+   assert_eq!(battle.actions.iter().find(|a|a.turn==1&&a.actor==3).unwrap().name,"Lance attack");
+   assert_eq!(battle.actions.iter().find(|a|a.turn==1&&a.actor==2).unwrap().name,"Staff attack");
+  }
   assert_eq!(l.rng,e.after);
  }
  #[test]fn jp_branch_carries_rewards_pom_and_safe_remainder_without_boss() {
