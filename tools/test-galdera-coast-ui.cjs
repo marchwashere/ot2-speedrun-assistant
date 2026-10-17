@@ -9,9 +9,10 @@ const $=id=>{if(!elements.has(id))elements.set(id,{});return elements.get(id);};
 const entry={trace:[],after:{draws:0,state:0}};
 const coast={day_before_gravell:entry,conning:entry,coast_entry:entry,coast_exit:entry,eastern_sai:entry,
   movement:{run_percent:43.6}};
-const context={$,g:{coast},conningStages:[],conningSpans:[],instructionBoxHtml(parts){
-  assert(Array.isArray(parts),'Instructions must be an array of lines');return parts.join('\n');
+const context={$,g:{coast},conningStages:[],conningSpans:[],instructionBoxHtml(parts,command=''){
+  assert(Array.isArray(parts),'Instructions must be an array of lines');return [...parts,command].filter(Boolean).join('\n');
 }};
+vm.runInNewContext(source.slice(source.indexOf('function menuOrdinal('),source.indexOf('function safeDefendsHtml(')),context);
 vm.runInNewContext(source.slice(start,end),context);
 assert.equal($('galdera-coast-result').hidden,false);
 assert.match($('galdera-coast-routine').innerHTML,/Run 43\.6%/);

@@ -377,6 +377,36 @@ function boostStepsHtml(levels,command='') {
   return instructionBoxHtml(parts,command);
 }
 function menuOrdinal(n) { return n===1?'1st':n===2?'2nd':n===3?'3rd':n+'th'; }
+function graceFightActionName(value,names) {
+  const [action,details]=typeof value==='string'?[value,null]:Object.entries(value)[0];
+  const target=names[details?.target] || 'default target';
+  switch(action) {
+    case 'defend': return 'Defend';
+    case 'donate_bp': return '+1 Donate BP → '+target;
+    case 'donate_bp_unboosted': return 'Donate BP → '+target+' (unboosted)';
+    case 'pomegranate': return 'Energizing Pomegranate (M) → '+target;
+    case 'small_pomegranate': return 'Energizing Pomegranate → '+target;
+    case 'springy_boots': return 'Springy Boots → '+target;
+    case 'dagger': return 'Dagger attack → '+target;
+    case 'staff': return 'Staff attack → '+target;
+    case 'bewildering_grace': return '+3 Bewildering Grace';
+    case 'guards': return '+3 Hired Help: Guards';
+    case 'thunder_soulstone': return 'Thunder Soulstone (L)';
+    case 'fireball': return 'Fireball +1 BP';
+    case 'fireball_two': return 'Fireball +2 BP';
+    case 'fireball_max': return 'Fireball +3 BP';
+    default: return action;
+  }
+}
+function graceFightRoutineHtml(fight,names) {
+  const ordinals={};
+  return fight.actions.map(a=>{
+    const ordinal=ordinals[a.round]=(ordinals[a.round]||0)+1;
+    const command=graceFightActionName(a.action,names);
+    const instructions=a.inputs?.length?boostStepsHtml(a.inputs,command):instructionBoxHtml([],command);
+    return `<p><strong>T${a.round} · ${escapeHtml(names[a.actor])} · ${menuOrdinal(ordinal)} command menu</strong></p>`+instructions;
+  }).join('');
+}
 function safeDefendsHtml(b) {
   return (b.defends||[]).map(d=>`<p><strong>R${d.round} · ${d.actor===1?'Osvald':'Throné'} · ${menuOrdinal(d.menu_ordinal)} command menu</strong></p>${instructionBoxHtml(['Defend'])}`).join('');
 }
@@ -1123,14 +1153,10 @@ function renderCrackridgeVoyage() {
                   const g=b.gravell;
                   $('gravell-result').hidden=false;
                   const names=routeNames();
-                  const ordinals={};
-                  $('gravell-routine').innerHTML='<p><strong>'+escapeHtml(encounterLabel(g.encounter))+'</strong></p>'+g.fight.actions.map(a=>{
-                    const ordinal=ordinals[a.round]=(ordinals[a.round]||0)+1;
+                  $('gravell-routine').innerHTML='<p><strong>'+escapeHtml(encounterLabel(g.encounter))+'</strong></p>'+graceFightRoutineHtml(g.fight,names);
+                  for(const a of g.fight.actions) {
                     conningPoints.push([`Gravell · T${a.round} · ${names[a.actor]} · command menu`,a.before]);
-                    if(!['bewildering_grace','guards'].includes(a.action) && !(g.coast && a.action==='thunder_soulstone')) return '';
-                    const command=a.action==='guards'?'+3 Hired Help: Guards':a.action==='bewildering_grace'?'+3 Bewildering Grace':'Thunder Soulstone (L)';
-                    return `<p><strong>T${a.round} · ${names[a.actor]} · ${menuOrdinal(ordinal)} command menu</strong></p>`+boostStepsHtml(a.inputs,command);
-                  }).join('');
+                  }
                   conningSpans.push(...g.fight.trace,...g.rewards.trace);
                   for(const [name,e] of [['Merchant License acquired',g.license],['Gravell jobs, skills and supports equipped',g.setup],['Western Gravell Wilds · loaded',g.arrival],['Western Gravell Wilds · switched to night',g.night]]) {conningStages.push([name,e]);conningSpans.push(...e.trace);}
                   conningPoints.push(['Western Gravell Wilds · before battle initialization',g.battle_entry]);
@@ -1337,8 +1363,8 @@ function renderCrackridgeVoyage() {
                                         let previous=(x.encounter_arrival||x.boat.stages.at(-1)[1]).after;const origin=BigInt(previous.draws)-BigInt(x.encounter.checkpoints[0].draws);
                                         for(const c of x.encounter.checkpoints){const after={state:c.state,draws:Number(origin+BigInt(c.draws))};conningSpans.push({reason:location+' · '+c.label,before:previous,after});previous=after;}
                                         $('galdera-flex-result').hidden=false;
-                                        const actionName=value=>{const a=typeof value==='string'?value:Object.keys(value)[0];return a==='donate_bp_unboosted'?'Donate BP → Temenos (unboosted)':a==='pomegranate'?'Pom (M) → Temenos':a==='small_pomegranate'?'Small Pom → Temenos':a==='dagger'?'Dagger attack → default target':a==='staff'?'Staff attack → default target':a==='fireball'?'Fireball +1 BP':a==='fireball_two'?'Fireball +2 BP':a==='fireball_max'?'Fireball +3 BP':a==='springy_boots'?'Springy Boots → '+party[value[a].target]:a==='bewildering_grace'?'Bewildering Grace':a==='guards'?'Hired Help: Guards':'Defend';};
-                                        card(location+' · JP ×100','<p>'+encounterLabel(x.encounter)+'</p>'+x.fight.actions.map(a=>'<p><strong>T'+a.round+' · '+party[a.actor]+'</strong></p>'+boostStepsHtml(a.inputs,actionName(a.action))).join(''));
+                                        const actionName=value=>graceFightActionName(value,party);
+                                        card(location+' · JP ×100','<p>'+escapeHtml(encounterLabel(x.encounter))+'</p>'+graceFightRoutineHtml(x.fight,party));
                                         if(x.nameless_jp)instructions('Nameless Isle · after JP ×100',['Run '+x.nameless_jp.movement.run_percent.toFixed(1)+'% of total island distance; walk the rest']);
                                         $('galdera-flex-routine').innerHTML=cards.join('');
                                         conningSpans.push(...x.fight.trace,...x.rewards.trace,...x.field_return.trace);conningStages.push([location+' · JP ×100 victory and field return',x.field_return]);
