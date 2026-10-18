@@ -171,6 +171,29 @@ fn complete_flex(value:&mut serde_json::Value)->Result<()> {
         assert!(!defer_flex());
     }
     #[test]
+    #[ignore = "Full seed 3ED34A23 route through EXP100 and JP100 searches"]
+    fn bg_victory_3ed34a23_completes_the_entire_identified_route() {
+        std::thread::Builder::new().stack_size(32*1024*1024).spawn(|| {
+            let result=simulate_route("NSNSNNNSSNSNSNNSSSSNNSNNSSSNNNS",false,197,true).unwrap();
+            assert_eq!(result["initial_seed"],0x3ed34a23u32);
+            fn find<'a>(v:&'a serde_json::Value,key:&str)->Option<&'a serde_json::Value> {
+                if v[key].is_object() {return Some(v);}
+                match v {
+                    serde_json::Value::Object(rows)=>rows.values().find_map(|x|find(x,key)),
+                    serde_json::Value::Array(rows)=>rows.iter().find_map(|x|find(x,key)),
+                    _=>None,
+                }
+            }
+            let g=find(&result,"coast").unwrap();
+            assert_eq!(g["fight"]["evaluation"]["result"],"accepted");
+            assert_eq!(g["fight"]["actions"].as_array().unwrap().last().unwrap()["action"],"bewildering_grace");
+            assert!(g["coast"]["movement"]["estimated_counter_at_exit"].as_u64().unwrap()>0);
+            let flex=&find(&result,"flex").unwrap()["flex"];
+            assert_eq!(flex["fight"]["evaluation"]["result"],"accepted");
+            assert_eq!(flex["field_return"]["world_after"]["party"],serde_json::json!([7,6,5,4]));
+        }).unwrap().join().unwrap();
+    }
+    #[test]
     #[ignore = "Full live-transcript Galdera route replay"]
     fn galdera_skips_hikari_and_replays_full_route() {
         let result=simulate_route("SNNNNSSSSSNSNSSSSNNNSNSSNNSNS",true,154,true).unwrap();

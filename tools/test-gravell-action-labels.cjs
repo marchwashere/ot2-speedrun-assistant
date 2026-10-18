@@ -35,5 +35,12 @@ for(const coast of [false,true]) for(const firstMerchant of [1,3]) {
  assert.match(element.innerHTML,/T2 · Agnea · 1st command menu/);
  assert.match(element.innerHTML,/T2 · Throné · 2nd command menu/);
  assert.equal(c.conningPoints.length,actions.length);
+ // BG may win immediately: show only the actions actually taken.
+ actions.pop();rendered.length=0;c.conningPoints=[];
+ vm.runInNewContext(source.slice(start,end),c);
+ assert.equal(rendered.length,5);
+ assert.equal(rendered.at(-1).command,'+3 Bewildering Grace');
+ assert.doesNotMatch(element.innerHTML,/Thunder Soulstone/);
+ assert.doesNotMatch(element.innerHTML,/T2 · Throné · 2nd command menu/);
 }
 console.log('PASS: complete Any% and Galdera EXP100 routines, both merchant orders, targets, exact boosts and menu ordinals');

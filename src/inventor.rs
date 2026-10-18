@@ -87,9 +87,12 @@ fn gravell_target(entry:&Entry,target:Option<BgTarget>)->Result<Option<GravellAr
   fight.filter(|f|fight_input_cost(f)<=target.unwrap().budget)
  }else {
   let battle=ot2_battle_engine::field_escape::carried_step_ahead(rng,situation,&players,&ids,true,&night.world_after.enemy_knowledge)?;
+  let accepts=|fight:&ot2_battle_engine::gravell_routine::Fight| {
+   if night.world_after.galdera_route {crate::galdera_coast::accepts_fight(&night,rng,fight)}else{Ok(true)}
+  };
   let fight=if let Some(t)=target {
-   ot2_battle_engine::gravell_routine::search_target_windowed(battle,(t.budget as usize).min(t.fight_cap),t.rng.state,t.guard_extra,t.work)?
-  }else{ot2_battle_engine::gravell_routine::search(battle,usize::MAX)?};
+   ot2_battle_engine::gravell_routine::search_target_filtered(battle,(t.budget as usize).min(t.fight_cap),Some(t.rng.state),Some(t.guard_extra),t.work,accepts)?
+  }else{ot2_battle_engine::gravell_routine::search_target_filtered(battle,usize::MAX,None,Some(0),None,accepts)?};
   if let Some(t)=target {if !t.work.is_some_and(|w|w.get()==0) {t.cache.borrow_mut().insert(key,(t.budget,fight.clone()));}}
   fight
  };

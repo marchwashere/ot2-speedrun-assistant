@@ -114,7 +114,39 @@ fn travel(field_return:&Entry,night_pair:bool)->Result<Option<(Entry,Continuatio
     let sai=point(&mut l,southern_sai.field_return.after);
     Ok(Some((town,Continuation {day_before_gravell,conning,conning_night,coast_entry,coast_day,movement,coast_exit,eastern_sai,eastern_sai_encounter,southern_sai,sai,oresrush_supplies:None})))
 }
+fn has_finisher_control(fight:&Fight)->bool {
+    fight.actions.last().is_some_and(|a|a.action==Action::ThunderSoulstone
+        &&fight.state.actors[a.actor.0].resources.bp>0)
+}
+fn unadjusted_travel(field_return:&Entry)->Result<Option<(Entry,Continuation)>> {
+    let mut best:Option<(Entry,Continuation)>=None;
+    for pair in [false,true] {
+        if let Some(candidate)=travel(field_return,pair)? {
+            if best.as_ref().is_none_or(|b|candidate.1.movement.run_percent>b.1.movement.run_percent) {best=Some(candidate);}
+        }
+    }
+    Ok(best)
+}
+/// A BG victory has no later item menu to adjust. A Soulstone user with no BP
+/// likewise cannot boost. Check both existing free travel controls while the
+/// EXP search can still reject this candidate, rather than failing afterward.
+pub(crate) fn accepts_fight(night:&Entry,battle_entry:CrtRng,fight:&Fight)->Result<bool> {
+    if has_finisher_control(fight) {return Ok(true);}
+    let (_,_,field_return)=settle_gravell(night,battle_entry,fight.clone())?;
+    Ok(unadjusted_travel(&field_return)?.is_some())
+}
 pub(crate) fn extend(g:&mut GravellArrival)->Result<()> {
+    extend_to_sai(g)?;
+    let coast=g.coast.as_mut().unwrap();
+    coast.oresrush_supplies=Some(crate::galdera_oresrush::finish(&coast.sai)?);
+    Ok(())
+}
+fn extend_to_sai(g:&mut GravellArrival)->Result<()> {
+    if !has_finisher_control(&g.fight) {
+        let (town,coast)=unadjusted_travel(&g.field_return)?.ok_or_else(||SimError("EXP100 victory has no adjustable finisher and no safe coast continuation".into()))?;
+        g.town=town;g.coast=Some(coast);
+        return Ok(());
+    }
     let w=&g.night.world_after;
     let players:Vec<_>=w.party.iter().map(|id|w.character_progression[id].character.clone()).collect();
     let ids:Vec<_>=g.encounter.enemies.iter().map(|e|e.enemy.id.as_str()).collect();
@@ -139,7 +171,6 @@ pub(crate) fn extend(g:&mut GravellArrival)->Result<()> {
             }
         }
         if let Some((fight,rewards,field_return,town,coast))=best {
-            let mut coast=coast;coast.oresrush_supplies=Some(crate::galdera_oresrush::finish(&coast.sai)?);
             g.fight=fight;g.rewards=rewards;g.field_return=field_return;g.town=town;g.coast=Some(coast);
             return Ok(());
         }
@@ -150,6 +181,48 @@ pub(crate) fn extend(g:&mut GravellArrival)->Result<()> {
 
 #[cfg(test)] mod tests {
     use super::*;
+    #[test]
+    fn bg_victory_3ed34a23_continues_without_a_phantom_soulstone_or_extra_rewards() {
+        let f:serde_json::Value=serde_json::from_str(include_str!("../data/source/gravell-bg-victory-3ed34a23.json")).unwrap();
+        let rng:CrtRng=serde_json::from_value(f["night"]["after"].clone()).unwrap();
+        let night=Entry {arrival:rng,after:rng,world_after:serde_json::from_value(f["night"]["world_after"].clone()).unwrap(),trace:vec![],decisions:vec![]};
+        let mut battle_entry=night.after;
+        let w=&night.world_after;
+        let encounter=encounter::catalog().predict(&mut battle_entry,&PredictionOptions {
+            map:w.map.clone(),zone:"ENT_FLD_WLD_3_2_LND".into(),period:"Night".into(),
+            progress:w.main_progress_points,first_encounter:w.first_encounter,
+            boundary:Boundary::CurrentCounter,current_counter:Some(w.encounter_counter),
+            party_levels:w.party.iter().map(|id|w.character_progression[id].level).collect(),
+            ability_percent:if w.evasive_maneuvers{50}else{100},dash:true,..Default::default()
+        }).unwrap();
+        assert_eq!(battle_entry,serde_json::from_value(f["battle_entry"].clone()).unwrap());
+        assert_eq!(serde_json::to_value(&encounter.enemies).unwrap(),f["encounter"]["enemies"]);
+        assert_eq!(serde_json::to_value(&encounter.checkpoints).unwrap(),f["encounter"]["checkpoints"]);
+        let players:Vec<_>=night.world_after.party.iter().map(|id|night.world_after.character_progression[id].character.clone()).collect();
+        let ids:Vec<_>=encounter.enemies.iter().map(|e|e.enemy.id.as_str()).collect();
+        let situation=if encounter.situation.as_deref()==Some("Preemptive") {Situation::Preemptive}else{Situation::Normal};
+        let battle=ot2_battle_engine::field_escape::carried_step_ahead(battle_entry,situation,&players,&ids,true,&night.world_after.enemy_knowledge).unwrap();
+        let bg:Vec<u8>=serde_json::from_value(f["bg_inputs"].clone()).unwrap();
+        let guards:Vec<u8>=serde_json::from_value(f["guard_inputs"].clone()).unwrap();
+        let fight=gravell_routine::replay(battle,&bg,&guards).unwrap();
+        assert_eq!(fight.actions.last().unwrap().action,Action::BewilderingGrace);
+        assert_eq!(fight.evaluation,gravell_routine::Evaluation::Accepted);
+        assert!(!has_finisher_control(&fight));
+        assert!(accepts_fight(&night,battle_entry,&fight).unwrap());
+        let (fight,rewards,field_return)=settle_gravell(&night,battle_entry,fight).unwrap();
+        assert_eq!(field_return.after,serde_json::from_value(f["expected"]["field_return"].clone()).unwrap());
+        let before=serde_json::to_value((&fight,&rewards,&field_return)).unwrap();
+        let mut g=GravellArrival {license:night.clone(),setup:night.clone(),arrival:night.clone(),town:night.clone(),night,encounter,battle_entry,fight,rewards,field_return,coast:None};
+        extend_to_sai(&mut g).unwrap();
+        assert_eq!(serde_json::to_value((&g.fight,&g.rewards,&g.field_return)).unwrap(),before);
+        let c=g.coast.as_ref().unwrap();
+        assert_eq!(c.movement.run_percent,79.0);
+        assert!(c.conning_night.is_none());
+        assert!(c.movement.estimated_counter_at_exit>0);
+        assert!(c.eastern_sai_encounter.escape.success&&c.southern_sai.escape.success);
+        assert_ne!(c.eastern_sai_encounter.encounter.situation.as_deref(),Some("Surprise"));
+        assert_ne!(c.southern_sai.encounter.situation.as_deref(),Some("Surprise"));
+    }
     #[test]
     fn second_conning_visit_goes_straight_to_coast_without_critical_nut() {
         let f:serde_json::Value=serde_json::from_str(include_str!("../data/source/gravell-complete-route-fixture.json")).unwrap();
