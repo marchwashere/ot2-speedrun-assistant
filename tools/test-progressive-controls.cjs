@@ -55,8 +55,19 @@ function snapshot(seed=20,partial=true) {
         osvald:{after_loading:rng(1),at_osvald:rng(1),after_recruitment:rng(2),trace:[]}},
       snows_escape:{before_osvald:exit('Before',10),after_osvald:exit('After',20)}}}};
 }
-async function start(seed=20) {
-  run(`activeRoute='galdera';voiceStage='lines';voiceFirst='throne';voiceHp=197;voiceCandidate={current_state:${seed}};`);
+function galderaSnapshot(seed,partial=true) {
+  const result=snapshot(seed,partial);
+  // Galdera skips the guild detour: exactly one Western Snows encounter.
+  for(const exit of Object.values(result.post_battle_field.flats_escape.snows_escape)) {
+    const west=exit.winterbloom_after_eastern;
+    west.with_second=null;west.second_encounter=null;west.voyage_with_second=null;
+    west.first_field_return.world_after.galdera_route=true;
+    west.without_second.world_after.galdera_route=true;
+  }
+  return result;
+}
+async function start(seed=20,route='any_hikari') {
+  run(`activeRoute='${route}';voiceStage='lines';voiceFirst='throne';voiceHp=197;voiceCandidate={current_state:${seed}};`);
   const task=run('simulateIdentified()');
   const request=pending.shift();assert(request?.url.startsWith('/api/identified-route?'));
   let controller;
@@ -89,14 +100,14 @@ async function start(seed=20) {
   assert.equal(element('actions').openedRow,true,'Expanded action survives progress and selector changes');
   assert.equal(pending.length,0,'Selectors must not start a new RNG search');
   assert.equal(element('export').disabled,false);
-  console.log('PASS: streamed selectors update both early and onward widgets; selections and open actions survive completion');
+  console.log('PASS: Any% Hikari selectors update early and onward widgets; selections and open actions survive completion');
 
   const failed=await start(30);
   assert.equal(run('result'),null);assert.equal(run('snowsEncounterTiming'),null);assert.equal(run('westernSecondOverride'),null);
   failed.send('progress',snapshot(30));await flush();
   element('snows-encounter-before').fire('click');element('western-second-yes').fire('click');
   element('detail-mode').fire('click');assert.equal(run('activeScreen'),'detail');
-  element('galdera-mode').fire('click');assert.equal(run('activeScreen'),'manipulation');
+  element('manipulation-mode').fire('click');assert.equal(run('activeScreen'),'manipulation');
   assert.equal(failed.request.signal.aborted,false,'Returning from Detailed log must keep the search running');
   failed.send('error',null,'later search failed');failed.close();await failed.task;
   assert.equal(run('snowsEncounterTiming'),'before');assert.equal(run('westernSecondOverride'),true);
@@ -104,6 +115,25 @@ async function start(seed=20) {
   element('snows-encounter-after').fire('click');assert.equal(run('westernSecondOverride'),null);
   assert.equal(element('southern-encounter-name').textContent,'Encounter: After');
   console.log('PASS: detail navigation during search and usable selected prefix after a later error');
+
+  const galdera=await start(35,'galdera');
+  galdera.send('progress',galderaSnapshot(35));await flush();
+  element('snows-encounter-before').fire('click');
+  assert.equal(run('snowsEncounterTiming'),'before');
+  element('detail-mode').fire('click');element('galdera-mode').fire('click');
+  assert.equal(run('activeScreen'),'manipulation');assert.equal(galdera.request.signal.aborted,false);
+  for(const type of ['progress','complete']) {
+    galdera.send(type,galderaSnapshot(35,type!=='complete'));await flush();
+    assert.equal(run('snowsEncounterTiming'),'before');
+    assert.match(element('winter-crackridge-encounter').textContent,/Before harbor/);
+    for(const id of ['western-second-no','western-second-yes']) {
+      assert.equal(element(id).hidden,true,'Galdera must not offer a second Winterbloom encounter');
+      element(id).fire('click');assert.equal(run('westernSecondOverride'),null);
+    }
+    assert.equal(element('western-second-routine').innerHTML,'');
+  }
+  galdera.close();await galdera.task;
+  console.log('PASS: Galdera preserves Osvald timing while keeping both second-encounter controls hidden');
 
   const reset=await start(40);reset.send('progress',snapshot(40));await flush();
   element('voice-reset').fire('click');await reset.task;
