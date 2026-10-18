@@ -139,7 +139,11 @@ function showScreen(screen) {
   });
 }
 function selectRoute(route) {
-  if (running || stopped || (typeof voiceBusy !== 'undefined' && voiceBusy)) return;
+  if (stopped) return;
+  // Returning from Detailed log to the active route is navigation, not a new
+  // calculation. Keep its live stream and selections intact.
+  if (route===activeRoute) {showScreen('manipulation');return;}
+  if (running || (typeof voiceBusy !== 'undefined' && voiceBusy)) return;
   const previous=activeRoute;
   routeResults.set(activeRoute,{result,snowsEncounterTiming,westernSecondOverride});
   activeRoute=route;
@@ -279,7 +283,7 @@ function render() {
   $('enemy-outcome').textContent = result.actors.map((meta,i) => meta.side === 'enemy' ? `${shortActorName(i)}: ${state.actors[i].resources.hp} HP` : '').filter(Boolean).join(' · ');
   $('initial-order').textContent = result.initial_state.queue.map(shortActorName).join(' → ');
   $('log-count').textContent = `${result.steps.length} actions · ${state.rng.draws} CRT draws`;
-  $('actions').innerHTML = result.steps.map((s,i)=>renderAction(s,i)).join('');
+  renderBattleActions('actions',result);
   const titleTrace = setup.transition_checkpoints.slice(1).map((c,i)=>{
     const before=setup.transition_checkpoints[i];
     return `<tr><td>${escapeHtml(c.label)}</td><td>—</td><td>${before.total_advances}</td><td>${c.total_advances}</td><td>+${c.transition_draws-before.transition_draws}</td><td>${hex(before.state)}</td><td>${hex(c.state)}</td></tr>`;
@@ -728,7 +732,8 @@ function renderEarlyCait() {
 }
 for(const timing of ['before','after']) {
   $('snows-encounter-'+timing).addEventListener('click',()=>{
-    if(!result || running) return;
+    if(!result || stopped || $('snows-encounter-'+timing).disabled) return;
+    if(!result.post_battle_field?.flats_escape?.early_cait?.snows_approach) return;
     if(timing==='after' && result.post_battle_field?.flats_escape?.early_cait?.snows_approach?.predicted_before_osvald) return;
     snowsEncounterTiming=timing;
     westernSecondOverride=null;
@@ -738,7 +743,7 @@ for(const timing of ['before','after']) {
   });
 }
 for(const [id,value] of [['western-second-no',false],['western-second-yes',true]]) {
-  $(id).addEventListener('click',()=>{if(!result||running||$(id).disabled)return;westernSecondOverride=value;render();});
+  $(id).addEventListener('click',()=>{if(!result||stopped||$(id).disabled||$(id).hidden)return;westernSecondOverride=value;render();});
 }
 
 function renderVillageReturn() {
@@ -1584,7 +1589,7 @@ function renderPirro() {
   }
   $('pirro-error').hidden=!p.routine_error;$('pirro-error').textContent=p.routine_error || '';
   $('pirro-verification').textContent=p.verification;
-  $('pirro-actions').innerHTML=p.steps.map((s,i)=>renderAction(s,i,p)).join('');
+  renderBattleActions('pirro-actions',p);
   const checkpoint=(label,rng)=>`<tr><td>${escapeHtml(label)}</td><td>${totalAdvances(rng)}</td><td>${hex(rng.state)}</td><td>${rng.draws}</td></tr>`;
   $('checkpoints').innerHTML+=checkpoint(result.identified_entry?'Pirro R3 · RNG identified (3 BP selected)':'Pirro · cutscene skipped, before initialization',p.entry);
   let round=0,menu=0;
@@ -1668,7 +1673,7 @@ function renderSecond(second) {
   $('second-error').textContent=second.routine_error||'';
   $('second-verification').textContent=second.verification+(second.city ? ' '+second.city.verification : '')+(second.parlor ? ' '+second.parlor.verification : '')+(second.parlor_revisit ? ' '+second.parlor_revisit.verification : '')+(second.mansion ? ' '+second.mansion.verification+' '+second.mansion.lookout_ambush.verification : '');
   $('second-order').textContent=second.initial_state.queue.map(id=>second.actors[id].name).join(' → ');
-  $('second-actions').innerHTML=second.steps.map((s,i)=>renderAction(s,i,second)).join('');
+  renderBattleActions('second-actions',second);
 }
 
 function battleAssessmentHtml() {
@@ -1778,6 +1783,14 @@ function renderBoostPlan() {
 
 }
 
+const renderedBattleActions=new Map();
+function renderBattleActions(id,simulation) {
+  const html=simulation.steps.map((s,i)=>renderAction(s,i,simulation)).join('');
+  // Do not replace unchanged action details when a later section arrives or
+  // an encounter selector redraws the route: replacement collapses open rows.
+  if(renderedBattleActions.get(id)===html)return;
+  $(id).innerHTML=html;renderedBattleActions.set(id,html);
+}
 function renderAction(step, index, simulation=result) {
   const actorName=id=>simulation.actors[id]?.name??'—';
   const shortActorName=id=>actorName(id).split(' · ')[0];

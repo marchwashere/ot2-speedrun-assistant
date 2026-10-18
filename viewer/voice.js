@@ -20,11 +20,11 @@ function voiceControls() {
   $('voice-lock').textContent=voiceLocked?'Unlock input':'Lock input · Enter';
   $('voice-lock').setAttribute('aria-pressed',String(voiceLocked));
   $('voice-lock-status').textContent=voiceLocked?'Input locked':'Input open · Enter to lock';
-  $('voice-reset').disabled=running;
+  $('voice-reset').disabled=stopped;
   $('voice-order-step').hidden=voiceStage!=='order';
   $('voice-hp-step').hidden=voiceStage!=='hp';
   $('voice-lines-step').hidden=voiceStage!=='lines';
-  $('voice-hp').disabled=running;
+  $('voice-hp').disabled=stopped;
   $('voice-setup-summary').textContent=voiceFirst ? `R3: ${voiceFirst==='throne'?'Throné':'Pirro'} first${voiceHp!==null?' · Throné '+voiceHp+' HP':''}` : '';
   $('voice-transcript').textContent=voiceTranscript ? `${voiceTranscript.length} observations · ${voiceTranscript}` : '';
 }
@@ -37,6 +37,7 @@ function recordVoice(symbol) {
   filterVoices();
 }
 function clearVoiceResult() {
+  result=null;snowsEncounterTiming=null;westernSecondOverride=null;
   $('results').hidden=true;$('detail-results').hidden=true;$('detail-empty').hidden=false;
   $('error').hidden=true;
 }
@@ -84,7 +85,9 @@ async function simulateIdentified() {
       // A late chunk must never overwrite another tab or a newer transcript.
       if(revision!==voiceRevision || route!==activeRoute) return;
       if(event.type==='error') throw new Error(event.message);
-      result=event.result;snowsEncounterTiming=null;westernSecondOverride=null;
+      // The server extends this prediction; local encounter choices still
+      // describe the same run and must survive every progress/completion chunk.
+      result=event.result;
       $('seed').value=hex(candidate.current_state);$('advances').value='0';
       render();$('status').textContent=event.message;
       if(event.type==='complete') window.dispatchEvent(new Event('battle-simulated'));
@@ -138,7 +141,7 @@ $('voice-lock').addEventListener('click',()=>{
   voiceLocked=!voiceLocked;voiceControls();
 });
 $('voice-reset').addEventListener('click',()=>{
-  if(running)return;voiceTranscript='';voiceRevision++;cancelVoiceRequest();voiceCandidate=null;
+  if(stopped)return;voiceTranscript='';voiceRevision++;cancelVoiceRequest();voiceCandidate=null;
   voiceLocked=false;
   voiceStage='order';voiceFirst=null;voiceHp=null;$('voice-hp').value='';
   document.title='OT2 Speedrun Assistant';clearVoiceResult();voiceControls();
@@ -147,7 +150,7 @@ $('voice-reset').addEventListener('click',()=>{
   $('voice-throne-first').focus();
 });
 function chooseVoiceOrder(first) {
-  if(voiceStage!=='order' || running || stopped)return;
+  if(voiceStage!=='order' || stopped)return;
   voiceFirst=first;voiceStage='hp';voiceControls();
   $('voice-status').textContent='Enter Throné’s HP at her turn-3 command menu, then press Enter.';
   $('voice-hp').focus();
@@ -156,7 +159,7 @@ $('voice-throne-first').addEventListener('click',()=>chooseVoiceOrder('throne'))
 $('voice-pirro-first').addEventListener('click',()=>chooseVoiceOrder('pirro'));
 $('voice-hp-step').addEventListener('submit',e=>{
   e.preventDefault();
-  if(voiceStage!=='hp' || running || !$('voice-hp').reportValidity())return;
+  if(voiceStage!=='hp' || stopped || !$('voice-hp').reportValidity())return;
   voiceHp=Number($('voice-hp').value);voiceStage='lines';voiceControls();
   $('voice-status').textContent='Ready · Left = normal · Right = special';
   $('voice-normal').focus();
@@ -194,7 +197,7 @@ function renderIdentified() {
   $('outcome').textContent=result.partial?(result.partial_error?'Completed sections · remaining route failed':'Completed sections · remaining route calculating'):'Prediction from identification';
   $('final-hex').textContent=hex(result.state.rng.state);$('final-advances').textContent=result.state.rng.draws;
   $('checkpoints').innerHTML='';$('trace').innerHTML='';
-  $('actions').innerHTML=result.steps.map((s,i)=>renderAction(s,i)).join('');
+  renderBattleActions('actions',result);
   $('log-count').textContent='Pirro continuation';
   $('initial-order').textContent=result.initial_state.queue.map(shortActorName).join(' → ');
   $('party').innerHTML='';$('enemy-outcome').textContent='';$('route-checks').innerHTML='';
