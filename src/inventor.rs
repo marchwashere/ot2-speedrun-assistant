@@ -753,22 +753,18 @@ mod gravell_integration_tests {
   assert_eq!(t.wellgrove.world_after.time,2);
   assert_eq!(t.wellgrove.world_after.active_scenarios,winter.soldier_entreat.world_after.active_scenarios);
   let ws=&t.supplies;
-  assert_eq!(ws.pom_steal.arrival,t.wellgrove.after);
-  assert_eq!(ws.pom_steal.after.draws,ws.pom_steal.arrival.draws+3);
-  assert_eq!(ws.pom_steal.world_after.time,2);
-  assert_eq!(ws.pom_steal.world_after.route_items.get("ITM_CSM_0080").copied().unwrap_or(0),t.wellgrove.world_after.route_items.get("ITM_CSM_0080").copied().unwrap_or(0)+2);
-  assert_eq!(ws.pom_steal_rolls.len(),2);assert_eq!(ws.pom_steal_chance,100);
-  assert!(!ws.pom_steal.trace.iter().any(|r|matches!(r.kind,world::DrawKind::DialogueLottery)));
+  assert_eq!(ws.shopkeeper_steal.arrival,t.wellgrove.after);
+  assert_eq!(ws.dancer_license.world_after.route_items.get("ITM_CSM_0080"),t.wellgrove.world_after.route_items.get("ITM_CSM_0080"));
+  assert!(serde_json::to_value(ws).unwrap().get("pom_steal").is_none());
   assert_eq!(ws.night.arrival,ws.shopkeeper_steal.after);
-  for item in ["ITM_CSM_0670","ITM_MRL_COM_0010"] {assert_eq!(ws.night.world_after.route_items.get(item).copied().unwrap_or(0),ws.pom_steal.world_after.route_items.get(item).copied().unwrap_or(0)+1);}
-  assert_eq!(ws.shopkeeper_steal.arrival,ws.pom_steal.after);
+  for item in ["ITM_CSM_0670","ITM_MRL_COM_0010"] {assert_eq!(ws.night.world_after.route_items.get(item).copied().unwrap_or(0),t.wellgrove.world_after.route_items.get(item).copied().unwrap_or(0)+1);}
   assert_eq!(ws.night.world_after.time,4);
   assert_eq!(ws.required_level,20);assert!(ws.agnea_level>=20);assert!(ws.throne_level>=33);
   assert_eq!(ws.shopkeeper_steal.world_after.time,2);
   assert_eq!(ws.shopkeeper_steal.trace.iter().filter(|r|matches!(r.kind,world::DrawKind::StealCheck)).count(),2);
-  assert_eq!(ws.shopkeeper_steal.after.draws,ws.pom_steal.after.draws+3);
+  assert_eq!(ws.shopkeeper_steal.after.draws,t.wellgrove.after.draws+3);
   assert!(!ws.shopkeeper_steal.trace.iter().any(|r|matches!(r.kind,world::DrawKind::DialogueLottery)));
-  assert_eq!(ws.shopkeeper_steal.world_after.route_items.get("ITM_CSM_0230"),ws.pom_steal.world_after.route_items.get("ITM_CSM_0230"));
+  assert_eq!(ws.shopkeeper_steal.world_after.route_items.get("ITM_CSM_0230"),t.wellgrove.world_after.route_items.get("ITM_CSM_0230"));
   assert_eq!(ws.magic_entreat.arrival,ws.night.after);
   assert_eq!(ws.magic_entreat.after.draws,ws.night.after.draws+1);
   assert!(!ws.magic_entreat.trace.iter().any(|r|matches!(r.kind,world::DrawKind::DialogueLottery|world::DrawKind::StealCheck)));
@@ -814,7 +810,9 @@ mod gravell_integration_tests {
   assert_eq!(s.escape.chance_percent,100);assert!(s.escape.success);
   assert_eq!(s.menu.party_levels,s.arrival.world_after.party.iter().map(|id|s.arrival.world_after.character_progression[id].level).collect::<Vec<_>>());
   assert_eq!(s.field_return.world_after.map,"Fld_Dst_2_3");
-  assert_eq!(s.field_return.after.draws,s.escape.after.draws+2);
+  // Southern Sai restores six flag actors before the two counter-reset draws.
+  assert_eq!(s.field_return.trace.iter().filter(|r|matches!(r.kind,world::DrawKind::EnvironmentInitialization)).count(),6);
+  assert_eq!(s.field_return.after.draws,s.escape.after.draws+8);
   assert_eq!(serde_json::to_value(&s.arrival.world_after.character_progression).unwrap(),serde_json::to_value(&s.field_return.world_after.character_progression).unwrap());
   assert_eq!(c.coast_exit.after,c.coast_day.as_ref().unwrap_or(&c.coast_entry).after);
   assert!(c.movement.estimated_counter_at_exit>0);

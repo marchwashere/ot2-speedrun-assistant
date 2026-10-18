@@ -1,15 +1,14 @@
-//! Daytime Pom M x2 and inn supplies Steal -> night -> Magic Nut Entreat -> Dancer License.
+//! Daytime inn supplies Steal -> night -> Magic Nut Entreat -> Dancer License.
 use crate::{Result,CrtRng,ensure,world::{self,Loader},snows_escape::Entry};
 use serde::{Deserialize,Serialize};
 use std::sync::OnceLock;
-#[derive(Deserialize)]struct Data {merchant:Merchant,shopkeeper:Shopkeeper,magic_merchant:Entreat,dancer_job:u32,guild_resource:String,guild_events:Vec<String>}
-#[derive(Deserialize)]struct Merchant {npc:String,item:String,quantity:u32,proper_steal:u32,guaranteed_level:u32}
+#[derive(Deserialize)]struct Data {shopkeeper:Shopkeeper,magic_merchant:Entreat,dancer_job:u32,guild_resource:String,guild_events:Vec<String>}
 #[derive(Deserialize)]struct Shopkeeper {npc:String,items:Vec<StealItem>}
 #[derive(Deserialize)]struct StealItem {item:String,name:String,proper_steal:u32,guaranteed_level:u32}
 #[derive(Deserialize)]struct Entreat {npc:String,item:String,required_level:u32}
 fn data()->&'static Data {static D:OnceLock<Data>=OnceLock::new();D.get_or_init(||serde_json::from_str(include_str!("../data/galdera-wellgrove-supplies.json")).unwrap())}
 #[derive(Debug,Serialize)]pub struct Trip {
-    pub pom_steal:Entry,pub pom_steal_rolls:Vec<u32>,pub pom_steal_chance:u32,pub throne_level:u32,
+    pub throne_level:u32,
     pub shopkeeper_steal:Entry,pub night:Entry,pub magic_entreat:Entry,pub day:Entry,pub dancer_license:Entry,
     pub agnea_level:u32,pub required_level:u32,
     pub al_return:crate::galdera_al_return::Trip,
@@ -35,22 +34,10 @@ fn steal_inn_supplies(l:&mut Loader<'_>)->Result<()> {
 pub(crate) fn finish(entry:&Entry)->Result<Trip> {
     let d=data();let mut l=Loader::new(world::catalog(),entry.world_after.clone(),entry.after)?;
     ensure(l.state.map=="Twn_Fst_2_1_A"&&l.state.time==2,"Wellgrove supplies begin at daytime town entry")?;
-    ensure(l.state.party.contains(&7)&&present(&l,&d.merchant.npc),"Throné or Wellgrove Merchant unavailable")?;
     let throne_level=l.state.character_progression[&7].level;
-    ensure(throne_level>=d.merchant.guaranteed_level,"Wellgrove Pom M steals are not guaranteed at the carried Throné level")?;
-    l.draw(world::DrawKind::PathActionMenu,&d.merchant.npc,"Open Merchant Steal menu: action timer",None);
-    let mut pom_steal_rolls=Vec::new();
-    for slot in 1..=d.merchant.quantity {
-        let roll=l.draw(world::DrawKind::StealCheck,&d.merchant.item,format!("Pom M slot{slot}: ProperSteal{}, Throné level{throne_level}, probability100%",d.merchant.proper_steal),Some(100))+1;
-        if let Some(t)=l.trace.last_mut(){t.value=Some(roll);}
-        pom_steal_rolls.push(roll);
-        *l.state.route_items.entry(d.merchant.item.clone()).or_default()+=1;
-    }
-    l.boundary("Two Energizing Pomegranates (M) stolen in one menu; change selected path action, then close without dialogue or closing lottery");
-    let pom_steal=point(&mut l,entry.after);
     let agnea_level=l.state.character_progression[&8].level;
     steal_inn_supplies(&mut l)?;
-    let shopkeeper_steal=point(&mut l,pom_steal.after);
+    let shopkeeper_steal=point(&mut l,entry.after);
     l.manual_time_switch(4,"Wellgrove: switch to night after Sharp Nut (L) and Diffusing Serum steals")?;
     let night=point(&mut l,shopkeeper_steal.after);
     ensure(present(&l,&d.magic_merchant.npc),"Wellgrove Mysterious Merchant unavailable")?;
@@ -67,7 +54,7 @@ pub(crate) fn finish(entry:&Entry)->Result<Trip> {
     l.boundary("First Dancer License acquired; no job assignment or skill purchases");
     let dancer_license=point(&mut l,day.after);
     let al_return=crate::galdera_al_return::finish(&dancer_license)?;
-    Ok(Trip {pom_steal,pom_steal_rolls,pom_steal_chance:100,throne_level,shopkeeper_steal,night,magic_entreat,day,dancer_license,agnea_level,required_level:d.magic_merchant.required_level,al_return})
+    Ok(Trip {throne_level,shopkeeper_steal,night,magic_entreat,day,dancer_license,agnea_level,required_level:d.magic_merchant.required_level,al_return})
 }
 
 #[cfg(test)]mod tests {

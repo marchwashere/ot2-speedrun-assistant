@@ -132,8 +132,9 @@ Current order supersedes older notes: spear -> Firestarter -> Crackridge book ->
   battle is activated by this helper. It ends just before Gigantes.
 
 
-- Galdera supplies (2026-10-17): Wellgrove day: steal 2 Pom M from Merchant,
-  then Sharp L and Diffusing Serum from the Shopkeeper INSIDE THE INN
+- Galdera supplies (2026-10-18): skip the Wellgrove Merchant's two Pom M steals
+  entirely (no menu or steal RNG draws, no inventory gain). Wellgrove day:
+  steal Sharp L and Diffusing Serum from the Shopkeeper INSIDE THE INN
   (TALK_0400; guaranteed33/32), in that order in one menu. Path-action switch
   and close after each NPC; inn session is three draws. Skip Mother's Lychee M.
   Switch night after inn steals; keep Magic L Entreat, then day and Dancer License.

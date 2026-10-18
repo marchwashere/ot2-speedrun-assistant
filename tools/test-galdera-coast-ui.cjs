@@ -99,17 +99,17 @@ assert.deepEqual(context.conningStages.slice(-5).map(([label])=>label),[
  'Eastern Wellgrove Trail · run 100% to Wellgrove without a second encounter',
  'Wellgrove · entered, chapter start discarded']);
 console.log('PASS: Western boosts, steal dialogue skip, later encounter and Wellgrove entry');
-coast.oresrush_supplies.wellgrove.champion.supplies={pom_steal:entry,night:entry,shopkeeper_steal:entry,magic_entreat:entry,day:entry,dancer_license:entry};
+coast.oresrush_supplies.wellgrove.champion.supplies={night:entry,shopkeeper_steal:entry,magic_entreat:entry,day:entry,dancer_license:entry};
 context.conningStages=[];
 vm.runInNewContext(source.slice(start,end),context);
-assert.deepEqual(context.conningStages.slice(-6).map(([label])=>label),[
- 'Wellgrove · Merchant: steal 2 Energizing Pomegranates (M) · change path action, then close without dialogue',
+assert.deepEqual(context.conningStages.slice(-5).map(([label])=>label),[
  'Wellgrove inn · Shopkeeper: steal Sharp Nut (L), then Diffusing Serum · change path action, then close without dialogue',
  'Wellgrove · switched to night after inn steals',
  'Wellgrove · Mysterious Merchant north of tavern: Magic Nut (L) entreated · change path action, then close without dialogue',
  'Wellgrove · switch to day immediately after Magic Nut (L) Entreat',
  'Wellgrove · Dancer License acquired']);
-console.log('PASS: daytime Pom M x2 and inn steals, night Magic Nut Entreat, day Dancer License');
+assert(!context.conningStages.some(([label])=>/Pomegranate/.test(label)));
+console.log('PASS: daytime inn steals without Poms, night Magic Nut Entreat, day Dancer License');
 coast.oresrush_supplies.wellgrove.champion.supplies.al_return={new_delsta:entry,highroad:entry,delivery:entry};
 context.conningStages=[];
 vm.runInNewContext(source.slice(start,end),context);

@@ -252,7 +252,8 @@ fn complete_flex(value:&mut serde_json::Value)->Result<()> {
         assert_eq!(supplies["dancer_license"]["world_after"]["job_licenses"]["5"],1);
         for item in ["ITM_CSM_0670","ITM_MRL_COM_0010"] {assert_eq!(supplies["dancer_license"]["world_after"]["route_items"][item],1);}
         assert!(supplies.get("mother_steal").is_none());
-        assert_eq!(supplies["dancer_license"]["world_after"]["route_items"]["ITM_CSM_0230"],supplies["pom_steal"]["world_after"]["route_items"]["ITM_CSM_0230"]);
+        assert!(supplies.get("pom_steal").is_none());
+        for item in ["ITM_CSM_0230","ITM_CSM_0080"] {assert_eq!(supplies["dancer_license"]["world_after"]["route_items"][item],champion["wellgrove"]["world_after"]["route_items"][item]);}
         let delivered=&supplies["al_return"]["delivery"]["world_after"];
         assert_eq!(delivered["map"],"Fld_Cty_1_3");assert_eq!(delivered["time"],2);
         assert!(delivered["route_items"]["ITM_TRE_SS_TD11_0100_0010"].is_null());

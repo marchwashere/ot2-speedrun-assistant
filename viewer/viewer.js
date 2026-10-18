@@ -1244,7 +1244,7 @@ function renderCrackridgeVoyage() {
                           conningSpans.push(...f.escape.trace);
                           if(t.supplies) {
                             const v=t.supplies;
-                            for(const [stage,e] of [['Wellgrove · Merchant: steal 2 Energizing Pomegranates (M) · change path action, then close without dialogue',v.pom_steal],['Wellgrove inn · Shopkeeper: steal Sharp Nut (L), then Diffusing Serum · change path action, then close without dialogue',v.shopkeeper_steal],['Wellgrove · switched to night after inn steals',v.night],['Wellgrove · Mysterious Merchant north of tavern: Magic Nut (L) entreated · change path action, then close without dialogue',v.magic_entreat],['Wellgrove · switch to day immediately after Magic Nut (L) Entreat',v.day],['Wellgrove · Dancer License acquired',v.dancer_license]]) {
+                            for(const [stage,e] of [['Wellgrove inn · Shopkeeper: steal Sharp Nut (L), then Diffusing Serum · change path action, then close without dialogue',v.shopkeeper_steal],['Wellgrove · switched to night after inn steals',v.night],['Wellgrove · Mysterious Merchant north of tavern: Magic Nut (L) entreated · change path action, then close without dialogue',v.magic_entreat],['Wellgrove · switch to day immediately after Magic Nut (L) Entreat',v.day],['Wellgrove · Dancer License acquired',v.dancer_license]]) {
                               conningStages.push([stage,e]);conningSpans.push(...e.trace);
                             }
                             if(v.al_return) {
