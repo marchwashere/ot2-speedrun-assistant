@@ -13,6 +13,8 @@ const context={$,g:{coast},conningStages:[],conningSpans:[],instructionBoxHtml(p
   assert(Array.isArray(parts),'Instructions must be an array of lines');return [...parts,command].filter(Boolean).join('\n');
 }};
 vm.runInNewContext(source.slice(source.indexOf('function menuOrdinal('),source.indexOf('function safeDefendsHtml(')),context);
+vm.runInNewContext(source.slice(source.indexOf('function boostStepsHtml('),source.indexOf('function menuOrdinal(')),context);
+vm.runInNewContext(source.slice(source.indexOf('function groupBoostRoutine('),source.indexOf('function renderSecondBoost(')),context);
 vm.runInNewContext(source.slice(start,end),context);
 assert.equal($('galdera-coast-result').hidden,false);
 assert.match($('galdera-coast-routine').innerHTML,/Run 43\.6%/);
@@ -158,19 +160,39 @@ assert.equal(context.conningStages.at(-1)[0],'Quicksand Gaol · entered');
 
 assert.doesNotMatch($('galdera-quicksand-routine').innerHTML,/switch night|time adjustment/);
 
-fc.temenos.quicksand.lord_sands={night:entry,prompt:entry,field_return:entry,victory:entry,battle:{at_command_menu:entry.after,after:entry.after,trace:[],money_spent:15000,rewards:{exp:533,jp:37,money:1188},actions:[{turn:1,actor:2,bp:0,name:'Holy Light',report:{rng_before:entry.after,rng_after:entry.after}},{turn:2,actor:3,bp:3,name:'Hired Help: Beastlings',report:{rng_before:entry.after,rng_after:entry.after}}]}};
+const sandsAction=(turn,actor,name,bp=0)=>({turn,actor,bp,name,report:{rng_before:entry.after,rng_after:entry.after}});
+fc.temenos.quicksand.lord_sands={night:entry,prompt:entry,field_return:entry,victory:entry,battle:{at_command_menu:entry.after,after:entry.after,trace:[],money_spent:15000,rewards:{exp:533,jp:37,money:1188},actions:[
+  sandsAction(1,0,'Critical Scope'),sandsAction(1,1,'Defend'),sandsAction(1,3,'Lance attack'),sandsAction(1,2,'Holy Light'),
+  sandsAction(2,1,'Aggressive Slash',3),sandsAction(2,0,'Defend'),sandsAction(2,3,'Hired Help: Beastlings',3)
+]}};
 vm.runInNewContext(source.slice(start,end),context);
-assert.equal($('galdera-lord-sands-result').hidden,true);
-assert.equal($('galdera-lord-sands-routine').innerHTML,'');
+assert.equal($('galdera-lord-sands-result').hidden,false);
+const sandsHtml=$('galdera-lord-sands-routine').innerHTML;
+assert.equal((sandsHtml.match(/command menu/g)||[]).length,7);
+assert.match(sandsHtml,/T1 · Throné · 1st command menu.*Critical Scope/s);
+assert.match(sandsHtml,/T1 · Partitio · 3rd command menu.*Spear attack/s);
+assert.match(sandsHtml,/T1 · Temenos · 4th command menu.*Holy Light/s);
+assert.match(sandsHtml,/T2 · Osvald · 1st command menu.*\+3 BP Aggressive Slash/s);
+assert.match(sandsHtml,/T2 · Throné · 2nd command menu.*Defend/s);
+assert.match(sandsHtml,/T2 · Partitio · 3rd command menu.*\+3 BP Hired Help: Beastlings/s);
+assert.doesNotMatch(sandsHtml,/T3|Switch to night|Rewards/);
 
 assert.equal(context.conningStages.at(-1)[0],'Lord of the Sands · defeat event complete');
 
 fc.temenos.quicksand.lord_sands.finisher_boost_cycles=2;
 fc.temenos.quicksand.loot={day:entry,rusty_axe:entry,scorched_bone_spear:entry,encounter:{...coast.southern_sai,menu:{first_actor:2,rng:entry.after}}};
 vm.runInNewContext(source.slice(start,end),context);
-assert.match($('galdera-lord-sands-routine').innerHTML,/Boost 0 → 1 → 0 × 2/);
+assert.match($('galdera-lord-sands-routine').innerHTML,/0 → 1 ×3\n1 → 3\n\+3 BP Hired Help: Beastlings/);
 assert.equal($('galdera-lord-sands-result').hidden,false);
-assert.doesNotMatch($('galdera-lord-sands-routine').innerHTML,/Holy Light|Switch to night|Rewards/);
+assert.match($('galdera-lord-sands-routine').innerHTML,/Holy Light/);
+assert.doesNotMatch($('galdera-lord-sands-routine').innerHTML,/Switch to night|Rewards/);
+const sands=fc.temenos.quicksand.lord_sands;
+sands.battle.actions=[sandsAction(1,3,'Defend'),sandsAction(1,0,'Critical Scope'),sandsAction(1,1,'Defend'),sandsAction(1,2,'Holy Light'),sandsAction(2,1,'Aggressive Slash',3),sandsAction(2,3,'Hired Help: Beastlings',3)];
+vm.runInNewContext(source.slice(start,end),context);
+assert.match($('galdera-lord-sands-routine').innerHTML,/T1 · Partitio · 1st command menu.*Defend/s);
+assert.equal(($('galdera-lord-sands-routine').innerHTML.match(/command menu/g)||[]).length,6);
+assert.doesNotMatch($('galdera-lord-sands-routine').innerHTML,/Spear attack|T2 · Throné|T2 · Temenos/);
+console.log('PASS: complete Sands actions in predicted order, both Partitio branches and exact finisher boosts');
 assert.equal($('galdera-quicksand-loot-result').hidden,false);
 assert.doesNotMatch($('galdera-quicksand-loot-routine').innerHTML,/Rusty Axe|Switch to day/);
 assert.match($('galdera-quicksand-loot-routine').innerHTML,/Temenos · Escape/);

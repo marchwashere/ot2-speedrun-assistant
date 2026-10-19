@@ -46,6 +46,8 @@ Current order supersedes older notes: spear -> Firestarter -> Crackridge book ->
 
 - 2026-10-15 supply revision supersedes older small-Pom notes: skip Gravell Villager; Steal Strengthening Serum with Champion Seeker, then path-action switch/close. Roque uses Pom M from Osvald. Nameless/Shipwreck use Partitio unboosted Donate BP and consume no Pom; retain all turn-order and BG safety checks. Tyrannodrake T2 Defend saves the reserved Pom M (documented plan, beyond current executable route).
 
+- Lord of the Sands display (2026-10-19): show every recorded action in chronological order, including zero-adjustment fights, T1 Holy Light and Partitio's selected Defend/spear branch. Include actor, turn, menu ordinal, BP and exact finisher boost inputs. This overrides the manipulation-only rule for this boss; fixed travel/cutscene/reward instructions remain hidden. See docs/galdera-quicksand.md.
+
 # Active project
 
 - Identified routes stream committed snapshots with stream=1 (NDJSON): early

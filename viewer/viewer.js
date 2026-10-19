@@ -411,6 +411,20 @@ function graceFightRoutineHtml(fight,names) {
     return `<p><strong>T${a.round} · ${escapeHtml(names[a.actor])} · ${menuOrdinal(ordinal)} command menu</strong></p>`+instructions;
   }).join('');
 }
+function lordSandsRoutineHtml(r,party) {
+  const ordinals={};
+  return r.battle.actions.map(a=>{
+    const ordinal=ordinals[a.turn]=(ordinals[a.turn]||0)+1;
+    const command=(a.bp?'+'+a.bp+' BP ':'')+(a.name==='Lance attack'?'Spear attack':a.name);
+    const inputs=[];
+    if(a.actor===3 && a.name==='Hired Help: Beastlings') {
+      for(let i=0;i<(r.finisher_boost_cycles||0);i++) inputs.push(1,0);
+    }
+    for(let bp=1;bp<=a.bp;bp++) inputs.push(bp);
+    const instructions=inputs.length?boostStepsHtml(inputs,command):instructionBoxHtml([],command);
+    return `<p><strong>T${a.turn} · ${escapeHtml(party[a.actor])} · ${menuOrdinal(ordinal)} command menu</strong></p>`+instructions;
+  }).join('');
+}
 function safeDefendsHtml(b) {
   return (b.defends||[]).map(d=>`<p><strong>R${d.round} · ${d.actor===1?'Osvald':'Throné'} · ${menuOrdinal(d.menu_ordinal)} command menu</strong></p>${instructionBoxHtml(['Defend'])}`).join('');
 }
@@ -1300,8 +1314,8 @@ function renderCrackridgeVoyage() {
                                     conningSpans.push(...f.escape.trace);
                                     if(q.lord_sands) {
                                       const r=q.lord_sands,b=r.battle,party=['Throné','Osvald','Temenos','Partitio'];
-                                      $('galdera-lord-sands-result').hidden=!r.finisher_boost_cycles;
-                                      $('galdera-lord-sands-routine').innerHTML=r.finisher_boost_cycles?instructionBoxHtml(['T2 · Partitio · before Hired Help: Beastlings','Boost 0 → 1 → 0 × '+r.finisher_boost_cycles+' → 3']):'';
+                                      $('galdera-lord-sands-result').hidden=false;
+                                      $('galdera-lord-sands-routine').innerHTML=lordSandsRoutineHtml(r,party);
                                       for(const [stage,e]of [['Lord of the Sands · night switch',r.night],['Lord of the Sands · accepted boss prompt',r.prompt],['Lord of the Sands · victory field return',r.field_return],['Lord of the Sands · defeat event complete',r.victory]]){conningStages.push([stage,e]);conningSpans.push(...e.trace);}
                                       conningPoints.push(['Lord of the Sands · first command menu',b.at_command_menu],['Lord of the Sands · victory and drops',b.after]);
                                       for(const a of b.actions)conningPoints.push(['Lord of the Sands · T'+a.turn+' '+party[a.actor]+' · before '+a.name,a.report.rng_before],['Lord of the Sands · T'+a.turn+' '+party[a.actor]+' · after '+a.name,a.report.rng_after]);

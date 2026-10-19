@@ -16,7 +16,12 @@ Partitio Defend if before Osvald, otherwise unboosted lance. T2 Osvald +3
 Aggressive Slash, Partitio +3 Beastlings, others Defend if needed. Six sword hits
 plus Holy Light break seven shields. Both merchants have3BP on T2. Implemented
 by `gigantes::predict_sands`;128-seed tests cover six-hit Slash and unchanged
-action prefixes when adjusting the finisher. The UI uses actual action reports.
+action prefixes when adjusting the finisher. The UI shows the entire selected
+routine from actual action reports, even with zero extra finisher boosts. Each
+action shows its turn, actor, command-menu ordinal and BP, with exact boost inputs
+including Partitio's finisher adjustment. Partitio's T1 Defend/spear branch and
+any T2 Defends are displayed in the predicted order; no post-victory actions are
+invented. Fixed travel, cutscenes and rewards remain in Detailed log.
 
 ## Historical three-turn implementation
 
