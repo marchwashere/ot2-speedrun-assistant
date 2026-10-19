@@ -21,9 +21,11 @@ scripts after regenerating town data.
 Reject Surprise. Freeze Al and all earlier route decisions; if needed, replay
 complete night/day pairs at Western Clockbank entry until a Normal/Preemptive
 opening is found. Return to day each time and preserve the encounter counter.
-Show only required pairs, actual formation/first actor and Escape100 in the
-Galdera Clockbank card; retain100% running representation. Fixed movement,
-map-entry and field-return checkpoints appear in Detailed log.
+Show only required pairs, actual formation/first actor, Escape and any required
+pre-Escape boost adjustment. Omit fixed Run 100% directions and the approach/exit
+cards; the player runs by default. Keep the variable Eastern Flamechurch run
+percentage. Fixed movement, map-entry and field-return checkpoints appear in
+Detailed log.
 
 Regression exercises direct and adjusted seeds, replays time callbacks, checks
 movement consumes no RNG, one encounter, successful native Escape and positive

@@ -899,7 +899,7 @@ function renderCrackridgeVoyage() {
   $('canalbrine-route-log').hidden=true;
   $('canalbrine-water-result').hidden=true;
   $('canalbrine-water-log').hidden=true;
-  for(const id of ['new-delsta-bg-result','crackridge-bg-result','clockbank-bg-result','oresrush-time-result','cropdale-time-result','conning-north-result','conning-west-result','conning-steal-result','inventor-escape-result','clockbank-movement-result','crackridge-return-result','southern-crackridge-result','southern-crackridge-altar-return-result','western-crackridge-result','western-crackridge-return-result','gravell-result','galdera-coast-result','southern-sai-result','eastern-sai-result','western-sai-result','eastern-wellgrove-result','galdera-clockbank-result','galdera-clockbank-approach-result','galdera-clockbank-adjustment-result','galdera-clockbank-exit-result','galdera-flamechurch-pass-result','galdera-temenos-result','galdera-quicksand-result','galdera-lord-sands-result','galdera-quicksand-loot-result','galdera-flex-result','galdera-pre-gravell-result','conning-log']) $(id).hidden=true;
+  for(const id of ['new-delsta-bg-result','crackridge-bg-result','clockbank-bg-result','oresrush-time-result','cropdale-time-result','conning-north-result','conning-west-result','conning-steal-result','inventor-escape-result','clockbank-movement-result','crackridge-return-result','southern-crackridge-result','southern-crackridge-altar-return-result','western-crackridge-result','western-crackridge-return-result','gravell-result','galdera-coast-result','southern-sai-result','eastern-sai-result','western-sai-result','eastern-wellgrove-result','galdera-clockbank-result','galdera-clockbank-adjustment-result','galdera-flamechurch-pass-result','galdera-temenos-result','galdera-quicksand-result','galdera-lord-sands-result','galdera-quicksand-loot-result','galdera-flex-result','galdera-pre-gravell-result','conning-log']) $(id).hidden=true;
   const early=result.post_battle_field?.flats_escape?.early_cait;
   const timing=early?.southern_rare_target?'after':early?.snows_approach?.predicted_before_osvald?'before':snowsEncounterTiming ?? 'after';
   const exit=result.post_battle_field?.flats_escape?.snows_escape?.[timing+'_osvald'];
@@ -1051,7 +1051,7 @@ function renderCrackridgeVoyage() {
         $('conning-'+key+'-result').hidden=false;
         $('conning-'+key+'-encounter').textContent=encounterLabel(fight.arrival.encounter);
         const actor=routeNames()[fight.menu.first_actor];
-        $('conning-'+key+'-routine').innerHTML=(fight.defends||[]).map(d=>'<p><strong>R1 · '+routeNames()[d.actor]+' · Defend</strong></p>').join('')+'<p><strong>R1 · '+actor+' · '+menuOrdinal((fight.defends||[]).length+1)+' command menu</strong></p>'+boostStepsHtml(fight.inputs.levels,fight.victory?'Shadow Soulstone (M)':'Escape');
+        $('conning-'+key+'-routine').innerHTML=(fight.defends||[]).map((d,i)=>'<p><strong>R1 · '+routeNames()[d.actor]+' · '+menuOrdinal(i+1)+' command menu</strong></p>'+instructionBoxHtml([],'Defend')).join('')+'<p><strong>R1 · '+actor+' · '+menuOrdinal((fight.defends||[]).length+1)+' command menu</strong></p>'+boostStepsHtml(fight.inputs.levels,fight.victory?'Shadow Soulstone (M)':'Escape');
         for(const [name,entry] of [['loaded',fight.arrival.entry],['night switch',fight.arrival.night],['field returned',fight.field_return],['day switch',fight.day]]) conningStages.push([label+' · '+name,entry]);
         for(const d of fight.defends||[]) conningPoints.push([label+' · '+routeNames()[d.actor]+' Defend',d.rng_before]);
         conningPoints.push([label+' · action command menu',fight.menu.rng],[label+' · battle completed',(fight.victory||fight.escape).after]);
@@ -1279,13 +1279,9 @@ function renderCrackridgeVoyage() {
                                 $('galdera-clockbank-result').hidden=false;
                                 $('galdera-clockbank-routine').innerHTML='<p><strong>'+escapeHtml(encounterLabel(f.encounter))+'</strong></p>'
                                   +`<p><strong>T1 · ${names[f.menu.first_actor]} · 1st command menu</strong></p>`
-                                  +instructionBoxHtml(['Run 100% until the encounter',...(t.escape_boost_cycles?[`Boost 0 → 1 → 0 × ${t.escape_boost_cycles} before Escape`]:[]),'Escape']);
-                                $('galdera-clockbank-approach-result').hidden=false;
-                                $('galdera-clockbank-approach-routine').innerHTML=instructionBoxHtml(['Run 100%']);
+                                  +instructionBoxHtml([...(t.escape_boost_cycles?[`Boost 0 → 1 → 0 × ${t.escape_boost_cycles} before Escape`]:[]),'Escape']);
                                 $('galdera-clockbank-adjustment-result').hidden=!t.additional_time_switches;
                                 $('galdera-clockbank-adjustment-routine').innerHTML=t.additional_time_switches?instructionBoxHtml([`Switch night → day ${t.additional_time_switches/2} time(s)`]):'';
-                                $('galdera-clockbank-exit-result').hidden=false;
-                                $('galdera-clockbank-exit-routine').innerHTML=instructionBoxHtml(['Run 100%']);
                                 $('galdera-flamechurch-pass-result').hidden=!t.movement;
                                 $('galdera-flamechurch-pass-routine').innerHTML=t.movement?instructionBoxHtml([`Run ${t.movement.run_percent.toFixed(1)}%`]):'';
                                 conningPoints.push([label+' · before battle initialization',f.battle_entry],[label+' · first command menu',f.menu.rng]);

@@ -48,6 +48,8 @@ Current order supersedes older notes: spear -> Firestarter -> Crackridge book ->
 
 - Lord of the Sands display (2026-10-19): show every recorded action in chronological order, including zero-adjustment fights, T1 Holy Light and Partitio's selected Defend/spear branch. Include actor, turn, menu ordinal, BP and exact finisher boost inputs. This overrides the manipulation-only rule for this boss; fixed travel/cutscene/reward instructions remain hidden. See docs/galdera-quicksand.md.
 
+- Clockbank/Conning display (2026-10-19): omit fixed Run 100% directions and redundant Clockbank approach/exit cards; retain Escape boosts, optional time adjustments and variable Eastern Flamechurch movement. Northern and Western Conning Defends use the shared blue instruction box beneath the actor/command-menu ordinal, like the final Escape/Soulstone action.
+
 # Active project
 
 - Identified routes stream committed snapshots with stream=1 (NDJSON): early
