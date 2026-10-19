@@ -411,7 +411,7 @@ function graceFightRoutineHtml(fight,names) {
     return `<p><strong>T${a.round} · ${escapeHtml(names[a.actor])} · ${menuOrdinal(ordinal)} command menu</strong></p>`+instructions;
   }).join('');
 }
-function lordSandsRoutineHtml(r,party) {
+function bossRoutineHtml(r,party) {
   const ordinals={};
   return r.battle.actions.map(a=>{
     const ordinal=ordinals[a.turn]=(ordinals[a.turn]||0)+1;
@@ -1311,7 +1311,7 @@ function renderCrackridgeVoyage() {
                                     if(q.lord_sands) {
                                       const r=q.lord_sands,b=r.battle,party=['Throné','Osvald','Temenos','Partitio'];
                                       $('galdera-lord-sands-result').hidden=false;
-                                      $('galdera-lord-sands-routine').innerHTML=lordSandsRoutineHtml(r,party);
+                                      $('galdera-lord-sands-routine').innerHTML=bossRoutineHtml(r,party);
                                       for(const [stage,e]of [['Lord of the Sands · night switch',r.night],['Lord of the Sands · accepted boss prompt',r.prompt],['Lord of the Sands · victory field return',r.field_return],['Lord of the Sands · defeat event complete',r.victory]]){conningStages.push([stage,e]);conningSpans.push(...e.trace);}
                                       conningPoints.push(['Lord of the Sands · first command menu',b.at_command_menu],['Lord of the Sands · victory and drops',b.after]);
                                       for(const a of b.actions)conningPoints.push(['Lord of the Sands · T'+a.turn+' '+party[a.actor]+' · before '+a.name,a.report.rng_before],['Lord of the Sands · T'+a.turn+' '+party[a.actor]+' · after '+a.name,a.report.rng_after]);
@@ -1370,7 +1370,7 @@ function renderCrackridgeVoyage() {
                                           for(const e of [n.setup,n.approach.water_entry,n.approach.gigantes_entry,n.night,n.prompt,n.field_return,n.victory])conningSpans.push(...e.trace);
                                           conningPoints.push(['Nameless water · Escape command menu',f.menu.rng]);
                                           for(const a of n.battle.actions||[])conningPoints.push(['Gigantes · T'+a.turn+' '+party[a.actor]+' '+a.name,a.report.rng_before]);
-                                          if(n.finisher_boost_cycles)instructions('Gigantes · adjustment',['T2 · Partitio · before Beastlings: Boost 0 → 1 → 0 × '+n.finisher_boost_cycles+' → 3']);
+                                          card('Nameless Isle · Gigantes',bossRoutineHtml(n,party));
                                           for(const [label,e] of n.loot.stages){conningSpans.push(...e.trace);}
                                         }
                                         if(x.shipwreck)for(const [label,e] of x.shipwreck.travel.stages){conningStages.push([label,e]);conningSpans.push(...e.trace);}

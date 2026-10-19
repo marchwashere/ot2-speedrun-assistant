@@ -208,7 +208,6 @@ assert(!context.conningStages.some(([label])=>/buy Diffusing Serum/.test(label))
 assert(context.conningStages.some(([label])=>/Wellgrove inn.*Sharp Nut.*Diffusing Serum/.test(label)));
 console.log('PASS: Sharp L and serum stolen in Wellgrove inn, with no Lychee steal or Gravell serum purchase');
 
-context.boostStepsHtml=(inputs,label)=>label;
 const segment={name:'Travel',stages:[['Travel entry',entry]],encounters:[],extra_switches:0,escape_boost_inputs:[]};
 const x=fc.temenos.quicksand.flex={location:'Nameless Isle',order:[2,1,3,4],segments:[],boat:segment,continuation:[segment],
  encounter:coast.southern_sai.encounter,encounter_arrival:entry,
@@ -221,14 +220,31 @@ assert.match($('galdera-flex-routine').innerHTML,/Springy Boots → Osvald/);
 assert.match($('galdera-flex-routine').innerHTML,/Fireball \+1 BP/);
 assert.doesNotMatch($('galdera-flex-routine').innerHTML,/Winged Landwalker/);
 x.location='Shipwreck';x.order.push(5);x.nameless_jp=null;
-x.nameless={setup:entry,approach:{encounter:coast.southern_sai,escape_inputs:[],run_percent:75,water_entry:entry,gigantes_entry:entry},night:entry,prompt:entry,field_return:entry,victory:entry,battle:{trace:[]},loot:segment,finisher_boost_cycles:1};
+x.nameless={setup:entry,approach:{encounter:coast.southern_sai,escape_inputs:[],run_percent:75,water_entry:entry,gigantes_entry:entry},night:entry,prompt:entry,field_return:entry,victory:entry,battle:{trace:[],actions:[
+  sandsAction(1,3,'Lance attack'),sandsAction(1,1,'Defend'),sandsAction(1,0,'Defend'),sandsAction(1,2,'Staff attack'),
+  sandsAction(2,0,'Sword x3',2),sandsAction(2,1,'Elemental Barrage',3),sandsAction(2,2,'Defend'),sandsAction(2,3,'Hired Help: Beastlings',3)
+]},loot:segment,finisher_boost_cycles:0};
 x.shipwreck={travel:segment};x.fight.actions[1].action='fireball_max';
 vm.runInNewContext(source.slice(start,end),context);
 assert.match($('galdera-flex-routine').innerHTML,/Shipwreck · JP ×100/);
-assert.match($('galdera-flex-routine').innerHTML,/Gigantes/);
+const gigantesHtml=$('galdera-flex-routine').innerHTML.split('<h2>Nameless Isle · Gigantes</h2>')[1].split('</section>')[0];
+assert.equal((gigantesHtml.match(/command menu/g)||[]).length,8);
+assert.match(gigantesHtml,/T1 · Partitio · 1st command menu.*Spear attack/s);
+assert.match(gigantesHtml,/T1 · Osvald · 2nd command menu.*Defend/s);
+assert.match(gigantesHtml,/T1 · Throné · 3rd command menu.*Defend/s);
+assert.match(gigantesHtml,/T1 · Temenos · 4th command menu.*Staff attack/s);
+assert.match(gigantesHtml,/T2 · Throné · 1st command menu.*\+2 BP Sword x3/s);
+assert.match(gigantesHtml,/T2 · Osvald · 2nd command menu.*\+3 BP Elemental Barrage/s);
+assert.match(gigantesHtml,/T2 · Temenos · 3rd command menu.*Defend/s);
+assert.match(gigantesHtml,/T2 · Partitio · 4th command menu.*0 → 3\n\+3 BP Hired Help: Beastlings/s);
+assert.doesNotMatch(gigantesHtml,/Switch|Rewards|Georges/);
 assert.match($('galdera-flex-routine').innerHTML,/Fireball \+3 BP/);
 assert(context.conningStages.some(([label])=>label==='Shipwreck · JP ×100 victory and field return'));
 console.log('PASS: Nameless and Shipwreck selected routes, Boots target, Fireball BP, and Gigantes continuation');
+x.nameless.finisher_boost_cycles=2;
+vm.runInNewContext(source.slice(start,end),context);
+assert.match($('galdera-flex-routine').innerHTML,/0 → 1 ×3\n1 → 3\n\+3 BP Hired Help: Beastlings/);
+console.log('PASS: complete Gigantes routine with zero or nonzero finisher adjustment');
 const defended={...coast.southern_sai,defends:[{actor:0,rng_before:entry.after},{actor:1,rng_before:entry.after}],defend_rounds:[1,2],escape_round:2};
 x.segments=[{...segment,encounters:[defended]}];
 x.nameless.approach.encounter=defended;

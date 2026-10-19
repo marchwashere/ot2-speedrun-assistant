@@ -52,6 +52,8 @@ Current order supersedes older notes: spear -> Firestarter -> Crackridge book ->
 
 # Active project
 
+- Gigantes display (2026-10-19): show the full recorded routine in its own card when the selected route simulates the boss, even with zero finisher adjustment. Share the Sands action renderer for actual chronological actors, per-turn menu ordinals, BP and exact finisher inputs. This overrides the manipulation-only display rule for Gigantes; do not extend prediction past JP100 victory.
+
 - Identified routes stream committed snapshots with stream=1 (NDJSON): early
   Highroad/Harbor, early rare route before unfinalized Cropdale extension, full
   EXP100/supplies through Gravell, then final JP100 selection. DeferredFlex scope

@@ -1,5 +1,10 @@
 # Nameless Isle approach (inactive candidate)
 
+Current display (2026-10-19): when the selected JP route continues through
+Gigantes, show its full recorded battle routine in a separate card, including
+zero-adjustment fights. Use the simulated action order, per-turn menu ordinals,
+BP and exact finisher boosts. Do not extend prediction past JP100 victory.
+
 `jp_finish(entry, max_inputs)` implements the daytime water JP100 alternative.
 It equips the entry gear, runs to the first water encounter and accepts Ebony
 Eel x3 only. It does not search opening turn order. Reject T->Throne->Osvald;
