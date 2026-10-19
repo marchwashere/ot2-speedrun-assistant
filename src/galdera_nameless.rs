@@ -57,7 +57,8 @@ fn jp_observed(entry:&Entry,max_inputs:usize,probe:Option<&mut Option<crate::Crt
  }
  let f=ot2_battle_engine::nameless_routine::search_accepting(b,max_inputs,|fight|{
   let (_,_,ret)=crate::inventor::settle_gravell(&water_entry,rng,fight.clone())?;
-  Ok(movement(ret.world_after.encounter_counter,first,run,walk).is_some())
+  Ok(crate::galdera_jp::sufficient(&ret.world_after)?
+    &&movement(ret.world_after.encounter_counter,first,run,walk).is_some())
  })?;
  let Some(f)=f else{return Ok(None);};
  let (fight,rewards,mut field_return)=crate::inventor::settle_gravell(&water_entry,rng,f)?;
@@ -214,6 +215,18 @@ fn escape_approach_with_defends(entry:&Entry,max_cycles:u32,defends:u8)->Result<
  Ok(None)
 }
 #[cfg(test)]mod tests {
+ #[test]fn preemptive_3054ba63_cannot_borrow_domination_or_later_boss_jp() {
+  let v:serde_json::Value=serde_json::from_str(include_str!("../data/source/nameless-jp-preemptive-3054ba63.json")).unwrap();
+  let e=super::Entry {
+   arrival:serde_json::from_value(v["entry"]["arrival"].clone()).unwrap(),
+   after:serde_json::from_value(v["entry"]["after"].clone()).unwrap(),
+   world_after:serde_json::from_value(v["entry"]["world_after"].clone()).unwrap(),
+   trace:vec![],decisions:vec![],
+  };
+  // Same formation, turn order and reachable JP100 as the reported result.
+  // It must now be rejected for funding only 11,100 JP, not 12,210.
+  assert!(super::jp_finish(&e,96).unwrap().is_none());
+ }
  use super::*;
  fn geared_entry(seed:u32)->Entry {
   let v:serde_json::Value=serde_json::from_str(include_str!("../data/source/galdera-flex-entry.json")).unwrap();

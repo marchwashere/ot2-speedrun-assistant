@@ -1,0 +1,1491 @@
+{
+  "seed": "0x3054BA63",
+  "pirro_first": true,
+  "hp": 154,
+  "voices": "NNNSNSNNNNSSSSSSSSNNSSSSSNSNSN",
+  "entry": {
+    "arrival": {
+      "draws": 5934,
+      "state": 2873186641
+    },
+    "after": {
+      "draws": 5934,
+      "state": 2873186641
+    },
+    "world_after": {
+      "active_encounter": {
+        "base": "ENT_DNG_OCN_1_3_LND",
+        "map": "Dng_Ocn_1_3",
+        "zone": "ENT_DNG_OCN_1_3_LND"
+      },
+      "active_scenarios": [],
+      "armsmaster_abilities": [
+        "ABI_SET_WPM_010",
+        "ABI_SET_WPM_040"
+      ],
+      "bench": [
+        3,
+        8
+      ],
+      "character_progression": {
+        "3": {
+          "character": {
+            "combat": {
+              "accuracy": 80,
+              "attack": 88,
+              "critical": 80,
+              "defense": 91,
+              "element_weaknesses": [],
+              "enemy_bp_base": 0,
+              "enemy_initialization": null,
+              "evasion": 72,
+              "fire_damage_bonus": 0,
+              "growth_attack": 80,
+              "growth_magic": 80,
+              "magic": 80,
+              "magic_defense": 93,
+              "main_weapon": "axe",
+              "nuts": {},
+              "shields": 0,
+              "statuses": [],
+              "steal_item": null,
+              "use_cat_damage_type": false,
+              "weapon_weaknesses": [],
+              "weapons": [
+                {
+                  "attack": 6,
+                  "magic": 0,
+                  "weapon": "axe"
+                }
+              ]
+            },
+            "id": "castti",
+            "name": "Castti",
+            "resources": {
+              "bp": 1,
+              "hp": 300,
+              "latent": 0,
+              "sp": 50
+            },
+            "skills": [
+              "attack_axe",
+              "ABI_SET_APO_030",
+              "ABI_SET_APO_010"
+            ],
+            "stats": {
+              "max_hp": 300,
+              "max_sp": 50,
+              "speed": 64
+            }
+          },
+          "experience": 0,
+          "growth": {
+            "growth_attack": 80,
+            "growth_magic": 80,
+            "level": 1,
+            "parameters": {
+              "ACC": 80,
+              "AGI": 64,
+              "ATK": 88,
+              "BP": 5,
+              "CON": 80,
+              "DEF": 80,
+              "EVA": 72,
+              "HP": 300,
+              "MATK": 80,
+              "MDEF": 80,
+              "MP": 50,
+              "POT": 3,
+              "SP": 0
+            },
+            "total_exp": 0
+          },
+          "jobs": {
+            "equipped_support": [],
+            "learned_abilities": {
+              "8": [
+                "ABI_SET_WPM_010",
+                "ABI_SET_WPM_040",
+                "ABI_SET_WPM_070",
+                "ABI_SET_WPM_080"
+              ]
+            },
+            "secondary_job": null,
+            "unlocked_support": [
+              "ABI_WPM_SUP_01"
+            ]
+          },
+          "jp_earned": 0,
+          "jp_spent": 0,
+          "level": 1
+        },
+        "4": {
+          "character": {
+            "boost_start": true,
+            "combat": {
+              "accuracy": 234,
+              "attack": 257,
+              "critical": 210,
+              "defense": 247,
+              "element_weaknesses": [],
+              "enemy_bp_base": 0,
+              "enemy_initialization": null,
+              "evasion": 210,
+              "fire_damage_bonus": 0,
+              "growth_attack": 234,
+              "growth_magic": 234,
+              "magic": 257,
+              "magic_defense": 246,
+              "main_weapon": "lance",
+              "nuts": {},
+              "shields": 0,
+              "statuses": [],
+              "steal_item": null,
+              "use_cat_damage_type": false,
+              "weapon_weaknesses": [],
+              "weapons": [
+                {
+                  "attack": 5,
+                  "magic": 0,
+                  "weapon": "lance"
+                },
+                {
+                  "attack": 5,
+                  "magic": 0,
+                  "weapon": "bow"
+                }
+              ]
+            },
+            "id": "partitio",
+            "name": "Partitio",
+            "resources": {
+              "bp": 0,
+              "hp": 3775,
+              "latent": 0,
+              "sp": 148
+            },
+            "skills": [
+              "attack_lance",
+              "ABI_SET_MER_020",
+              "ABI_SET_MER_040"
+            ],
+            "stats": {
+              "max_hp": 3775,
+              "max_sp": 148,
+              "speed": 210
+            }
+          },
+          "experience": 276688,
+          "growth": {
+            "growth_attack": 234,
+            "growth_magic": 234,
+            "level": 70,
+            "parameters": {
+              "ACC": 234,
+              "AGI": 210,
+              "ATK": 257,
+              "BP": 5,
+              "CON": 210,
+              "DEF": 234,
+              "EVA": 210,
+              "HP": 3775,
+              "MATK": 257,
+              "MDEF": 234,
+              "MP": 148,
+              "POT": 3,
+              "SP": 0
+            },
+            "total_exp": 265643
+          },
+          "jobs": {
+            "equipped_support": [
+              "ABI_INV_SUP_01",
+              "ABI_MER_SUP_02"
+            ],
+            "ex_abilities": [
+              "ABI_SET_MER_090"
+            ],
+            "learned_abilities": {
+              "0": [
+                "ABI_SET_MER_020",
+                "ABI_SET_MER_030",
+                "ABI_SET_MER_040",
+                "ABI_SET_MER_050",
+                "ABI_SET_MER_070"
+              ],
+              "8": [
+                "ABI_SET_WPM_010",
+                "ABI_SET_WPM_040",
+                "ABI_SET_WPM_070",
+                "ABI_SET_WPM_080"
+              ],
+              "11": [
+                "ABI_SET_INV_010",
+                "ABI_SET_INV_020",
+                "ABI_SET_INV_030",
+                "ABI_SET_INV_040"
+              ]
+            },
+            "secondary_job": null,
+            "unlocked_support": [
+              "ABI_INV_SUP_01",
+              "ABI_MER_SUP_01",
+              "ABI_MER_SUP_02",
+              "ABI_WPM_SUP_01"
+            ]
+          },
+          "jp_earned": 1887,
+          "jp_spent": 630,
+          "level": 70
+        },
+        "5": {
+          "character": {
+            "combat": {
+              "accuracy": 96,
+              "attack": 96,
+              "critical": 67,
+              "defense": 108,
+              "element_weaknesses": [],
+              "enemy_bp_base": 0,
+              "enemy_initialization": null,
+              "evasion": 83,
+              "fire_damage_bonus": 0,
+              "growth_attack": 96,
+              "growth_magic": 96,
+              "magic": 124,
+              "magic_defense": 141,
+              "main_weapon": "staff",
+              "nuts": {},
+              "shields": 0,
+              "statuses": [],
+              "steal_item": null,
+              "use_cat_damage_type": false,
+              "weapon_weaknesses": [],
+              "weapons": [
+                {
+                  "attack": 3,
+                  "magic": 5,
+                  "weapon": "staff"
+                },
+                {
+                  "attack": 0,
+                  "magic": 0,
+                  "weapon": "dagger"
+                }
+              ]
+            },
+            "id": "temenos",
+            "name": "Temenos",
+            "resources": {
+              "bp": 2,
+              "hp": 508,
+              "latent": 0,
+              "sp": 79
+            },
+            "skills": [
+              "attack_staff",
+              "ABI_SET_CLE_010",
+              "ABI_SET_CLE_020",
+              "attack_dagger"
+            ],
+            "stats": {
+              "max_hp": 508,
+              "max_sp": 79,
+              "speed": 83
+            }
+          },
+          "experience": 533,
+          "growth": {
+            "growth_attack": 96,
+            "growth_magic": 96,
+            "level": 11,
+            "parameters": {
+              "ACC": 96,
+              "AGI": 76,
+              "ATK": 96,
+              "BP": 5,
+              "CON": 67,
+              "DEF": 96,
+              "EVA": 76,
+              "HP": 508,
+              "MATK": 115,
+              "MDEF": 124,
+              "MP": 79,
+              "POT": 3,
+              "SP": 0
+            },
+            "total_exp": 434
+          },
+          "jobs": {
+            "equipped_support": [
+              "ABI_INV_SUP_01"
+            ],
+            "learned_abilities": {
+              "5": [
+                "ABI_SET_DAN_010",
+                "ABI_SET_DAN_020",
+                "ABI_SET_DAN_070"
+              ],
+              "8": [
+                "ABI_SET_WPM_010",
+                "ABI_SET_WPM_040",
+                "ABI_SET_WPM_070",
+                "ABI_SET_WPM_080"
+              ],
+              "11": [
+                "ABI_SET_INV_010",
+                "ABI_SET_INV_020",
+                "ABI_SET_INV_030",
+                "ABI_SET_INV_040"
+              ]
+            },
+            "secondary_job": 5,
+            "unlocked_support": [
+              "ABI_INV_SUP_01",
+              "ABI_WPM_SUP_01"
+            ]
+          },
+          "jp_earned": 40,
+          "jp_spent": 30,
+          "level": 11
+        },
+        "6": {
+          "character": {
+            "boost_start": true,
+            "combat": {
+              "accuracy": 234,
+              "attack": 220,
+              "critical": 187,
+              "defense": 246,
+              "element_weaknesses": [],
+              "enemy_bp_base": 0,
+              "enemy_initialization": null,
+              "evasion": 234,
+              "fire_damage_bonus": 60,
+              "growth_attack": 234,
+              "growth_magic": 234,
+              "magic": 476,
+              "magic_defense": 319,
+              "main_weapon": "staff",
+              "nuts": {},
+              "shields": 0,
+              "statuses": [],
+              "steal_item": null,
+              "use_cat_damage_type": false,
+              "weapon_weaknesses": [],
+              "weapons": [
+                {
+                  "attack": 3,
+                  "magic": 4,
+                  "weapon": "staff"
+                },
+                {
+                  "attack": 132,
+                  "magic": 0,
+                  "weapon": "lance"
+                },
+                {
+                  "attack": 195,
+                  "magic": 298,
+                  "weapon": "sword"
+                }
+              ]
+            },
+            "id": "osvald",
+            "name": "Osvald",
+            "resources": {
+              "bp": 0,
+              "hp": 2964,
+              "latent": 100,
+              "sp": 168
+            },
+            "skills": [
+              "attack_staff",
+              "attack_lance",
+              "attack_sword"
+            ],
+            "stats": {
+              "max_hp": 3239,
+              "max_sp": 177,
+              "speed": 210
+            }
+          },
+          "experience": 278022,
+          "growth": {
+            "growth_attack": 234,
+            "growth_magic": 234,
+            "level": 70,
+            "parameters": {
+              "ACC": 234,
+              "AGI": 210,
+              "ATK": 210,
+              "BP": 5,
+              "CON": 187,
+              "DEF": 210,
+              "EVA": 234,
+              "HP": 2745,
+              "MATK": 304,
+              "MDEF": 280,
+              "MP": 177,
+              "POT": 3,
+              "SP": 0
+            },
+            "total_exp": 265643
+          },
+          "jobs": {
+            "equipped_route_items": {
+              "Accessory_00": "ITM_EQP_ACS_250",
+              "Head": "ITM_EQP_HLM_180",
+              "Lance": "ITM_EQP_LNS_220",
+              "Sword": "ITM_EQP_SWD_380"
+            },
+            "equipped_support": [
+              "ABI_INV_SUP_01",
+              "ABI_MER_SUP_02",
+              "ABI_SCH_SUP_01",
+              "ABI_SCH_SUP_02"
+            ],
+            "learned_abilities": {
+              "0": [
+                "ABI_SET_MER_020",
+                "ABI_SET_MER_030",
+                "ABI_SET_MER_040",
+                "ABI_SET_MER_050",
+                "ABI_SET_MER_070"
+              ],
+              "2": [
+                "ABI_SET_WAR_010",
+                "ABI_SET_WAR_050"
+              ],
+              "6": [
+                "ABI_SET_SCH_010",
+                "ABI_SET_SCH_020",
+                "ABI_SET_SCH_030",
+                "ABI_SET_SCH_060",
+                "ABI_SET_SCH_070"
+              ],
+              "8": [
+                "ABI_SET_WPM_010",
+                "ABI_SET_WPM_040",
+                "ABI_SET_WPM_070",
+                "ABI_SET_WPM_080"
+              ],
+              "11": [
+                "ABI_SET_INV_010",
+                "ABI_SET_INV_020",
+                "ABI_SET_INV_030",
+                "ABI_SET_INV_040"
+              ]
+            },
+            "secondary_job": 2,
+            "unlocked_support": [
+              "ABI_INV_SUP_01",
+              "ABI_MER_SUP_01",
+              "ABI_MER_SUP_02",
+              "ABI_SCH_SUP_01",
+              "ABI_SCH_SUP_02",
+              "ABI_WPM_SUP_01"
+            ]
+          },
+          "jp_earned": 2374,
+          "jp_spent": 1260,
+          "level": 70
+        },
+        "7": {
+          "character": {
+            "combat": {
+              "accuracy": 272,
+              "attack": 274,
+              "critical": 252,
+              "defense": 413,
+              "element_weaknesses": [],
+              "enemy_bp_base": 0,
+              "enemy_initialization": null,
+              "evasion": 280,
+              "fire_damage_bonus": 0,
+              "growth_attack": 234,
+              "growth_magic": 234,
+              "magic": 250,
+              "magic_defense": 459,
+              "main_weapon": "dagger",
+              "nuts": {},
+              "shields": 0,
+              "statuses": [],
+              "steal_item": null,
+              "use_cat_damage_type": false,
+              "weapon_weaknesses": [],
+              "weapons": [
+                {
+                  "attack": 4,
+                  "magic": 0,
+                  "weapon": "sword"
+                },
+                {
+                  "attack": 6,
+                  "magic": 0,
+                  "weapon": "dagger"
+                },
+                {
+                  "attack": 0,
+                  "magic": 0,
+                  "weapon": "axe"
+                }
+              ]
+            },
+            "id": "throne",
+            "name": "Throné",
+            "resources": {
+              "bp": 2,
+              "hp": 3432,
+              "latent": 75,
+              "sp": 118
+            },
+            "skills": [
+              "attack_sword",
+              "attack_dagger",
+              "ABI_SET_THI_010",
+              "ABI_SET_THI_020",
+              "attack_axe"
+            ],
+            "stats": {
+              "max_hp": 3432,
+              "max_sp": 118,
+              "speed": 392
+            }
+          },
+          "experience": 278085,
+          "growth": {
+            "growth_attack": 234,
+            "growth_magic": 234,
+            "level": 70,
+            "parameters": {
+              "ACC": 257,
+              "AGI": 280,
+              "ATK": 257,
+              "BP": 5,
+              "CON": 234,
+              "DEF": 187,
+              "EVA": 280,
+              "HP": 3432,
+              "MATK": 234,
+              "MDEF": 187,
+              "MP": 118,
+              "POT": 3,
+              "SP": 0
+            },
+            "total_exp": 265643
+          },
+          "jobs": {
+            "equipped_route_items": {
+              "Body": "ITM_EQP_AMR_300",
+              "Shield": "ITM_EQP_SLD_240"
+            },
+            "equipped_support": [
+              "ABI_INV_SUP_01"
+            ],
+            "learned_abilities": {
+              "8": [
+                "ABI_SET_WPM_010",
+                "ABI_SET_WPM_040",
+                "ABI_SET_WPM_070",
+                "ABI_SET_WPM_080"
+              ],
+              "11": [
+                "ABI_SET_INV_010",
+                "ABI_SET_INV_020",
+                "ABI_SET_INV_030",
+                "ABI_SET_INV_040"
+              ]
+            },
+            "secondary_job": 11,
+            "unlocked_support": [
+              "ABI_INV_SUP_01",
+              "ABI_WPM_SUP_01"
+            ]
+          },
+          "jp_earned": 2399,
+          "jp_spent": 0,
+          "level": 70
+        },
+        "8": {
+          "character": {
+            "combat": {
+              "accuracy": 234,
+              "attack": 234,
+              "critical": 234,
+              "defense": 173,
+              "element_weaknesses": [],
+              "enemy_bp_base": 0,
+              "enemy_initialization": null,
+              "evasion": 257,
+              "fire_damage_bonus": 0,
+              "growth_attack": 234,
+              "growth_magic": 234,
+              "magic": 280,
+              "magic_defense": 198,
+              "main_weapon": "dagger",
+              "nuts": {},
+              "shields": 0,
+              "statuses": [],
+              "steal_item": null,
+              "use_cat_damage_type": false,
+              "weapon_weaknesses": [],
+              "weapons": [
+                {
+                  "attack": 4,
+                  "magic": 0,
+                  "weapon": "dagger"
+                }
+              ]
+            },
+            "id": "agnea",
+            "name": "Agnea",
+            "resources": {
+              "bp": 1,
+              "hp": 3088,
+              "latent": 0,
+              "sp": 148
+            },
+            "skills": [
+              "attack_dagger",
+              "ABI_SET_DAN_010",
+              "ABI_SET_DAN_020"
+            ],
+            "stats": {
+              "max_hp": 3088,
+              "max_sp": 148,
+              "speed": 304
+            }
+          },
+          "experience": 276155,
+          "growth": {
+            "growth_attack": 234,
+            "growth_magic": 234,
+            "level": 70,
+            "parameters": {
+              "ACC": 234,
+              "AGI": 304,
+              "ATK": 234,
+              "BP": 5,
+              "CON": 234,
+              "DEF": 163,
+              "EVA": 257,
+              "HP": 3088,
+              "MATK": 280,
+              "MDEF": 187,
+              "MP": 148,
+              "POT": 3,
+              "SP": 0
+            },
+            "total_exp": 265643
+          },
+          "jobs": {
+            "equipped_support": [
+              "ABI_INV_SUP_01"
+            ],
+            "learned_abilities": {
+              "5": [
+                "ABI_SET_DAN_010",
+                "ABI_SET_DAN_020",
+                "ABI_SET_DAN_040",
+                "ABI_SET_DAN_070"
+              ],
+              "8": [
+                "ABI_SET_WPM_010",
+                "ABI_SET_WPM_040",
+                "ABI_SET_WPM_070",
+                "ABI_SET_WPM_080"
+              ],
+              "11": [
+                "ABI_SET_INV_010",
+                "ABI_SET_INV_020",
+                "ABI_SET_INV_030",
+                "ABI_SET_INV_040"
+              ]
+            },
+            "secondary_job": null,
+            "unlocked_support": [
+              "ABI_DAN_SUP_01",
+              "ABI_INV_SUP_01",
+              "ABI_WPM_SUP_01"
+            ]
+          },
+          "jp_earned": 1847,
+          "jp_spent": 130,
+          "level": 70
+        }
+      },
+      "completed_scenarios": [
+        300,
+        400,
+        500,
+        600,
+        601,
+        700,
+        800
+      ],
+      "confirmed_scenarios": [],
+      "encounter_counter": 762,
+      "enemy_knowledge": {
+        "ENE_EVE_CLE_MNT_030": {
+          "elements": 0,
+          "studied": true,
+          "weapons": 32
+        },
+        "ENE_EVE_SUB_OTR_100": {
+          "elements": 0,
+          "studied": true,
+          "weapons": 4
+        },
+        "ENE_NML_DNG_RIN_280": {
+          "elements": 32,
+          "studied": true,
+          "weapons": 0
+        },
+        "ENE_NML_DNG_RIN_290": {
+          "elements": 0,
+          "studied": true,
+          "weapons": 8
+        },
+        "ENE_NML_FLD_CTY_010": {
+          "elements": 0,
+          "studied": false,
+          "weapons": 4
+        },
+        "ENE_NML_FLD_CTY_120": {
+          "elements": 0,
+          "studied": false,
+          "weapons": 4
+        },
+        "ENE_NML_FLD_CTY_190": {
+          "elements": 16,
+          "studied": true,
+          "weapons": 0
+        },
+        "ENE_NML_FLD_DST_040": {
+          "elements": 40,
+          "studied": true,
+          "weapons": 12
+        },
+        "ENE_NML_FLD_DST_270": {
+          "elements": 9,
+          "studied": true,
+          "weapons": 9
+        },
+        "ENE_NML_FLD_DST_280": {
+          "elements": 16,
+          "studied": true,
+          "weapons": 1
+        },
+        "ENE_NML_FLD_FST_010": {
+          "elements": 2,
+          "studied": true,
+          "weapons": 0
+        },
+        "ENE_NML_FLD_FST_020": {
+          "elements": 8,
+          "studied": true,
+          "weapons": 0
+        },
+        "ENE_NML_FLD_FST_040": {
+          "elements": 0,
+          "studied": true,
+          "weapons": 4
+        },
+        "ENE_NML_FLD_FST_160": {
+          "elements": 0,
+          "studied": true,
+          "weapons": 16
+        },
+        "ENE_NML_FLD_ISD_040": {
+          "elements": 2,
+          "studied": true,
+          "weapons": 0
+        },
+        "ENE_NML_FLD_ISD_110": {
+          "elements": 8,
+          "studied": true,
+          "weapons": 0
+        },
+        "ENE_NML_FLD_ISD_170": {
+          "elements": 0,
+          "studied": true,
+          "weapons": 32
+        },
+        "ENE_NML_FLD_ISD_230": {
+          "elements": 0,
+          "studied": true,
+          "weapons": 1
+        },
+        "ENE_NML_FLD_SEA_130": {
+          "elements": 16,
+          "studied": true,
+          "weapons": 40
+        },
+        "ENE_NML_FLD_SEA_160": {
+          "elements": 4,
+          "studied": true,
+          "weapons": 0
+        },
+        "ENE_NML_FLD_SEA_240": {
+          "elements": 0,
+          "studied": true,
+          "weapons": 1
+        },
+        "ENE_NML_FLD_SNW_010": {
+          "elements": 1,
+          "studied": true,
+          "weapons": 32
+        },
+        "ENE_NML_FLD_SNW_110": {
+          "elements": 0,
+          "studied": true,
+          "weapons": 32
+        },
+        "ENE_NML_FLD_SNW_150": {
+          "elements": 32,
+          "studied": true,
+          "weapons": 0
+        },
+        "ENE_NML_FLD_WLD_030": {
+          "elements": 0,
+          "studied": true,
+          "weapons": 8
+        },
+        "ENE_NML_FLD_WLD_040": {
+          "elements": 16,
+          "studied": true,
+          "weapons": 42
+        },
+        "ENE_NML_FLD_WLD_130": {
+          "elements": 0,
+          "studied": true,
+          "weapons": 41
+        },
+        "ENE_NML_FLD_WLD_160": {
+          "elements": 4,
+          "studied": true,
+          "weapons": 16
+        },
+        "ENE_NML_FLD_WLD_250": {
+          "elements": 0,
+          "studied": true,
+          "weapons": 48
+        },
+        "ENE_NML_FLD_WLD_270": {
+          "elements": 0,
+          "studied": true,
+          "weapons": 9
+        },
+        "ENE_NML_OTR_140": {
+          "elements": 0,
+          "studied": true,
+          "weapons": 45
+        },
+        "ENE_NML_OTR_150": {
+          "elements": 0,
+          "studied": true,
+          "weapons": 32
+        },
+        "ENE_NML_WTR_540": {
+          "elements": 0,
+          "studied": true,
+          "weapons": 1
+        }
+      },
+      "evasive_maneuvers": true,
+      "event_variables": {
+        "1": 5
+      },
+      "existing_npcs": [
+        "NPC_SYS_SAVE_Dng_Ocn_1_3_0000"
+      ],
+      "first_encounter": true,
+      "flags": [
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        100,
+        200,
+        203,
+        204,
+        411,
+        415,
+        570,
+        1000,
+        1001,
+        1005,
+        1006,
+        1012,
+        1015,
+        1016,
+        1017,
+        1018,
+        1019,
+        1020,
+        1023,
+        1024,
+        1025,
+        1026,
+        1027,
+        1028,
+        1029,
+        1030,
+        1031,
+        1032,
+        1034,
+        1035,
+        1036,
+        1043,
+        1044,
+        1046,
+        1047,
+        1051,
+        1053,
+        1055,
+        1057,
+        1060,
+        1064,
+        1067,
+        1068,
+        1070,
+        1071,
+        1072,
+        1076,
+        1300,
+        1301,
+        1305,
+        1306,
+        1312,
+        1315,
+        1316,
+        1317,
+        1318,
+        1319,
+        1320,
+        1323,
+        1324,
+        1325,
+        1326,
+        1327,
+        1328,
+        1329,
+        1330,
+        1331,
+        1332,
+        1334,
+        1335,
+        1336,
+        1343,
+        1344,
+        1346,
+        1347,
+        1351,
+        1353,
+        1355,
+        1357,
+        1360,
+        1364,
+        1367,
+        1368,
+        1370,
+        1371,
+        1372,
+        1376,
+        2105,
+        2206,
+        2208,
+        2400,
+        2402,
+        2405,
+        2408,
+        2409,
+        2410,
+        2411,
+        2417,
+        2503,
+        4009,
+        5500,
+        5501,
+        5502,
+        5503,
+        5504,
+        5505,
+        5506,
+        5507,
+        5508,
+        5509,
+        5510,
+        5511,
+        5512,
+        5513,
+        5514,
+        5515,
+        5516,
+        5517,
+        5518,
+        5519,
+        5520,
+        5521,
+        5522,
+        5523,
+        5524,
+        5525,
+        5526,
+        5527,
+        5528,
+        5529,
+        5530,
+        5531,
+        5532,
+        5533,
+        6000,
+        6001,
+        6002,
+        6003,
+        6004,
+        6005,
+        6006,
+        6007,
+        6008,
+        6009,
+        6010,
+        6011,
+        6012,
+        6013,
+        6014,
+        6015,
+        6016,
+        6017,
+        6018,
+        6019,
+        6020,
+        6021,
+        6022,
+        6023,
+        6024,
+        6025,
+        6026,
+        6027,
+        6028,
+        6029,
+        6030,
+        6031,
+        6032,
+        6200,
+        6201,
+        6202,
+        6203,
+        6204,
+        6205,
+        6206,
+        6207,
+        6208,
+        6500,
+        6501,
+        6502,
+        6503,
+        6504,
+        6505,
+        6506,
+        6507,
+        6508,
+        6509,
+        6510,
+        6511,
+        6512,
+        6513,
+        6514,
+        6515,
+        6516,
+        6517,
+        6518,
+        6519,
+        6520,
+        6521,
+        6522,
+        6523,
+        6524,
+        6525,
+        6526,
+        6527,
+        6528,
+        6529,
+        6530,
+        7000,
+        7001,
+        7002,
+        7003,
+        7004,
+        7005,
+        7006,
+        7007,
+        7008,
+        7009,
+        7010,
+        7011,
+        7012,
+        7013,
+        7014,
+        7015,
+        7016,
+        7017,
+        7018,
+        7019,
+        7020,
+        7021,
+        7022,
+        7023,
+        7024,
+        7025,
+        7026,
+        7027,
+        7028,
+        7029,
+        7030,
+        7031,
+        7032,
+        7033,
+        7034,
+        7035,
+        7036,
+        7037,
+        7038,
+        7050,
+        7051,
+        7052,
+        7053,
+        7054,
+        7055,
+        7056,
+        7057,
+        7058,
+        7059,
+        7060,
+        7061,
+        7062,
+        7063,
+        7064,
+        7065,
+        7066,
+        8000,
+        8001,
+        8002,
+        8003,
+        8004,
+        8005,
+        8006,
+        8007,
+        8008,
+        8009,
+        8010,
+        8011,
+        8012,
+        8013,
+        8014,
+        8015,
+        8016,
+        8017,
+        8018,
+        8019,
+        8500,
+        8501,
+        8502,
+        8503,
+        8504,
+        8505,
+        8506,
+        8507,
+        8508,
+        8509,
+        8510,
+        8511,
+        8512,
+        8513,
+        8514,
+        8515,
+        8516,
+        8517,
+        8518,
+        8519,
+        8520,
+        8521,
+        8522,
+        8523,
+        8524,
+        8525,
+        8526,
+        8527,
+        8528,
+        8529,
+        9000,
+        20292,
+        20393,
+        20417,
+        20505,
+        20509,
+        20510,
+        20511,
+        20512,
+        25018,
+        25019,
+        25021,
+        25022,
+        25028,
+        25032,
+        25033,
+        25069,
+        25070,
+        25076,
+        25077,
+        25078,
+        25079,
+        25080,
+        25081,
+        25082,
+        25083,
+        25084,
+        25085,
+        25086,
+        25087,
+        25088,
+        25089,
+        25090,
+        25091,
+        25092,
+        25093,
+        25094,
+        25095,
+        25096,
+        25097,
+        25098,
+        25099,
+        25100,
+        25101,
+        25104,
+        25105,
+        25106,
+        25107,
+        25108,
+        25109,
+        25110,
+        25114,
+        25115,
+        25120,
+        25301,
+        25302,
+        25303,
+        25306,
+        25307,
+        25308,
+        25309,
+        25310,
+        25311,
+        25323,
+        25324,
+        25325,
+        25326,
+        25327,
+        25328,
+        25329,
+        25330,
+        25331,
+        25332,
+        25340,
+        25341,
+        25342,
+        25346,
+        25350,
+        25359,
+        25500,
+        25512,
+        25560,
+        25561,
+        25562,
+        25563,
+        25565,
+        34004,
+        34014,
+        34037,
+        34041,
+        34067,
+        34076,
+        34077,
+        34092,
+        34155,
+        37503,
+        37504,
+        37510,
+        37516,
+        37517,
+        37518,
+        37519,
+        37521,
+        40010
+      ],
+      "galdera_route": true,
+      "hired_merchant": {
+        "npc": "NPC_SS_TW11_0100_0100",
+        "price": 1600,
+        "supporter": "SUP_SS_TW11_0100_0100",
+        "talent": "SPACT_MERCHANT_014",
+        "unique_id": 11320
+      },
+      "inventor_abilities": [
+        "ABI_SET_INV_010",
+        "ABI_SET_INV_020",
+        "ABI_SET_INV_030",
+        "ABI_SET_INV_040"
+      ],
+      "job_licenses": {
+        "0": 1,
+        "2": 1,
+        "5": 1,
+        "8": 1,
+        "11": 1
+      },
+      "main_progress_points": 6,
+      "map": "Dng_Ocn_1_3",
+      "npc_end_delays": {},
+      "npc_start_delays": {},
+      "opened_route_chests": [
+        "Treasure_Dng_Dst_2_2_01",
+        "Treasure_Dng_Dst_2_2_05",
+        "Treasure_Fld_Dst_2_2_02",
+        "Treasure_Fld_Dst_3_2_04",
+        "Treasure_SS_TMnt21_0200_010",
+        "Treasure_Twn_Sea_3_1_A_05",
+        "Treasure_Twn_Sea_3_1_A_06",
+        "Treasure_Twn_Sea_3_1_A_07",
+        "Treasure_Twn_Sea_3_1_A_08",
+        "Treasure_Twn_Sea_3_1_A_09",
+        "Treasure_Twn_Sea_3_1_A_10"
+      ],
+      "osvald_extra_skills": 2,
+      "party": [
+        7,
+        6,
+        5,
+        4
+      ],
+      "party_experience": [
+        278085,
+        278022,
+        533,
+        276688
+      ],
+      "prologues": [],
+      "resident_levels": [
+        "Btl_Fld_Isd_Land_B",
+        "Btl_Fld_Isd_River_B",
+        "Btl_SinExpose",
+        "Dng_Ocn_1_3",
+        "Dng_Ocn_1_3_Art",
+        "Dng_Ocn_1_3_Coll",
+        "Dng_Ocn_1_3_Sound"
+      ],
+      "route_items": {
+        "ITM_CSM_0010": 3,
+        "ITM_CSM_0080": 1,
+        "ITM_CSM_0090": 1,
+        "ITM_CSM_0101": 3,
+        "ITM_CSM_0110": 1,
+        "ITM_CSM_0111": 3,
+        "ITM_CSM_0240": 1,
+        "ITM_CSM_0500": 1,
+        "ITM_CSM_0550": 1,
+        "ITM_CSM_0610": 2,
+        "ITM_CSM_0670": 1,
+        "ITM_CSM_0680": 1,
+        "ITM_EQP_AMR_070": 1,
+        "ITM_EQP_DGR_120": 1,
+        "ITM_EQP_JOB_0008": 1,
+        "ITM_EQP_SLD_030": 1,
+        "ITM_MRL_COM_0010": 1,
+        "ITM_MRL_COM_0020": 1,
+        "ITM_MRL_REV_0030": 1,
+        "ITM_MRL_REV_0040": 1,
+        "ITM_MRL_REV_0080": 1,
+        "ITM_TRE_GLD_07": 1,
+        "ITM_TRE_SHO_EX1_0010": 1,
+        "ITM_TRE_SS_TM21_0200_0030": 1
+      },
+      "shared_levels": [
+        "Btl_SinExpose"
+      ],
+      "story_types": [],
+      "suppress_flag_callbacks": false,
+      "suppress_level_lottery": false,
+      "suppress_time_callbacks": false,
+      "swooned_route_npcs": [
+        "NPC_Twn_Sea_3_1_A_TALK_0200_D000",
+        "NPC_Twn_Wld_2_1_A_TALK_1900_D000"
+      ],
+      "time": 2,
+      "visited_maps": [
+        "Dng_Dst_2_2",
+        "Dng_Ocn_1_3",
+        "Dng_Wld_2_Job",
+        "Fld_Cty_1_1",
+        "Fld_Cty_1_2",
+        "Fld_Cty_1_3",
+        "Fld_Cty_1_4",
+        "Fld_Dst_1_1",
+        "Fld_Dst_2_2",
+        "Fld_Dst_2_3",
+        "Fld_Dst_2_4",
+        "Fld_Dst_3_2",
+        "Fld_Fst_1_3",
+        "Fld_Fst_1_4",
+        "Fld_Fst_2_2",
+        "Fld_Isd_1_3",
+        "Fld_Isd_2_1",
+        "Fld_Mnt_1_2",
+        "Fld_Ocn_1_1",
+        "Fld_Sea_1_2",
+        "Fld_Sea_2_2",
+        "Fld_Sea_2_3",
+        "Fld_Sea_3_1",
+        "Fld_Snw_1_2",
+        "Fld_Snw_1_3",
+        "Fld_Snw_2_2",
+        "Fld_Wld_1_2",
+        "Fld_Wld_1_3",
+        "Fld_Wld_2_1",
+        "Fld_Wld_2_2",
+        "Fld_Wld_3_2",
+        "Twn_Cty_1_1_A",
+        "Twn_Cty_1_2_A",
+        "Twn_Dst_1_1_A",
+        "Twn_Dst_2_1_A",
+        "Twn_Dst_2_1_B",
+        "Twn_Fst_1_1_A",
+        "Twn_Fst_2_1_A",
+        "Twn_Isd_2_1_A",
+        "Twn_Isd_2_1_C",
+        "Twn_Mnt_1_1_A",
+        "Twn_Sea_2_1_A",
+        "Twn_Sea_2_1_B",
+        "Twn_Sea_3_1_A",
+        "Twn_Snw_2_1_A",
+        "Twn_Wld_1_1_C",
+        "Twn_Wld_2_1_A",
+        "Twn_Wld_3_1_A"
+      ]
+    }
+  },
+  "expected": {
+    "situation": "Preemptive",
+    "battle_entry": {
+      "draws": 5942,
+      "state": 3713168313
+    },
+    "base_jp": 111,
+    "awarded_jp": 11100,
+    "throne_shortfall": 761,
+    "osvald_shortfall": 416
+  }
+}

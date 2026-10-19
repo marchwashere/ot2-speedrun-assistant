@@ -68,6 +68,7 @@ mod galdera_temenos;
 mod galdera_quicksand;
 mod galdera_gravell;
 pub mod galdera_flex;
+pub mod galdera_jp;
 mod galdera_roque;
 
 pub mod galdera_altar;

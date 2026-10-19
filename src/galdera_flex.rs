@@ -140,6 +140,7 @@ fn deferred_roque_reloads(entry:&Entry,switches:u32,c:[u8;5],reloads:u32)->Resul
 }
 #[derive(Debug,Serialize)]pub struct Trip {pub order:Vec<u8>,pub segments:Vec<Segment>,pub boat:Segment,pub encounter:encounter::Prediction,pub battle_entry:CrtRng,pub fight:ot2_battle_engine::gravell_routine::Fight,pub rewards:ot2_battle_engine::gravell_routine::Rewards,pub field_return:Entry,pub extra_input_cost:u32,pub remaining_errands:Vec<u8>,pub location:String,pub continuation:Vec<Segment>,pub nameless:Option<crate::galdera_nameless::Trip>,pub nameless_jp:Option<crate::galdera_nameless::JpTrip>,pub shipwreck:Option<crate::galdera_shipwreck::Trip>,pub encounter_arrival:Option<Entry>,pub downstream_draws:u64,pub defend_counts:[u8;5]}
 fn finish_roque(entry:&Entry)->Result<Trip> {
+ ensure(crate::galdera_jp::can_fund_with(&entry.world_after,12760)?,"Roque JP100 cannot fund the planned skill purchases")?;
  ensure(entry.world_after.character_progression[&5].jobs.learned_abilities[&5].contains("ABI_SET_DAN_070")
   &&entry.world_after.character_progression[&5].jobs.equipped_support.contains(crate::gravell_setup::STEP_AHEAD)
   &&entry.world_after.character_progression[&6].character.boost_start
@@ -170,6 +171,7 @@ fn finish_roque(entry:&Entry)->Result<Trip> {
    let Some(f)=ot2_battle_engine::roque_routine::search(b,budget)? else {continue;};
    let input_cost=cost+f.actions.iter().map(|a|a.inputs.len()as u32).sum::<u32>();
    let (fight,rewards,mut ret)=crate::inventor::settle_gravell(e,rng,f)?;
+   if !crate::galdera_jp::sufficient(&ret.world_after)? {continue;}
    for (item,n) in &rewards.drops {*ret.world_after.route_items.entry(item.clone()).or_default()+=n;}
    let downstream_draws=rng.draws-boat.stages[0].1.after.draws;
    best=Some((index,Trip{order:order.iter().copied().chain([1]).collect(),segments:vec![],boat,encounter,battle_entry:rng,fight,rewards,field_return:ret,extra_input_cost:input_cost,remaining_errands:vec![],location:"Roque Island Harbor".into(),continuation:vec![],nameless:None,nameless_jp:None,shipwreck:None,encounter_arrival:None,downstream_draws,defend_counts:[0;5]}));
@@ -214,8 +216,12 @@ pub(crate) fn finish(entry:&Entry)->Result<Trip> {
  // estimate, accepts a route. Keep the former search as a quality fallback.
  let targets=crate::bg_target::targets(entry.after,20_000,"ABI_DAN_MAKA_001")?;
  let proposed=target_first(entry,&targets,1024)?;
- let fallback=finish_without_defends(entry)?;
- let best=match proposed {Some(p) if p.extra_input_cost<fallback.extra_input_cost=>p,_=>fallback};
+ let best=if crate::galdera_jp::can_fund_with(&entry.world_after,12760)? {
+  let fallback=finish_without_defends(entry)?;
+  match proposed {Some(p) if p.extra_input_cost<fallback.extra_input_cost=>p,_=>fallback}
+ }else{
+  proposed.ok_or_else(||crate::SimError("No JP100 candidate funds the planned skills within the search range".into()))?
+ };
  refine_defends(entry,best)
 }
 fn defend_curve(f:&SouthernSai)->Result<crate::bg_target::Curve>{
@@ -306,6 +312,7 @@ fn roque_defends(entry:&Entry,order:&[u8],switches:u32,limit:u32,c:[u8;5])->Resu
  let Some(f)=ot2_battle_engine::roque_routine::search(b,(limit-cost).min(96)as usize)?else{return Ok(None);};
  let cost=cost+f.actions.iter().map(|a|a.inputs.len()as u32).sum::<u32>();
  let (fight,rewards,mut ret)=crate::inventor::settle_gravell(e,rng,f)?;
+ if !crate::galdera_jp::sufficient(&ret.world_after)? {return Ok(None);}
  for (item,n) in &rewards.drops{*ret.world_after.route_items.entry(item.clone()).or_default()+=n;}
  let downstream_draws=rng.draws-boat.stages[0].1.after.draws;
  Ok(Some(Trip{order:order.iter().copied().chain([1]).collect(),segments,boat,encounter,battle_entry:rng,fight,rewards,field_return:ret,extra_input_cost:cost,remaining_errands:vec![],location:"Roque Island Harbor".into(),continuation:vec![],nameless:None,nameless_jp:None,shipwreck:None,encounter_arrival:None,downstream_draws,defend_counts:c}))

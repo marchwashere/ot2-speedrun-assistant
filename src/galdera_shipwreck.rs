@@ -69,7 +69,7 @@ fn jp_battle(e:&Entry,max_inputs:usize,probe:Option<&mut Option<crate::CrtRng>>)
  }
  let Some(f)=ot2_battle_engine::nameless_routine::search_shipwreck(b,max_inputs)?else{return Ok(None);};
  let (fight,rewards,mut field_return)=crate::inventor::settle_gravell(e,rng,f)?;
- ensure(rewards.base.jp>=111,"Shipwreck formation below JP budget")?;
+ if !crate::galdera_jp::sufficient(&field_return.world_after)? {return Ok(None);}
  for(id,&n)in &rewards.drops{*field_return.world_after.route_items.entry(id.clone()).or_default()+=n;}
  Ok(Some(JpBattle{encounter,battle_entry:rng,fight,rewards,field_return}))
 }
