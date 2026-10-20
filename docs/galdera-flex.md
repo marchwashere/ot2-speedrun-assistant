@@ -34,8 +34,12 @@ Shipwreck (5) requires the complete Nameless Escape/Gigantes/Georges route.
 If JP100 succeeds at Roque or Nameless, the manipulation stops at that victory;
 later errands/bosses are not searched. Roque retains its five early prefixes.
 
-Every later candidate adjusts at Tropu'hopu BEFORE the shipyard, using even
-switch counts so Roque Harbor stays daytime. The search replays the entire
+Every candidate adjusts at Tropu'hopu BEFORE the shipyard, using even
+switch counts so Partitio can Purchase the ship during daytime. This applies
+to Roque JP100 as well as the later locations, across target-first calibration,
+fallback and Defend refinement. Roque JP100 switches to night only upon
+entering Roque Harbor; later candidates keep the harbor during daytime.
+The search replays the entire
 downstream route, including all remaining errands, native map/time callbacks,
 escapes, inventory, equipment, Gigantes and successful Georges Scrutinize.
 It then runs the full JP battle search. Thus there is no guessed fixed offset
@@ -125,8 +129,10 @@ are measured from the carried state, never hardcoded. Shipyard events
 MS_SHO_EX1_0100/0110/0200 and purchase0400→0410→0500→0600→0700 execute their flags,
 NPC refreshes, encounter resets and ocean load. Default hull/sail, finish and
 confirm; no decoration changes and no closing path-action trick. Ship purchase
-costs100000, covered by the preceding250000 weapon sales. No sea encounters.
-Roque entry switches to night if not already night.
+costs100000, covered by the preceding250000 weapon sales. Purchase requires
+daytime, Partitio in the party and the Shipbuilder present. Odd Tropu switch
+counts and nighttime departure states are rejected. No sea encounters.
+The Roque JP100 branch switches to night upon harbor entry.
 
 Roque requires two Winged Landwalkers, no rare replacement and no Surprise.
 All four have A Step Ahead; Osvald has Boost-Start. Use the same five opening

@@ -99,11 +99,13 @@ fn to_tropu_defends(entry:&Entry,beasting:u8,tropu:u8)->Result<Segment> {
 }
 fn boat(entry:&Entry,switches:u32)->Result<Segment> {boat_period(entry,switches,true)}
 fn boat_period(entry:&Entry,switches:u32,night:bool)->Result<Segment> {
+ ensure(entry.world_after.time==2&&switches%2==0,"Ship Purchase requires daytime; Tropu switches must finish during day")?;
  let mut s=Segment::new("Boat and Roque Harbor");let mut l=Loader::new(world::catalog(),entry.world_after.clone(),entry.after)?;
  let before=l.rng;for _ in 0..switches {l.manual_time_switch(if l.state.time==2 {4}else{2},"Tropu’hopu JP100 coarse adjustment")?;}s.extra_switches=switches;s.save(&mut l,"Tropu’hopu time adjustment",before);
  visit(&mut l,&mut s,"Twn_Isd_2_1_C","Tropu’hopu Shipyard")?;
  let before=l.rng;l.skipped_event("MS_SHO_EX1_0100")?;s.save(&mut l,"Shipyard cutscene",before);
  let before=l.rng;l.skipped_event("MS_SHO_EX1_0110")?;s.save(&mut l,"Shipbuilder cutscene",before);
+ ensure(l.state.time==2&&l.state.party.contains(&4)&&l.state.existing_npcs.iter().any(|id|l.data.placements[id].resource==data().boat_npc),"Ship Purchase requires daytime, Partitio and the Shipbuilder")?;
  let before=l.rng;l.draw(world::DrawKind::PathActionMenu,&data().boat_npc,"Open Purchase menu",None);
  *l.state.route_items.entry("ITM_TRE_SHO_EX1_0030".into()).or_default()+=1;
  // Purchase invokes the placement's eFC_PURCHASE_ITEM event immediately.
@@ -155,7 +157,7 @@ fn finish_roque(entry:&Entry)->Result<Trip> {
  // Progressive coarse switches and fine boost windows; full battle execution
  // is the acceptance condition. No finite bound declares JP100 impossible.
  let mut best:Option<(usize,Trip)>=None;
- for switches in 0.. {
+ for switches in (0u32..).step_by(2) {
   if best.as_ref().is_some_and(|(_,b)|tropu_reload_cost(switches)+5>b.extra_input_cost){break;}
   for (index,(order,segments)) in prefixes.iter().enumerate() {
    let overhead: u32=segments.iter().map(segment_cost).sum();
@@ -269,14 +271,14 @@ fn target_first(entry:&Entry,targets:&[CrtRng],limit:u32)->Result<Option<Trip>>{
  let mut trials=vec![];
  for location in 0..3u8 {
   let mut model=None;
-  for switches in (0..=32).step_by(if location==0{1}else{2}){
+  for switches in (0..=32).step_by(2){
    if let Some(m)=jp_estimate(entry,location,switches)? {model=Some(m);break;}
   }
   let Some((natural,curves,departure))=model else{continue;};
   let mut l=Loader::new(world::catalog(),departure.world_after.clone(),departure.after)?;
   let mut departures=vec![];let mut counts=vec![];
   for switches in 0..=limit/12+4 {
-   if location==0||switches%2==0 {
+   if switches%2==0 {
     departures.push((entry.after.draws+l.rng.draws-departure.after.draws,tropu_reload_cost(switches)));counts.push(switches);
    }
    let period=if l.state.time==2{4}else{2};l.manual_time_switch(period,"JP target estimate")?;
@@ -326,7 +328,7 @@ fn refine_defends(entry:&Entry,mut best:Trip)->Result<Trip> {
   for count in (1..=7).rev(){profiles.push([0,count,count,count,count]);}
   for site in 1..5 {for count in 0..=7{let mut c=base;c[site]=count;if c!=base{profiles.push(c);}}}
   profiles.sort();profiles.dedup();
-  for switches in 0u32.. {
+  for switches in (0u32..).step_by(2) {
    if tropu_reload_cost(switches)+4>=best.extra_input_cost{break;}
    for &c in &profiles {
     for order in [&ERRAND_ORDER[..]] {
@@ -337,7 +339,6 @@ fn refine_defends(entry:&Entry,mut best:Trip)->Result<Trip> {
      work+=1;if work>12000{return Ok(best);}
      if let Some(t)=roque_defends(entry,order,switches,best.extra_input_cost,c)?{if t.extra_input_cost<best.extra_input_cost{best=t;}}
     }
-    if switches%2!=0{continue;}
     for order in LATER_ORDERS {for ship in [false,true] {
      if !ship&&c[4]!=base[4]{continue;}
      let lower=c[..if ship{5}else{4}].iter().map(|&n|controls_cost(n)).sum::<u32>();
@@ -500,7 +501,7 @@ fn later_candidate_reloads(entry:&Entry,order:[u8;1],switches:u32,limit:u32,ship
  #[test]fn location_probes_stop_before_bg_and_preserve_source_state(){
   let entry=current_fixture();let before=crate::state_key::WorldKey::new(&entry.world_after);
   for location in 0..3 {
-   let model=(0..=32).step_by(if location==0{1}else{2}).find_map(|n|jp_estimate(&entry,location,n).unwrap()).expect("BG-menu calibration for each location");
+   let model=(0..=32).step_by(2).find_map(|n|jp_estimate(&entry,location,n).unwrap()).expect("BG-menu calibration for each location");
    assert!(model.0>0);assert_eq!(model.1.len(),5);
    assert!(model.1[1][7]>model.1[1][0]);
    assert_eq!(crate::state_key::WorldKey::new(&entry.world_after),before);
@@ -512,6 +513,8 @@ fn later_candidate_reloads(entry:&Entry,order:[u8;1],switches:u32,limit:u32,ship
   let entry=current_fixture();let started=std::time::Instant::now();
   let targets=crate::bg_target::targets(entry.after,20_000,"ABI_DAN_MAKA_001").unwrap();
   let t=target_first(&entry,&targets,1024).unwrap().expect("Target-first candidate");
+  assert_eq!(t.boat.extra_switches%2,0);
+  assert_eq!(t.boat.stages[0].1.world_after.time,2);
   assert_eq!(t.fight.state.outcome,ot2_battle_engine::Outcome::Victory);
   assert!(t.fight.state.actors[..4].iter().all(|a|a.alive()));
   assert_eq!(t.fight.state.grace.as_ref().unwrap().jp_percent(),10000);
@@ -582,17 +585,27 @@ fn later_candidate_reloads(entry:&Entry,order:[u8;1],switches:u32,limit:u32,ship
    assert!(e.world_after.swooned_route_npcs.contains(&data().scholar_placement));
   }
  }
- #[test]fn boat_events_and_tropu_switches_preserve_native_rng_and_end_at_night_harbor() {
+ #[test]fn boat_purchase_requires_daytime_before_either_harbor_branch() {
   let s=to_tropu(&fixture()).unwrap();assert_eq!(s.encounters.len(),2);assert!(s.movement.as_ref().unwrap().estimated_counter_at_exit>0);
-  for switches in 0..=2 {
-   let b=boat(s.end(),switches).unwrap();let e=b.end();assert_eq!(e.world_after.map,"Fld_Sea_3_1");assert_eq!(e.world_after.time,4);
+  for switches in [0,2,4] {for night in [false,true] {
+   let b=boat_period(s.end(),switches,night).unwrap();let e=b.end();assert_eq!(e.world_after.map,"Fld_Sea_3_1");assert_eq!(e.world_after.time,if night {4}else{2});
+   // Every stage through purchase/sea/harbor arrival stays in daytime.
+   for (label,stage) in &b.stages {assert_eq!(stage.world_after.time,if label=="Roque Harbor night" {4}else{2},"{label}");}
    assert!(e.world_after.flag(6208));assert!(!e.world_after.route_items.contains_key("ITM_TRE_SHO_EX1_0030"));
    assert_eq!(e.world_after.route_items["ITM_TRE_SHO_EX1_0010"],1);
-   let adjustment=&b.stages[0].1;eprintln!("Tropu switches {switches}: {} CRT draws",adjustment.after.draws-adjustment.arrival.draws);
-  }
+   let departure=&b.stages[0].1;
+   let mut replay=Loader::new(world::catalog(),s.end().world_after.clone(),s.end().after).unwrap();
+   for i in 0..switches {replay.manual_time_switch(if i%2==0 {4}else{2},"test Tropu adjustment").unwrap();}
+   assert_eq!(departure.after,replay.rng);
+  }}
+  for switches in [1,3,5] {for night in [false,true] {assert!(boat_period(s.end(),switches,night).is_err());}}
+  let mut night_entry=s.end().clone();night_entry.world_after.time=4;
+  assert!(boat(&night_entry,0).is_err());
  }
  #[test]fn complete_jp100_search_requires_the_full_four_alive_fireball_victory() {
   let r=finish_roque(&current_fixture()).unwrap();assert_eq!(r.order,ROUTE_ORDER);assert!(r.remaining_errands.is_empty());assert_eq!(r.rewards.base.jp,116);assert_eq!(r.rewards.awarded.jp,12760);
+  assert_eq!(r.boat.extra_switches%2,0);
+  assert_eq!(r.boat.stages[0].1.world_after.time,2);
   assert_eq!(r.fight.state.outcome,ot2_battle_engine::Outcome::Victory);assert!(r.fight.state.actors[..4].iter().all(|a|a.alive()));
   assert_eq!(r.fight.actions.len(),6);assert_eq!(r.fight.actions[4].actor.0,2);assert_eq!(r.fight.actions[5].actor.0,1);
   assert_eq!(r.fight.actions[5].action,ot2_battle_engine::gravell_routine::Action::FireballTwo);

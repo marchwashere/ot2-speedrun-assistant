@@ -32,7 +32,7 @@ for(const location of ['Roque Island Harbor','Nameless Isle','Shipwreck'])for(co
   assert(rendered.includes(location==='Roque Island Harbor'?'Switch to night upon entering Roque Harbor.':'Stay during day at Roque Harbor.'));
   assert(rendered.indexOf(marker)>rendered.indexOf('<h2>Beasting Bay: Anchorage</h2>'));
   assert(rendered.indexOf(marker)<rendered.indexOf('<h2>'+location+' · JP ×100</h2>'));
-  if(switches)assert.match(rendered,/2 extra time switches<\/section><section class="panel route-card jp-destination">/);
+  if(switches)assert.match(rendered,/2 extra time switches · finish during day<\/section><section class="panel route-card jp-destination">/);
 }
 console.log('PASS: red JP destination follows Tropu switches for all locations, including zero switches');
 
