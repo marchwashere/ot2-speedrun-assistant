@@ -63,6 +63,7 @@ function galderaSnapshot(seed,partial=true) {
     west.with_second=null;west.second_encounter=null;west.voyage_with_second=null;
     west.first_field_return.world_after.galdera_route=true;
     west.without_second.world_after.galdera_route=true;
+    west.voyage_without_second.escape.menu.first_actor=1;
   }
   return result;
 }
@@ -126,6 +127,9 @@ async function start(seed=20,route='any_hikari') {
     galdera.send(type,galderaSnapshot(35,type!=='complete'));await flush();
     assert.equal(run('snowsEncounterTiming'),'before');
     assert.match(element('winter-crackridge-encounter').textContent,/Before harbor/);
+    assert.match(element('crackridge-escape-routine').innerHTML,/Osvald · 1st command menu/);
+    assert.match(element('crackridge-escape-routine').innerHTML,/Escape/);
+    assert.doesNotMatch(element('crackridge-escape-routine').innerHTML,/Required break unavailable/);
     for(const id of ['western-second-no','western-second-yes']) {
       assert.equal(element(id).hidden,true,'Galdera must not offer a second Winterbloom encounter');
       element(id).fire('click');assert.equal(run('westernSecondOverride'),null);

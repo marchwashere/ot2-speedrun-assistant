@@ -254,9 +254,14 @@ pub fn arrival(entry:&Entry)->Result<Arrival> {
     Ok(Arrival {harbor,crackridge,encounter,battle_entry:rng})
 }
 pub fn safe(entry:&Entry)->Result<bool> {
-    let a=arrival(entry)?;
-    if !matches!(a.encounter.situation.as_deref(),Some("Normal"|"Preemptive")) || a.encounter.enemies.len()!=1 {return Ok(false);}
+    safe_arrival(&arrival(entry)?)
+}
+fn safe_arrival(a:&Arrival)->Result<bool> {
+    if !matches!(a.encounter.situation.as_deref(),Some("Normal"|"Preemptive")) {return Ok(false);}
     let w=&a.crackridge.world_after;
+    // Galdera escapes directly; the earlier control only rejects ambushes.
+    if w.galdera_route {return Ok(true);}
+    if a.encounter.enemies.len()!=1 {return Ok(false);}
     let players:Vec<_>=w.party.iter().map(|id|w.character_progression[id].character.clone()).collect();
     let levels:Vec<_>=w.party.iter().map(|id|w.character_progression[id].level).collect();
     let ids:Vec<_>=a.encounter.enemies.iter().map(|e|e.enemy.id.as_str()).collect();
@@ -277,10 +282,11 @@ pub fn predict(entry:&Entry)->Result<Prediction> {
     let ids:Vec<_>=arrival.encounter.enemies.iter().map(|e|e.enemy.id.as_str()).collect();
     let levels:Vec<_>=w.party.iter().map(|id|w.character_progression[id].level).collect();
     let situation=if arrival.encounter.situation.as_deref()==Some("Preemptive") {Situation::Preemptive}else{Situation::Normal};
-    ensure(safe(entry)?,"Crackridge requires a safe Throné-breakable opening")?;
+    let require_break=!w.galdera_route;
+    if require_break {ensure(safe_arrival(&arrival)?,"Crackridge requires a safe Throné-breakable opening")?;}
     let players:Vec<_>=w.party.iter().map(|id|w.character_progression[id].character.clone()).collect();
     let mut search=FieldSearch::with_players(arrival.battle_entry,situation,&players,&levels,&ids,arrival.encounter.encounter_level.unwrap(),&w.enemy_knowledge)?;
-    search.require_break();
+    if require_break {search.require_break();}
     let trigger=arrival.encounter.counter_updates.unwrap();
     ensure(trigger<=RUN_UPDATES,"Crackridge encounter lies past the measured route")?;
     let run=RUN_UPDATES-trigger;
@@ -291,7 +297,7 @@ pub fn predict(entry:&Entry)->Result<Prediction> {
         ability_percent:if w.evasive_maneuvers {50}else{100},..Default::default()
     })?;
     for cost in 0..u32::MAX {
-        for escape in search.candidates(cost,true,None)? {
+        for escape in search.candidates(cost,require_break,None)? {
             let returned=highroad::restore_field(w,escape.attempt.as_ref().unwrap(),crackridge::CRACKRIDGE_HARBOR,"Crackridge Escape")?;
             let counter=returned.world_after.encounter_counter;
             let walk_cost=walk*walk_dec;let run_cost=run*run_dec;
@@ -315,6 +321,58 @@ pub fn predict(entry:&Entry)->Result<Prediction> {
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[test]
+    fn galdera_harbor_direct_escape_accepts_multiple_enemies_and_either_actor() {
+        let fixture:serde_json::Value=serde_json::from_str(include_str!("../data/source/live-winterbloom-night-20261009.json")).unwrap();
+        let mut w:world::WorldState=serde_json::from_value(fixture["world_before"].clone()).unwrap();
+        w.galdera_route=true;
+        let mut covered=[false;2];let mut rejected_ambush=false;
+        for seed in 0..256 {
+            let start=CrtRng::new(seed);
+            let mut l=Loader::new(world::catalog(),w.clone(),start).unwrap();
+            l.visit_map(crate::winterbloom::TOWN).unwrap();
+            l.skipped_event("MapInStorySelect").unwrap();
+            l.manual_time_switch(4,"Winterbloom fixture night").unwrap();
+            let e=Entry {arrival:start,after:l.rng,world_after:l.state,trace:l.trace,decisions:l.decisions};
+            let a=arrival(&e).unwrap();
+            if a.encounter.situation.as_deref()==Some("Surprise") {
+                assert!(!safe(&e).unwrap());rejected_ambush=true;continue;
+            }
+            if a.encounter.enemies.len()<2 {continue;}
+            assert!(safe(&e).unwrap(),"Galdera must not require a single breakable enemy");
+            let mut hikari_arrival=arrival(&e).unwrap();
+            hikari_arrival.crackridge.world_after.galdera_route=false;
+            assert!(!safe_arrival(&hikari_arrival).unwrap(),"Any% retains its required single-enemy break");
+            let ids:Vec<_>=a.encounter.enemies.iter().map(|e|e.enemy.id.as_str()).collect();
+            let world=&a.crackridge.world_after;
+            let players:Vec<_>=world.party.iter().map(|id|world.character_progression[id].character.clone()).collect();
+            let levels:Vec<_>=world.party.iter().map(|id|world.character_progression[id].level).collect();
+            let situation=if a.encounter.situation.as_deref()==Some("Preemptive"){Situation::Preemptive}else{Situation::Normal};
+            let menu=ot2_battle_engine::field_escape::FieldEscapeMenu::with_players(a.battle_entry,situation,&players,&levels,&ids,&world.enemy_knowledge).unwrap();
+            if !covered[menu.first_actor] {
+                let before=crate::state_key::WorldKey::new(&e.world_after);
+                let p=predict(&e).unwrap();
+                assert!(p.escape.break_action.is_none());
+                assert_eq!(p.escape.menu.first_actor,menu.first_actor);
+                let attempt=p.escape.attempt.as_ref().unwrap();
+                assert!(attempt.success);
+                let replay=p.escape.menu.clone().attempt(&p.escape.inputs.as_ref().unwrap().levels,p.arrival.encounter.encounter_level.unwrap()).unwrap();
+                assert_eq!(replay.after,attempt.after);
+                for id in [7,6] {
+                    assert_eq!(p.field_return.world_after.character_progression[&id].character.resources.as_ref().unwrap().latent,
+                        world.character_progression[&id].character.resources.as_ref().unwrap().latent,"Direct Escape must not grant break latent");
+                }
+                assert!(p.destination.world_after.encounter_counter>p.cropdale_reach.walking_cost);
+                assert!(p.cropdale_reach.estimated_counter_at_exit>0);
+                assert!(matches!(p.cropdale_exit.encounter.situation.as_deref(),Some("Normal"|"Preemptive")));
+                assert!(p.cropdale_exit.escape.attempt.as_ref().unwrap().success);
+                assert_eq!(crate::state_key::WorldKey::new(&e.world_after),before);
+                covered[menu.first_actor]=true;
+            }
+            if covered==[true,true]&&rejected_ambush {break;}
+        }
+        assert_eq!(covered,[true,true]);assert!(rejected_ambush);
+    }
     #[test]
     fn retail_southern_cropdale_load_20261009() {
         let fixture:serde_json::Value=serde_json::from_str(include_str!("../data/source/live-southern-cropdale-20261009.json")).unwrap();

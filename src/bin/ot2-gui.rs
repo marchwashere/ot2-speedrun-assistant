@@ -771,7 +771,11 @@ impl CrtSetup {
             if matches!(id.as_str(),"mansion_approach"|"highroad_approach"|"flats_approach"|"early_cait"|"crackridge_approach") {*cap=None;}
         }
         if self.route_end==RouteEnd::OsvaldCait && !self.early_settings.require_cait {
-            policies.push(("crackridge_break".into(),"Throné breaks the Crackridge Harbor encounter",None));
+            if self.galdera_route {
+                policies.push(("crackridge_escape".into(),"Crackridge Harbor: no ambush and successful direct Escape",None));
+            } else {
+                policies.push(("crackridge_break".into(),"Throné breaks the Crackridge Harbor encounter",None));
+            }
             policies.push(("snows_onward_safety".into(),"No surprise at any planned onward Snows encounter",None));
             policies.push(("canalbrine_approach".into(),"Canalbrine Bridge water encounter without surprise",None));
             policies.push(("canalbrine_escape".into(),"Canalbrine Bridge first Escape succeeds",None));
@@ -780,13 +784,15 @@ impl CrtSetup {
         policies
     }
     fn check_requirements(&self, result: &Value) -> Value {
-        fn crackridge_breaks(v:&Value)->(usize,bool) {
+        fn crackridge_escapes(v:&Value,require_break:bool)->(usize,bool) {
             if v["arrival"]["crackridge"].is_object() && v["escape"].is_object() {
-                return (1,v["escape"]["break_action"]["attack_actor"]==0 && v["escape"]["attempt"]["success"]==true);
+                let action_ok=if require_break {v["escape"]["break_action"]["attack_actor"]==0}
+                    else {v["escape"]["break_action"].is_null() && matches!(v["arrival"]["encounter"]["situation"].as_str(),Some("Normal"|"Preemptive"))};
+                return (1,action_ok && v["escape"]["attempt"]["success"]==true);
             }
             match v {
-                Value::Object(m)=>m.values().map(crackridge_breaks).fold((0,true),|(n,ok),(c,b)|(n+c,ok&&b)),
-                Value::Array(a)=>a.iter().map(crackridge_breaks).fold((0,true),|(n,ok),(c,b)|(n+c,ok&&b)),
+                Value::Object(m)=>m.values().map(|v|crackridge_escapes(v,require_break)).fold((0,true),|(n,ok),(c,b)|(n+c,ok&&b)),
+                Value::Array(a)=>a.iter().map(|v|crackridge_escapes(v,require_break)).fold((0,true),|(n,ok),(c,b)|(n+c,ok&&b)),
                 _=>(0,true)
             }
         }
@@ -875,7 +881,8 @@ impl CrtSetup {
                     "flats_approach" => safe(&f["flats_escape"]["encounter"]["situation"]),
                     "flats_break" => f["highroad"]["escape"]["flats_break_search"]["target_met"]==true && f["flats_escape"]["escape"]["break_action"]["attack_actor"]==0,
                     "highroad_break" => f["highroad"]["approach_search"]["unboosted_break_met"]==true && f["highroad"]["escape"]["break_action"]["attack_actor"]==0,
-                    "crackridge_break" => {let (n,ok)=crackridge_breaks(f);n>0 && ok},
+                    "crackridge_break" => {let (n,ok)=crackridge_escapes(f,true);n>0 && ok},
+                    "crackridge_escape" => {let (n,ok)=crackridge_escapes(f,false);n>0 && ok},
                     _ => false,
                 };
                 (!met).then(|| json!({"id":id,"label":label}))
@@ -899,6 +906,7 @@ impl CrtSetup {
             })
         };
         let not_evaluated: Vec<_> = unmet.iter().filter(|item| {
+            if matches!(item["id"].as_str(),Some("crackridge_escape"|"crackridge_break")) {return crackridge_escapes(f,false).0==0;}
             if item["id"]=="conning_coasts" {return canalbrine_routes.iter().all(|r|!r["canalbrine"]["conning"].is_object());}
             if matches!(item["id"].as_str(),Some("canalbrine_approach"|"canalbrine_escape")) {
                 return canalbrine_routes.iter().all(|r|!r["canalbrine"]["water"].is_object());
@@ -1461,6 +1469,32 @@ mod tests {
         assert!(super::CrtSetup::parse(&format!("{query}&route=galdera_experimental")).is_err());
         assert!(super::CrtSetup::parse(&format!("{query}&route=invalid")).is_err());
         assert!(super::CrtSetup::parse(&format!("{query}&route=galdera&route=any_hikari")).is_err());
+    }
+    #[test]
+    fn galdera_only_removes_the_post_winterbloom_harbor_break_requirement() {
+        let galdera=CrtSetup::parse("seed=0&route_end=osvald_encounter&route=galdera").unwrap();
+        let hikari=CrtSetup::parse("seed=0&route_end=osvald_encounter").unwrap();
+        for setup in [&galdera,&hikari] {
+            for required in ["highroad_break","flats_break"] {
+                assert!(setup.outcome_policies().iter().any(|(id,_,cap)|id==required&&cap.is_none()));
+            }
+        }
+        assert!(!galdera.outcome_policies().iter().any(|(id,_,_)|id=="crackridge_break"));
+        assert!(hikari.outcome_policies().iter().any(|(id,_,_)|id=="crackridge_break"));
+        let mut result=json!({"post_battle_field":{"voyage":{
+            "arrival":{"crackridge":{},"encounter":{"situation":"Normal"}},
+            "escape":{"menu":{"first_actor":1},"break_action":null,"attempt":{"success":true}}
+        }}});
+        let failed=|s:&CrtSetup,r:&Value,id:&str|s.check_requirements(r)["unmet"].as_array().unwrap().iter().any(|v|v["id"]==id);
+        assert!(!failed(&galdera,&result,"crackridge_escape"));
+        assert!(failed(&hikari,&result,"crackridge_break"));
+        result["post_battle_field"]["voyage"]["arrival"]["encounter"]["situation"]=json!("Surprise");
+        assert!(failed(&galdera,&result,"crackridge_escape"));
+        result["post_battle_field"]["voyage"]["arrival"]["encounter"]["situation"]=json!("Preemptive");
+        assert!(!failed(&galdera,&result,"crackridge_escape"));
+        result["post_battle_field"]["voyage"]["escape"]["attempt"]["success"]=json!(false);
+        assert!(failed(&galdera,&result,"crackridge_escape"));
+        assert!(galdera.check_requirements(&json!({}))["not_evaluated"].as_array().unwrap().iter().any(|v|v["id"]=="crackridge_escape"));
     }
     #[test]
     fn identified_route_requires_both_order_and_hp() {

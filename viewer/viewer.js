@@ -912,7 +912,7 @@ function renderCrackridgeVoyage() {
     $('crackridge-switch-instruction').textContent='Teleport: Winterbloom → New Delsta Harbor · Boat → Crackridge Harbor';
     $('crackridge-escape-result').hidden=false;
     $('winter-crackridge-encounter').textContent=encounterLabel(v.arrival.encounter);
-    $('crackridge-escape-routine').innerHTML=v.escape.break_action?breakEscapeHtml(v.escape):`<p class="text-bad">Required break unavailable</p>`;
+    $('crackridge-escape-routine').innerHTML=v.escape.break_action?breakEscapeHtml(v.escape):`<p><strong>R1 · ${['Throné','Osvald'][v.escape.menu.first_actor]} · 1st command menu</strong></p>${boostStepsHtml(v.escape.inputs?.levels,'Escape')}`;
     $('winter-crackridge-run').textContent=`Crackridge Harbor encounter exit → Eastern Cropdale Trail · Run ${v.run_percent===100?'100':('≈'+v.run_percent.toFixed(1))}%`;
     $('cropdale-walk-result').hidden=false;
     const crop=v.cropdale_reach;

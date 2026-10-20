@@ -1,6 +1,15 @@
 Western Winterbloom Snows entrance -> Scholar Guild -> Winterbloom town tag
 uses 345 running counter updates, with no movement-error allowance.
 
+Galdera revision (2026-10-21): the first Crackridge Harbor encounter after the
+Winterbloom tag no longer requires a Throné break. Accept any Normal/Preemptive
+formation, then search boosts at the actual first actor's menu for direct Escape.
+Preserve the remaining Harbor movement budget, safe Cropdale crossing and
+non-ambushed Cropdale return. No break action or break latent gain is inserted.
+The Highroad/Flats required breaks and Any% Hikari Harbor policy are unchanged.
+The Galdera Western Snows route still skips the guild and second encounter;
+the historical Any% traversal below is unchanged.
+
 The carried world's Evasive Maneuvers flag determines the first approach rate.
 A first Western rare is killed with Shadow Soulstone (M); its real formation
 rewards update both characters' EXP/JP, levels and stats, and the support skill
