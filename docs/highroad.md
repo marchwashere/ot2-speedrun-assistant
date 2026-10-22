@@ -1,5 +1,13 @@
 # Eastern New Delsta Highroad: Al and first Escape
 
+Galdera revision (2026-10-22): R8 targets a non-surprise opening without requiring
+a Throné-breakable formation. Highroad compares direct Escape and optional
+break-then-Escape by the existing input-cost model, jointly
+preserving the Harbor walk and safe Flats opening. Flats has no breakability
+target either. The Galdera flag is carried from Pirro before either search;
+only selected breaks grant latent gauge. Any% Hikari retains its break requirements.
+The older configurable break-policy descriptions below apply to Any%/legacy APIs.
+
 `src/highroad.rs` continues the selected Pirro victory, using the carried world
 state and the existing ending/map loader. Encounter selection/startup remains
 source-derived. The 6002-menu Escape capture verifies the ten subsequent CRT

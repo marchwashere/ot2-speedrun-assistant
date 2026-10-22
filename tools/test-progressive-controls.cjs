@@ -57,6 +57,9 @@ function snapshot(seed=20,partial=true) {
 }
 function galderaSnapshot(seed,partial=true) {
   const result=snapshot(seed,partial);
+  result.post_battle_field.highroad={encounter:encounter('Highroad'),escape:{...escape(1),attempt:{after:rng(2),trace:[]},baseline:{chance_percent:50}},
+    after_al:rng(1),before_battle_initialization:rng(1),trace:[],approach_search:{target_met:true}};
+  result.post_battle_field.flats_escape.escape=escape(1);
   // Galdera skips the guild detour: exactly one Western Snows encounter.
   for(const exit of Object.values(result.post_battle_field.flats_escape.snows_escape)) {
     const west=exit.winterbloom_after_eastern;
@@ -125,6 +128,11 @@ async function start(seed=20,route='any_hikari') {
   assert.equal(run('activeScreen'),'manipulation');assert.equal(galdera.request.signal.aborted,false);
   for(const type of ['progress','complete']) {
     galdera.send(type,galderaSnapshot(35,type!=='complete'));await flush();
+    for(const id of ['highroad-boost-routine','flats-escape-routine']) {
+      assert.match(element(id).innerHTML,/Throné · 1st command menu/);
+      assert.match(element(id).innerHTML,/Escape/);
+      assert.doesNotMatch(element(id).innerHTML,/attack|R2|break|unavailable/i);
+    }
     assert.equal(run('snowsEncounterTiming'),'before');
     assert.match(element('winter-crackridge-encounter').textContent,/Before harbor/);
     assert.match(element('crackridge-escape-routine').innerHTML,/Osvald · 1st command menu/);

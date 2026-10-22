@@ -1,5 +1,12 @@
 # Harbor return to Abandoned Village
 
+Galdera revision (2026-10-22): compare direct Escape and optional break-then-Escape
+by input cost, adjusting boosts to preserve
+first-try success, the village run, cleric spawns and safe onward encounters.
+Do not require a breakable formation; grant latent only for a selected break. This applies
+to the early-rare continuation and shorter route endpoints. Any% Hikari retains
+its required Throné break; the legacy configurable policies below are unchanged.
+
 `src/flats_escape.rs` starts at the returned-Flats state from `harbor.rs`.
 The user's full running distance is about 165 counter updates; the route uses
 their requested fixed **170-update** allowance. It is not a Settings field.

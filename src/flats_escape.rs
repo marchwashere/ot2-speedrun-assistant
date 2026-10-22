@@ -191,8 +191,7 @@ pub(crate) fn within_route_cost(arrival:CrtRng, world:&WorldState, level:u32, se
     Ok(p.escape.is_some().then_some(p))
 }
 
-/// Application routes require the manipulated Throné break; standalone
-/// legacy prediction helpers retain their configurable escape policy.
+/// Any% requires Throné's break; Galdera compares direct and optional-break escapes.
 pub fn mandatory_break_route(arrival:CrtRng,world:&WorldState,level:u32,settings:Settings,stop_at_village:bool)->Result<Prediction> {
     predict_to_boundary(arrival,world,level,settings,stop_at_village,None,None,true)
 }
@@ -200,6 +199,7 @@ pub fn mandatory_break_route(arrival:CrtRng,world:&WorldState,level:u32,settings
 fn predict_to_boundary(arrival:CrtRng, world:&WorldState, level:u32, settings:Settings, stop_at_village:bool,
     early:Option<crate::early_cait::Settings>, ceiling:Option<u32>, mandatory_break:bool) -> Result<Prediction> {
     let _profile=crate::profile::span("Flats continuation");
+    let mandatory_break=mandatory_break && !world.galdera_route;
     ensure(
         settings.max_boost_repeats.is_none_or(|n| n <= 256)
             && settings.snow_max_boost_repeats.is_none_or(|n| n <= 256)
@@ -305,7 +305,7 @@ fn predict_to_boundary(arrival:CrtRng, world:&WorldState, level:u32, settings:Se
             cache.borrow_mut().insert(key,p.clone()); tested.set(tested.get()+1); Ok(p)
         };
         let mut break_search=crate::escape_search::FieldSearch::new(entry,situation,level,&enemies,danger)?;
-        if !early.require_cait {
+        if !early.require_cait && !world.galdera_route {
             ensure(opening_break(entry,&result.encounter,level)?,"Forward Flats route requires a safe Throné-breakable opening")?;
             break_search.require_break();
         }
@@ -381,7 +381,11 @@ fn predict_to_boundary(arrival:CrtRng, world:&WorldState, level:u32, settings:Se
             result.status="Early clerics / Osvald / first Snows encounter evaluated";
         }
         result.escape=Some(escape);
-        result.verification="Forward search over mandatory Throné break with R1/R2 boosts and the fixed night/day cleric shop pair. No time switch after Osvald recruitment. Minimize boost inputs +6 per break +3 per Defend +8 per elapsed round, with a constant 14 for the mandatory shop pair. Required outcomes gate every candidate jointly; numeric optional budgets add two weighted cost units per input-pair allowance and preserve achieved outcomes. Each candidate replays loader/time/NPC/movement/recruitment and actual final-phase encounter selection. No Cape Cold continuation.";
+        result.verification=if world.galdera_route {
+            "Galdera compares direct Escape and optional break-then-Escape by input cost, preserving the village run, clerics and safe onward encounters. No required break; only an actually selected break grants latent. Replay actual Escape, field restoration, map/time/NPC callbacks and encounter selection; freeze this choice before Snows search."
+        } else {
+            "Forward search over mandatory Throné break with R1/R2 boosts and the fixed night/day cleric shop pair. No time switch after Osvald recruitment. Minimize boost inputs +6 per break +3 per Defend +8 per elapsed round, with a constant 14 for the mandatory shop pair. Required outcomes gate every candidate jointly; numeric optional budgets add two weighted cost units per input-pair allowance and preserve achieved outcomes. Each candidate replays loader/time/NPC/movement/recruitment and actual final-phase encounter selection. No Cape Cold continuation."
+        };
         return Ok(result);
     }
     if mandatory_break {ensure(opening_break(entry,&result.encounter,level)?,"Flats route requires a safe Throné-breakable opening")?;}
@@ -639,6 +643,45 @@ mod tests {
         assert!(optional.escape.as_ref().unwrap().attempt.as_ref().unwrap().success);
         assert!(optional.early_cait.as_ref().unwrap().non_surprise);
         assert_eq!(optional.early_cait.as_ref().unwrap().post_osvald_switches,0);
+    }
+    #[test]
+    fn galdera_optional_break_is_selected_when_faster_than_boost_only() {
+        let mut w=world();w.galdera_route=true;
+        for seed in 0..64 {
+            let arrival=CrtRng {state:seed,draws:6050};
+            let p=mandatory_break_route(arrival,&w,5,Settings::default(),true).unwrap();
+            let Some(escape)=p.escape.as_ref().filter(|e|e.break_action.is_some()) else {continue};
+            let direct=mandatory_break_route(arrival,&w,5,Settings {max_boost_repeats:None,..Default::default()},true).unwrap();
+            assert!(direct.escape.as_ref().unwrap().break_action.is_none());
+            assert!(escape.weighted_input_cost<direct.escape.unwrap().weighted_input_cost);
+            assert_eq!(escape.attempt.as_ref().unwrap().party_latent_gain,vec![25]);
+            assert!(p.remaining_run.unwrap().reaches_reset);
+            assert!(p.village_visit.is_some());
+            return;
+        }
+        panic!("Missing cheaper optional Flats break fixture");
+    }
+    #[test]
+    fn galdera_direct_escape_accepts_unbreakable_flats_and_preserves_village_run() {
+        let mut w=world();w.galdera_route=true;
+        for seed in 0..32 {
+            let arrival=CrtRng {state:seed,draws:6050};
+            let (entry,encounter)=first_encounter(arrival,&w,5).unwrap();
+            if !matches!(encounter.situation.as_deref(),Some("Normal"|"Preemptive"))
+                || opening_break(entry,&encounter,5).unwrap() {continue;}
+            let p=mandatory_break_route(arrival,&w,5,Settings::default(),true).unwrap();
+            let escape=p.escape.unwrap();
+            assert!(escape.break_action.is_none());
+            let attempt=escape.attempt.unwrap();
+            assert!(attempt.success);
+            assert!(attempt.party_latent_gain.iter().all(|&n|n==0));
+            assert!(p.remaining_run.unwrap().reaches_reset);
+            assert!(p.village_visit.is_some());
+            w.galdera_route=false;
+            assert!(mandatory_break_route(arrival,&w,5,Settings::default(),true).is_err());
+            return;
+        }
+        panic!("Missing safe unbreakable Flats fixture");
     }
     #[test]
     fn village_fork_stops_at_tag_and_ignores_all_later_search_targets() {

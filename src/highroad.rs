@@ -41,6 +41,16 @@ impl Default for Settings {
         }
     }
 }
+impl Settings {
+    /// Galdera has no break targets; optional breaks still compete by input cost.
+    pub fn for_route(mut self, galdera:bool) -> Self {
+        if galdera {
+            self.break_max_boost_repeats=Some(0);
+            self.flats_break_max_boost_repeats=Some(0);
+        }
+        self
+    }
+}
 #[derive(Debug, Serialize)]
 pub struct ApproachSearch {
     pub max_boost_repeats: Option<u32>,
@@ -232,13 +242,14 @@ fn plan_route_escape(
     danger: u32,
     settings: Settings,
 ) -> Result<Escape> {
+    let settings=settings.for_route(world.galdera_route);
     let project = |a: &FieldEscapeAttempt| -> Result<(u32, bool, bool, bool)> {
         let f = flats::after_highroad(&return_to_field(world, a)?)?;
         let counter = f.world_after.encounter_counter;
         let walk = f.harbor_reach.walking.reaches_reset;
         let (safe, zero_bp_break) = if let Some(h) = crate::harbor::after_flats(&f)? {
             let (entry, e)=crate::flats_escape::first_encounter(h.after, &h.world_after, level)?;
-            (e.situation.as_deref()!=Some("Surprise"), crate::flats_escape::opening_break(entry,&e,level)?)
+            (e.situation.as_deref()!=Some("Surprise"), !world.galdera_route && crate::flats_escape::opening_break(entry,&e,level)?)
         } else {
             (false, false)
         };
@@ -368,7 +379,7 @@ fn plan_route_escape(
     )?;
     plan.flats_search = Some(walking);
     plan.flats_approach_search = Some(approach);
-    plan.flats_break_search = Some(break_search);
+    plan.flats_break_search = (!world.galdera_route).then_some(break_search);
     Ok(plan)
 }
 #[derive(Debug, Serialize)]
@@ -460,6 +471,7 @@ pub(crate) fn predict_internal(
     settings: Settings,
     plan_escape: bool,
 ) -> Result<Prediction> {
+    let settings=settings.for_route(ending.world_after.galdera_route);
     ensure(
         settings.approach_max_boost_repeats.is_none_or(|n| n <= 256)
             && settings.break_max_boost_repeats.is_none_or(|n| n <= 256)
@@ -573,6 +585,8 @@ pub fn from_identified_battle(boss:&mut pirro::Prediction,settings:Settings)
 }
 fn from_battle_context(boss:&mut pirro::Prediction,second:Option<&second::Prediction>,settings:Settings,replay:Option<Vec<u8>>)
     ->Result<Option<(pirro_aftermath::Prediction,Prediction)>> {
+    let galdera=boss.world_at_entry.galdera_route;
+    let settings=settings.for_route(galdera);
     let level=|p:&pirro::Prediction| ->Result<u32> {
         if let Some(second)=second {return route_level(second,p);}
         Ok(level_for_experience(p.world_at_entry.party_experience[0]+reward(route_battle_base_exp(p.group)?,1,&p.steps)))
@@ -596,7 +610,7 @@ fn from_battle_context(boss:&mut pirro::Prediction,second:Option<&second::Predic
     let mut ending=ending;
     let facts=|p:&Prediction| -> Result<[bool;2]> {
         Ok([p.encounter.situation.as_deref()!=Some("Surprise"),
-            crate::flats_escape::opening_break(p.before_battle_initialization,&p.encounter,p.level)?])
+            !galdera && crate::flats_escape::opening_break(p.before_battle_initialization,&p.encounter,p.level)?])
     };
     let caps=[settings.approach_max_boost_repeats,settings.break_max_boost_repeats];
     let mut goals=caps.map(|c|c.is_none());
@@ -658,7 +672,7 @@ fn from_battle_context(boss:&mut pirro::Prediction,second:Option<&second::Predic
     let met=facts(&prediction)?;info.target_met=met[0];info.unboosted_break_met=met[1];
     if !met[0] || (caps[1].is_none() && !met[1]) {info.status="R8 opening target not met";}
     carry(&mut ending.world_after,boss)?;
-    ensure(met[0] && (caps[1].is_some() || met[1]),"Pirro R8 did not secure a safe Throné-breakable Highroad encounter")?;
+    ensure(met[0] && (caps[1].is_some() || met[1]),"Pirro R8 did not satisfy the required Highroad opening")?;
     prediction=predict(&ending,level(boss)?,settings)?;
     prediction.approach_search=Some(info);
     Ok(Some((ending,prediction)))
@@ -681,6 +695,60 @@ mod tests {
             .world_after_al
     }
 
+    #[test]
+    fn galdera_optional_break_beats_every_cheaper_direct_escape() {
+        let mut world=highroad_world();world.galdera_route=true;
+        let enemies=["ENE_NML_FLD_CTY_010"];
+        let settings=Settings {break_max_boost_repeats:None,flats_max_boost_repeats:None,
+            flats_approach_max_boost_repeats:None,flats_break_max_boost_repeats:None,..Default::default()};
+        let accepts=|a:&FieldEscapeAttempt| {
+            let flats=flats::after_highroad(&return_to_field(&world,a).unwrap()).unwrap();
+            let Some(harbor)=crate::harbor::after_flats(&flats).unwrap() else {return false};
+            let (_,e)=crate::flats_escape::first_encounter(harbor.after,&harbor.world_after,5).unwrap();
+            flats.harbor_reach.walking.reaches_reset && matches!(e.situation.as_deref(),Some("Normal"|"Preemptive"))
+        };
+        for seed in 0..32 {
+            let mut entry=CrtRng::new(0);entry.advance(seed*7919);
+            let plan=plan_route_escape(&world,entry,Situation::Normal,5,&enemies,5,settings).unwrap();
+            if plan.break_action.is_none() {continue;}
+            assert!(accepts(plan.attempt.as_ref().unwrap()));
+            assert_eq!(plan.attempt.as_ref().unwrap().party_latent_gain,vec![25]);
+            let mut direct=crate::escape_search::FieldSearch::new(entry,Situation::Normal,5,&enemies,5).unwrap();
+            for cost in 0..=plan.weighted_input_cost {
+                for candidate in direct.candidates(cost,false,None).unwrap() {
+                    assert!(!accepts(candidate.attempt.as_ref().unwrap()),"Selected break must beat every valid direct Escape");
+                }
+            }
+            return;
+        }
+        panic!("Missing cheaper optional Highroad break fixture");
+    }
+    #[test]
+    fn galdera_direct_escape_preserves_harbor_walk_and_safe_flats_without_latent_gain() {
+        let mut world=highroad_world();
+        world.galdera_route=true;
+        world.sync_progression().unwrap();
+        let latent=world.character_progression[&7].character.resources.as_ref().unwrap().latent;
+        let settings=Settings {break_max_boost_repeats:None,flats_max_boost_repeats:None,
+            flats_approach_max_boost_repeats:None,flats_break_max_boost_repeats:None,..Default::default()};
+        for situation in [Situation::Normal,Situation::Preemptive] {
+            // Multiple enemies: the former single-enemy break constraint cannot pass.
+            let plan=plan_route_escape(&world,CrtRng::new(19),situation,5,
+                &["ENE_NML_FLD_CTY_010","ENE_NML_FLD_CTY_010"],5,settings).unwrap();
+            assert!(plan.break_action.is_none());
+            assert!(plan.flats_break_search.is_none());
+            let attempt=plan.attempt.as_ref().unwrap();
+            assert!(attempt.success);
+            assert!(attempt.party_latent_gain.iter().all(|&n|n==0));
+            let field=return_to_field(&world,attempt).unwrap();
+            assert_eq!(field.world_after.character_progression[&7].character.resources.as_ref().unwrap().latent,latent);
+            let flats=flats::after_highroad(&field).unwrap();
+            assert!(flats.harbor_reach.walking.reaches_reset);
+            let harbor=crate::harbor::after_flats(&flats).unwrap().unwrap();
+            let (_,encounter)=crate::flats_escape::first_encounter(harbor.after,&harbor.world_after,5).unwrap();
+            assert!(matches!(encounter.situation.as_deref(),Some("Normal"|"Preemptive")));
+        }
+    }
     #[test]
     fn required_route_outcomes_gate_every_escape_strategy_before_optional_budgets() {
         let world = highroad_world();

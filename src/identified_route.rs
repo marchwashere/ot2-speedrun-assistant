@@ -102,9 +102,10 @@ pub fn simulate_route_progress(voices:&str,pirro_first:bool,hp:u32,galdera_route
     let seed=candidate["current_state"].as_u64().unwrap() as u32;
     let checkpoint=checkpoint(initial,seed,voices,Some(pirro_first),Some(hp))?;
     let mut boss=plan(&checkpoint)?;
+    boss.world_at_entry.galdera_route=galdera_route;
     let settings=crate::highroad::Settings {approach_max_boost_repeats:None,break_max_boost_repeats:None,
         flats_max_boost_repeats:None,flats_approach_max_boost_repeats:None,flats_break_max_boost_repeats:None,
-        ..Default::default()};
+        ..Default::default()}.for_route(galdera_route);
     let (ending,highroad)=crate::highroad::from_identified_battle(&mut boss,settings)?
         .ok_or_else(||SimError("Pirro did not reach the Highroad".into()))?;
     let field=highroad.field_return.as_ref().ok_or_else(||SimError("Highroad Escape unavailable".into()))?;
@@ -164,6 +165,25 @@ fn complete_flex(value:&mut serde_json::Value)->Result<()> {
 
 #[cfg(test)] mod tests {
     use super::*;
+    #[test]
+    fn galdera_identified_prefix_removes_required_breaks_before_streaming() {
+        std::thread::Builder::new().stack_size(32*1024*1024).spawn(|| {
+            let mut checked=false;
+            let result=simulate_route_progress("NNSNSSSNSSNSSSSSNNNNSNSNNSNNNNN",false,197,true,&mut |_,v| {
+                let h=&v["post_battle_field"]["highroad"];
+                assert_eq!(h["world_after_al"]["galdera_route"],true);
+                assert_eq!(h["settings"]["break_max_boost_repeats"],0);
+                assert_eq!(h["settings"]["flats_break_max_boost_repeats"],0);
+                assert!(h["escape"]["flats_break_search"].is_null());
+                assert_eq!(h["escape"]["attempt"]["success"],true);
+                assert_eq!(v["post_battle_field"]["flats"]["harbor_reach"]["walking"]["reaches_reset"],true);
+                checked=true;
+                Err(SimError("test: stop at committed early prefix".into()))
+            });
+            assert!(checked);
+            assert_eq!(result.unwrap_err().to_string(),"test: stop at committed early prefix");
+        }).unwrap().join().unwrap();
+    }
     #[test]
     fn progressive_scope_restores_after_failure() {
         assert!(!defer_flex());

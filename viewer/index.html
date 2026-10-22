@@ -506,15 +506,15 @@
               <p class="muted small">Optional: additional repeats beyond victory. Required: search victory and no Healing Grape together.</p>
             </div>
             <div class="event-setting">
-              <label for="highroad-approach-boost-repeats">Highroad · no surprise + Throné break</label>
+              <label for="highroad-approach-boost-repeats">Highroad · safe opening</label>
               <input id="highroad-approach-boost-repeats" type="number" min="0" max="256" step="1" value="4">
               <label class="unlimited-choice"><input id="highroad-approach-boost-repeats-unlimited" type="checkbox" aria-label="Required outcome: highroad approach repeats"> Required outcome</label>
-              <p class="muted small">Search R8 boosts for a safe turn-one Throné break (BP allowed), then freeze that choice.</p>
+              <p class="muted small">Search R8 boosts to avoid surprise. Any% Hikari requires a turn-one Throné break; Galdera breaks only when cheaper than direct Escape.</p>
             </div>
           </section>
           <section class="panel search-setting" aria-labelledby="highroad-search-title">
             <h2 id="highroad-search-title">New Delsta Highroad</h2>
-            <p class="muted small">Break on turn one, then Escape. Search this encounter’s boosts for a safe harbor walk and a Throné-breakable Flats encounter. Earlier choices stay fixed.</p>
+            <p class="muted small">Search boosts for successful Escape, a safe harbor walk and a non-surprise Flats encounter. Any% Hikari also requires Throné’s breaks.</p>
             <div class="event-setting" hidden>
               <input id="highroad-escape-boost-repeats" type="hidden" value="4">
               <label class="unlimited-choice"><input id="highroad-escape-boost-repeats-unlimited" type="checkbox" aria-label="Boost only: Highroad Escape"> Boost only</label>
@@ -526,15 +526,15 @@
               <p class="muted small">Optional: additional repeats beyond the required plan, preserving Escape. Required: include the safe harbor walk in every strategy candidate.</p>
             </div>
             <div class="event-setting">
-              <label for="highroad-flats-approach-boost-repeats">Flats encounter · no surprise + Throné break</label>
+              <label for="highroad-flats-approach-boost-repeats">Flats encounter · safe opening</label>
               <input id="highroad-flats-approach-boost-repeats" type="number" min="0" max="256" step="1" value="4">
               <label class="unlimited-choice"><input id="highroad-flats-approach-boost-repeats-unlimited" type="checkbox" aria-label="Required outcome: Flats approach repeats"> Required outcome</label>
-              <p class="muted small">Required: safe harbor walk and a turn-one Throné break after Harbor (BP allowed).</p>
+              <p class="muted small">Required: safe harbor walk and no surprise after Harbor. Any% Hikari also requires a turn-one Throné break.</p>
             </div>
           </section>
           <section class="panel search-setting" aria-labelledby="flats-escape-search-title">
             <h2 id="flats-escape-search-title">New Delsta Flats encounter</h2>
-            <p class="muted small">Break on turn one, then Escape. Search R1/R2 boosts for the village run, clerics and safe onward travel, then freeze this choice before searching Snows.</p>
+            <p class="muted small">Galdera compares direct Escape with optional breaks. Any% Hikari requires a break. Preserve the village run, clerics and safe onward travel before searching Snows.</p>
             <div class="event-setting" hidden>
               <input id="flats-escape-boost-repeats" type="hidden" value="4">
               <label class="unlimited-choice"><input id="flats-escape-boost-repeats-unlimited" type="checkbox" aria-label="Boost only: Flats Escape"> Boost only</label>
