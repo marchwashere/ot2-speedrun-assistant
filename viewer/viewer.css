@@ -10,6 +10,11 @@ html { overflow-anchor:none; }
 .settings-form label { font-weight:600; }
 .settings-form input { max-width:160px; }
 .settings-form p { margin:0; }
+#new-delsta-warning { width:min(460px,calc(100% - 32px)); padding:28px; border:2px solid #b42332; border-radius:12px; background:var(--panel); color:var(--text); }
+#new-delsta-warning::backdrop { background:rgb(23 36 59 / 45%); }
+#new-delsta-warning h2 { font-size:20px; color:#b42332; }
+#new-delsta-warning p { margin:16px 0; }
+#new-delsta-warning form { justify-content:flex-end; margin-top:24px; }
 .event-setting { display:flex; flex-direction:column; align-items:flex-start; gap:10px; width:100%; padding-bottom:20px; }
 .event-setting + .event-setting { border-top:1px solid var(--line); padding-top:20px; }
 .settings-form .unlimited-choice { display:flex; align-items:center; gap:8px; font-weight:400; }

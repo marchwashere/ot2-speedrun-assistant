@@ -3,11 +3,13 @@ const assert=require('node:assert/strict'),fs=require('node:fs'),vm=require('nod
 // Load the real viewer, renderers, event handlers and streaming client together.
 // The compact fixture has both timing branches; no simulation search is mocked
 // into a selector click, and every stream chunk is a fresh JSON object.
-const elements=new Map(),pending=[],windowHandlers=new Map();
+const elements=new Map(),pending=[],windowHandlers=new Map(),documentHandlers=new Map(),storage=new Map();
+let storageUnavailable=false;
 function element(id) {
   if(!elements.has(id)) {
     const attrs=new Map(),events=new Map();let html='';
     elements.set(id,{textContent:'',value:'0',hidden:false,disabled:false,dataset:{},style:{},writes:0,openedRow:false,
+      open:false,modalCount:0,showModal(){this.open=true;this.modalCount++;},close(){this.open=false;},
       classList:{toggle(){},add(){},remove(){}},focus(){},reportValidity(){return true;},querySelectorAll(){return [];},
       setAttribute(k,v){attrs.set(k,v);},getAttribute(k){return attrs.get(k);},
       addEventListener(type,fn){events.set(type,fn);},fire(type,event={}){return events.get(type)?.(event);},
@@ -18,8 +20,8 @@ function element(id) {
 }
 class CustomEvent extends Event {constructor(type,options){super(type);this.detail=options.detail;}}
 const context=vm.createContext({console,URLSearchParams,TextDecoder,Event,CustomEvent,AbortController,setTimeout,
-  requestAnimationFrame:fn=>fn(),localStorage:{getItem(){return null;},setItem(){}},
-  document:{title:'',getElementById:element,querySelector:element,querySelectorAll(){return [];},addEventListener(){}},
+  requestAnimationFrame:fn=>fn(),localStorage:{getItem(key){return storage.get(key)??null;},setItem(key,value){if(storageUnavailable)throw new Error('Storage unavailable');storage.set(key,value);}},
+  document:{title:'',getElementById:element,querySelector:element,querySelectorAll(){return [];},addEventListener(type,fn){documentHandlers.set(type,fn);}},
   window:{scrollX:0,scrollY:0,scrollTo(){},addEventListener(type,fn){windowHandlers.set(type,fn);},dispatchEvent(e){windowHandlers.get(e.type)?.(e);}},
   fetch:(url,{signal})=>new Promise((resolve,reject)=>{
     const request={url,signal,resolve,reject};pending.push(request);
@@ -164,4 +166,74 @@ async function start(seed=20,route='any_hikari') {
   element('snows-encounter-after').fire('click');assert.equal(run('snowsEncounterTiming'),null);
   assert.equal(element('southern-encounter-name').textContent,'Encounter: Before');
   console.log('PASS: route-imposed unavailable alternatives remain blocked during search');
+
+  // Exercise the committed New Delsta renderer with the actual settings/voice
+  // handlers while an NDJSON search is still waiting for its JP result.
+  const source=fs.readFileSync(path.join(__dirname,'../viewer/viewer.js'),'utf8');
+  const begin=source.indexOf('          if(i.new_delsta_adjustment) {');
+  const end=source.indexOf("          $('inventor-escape-result')",begin);
+  assert(begin>=0&&end>begin);
+  const renderAdjustment=adjustment=>{
+    context.i={new_delsta_adjustment:adjustment,approach:{}};
+    context.conningStages=[];context.conningSpans=[];context.conningPoints=[];
+    vm.runInContext(source.slice(begin,end),context);
+  };
+  const adjustment=n=>({switches:n,departure:entry(100+n),target:rng(500)});
+  const saveLimit=value=>{
+    element('new-delsta-switch-limit').value=value;
+    element('route-alert-settings').fire('submit',{preventDefault(){}});
+  };
+  run('running=false;clearVoiceResult();');
+  assert.equal(element('new-delsta-switch-limit').value,'','Warning is off by default');
+  const alerts=await start(70,'galdera');alerts.send('progress',galderaSnapshot(70));await flush();
+  const dialog=element('new-delsta-warning');
+  renderAdjustment(adjustment(83));assert.equal(dialog.open,false);
+  element('settings-mode').fire('click');assert.equal(run('activeScreen'),'settings');
+  assert.equal(alerts.request.signal.aborted,false);
+  saveLimit('20');assert.equal(storage.get('ot2-new-delsta-switch-warning'),'20');
+  assert.equal(pending.length,0,'Changing the warning limit must not start a search');
+  for(const invalid of ['-1','1.5','9007199254740992','not a number']) {
+    saveLimit(invalid);assert.equal(element('route-alert-error').hidden,false);
+    assert.equal(run('newDelstaSwitchLimit'),20,'Invalid input must preserve the saved limit');
+  }
+  element('new-delsta-switch-limit').validity={badInput:true};saveLimit('');
+  assert.equal(run('newDelstaSwitchLimit'),20,'An invalid number input must not silently disable alerts');
+  element('new-delsta-switch-limit').validity={badInput:false};saveLimit('20');
+  renderAdjustment(null);renderAdjustment(adjustment(19));renderAdjustment(adjustment(20));
+  assert.equal(dialog.open,false,'Incomplete sections and counts at or below the limit must not warn');
+  renderAdjustment(adjustment(21));
+  assert.equal(dialog.open,true);assert.equal(dialog.modalCount,1);
+  assert.match(element('new-delsta-warning-message').textContent,/21 New Delsta time switches.*limit is 20/);
+  assert.equal(run('running'),true,'Warn without waiting for the remaining JP search');
+  element('galdera-mode').fire('click');
+  run("voiceTranscript='NSN';voiceLocked=false;");
+  for(const key of ['Enter','ArrowLeft','ArrowRight','Backspace']) {
+    documentHandlers.get('keydown')({key,target:{closest(){return false;}},preventDefault(){}});
+  }
+  assert.equal(run('voiceTranscript'),'NSN');assert.equal(run('voiceLocked'),false);
+  dialog.close();
+  alerts.send('progress',galderaSnapshot(70));await flush();renderAdjustment(adjustment(21));
+  alerts.send('complete',galderaSnapshot(70,false));alerts.close();await alerts.task;renderAdjustment(adjustment(21));
+  assert.equal(dialog.modalCount,1,'Progress, completion and re-renders must not repeat a dismissed alert');
+  assert.equal(alerts.request.signal.aborted,false,'The popup must not cancel calculation');
+  console.log('PASS: saved strict threshold, early popup during JP search, no repeated alerts or modal boost-key input');
+
+  renderAdjustment(adjustment(22));assert.equal(dialog.modalCount,2,'A different selected plan is checked independently');
+  saveLimit('');assert.equal(dialog.open,false);renderAdjustment(adjustment(83));
+  assert.equal(dialog.modalCount,2);assert.equal(storage.get('ot2-new-delsta-switch-warning'),'');
+  saveLimit('0');renderAdjustment(adjustment(0));assert.equal(dialog.open,false);
+  renderAdjustment(adjustment(1));assert.equal(dialog.open,true,'Zero warns on any nonzero count');
+  element('voice-reset').fire('click');assert.equal(dialog.open,false);assert.equal(run('result'),null);
+  const again=await start(70,'galdera');again.send('progress',galderaSnapshot(70));await flush();
+  renderAdjustment(adjustment(1));assert.equal(dialog.modalCount,4,'A fresh prediction must be eligible to warn again');
+  element('voice-reset').fire('click');await again.task;
+  assert(again.request.signal.aborted);assert.equal(dialog.open,false);
+  storageUnavailable=true;saveLimit('5');storageUnavailable=false;
+  assert.equal(run('newDelstaSwitchLimit'),5);assert.match(element('route-alert-status').textContent,/this tab/);
+  saveLimit('12');
+  // A new script context represents a page reload with the same browser storage.
+  const reload=vm.createContext({document:{getElementById:element},localStorage:{getItem:key=>storage.get(key)??null}});
+  vm.runInContext(source.slice(0,source.indexOf('const repeatSettings = [')),reload);
+  assert.equal(element('new-delsta-switch-limit').value,12);
+  console.log('PASS: disable/zero thresholds, fresh-run reset, unavailable storage and persistence across reload');
 })().catch(e=>{console.error(e);process.exitCode=1;});

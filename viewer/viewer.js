@@ -14,6 +14,49 @@ let snowsEncounterTiming = null;
 let westernSecondOverride = null;
 let running = false;
 let stopped = false;
+const newDelstaWarningStorage = 'ot2-new-delsta-switch-warning';
+const validSwitchLimit = value => /^[0-9]+$/.test(value) && Number.isSafeInteger(Number(value));
+let newDelstaSwitchLimit = null;
+try {
+  const saved=localStorage.getItem(newDelstaWarningStorage);
+  if(saved!==null && validSwitchLimit(saved)) newDelstaSwitchLimit=Number(saved);
+} catch { /* Alerts remain optional when storage is unavailable. */ }
+$('new-delsta-switch-limit').value=newDelstaSwitchLimit??'';
+const warnedNewDelstaRoutes = new Set();
+function resetRouteWarnings() {
+  warnedNewDelstaRoutes.clear();
+  if($('new-delsta-warning').open) $('new-delsta-warning').close();
+}
+function maybeWarnNewDelstaSwitches(adjustment) {
+  if(newDelstaSwitchLimit===null || !Number.isSafeInteger(adjustment.switches) || adjustment.switches<=newDelstaSwitchLimit) return;
+  const departure=adjustment.departure.after;
+  const key=[activeRoute,result.initial_seed,departure.state,departure.draws,adjustment.switches].join(':');
+  if(warnedNewDelstaRoutes.has(key)) return;
+  warnedNewDelstaRoutes.add(key);
+  $('new-delsta-warning-message').textContent=`This route needs ${adjustment.switches} New Delsta time switches. Your limit is ${newDelstaSwitchLimit}.`;
+  // Native modal dialogs leave the stream and later JP search running.
+  if(!$('new-delsta-warning').open) $('new-delsta-warning').showModal();
+}
+$('route-alert-settings').addEventListener('submit',event=>{
+  event.preventDefault();
+  const input=$('new-delsta-switch-limit'),value=input.value.trim();
+  $('route-alert-status').textContent='';
+  $('route-alert-error').hidden=true;
+  if(input.validity?.badInput || (value!=='' && !validSwitchLimit(value))) {
+    $('route-alert-error').textContent='Enter a nonnegative whole number, or leave blank to disable.';
+    $('route-alert-error').hidden=false;
+    return;
+  }
+  const limit=value===''?null:Number(value),changed=limit!==newDelstaSwitchLimit;
+  newDelstaSwitchLimit=limit;
+  let persisted=true;
+  try {localStorage.setItem(newDelstaWarningStorage,limit===null?'':String(limit));} catch {persisted=false;}
+  $('route-alert-status').textContent=persisted?'Saved.':'Saved for this tab. Browser storage is unavailable.';
+  if(changed) {
+    resetRouteWarnings();
+    if(result) render(); // Apply to the selected completed section without a new search.
+  }
+});
 const repeatSettings = [
   {key:'early_clerics_max_boost_repeats',id:'early-clerics-boost-repeats',storage:'ot2-fork-early-clerics-boost-repeats',label:'Early clerics',requiredDefault:true},
   {key:'early_approach_max_boost_repeats',id:'early-cait-boost-repeats',storage:'ot2-fork-early-cait-boost-repeats',label:'Avoid surprise before or after Osvald',requiredDefault:true},
@@ -121,7 +164,7 @@ function markSetupChanged() {
 let activeScreen = 'manipulation';
 const screenScrollPositions = new Map();
 function showScreen(screen) {
-  if (!['manipulation','detail'].includes(screen)) return;
+  if (!['manipulation','detail','settings'].includes(screen)) return;
   if (screen === activeScreen) return;
   const currentPosition = {left:window.scrollX, top:window.scrollY};
   screenScrollPositions.set(activeScreen, currentPosition);
@@ -172,6 +215,7 @@ async function simulate(event) {
   let setup;
   try { setup = readSetup(); }
   catch(error) { showError(error.message); return; }
+  resetRouteWarnings();
   $('seed').value = hex(setup.seed);
   running = true;
   $('simulate').disabled = true;
@@ -1093,6 +1137,8 @@ function renderCrackridgeVoyage() {
           const i=p.inventor,actor=i.menu ? routeNames()[i.menu.first_actor] : null;
           if(i.new_delsta_adjustment) {
             const c=i.new_delsta_adjustment;
+            // This is the selected committed EXP route, available before JP search finishes.
+            maybeWarnNewDelstaSwitches(c);
             $('new-delsta-bg-result').hidden=false;
             $('new-delsta-bg-routine').innerHTML=instructionBoxHtml(['New Delsta main town time switches: '+c.switches+' (finish in '+(c.departure.world_after.time===4?'nighttime':'daytime')+')',...(i.approach.highroad_day_switch?['Immediately upon entering Eastern New Delsta Highroad: switch to day']:[])]);
             conningStages.push(['New Delsta · BG adjustment complete ('+(c.departure.world_after.time===4?'night':'day')+')',c.departure]);

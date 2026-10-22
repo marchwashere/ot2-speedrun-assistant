@@ -37,6 +37,7 @@ function recordVoice(symbol) {
   filterVoices();
 }
 function clearVoiceResult() {
+  resetRouteWarnings();
   result=null;snowsEncounterTiming=null;westernSecondOverride=null;
   $('results').hidden=true;$('detail-results').hidden=true;$('detail-empty').hidden=false;
   $('error').hidden=true;
@@ -165,7 +166,7 @@ $('voice-hp-step').addEventListener('submit',e=>{
   $('voice-normal').focus();
 });
 document.addEventListener('keydown',e=>{
-  if(e.repeat || e.altKey || e.ctrlKey || e.metaKey || e.shiftKey || activeScreen!=='manipulation' ||
+  if(e.repeat || e.altKey || e.ctrlKey || e.metaKey || e.shiftKey || activeScreen!=='manipulation' || $('new-delsta-warning').open ||
     e.target.closest('input,textarea,select,[contenteditable="true"]')) return;
   if(e.key==='Enter' && voiceStage==='lines') {
     // Enter only locks; it must not activate a focused voiceline/Unlock button.
