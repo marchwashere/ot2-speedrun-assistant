@@ -484,8 +484,8 @@ pub(crate) fn visit_route_paths(
     while let Some((levels,bp))=queue.pop_front() {
         for next in [bp.checked_add(1).filter(|&n|n<=3),bp.checked_sub(1)].into_iter().flatten() {
             let mut path=levels.clone();path.push(next);
-            // Every continuation includes the mandatory night/day shop pair (14).
-            if path.len() as u32>bound.get().saturating_sub(14)+3 {continue;}
+            // Every continuation includes the mandatory night/day shop pair (24).
+            if path.len() as u32>bound.get().saturating_sub(24)+3 {continue;}
             let p=if latent {menu.preview_boost_inputs_after_latent(&path)?} else {menu.preview_boost_inputs(&path)?};
             let voices=p.opening_crt.as_ref().unwrap().used_voices.clone();
             if !visited.insert((p.rng.state,voices.clone(),next)) {continue;}

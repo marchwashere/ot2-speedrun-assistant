@@ -166,7 +166,7 @@ $('voice-hp-step').addEventListener('submit',e=>{
   $('voice-normal').focus();
 });
 document.addEventListener('keydown',e=>{
-  if(e.repeat || e.altKey || e.ctrlKey || e.metaKey || e.shiftKey || activeScreen!=='manipulation' || $('new-delsta-warning').open ||
+  if(e.repeat || e.altKey || e.ctrlKey || e.metaKey || e.shiftKey || activeScreen!=='manipulation' || $('adjustment-cost-warning').open ||
     e.target.closest('input,textarea,select,[contenteditable="true"]')) return;
   if(e.key==='Enter' && voiceStage==='lines') {
     // Enter only locks; it must not activate a focused voiceline/Unlock button.

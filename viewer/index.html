@@ -447,9 +447,9 @@
       <section id="settings-panel" hidden aria-labelledby="settings-title">
         <div class="intro"><h1 id="settings-title">Settings</h1></div>
         <form id="route-alert-settings" class="settings-form panel search-setting" novalidate>
-          <label for="new-delsta-switch-limit">New Delsta time-switch warning</label>
-          <input id="new-delsta-switch-limit" type="number" min="0" step="1" placeholder="Off" aria-describedby="new-delsta-switch-help">
-          <p id="new-delsta-switch-help" class="muted">Show a popup if the optimized route needs more than this many New Delsta time switches. Leave blank to disable.</p>
+          <label for="adjustment-cost-limit">Total adjustment cost warning</label>
+          <input id="adjustment-cost-limit" type="number" min="0" step="1" placeholder="Off" aria-describedby="adjustment-cost-help">
+          <p id="adjustment-cost-help" class="muted">Show a popup when the total adjustment cost from after identification through EXP ×100 exceeds this limit (boosts, Defends, elapsed rounds and time switches). Includes the Snows and coast Cait searches. Costs are weighted units, not seconds. Galdera only. Leave blank to disable.</p>
           <button class="primary" type="submit">Save settings</button>
           <p id="route-alert-status" class="status" role="status"></p>
           <p id="route-alert-error" class="error" role="alert" hidden></p>
@@ -613,9 +613,9 @@
     </main>
     <footer class="viewer-footer"><button class="quiet" id="quit" type="button">Quit viewer</button></footer>
   </div>
-  <dialog id="new-delsta-warning" aria-labelledby="new-delsta-warning-title" aria-describedby="new-delsta-warning-message">
-    <h2 id="new-delsta-warning-title">New Delsta switch limit exceeded</h2>
-    <p id="new-delsta-warning-message"></p>
+  <dialog id="adjustment-cost-warning" aria-labelledby="adjustment-cost-warning-title" aria-describedby="adjustment-cost-warning-message">
+    <h2 id="adjustment-cost-warning-title">Total adjustment cost limit exceeded</h2>
+    <p id="adjustment-cost-warning-message"></p>
     <p>Consider resetting this run.</p>
     <form method="dialog"><button class="primary" autofocus>Got it</button></form>
   </dialog>

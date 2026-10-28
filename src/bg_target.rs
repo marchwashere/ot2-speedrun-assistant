@@ -9,7 +9,7 @@ pub fn targets(mut rng:CrtRng,draws:u64,ability:&str)->Result<Vec<CrtRng>> {
   if ot2_battle_engine::bewildering_grace::Dance::new(3)?.select(&mut probe)?.unwrap().ability==ability {out.push(at);}
  }Ok(out)
 }
-pub fn defend_cost(n:u8)->u32 {u32::from(n)*3+if n>=4{8}else{0}}
+pub fn defend_cost(n:u8)->u32 {u32::from(n)*crate::escape_search::DEFEND_INPUT_COST+if n>=4{crate::escape_search::ROUND_INPUT_COST}else{0}}
 /// Every allocation is ranked against this target; there is no maximum-Defend default.
 /// Departure tuples contain absolute predicted RNG draws and paid switch cost.
 pub fn rank(targets:&[CrtRng],departures:&[(u64,u32)],natural:u64,curves:&[Curve],limit:u32,keep:usize)->Vec<Candidate> {

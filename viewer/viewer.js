@@ -14,43 +14,79 @@ let snowsEncounterTiming = null;
 let westernSecondOverride = null;
 let running = false;
 let stopped = false;
-const newDelstaWarningStorage = 'ot2-new-delsta-switch-warning';
-const validSwitchLimit = value => /^[0-9]+$/.test(value) && Number.isSafeInteger(Number(value));
-let newDelstaSwitchLimit = null;
+const adjustmentWarningStorage = 'ot2-adjustment-cost-warning';
+const validCostLimit = value => /^[0-9]+$/.test(value) && Number.isSafeInteger(Number(value));
+let adjustmentCostLimit = null;
 try {
-  const saved=localStorage.getItem(newDelstaWarningStorage);
-  if(saved!==null && validSwitchLimit(saved)) newDelstaSwitchLimit=Number(saved);
+  const saved=localStorage.getItem(adjustmentWarningStorage);
+  if(saved!==null && validCostLimit(saved)) adjustmentCostLimit=Number(saved);
 } catch { /* Alerts remain optional when storage is unavailable. */ }
-$('new-delsta-switch-limit').value=newDelstaSwitchLimit??'';
-const warnedNewDelstaRoutes = new Set();
+$('adjustment-cost-limit').value=adjustmentCostLimit??'';
+const warnedAdjustmentRoutes = new Set();
 function resetRouteWarnings() {
-  warnedNewDelstaRoutes.clear();
-  if($('new-delsta-warning').open) $('new-delsta-warning').close();
+  warnedAdjustmentRoutes.clear();
+  if($('adjustment-cost-warning').open) $('adjustment-cost-warning').close();
 }
-function maybeWarnNewDelstaSwitches(adjustment) {
-  if(newDelstaSwitchLimit===null || !Number.isSafeInteger(adjustment.switches) || adjustment.switches<=newDelstaSwitchLimit) return;
+// Sum only the displayed route. Aggregate search costs replace their child
+// costs, never supplement them. Identification observations are not a plan.
+function expAdjustmentCost(root,early,exit,west,v,inventor) {
+  const field=root.post_battle_field;
+  const ore=v.cropdale_exit.oresrush, ryu=ore.ryu;
+  const escapeCost=e=>e?.weighted_input_cost??0;
+  const rareCost=r=>r?.inputs?.input_count??0;
+  let cost=field.pirro_battle?.manipulation?.inputs?.extra_input_count??0;
+  cost+=Math.max(0,(field.highroad.approach_search?.plan?.length??3)-3);
+  cost+=escapeCost(field.highroad.escape);
+  cost+=field.flats_escape.early_weighted_input_cost;
+  if(early.after_rare) {
+    cost+=rareCost(early.rare_victory)+escapeCost(early.after_rare.passage.escape);
+  } else {
+    cost+=escapeCost(exit.escape)+rareCost(exit.rare_victory);
+    if(exit.western) cost+=escapeCost(exit.western.escape)+rareCost(exit.western.rare_victory);
+  }
+  cost+=escapeCost(west.first_escape);
+  if(west.predicted_second_encounter || westernSecondOverride===true) cost+=escapeCost(west.with_second?.escape);
+  cost+=escapeCost(v.escape)+escapeCost(v.cropdale_exit.escape);
+  cost+=Math.max(0,(v.cropdale.time_switches?.length??0)-2)*12;
+  cost+=(Math.max(0,ore.switches_before_partitio.length-2)+Math.max(0,ore.switches_after_partitio.length-2)+(ore.southern_day_switch?1:0))*12;
+  // Includes Canalbrine, both coast fights and the coast steal adjustment.
+  cost+=ryu.hikari_search.total_input_cost;
+  // Includes New Delsta, thief and all intervening encounters plus Guards/BG.
+  cost+=inventor.new_delsta_adjustment.input_cost;
+  let leg=inventor.crackridge_return;
+  while(leg && !leg.gravell) leg=leg.southern;
+  // The EXP optimizer's score omits the subsequently selected final soulstone
+  // adjustment. Include it, but no coast or later JP controls.
+  for(const action of leg?.gravell?.fight?.actions??[]) {
+    if(action.action==='thunder_soulstone')
+      cost+=action.inputs.length;
+  }
+  return cost;
+}
+function maybeWarnAdjustmentCost(adjustment) {
+  if(adjustmentCostLimit===null || !Number.isSafeInteger(adjustment.input_cost) || adjustment.input_cost<=adjustmentCostLimit) return;
   const departure=adjustment.departure.after;
-  const key=[activeRoute,result.initial_seed,departure.state,departure.draws,adjustment.switches].join(':');
-  if(warnedNewDelstaRoutes.has(key)) return;
-  warnedNewDelstaRoutes.add(key);
-  $('new-delsta-warning-message').textContent=`This route needs ${adjustment.switches} New Delsta time switches. Your limit is ${newDelstaSwitchLimit}.`;
+  const key=[activeRoute,result.initial_seed,departure.state,departure.draws,adjustment.input_cost].join(':');
+  if(warnedAdjustmentRoutes.has(key)) return;
+  warnedAdjustmentRoutes.add(key);
+  $('adjustment-cost-warning-message').textContent=`This route needs ${adjustment.input_cost} total adjustment cost units from after identification through EXP ×100. Your limit is ${adjustmentCostLimit}.`;
   // Native modal dialogs leave the stream and later JP search running.
-  if(!$('new-delsta-warning').open) $('new-delsta-warning').showModal();
+  if(!$('adjustment-cost-warning').open) $('adjustment-cost-warning').showModal();
 }
 $('route-alert-settings').addEventListener('submit',event=>{
   event.preventDefault();
-  const input=$('new-delsta-switch-limit'),value=input.value.trim();
+  const input=$('adjustment-cost-limit'),value=input.value.trim();
   $('route-alert-status').textContent='';
   $('route-alert-error').hidden=true;
-  if(input.validity?.badInput || (value!=='' && !validSwitchLimit(value))) {
+  if(input.validity?.badInput || (value!=='' && !validCostLimit(value))) {
     $('route-alert-error').textContent='Enter a nonnegative whole number, or leave blank to disable.';
     $('route-alert-error').hidden=false;
     return;
   }
-  const limit=value===''?null:Number(value),changed=limit!==newDelstaSwitchLimit;
-  newDelstaSwitchLimit=limit;
+  const limit=value===''?null:Number(value),changed=limit!==adjustmentCostLimit;
+  adjustmentCostLimit=limit;
   let persisted=true;
-  try {localStorage.setItem(newDelstaWarningStorage,limit===null?'':String(limit));} catch {persisted=false;}
+  try {localStorage.setItem(adjustmentWarningStorage,limit===null?'':String(limit));} catch {persisted=false;}
   $('route-alert-status').textContent=persisted?'Saved.':'Saved for this tab. Browser storage is unavailable.';
   if(changed) {
     resetRouteWarnings();
@@ -623,7 +659,7 @@ function renderEarlyCait() {
   const encounterWorld=branch?.world ?? p.world_at_encounter;
   $('early-route-encounter').textContent=e?`${e.enemies.map(slot=>slot.enemy.name).join(' · ')} · ${e.situation} · ${encounterWorld?.time===4?'night':'day'} · after ${e.counter_updates} running updates from ${beforeOsvald?'Snows entry':'recruitment'}`:'First encounter not reached';
   const f=result.post_battle_field.flats_escape;
-  $('early-route-cost').textContent=f.early_weighted_input_cost==null?'':`Estimated cost: ${f.early_weighted_input_cost} boost-input units · ${f.escape?.inputs?.input_count ?? 0} boost inputs + 2 cleric time switches ×7 · ${f.early_tested_projections} cached route candidates`;
+  $('early-route-cost').textContent=f.early_weighted_input_cost==null?'':`Estimated cost: ${f.early_weighted_input_cost} boost-input units · ${f.escape?.inputs?.input_count ?? 0} boost inputs + 2 cleric time switches ×12 · ${f.early_tested_projections} cached route candidates`;
   $('early-route-status').textContent=`Clerics: ${p.clerics_present?'yes':'no'} · no surprise before Osvald: ${approach?.before_osvald.non_surprise?'yes':'no'}${approach?.after_osvald_required?` · no surprise after Osvald: ${approach.after_osvald.non_surprise?'yes':'no'}`:' · post-Osvald opening not a search target'}`;
   const endpoint=branch?.before_battle_initialization ?? p.before_battle_initialization;
   $('early-cait-advances').textContent=endpoint?totalAdvances(endpoint):'—';
@@ -1138,7 +1174,7 @@ function renderCrackridgeVoyage() {
           if(i.new_delsta_adjustment) {
             const c=i.new_delsta_adjustment;
             // This is the selected committed EXP route, available before JP search finishes.
-            maybeWarnNewDelstaSwitches(c);
+            maybeWarnAdjustmentCost({...c,input_cost:expAdjustmentCost(result,early,exit,west,v,i)});
             $('new-delsta-bg-result').hidden=false;
             $('new-delsta-bg-routine').innerHTML=instructionBoxHtml(['New Delsta main town time switches: '+c.switches+' (finish in '+(c.departure.world_after.time===4?'nighttime':'daytime')+')',...(i.approach.highroad_day_switch?['Immediately upon entering Eastern New Delsta Highroad: switch to day']:[])]);
             conningStages.push(['New Delsta · BG adjustment complete ('+(c.departure.world_after.time===4?'night':'day')+')',c.departure]);

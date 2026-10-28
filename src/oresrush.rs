@@ -111,8 +111,8 @@ mod tests {
             for e in &p.switches_after_partitio {assert_eq!(e.arrival,rng);assert_eq!(e.world_after.party,[7,6,8,4]);rng=e.after;}
             assert_eq!(p.southern_return.arrival,rng);assert_eq!(p.southern_return.world_after.time,2);
         }
-        assert_eq!(switch_cost(2,2),0);assert_eq!(switch_cost(0,4)*7,14);
-        assert_eq!(switch_cost(3,1)*7,0);assert_eq!(switch_cost(4,2)*7,7);assert_eq!(switch_cost(2,4)*7,14);
+        assert_eq!(switch_cost(2,2),0);assert_eq!(switch_cost(0,4)*12,24);
+        assert_eq!(switch_cost(3,1)*12,12);assert_eq!(switch_cost(4,2)*12,24);assert_eq!(switch_cost(2,4)*12,24);
         assert!(predict_with_switches(&entry,&reach,1,2).is_err());
     }
     #[test]
@@ -175,7 +175,7 @@ fn checkpoint(l:&mut Loader<'_>,arrival:crate::CrtRng,reason:&str)->Entry {
 pub fn predict(entry:&Entry,reach:&CropdaleReach)->Result<Prediction> {
     predict_with_switches(entry,reach,0,0)
 }
-pub const FREE_SWITCHES_BEFORE_PARTITIO:u32=3;
+pub const FREE_SWITCHES_BEFORE_PARTITIO:u32=2;
 pub const FREE_SWITCHES_AFTER_PARTITIO:u32=2;
 pub fn switch_cost(before:u32,after:u32)->u64 {u64::from(before.saturating_sub(FREE_SWITCHES_BEFORE_PARTITIO))+u64::from(after.saturating_sub(FREE_SWITCHES_AFTER_PARTITIO))}
 fn switches(l:&mut Loader<'_>,count:u32,label:&str)->Result<Vec<Entry>> {

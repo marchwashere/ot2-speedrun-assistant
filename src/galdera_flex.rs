@@ -184,7 +184,7 @@ fn finish_roque(entry:&Entry)->Result<Trip> {
 
 // Fixed prerequisites: Firestarter, Crackridge book, then boat/Roque.
 const LATER_ORDERS:[[u8;1];1]=[ROUTE_ORDER];
-fn defend_cost(f:&SouthernSai)->u32 {f.defends.len()as u32*3+f.escape_round.saturating_sub(1)*8}
+fn defend_cost(f:&SouthernSai)->u32 {f.defends.len()as u32*crate::escape_search::DEFEND_INPUT_COST+crate::escape_search::elapsed_round_cost(1,f.escape_round)}
 fn segment_cost(s:&Segment)->u32 {(if s.name=="Boat and Roque Harbor" {tropu_reload_cost(s.extra_switches)} else {s.extra_switches*TIME_SWITCH_COST})+s.escape_boost_inputs.len()as u32+s.encounters.iter().map(defend_cost).sum::<u32>()}
 fn day(entry:&Entry)->Result<Segment> {
  let mut s=Segment::new("Day for remaining errands");let mut l=Loader::new(world::catalog(),entry.world_after.clone(),entry.after)?;
@@ -352,7 +352,7 @@ fn refine_defends(entry:&Entry,mut best:Trip)->Result<Trip> {
  }
  Ok(best)
 }
-fn controls_cost(n:u8)->u32 {u32::from(n)*3+if n>=4{8}else{0}}
+fn controls_cost(n:u8)->u32 {u32::from(n)*crate::escape_search::DEFEND_INPUT_COST+if n>=4{crate::escape_search::ROUND_INPUT_COST}else{0}}
 fn later_candidate(entry:&Entry,order:[u8;1],switches:u32,limit:u32,ship:bool)->Result<Option<Trip>> {later_candidate_defends(entry,order,switches,limit,ship,[0;5])}
 fn later_candidate_defends(entry:&Entry,order:[u8;1],switches:u32,limit:u32,ship:bool,c:[u8;5])->Result<Option<Trip>> {
  let mut best:Option<Trip>=None;

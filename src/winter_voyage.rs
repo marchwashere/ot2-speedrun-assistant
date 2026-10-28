@@ -72,7 +72,7 @@ pub struct Cropdale {
 impl Cropdale {
     pub fn departure(&self)->&Entry {self.time_switches.last().unwrap_or(&self.recruitment)}
     pub fn time_switch_input_cost(&self)->u32 {
-        (self.time_switches.len() as u32).saturating_sub(2)*7
+        (self.time_switches.len() as u32).saturating_sub(2)*12
     }
 }
 pub fn enter_cropdale(destination:&Entry,reach:&CropdaleReach)->Result<Cropdale> {
@@ -190,14 +190,14 @@ pub fn search_oresrush(destination:&Entry,reach:&CropdaleReach)->Result<(Box<Cro
         loop {
         for total in (0..u32::MAX-1).step_by(if exit.southern.world_after.galdera_route {1}else{2}) {
             let bound=best.as_ref().map_or(u64::from(budget),|b|b.2);
-            if u64::from(total.saturating_sub(crate::oresrush::FREE_SWITCHES_BEFORE_PARTITIO+crate::oresrush::FREE_SWITCHES_AFTER_PARTITIO))*7>bound {break;}
+            if u64::from(total.saturating_sub(crate::oresrush::FREE_SWITCHES_BEFORE_PARTITIO+crate::oresrush::FREE_SWITCHES_AFTER_PARTITIO))*12>bound {break;}
             for before in 0..=total {
                 let after=total-before;
-                let base_time_cost=crate::oresrush::switch_cost(before,after)*7;
+                let base_time_cost=crate::oresrush::switch_cost(before,after)*12;
                 let bound=best.as_ref().map_or(u64::from(budget),|b|b.2);
                 if base_time_cost>bound {continue;}
                 let prefix=prefixes.predict(before,after)?;
-                let time_cost=base_time_cost+if prefix.southern_day_switch.is_some() {7}else{0};
+                let time_cost=base_time_cost+if prefix.southern_day_switch.is_some() {12}else{0};
                 if time_cost>bound {continue;}
                 let Some(o)=finish_oresrush(prefix,Some((bound-time_cost) as u32))? else {continue;};
                 let r=o.ryu.as_ref().unwrap();
@@ -217,7 +217,7 @@ pub fn search_oresrush(destination:&Entry,reach:&CropdaleReach)->Result<(Box<Cro
     let o=propagate_oresrush(&exit,before,after)?.expect("Selected Oresrush plan replays");
     let r=o.ryu.as_ref().unwrap();
     ensure(r.canalbrine.as_ref().unwrap().conning.as_ref().unwrap().town.after==expected_rng,"Oresrush replay changed RNG")?;
-    ensure(crate::oresrush::switch_cost(before,after)*7+if o.southern_day_switch.is_some() {7}else{0}+u64::from(r.hikari_search.as_ref().unwrap().total_input_cost)==expected_cost,"Oresrush replay changed cost")?;
+    ensure(crate::oresrush::switch_cost(before,after)*12+if o.southern_day_switch.is_some() {12}else{0}+u64::from(r.hikari_search.as_ref().unwrap().total_input_cost)==expected_cost,"Oresrush replay changed cost")?;
     exit.oresrush=Some(Box::new(o));
     Ok((crop,exit))
 }
@@ -413,7 +413,7 @@ mod tests {
             let p=enter_cropdale_with_switches(&entry,&reach,switches).unwrap();
             assert_eq!(p.departure().world_after.time,2);
             assert_eq!(p.departure().world_after.party,[7,6,8]);
-            assert_eq!(p.time_switch_input_cost(),switches.saturating_sub(2)*7);
+            assert_eq!(p.time_switch_input_cost(),switches.saturating_sub(2)*12);
             if switches>0 {
                 assert_eq!(p.time_switches[0].world_after.party,[7,6]);
                 assert_eq!(p.time_switches[0].world_after.time,4);

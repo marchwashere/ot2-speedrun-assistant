@@ -88,7 +88,7 @@ pub fn project(arrival: CrtRng, state: WorldState, throne_level: u32) -> Result<
     project_with_switches(arrival,state,throne_level,0)
 }
 
-pub const TIME_SWITCH_INPUT_COST:u32=7;
+pub const TIME_SWITCH_INPUT_COST:u32=12;
 
 /// The shop always ends with one switch back to day. Additional switches are
 /// allowed only after Osvald and use the resulting phase's encounter table.

@@ -11,10 +11,14 @@ use ot2_battle_engine::{
 };
 use std::collections::BTreeMap;
 
-pub const BREAK_INPUT_COST: u32 = 6;
+pub const BREAK_INPUT_COST: u32 = 11;
+pub const FIREBALL_BREAK_INPUT_COST: u32 = 26;
+fn break_action_cost(weapon_index:usize)->u32 {
+    match weapon_index {0..=2=>BREAK_INPUT_COST,4=>FIREBALL_BREAK_INPUT_COST,_=>6}
+}
 /// User-specified Defend cost in boost-input equivalents.
-pub const DEFEND_INPUT_COST: u32 = 3;
-pub const ROUND_INPUT_COST:u32=8;
+pub const DEFEND_INPUT_COST: u32 = 4;
+pub const ROUND_INPUT_COST:u32=6;
 pub fn elapsed_round_cost(before:u32,after:u32)->u32 {after.saturating_sub(before)*ROUND_INPUT_COST}
 pub struct FieldSearch {
     pub menu: FieldEscapeMenu,
@@ -119,8 +123,8 @@ impl FieldSearch {
     }
     fn visit_candidates_with_policy<T>(&mut self,cost:u32,allow_break:bool,repeat_limit:Option<u32>,zero_bp_only:bool,mut visit:impl FnMut(Escape)->Result<Option<T>>) -> Result<Option<T>> {
         let _profile=crate::profile::span("Escape candidates");
-        // Spell casts may spend the opening BP, saving the final cancel input.
-        if zero_bp_only && !self.spell_breaks && cost % 2 != 0 {return Ok(None);}
+        // Break actions have their own costs/parity; only direct Escape requires
+        // an even number of boost inputs.
         if !self.require_break && cost % 2 == 0 && repeat_limit.is_none_or(|n| cost / 2 <= n) {
             if self.direct_repeats>cost/2 {
                 self.direct_prefix=self.menu.clone();self.direct_repeats=0;
@@ -141,10 +145,11 @@ impl FieldSearch {
                 if let Some(result)=visit(p)? {return Ok(Some(result));}
             }
         }
-        if !allow_break || cost < BREAK_INPUT_COST || (self.enemies.len() != 1 && !self.spell_breaks) || (self.level != 5 && self.carried_players.is_none()) {
+        if !allow_break || (self.enemies.len() != 1 && !self.spell_breaks) || (self.level != 5 && self.carried_players.is_none()) {
             return Ok(None);
         }
-        let available = cost - BREAK_INPUT_COST;
+        for weapon_index in 0..if self.spell_breaks {6}else{3} {
+        let Some(available) = cost.checked_sub(break_action_cost(weapon_index)) else {continue;};
         for attack_count in 0..=available {
             let boost = (attack_count % 2) as u8;
             let repeats = attack_count / 2;
@@ -155,7 +160,6 @@ impl FieldSearch {
             if boost == 1 {
                 attack.push(1);
             }
-            for weapon_index in 0..if self.spell_breaks {6}else{3} {
                 let weapon=[Weapon::Dagger,Weapon::Sword,Weapon::Staff][weapon_index.min(2)];
                 if zero_bp_only && weapon_index<3 && boost!=0 {continue;}
                 let key = (repeats, boost, weapon_index as u8);
@@ -236,9 +240,9 @@ mod tests {
         let entry=serde_json::from_value(f["entry"].clone()).unwrap();
         let mut search=FieldSearch::with_history(entry,Situation::Normal,&[5,1],&["ENE_NML_FLD_SNW_010","ENE_NML_FLD_SNW_010"],5,false,&history).unwrap();
         search.enable_spell_breaks(players);
-        let candidates=search.unboosted_break_candidates(BREAK_INPUT_COST+1).unwrap();
+        let candidates=search.unboosted_break_candidates(FIREBALL_BREAK_INPUT_COST+1).unwrap();
         let p=candidates.iter().find(|p|p.break_action.as_ref().is_some_and(|b|b.skill.as_deref()==Some("ABI_SET_SCH_010") && b.boost==1)).expect("Missing cheaper boosted Fireball");
-        assert_eq!(p.weighted_input_cost,BREAK_INPUT_COST+1);
+        assert_eq!(p.weighted_input_cost,FIREBALL_BREAK_INPUT_COST+1);
         assert_eq!(p.break_action.as_ref().unwrap().attack_inputs,vec![1]);
         assert!(p.attempt.as_ref().unwrap().success);
     }
@@ -248,10 +252,10 @@ mod tests {
         for seed in 0..64 {
             let mut search=FieldSearch::with_party(CrtRng::new(seed),Situation::Normal,&[5,1],&["ENE_NML_FLD_SNW_010","ENE_NML_FLD_SNW_010"],5,false).unwrap();
             search.enable_spell_breaks(players.clone());
-            for p in search.unboosted_break_candidates(BREAK_INPUT_COST+DEFEND_INPUT_COST+ROUND_INPUT_COST).unwrap() {
+            for p in search.unboosted_break_candidates(FIREBALL_BREAK_INPUT_COST+DEFEND_INPUT_COST+ROUND_INPUT_COST).unwrap() {
                 if let Some(b)=p.break_action.as_ref().filter(|b|b.defends.len()==1) {
                     assert_eq!(b.skill.as_deref(),Some("ABI_SET_SCH_010"));
-                    assert_eq!(p.weighted_input_cost,BREAK_INPUT_COST+DEFEND_INPUT_COST+ROUND_INPUT_COST);
+                    assert_eq!(p.weighted_input_cost,FIREBALL_BREAK_INPUT_COST+DEFEND_INPUT_COST+ROUND_INPUT_COST);
                     assert_eq!(b.escape_round,2);
                     assert_eq!(p.boost_repeat_count,0);
                     assert_eq!(p.attempt.unwrap().chance_percent,100);
@@ -369,9 +373,9 @@ mod action_cost_tests {
  #[test]
  fn defend_charges_round_transition_only_when_it_happens() {
   use super::*;
-  assert_eq!(DEFEND_INPUT_COST+elapsed_round_cost(1,1),3);
-  assert_eq!(DEFEND_INPUT_COST+elapsed_round_cost(1,2),11);
-  assert_eq!(BREAK_INPUT_COST+elapsed_round_cost(1,1),6);
-  assert_eq!(BREAK_INPUT_COST+elapsed_round_cost(1,2),14);
+  assert_eq!(DEFEND_INPUT_COST+elapsed_round_cost(1,1),4);
+  assert_eq!(DEFEND_INPUT_COST+elapsed_round_cost(1,2),10);
+  assert_eq!(BREAK_INPUT_COST+elapsed_round_cost(1,1),11);
+  assert_eq!(BREAK_INPUT_COST+elapsed_round_cost(1,2),17);
  }
 }

@@ -79,7 +79,7 @@ pub fn optimize(
     let mut seen=std::collections::BTreeMap::new();
     let mut visit=|path:&[u8]|->Result<()> {crate::world::without_diagnostics(|| {
         let extra=path.len().saturating_sub(3) as u32;
-        if extra+14>=cost.get() {return Ok(())}
+        if extra+24>=cost.get() {return Ok(())}
         let candidate_boss=pirro::predict_with_plans(boss.arrival,&world,
             boss.initial_state.actors[0].resources.clone(),inventory.clone(),&r3,path)?;
         if candidate_boss.state.outcome!=Outcome::Victory || candidate_boss.routine_error.is_some()
@@ -96,7 +96,7 @@ pub fn optimize(
         let danger=volume.encounters.iter().rev().find(|r|r.table!="None" && r.progress<=1).unwrap().danger;
         let mut search=FieldSearch::new(h.before_battle_initialization,situation,level,&ids,danger)?;
         let mut escape_cost=0;
-        while extra+escape_cost+14<cost.get() {
+        while extra+escape_cost+24<cost.get() {
             for mut escape in search.candidates(escape_cost,settings.escape_max_boost_repeats.is_some(),None)? {
                 tested+=1;
                 let field=highroad::return_to_field(&h.world_after_al,escape.attempt.as_ref().unwrap())?;
@@ -110,7 +110,7 @@ pub fn optimize(
                 let Some(harbor)=harbor::after_flats(&f)? else {continue};
                 let (_,encounter)=flats_escape::first_encounter(harbor.after,&harbor.world_after,level)?;
                 if !matches!(encounter.situation.as_deref(),Some("Normal"|"Preemptive")) {continue;}
-                let bound=cost.get()-extra-escape_cost-14-1;
+                let bound=cost.get()-extra-escape_cost-24-1;
                 let Some(e)=flats_escape::within_route_cost(harbor.after,&harbor.world_after,level,
                     constrained_fs,constrained_es,bound)? else {continue};
                 let Some(downstream)=downstream_cost(&e) else {continue};
@@ -170,7 +170,7 @@ pub fn optimize(
         p.boost_search=boss.boost_search.take();*boss=p;*ending=after;*highroad=picked;
     }
     highroad.formation_search=Some(Report {baseline_cost,selected_cost:cost.get(),tested_continuations:tested,
-        reused_continuations:reused,verification:"Compare supported R8 boost paths and Highroad Escape strategies using real downstream Flats/clerics/Snows continuations. Cost: extra boost inputs +10 per break +7 per time switch. Earlier decisions stay frozen; this is not an exhaustive optimizer over every possible battle action."});
+        reused_continuations:reused,verification:"Compare supported R8 boost paths and Highroad Escape strategies using real downstream Flats/clerics/Snows continuations. Cost: extra boost inputs +11 per regular-attack break +12 per time switch. Earlier decisions stay frozen; this is not an exhaustive optimizer over every possible battle action."});
     ensure(downstream_cost(&best.escape).is_some(),"Formation search lost its complete continuation")?;
     Ok(Some(best))
 }

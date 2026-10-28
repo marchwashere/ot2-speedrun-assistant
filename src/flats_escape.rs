@@ -254,7 +254,7 @@ fn predict_to_boundary(arrival:CrtRng, world:&WorldState, level:u32, settings:Se
         osvald: None,
         osvald_search: None,
         status: "Surprise opening: increase the Highroad Flats-approach allowance",
-        verification: "Source-derived, awaiting live verification. 170 running updates from harbor return to Abandoned Village entrance (measured ~165 plus five-update allowance). Daytime, unchanged equipment, solo route level, no intervening CRT actions. Search minimum-cost direct Escape or an actual single-enemy break with boosts at either command menu. Boost input cost1; break cost6 plus8 per elapsed round. Every selected strategy must also leave a strictly positive counter at the village entrance. A break whose reset is too short is rejected. Uses the shared field-restoration callbacks; never just offsets the final RNG. The village-approach boundary is before loading; the separate village_return then tags the village, returns to Flats and predicts the padded walk to Southern Cape Cold Snows.",
+        verification: "Source-derived, awaiting live verification. 170 running updates from harbor return to Abandoned Village entrance (measured ~165 plus five-update allowance). Daytime, unchanged equipment, solo route level, no intervening CRT actions. Search minimum-cost direct Escape or an actual single-enemy break with boosts at either command menu. Boost input cost1; break cost11 plus6 per elapsed round. Every selected strategy must also leave a strictly positive counter at the village entrance. A break whose reset is too short is rejected. Uses the shared field-restoration callbacks; never just offsets the final RNG. The village-approach boundary is before loading; the separate village_return then tags the village, returns to Flats and predicts the padded walk to Southern Cape Cold Snows.",
     };
     if situation == Situation::Surprise {
         return Ok(result);
@@ -315,7 +315,7 @@ fn predict_to_boundary(arrival:CrtRng, world:&WorldState, level:u32, settings:Se
             let mut cost=0u32;
             loop {
                 if ceiling.is_some_and(|c|cost>c) {return Ok(None);}
-                // The fixed night/day shop pair is a constant +14.
+                // The fixed night/day shop pair is a constant +24.
                 for candidate in search.borrow_mut().candidates(cost,true,None)? {
                     let a=candidate.attempt.as_ref().unwrap();
                     let Some(p)=cached(a,southern)? else {continue};
@@ -384,7 +384,7 @@ fn predict_to_boundary(arrival:CrtRng, world:&WorldState, level:u32, settings:Se
         result.verification=if world.galdera_route {
             "Galdera compares direct Escape and optional break-then-Escape by input cost, preserving the village run, clerics and safe onward encounters. No required break; only an actually selected break grants latent. Replay actual Escape, field restoration, map/time/NPC callbacks and encounter selection; freeze this choice before Snows search."
         } else {
-            "Forward search over mandatory Throné break with R1/R2 boosts and the fixed night/day cleric shop pair. No time switch after Osvald recruitment. Minimize boost inputs +6 per break +3 per Defend +8 per elapsed round, with a constant 14 for the mandatory shop pair. Required outcomes gate every candidate jointly; numeric optional budgets add two weighted cost units per input-pair allowance and preserve achieved outcomes. Each candidate replays loader/time/NPC/movement/recruitment and actual final-phase encounter selection. No Cape Cold continuation."
+            "Forward search over mandatory Throné break with R1/R2 boosts and the fixed night/day cleric shop pair. No time switch after Osvald recruitment. Minimize boost inputs +11 per regular-attack break +4 per Defend +6 per elapsed round, with a constant 24 for the mandatory shop pair. Required outcomes gate every candidate jointly; numeric optional budgets add two weighted cost units per input-pair allowance and preserve achieved outcomes. Each candidate replays loader/time/NPC/movement/recruitment and actual final-phase encounter selection. No Cape Cold continuation."
         };
         return Ok(result);
     }

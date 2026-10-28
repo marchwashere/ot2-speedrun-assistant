@@ -137,7 +137,7 @@ pub fn predict(before: CrtRng, world: WorldState, cap: Option<u32>) -> Result<Pr
 /// Jointly require clerics and the caller's downstream target. A finite cost
 /// ceiling is an optional improvement; None searches until a valid plan exists.
 pub fn predict_accepting(before:CrtRng, world:WorldState, cap:Option<u32>, max_cost:Option<u32>, accepts:impl Fn(&Route)->Result<bool>) -> Result<Option<Prediction>> {
-    const SWITCH_COST:u32=7;
+    const SWITCH_COST:u32=crate::early_cait::TIME_SWITCH_INPUT_COST;
     // Mug normally ends at night. Include the village day switch (when needed)
     // AND the final Flats night switch in the objective, not just extra actions.
     // Cost layers guarantee minimum weighted total. Ties prefer fewer Cape Cold
@@ -214,10 +214,10 @@ mod tests {
         assert_eq!(lotteries.len(),p.search.total_time_switches as usize);
         assert!(lotteries.last().unwrap().before.draws >= p.route.after_flats.draws);
         // Exhaust all switch/boost combinations with a strictly lower cost.
-        for switches in 0..p.search.weighted_input_cost/7 {
+        for switches in 0..p.search.weighted_input_cost/crate::early_cait::TIME_SWITCH_INPUT_COST {
             for extra in 0..p.search.weighted_input_cost {
                 let inputs=manipulation::optimal_inputs(extra,2,2).unwrap();
-                let cost=inputs.input_count as u32+7*(switches+u32::from(switches%2==0)+1);
+                let cost=inputs.input_count as u32+crate::early_cait::TIME_SWITCH_INPUT_COST*(switches+u32::from(switches%2==0)+1);
                 if cost>=p.search.weighted_input_cost {continue;}
                 let m=cape_cold_mug::predict_with_boost_inputs(rng,w.clone(),Some(&inputs.levels)).unwrap();
                 assert!(!after_mug_with_switches(&m,switches).unwrap().clerics_present);

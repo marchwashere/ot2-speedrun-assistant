@@ -114,19 +114,19 @@ fn pomegranate_tail(w:&WorldState,rng:CrtRng,town_count:u32,harbor_count:u32)->R
     // This applies only to this two-item Townsperson session.
     l.boundary("Townsperson: change selected path action, then close without Steal voice");
     let steal=checkpoint(&mut l,before);
-    Ok(Some((town,harbor,Pomegranate {town_switches,harbor_switches,steal,throne_level:level,chance,roll,input_cost:7*(town_count.saturating_sub(2)+harbor_count.saturating_sub(2)),item:"ITM_CSM_0080",quantity:1,wind_chance,wind_roll,voyage:None,inventor:None})))
+    Ok(Some((town,harbor,Pomegranate {town_switches,harbor_switches,steal,throne_level:level,chance,roll,input_cost:12*(town_count.saturating_sub(2)+harbor_count.saturating_sub(2)),item:"ITM_CSM_0080",quantity:1,wind_chance,wind_roll,voyage:None,inventor:None})))
 }
 /// Freeze earlier controls; search the Western battle and subsequent town switches.
 fn search_pomegranate(p:&mut Prediction)->Result<()> {
     let arrival=p.western.arrival.clone();let kill=p.western.victory.is_some();
     for cost in 0..u32::MAX/2 {
         for battle_cost in 0..=cost {for (repeats,defends) in controls(battle_cost) {
-            let paid=cost-battle_cost;if paid%7!=0 {continue;}
+            let paid=cost-battle_cost;if paid%12!=0 {continue;}
             let Some(western)=fight_defends(arrival.clone(),repeats,kill,defends)? else {continue;};
-            let max=paid/7+4;
+            let max=paid/12+4;
             for total in 0..=max {for town_count in 0..=total {
                 let harbor_count=total-town_count;
-                if 7*(town_count.saturating_sub(2)+harbor_count.saturating_sub(2))!=paid {continue;}
+                if 12*(town_count.saturating_sub(2)+harbor_count.saturating_sub(2))!=paid {continue;}
                 if let Some((town,harbor,mut tail))=pomegranate_tail(&western.departure().world_after,western.departure().after,town_count,harbor_count)? {
                     tail.voyage=Some(canalbrine_voyage(&tail.steal)?);
                     let approach=crate::inventor::approach(&tail.voyage.as_ref().unwrap().castti)?;
@@ -337,7 +337,7 @@ mod tests {
         assert!(covered>0);
     }
     #[test]
-    fn coast_search_can_select_odd_cost_defends() {
+    fn coast_search_can_select_defends_at_configured_cost() {
         let i=input();
         for seed in 0..1024 {
             let rng=CrtRng{state:seed,draws:i.after.draws};
@@ -470,10 +470,10 @@ mod tests {
             assert!(stage.after.draws>stage.arrival.draws);
             assert!(serde_json::to_string(&stage.decisions).unwrap().contains("Fld_Ocn_1_1"));
         }
-        assert_eq!(tail.input_cost,control_cost(&p.western)+7*(tail.town_switches.len().saturating_sub(2)+tail.harbor_switches.len().saturating_sub(2)) as u32);
+        assert_eq!(tail.input_cost,control_cost(&p.western)+12*(tail.town_switches.len().saturating_sub(2)+tail.harbor_switches.len().saturating_sub(2)) as u32);
         // Exhaust every strictly cheaper local combination independently.
-        for n in 0..=tail.input_cost/2 {for t in 0..=tail.input_cost/7+4 {for h in 0..=tail.input_cost/7+4 {
-            if (t+h)%2!=0||2*n+7*(t.saturating_sub(2)+h.saturating_sub(2))>=tail.input_cost {continue;}
+        for n in 0..=tail.input_cost/2 {for t in 0..=tail.input_cost/12+4 {for h in 0..=tail.input_cost/12+4 {
+            if (t+h)%2!=0||2*n+12*(t.saturating_sub(2)+h.saturating_sub(2))>=tail.input_cost {continue;}
             if let Some(f)=fight(p.western.arrival.clone(),n,p.western.victory.is_some()).unwrap() {
                 if let Some((_,_,candidate))=pomegranate_tail(&f.day.world_after,f.day.after,t,h).unwrap() {
                     let voyage=canalbrine_voyage(&candidate.steal).unwrap();

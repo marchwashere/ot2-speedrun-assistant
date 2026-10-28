@@ -175,35 +175,52 @@ async function start(seed=20,route='any_hikari') {
   assert(begin>=0&&end>begin);
   const renderAdjustment=adjustment=>{
     context.i={new_delsta_adjustment:adjustment,approach:{}};
+    context.early={};context.exit={};context.west={};
+    context.v={cropdale:{},cropdale_exit:{oresrush:{switches_before_partitio:[],switches_after_partitio:[],ryu:{hikari_search:{total_input_cost:0}}}}};
+    run('globalThis.savedCostField=result.post_battle_field;result.post_battle_field={highroad:{},flats_escape:{early_weighted_input_cost:0}};');
     context.conningStages=[];context.conningSpans=[];context.conningPoints=[];
     vm.runInContext(source.slice(begin,end),context);
+    run('result.post_battle_field=savedCostField;');
   };
-  const adjustment=n=>({switches:n,departure:entry(100+n),target:rng(500)});
+  {
+    const esc=n=>({weighted_input_cost:n});
+    const rare=n=>({inputs:{input_count:n}});
+    context.costRoot={identified_entry:{observation_count:999},post_battle_field:{pirro_battle:{manipulation:{inputs:{extra_input_count:2}}},highroad:{approach_search:{plan:[1,2,3,2,3]},escape:esc(3)},flats_escape:{early_weighted_input_cost:24}}};
+    context.costEarly={};context.costExit={escape:esc(4),rare_victory:rare(2),western:{escape:esc(5),rare_victory:rare(2)}};
+    context.costWest={first_escape:esc(6),voyage_with_second:{bogus_cost:99999}};
+    context.costVoyage={escape:esc(7),cropdale:{time_switches:[0,0,0,0]},cropdale_exit:{escape:esc(8),oresrush:{switches_before_partitio:[0,0,0],switches_after_partitio:[0,0],southern_day_switch:{},ryu:{hikari_search:{total_input_cost:20},canalbrine:{water:{escape:esc(999)}}}}}};
+    context.costInventor={new_delsta_adjustment:{input_cost:100},crackridge_return:{gravell:{fight:{actions:[{action:'guards',inputs:[1,2,3]},{action:'bewildering_grace',inputs:[1,2,3]},{action:'thunder_soulstone',inputs:[1,0]}]},coast:{bogus_cost:99999}}}};
+    assert.equal(run('expAdjustmentCost(costRoot,costEarly,costExit,costWest,costVoyage,costInventor)'),235);
+    context.costEarly={rare_victory:rare(2),after_rare:{passage:{escape:esc(11)}}};
+    assert.equal(run('expAdjustmentCost(costRoot,costEarly,costExit,costWest,costVoyage,costInventor)'),235,'Southern rare branch replaces, not adds to, the alternative Snows branch');
+  }
+  const adjustment=n=>({switches:0,input_cost:n,departure:entry(100+n),target:rng(500)});
   const saveLimit=value=>{
-    element('new-delsta-switch-limit').value=value;
+    element('adjustment-cost-limit').value=value;
     element('route-alert-settings').fire('submit',{preventDefault(){}});
   };
   run('running=false;clearVoiceResult();');
-  assert.equal(element('new-delsta-switch-limit').value,'','Warning is off by default');
+  assert.equal(element('adjustment-cost-limit').value,'','Warning is off by default');
   const alerts=await start(70,'galdera');alerts.send('progress',galderaSnapshot(70));await flush();
-  const dialog=element('new-delsta-warning');
+  const dialog=element('adjustment-cost-warning');
   renderAdjustment(adjustment(83));assert.equal(dialog.open,false);
   element('settings-mode').fire('click');assert.equal(run('activeScreen'),'settings');
   assert.equal(alerts.request.signal.aborted,false);
-  saveLimit('20');assert.equal(storage.get('ot2-new-delsta-switch-warning'),'20');
+  saveLimit('20');assert.equal(storage.get('ot2-adjustment-cost-warning'),'20');
   assert.equal(pending.length,0,'Changing the warning limit must not start a search');
   for(const invalid of ['-1','1.5','9007199254740992','not a number']) {
     saveLimit(invalid);assert.equal(element('route-alert-error').hidden,false);
-    assert.equal(run('newDelstaSwitchLimit'),20,'Invalid input must preserve the saved limit');
+    assert.equal(run('adjustmentCostLimit'),20,'Invalid input must preserve the saved limit');
   }
-  element('new-delsta-switch-limit').validity={badInput:true};saveLimit('');
-  assert.equal(run('newDelstaSwitchLimit'),20,'An invalid number input must not silently disable alerts');
-  element('new-delsta-switch-limit').validity={badInput:false};saveLimit('20');
+  element('adjustment-cost-limit').validity={badInput:true};saveLimit('');
+  assert.equal(run('adjustmentCostLimit'),20,'An invalid number input must not silently disable alerts');
+  element('adjustment-cost-limit').validity={badInput:false};saveLimit('20');
   renderAdjustment(null);renderAdjustment(adjustment(19));renderAdjustment(adjustment(20));
+  renderAdjustment({...adjustment(20),switches:100});
   assert.equal(dialog.open,false,'Incomplete sections and counts at or below the limit must not warn');
   renderAdjustment(adjustment(21));
   assert.equal(dialog.open,true);assert.equal(dialog.modalCount,1);
-  assert.match(element('new-delsta-warning-message').textContent,/21 New Delsta time switches.*limit is 20/);
+  assert.match(element('adjustment-cost-warning-message').textContent,/21 total adjustment cost units from after identification through EXP ×100.*limit is 20/);
   assert.equal(run('running'),true,'Warn without waiting for the remaining JP search');
   element('galdera-mode').fire('click');
   run("voiceTranscript='NSN';voiceLocked=false;");
@@ -220,7 +237,7 @@ async function start(seed=20,route='any_hikari') {
 
   renderAdjustment(adjustment(22));assert.equal(dialog.modalCount,2,'A different selected plan is checked independently');
   saveLimit('');assert.equal(dialog.open,false);renderAdjustment(adjustment(83));
-  assert.equal(dialog.modalCount,2);assert.equal(storage.get('ot2-new-delsta-switch-warning'),'');
+  assert.equal(dialog.modalCount,2);assert.equal(storage.get('ot2-adjustment-cost-warning'),'');
   saveLimit('0');renderAdjustment(adjustment(0));assert.equal(dialog.open,false);
   renderAdjustment(adjustment(1));assert.equal(dialog.open,true,'Zero warns on any nonzero count');
   element('voice-reset').fire('click');assert.equal(dialog.open,false);assert.equal(run('result'),null);
@@ -229,11 +246,11 @@ async function start(seed=20,route='any_hikari') {
   element('voice-reset').fire('click');await again.task;
   assert(again.request.signal.aborted);assert.equal(dialog.open,false);
   storageUnavailable=true;saveLimit('5');storageUnavailable=false;
-  assert.equal(run('newDelstaSwitchLimit'),5);assert.match(element('route-alert-status').textContent,/this tab/);
+  assert.equal(run('adjustmentCostLimit'),5);assert.match(element('route-alert-status').textContent,/this tab/);
   saveLimit('12');
   // A new script context represents a page reload with the same browser storage.
   const reload=vm.createContext({document:{getElementById:element},localStorage:{getItem:key=>storage.get(key)??null}});
   vm.runInContext(source.slice(0,source.indexOf('const repeatSettings = [')),reload);
-  assert.equal(element('new-delsta-switch-limit').value,12);
+  assert.equal(element('adjustment-cost-limit').value,12);
   console.log('PASS: disable/zero thresholds, fresh-run reset, unavailable storage and persistence across reload');
 })().catch(e=>{console.error(e);process.exitCode=1;});

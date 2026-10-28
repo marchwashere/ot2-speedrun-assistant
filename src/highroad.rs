@@ -565,7 +565,7 @@ pub(crate) fn predict_internal(
         field_return,
         approach_search: None,
         formation_search: None,
-        verification: "Live capture verifies all 10 CRT calls from menu6002 through five boost cycles, Escape, two field gondola callbacks and counter B/A to6012. Other starts remain source-derived. Immediate daytime switch, skipped Al introduction, unchanged equipment, no intervening CRT actions; first land encounter. Compare direct Escape with actual break and next-menu boosts by estimated input cost: boost input1, break6 plus8 per elapsed round. Break uses actual hit rolls and guarantees next-menu Escape without a lottery. Surprise combat and failed-Escape continuation are not approximated.",
+        verification: "Live capture verifies all 10 CRT calls from menu6002 through five boost cycles, Escape, two field gondola callbacks and counter B/A to6012. Other starts remain source-derived. Immediate daytime switch, skipped Al introduction, unchanged equipment, no intervening CRT actions; first land encounter. Compare direct Escape with actual break and next-menu boosts by estimated input cost: boost input1, break11 plus6 per elapsed round. Break uses actual hit rolls and guarantees next-menu Escape without a lottery. Surprise combat and failed-Escape continuation are not approximated.",
     })
 }
 
