@@ -1,4 +1,114 @@
+# Hikari free Clockbank windows and paid New Delsta advancement (2026-10-30)
+
+Production Hikari EXP100 search now starts from the existing New Delsta return,
+before Agnea's Chapter 2 opening. Extra paid switches happen there at 12 each,
+in day-ending pairs to preserve the daytime Highroad encounter. Every candidate
+replays the Highroad Escape, crafting, Clockbank movement and story events.
+Hikari retains the nearest safe Highroad/Clockbank approach; additional RNG
+advancement is allocated to town windows and late field controls. Free-window
+frontiers are cached by exact world/RNG state, with bounded per-branch work.
+
+Clockbank has seven optional free windows with capacities 2/2/1/2/2/2/3:
+main town before Industrial entry; Industrial entry before Will/Ori; before
+factory/Roque scenes; before headquarters scenes; before the first factory visit;
+after its exit before the weaponsmith; after the weaponsmith before the second
+factory visit. Zero through capacity are considered independently. Exact world
+and RNG keys merge equivalent prefixes; no RNG offsets replace callbacks.
+Odd windows and nighttime factory visits are allowed. If delivery ends at night,
+a separate day switch before the existing Crackridge leg costs 12 and is shown.
+Paid surplus advancement is never appended in Industrial District by production.
+The old standalone Clockbank search remains only for historical fixture tests.
+
+Shared weights: boost press 1, ordinary break 11, Fireball break 26, Defend 4,
+round advance 6, time switch 12. The 14 measured Clockbank slots cost zero.
+Mandatory early Throné breaks, Scholar guild, Hikari recruitment/Osvald bench,
+Clockite errands and four field encounters remain. The reset warning stays
+Galdera-only. Target estimates only rank candidates; acceptance requires actual
+EXP100, victory, four survivors, successful escapes and full replay.
+
+Tests: clockbank_free covers real night loads, normalization, zero/full windows
+and exact frontier replay; identified_route's ignored Hikari full-route regression
+checks required breaks and the production New Delsta/Clockbank plan. The viewer
+shows each selected window count and its ending period.
+
+The sections below describe historical search policies and benchmark weights.
+
+Publication checks (2026-10-30): the two free-window tests, six Oresrush tests,
+three viewer regression scripts, GUI compilation, and explicit production
+New Delsta-to-EXP100 replay passed. That replay selected zero paid New Delsta
+switches and all fourteen free Clockbank switches, with total input cost40.
+The historical standalone `refinement_improves_known_plan_and_replays_full_fight`
+test fails its191-input performance ceiling. This is an unresolved search-cost
+regression in that historical entry path; do not report the entire suite as passing.
+
 # Clockbank BG search: bounded improvement of a valid plan
+
+## Any% Hikari backport (2026-10-23)
+
+The shared engine already includes the Galdera-era battle corrections: BG
+effect callbacks and voices (including the death-whisper Miss display), Defend
+and Springy Boots ordering, camera timing, and first-turn-only preemptive Escape.
+Conning's safe first-round Defend search, early rare-kill boosts, cooperative
+cancellation and progressive route controls also already serve both routes.
+
+Hikari now adds the target-ranked refinement previously restricted to Galdera.
+After establishing its existing valid fallback, it measures the actual 0–7
+safe-Defend draw curves and ranks partial allocations against EXP100 lottery
+targets, including nearby later targets. The exact route and battle must still
+replay to victory, EXP100 and four living characters. A computational cap stops
+refinement while retaining the accepted fallback; this is not a global optimum
+or an exhaustive search of all allocations.
+
+The four sites remain Crackridge Harbor after Clockite, Southern Crackridge,
+Western Crackridge before town, and Western Crackridge after town. There is no
+Trader altar visit or fifth encounter. Clockbank remains the time-adjustment
+location, and every departure has an even number of switches and daytime.
+Each switch now costs12 input equivalents, each Defend3, and crossing a battle
+round8. Earlier timing weights and benchmark costs below are historical.
+
+Second-round Defends stop before an enemy action. Escape is checked using the
+actual round, party levels and RNG; a preemptive opening cannot bypass the
+second-round escape roll. The existing final Western Wind Soulstone option can
+also follow Defends. Both Defend and final-action widgets show the actual turn,
+Hikari party member and command-menu ordinal.
+
+The refinement has at most600000 work units,4000 per candidate, and ranks up
+to384 profiles per target. Hikari's fallback retains its old first-round control
+range. Exact fight-cache failures record their effective fight cap and Guards
+window; a small-cap failure must not reject a larger later query.
+
+Route invariants remain unchanged: mandatory Throné breaks at the first
+Highroad, Flats and post-Winterbloom Harbor encounters; Scholar license and
+Western Winterbloom's second-encounter option; Hikari recruitment and Osvald's
+bench slot; Agnea/Partitio story and Clockite delivery; original Gravell jobs,
+skills and EXP100 routine; endpoint at Gravell. No Galdera errands or JP100
+search are added, and the New Delsta reset warning remains Galdera-only.
+
+Four checkpoint states, using the same engine and party before/after the search
+backport, produced these selected Clockbank switch counts:
+
+| Checkpoint CRT state | Before | After |
+| --- | ---: | ---: |
+|2447445413|38|4|
+|806913878|14|0|
+|3461349639|74|24|
+|1820818104|172|120|
+
+These are checkpoint samples, not a guarantee for every seed. Regression tests
+replay the switches, all field Defends/Escapes and the complete Hikari EXP100
+battle. `identified_route::tests::hikari_backport_preserves_required_breaks_and_route`
+is an explicit optimized full-route test covering recruitment/Winterbloom
+branches and the mandatory breaks. UI regressions are
+`tools/test-progressive-controls.cjs` and `tools/test-gravell-action-labels.cjs`.
+
+Validation: 209 assistant unit tests, the explicit full Hikari route replay,
+four checkpoint replays, 135 core battle tests, cancellation and both UI suites
+passed. Five Galdera fixture tests fail on both this change and unchanged
+assistant HEAD438329f with core3c6185f (Temenos/Wellgrove/Flamechurch fixtures
+omit Merchant setup; Winterbloom omits the Coast Merchant; direct Inventor
+return omits Elemental Augmentation). The broad suite's legacy Flats Cait-fork
+and Snows cached-layer comparisons were stopped after several minutes; they
+are not claimed as passing. No production rules were relaxed for these tests.
 
 The planner first establishes a fully replayed baseline, then tries cheaper
 plans. Search work limits never turn a successful required outcome into an

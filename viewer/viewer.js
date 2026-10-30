@@ -1174,7 +1174,7 @@ function renderCrackridgeVoyage() {
           if(i.new_delsta_adjustment) {
             const c=i.new_delsta_adjustment;
             // This is the selected committed EXP route, available before JP search finishes.
-            maybeWarnAdjustmentCost({...c,input_cost:expAdjustmentCost(result,early,exit,west,v,i)});
+            if(i.approach.agnea_story.world_after.galdera_route) maybeWarnAdjustmentCost({...c,input_cost:expAdjustmentCost(result,early,exit,west,v,i)});
             $('new-delsta-bg-result').hidden=false;
             $('new-delsta-bg-routine').innerHTML=instructionBoxHtml(['New Delsta main town time switches: '+c.switches+' (finish in '+(c.departure.world_after.time===4?'nighttime':'daytime')+')',...(i.approach.highroad_day_switch?['Immediately upon entering Eastern New Delsta Highroad: switch to day']:[])]);
             conningStages.push(['New Delsta · BG adjustment complete ('+(c.departure.world_after.time===4?'night':'day')+')',c.departure]);
@@ -1204,6 +1204,14 @@ function renderCrackridgeVoyage() {
             $('crackridge-return-routine').innerHTML=lateRouteInstructions(r);
           }
           for(const [label,e] of i.clockite_stages || []) {conningStages.push([label,e]);conningSpans.push(...e.trace);}
+          if(i.clockbank_free) {
+            const c=i.clockbank_free;
+            $('clockbank-bg-result').hidden=false;
+            $('clockbank-bg-routine').innerHTML=c.windows.map(w=>
+              '<p><strong>'+escapeHtml(w.label)+'</strong></p>'+instructionBoxHtml([
+                'Time switches: '+w.switches+' · finish in '+(w.end_time===4?'nighttime':'daytime')
+              ])).join('')+(c.return_to_day?instructionBoxHtml(['After second factory exit: switch to day before teleporting to Crackridge Harbor']):'');
+          }
           if(i.clockbank_adjustment) {
             const c=i.clockbank_adjustment;
             $('clockbank-bg-result').hidden=false;

@@ -44,3 +44,24 @@ for(const coast of [false,true]) for(const firstMerchant of [1,3]) {
  assert.doesNotMatch(element.innerHTML,/T2 · Throné · 2nd command menu/);
 }
 console.log('PASS: complete Any% and Galdera EXP100 routines, both merchant orders, targets, exact boosts and menu ordinals');
+
+// The shared late-field renderer must also label Hikari's new second-round
+// Defends and Escape, without using Galdera's Osvald party slot.
+{
+ const c={escapeHtml:String,encounterLabel:()=> 'Encounter',routeNames:()=>['Throné','Hikari','Agnea','Partitio'],
+  instructionBoxHtml:parts=>parts.join(' '),boostStepsHtml:(_,command)=>command};
+ vm.runInNewContext(helpers,c);
+ const begin=source.indexOf('function lateRouteMenuCheckpoints(');
+ const end=source.indexOf('\nfunction ',source.indexOf('function lateRouteInstructions(',begin)+1);
+ vm.runInNewContext(source.slice(begin,end<0?undefined:end),c);
+ const r={defends:[0,1,2,3,3,2,1].map(actor=>({actor,rng_before:{state:1,draws:0}})),
+  defend_rounds:[1,1,1,1,2,2,2],escape_round:2,menu:{first_actor:0,rng:{state:2,draws:100}},inputs:{levels:[1,0]}};
+ const html=c.lateRouteInstructions(r);
+ assert.match(html,/T1 · Hikari · 2nd command menu/);
+ assert.match(html,/T2 · Hikari · 3rd command menu/);
+ assert.match(html,/T2 · Throné · 4th command menu/);
+ assert.doesNotMatch(html,/Osvald/);
+ const points=c.lateRouteMenuCheckpoints('Crackridge',r);
+ assert.equal(points.length,8);assert.match(points[7][0],/T2 · Throné · 4th command menu · Escape/);
+ console.log('PASS: Any% Hikari Defends through T2 retain correct names, rounds and menu ordinals');
+}

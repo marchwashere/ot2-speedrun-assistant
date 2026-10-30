@@ -30,6 +30,25 @@ pub struct RunningReach {
 mod tests {
     use super::*;
     #[test]
+    fn free_switch_budgets_are_route_specific_and_pruning_is_a_lower_bound() {
+        assert_eq!(free_switches_before_partitio(false),3);
+        assert_eq!(free_switches_before_partitio(true),2);
+        assert_eq!(switch_cost(false,3,1),0);
+        assert_eq!(switch_cost(true,3,1),1);
+        assert_eq!(switch_cost(false,4,2),1);
+        assert_eq!(switch_cost(true,4,2),2);
+        for galdera in [false,true] {
+            assert_eq!(switch_cost(galdera,2,2),0);
+            assert_eq!(switch_cost(galdera,2,3),1);
+            for total in 0u32..20 {
+                let lower=total.saturating_sub(free_switches_before_partitio(galdera)+FREE_SWITCHES_AFTER_PARTITIO);
+                for before in 0..=total {
+                    assert!(u64::from(lower)<=switch_cost(galdera,before,total-before));
+                }
+            }
+        }
+    }
+    #[test]
     fn ryu_limits_use_return_counter_and_padded_measured_densities() {
         let mut state=world::throne_after_second_state().unwrap();
         state.map=SOUTHERN.into();state.time=2;state.evasive_maneuvers=true;
@@ -111,8 +130,8 @@ mod tests {
             for e in &p.switches_after_partitio {assert_eq!(e.arrival,rng);assert_eq!(e.world_after.party,[7,6,8,4]);rng=e.after;}
             assert_eq!(p.southern_return.arrival,rng);assert_eq!(p.southern_return.world_after.time,2);
         }
-        assert_eq!(switch_cost(2,2),0);assert_eq!(switch_cost(0,4)*12,24);
-        assert_eq!(switch_cost(3,1)*12,12);assert_eq!(switch_cost(4,2)*12,24);assert_eq!(switch_cost(2,4)*12,24);
+        assert_eq!(switch_cost(false,2,2),0);assert_eq!(switch_cost(false,0,4)*12,24);
+        assert_eq!(switch_cost(false,3,1)*12,0);assert_eq!(switch_cost(false,4,2)*12,12);assert_eq!(switch_cost(false,2,4)*12,24);
         assert!(predict_with_switches(&entry,&reach,1,2).is_err());
     }
     #[test]
@@ -175,9 +194,9 @@ fn checkpoint(l:&mut Loader<'_>,arrival:crate::CrtRng,reason:&str)->Entry {
 pub fn predict(entry:&Entry,reach:&CropdaleReach)->Result<Prediction> {
     predict_with_switches(entry,reach,0,0)
 }
-pub const FREE_SWITCHES_BEFORE_PARTITIO:u32=2;
+pub const fn free_switches_before_partitio(galdera_route:bool)->u32 {if galdera_route {2}else{3}}
 pub const FREE_SWITCHES_AFTER_PARTITIO:u32=2;
-pub fn switch_cost(before:u32,after:u32)->u64 {u64::from(before.saturating_sub(FREE_SWITCHES_BEFORE_PARTITIO))+u64::from(after.saturating_sub(FREE_SWITCHES_AFTER_PARTITIO))}
+pub fn switch_cost(galdera_route:bool,before:u32,after:u32)->u64 {u64::from(before.saturating_sub(free_switches_before_partitio(galdera_route)))+u64::from(after.saturating_sub(FREE_SWITCHES_AFTER_PARTITIO))}
 fn switches(l:&mut Loader<'_>,count:u32,label:&str)->Result<Vec<Entry>> {
     let mut out=Vec::new();
     for _ in 0..count {let arrival=l.rng;l.manual_time_switch(if l.state.time==2 {4}else{2},label)?;out.push(checkpoint(l,arrival,label));}

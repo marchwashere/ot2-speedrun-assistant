@@ -166,6 +166,58 @@ fn complete_flex(value:&mut serde_json::Value)->Result<()> {
 #[cfg(test)] mod tests {
     use super::*;
     #[test]
+    #[ignore = "Full Any% Hikari route with both recruitment / Winterbloom branches; run optimized"]
+    fn hikari_backport_preserves_required_breaks_and_route() {
+        std::thread::Builder::new().stack_size(32*1024*1024).spawn(|| {
+            let mut snapshots=0;
+            let result=simulate_route_progress("NNSNSSSNSSNSSSSSNNNNSNSNNSNNNNN",false,197,false,&mut |_,v| {
+                assert_eq!(v["route"],"any_hikari");
+                let h=&v["post_battle_field"]["highroad"];
+                assert_eq!(h["world_after_al"]["galdera_route"],false);
+                assert!(h["settings"]["break_max_boost_repeats"].is_null());
+                assert!(h["settings"]["flats_break_max_boost_repeats"].is_null());
+                assert_eq!(h["escape"]["break_action"]["attack_actor"],0);
+                assert_eq!(h["escape"]["attempt"]["success"],true);
+                snapshots+=1;Ok(())
+            }).unwrap();
+            assert_eq!(snapshots,2);
+            let flats=&result["post_battle_field"]["flats_escape"];
+            assert_eq!(flats["escape"]["break_action"]["attack_actor"],0);
+            assert_eq!(flats["escape"]["attempt"]["success"],true);
+            let mut counts=[0;4];
+            fn inspect(v:&serde_json::Value,counts:&mut [usize;4]) {
+                if v["evasive_at_entry"].is_boolean() {
+                    assert!(v["voyage_with_second"].is_object(),"Keep Hikari's second Winterbloom encounter");
+                    assert!(v["with_second"]["town"]["world_after"]["job_licenses"]["6"].as_u64().unwrap()>0);
+                    for key in ["voyage_without_second","voyage_with_second"] {
+                        if v[key].is_object() {assert_eq!(v[key]["escape"]["break_action"]["attack_actor"],0,"Keep the post-Winterbloom Harbor Throné break");}
+                    }
+                    counts[0]+=1;
+                }
+                if v["hikari"]["recruitment"].is_object() {counts[1]+=1;}
+                if v["clockbank_free"].is_object() {
+                    assert!(v["new_delsta_adjustment"].is_object());assert!(v["thief"].is_null());
+                    assert!(!v["clockite_stages"].as_array().unwrap().is_empty());
+                    assert_eq!(v["new_delsta_adjustment"]["switches"].as_u64().unwrap()%2,0);
+                    assert_eq!(v["clockbank_free"]["departure"]["world_after"]["time"],2);
+                    counts[2]+=1;
+                }
+                if v["fight"]["evaluation"]["result"]=="accepted" && v["night"].is_object() {
+                    assert_eq!(v["night"]["world_after"]["party"],serde_json::json!([7,1,8,4]));
+                    assert!(v["coast"].is_null());
+                    assert_eq!(v["town"]["world_after"]["map"],"Twn_Wld_3_1_A");counts[3]+=1;
+                }
+                match v {
+                    serde_json::Value::Object(rows)=>for x in rows.values(){inspect(x,counts)},
+                    serde_json::Value::Array(rows)=>for x in rows{inspect(x,counts)},_=>{}
+                }
+            }
+            inspect(&result,&mut counts);
+            assert!(counts[0]>0&&counts[1]>0&&counts[2]>0&&counts[3]==counts[2],"Route coverage {counts:?}");
+            eprintln!("Any% Hikari branch coverage: {counts:?}");
+        }).unwrap().join().unwrap();
+    }
+    #[test]
     fn galdera_identified_prefix_removes_required_breaks_before_streaming() {
         std::thread::Builder::new().stack_size(32*1024*1024).spawn(|| {
             let mut checked=false;

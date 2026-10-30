@@ -174,7 +174,7 @@ async function start(seed=20,route='any_hikari') {
   const end=source.indexOf("          $('inventor-escape-result')",begin);
   assert(begin>=0&&end>begin);
   const renderAdjustment=adjustment=>{
-    context.i={new_delsta_adjustment:adjustment,approach:{}};
+    context.i={new_delsta_adjustment:adjustment,approach:{agnea_story:{world_after:{galdera_route:true}}}};
     context.early={};context.exit={};context.west={};
     context.v={cropdale:{},cropdale_exit:{oresrush:{switches_before_partitio:[],switches_after_partitio:[],ryu:{hikari_search:{total_input_cost:0}}}}};
     run('globalThis.savedCostField=result.post_battle_field;result.post_battle_field={highroad:{},flats_escape:{early_weighted_input_cost:0}};');

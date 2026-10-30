@@ -401,7 +401,7 @@ mod tests {
         assert_eq!(harbor.menu.current_order.len(),4);
         assert!(harbor.escape.as_ref().unwrap().success);
         assert!(matches!(harbor.encounter.situation.as_deref(),Some("Normal"|"Preemptive")));
-        assert_eq!(harbor.arrival.arrival,inventor.clockbank_adjustment.as_ref().unwrap().departure.after);
+        assert_eq!(harbor.arrival.arrival,inventor.clockbank_free.as_ref().unwrap().departure.after);
         assert_eq!(harbor.field_return.world_after.map,"Fld_Wld_1_2");
         let south=harbor.southern.as_ref().unwrap();
         assert!(south.escape.as_ref().unwrap().success);
@@ -428,8 +428,8 @@ mod tests {
         assert_eq!(gravell.setup.world_after.character_progression[&1].jobs.secondary_job,Some(0));
         for id in &gravell.setup.world_after.party {assert!(gravell.setup.world_after.character_progression[id].jobs.equipped_support.contains(crate::gravell_setup::STEP_AHEAD));}
         assert!(!gravell.setup.world_after.character_progression[&1].jobs.equipped_support.contains(crate::gravell_setup::MONEY_UP));
-        let adjustment=inventor.clockbank_adjustment.as_ref().unwrap();
-        println!("BG plan: {} Clockbank switches, {} input equivalents; Guards/BG inputs {:?}; last Western action {}",adjustment.switches,adjustment.input_cost,gravell.fight.actions.iter().filter(|a|matches!(a.action,ot2_battle_engine::gravell_routine::Action::Guards|ot2_battle_engine::gravell_routine::Action::BewilderingGrace)).map(|a|(a.action,a.inputs.len())).collect::<Vec<_>>(),if back.victory.is_some(){"Wind L"}else{"Escape"});
+        let adjustment=inventor.new_delsta_adjustment.as_ref().unwrap();
+        println!("BG plan: {} New Delsta switches, {} input equivalents; Guards/BG inputs {:?}; last Western action {}",adjustment.switches,adjustment.input_cost,gravell.fight.actions.iter().filter(|a|matches!(a.action,ot2_battle_engine::gravell_routine::Action::Guards|ot2_battle_engine::gravell_routine::Action::BewilderingGrace)).map(|a|(a.action,a.inputs.len())).collect::<Vec<_>>(),if back.victory.is_some(){"Wind L"}else{"Escape"});
         let target=adjustment.target;
         let lottery=gravell.fight.trace.iter().find(|s|s.reason=="bewildering_grace_lottery"&&s.before==target).unwrap();
         assert_eq!(lottery.before,target);

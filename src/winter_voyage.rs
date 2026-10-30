@@ -183,6 +183,7 @@ pub fn search_oresrush(destination:&Entry,reach:&CropdaleReach)->Result<(Box<Cro
     let crop=Box::new(enter_cropdale_with_switches(destination,reach,0)?);
     let (trail,encounter,rng)=return_to_trail(&crop)?;
     let mut exit=Box::new(escape_to_southern_range(trail,encounter,rng,0,u32::MAX-1,false)?.ok_or_else(||crate::SimError("Eastern Escape exhausted".into()))?);
+    let galdera_route=exit.southern.world_after.galdera_route;
     let (before,after,expected_cost,expected_rng)=world::without_diagnostics(|| {
         let mut best:Option<(u32,u32,u64,CrtRng,bool)>=None;
         let mut prefixes=crate::oresrush::PrefixCache::new(&exit.southern,exit.oresrush_reach.as_ref().unwrap())?;
@@ -190,10 +191,10 @@ pub fn search_oresrush(destination:&Entry,reach:&CropdaleReach)->Result<(Box<Cro
         loop {
         for total in (0..u32::MAX-1).step_by(if exit.southern.world_after.galdera_route {1}else{2}) {
             let bound=best.as_ref().map_or(u64::from(budget),|b|b.2);
-            if u64::from(total.saturating_sub(crate::oresrush::FREE_SWITCHES_BEFORE_PARTITIO+crate::oresrush::FREE_SWITCHES_AFTER_PARTITIO))*12>bound {break;}
+            if u64::from(total.saturating_sub(crate::oresrush::free_switches_before_partitio(galdera_route)+crate::oresrush::FREE_SWITCHES_AFTER_PARTITIO))*12>bound {break;}
             for before in 0..=total {
                 let after=total-before;
-                let base_time_cost=crate::oresrush::switch_cost(before,after)*12;
+                let base_time_cost=crate::oresrush::switch_cost(galdera_route,before,after)*12;
                 let bound=best.as_ref().map_or(u64::from(budget),|b|b.2);
                 if base_time_cost>bound {continue;}
                 let prefix=prefixes.predict(before,after)?;
@@ -217,7 +218,7 @@ pub fn search_oresrush(destination:&Entry,reach:&CropdaleReach)->Result<(Box<Cro
     let o=propagate_oresrush(&exit,before,after)?.expect("Selected Oresrush plan replays");
     let r=o.ryu.as_ref().unwrap();
     ensure(r.canalbrine.as_ref().unwrap().conning.as_ref().unwrap().town.after==expected_rng,"Oresrush replay changed RNG")?;
-    ensure(crate::oresrush::switch_cost(before,after)*12+if o.southern_day_switch.is_some() {12}else{0}+u64::from(r.hikari_search.as_ref().unwrap().total_input_cost)==expected_cost,"Oresrush replay changed cost")?;
+    ensure(crate::oresrush::switch_cost(galdera_route,before,after)*12+if o.southern_day_switch.is_some() {12}else{0}+u64::from(r.hikari_search.as_ref().unwrap().total_input_cost)==expected_cost,"Oresrush replay changed cost")?;
     exit.oresrush=Some(Box::new(o));
     Ok((crop,exit))
 }

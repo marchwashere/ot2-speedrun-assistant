@@ -48,7 +48,7 @@ fn thief(entry:&Entry)->Result<Thief> {
  Ok(Thief {night,introduction,battle,field_return,bag,day})
 }
 #[derive(Debug,Serialize)]
-pub struct Prediction {#[serde(skip_serializing_if="Option::is_none")] pub inventor_reach:Option<ThiefReach>,#[serde(skip_serializing_if="Option::is_none")] pub inventor_arrival:Option<Entry>,#[serde(skip_serializing_if="Option::is_none")] pub new_delsta_adjustment:Option<ClockbankAdjustment>,pub clockbank_adjustment:Option<ClockbankAdjustment>,pub approach:Approach,pub menu:Option<FieldEscapeMenu>,pub inputs:BoostInputs,pub escape:Option<FieldEscapeAttempt>,pub field_return:Entry,pub license:Entry,pub bomb:Entry,pub scope:Entry,#[serde(skip_serializing_if="Option::is_none")] pub thief:Option<Thief>,pub western_clockbank:Option<Entry>,pub southern_clockbank:Option<Entry>,pub clockbank_reach:Option<crate::winter_voyage::CropdaleReach>,pub clockbank:Option<Entry>,pub partitio_story:Option<Entry>,pub clockite_stages:Vec<(String,Entry)>,pub crackridge_return:HarborReturn}
+pub struct Prediction {#[serde(skip_serializing_if="Option::is_none")] pub clockbank_free:Option<crate::clockbank_free::Plan>,#[serde(skip_serializing_if="Option::is_none")] pub inventor_reach:Option<ThiefReach>,#[serde(skip_serializing_if="Option::is_none")] pub inventor_arrival:Option<Entry>,#[serde(skip_serializing_if="Option::is_none")] pub new_delsta_adjustment:Option<ClockbankAdjustment>,pub clockbank_adjustment:Option<ClockbankAdjustment>,pub approach:Approach,pub menu:Option<FieldEscapeMenu>,pub inputs:BoostInputs,pub escape:Option<FieldEscapeAttempt>,pub field_return:Entry,pub license:Entry,pub bomb:Entry,pub scope:Entry,#[serde(skip_serializing_if="Option::is_none")] pub thief:Option<Thief>,pub western_clockbank:Option<Entry>,pub southern_clockbank:Option<Entry>,pub clockbank_reach:Option<crate::winter_voyage::CropdaleReach>,pub clockbank:Option<Entry>,pub partitio_story:Option<Entry>,pub clockite_stages:Vec<(String,Entry)>,pub crackridge_return:HarborReturn}
 #[derive(Debug,Serialize)]
 pub struct HarborReturn {#[serde(skip_serializing_if="Option::is_none")] pub altar:Option<crate::galdera_altar::Visit>,#[serde(skip_serializing_if="Vec::is_empty")] pub defend_rounds:Vec<u32>,#[serde(skip_serializing_if="is_first_round")] pub escape_round:u32,#[serde(skip_serializing_if="Option::is_none")] pub bg_adjustment:Option<ClockbankAdjustment>,pub defends:Vec<ot2_battle_engine::StepReport>,pub arrival:Entry,pub encounter:encounter::Prediction,pub battle_entry:CrtRng,pub menu:FieldEscapeMenu,pub inputs:BoostInputs,pub escape:Option<FieldEscapeAttempt>,pub victory:Option<ot2_battle_engine::field_escape::FieldRareVictory>,pub field_return:Entry,pub southern:Option<Box<HarborReturn>>,pub approach_stages:Vec<(String,Entry)>,pub gravell:Option<GravellArrival>}
 #[derive(Debug,Serialize)]
@@ -59,7 +59,9 @@ fn field_encounter(entry:&Entry,zone:&str)->Result<(encounter::Prediction,CrtRng
  Ok((encounter,rng))
 }
 fn gravell_arrival(entry:&Entry)->Result<Option<GravellArrival>> {gravell_target(entry,None)}
-type FightCache=std::cell::RefCell<std::collections::BTreeMap<(u32,Vec<u8>),(u32,Option<ot2_battle_engine::gravell_routine::Fight>)>>;
+// A failed query proves nothing beyond its actual fight cap / Guards window.
+// Caches are scoped to one lottery target by search_bg.
+type FightCache=std::cell::RefCell<std::collections::BTreeMap<(u32,Vec<u8>,usize),(u32,Option<ot2_battle_engine::gravell_routine::Fight>)>>;
 #[derive(Clone,Copy)]
 struct BgTarget<'a> {rng:CrtRng,budget:u32,cache:&'a FightCache,guard_extra:usize,fight_cap:usize,action_cap:u32,work:Option<&'a std::cell::Cell<usize>>,defend_profile:Option<[usize;5]>}
 fn gravell_target(entry:&Entry,target:Option<BgTarget>)->Result<Option<GravellArrival>> {
@@ -81,19 +83,20 @@ fn gravell_target(entry:&Entry,target:Option<BgTarget>)->Result<Option<GravellAr
  let situation=if encounter.situation.as_deref()==Some("Preemptive") {Situation::Preemptive}else{Situation::Normal};
  let players:Vec<_>=night.world_after.party.iter().map(|id|night.world_after.character_progression[id].character.clone()).collect();
  let ids:Vec<_>=encounter.enemies.iter().map(|e|e.enemy.id.as_str()).collect();
- let key=(rng.state,serde_json::to_vec(&(situation,&players,&ids,&night.world_after.enemy_knowledge)).map_err(|e|SimError(e.to_string()))?);
- let cached=target.and_then(|t|t.cache.borrow().get(&key).filter(|(budget,fight)|*budget>=t.budget||fight.is_some()).cloned());
+ let key=(rng.state,serde_json::to_vec(&(situation,&players,&ids,&night.world_after.enemy_knowledge)).map_err(|e|SimError(e.to_string()))?,target.map_or(0,|t|t.guard_extra));
+ let fight_budget=target.map_or(usize::MAX,|t|(t.budget as usize).min(t.fight_cap));
+ let cached=target.and_then(|t|t.cache.borrow().get(&key).filter(|(budget,fight)|*budget as usize>=fight_budget||fight.is_some()).cloned());
  let fight=if let Some((_,fight))=cached {
-  fight.filter(|f|fight_input_cost(f)<=target.unwrap().budget)
+  fight.filter(|f|fight_input_cost(f) as usize<=fight_budget)
  }else {
   let battle=ot2_battle_engine::field_escape::carried_step_ahead(rng,situation,&players,&ids,true,&night.world_after.enemy_knowledge)?;
   let accepts=|fight:&ot2_battle_engine::gravell_routine::Fight| {
    if night.world_after.galdera_route {crate::galdera_coast::accepts_fight(&night,rng,fight)}else{Ok(true)}
   };
   let fight=if let Some(t)=target {
-   ot2_battle_engine::gravell_routine::search_target_filtered(battle,(t.budget as usize).min(t.fight_cap),Some(t.rng.state),Some(t.guard_extra),t.work,accepts)?
+   ot2_battle_engine::gravell_routine::search_target_filtered(battle,fight_budget,Some(t.rng.state),Some(t.guard_extra),t.work,accepts)?
   }else{ot2_battle_engine::gravell_routine::search_target_filtered(battle,usize::MAX,None,Some(0),None,accepts)?};
-  if let Some(t)=target {if !t.work.is_some_and(|w|w.get()==0) {t.cache.borrow_mut().insert(key,(t.budget,fight.clone()));}}
+  if let Some(t)=target {if !t.work.is_some_and(|w|w.get()==0) {t.cache.borrow_mut().insert(key,(fight_budget as u32,fight.clone()));}}
   fight
  };
  let Some(fight)=fight else {return Ok(None);};
@@ -137,9 +140,13 @@ fn field_continuation(entry:&Entry,stage:usize,target:Option<BgTarget>)->Result<
  let step_ahead=w.party.iter().all(|id|w.character_progression[id].jobs.equipped_support.contains(crate::gravell_setup::STEP_AHEAD));
  let menu=if step_ahead {FieldEscapeMenu::with_step_ahead(rng,situation,&players,&levels,&ids,&w.enemy_knowledge)?}else{FieldEscapeMenu::with_players(rng,situation,&players,&levels,&ids,&w.enemy_knowledge)?};
  let mut menus=vec![(menu.clone(),vec![],vec![],0u32)];
- if target.is_some() {for _ in 0..if w.galdera_route {7} else {3} {
+ // Keep Hikari's existing baseline/refinement as a fallback. Target-ranked
+ // allocations additionally explore the first regular turn, using the same
+ // no-enemy-action guard and real round-aware Escape check as Galdera.
+ let extended_defends=w.galdera_route||target.is_some_and(|t|t.defend_profile.is_some());
+ if target.is_some() {for _ in 0..if extended_defends {7} else {3} {
   let (m,actions,rounds,cost)=menus.last().unwrap();
-  let defend=if w.galdera_route {m.safe_step_ahead_defend_through_next_round()?} else {m.safe_step_ahead_defend()?};
+  let defend=if extended_defends {m.safe_step_ahead_defend_through_next_round()?} else {m.safe_step_ahead_defend()?};
   let Some((next,report))=defend else {break};
   let next_cost=*cost+crate::escape_search::DEFEND_INPUT_COST+crate::escape_search::elapsed_round_cost(m.round(),next.round());
   let mut rounds=rounds.clone();rounds.push(m.round());
@@ -152,7 +159,7 @@ fn field_continuation(entry:&Entry,stage:usize,target:Option<BgTarget>)->Result<
  if target.is_some_and(|t|t.work.is_some_and(|w|w.get()==0)){return Ok(best);}
  for (menu_index,(menu,defends,defend_rounds,defend_cost)) in menus.iter().enumerate() {
  for kill in [false,true] {
-  if kill&&(stage!=3||(!w.galdera_route&&!defends.is_empty())) {continue;}
+  if kill&&(stage!=3||(!extended_defends&&!defends.is_empty())) {continue;}
   let action_cost=if kill {10}else{0}+*defend_cost;
   if cost<action_cost||(cost-action_cost)%2!=0 {continue;}
   let n=(cost-action_cost)/2;
@@ -198,7 +205,7 @@ fn field_continuation(entry:&Entry,stage:usize,target:Option<BgTarget>)->Result<
    Some(Box::new(south))
   } else {None};
   let gravell=if stage==3 {let Some(g)=gravell_target(&field_return,target.map(|t|BgTarget {budget:best.as_ref().map_or(t.budget,|b|t.budget.min(route_cost(b).saturating_sub(1))).saturating_sub(cost),..t}))? else {continue;};Some(g)}else{None};
-  let candidate=HarborReturn {altar,defend_rounds:if w.galdera_route {defend_rounds.clone()} else {vec![]},escape_round:menu.round(),bg_adjustment:None,defends:defends.clone(),arrival:arrival.clone(),encounter:encounter.clone(),battle_entry:rng,menu:menu.clone(),inputs,escape,victory,field_return,southern,approach_stages:approach_stages.clone(),gravell};
+  let candidate=HarborReturn {altar,defend_rounds:defend_rounds.clone(),escape_round:menu.round(),bg_adjustment:None,defends:defends.clone(),arrival:arrival.clone(),encounter:encounter.clone(),battle_entry:rng,menu:menu.clone(),inputs,escape,victory,field_return,southern,approach_stages:approach_stages.clone(),gravell};
   if stage!=3 && !(w.galdera_route && target.is_some_and(|t|t.work.is_some()&&t.defend_profile.is_none())) {return Ok(Some(candidate));}
   if best.as_ref().is_none_or(|b|route_cost(&candidate)<route_cost(b)) {best=Some(candidate);}
  }
@@ -290,7 +297,14 @@ pub fn finish(a:Approach)->Result<Prediction> {
   crate::galdera_coast::extend(end.gravell.as_mut().ok_or_else(||SimError("Galdera route did not reach the Chubby victory".into()))?)?;
   return Ok(prediction);
  }
- finish_target(a,None)?.ok_or_else(||SimError("Inventor route exhausted".into()))
+ let town=a.town.clone();
+ let (adjustment,mut prediction)=search_bg(&town,|departure,target| {
+  let a=approach_from_town(departure)?;
+  if !safe(&a){return Ok(None);}
+  finish_target(a,Some(target))
+ },|p:&Prediction|p.inputs.levels.len()as u32+p.clockbank_free.as_ref().map_or(0,|p|p.input_cost)+route_cost(&p.crackridge_return))?;
+ prediction.approach.town=town;prediction.new_delsta_adjustment=Some(adjustment);
+ Ok(prediction)
 }
 fn finish_target(a:Approach,target:Option<BgTarget>)->Result<Option<Prediction>> {
  if a.highroad.world_after.galdera_route {
@@ -310,7 +324,7 @@ fn finish_target(a:Approach,target:Option<BgTarget>)->Result<Option<Prediction>>
   l.skipped_event("SYS_INV_GUILD_0D10")?;let bomb=point(&mut l,license.after);
   l.skipped_event("SYS_INV_GUILD_0C10")?;crate::gravell_setup::equip_step_ahead(&mut l)?;let scope=point(&mut l,bomb.after);
   let Some(crackridge_return)=field_continuation(&scope,0,target)? else {return Ok(None);};
-  return Ok(Some(Prediction {inventor_reach:Some(inventor_reach),inventor_arrival:Some(inventor_arrival),new_delsta_adjustment:None,clockbank_adjustment:None,approach:a,menu:None,inputs:describe_inputs(0,0,vec![])?,escape:None,field_return,license,bomb,scope,thief:Some(thief),western_clockbank:None,southern_clockbank:None,clockbank_reach:None,clockbank:None,partitio_story:None,clockite_stages:vec![],crackridge_return}));
+  return Ok(Some(Prediction {clockbank_free:None,inventor_reach:Some(inventor_reach),inventor_arrival:Some(inventor_arrival),new_delsta_adjustment:None,clockbank_adjustment:None,approach:a,menu:None,inputs:describe_inputs(0,0,vec![])?,escape:None,field_return,license,bomb,scope,thief:Some(thief),western_clockbank:None,southern_clockbank:None,clockbank_reach:None,clockbank:None,partitio_story:None,clockite_stages:vec![],crackridge_return}));
  }
  ensure(safe(&a),"Inventor Highroad encounter must not surprise the party")?;
  let w=&a.highroad_day_switch.as_ref().unwrap_or(&a.highroad).world_after;
@@ -335,7 +349,7 @@ fn finish_target(a:Approach,target:Option<BgTarget>)->Result<Option<Prediction>>
   l.skipped_event("SYS_INV_GUILD_0C10")?;crate::gravell_setup::equip_step_ahead(&mut l)?;let scope=point(&mut l,bomb.after);
   if scope.world_after.galdera_route {
    let Some(crackridge_return)=field_continuation(&scope,0,target.map(|t|BgTarget {budget:t.budget-2*n,..t}))? else {continue;};
-   return Ok(Some(Prediction {inventor_reach:None,inventor_arrival:None,new_delsta_adjustment:None,clockbank_adjustment:None,approach:a,menu:Some(menu),inputs,escape:Some(escape),field_return,license,bomb,scope,thief,
+   return Ok(Some(Prediction {clockbank_free:None,inventor_reach:None,inventor_arrival:None,new_delsta_adjustment:None,clockbank_adjustment:None,approach:a,menu:Some(menu),inputs,escape:Some(escape),field_return,license,bomb,scope,thief,
     western_clockbank:None,southern_clockbank:None,clockbank_reach:None,clockbank:None,partitio_story:None,
     clockite_stages:vec![],crackridge_return}));
   }
@@ -350,6 +364,29 @@ fn finish_target(a:Approach,target:Option<BgTarget>)->Result<Option<Prediction>>
   l.skipped_event_with_choices("MapInStorySelect",&world::EventChoices::from([(("MapInStorySelect".into(),1),"MS_SHO_01".into())]))?;
   ensure(l.state.active_scenarios.contains(&401) && l.state.flag(6076),"Partitio Chapter 2 opening did not finish")?;
   let partitio_story=point(&mut l,clockbank.after);
+  if let Some(t)=target {
+   let rows=crate::clockbank_free::cached_candidates(&partitio_story)?;
+   let mut variants:Vec<_>=rows.iter().collect();
+   variants.sort_by_key(|(_,e,c)|(*c,(t.rng.draws.saturating_sub(e.after.draws)).abs_diff(850)));
+   for (counts,departure,switch_cost) in variants {
+    if t.work.is_some_and(|w|w.get()==0){return Ok(None);}
+    if departure.after.draws>=t.rng.draws || 2*n+*switch_cost+6>t.budget {continue;}
+    if let Some(work)=t.work{work.set(work.get()-1);}
+    let allowance=t.work.map_or(1200,|w|w.get().min(1200));
+    let branch_work=std::cell::Cell::new(allowance);
+    let result=field_continuation(&departure,0,Some(BgTarget{budget:t.budget-2*n-*switch_cost,work:Some(&branch_work),..t}));
+    if let Some(work)=t.work{work.set(work.get().saturating_sub(allowance-branch_work.get()));}
+    let Some(crackridge_return)=result? else{continue;};
+    let plan=crate::clockbank_free::replay(&partitio_story,*counts)?;
+    ensure(plan.departure.after==departure.after && crate::state_key::WorldKey::new(&plan.departure.world_after)==crate::state_key::WorldKey::new(&departure.world_after),"Clockbank free-switch replay diverged")?;
+    let clockite_stages=plan.stages.clone();
+    return Ok(Some(Prediction {clockbank_free:Some(plan),inventor_reach:None,inventor_arrival:None,new_delsta_adjustment:None,clockbank_adjustment:None,approach:a,menu:Some(menu),inputs,escape:Some(escape),field_return,license,bomb,scope,thief,western_clockbank:Some(western_clockbank),southern_clockbank:Some(southern_clockbank),clockbank_reach,clockbank:Some(clockbank),partitio_story:Some(partitio_story),clockite_stages,crackridge_return}));
+   }
+   // Preserve Hikari's nearest safe Highroad/Clockbank approach. Further RNG
+   // advancement belongs to the free windows and New Delsta departures, rather
+   // than multiplying every downstream search by extra early Escape boosts.
+   return Ok(None);
+  } else {
   let mut clockite_stages=Vec::new();
   l.visit_map("Twn_Cty_2_1_B")?;let stage=point(&mut l,partitio_story.after);
   clockite_stages.push(("Clockbank: Industrial District · loaded".into(),stage));
@@ -365,7 +402,8 @@ fn finish_target(a:Approach,target:Option<BgTarget>)->Result<Option<Prediction>>
   clockite_stages.push(("Clockite delivered to Floyd · scene skipped, back outside".into(),point(&mut l,before)));
   let (clockbank_adjustment,crackridge_return)=search_clockbank_bg(&clockite_stages.last().unwrap().1)?;
   let clockbank_adjustment=Some(clockbank_adjustment);
-  return Ok(Some(Prediction {inventor_reach:None,inventor_arrival:None,new_delsta_adjustment:None,clockbank_adjustment,approach:a,menu:Some(menu),inputs,escape:Some(escape),field_return,license,bomb,scope,thief,western_clockbank:Some(western_clockbank),southern_clockbank:Some(southern_clockbank),clockbank_reach,clockbank:Some(clockbank),partitio_story:Some(partitio_story),clockite_stages,crackridge_return}));
+  return Ok(Some(Prediction {clockbank_free:None,inventor_reach:None,inventor_arrival:None,new_delsta_adjustment:None,clockbank_adjustment,approach:a,menu:Some(menu),inputs,escape:Some(escape),field_return,license,bomb,scope,thief,western_clockbank:Some(western_clockbank),southern_clockbank:Some(southern_clockbank),clockbank_reach,clockbank:Some(clockbank),partitio_story:Some(partitio_story),clockite_stages,crackridge_return}));
+  }
  }
  Err(SimError("Highroad Escape search exhausted".into()))
 }
@@ -421,6 +459,31 @@ mod tests {
 #[cfg(test)]
 mod gravell_integration_tests {
  use super::*;
+ #[test]
+ #[ignore = "Exact Hikari New Delsta through EXP100 search; run optimized"]
+ fn hikari_free_windows_search_replay() {
+  std::thread::Builder::new().stack_size(32*1024*1024).spawn(||{
+   let fixture:serde_json::Value=serde_json::from_str(include_str!("../data/source/retail-inventor-highroad-20261010.json")).unwrap();
+   let mut w:world::WorldState=serde_json::from_value(fixture["world"].clone()).unwrap();
+   w.galdera_route=false;w.time=2;w.sync_progression().unwrap();
+   // This old fixture predates the corrected Cait EXP: restore legal resources,
+   // exactly as retail_first_menu_after_corrected_cait_reward does above.
+   for id in w.party.clone(){let p=&mut w.character_progression.get_mut(&id).unwrap().character;let r=p.resources.as_mut().unwrap();r.hp=p.stats.max_hp;r.sp=p.stats.max_sp;}
+   let mut l=Loader::new(world::catalog(),w,CrtRng::new(3221999247)).unwrap();
+   l.visit_map("Twn_Cty_1_1_A").unwrap();let town=point(&mut l,CrtRng::new(3221999247));
+   let p=finish(approach_from_town(&town).unwrap()).unwrap();
+   let a=p.new_delsta_adjustment.as_ref().unwrap();let free=p.clockbank_free.as_ref().unwrap();
+   assert!(p.clockbank_adjustment.is_none());assert_eq!(a.departure.world_after.map,"Twn_Cty_1_1_A");
+   let replay=crate::clockbank_free::replay(p.partitio_story.as_ref().unwrap(),free.counts).unwrap();
+   assert_eq!(replay.departure.after,p.crackridge_return.arrival.arrival);
+   let mut end=&p.crackridge_return;let mut encounters=1;
+   while let Some(next)=&end.southern{end=next;encounters+=1;}assert_eq!(encounters,4);
+   let g=end.gravell.as_ref().unwrap();assert_eq!(g.fight.evaluation,ot2_battle_engine::gravell_routine::Evaluation::Accepted);
+   assert_eq!(g.night.world_after.party,[7,1,8,4]);
+   assert_eq!(a.input_cost,a.switches*12+p.inputs.levels.len()as u32+free.input_cost+route_cost(&p.crackridge_return));
+   println!("New Delsta switches={} Clockbank={:?} normalization={} total_cost={}",a.switches,free.counts,free.return_to_day,a.input_cost);
+  }).unwrap().join().unwrap();
+ }
  #[test]
  #[ignore = "Manual seed/position replay; requires OT2_THIEF_TEST_ENTRY"]
  fn manual_seed_zero_highroad_thief_preview() {
@@ -840,9 +903,16 @@ fn search_clockbank_bg(entry:&Entry)->Result<(ClockbankAdjustment,HarborReturn)>
 trait BgProjection {fn continuation(&self)->&HarborReturn;}
 impl BgProjection for Prediction {fn continuation(&self)->&HarborReturn{&self.crackridge_return}}
 impl BgProjection for HarborReturn {fn continuation(&self)->&HarborReturn{self}}
+const BG_TIME_SWITCH_COST:u32=12;
+fn bg_field_stages(galdera:bool)->&'static [usize] {
+ if galdera {&[0,1,4,2,3]}else{&[0,1,2,3]}
+}
 fn bg_estimate<T:BgProjection>(adjustment:&ClockbankAdjustment,plan:&T)->Result<(u64,Vec<crate::bg_target::Curve>)>{
- let mut curves=vec![[0;8];5];let mut controlled=0;let mut r=plan.continuation();
- for stage in [0,1,4,2,3] {
+ // Index by the actual field stage, not by linked-list position. Hikari has
+ // no altar return (stage4); its only legal allocation there is zero Defends.
+ let mut unused=[u64::MAX;8];unused[0]=0;
+ let mut curves=vec![unused;5];let mut controlled=0;let mut r=plan.continuation();
+ for &stage in bg_field_stages(r.arrival.world_after.galdera_route) {
   let situation=if r.encounter.situation.as_deref()==Some("Preemptive"){Situation::Preemptive}else{Situation::Normal};
   let ids:Vec<_>=r.encounter.enemies.iter().map(|e|e.enemy.id.as_str()).collect();
   let curve=crate::bg_target::curve(r.battle_entry,situation,&r.arrival.world_after,&ids)?;
@@ -859,10 +929,11 @@ fn bg_estimate<T:BgProjection>(adjustment:&ClockbankAdjustment,plan:&T)->Result<
 }
 fn search_bg<T:BgProjection>(entry:&Entry,mut project:impl FnMut(&Entry,BgTarget<'_>)->Result<Option<T>>,cost:impl Fn(&T)->u32)->Result<(ClockbankAdjustment,T)> {
  let galdera=entry.world_after.galdera_route;
- let switch_unit=if galdera {12}else{7};
+ let switch_unit=BG_TIME_SWITCH_COST;
  let stride=if entry.world_after.galdera_route {1}else{2};
- let departure_window=if entry.world_after.galdera_route {3000u64}else{1900};
- let preferred_departure_gap=if entry.world_after.galdera_route {1400u64}else{850};
+ let new_delsta=entry.world_after.map=="Twn_Cty_1_1_A";
+ let departure_window=if galdera {3000u64}else if new_delsta{4000}else{1900};
+ let preferred_departure_gap=if galdera||new_delsta {1400u64}else{850};
  let mut loader=Loader::new(world::catalog(),entry.world_after.clone(),entry.after)?;
  let mut departures=vec![entry.clone()];
  let mut best:Option<(ClockbankAdjustment,T)>=None;
@@ -894,8 +965,9 @@ fn search_bg<T:BgProjection>(entry:&Entry,mut project:impl FnMut(&Entry,BgTarget
     let local_budget=if phase==0 {400}else{192};
     let ceiling=best.as_ref().map_or(local_budget,|(a,_)|local_budget.min(a.input_cost.saturating_sub(switch_cost+1)));
     if ceiling<6 {continue;}
+    let baseline_work=std::cell::Cell::new(12000usize);
     let search=BgTarget {rng:target,budget:ceiling,cache:&cache,guard_extra:if phase==2 {12}else{0},
-     fight_cap:if phase==0 {100}else{192},action_cap:if phase==0 {74}else{192},work:(phase>0).then_some(&refinement_work),defend_profile:None};
+     fight_cap:if phase==0 {100}else{192},action_cap:if phase==0 {74}else{192},work:if phase>0{Some(&refinement_work)}else if new_delsta&&!galdera{Some(&baseline_work)}else{None},defend_profile:None};
     if let Some(route)=project(departure,search)? {
      let input_cost=switch_cost+cost(&route);
      if best.as_ref().is_none_or(|(b,_)|input_cost<b.input_cost) {
@@ -941,16 +1013,22 @@ fn search_bg<T:BgProjection>(entry:&Entry,mut project:impl FnMut(&Entry,BgTarget
  }
  // Target-first refinement: estimate required route draws and measured Defend
  // curves, then rank useful allocations and nearby switch departures per target.
- if galdera {
+ // Hikari's fallback above keeps its original anchor horizon. The added pass
+ // also checks nearby later anchors without changing any earlier route event.
+ if !galdera {
+  let mut later=entry.after;later.advance(horizon+1-entry.after.draws);
+  targets.extend(crate::bg_target::targets(later,2000,"ABI_DAN_MAKA_002")?);
+ }
+ {
   let (natural,curves)=bg_estimate(&best.as_ref().unwrap().0,&best.as_ref().unwrap().1)?;
-  let departure_estimates:Vec<_>=departures.iter().enumerate().map(|(i,e)|(e.after.draws,i as u32*switch_unit)).collect();
+  let departure_estimates:Vec<_>=departures.iter().enumerate().map(|(i,e)|(e.after.draws,i as u32*switch_unit*stride)).collect();
   let candidates=crate::bg_target::rank(&targets,&departure_estimates,natural,&curves,best.as_ref().unwrap().0.input_cost,384);
   let mut remaining=600_000usize;let mut caches=std::collections::BTreeMap::<(u32,u64),FightCache>::new();
   for candidate in candidates {
    crate::cancellation::check()?;
    if remaining==0 {break;}
    let index=candidate.departure;let departure=&departures[index];
-   let switch_cost=index as u32*switch_unit;
+   let switch_cost=index as u32*switch_unit*stride;
    let ceiling=best.as_ref().unwrap().0.input_cost.saturating_sub(switch_cost+1);
    if ceiling<6 {continue;}
    let allowance=remaining.min(4000);let work=std::cell::Cell::new(allowance);
@@ -958,23 +1036,23 @@ fn search_bg<T:BgProjection>(entry:&Entry,mut project:impl FnMut(&Entry,BgTarget
    let search=BgTarget {rng:candidate.target,budget:ceiling,cache,guard_extra:12,fight_cap:ceiling.min(256)as usize,action_cap:128,work:Some(&work),defend_profile:Some(std::array::from_fn(|i|candidate.counts[i]as usize))};
    if let Some(route)=project(departure,search)? {
     let input_cost=switch_cost+cost(&route);
-    if input_cost<best.as_ref().unwrap().0.input_cost {best=Some((ClockbankAdjustment {switches:index as u32,target:candidate.target,departure:departure.clone(),input_cost},route));}
+    if input_cost<best.as_ref().unwrap().0.input_cost {best=Some((ClockbankAdjustment {switches:index as u32*stride,target:candidate.target,departure:departure.clone(),input_cost},route));}
    }
    remaining-=allowance-work.get();
   }
  }
  let (mut adjustment,route)=best.expect("baseline search returns only a valid plan");
  let mut replay=Loader::new(world::catalog(),entry.world_after.clone(),entry.after)?;
- for i in 0..adjustment.switches {replay.manual_time_switch(if i%2==0 {4}else{2},if entry.world_after.galdera_route {"New Delsta: BG adjustment"} else {"Clockbank Industrial District: BG adjustment"})?;}
+ for i in 0..adjustment.switches {replay.manual_time_switch(if i%2==0 {4}else{2},if new_delsta {"New Delsta: BG adjustment"} else {"Clockbank Industrial District: BG adjustment"})?;}
  ensure(replay.rng==adjustment.departure.after,"Clockbank switch replay diverged")?;
  adjustment.departure=point(&mut replay,entry.after);
  Ok((adjustment,route))
 }
 fn add_clockbank_cycle(loader:&mut Loader<'_>,departures:&mut Vec<Entry>)->Result<()> {
  let before=loader.rng;
- loader.manual_time_switch(if loader.state.time==2 {4}else{2},if loader.state.galdera_route {"New Delsta: BG time switch"} else {"Clockbank Industrial District: BG adjustment night"})?;
+ loader.manual_time_switch(if loader.state.time==2 {4}else{2},if loader.state.map=="Twn_Cty_1_1_A" {"New Delsta: BG time switch"} else {"Clockbank Industrial District: BG adjustment night"})?;
  if !loader.state.galdera_route {
-  loader.manual_time_switch(2,"Clockbank Industrial District: BG adjustment day")?;
+  loader.manual_time_switch(2,if loader.state.map=="Twn_Cty_1_1_A"{"New Delsta: BG adjustment day"}else{"Clockbank Industrial District: BG adjustment day"})?;
  }
  departures.push(point(loader,before));Ok(())
 }
@@ -991,20 +1069,92 @@ fn route_cost(r:&HarborReturn)->u32 {
 
 #[cfg(test)]
 mod clockbank_switch_benchmark {
+ fn assert_hikari_plan(entry:&super::Entry,adjustment:&super::ClockbankAdjustment,route:&super::HarborReturn) {
+  use super::*;
+  assert!(!entry.world_after.galdera_route);
+  assert_eq!(entry.world_after.party,[7,1,8,4]);
+  assert_eq!(adjustment.switches%2,0,"Clockbank must finish during day");
+  let mut l=Loader::new(world::catalog(),entry.world_after.clone(),entry.after).unwrap();
+  for i in 0..adjustment.switches {l.manual_time_switch(if i%2==0 {4}else{2},"Hikari test switch").unwrap();}
+  assert_eq!(l.rng,adjustment.departure.after);
+  assert_eq!(serde_json::to_value(&l.state).unwrap(),serde_json::to_value(&adjustment.departure.world_after).unwrap());
+  let (_,curves)=bg_estimate(adjustment,route).unwrap();
+  assert_eq!(curves[4],[0,u64::MAX,u64::MAX,u64::MAX,u64::MAX,u64::MAX,u64::MAX,u64::MAX]);
+  let mut leg=Some(route);let mut final_leg=route;
+  for map in ["Fld_Wld_1_2","Fld_Wld_2_2","Fld_Wld_2_1","Fld_Wld_2_1"] {
+   let r=leg.expect("Every existing Hikari field encounter is retained");final_leg=r;
+   assert_eq!(r.arrival.world_after.map,map);
+   assert_eq!(r.arrival.world_after.time,2);
+   assert_eq!(r.arrival.world_after.party,[7,1,8,4]);
+   assert!(r.arrival.world_after.bench.contains(&6));
+   assert!(!r.arrival.world_after.galdera_route);
+   assert!(r.altar.is_none());
+   assert!(matches!(r.encounter.situation.as_deref(),Some("Normal"|"Preemptive")));
+   assert!(r.defends.len()<=7);
+   assert_eq!(r.defend_rounds.len(),r.defends.len());
+   let w=&r.arrival.world_after;
+   let players:Vec<_>=w.party.iter().map(|id|w.character_progression[id].character.clone()).collect();
+   let levels:Vec<_>=w.party.iter().map(|id|w.character_progression[id].level).collect();
+   let ids:Vec<_>=r.encounter.enemies.iter().map(|e|e.enemy.id.as_str()).collect();
+   let situation=if r.encounter.situation.as_deref()==Some("Preemptive"){Situation::Preemptive}else{Situation::Normal};
+   let mut menu=FieldEscapeMenu::with_step_ahead(r.battle_entry,situation,&players,&levels,&ids,&w.enemy_knowledge).unwrap();
+   for (i,action) in r.defends.iter().enumerate() {
+    assert_eq!(menu.round(),r.defend_rounds[i]);
+    let (next,report)=menu.safe_step_ahead_defend_through_next_round().unwrap().expect("No enemy action");
+    assert_eq!(report.actor,action.actor);assert_eq!(report.rng_before,action.rng_before);assert_eq!(report.rng_after,action.rng_after);
+    menu=next;
+   }
+   assert_eq!(menu.rng,r.menu.rng);assert_eq!(menu.round(),r.escape_round);
+   if let Some(e)=&r.escape {
+    let replay=menu.attempt(&r.inputs.levels,r.encounter.encounter_level.unwrap()).unwrap();
+    assert!(replay.success);assert_eq!(replay.after,e.after);assert_eq!(replay.before_check,e.before_check);
+   }else {
+    let replay=ot2_battle_engine::field_escape::carried_soulstone_after_defends(r.battle_entry,situation,&players,&levels,&ids,false,&w.enemy_knowledge,&r.inputs.levels,"wind_soulstone_l",true,r.defends.len()).unwrap().unwrap();
+    assert_eq!(replay.after,r.victory.as_ref().unwrap().after);
+   }
+   leg=r.southern.as_deref();
+  }
+  assert!(leg.is_none(),"No Galdera altar encounter inserted");
+  let g=final_leg.gravell.as_ref().unwrap();
+  assert!(g.coast.is_none());assert_eq!(g.town.world_after.map,"Twn_Wld_3_1_A");
+  assert_eq!(g.town.world_after.time,4);
+  let w=&g.night.world_after;
+  assert_eq!(w.party,[7,1,8,4]);
+  assert_eq!(w.character_progression[&1].jobs.secondary_job,Some(0));
+  assert!(w.character_progression[&8].jobs.learned_abilities[&5].contains("ABI_SET_DAN_060"));
+  let players:Vec<_>=w.party.iter().map(|id|w.character_progression[id].character.clone()).collect();
+  let ids:Vec<_>=g.encounter.enemies.iter().map(|e|e.enemy.id.as_str()).collect();
+  let situation=if g.encounter.situation.as_deref()==Some("Preemptive"){Situation::Preemptive}else{Situation::Normal};
+  let b=ot2_battle_engine::field_escape::carried_step_ahead(g.battle_entry,situation,&players,&ids,true,&w.enemy_knowledge).unwrap();
+  use ot2_battle_engine::gravell_routine::{self,Action};
+  let inputs=|which|g.fight.actions.iter().find(|a|a.action==which).unwrap().inputs.as_slice();
+  let replay=gravell_routine::replay(b,inputs(Action::BewilderingGrace),inputs(Action::Guards)).unwrap();
+  let (fight,rewards,field)=settle_gravell(&g.night,g.battle_entry,replay).unwrap();
+  assert_eq!(fight.state,g.fight.state);assert_eq!(rewards.after,g.rewards.after);assert_eq!(field.after,g.field_return.after);
+  assert_eq!(g.field_return.world_after.character_progression[&6].experience,entry.world_after.character_progression[&6].experience,"Benched Osvald gets no EXP");
+ }
  #[test]
  fn refinement_improves_known_plan_and_replays_full_fight() {
   let world=serde_json::from_str(include_str!("../data/source/clockbank-search-party.json")).unwrap();
   let rng=super::CrtRng::new(3221999247);
   let entry=super::Entry {arrival:rng,after:rng,world_after:world,trace:vec![],decisions:vec![]};
   let (adjustment,route)=super::search_clockbank_bg(&entry).unwrap();
-  assert!(adjustment.input_cost<293,"Old search needed 293 input equivalents");
-  assert_eq!(adjustment.input_cost,adjustment.switches*7+super::route_cost(&route));
+  assert_hikari_plan(&entry,&adjustment,&route);
+  assert!(adjustment.input_cost<=191,"Pre-backport accepted plan costs 191 at 12 per switch");
+  assert_eq!(adjustment.input_cost,adjustment.switches*super::BG_TIME_SWITCH_COST+super::route_cost(&route));
   let mut end=&route;while let Some(next)=&end.southern {end=next;}
   let fight=&end.gravell.as_ref().unwrap().fight;
   assert_eq!(fight.evaluation,ot2_battle_engine::gravell_routine::Evaluation::Accepted);
   assert!(fight.state.actors[..4].iter().all(|a|a.alive()));
   assert_eq!(fight.state.grace.as_ref().unwrap().exp_percent(),10000);
   assert!(fight.trace.iter().any(|s|s.reason=="guards_variant_preparation"),"accepted fight must retain full replay trace");
+  // A previously capped failure must not suppress a larger exact query.
+  let cache=super::FightCache::default();
+  let search=super::BgTarget {rng:adjustment.target,budget:512,cache:&cache,guard_extra:12,fight_cap:0,action_cap:512,work:None,defend_profile:None};
+  assert!(super::gravell_target(&end.field_return,Some(search)).unwrap().is_none());
+  assert_eq!(cache.borrow().values().next().unwrap().0,0);
+  let replay=super::gravell_target(&end.field_return,Some(super::BgTarget {fight_cap:512,..search})).unwrap().expect("Recheck the larger fight budget");
+  assert_eq!(replay.fight.evaluation,ot2_battle_engine::gravell_routine::Evaluation::Accepted);
  }
 
  #[test]
@@ -1014,14 +1164,28 @@ mod clockbank_switch_benchmark {
   let rng=CrtRng::new(1775700753);
   let entry=Entry {arrival:rng,after:rng,world_after:world,trace:vec![],decisions:vec![]};
   let (adjustment,route)=search_clockbank_bg(&entry).unwrap();
-  assert!(adjustment.input_cost<1300);
-  assert_eq!(adjustment.target.draws,4280);
-  assert_eq!(adjustment.input_cost,adjustment.switches*7+route_cost(&route));
+  assert_hikari_plan(&entry,&adjustment,&route);
+  assert!(adjustment.input_cost<=2023,"Pre-backport 138-switch plan repriced at 12 per switch");
+  assert_eq!(adjustment.input_cost,adjustment.switches*BG_TIME_SWITCH_COST+route_cost(&route));
   let mut end=&route;while let Some(next)=&end.southern {end=next;}
   let fight=&end.gravell.as_ref().unwrap().fight;
   assert_eq!(fight.evaluation,ot2_battle_engine::gravell_routine::Evaluation::Accepted);
   assert!(fight.state.actors[..4].iter().all(|a|a.alive()));
   assert!(fight.trace.iter().any(|s|s.reason=="guards_variant_preparation"));
+  assert!(fight.trace.iter().any(|s|s.reason=="bewildering_grace_lottery"&&s.before==adjustment.target));
+ }
+
+ #[test]
+ fn hikari_target_refinement_uses_second_round_without_adding_an_encounter() {
+  use super::*;
+  let rng=CrtRng::new(2447445413);
+  let entry=Entry {arrival:rng,after:rng,world_after:serde_json::from_str(include_str!("../data/source/clockbank-search-party.json")).unwrap(),trace:vec![],decisions:vec![]};
+  let (adjustment,route)=search_clockbank_bg(&entry).unwrap();
+  assert_hikari_plan(&entry,&adjustment,&route);
+  assert!(adjustment.input_cost<649,"Old 38-switch plan at the same switch price");
+  let mut r=Some(&route);let mut extended=false;
+  while let Some(leg)=r {extended|=leg.defends.len()>3;r=leg.southern.as_deref();}
+  assert!(extended,"Exercise actual T2 Defends in the Hikari route");
  }
 
  #[test]
@@ -1108,7 +1272,12 @@ mod clockbank_switch_benchmark {
      let entry=snows_escape::Entry {arrival:rng,after:rng,world_after:world.clone(),trace:vec![],decisions:vec![]};
      let now=std::time::Instant::now();
      let row=match inventor::search_clockbank_bg(&entry) {
-      Ok((a,_))=>serde_json::json!({"i":i,"state":seed,"switches":a.switches,"input_cost":a.input_cost,"target_draws":a.target.draws,"seconds":now.elapsed().as_secs_f64()}),
+      Ok((a,route))=>{
+       assert_hikari_plan(&entry,&a,&route);
+       let mut defends=vec![];let mut r=Some(&route);
+       while let Some(leg)=r {defends.push(leg.defends.len());r=leg.southern.as_deref();}
+       serde_json::json!({"i":i,"state":seed,"switches":a.switches,"input_cost":a.input_cost,"target_draws":a.target.draws,"defends":defends,"seconds":now.elapsed().as_secs_f64()})
+      },
       Err(e)=>serde_json::json!({"i":i,"state":seed,"error":e.to_string(),"seconds":now.elapsed().as_secs_f64()}),
      };
      let mut f=file.lock().unwrap();writeln!(f,"{row}").unwrap();f.flush().unwrap();
