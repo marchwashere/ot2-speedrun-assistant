@@ -424,7 +424,7 @@ mod tests {
         assert_eq!(gravell.license.world_after.job_licenses.get(&0),Some(&1));
         assert_eq!(gravell.license.after,back.field_return.after);
         assert_eq!(gravell.setup.after,gravell.license.after);
-        assert_eq!(gravell.setup.world_after.character_progression[&7].jobs.secondary_job,Some(11));
+        assert_eq!(gravell.setup.world_after.character_progression[&7].jobs.secondary_job,Some(crate::scholar::JOB));
         assert_eq!(gravell.setup.world_after.character_progression[&1].jobs.secondary_job,Some(0));
         for id in &gravell.setup.world_after.party {assert!(gravell.setup.world_after.character_progression[id].jobs.equipped_support.contains(crate::gravell_setup::STEP_AHEAD));}
         assert!(!gravell.setup.world_after.character_progression[&1].jobs.equipped_support.contains(crate::gravell_setup::MONEY_UP));

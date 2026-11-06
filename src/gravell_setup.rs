@@ -72,14 +72,16 @@ pub fn apply(l:&mut Loader<'_>)->Result<()> {
  let before=l.rng;let counter=l.state.encounter_counter;
  let merchant=if l.state.galdera_route {6} else {1};
  ensure(l.state.party==[7,merchant,8,4],"Unexpected Gravell party")?;
- assign(&mut l.state,7,Some(11))?;
+ // Any% uses only Pom M on Throné; retain her carried Scholar stats/supports.
+ // Galdera still needs Inventor for the later JP100 Springy Boots routine.
+ if l.state.galdera_route {assign(&mut l.state,7,Some(11))?;}
  assign(&mut l.state,merchant,Some(0))?;
  learn(&mut l.state,merchant,0,&["ABI_SET_MER_050","ABI_SET_MER_070"])?;
  let agnea_first=if l.state.galdera_route {"ABI_SET_DAN_040"} else {"ABI_SET_DAN_060"};
  learn(&mut l.state,8,5,&[agnea_first,"ABI_SET_DAN_070"])?;
  learn(&mut l.state,4,0,&["ABI_SET_MER_070","ABI_SET_MER_050"])?;
  l.state.refresh_support_skills();
- l.boundary(format!("Gravell setup: Throné -> Inventor; {} Merchant; learned Donate BP/Hired Help, {}/Bewildering Grace, Partitio Hired Help/Donate BP",if merchant==6 {"Osvald"} else {"Hikari"},if l.state.galdera_route {"Peacock Strut"} else {"Stimulate"}));
+ l.boundary(format!("Gravell setup: {}{} Merchant; learned Donate BP/Hired Help, {}/Bewildering Grace, Partitio Hired Help/Donate BP",if l.state.galdera_route {"Throné -> Inventor; "} else {""},if merchant==6 {"Osvald"} else {"Hikari"},if l.state.galdera_route {"Peacock Strut"} else {"Stimulate"}));
  ensure(l.rng==before&&l.state.encounter_counter==counter,"Job menu setup changed field RNG/counter")
 }
 
@@ -110,6 +112,27 @@ pub fn equip_step_ahead(l:&mut Loader<'_>)->Result<()> {
 mod tests {
  use super::*;
  #[test]
+ fn any_hikari_preserves_throne_job_stats_and_supports() {
+  let fixture:serde_json::Value=serde_json::from_str(include_str!("../data/source/gravell-complete-route-fixture.json")).unwrap();
+  let mut w:WorldState=serde_json::from_value(fixture["before"]["world_after"].clone()).unwrap();
+  w.galdera_route=false;
+  w.job_licenses.insert(0,1);
+  w.job_licenses.insert(crate::scholar::JOB,1);
+  assign(&mut w,7,Some(crate::scholar::JOB)).unwrap();
+  let rng=crate::CrtRng::new(9876);
+  let counter=w.encounter_counter;
+  let mut l=Loader::new(crate::world::catalog(),w,rng).unwrap();
+  equip_step_ahead(&mut l).unwrap();
+  let throne=serde_json::to_value(&l.state.character_progression[&7]).unwrap();
+  apply(&mut l).unwrap();
+  assert_eq!(serde_json::to_value(&l.state.character_progression[&7]).unwrap(),throne);
+  assert_eq!(l.state.character_progression[&1].jobs.secondary_job,Some(0));
+  assert!(l.state.character_progression[&7].jobs.equipped_support.contains(STEP_AHEAD));
+  assert!(l.state.character_progression[&7].jobs.equipped_support.contains(crate::scholar::EVASIVE));
+  assert_eq!(l.rng,rng);
+  assert_eq!(l.state.encounter_counter,counter);
+ }
+ #[test]
  fn galdera_gives_osvald_merchant_and_step_ahead_preserving_native_scholar() {
   let fixture:serde_json::Value=serde_json::from_str(include_str!("../data/source/gravell-complete-route-fixture.json")).unwrap();
   let mut w:WorldState=serde_json::from_value(fixture["before"]["world_after"].clone()).unwrap();
@@ -130,6 +153,7 @@ mod tests {
   let mut l=Loader::new(crate::world::catalog(),w,rng).unwrap();
   equip_step_ahead(&mut l).unwrap();
   apply(&mut l).unwrap();
+  assert_eq!(l.state.character_progression[&7].jobs.secondary_job,Some(11));
   let p=&l.state.character_progression[&6];
   assert_eq!(p.jobs.secondary_job,Some(0));
   assert!(p.jobs.learned_abilities[&0].contains("ABI_SET_MER_050"));

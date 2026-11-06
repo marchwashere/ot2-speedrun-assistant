@@ -1,3 +1,8 @@
+Current Any% Hikari setup: retain Throné's carried Scholar subjob and stats;
+do not assign Inventor before EXP100. Her current routine uses Pom M, not
+Springy Boots. A Step Ahead and Evasive Maneuvers remain equipped. Galdera
+retains Inventor for the later JP100 routine.
+
 Current Galdera setup: Agnea learns Peacock Strut (30 JP), then Bewildering
 Grace (100 JP), for 130 JP total. This replaces the unused Stimulate purchase;
 the current Chubby routine remains T1 Defend, T2 max-boost Bewildering Grace.
