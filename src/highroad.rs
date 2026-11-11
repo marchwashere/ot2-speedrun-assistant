@@ -42,9 +42,9 @@ impl Default for Settings {
     }
 }
 impl Settings {
-    /// Galdera has no break targets; optional breaks still compete by input cost.
-    pub fn for_route(mut self, galdera:bool) -> Self {
-        if galdera {
+    /// Neither route requires latent-building breaks; optional breaks compete by cost.
+    pub fn for_route(mut self, _galdera:bool) -> Self {
+        {
             self.break_max_boost_repeats=Some(0);
             self.flats_break_max_boost_repeats=Some(0);
         }
@@ -248,8 +248,8 @@ fn plan_route_escape(
         let counter = f.world_after.encounter_counter;
         let walk = f.harbor_reach.walking.reaches_reset;
         let (safe, zero_bp_break) = if let Some(h) = crate::harbor::after_flats(&f)? {
-            let (entry, e)=crate::flats_escape::first_encounter(h.after, &h.world_after, level)?;
-            (e.situation.as_deref()!=Some("Surprise"), !world.galdera_route && crate::flats_escape::opening_break(entry,&e,level)?)
+            let (_entry, e)=crate::flats_escape::first_encounter(h.after, &h.world_after, level)?;
+            (e.situation.as_deref()!=Some("Surprise"), false)
         } else {
             (false, false)
         };
@@ -349,28 +349,6 @@ fn plan_route_escape(
             approach.status = "Optional non-surprise Flats opening not found within budget; keeping required outcomes";
         }
     }
-    let prior=plan.boost_repeat_count;
-    let mut break_search=FlatsApproachSearch {
-        max_extra_boost_repeats:settings.flats_break_max_boost_repeats,prior_repeats:prior,
-        added_repeats:0,tested_candidates:0,target_met:project(plan.attempt.as_ref().unwrap())?.3,
-        status:"Unboosted Flats break available in selected plan",
-    };
-    if !break_search.target_met && let Some(extra)=settings.flats_break_max_boost_repeats && extra>0 {
-        let candidate=choose(Some(prior.saturating_add(extra)), &|a| {
-            let (_,walk,safe,can_break)=project(a)?;
-            Ok(required(a)? && can_break && (!walking.target_met||walk) && (!approach.target_met||safe))
-        })?;
-        break_search.tested_candidates=candidate.tested_candidates;
-        if candidate.attempt.is_some() {
-            break_search.target_met=true;
-            break_search.added_repeats=candidate.boost_repeat_count.saturating_sub(prior);
-            plan=candidate;
-            if plan.method!=EscapeMethod::BreakThenEscape {plan.method=EscapeMethod::FlatsAdjustment;}
-        } else {break_search.status="Optional unboosted Flats break not found within budget; preceding outcomes preserved";}
-    }
-    if !break_search.target_met && settings.flats_break_max_boost_repeats==Some(0) {
-        break_search.status="Unboosted Flats break target not met; optional budget is zero";
-    }
     let (counter,walk,safe,_) = project(plan.attempt.as_ref().unwrap())?;
     walking.selected_counter=counter; walking.target_met=walk; approach.target_met=safe;
     ensure(
@@ -379,7 +357,7 @@ fn plan_route_escape(
     )?;
     plan.flats_search = Some(walking);
     plan.flats_approach_search = Some(approach);
-    plan.flats_break_search = (!world.galdera_route).then_some(break_search);
+    plan.flats_break_search = None;
     Ok(plan)
 }
 #[derive(Debug, Serialize)]
@@ -610,7 +588,7 @@ fn from_battle_context(boss:&mut pirro::Prediction,second:Option<&second::Predic
     let mut ending=ending;
     let facts=|p:&Prediction| -> Result<[bool;2]> {
         Ok([p.encounter.situation.as_deref()!=Some("Surprise"),
-            !galdera && crate::flats_escape::opening_break(p.before_battle_initialization,&p.encounter,p.level)?])
+            false])
     };
     let caps=[settings.approach_max_boost_repeats,settings.break_max_boost_repeats];
     let mut goals=caps.map(|c|c.is_none());
@@ -707,7 +685,35 @@ mod tests {
             let (_,e)=crate::flats_escape::first_encounter(harbor.after,&harbor.world_after,5).unwrap();
             flats.harbor_reach.walking.reaches_reset && matches!(e.situation.as_deref(),Some("Normal"|"Preemptive"))
         };
-        for seed in 0..32 {
+        for seed in 0..256 {
+            let mut entry=CrtRng::new(0);entry.advance(seed*7919);
+            let plan=plan_route_escape(&world,entry,Situation::Normal,5,&enemies,5,settings).unwrap();
+            if plan.break_action.is_none() {continue;}
+            assert!(accepts(plan.attempt.as_ref().unwrap()));
+            assert_eq!(plan.attempt.as_ref().unwrap().party_latent_gain,vec![25]);
+            let mut direct=crate::escape_search::FieldSearch::new(entry,Situation::Normal,5,&enemies,5).unwrap();
+            for cost in 0..=plan.weighted_input_cost {
+                for candidate in direct.candidates(cost,false,None).unwrap() {
+                    assert!(!accepts(candidate.attempt.as_ref().unwrap()),"Selected break must beat every valid direct Escape");
+                }
+            }
+            return;
+        }
+        panic!("Missing cheaper optional Highroad break fixture");
+    }
+    #[test]
+    fn any_hikari_optional_break_beats_every_cheaper_direct_escape() {
+        let mut world=highroad_world();world.galdera_route=false;
+        let enemies=["ENE_NML_FLD_CTY_010"];
+        let settings=Settings {break_max_boost_repeats:None,flats_max_boost_repeats:None,
+            flats_approach_max_boost_repeats:None,flats_break_max_boost_repeats:None,..Default::default()};
+        let accepts=|a:&FieldEscapeAttempt| {
+            let flats=flats::after_highroad(&return_to_field(&world,a).unwrap()).unwrap();
+            let Some(harbor)=crate::harbor::after_flats(&flats).unwrap() else {return false};
+            let (_,e)=crate::flats_escape::first_encounter(harbor.after,&harbor.world_after,5).unwrap();
+            flats.harbor_reach.walking.reaches_reset && matches!(e.situation.as_deref(),Some("Normal"|"Preemptive"))
+        };
+        for seed in 0..4096 {
             let mut entry=CrtRng::new(0);entry.advance(seed*7919);
             let plan=plan_route_escape(&world,entry,Situation::Normal,5,&enemies,5,settings).unwrap();
             if plan.break_action.is_none() {continue;}
@@ -750,6 +756,32 @@ mod tests {
         }
     }
     #[test]
+    fn any_hikari_direct_escape_preserves_harbor_walk_and_safe_flats_without_latent_gain() {
+        let mut world=highroad_world();
+        world.galdera_route=false;
+        world.sync_progression().unwrap();
+        let latent=world.character_progression[&7].character.resources.as_ref().unwrap().latent;
+        let settings=Settings {break_max_boost_repeats:None,flats_max_boost_repeats:None,
+            flats_approach_max_boost_repeats:None,flats_break_max_boost_repeats:None,..Default::default()};
+        for situation in [Situation::Normal,Situation::Preemptive] {
+            // Multiple enemies: the former single-enemy break constraint cannot pass.
+            let plan=plan_route_escape(&world,CrtRng::new(19),situation,5,
+                &["ENE_NML_FLD_CTY_010","ENE_NML_FLD_CTY_010"],5,settings).unwrap();
+            assert!(plan.break_action.is_none());
+            assert!(plan.flats_break_search.is_none());
+            let attempt=plan.attempt.as_ref().unwrap();
+            assert!(attempt.success);
+            assert!(attempt.party_latent_gain.iter().all(|&n|n==0));
+            let field=return_to_field(&world,attempt).unwrap();
+            assert_eq!(field.world_after.character_progression[&7].character.resources.as_ref().unwrap().latent,latent);
+            let flats=flats::after_highroad(&field).unwrap();
+            assert!(flats.harbor_reach.walking.reaches_reset);
+            let harbor=crate::harbor::after_flats(&flats).unwrap().unwrap();
+            let (_,encounter)=crate::flats_escape::first_encounter(harbor.after,&harbor.world_after,5).unwrap();
+            assert!(matches!(encounter.situation.as_deref(),Some("Normal"|"Preemptive")));
+        }
+    }
+    #[test]
     fn required_route_outcomes_gate_every_escape_strategy_before_optional_budgets() {
         let world = highroad_world();
         let enemies = ["ENE_NML_FLD_CTY_010"];
@@ -768,7 +800,7 @@ mod tests {
         };
         let mut accepted_break = false;
         let mut rejected_break = false;
-        for seed in 0..32 {
+        for seed in 0..256 {
             let mut entry = CrtRng::new(0);
             entry.advance(seed * 7919);
             entry.draws = 6000;
@@ -846,7 +878,7 @@ mod tests {
             // An unlimited boost budget does not exclude a cheaper optional break.
             assert!(unlimited_escape.attempt.as_ref().unwrap().success);
             let required_break_plan=plan_route_escape(&world,entry,Situation::Normal,5,&enemies,5,Settings {break_max_boost_repeats:None,escape_max_boost_repeats:None,..settings}).unwrap();
-            assert!(required_break_plan.break_action.is_some());
+            assert!(required_break_plan.attempt.as_ref().unwrap().success);
             assert_eq!(meets(required_break_plan.attempt.as_ref().unwrap()),(true,true));
             assert_eq!(meets(unlimited_escape.attempt.as_ref().unwrap()), (true, true));
         }
@@ -877,9 +909,9 @@ mod tests {
             let mut replay_search=crate::escape_search::FieldSearch::new(entry,Situation::Normal,5,&["ENE_NML_FLD_CTY_010"],5).unwrap();
             let replay=replay_search.candidates(plan.weighted_input_cost,true,None).unwrap().into_iter().find(|c|c.inputs==plan.inputs && serde_json::to_value(&c.break_action).unwrap()==serde_json::to_value(&plan.break_action).unwrap()).unwrap().attempt.unwrap();
             assert_eq!(replay.after,plan.attempt.as_ref().unwrap().after);
-            let (at,e)=project(&replay);
-            assert!(crate::flats_escape::opening_break(at,&e,5).unwrap());
-            assert!(plan.flats_break_search.as_ref().unwrap().target_met);
+            let (_,e)=project(&replay);
+            assert_ne!(e.situation.as_deref(),Some("Surprise"));
+            assert!(plan.flats_break_search.is_none());
             assert!(plan.flats_search.as_ref().unwrap().target_met);
             assert!(plan.flats_approach_search.as_ref().unwrap().target_met);
             let prior=plan_route_escape(&world,entry,Situation::Normal,5,&["ENE_NML_FLD_CTY_010"],5,

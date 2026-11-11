@@ -162,6 +162,9 @@ impl FieldSearch {
             }
                 let weapon=[Weapon::Dagger,Weapon::Sword,Weapon::Staff][weapon_index.min(2)];
                 if zero_bp_only && weapon_index<3 && boost!=0 {continue;}
+                // Field Staff callbacks support unboosted attacks only. Unsupported
+                // boosted Staff candidates must not abort unrelated Escape searches.
+                if weapon_index==2 && boost!=0 {continue;}
                 let key = (repeats, boost, weapon_index as u8);
                 if !self.breaks.contains_key(&key) {
                     let ids=self.enemies.iter().map(String::as_str).collect::<Vec<_>>();

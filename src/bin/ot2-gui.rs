@@ -750,13 +750,8 @@ impl CrtSetup {
                 self.highroad_settings.flats_approach_max_boost_repeats,
             ),
         ];
-        if self.galdera_route {
-            policies.push(("highroad_escape".into(),"Highroad: successful Escape",None));
-            policies.push(("flats_escape".into(),"Flats: successful Escape",None));
-        } else {
-            policies.push(("highroad_break".into(),"Throné turn-one break on Highroad (BP allowed)",None));
-            policies.push(("flats_break".into(),"Throné turn-one break after Harbor (BP allowed)",None));
-        }
+        policies.push(("highroad_escape".into(),"Highroad: successful Escape",None));
+        policies.push(("flats_escape".into(),"Flats: successful Escape",None));
         if self.route_end == RouteEnd::FirstVillage {
             policies.retain(|(id,_,_)| !matches!(id.as_str(),"mug_clerics"|"crackridge_approach"|"osvald_walk"|"village_snow_walk"));
             policies.push(("village_visit".into(),"First Abandoned Village visit",None));
@@ -777,11 +772,7 @@ impl CrtSetup {
             if matches!(id.as_str(),"mansion_approach"|"highroad_approach"|"flats_approach"|"early_cait"|"crackridge_approach") {*cap=None;}
         }
         if self.route_end==RouteEnd::OsvaldCait && !self.early_settings.require_cait {
-            if self.galdera_route {
-                policies.push(("crackridge_escape".into(),"Crackridge Harbor: no ambush and successful direct Escape",None));
-            } else {
-                policies.push(("crackridge_break".into(),"Throné breaks the Crackridge Harbor encounter",None));
-            }
+            policies.push(("crackridge_escape".into(),"Crackridge Harbor: no ambush and successful Escape",None));
             policies.push(("snows_onward_safety".into(),"No surprise at any planned onward Snows encounter",None));
             policies.push(("canalbrine_approach".into(),"Canalbrine Bridge water encounter without surprise",None));
             policies.push(("canalbrine_escape".into(),"Canalbrine Bridge first Escape succeeds",None));
@@ -793,7 +784,7 @@ impl CrtSetup {
         fn crackridge_escapes(v:&Value,require_break:bool)->(usize,bool) {
             if v["arrival"]["crackridge"].is_object() && v["escape"].is_object() {
                 let action_ok=if require_break {v["escape"]["break_action"]["attack_actor"]==0}
-                    else {v["escape"]["break_action"].is_null() && matches!(v["arrival"]["encounter"]["situation"].as_str(),Some("Normal"|"Preemptive"))};
+                    else {matches!(v["arrival"]["encounter"]["situation"].as_str(),Some("Normal"|"Preemptive"))};
                 return (1,action_ok && v["escape"]["attempt"]["success"]==true);
             }
             match v {
@@ -938,9 +929,7 @@ impl CrtSetup {
         let mut execution=self.clone();
         execution.approach_cap=None;
         execution.highroad_settings.approach_max_boost_repeats=None;
-        // Any% requires breaks; Galdera permits them when cheaper than direct Escape.
-        execution.highroad_settings.break_max_boost_repeats=None;
-        execution.highroad_settings.flats_break_max_boost_repeats=None;
+        // Breaks are optional in both routes; ignore legacy mandatory-break settings.
         execution.highroad_settings=execution.highroad_settings.for_route(self.galdera_route);
         execution.highroad_settings.flats_approach_max_boost_repeats=None;
         execution.early_settings.cait_max_boost_repeats=None;
@@ -1482,19 +1471,19 @@ mod tests {
         assert!(super::CrtSetup::parse(&format!("{query}&route=galdera&route=any_hikari")).is_err());
     }
     #[test]
-    fn galdera_allows_both_escape_strategies_while_any_percent_keeps_required_breaks() {
+    fn both_routes_allow_optional_breaks_and_require_safe_successful_escapes() {
         let galdera=CrtSetup::parse("seed=0&route_end=osvald_encounter&route=galdera").unwrap();
         let hikari=CrtSetup::parse("seed=0&route_end=osvald_encounter").unwrap();
         for required in ["highroad_break","flats_break"] {
-            assert!(hikari.outcome_policies().iter().any(|(id,_,cap)|id==required&&cap.is_none()));
+            assert!(!hikari.outcome_policies().iter().any(|(id,_,_)|id==required));
             assert!(!galdera.outcome_policies().iter().any(|(id,_,_)|id==required));
         }
         assert_eq!(galdera.execution_settings().highroad_settings.break_max_boost_repeats,Some(0));
         assert_eq!(galdera.execution_settings().highroad_settings.flats_break_max_boost_repeats,Some(0));
-        assert_eq!(hikari.execution_settings().highroad_settings.break_max_boost_repeats,None);
-        assert_eq!(hikari.execution_settings().highroad_settings.flats_break_max_boost_repeats,None);
+        assert_eq!(hikari.execution_settings().highroad_settings.break_max_boost_repeats,Some(0));
+        assert_eq!(hikari.execution_settings().highroad_settings.flats_break_max_boost_repeats,Some(0));
         assert!(!galdera.outcome_policies().iter().any(|(id,_,_)|id=="crackridge_break"));
-        assert!(hikari.outcome_policies().iter().any(|(id,_,_)|id=="crackridge_break"));
+        assert!(!hikari.outcome_policies().iter().any(|(id,_,_)|id=="crackridge_break"));
         let mut result=json!({"post_battle_field":{"voyage":{
             "arrival":{"crackridge":{},"encounter":{"situation":"Normal"}},
             "escape":{"menu":{"first_actor":1},"break_action":null,"attempt":{"success":true}}
@@ -1515,13 +1504,15 @@ mod tests {
             assert!(!failed(&galdera,&result,id));
         }
         assert!(!failed(&galdera,&result,"crackridge_escape"));
-        assert!(failed(&hikari,&result,"crackridge_break"));
+        assert!(!failed(&hikari,&result,"crackridge_escape"));
         result["post_battle_field"]["voyage"]["arrival"]["encounter"]["situation"]=json!("Surprise");
         assert!(failed(&galdera,&result,"crackridge_escape"));
+        assert!(failed(&hikari,&result,"crackridge_escape"));
         result["post_battle_field"]["voyage"]["arrival"]["encounter"]["situation"]=json!("Preemptive");
         assert!(!failed(&galdera,&result,"crackridge_escape"));
         result["post_battle_field"]["voyage"]["escape"]["attempt"]["success"]=json!(false);
         assert!(failed(&galdera,&result,"crackridge_escape"));
+        assert!(failed(&hikari,&result,"crackridge_escape"));
         assert!(galdera.check_requirements(&json!({}))["not_evaluated"].as_array().unwrap().iter().any(|v|v["id"]=="crackridge_escape"));
     }
     #[test]
@@ -1641,7 +1632,7 @@ mod tests {
         if let Ok(path)=std::env::var("OT2_PROFILE_OUTPUT") {std::fs::write(path,serde_json::to_vec(&result).unwrap()).unwrap();}
     }
     #[test]
-    fn forward_route_requires_bp_allowed_breaks_and_freezes_r8() {
+    fn forward_route_allows_optional_breaks_and_freezes_r8() {
         use super::*;
         let query="seed=0&advances=4916&route_end=osvald_encounter&encounter_max_boost_repeats=required&pirro_victory_max_boost_repeats=required&pirro_no_grape_max_boost_repeats=required&highroad_approach_max_boost_repeats=required&highroad_break_max_boost_repeats=required&highroad_flats_max_boost_repeats=required&highroad_flats_approach_max_boost_repeats=required&highroad_flats_break_max_boost_repeats=required";
         let setup=CrtSetup::parse(query).unwrap();
@@ -1655,12 +1646,12 @@ mod tests {
         }
         let search=&field["highroad"]["formation_search"];
         assert!(search.is_null());
-        assert!(field["highroad"]["escape"]["break_action"].is_object());
-        assert!(field["flats_escape"]["escape"]["break_action"].is_object());
-        assert!(field["highroad"]["settings"]["break_max_boost_repeats"].is_null());
-        assert!(field["highroad"]["settings"]["flats_break_max_boost_repeats"].is_null());
+        assert_eq!(field["highroad"]["escape"]["attempt"]["success"],true);
+        assert_eq!(field["flats_escape"]["escape"]["attempt"]["success"],true);
+        assert_eq!(field["highroad"]["settings"]["break_max_boost_repeats"],0);
+        assert_eq!(field["highroad"]["settings"]["flats_break_max_boost_repeats"],0);
         let mut changed=p.clone();changed["post_battle_field"]["highroad"]["approach_search"]["unboosted_break_met"]=json!(false);
-        assert_eq!(setup.check_requirements(&changed)["met"],false);
+        assert_eq!(setup.check_requirements(&changed)["met"],true);
         println!("weighted plan: {}",json!({"formationSearch":search,"r8":field["highroad"]["approach_search"]["plan"],
             "mansionCost":field["mansion_escape"]["solution"]["weighted_input_cost"],"mansionBreak":field["mansion_escape"]["solution"]["break_then_escape"],
             "highroadCost":field["highroad"]["escape"]["weighted_input_cost"],"highroadBreak":field["highroad"]["escape"]["break_action"]["boost"],
@@ -1676,7 +1667,7 @@ mod tests {
         }
     }
     #[test]
-    fn mandatory_break_policy_overrides_legacy_boost_only_escape_setting() {
+    fn legacy_break_setting_does_not_require_a_break() {
         use super::*;
         let query="seed=0&advances=4916&route_end=osvald_encounter&encounter_max_boost_repeats=required&pirro_victory_max_boost_repeats=required&pirro_no_grape_max_boost_repeats=required&highroad_approach_max_boost_repeats=required&highroad_flats_max_boost_repeats=required&highroad_flats_approach_max_boost_repeats=required&flats_escape_max_boost_repeats=boost_only&highroad_flats_break_max_boost_repeats=required";
         let setup=CrtSetup::parse(query).unwrap();
@@ -1694,7 +1685,7 @@ mod tests {
         assert!(f["highroad"]["formation_search_error"].is_null());
         let mut altered=p.clone();
         altered["post_battle_field"]["highroad"]["escape"]["flats_break_search"]["target_met"]=json!(false);
-        assert_eq!(setup.check_requirements(&altered)["met"],false);
+        assert_eq!(setup.check_requirements(&altered)["met"],true);
         for bad in ["257","bad","4&highroad_flats_break_max_boost_repeats=required"] {
             assert!(CrtSetup::parse(&query.replace("highroad_flats_break_max_boost_repeats=required",&format!("highroad_flats_break_max_boost_repeats={bad}"))).is_err());
         }

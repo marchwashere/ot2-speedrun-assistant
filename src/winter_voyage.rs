@@ -259,21 +259,7 @@ pub fn safe(entry:&Entry)->Result<bool> {
 }
 fn safe_arrival(a:&Arrival)->Result<bool> {
     if !matches!(a.encounter.situation.as_deref(),Some("Normal"|"Preemptive")) {return Ok(false);}
-    let w=&a.crackridge.world_after;
-    // Galdera escapes directly; the earlier control only rejects ambushes.
-    if w.galdera_route {return Ok(true);}
-    if a.encounter.enemies.len()!=1 {return Ok(false);}
-    let players:Vec<_>=w.party.iter().map(|id|w.character_progression[id].character.clone()).collect();
-    let levels:Vec<_>=w.party.iter().map(|id|w.character_progression[id].level).collect();
-    let ids:Vec<_>=a.encounter.enemies.iter().map(|e|e.enemy.id.as_str()).collect();
-    let situation=if a.encounter.situation.as_deref()==Some("Preemptive") {Situation::Preemptive}else{Situation::Normal};
-    for bp in 0..=1 {
-        for weapon in [ot2_battle_engine::combat::Weapon::Dagger,ot2_battle_engine::combat::Weapon::Sword] {
-            let inputs=if bp==0 {vec![]}else{vec![1]};
-            if ot2_battle_engine::field_escape::opening_break_menu_with_players(a.battle_entry,situation,&levels,&ids,weapon,&inputs,false,&w.enemy_knowledge,Some(&players))?.is_some() {return Ok(true);}
-        }
-    }
-    Ok(false)
+    Ok(true)
 }
 pub fn predict(entry:&Entry)->Result<Prediction> {
     let _profile=crate::profile::span("voyage complete");
@@ -283,11 +269,9 @@ pub fn predict(entry:&Entry)->Result<Prediction> {
     let ids:Vec<_>=arrival.encounter.enemies.iter().map(|e|e.enemy.id.as_str()).collect();
     let levels:Vec<_>=w.party.iter().map(|id|w.character_progression[id].level).collect();
     let situation=if arrival.encounter.situation.as_deref()==Some("Preemptive") {Situation::Preemptive}else{Situation::Normal};
-    let require_break=!w.galdera_route;
-    if require_break {ensure(safe_arrival(&arrival)?,"Crackridge requires a safe Throné-breakable opening")?;}
+    let allow_break=!w.galdera_route;
     let players:Vec<_>=w.party.iter().map(|id|w.character_progression[id].character.clone()).collect();
     let mut search=FieldSearch::with_players(arrival.battle_entry,situation,&players,&levels,&ids,arrival.encounter.encounter_level.unwrap(),&w.enemy_knowledge)?;
-    if require_break {search.require_break();}
     let trigger=arrival.encounter.counter_updates.unwrap();
     ensure(trigger<=RUN_UPDATES,"Crackridge encounter lies past the measured route")?;
     let run=RUN_UPDATES-trigger;
@@ -298,7 +282,7 @@ pub fn predict(entry:&Entry)->Result<Prediction> {
         ability_percent:if w.evasive_maneuvers {50}else{100},..Default::default()
     })?;
     for cost in 0..u32::MAX {
-        for escape in search.candidates(cost,require_break,None)? {
+        for escape in search.candidates(cost,allow_break,None)? {
             let returned=highroad::restore_field(w,escape.attempt.as_ref().unwrap(),crackridge::CRACKRIDGE_HARBOR,"Crackridge Escape")?;
             let counter=returned.world_after.encounter_counter;
             let walk_cost=walk*walk_dec;let run_cost=run*run_dec;
@@ -343,7 +327,7 @@ mod tests {
             assert!(safe(&e).unwrap(),"Galdera must not require a single breakable enemy");
             let mut hikari_arrival=arrival(&e).unwrap();
             hikari_arrival.crackridge.world_after.galdera_route=false;
-            assert!(!safe_arrival(&hikari_arrival).unwrap(),"Any% retains its required single-enemy break");
+            assert!(safe_arrival(&hikari_arrival).unwrap(),"Any% accepts safe multiple-enemy arrivals too");
             let ids:Vec<_>=a.encounter.enemies.iter().map(|e|e.enemy.id.as_str()).collect();
             let world=&a.crackridge.world_after;
             let players:Vec<_>=world.party.iter().map(|id|world.character_progression[id].character.clone()).collect();
