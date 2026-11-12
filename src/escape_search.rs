@@ -145,7 +145,7 @@ impl FieldSearch {
                 if let Some(result)=visit(p)? {return Ok(Some(result));}
             }
         }
-        if !allow_break || (self.enemies.len() != 1 && !self.spell_breaks) || (self.level != 5 && self.carried_players.is_none()) {
+        if !allow_break || (self.enemies.len() != 1 && !self.spell_breaks && self.carried_players.as_ref().is_none_or(|p|p.len()!=3)) || (self.level != 5 && self.carried_players.is_none()) {
             return Ok(None);
         }
         for weapon_index in 0..if self.spell_breaks {6}else{3} {
@@ -169,7 +169,7 @@ impl FieldSearch {
                 if !self.breaks.contains_key(&key) {
                     let ids=self.enemies.iter().map(String::as_str).collect::<Vec<_>>();
                     let menu=if weapon_index<3 {
-                        ot2_battle_engine::field_escape::opening_break_menu_with_players(self.entry,self.situation,&self.party_levels,&ids,weapon,&attack,self.night,&self.history,self.carried_players.as_deref())?
+                        ot2_battle_engine::field_escape::opening_break_menu_for_party(self.entry,self.situation,&self.party_levels,&ids,weapon,&attack,self.night,&self.history,self.carried_players.as_deref(),self.danger)?
                     } else {
                         let skill=["ABI_SET_THI_020","ABI_SET_SCH_010","ABI_SET_SCH_020"][weapon_index-3];
                         ot2_battle_engine::field_escape::opening_spell_break_menu(self.entry,self.situation,&self.party_levels,&ids,skill,&attack,self.night,&self.history,self.carried_players.as_ref().unwrap())?
@@ -209,7 +209,7 @@ impl FieldSearch {
                     prefix.extend(&inputs.levels[prefix.inputs().len()..prefix_len])?;
                     let mut trial=prefix.clone();trial.extend(&inputs.levels[prefix_len..])?;
                     let b = trial.attempt()?;
-                    if self.require_break && b.attack_actor!=0 {continue;}
+                    if !b.attempt.success || (self.require_break && b.attack_actor!=0) {continue;}
                     let mut p = self.base()?;
                     p.inputs = Some(describe_inputs(repeats, boost, attack.clone())?);
                     p.boost_repeat_count = repeats + inputs.extra_repeats;
@@ -217,7 +217,7 @@ impl FieldSearch {
                     p.attempt = Some(b.attempt.clone());
                     p.break_action = Some(b);
                     p.method = EscapeMethod::BreakThenEscape;
-                    p.status = "Break, adjust at next menu, then guaranteed Escape";
+                    p.status = "Break, adjust at next menu, then successful Escape";
                     p.weighted_input_cost = cost;
                     if let Some(result)=visit(p)? {return Ok(Some(result));}
                 }

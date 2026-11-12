@@ -5,6 +5,11 @@ use crate::{CrtRng,Result,ensure,crackridge,encounter::{self,Boundary,Prediction
 use ot2_battle_engine::escape::Situation;
 use serde::Serialize;
 
+// Benchmark-only A/B switch: absent from normal builds and the web UI.
+#[cfg(feature="break-benchmark")]
+thread_local! {static BENCH_REQUIRE_HARBOR:std::cell::Cell<bool>=const {std::cell::Cell::new(false)};}
+#[cfg(feature="break-benchmark")]
+pub fn benchmark_require_harbor(value:bool) {BENCH_REQUIRE_HARBOR.set(value);}
 pub const RUN_UPDATES:u32=172;
 pub const WALK_UPDATES:u32=182;
 pub const DESTINATION:&str="Fld_Fst_1_3";
@@ -139,19 +144,21 @@ fn return_to_trail(cropdale:&Cropdale)->Result<(Entry,encounter::Prediction,CrtR
     })?;
     Ok((trail,encounter,rng))
 }
-fn escape_to_southern(trail:Entry,encounter:encounter::Prediction,battle_entry:CrtRng)->Result<CropdaleExit> {
-    escape_to_southern_range(trail,encounter,battle_entry,0,u32::MAX-1,true)?.ok_or_else(||crate::SimError("Eastern Escape exhausted".into()))
+fn escape_to_southern(trail:Entry,encounter:encounter::Prediction,battle_entry:CrtRng,require_break:bool)->Result<CropdaleExit> {
+    escape_to_southern_range(trail,encounter,battle_entry,0,u32::MAX-1,true,require_break)?.ok_or_else(||crate::SimError("Eastern Escape exhausted".into()))
 }
-fn escape_to_southern_range(trail:Entry,encounter:encounter::Prediction,battle_entry:CrtRng,min:u32,max:u32,finish:bool)->Result<Option<CropdaleExit>> {
+fn escape_to_southern_range(trail:Entry,encounter:encounter::Prediction,battle_entry:CrtRng,min:u32,max:u32,finish:bool,require_break:bool)->Result<Option<CropdaleExit>> {
     let galdera_route=trail.world_after.galdera_route;
     ensure(matches!(encounter.situation.as_deref(),Some("Normal"|"Preemptive")),"Eastern Cropdale return is surprised; adjust Crackridge escape")?;
     let w=&trail.world_after;
     let ids:Vec<_>=encounter.enemies.iter().map(|e|e.enemy.id.as_str()).collect();
     let levels:Vec<_>=w.party.iter().map(|id|w.character_progression[id].level).collect();
     let situation=if encounter.situation.as_deref()==Some("Preemptive") {Situation::Preemptive}else{Situation::Normal};
-    let mut search=FieldSearch::with_history(battle_entry,situation,&levels,&ids,encounter.encounter_level.unwrap(),false,&w.enemy_knowledge)?;
+    let players:Vec<_>=w.party.iter().map(|id|w.character_progression[id].character.clone()).collect();
+    let mut search=FieldSearch::with_players(battle_entry,situation,&players,&levels,&ids,encounter.encounter_level.unwrap(),&w.enemy_knowledge)?;
+    if require_break {search.require_break();}
     for cost in min..=max {
-        for escape in search.candidates(cost,false,None)? {
+        for escape in search.candidates(cost,require_break,None)? {
             let field_return=highroad::restore_field(w,escape.attempt.as_ref().unwrap(),DESTINATION,"Eastern Cropdale return Escape")?;
             // User-confirmed exactly one encounter on this leg. Distance and
             // residual counter are deliberately not inferred. The outgoing and
@@ -179,10 +186,10 @@ fn escape_to_southern_range(trail:Entry,encounter:encounter::Prediction,battle_e
 }
 
 /// Freeze Cropdale and its escape, then compare Oresrush switch allocations.
-pub fn search_oresrush(destination:&Entry,reach:&CropdaleReach)->Result<(Box<Cropdale>,Box<CropdaleExit>)> {
+pub fn search_oresrush(destination:&Entry,reach:&CropdaleReach,require_break:bool)->Result<(Box<Cropdale>,Box<CropdaleExit>)> {
     let crop=Box::new(enter_cropdale_with_switches(destination,reach,0)?);
     let (trail,encounter,rng)=return_to_trail(&crop)?;
-    let mut exit=Box::new(escape_to_southern_range(trail,encounter,rng,0,u32::MAX-1,false)?.ok_or_else(||crate::SimError("Eastern Escape exhausted".into()))?);
+    let mut exit=Box::new(escape_to_southern_range(trail,encounter,rng,0,u32::MAX-1,false,require_break)?.ok_or_else(||crate::SimError("Eastern Escape exhausted".into()))?);
     let galdera_route=exit.southern.world_after.galdera_route;
     let (before,after,expected_cost,expected_rng)=world::without_diagnostics(|| {
         let mut best:Option<(u32,u32,u64,CrtRng,bool)>=None;
@@ -258,8 +265,25 @@ pub fn safe(entry:&Entry)->Result<bool> {
     safe_arrival(&arrival(entry)?)
 }
 fn safe_arrival(a:&Arrival)->Result<bool> {
+    #[cfg(feature="break-benchmark")]
+    if BENCH_REQUIRE_HARBOR.get() && !a.crackridge.world_after.galdera_route {
+        return throne_break_available(&a.crackridge.world_after,a.battle_entry,&a.encounter);
+    }
     if !matches!(a.encounter.situation.as_deref(),Some("Normal"|"Preemptive")) {return Ok(false);}
     Ok(true)
+}
+fn throne_break_available(w:&world::WorldState,entry:CrtRng,e:&encounter::Prediction)->Result<bool> {
+    if (e.enemies.len()!=1 && w.party.len()!=3) || !matches!(e.situation.as_deref(),Some("Normal"|"Preemptive")) {return Ok(false);}
+    let players:Vec<_>=w.party.iter().map(|id|w.character_progression[id].character.clone()).collect();
+    let levels:Vec<_>=w.party.iter().map(|id|w.character_progression[id].level).collect();
+    let ids:Vec<_>=e.enemies.iter().map(|e|e.enemy.id.as_str()).collect();
+    let situation=if e.situation.as_deref()==Some("Preemptive") {Situation::Preemptive}else{Situation::Normal};
+    for weapon in [ot2_battle_engine::combat::Weapon::Dagger,ot2_battle_engine::combat::Weapon::Sword] {
+        for inputs in [&[][..],&[1][..]] {
+            if ot2_battle_engine::field_escape::opening_break_menu_for_party(entry,situation,&levels,&ids,weapon,inputs,false,&w.enemy_knowledge,Some(&players),e.encounter_level.unwrap())?.is_some() {return Ok(true);}
+        }
+    }
+    Ok(false)
 }
 pub fn predict(entry:&Entry)->Result<Prediction> {
     let _profile=crate::profile::span("voyage complete");
@@ -269,9 +293,10 @@ pub fn predict(entry:&Entry)->Result<Prediction> {
     let ids:Vec<_>=arrival.encounter.enemies.iter().map(|e|e.enemy.id.as_str()).collect();
     let levels:Vec<_>=w.party.iter().map(|id|w.character_progression[id].level).collect();
     let situation=if arrival.encounter.situation.as_deref()==Some("Preemptive") {Situation::Preemptive}else{Situation::Normal};
-    let allow_break=!w.galdera_route;
+    let allow_break=!w.galdera_route && throne_break_available(w,arrival.battle_entry,&arrival.encounter)?;
     let players:Vec<_>=w.party.iter().map(|id|w.character_progression[id].character.clone()).collect();
     let mut search=FieldSearch::with_players(arrival.battle_entry,situation,&players,&levels,&ids,arrival.encounter.encounter_level.unwrap(),&w.enemy_knowledge)?;
+    if allow_break {search.require_break();}
     let trigger=arrival.encounter.counter_updates.unwrap();
     ensure(trigger<=RUN_UPDATES,"Crackridge encounter lies past the measured route")?;
     let run=RUN_UPDATES-trigger;
@@ -296,7 +321,9 @@ pub fn predict(entry:&Entry)->Result<Prediction> {
             let cropdale=Box::new(enter_cropdale(&destination,&cropdale_reach)?);
             let (trail,encounter,battle_entry)=return_to_trail(&cropdale)?;
             if !matches!(encounter.situation.as_deref(),Some("Normal"|"Preemptive")) {continue;}
-            let cropdale_exit=Box::new(escape_to_southern(trail,encounter,battle_entry)?);
+            let require_cropdale_break=!w.galdera_route && !allow_break;
+            if require_cropdale_break && !throne_break_available(&trail.world_after,battle_entry,&encounter)? {continue;}
+            let cropdale_exit=Box::new(escape_to_southern(trail,encounter,battle_entry,require_cropdale_break)?);
             return Ok(Prediction {arrival,escape,field_return:returned,remaining_run_updates:run,remaining_walk_updates:walk,run_percent:fraction*100.0,destination,cropdale_reach,cropdale,cropdale_exit});
         }
     }
@@ -306,6 +333,40 @@ pub fn predict(entry:&Entry)->Result<Prediction> {
 #[cfg(test)]
 mod tests {
     use super::*;
+    #[test]
+    fn any_hikari_third_break_uses_fixed_harbor_or_cropdale_fallback() {
+        let fixture:serde_json::Value=serde_json::from_str(include_str!("../data/source/live-winterbloom-night-20261009.json")).unwrap();
+        let mut w:world::WorldState=serde_json::from_value(fixture["world_before"].clone()).unwrap();
+        w.galdera_route=false;
+        w.job_licenses.insert(6,1);
+        let mut covered=[false;2];
+        for seed in 0..128 {
+            let start=CrtRng::new(seed);
+            let mut l=Loader::new(world::catalog(),w.clone(),start).unwrap();
+            l.visit_map(crate::winterbloom::TOWN).unwrap();
+            l.skipped_event("MapInStorySelect").unwrap();
+            l.manual_time_switch(4,"Winterbloom fixture night").unwrap();
+            let e=Entry {arrival:start,after:l.rng,world_after:l.state,trace:l.trace,decisions:l.decisions};
+            let a=arrival(&e).unwrap();
+            if !safe_arrival(&a).unwrap() {continue;}
+            let harbor_break=throne_break_available(&a.crackridge.world_after,a.battle_entry,&a.encounter).unwrap();
+            if covered[usize::from(harbor_break)] {continue;}
+            let p=predict(&e).unwrap();
+            assert_eq!(p.arrival.battle_entry,a.battle_entry,"Never change Harbor formation to seek a break");
+            assert_eq!(p.escape.break_action.is_some(),harbor_break);
+            let third=if harbor_break {&p.escape}else{&p.cropdale_exit.escape};
+            assert_eq!(third.break_action.as_ref().unwrap().attack_actor,0);
+            assert!(third.attempt.as_ref().unwrap().success);
+            assert!(third.attempt.as_ref().unwrap().party_latent_gain[0]>=25);
+            if !harbor_break {
+                assert!(p.cropdale_exit.encounter.enemies.len()>1);
+                assert!(matches!(p.cropdale_exit.encounter.situation.as_deref(),Some("Normal"|"Preemptive")));
+            }
+            covered[usize::from(harbor_break)]=true;
+            if covered==[true,true] {break;}
+        }
+        assert_eq!(covered,[true,true]);
+    }
     #[test]
     fn galdera_harbor_direct_escape_accepts_multiple_enemies_and_either_actor() {
         let fixture:serde_json::Value=serde_json::from_str(include_str!("../data/source/live-winterbloom-night-20261009.json")).unwrap();
@@ -438,7 +499,7 @@ mod tests {
             }).unwrap();
             if !matches!(encounter.situation.as_deref(),Some("Normal"|"Preemptive")) {continue;}
             let trail=Entry {arrival:start,after:start,world_after:w.clone(),trace:vec![],decisions:vec![]};
-            let Some(exit)=escape_to_southern_range(trail,encounter,rng,0,64,true).unwrap() else {continue;};
+            let Some(exit)=escape_to_southern_range(trail,encounter,rng,0,64,true,false).unwrap() else {continue;};
             let o=*exit.oresrush.unwrap();let r=o.ryu.as_ref().unwrap();
             assert!(r.hikari.is_none() && r.throne_scholar.is_none() && r.canalbrine.is_none());
             assert_eq!(r.town_entry.as_ref().unwrap().world_after.party,[7,6,8,4]);
@@ -493,7 +554,7 @@ mod tests {
         let rejected=crate::oresrush::predict(&southern,&reach).unwrap();
         if rejected.ryu_reach.is_some() {continue;}
         let trail=Entry {arrival:start,after:start,world_after:world.clone(),trace:vec![],decisions:vec![]};
-        let selected=escape_to_southern(trail,encounter,battle_entry).unwrap();
+        let selected=escape_to_southern(trail,encounter,battle_entry,false).unwrap();
         assert!(selected.escape.inputs.as_ref().is_some_and(|i|i.input_count>0),"The unadjusted Escape cannot meet the return-counter goal");
         let r=selected.oresrush.as_ref().unwrap().ryu_reach.as_ref().unwrap();
         assert!(r.initial_counter>r.walking_cost && r.estimated_counter_at_exit>0);

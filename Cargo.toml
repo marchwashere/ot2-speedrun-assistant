@@ -19,3 +19,10 @@ codegen-units = 1
 [[bin]]
 name = "ot2-gui"
 path = "src/bin/ot2-gui.rs"
+
+[features]
+break-benchmark = []
+
+[[example]]
+name = "break-strategy-benchmark"
+required-features = ["break-benchmark"]

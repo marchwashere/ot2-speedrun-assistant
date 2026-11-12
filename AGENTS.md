@@ -1,3 +1,5 @@
+- Any% latent breaks (2026-11-12): require Throné breaks at first Highroad and Flats. Do not manipulate Harbor formation for breakability: if the fixed Harbor opening supports a Throné break, execute it; otherwise Harbor Escape adjustment must target a safe Throné break on Eastern Cropdale return after Agnea recruitment. Preserve this third break during deferred Oresrush finalization. Galdera unchanged. Supersedes optional-break rule below.
+
 - Any% Hikari optional breaks (2026-11-11): user removed all three latent-building break requirements (Highroad, Flats after Harbor, first Crackridge Harbor after Winterbloom). R8/previous Escape targets no ambush, not breakability. Compare optional breaks against direct Escape by existing cost, retain all travel/cleric/no-ambush gates and actual latent accounting. Supersedes older Any% mandatory-break notes below.
 
 - Oresrush route isolation (2026-10-30): Any% Hikari has 3 free switches before Partitio; Galdera has 2. Both have 2 after, with paid switches still costing 12. Candidate pricing, pruning bounds and winning replay must use the carried galdera_route flag. Chapter-start suppression remains Galdera-only.

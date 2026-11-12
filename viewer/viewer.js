@@ -529,7 +529,7 @@ function breakAttackLabel(b,menu) {
 }
 function breakEscapeHtml(s) {
   const b=s.break_action;
-  return `<p><strong>R1 · Throné · 1st command menu</strong></p>${boostStepsHtml(b.attack_inputs,breakAttackLabel(b,s.menu))}${safeDefendsHtml(b)}<p><strong>R${b.escape_round} · ${b.escape_actor===1?'Osvald':'Throné'} · ${menuOrdinal(b.escape_menu_ordinal||(b.escape_round===1?2:1))} command menu</strong></p>${boostStepsHtml(b.escape_inputs,'Escape')}`;
+  return `<p><strong>R1 · Throné · 1st command menu</strong></p>${boostStepsHtml(b.attack_inputs,breakAttackLabel(b,s.menu))}${safeDefendsHtml(b)}<p><strong>R${b.escape_round} · ${['Throné','Osvald','Agnea'][b.escape_actor]} · ${menuOrdinal(b.escape_menu_ordinal||(b.escape_round===1?2:1))} command menu</strong></p>${boostStepsHtml(b.escape_inputs,'Escape')}`;
 }
 function renderHighroad() {
   const p=result.post_battle_field?.highroad;
@@ -1005,7 +1005,7 @@ function renderCrackridgeVoyage() {
     $('cropdale-return-escape-result').hidden=false;
     $('cropdale-return-encounter').textContent=encounterLabel(onward.encounter);
     const actor=['Throné','Osvald','Agnea'][onward.escape.menu.first_actor];
-    $('cropdale-return-escape-routine').innerHTML=`<p><strong>R1 · ${actor} · 1st command menu</strong></p>${boostStepsHtml(onward.escape.inputs?.levels,'Escape')}`;
+    $('cropdale-return-escape-routine').innerHTML=onward.escape.break_action?breakEscapeHtml(onward.escape):`<p><strong>R1 · ${actor} · 1st command menu</strong></p>${boostStepsHtml(onward.escape.inputs?.levels,'Escape')}`;
     const oresrush=onward.oresrush_reach;
     $('oresrush-walk-result').hidden=false;
     $('oresrush-running-limit').textContent=!oresrush?'Walking target not met':oresrush.run_percent===100?'Run 100%':`Run ≈${oresrush.run_percent.toFixed(1)}%`;

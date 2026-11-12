@@ -16,7 +16,7 @@ pub fn extend_selected_routes(value:&mut serde_json::Value)->Result<()> {
         let rng=serde_json::from_value(point["after"].clone())?;
         let entry=Entry {arrival:rng,after:rng,world_after:serde_json::from_value(point["world_after"].clone())?,trace:vec![],decisions:vec![]};
         let reach=serde_json::from_value(value["cropdale_reach"].clone())?;
-        let (crop,mut exit)=crate::winter_voyage::search_oresrush(&entry,&reach)?;
+        let (crop,mut exit)=crate::winter_voyage::search_oresrush(&entry,&reach,!entry.world_after.galdera_route && value["escape"]["break_action"]["attack_actor"]!=0)?;
         if let Some(ryu)=exit.oresrush.as_mut().and_then(|o|o.ryu.as_mut()) {
             if let Some(coasts)=ryu.canalbrine.as_mut().and_then(|c|c.conning.as_mut()) {
                 let old=coasts.input_cost;

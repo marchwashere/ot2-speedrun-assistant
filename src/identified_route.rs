@@ -190,7 +190,7 @@ fn complete_flex(value:&mut serde_json::Value)->Result<()> {
                     assert!(v["voyage_with_second"].is_object(),"Keep Hikari's second Winterbloom encounter");
                     assert!(v["with_second"]["town"]["world_after"]["job_licenses"]["6"].as_u64().unwrap()>0);
                     for key in ["voyage_without_second","voyage_with_second"] {
-                        if v[key].is_object() {assert_eq!(v[key]["escape"]["break_action"]["attack_actor"],0,"Keep the post-Winterbloom Harbor Throné break");}
+                        if v[key].is_object() {assert!(v[key]["escape"]["break_action"]["attack_actor"]==0 || v[key]["cropdale_exit"]["escape"]["break_action"]["attack_actor"]==0,"Third Throné break must occur at Harbor or Cropdale");}
                     }
                     counts[0]+=1;
                 }
