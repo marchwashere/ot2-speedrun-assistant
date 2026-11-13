@@ -48,7 +48,8 @@ function expAdjustmentCost(root,early,exit,west,v,inventor) {
   if(west.predicted_second_encounter || westernSecondOverride===true) cost+=escapeCost(west.with_second?.escape);
   cost+=escapeCost(v.escape)+escapeCost(v.cropdale_exit.escape);
   cost+=Math.max(0,(v.cropdale.time_switches?.length??0)-2)*12;
-  cost+=(Math.max(0,ore.switches_before_partitio.length-2)+Math.max(0,ore.switches_after_partitio.length-2)+(ore.southern_day_switch?1:0))*12;
+  const freeBeforePartitio=ore.mother_route?.world_after?.galdera_route?2:3;
+  cost+=(Math.max(0,ore.switches_before_partitio.length-freeBeforePartitio)+Math.max(0,ore.switches_after_partitio.length-2))*12;
   // Includes Canalbrine, both coast fights and the coast steal adjustment.
   cost+=ryu.hikari_search.total_input_cost;
   // Includes New Delsta, thief and all intervening encounters plus Guards/BG.

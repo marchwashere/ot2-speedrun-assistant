@@ -83,11 +83,12 @@ mod tests {
         Entry {arrival:crate::CrtRng::new(7),after:crate::CrtRng::new(7),world_after:w,trace:vec![],decisions:vec![]}
     }
     #[test]
-    fn galdera_night_departures_switch_to_day_after_the_wilds_load() {
-        let mut entry=start();entry.world_after.galdera_route=true;
+    fn night_departures_switch_once_to_day_after_the_wilds_load() {
+        for galdera in [false,true] {
+        let mut entry=start();entry.world_after.galdera_route=galdera;
         let reach=crate::winter_voyage::oresrush_reach(&entry.world_after).unwrap().unwrap();
         let mut cache=PrefixCache::new(&entry,&reach).unwrap();
-        for (before,after) in [(1,0),(0,1),(2,1),(0,3)] {
+        for (before,after) in [(1,0),(0,1),(2,1),(0,3),(3,2)] {
             let p=cache.predict(before,after).unwrap();
             assert_eq!(p.southern_return.world_after.time,4);
             let day=p.southern_day_switch.as_ref().unwrap();
@@ -96,10 +97,13 @@ mod tests {
             let mut replay=Loader::new(world::catalog(),p.southern_return.world_after.clone(),p.southern_return.after).unwrap();
             replay.manual_time_switch(2,"test required field day switch").unwrap();
             assert_eq!(replay.rng,day.after);
+            assert!(day.after.draws>day.arrival.draws,"Free switch must still advance RNG");
+            assert_eq!(serde_json::to_value(&replay.state).unwrap(),serde_json::to_value(&day.world_after).unwrap());
             if let Some(ryu)=&p.ryu {assert_eq!(ryu.northern_entry.arrival,day.after);}
             assert_eq!(serde_json::to_value(&p).unwrap(),serde_json::to_value(predict_with_switches(&entry,&reach,before,after).unwrap()).unwrap());
         }
         assert!(cache.predict(1,1).unwrap().southern_day_switch.is_none());
+        }
     }
     #[test]
     fn galdera_declines_mother_without_advancing_rng() {
@@ -132,7 +136,10 @@ mod tests {
         }
         assert_eq!(switch_cost(false,2,2),0);assert_eq!(switch_cost(false,0,4)*12,24);
         assert_eq!(switch_cost(false,3,1)*12,0);assert_eq!(switch_cost(false,4,2)*12,12);assert_eq!(switch_cost(false,2,4)*12,24);
-        assert!(predict_with_switches(&entry,&reach,1,2).is_err());
+        let night=predict_with_switches(&entry,&reach,3,2).unwrap();
+        assert_eq!(switch_cost(false,3,2),0);
+        assert_eq!(night.southern_return.world_after.time,4);
+        assert_eq!(night.southern_day_switch.as_ref().unwrap().world_after.time,2);
     }
     #[test]
     fn loads_story_acceptance_recruitment_and_return_keep_real_world_state() {
@@ -244,7 +251,6 @@ pub fn new(entry:&Entry,reach:&CropdaleReach)->Result<Self> {
     Ok(Self {southern_entry,town_reach,town_entry,mother_route,recruited:Default::default()})
 }
 pub fn predict(&mut self,before:u32,after:u32)->Result<Prediction> {
-    ensure(self.mother_route.world_after.galdera_route || before%2==after%2,"Oresrush time switches must finish by day")?;
     if !self.recruited.contains_key(&before) {
         let mut l=Loader::new(world::catalog(),self.mother_route.world_after.clone(),self.mother_route.after)?;
     let switches_before_partitio=switches(&mut l,before,"Oresrush: time switch before Partitio")?;
@@ -267,7 +273,9 @@ pub fn predict(&mut self,before:u32,after:u32)->Result<Prediction> {
     let departure=l.rng;
     l.visit_map(SOUTHERN)?;
     let southern_return=checkpoint(&mut l,departure,"Southern Oresrush Wilds: returned from Oresrush with Partitio");
-    let southern_day_switch=if l.state.galdera_route && l.state.time==4 {
+    // Exactly one conditional correction, after the real night map load.
+    // This is free in time cost, but executes every normal RNG callback.
+    let southern_day_switch=if l.state.time==4 {
         l.manual_time_switch(2,"Southern Oresrush Wilds: switch to day immediately after loading")?;
         Some(checkpoint(&mut l,southern_return.after,"Southern Oresrush Wilds: daytime restored before movement"))
     } else {None};

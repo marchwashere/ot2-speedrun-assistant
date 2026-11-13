@@ -188,11 +188,18 @@ async function start(seed=20,route='any_hikari') {
     context.costRoot={identified_entry:{observation_count:999},post_battle_field:{pirro_battle:{manipulation:{inputs:{extra_input_count:2}}},highroad:{approach_search:{plan:[1,2,3,2,3]},escape:esc(3)},flats_escape:{early_weighted_input_cost:24}}};
     context.costEarly={};context.costExit={escape:esc(4),rare_victory:rare(2),western:{escape:esc(5),rare_victory:rare(2)}};
     context.costWest={first_escape:esc(6),voyage_with_second:{bogus_cost:99999}};
-    context.costVoyage={escape:esc(7),cropdale:{time_switches:[0,0,0,0]},cropdale_exit:{escape:esc(8),oresrush:{switches_before_partitio:[0,0,0],switches_after_partitio:[0,0],southern_day_switch:{},ryu:{hikari_search:{total_input_cost:20},canalbrine:{water:{escape:esc(999)}}}}}};
+    context.costVoyage={escape:esc(7),cropdale:{time_switches:[0,0,0,0]},cropdale_exit:{escape:esc(8),oresrush:{mother_route:{world_after:{galdera_route:true}},switches_before_partitio:[0,0,0],switches_after_partitio:[0,0],southern_day_switch:{},ryu:{hikari_search:{total_input_cost:20},canalbrine:{water:{escape:esc(999)}}}}}};
     context.costInventor={new_delsta_adjustment:{input_cost:100},crackridge_return:{gravell:{fight:{actions:[{action:'guards',inputs:[1,2,3]},{action:'bewildering_grace',inputs:[1,2,3]},{action:'thunder_soulstone',inputs:[1,0]}]},coast:{bogus_cost:99999}}}};
-    assert.equal(run('expAdjustmentCost(costRoot,costEarly,costExit,costWest,costVoyage,costInventor)'),235);
+    assert.equal(run('expAdjustmentCost(costRoot,costEarly,costExit,costWest,costVoyage,costInventor)'),223);
     context.costEarly={rare_victory:rare(2),after_rare:{passage:{escape:esc(11)}}};
-    assert.equal(run('expAdjustmentCost(costRoot,costEarly,costExit,costWest,costVoyage,costInventor)'),235,'Southern rare branch replaces, not adds to, the alternative Snows branch');
+    assert.equal(run('expAdjustmentCost(costRoot,costEarly,costExit,costWest,costVoyage,costInventor)'),223,'Southern rare branch replaces, not adds to, the alternative Snows branch');
+    context.costVoyage.cropdale_exit.oresrush.mother_route.world_after.galdera_route=false;
+    assert.equal(run('expAdjustmentCost(costRoot,costEarly,costExit,costWest,costVoyage,costInventor)'),211,'Hikari has three free pre-Partitio switches; Galdera has two');
+    context.costVoyage.cropdale_exit.oresrush.switches_before_partitio.push(0);
+    assert.equal(run('expAdjustmentCost(costRoot,costEarly,costExit,costWest,costVoyage,costInventor)'),223,'The fourth Hikari pre-Partitio switch costs twelve');
+    context.costVoyage.cropdale_exit.oresrush.southern_day_switch=null;
+    assert.equal(run('expAdjustmentCost(costRoot,costEarly,costExit,costWest,costVoyage,costInventor)'),223,'Outdoor day correction adds no time cost');
+
   }
   const adjustment=n=>({switches:0,input_cost:n,departure:entry(100+n),target:rng(500)});
   const saveLimit=value=>{

@@ -16,7 +16,7 @@ fn n(v:&Value)->u64 {v.as_u64().unwrap_or(0)}
 fn downstream_cost(v:&Value)->u64 {
     let o=&v["cropdale_exit"]["oresrush"];let r=&o["ryu"];
     let switches=|k:&str|o[k].as_array().map_or(0,Vec::len) as u64;
-    let mut total=(switches("switches_before_partitio").saturating_sub(3)+switches("switches_after_partitio").saturating_sub(2)+u64::from(o["southern_day_switch"].is_object()))*12;
+    let mut total=(switches("switches_before_partitio").saturating_sub(3)+switches("switches_after_partitio").saturating_sub(2))*12;
     total+=n(&r["hikari_search"]["total_input_cost"]);
     let inventor=&r["canalbrine"]["conning"]["pomegranate"]["inventor"];
     total+=n(&inventor["new_delsta_adjustment"]["input_cost"]);

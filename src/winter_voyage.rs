@@ -196,7 +196,7 @@ pub fn search_oresrush(destination:&Entry,reach:&CropdaleReach,require_break:boo
         let mut prefixes=crate::oresrush::PrefixCache::new(&exit.southern,exit.oresrush_reach.as_ref().unwrap())?;
         let mut budget=32u32;
         loop {
-        for total in (0..u32::MAX-1).step_by(if exit.southern.world_after.galdera_route {1}else{2}) {
+        for total in 0..u32::MAX-1 {
             let bound=best.as_ref().map_or(u64::from(budget),|b|b.2);
             if u64::from(total.saturating_sub(crate::oresrush::free_switches_before_partitio(galdera_route)+crate::oresrush::FREE_SWITCHES_AFTER_PARTITIO))*12>bound {break;}
             for before in 0..=total {
@@ -205,7 +205,7 @@ pub fn search_oresrush(destination:&Entry,reach:&CropdaleReach,require_break:boo
                 let bound=best.as_ref().map_or(u64::from(budget),|b|b.2);
                 if base_time_cost>bound {continue;}
                 let prefix=prefixes.predict(before,after)?;
-                let time_cost=base_time_cost+if prefix.southern_day_switch.is_some() {12}else{0};
+                let time_cost=base_time_cost; // The one outdoor correction is time-free.
                 if time_cost>bound {continue;}
                 let Some(o)=finish_oresrush(prefix,Some((bound-time_cost) as u32))? else {continue;};
                 let r=o.ryu.as_ref().unwrap();
@@ -225,7 +225,7 @@ pub fn search_oresrush(destination:&Entry,reach:&CropdaleReach,require_break:boo
     let o=propagate_oresrush(&exit,before,after)?.expect("Selected Oresrush plan replays");
     let r=o.ryu.as_ref().unwrap();
     ensure(r.canalbrine.as_ref().unwrap().conning.as_ref().unwrap().town.after==expected_rng,"Oresrush replay changed RNG")?;
-    ensure(crate::oresrush::switch_cost(galdera_route,before,after)*12+if o.southern_day_switch.is_some() {12}else{0}+u64::from(r.hikari_search.as_ref().unwrap().total_input_cost)==expected_cost,"Oresrush replay changed cost")?;
+    ensure(crate::oresrush::switch_cost(galdera_route,before,after)*12+u64::from(r.hikari_search.as_ref().unwrap().total_input_cost)==expected_cost,"Oresrush replay changed cost")?;
     exit.oresrush=Some(Box::new(o));
     Ok((crop,exit))
 }
