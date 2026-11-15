@@ -173,8 +173,8 @@ async function start(seed=20,route='any_hikari') {
   const begin=source.indexOf('          if(i.new_delsta_adjustment) {');
   const end=source.indexOf("          $('inventor-escape-result')",begin);
   assert(begin>=0&&end>begin);
-  const renderAdjustment=adjustment=>{
-    context.i={new_delsta_adjustment:adjustment,approach:{agnea_story:{world_after:{galdera_route:true}}}};
+  const renderAdjustment=(adjustment,galdera=true)=>{
+    context.i={new_delsta_adjustment:adjustment,approach:{agnea_story:{world_after:{galdera_route:galdera}}}};
     context.early={};context.exit={};context.west={};
     context.v={cropdale:{},cropdale_exit:{oresrush:{switches_before_partitio:[],switches_after_partitio:[],ryu:{hikari_search:{total_input_cost:0}}}}};
     run('globalThis.savedCostField=result.post_battle_field;result.post_battle_field={highroad:{},flats_escape:{early_weighted_input_cost:0}};');
@@ -254,6 +254,16 @@ async function start(seed=20,route='any_hikari') {
   assert(again.request.signal.aborted);assert.equal(dialog.open,false);
   storageUnavailable=true;saveLimit('5');storageUnavailable=false;
   assert.equal(run('adjustmentCostLimit'),5);assert.match(element('route-alert-status').textContent,/this tab/);
+  run('resetRouteWarnings();');
+  const hikariAlerts=await start(71);hikariAlerts.send('progress',snapshot(71));await flush();
+  renderAdjustment(adjustment(5),false);assert.equal(dialog.open,false,'Hikari respects the same strict threshold');
+  const hikariModalCount=dialog.modalCount;
+  renderAdjustment(adjustment(6),false);assert.equal(dialog.open,true,'Hikari must warn when its selected EXP route exceeds the limit');
+  dialog.close();renderAdjustment(adjustment(6),false);
+  assert.equal(dialog.modalCount,hikariModalCount+1,'Hikari rerenders must not repeat the warning');
+  element('voice-reset').fire('click');await hikariAlerts.task;
+  assert.equal(dialog.open,false);
+  console.log('PASS: Any% Hikari adjustment warning, strict threshold, deduplication and reset');
   saveLimit('12');
   // A new script context represents a page reload with the same browser storage.
   const reload=vm.createContext({document:{getElementById:element},localStorage:{getItem:key=>storage.get(key)??null}});

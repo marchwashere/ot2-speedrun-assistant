@@ -1175,7 +1175,7 @@ function renderCrackridgeVoyage() {
           if(i.new_delsta_adjustment) {
             const c=i.new_delsta_adjustment;
             // This is the selected committed EXP route, available before JP search finishes.
-            if(i.approach.agnea_story.world_after.galdera_route) maybeWarnAdjustmentCost({...c,input_cost:expAdjustmentCost(result,early,exit,west,v,i)});
+            maybeWarnAdjustmentCost({...c,input_cost:expAdjustmentCost(result,early,exit,west,v,i)});
             $('new-delsta-bg-result').hidden=false;
             $('new-delsta-bg-routine').innerHTML=instructionBoxHtml(['New Delsta main town time switches: '+c.switches+' (finish in '+(c.departure.world_after.time===4?'nighttime':'daytime')+')',...(i.approach.highroad_day_switch?['Immediately upon entering Eastern New Delsta Highroad: switch to day']:[])]);
             conningStages.push(['New Delsta · BG adjustment complete ('+(c.departure.world_after.time===4?'night':'day')+')',c.departure]);
